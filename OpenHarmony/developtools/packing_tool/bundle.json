@@ -1,0 +1,37 @@
+{
+    "name": "@ohos/packing_tool",
+    "version": "3.2",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "description": "packing_tool for openharmony",
+    "segment": {
+      "destPath": "developtools/packing_tool"
+    },
+    "keywords": [
+      "packing",
+      "unpacking"
+    ],
+    "component": {
+      "name": "packing_tool",
+      "subsystem": "developtools",
+      "adapted_system_type": [ "mini", "small", "standard" ],
+      "deps": {
+        "components": [
+          "bounds_checking_function",
+          "cJSON",
+          "hilog",
+          "openssl",
+          "zlib"
+        ]
+      },
+      "build": {
+        "sub_component": [
+          "//developtools/packing_tool:packing_tool",
+          "//developtools/packing_tool:ohos_packing_tool"
+        ],
+        "test": [
+          "//developtools/packing_tool/packing_tool/frameworks/test/unittest:unittest"
+        ]
+      }
+    }
+}

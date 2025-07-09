@@ -1,0 +1,48 @@
+{
+    "name": "@ohos/freetype",
+    "description": "FreeType is a freely available software library to render fonts.",
+    "version": "3.1",
+    "license": "The FreeType Project",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/freetype"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "docs/LICENSE.TXT",
+    "readmePath": {
+        "en": "docs/README"
+    },
+    "component": {
+        "name": "freetype",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "mini","small" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "libpng",
+                "zlib"
+            ],
+            "third_party": [
+            ]
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/freetype:freetype_static",
+                    "header": {
+                      "header_files": [
+                        "ftconfig.h"
+                      ],
+                      "header_base": "//third_party/freetype"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

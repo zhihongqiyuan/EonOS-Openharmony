@@ -1,0 +1,101 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/ohos/ndk/ndk.gni")
+
+THIRDPARTY_LIBBPF_SUBSYS_NAME = "thirdparty"
+THIRDPARTY_LIBBPF_PART_NAME = "libbpf"
+
+config("libbpf_config") {
+  cflags = [
+    "-Wno-incompatible-pointer-types",
+    "-Wimplicit-function-declaration",
+    "-Wno-tautological-constant-out-of-range-compare",
+    "-Wno-constant-conversion",
+    "-Wno-unknown-attributes",
+    "-Wno-bitwise-op-parentheses",
+    "-Wno-shift-op-parentheses",
+    "-Wno-sign-compare",
+    "-Wno-unused-function",
+    "-fno-omit-frame-pointer",
+    "-mno-omit-leaf-frame-pointer",
+    "-fno-inline",
+    "-fno-optimize-sibling-calls",
+    "-ferror-limit=0",
+    "-Wno-unused-variable",
+    "-Wno-uninitialized",
+  ]
+  defines = [ "HAVE_ELFIO" ]
+}
+
+config("libbpf_public_config") {
+  include_dirs = [
+    "./src",
+    "./include",
+    "./include/uapi",
+    "//third_party/elfio/c_wrapper",
+    "//third_party/elfio/elfio",
+  ]
+}
+
+ohos_shared_library("libbpf") {
+  branch_protector_ret = "pac_ret"
+  deps = [ "//third_party/elfio:elfio" ]
+  external_deps = [ "zlib:libz" ]
+  sources = [
+    "./src/bpf.c",
+    "./src/bpf.h",
+    "./src/bpf_core_read.h",
+    "./src/bpf_endian.h",
+    "./src/bpf_gen_internal.h",
+    "./src/bpf_helper_defs.h",
+    "./src/bpf_helpers.h",
+    "./src/bpf_prog_linfo.c",
+    "./src/bpf_tracing.h",
+    "./src/btf.c",
+    "./src/btf.h",
+    "./src/btf_dump.c",
+    "./src/elf.c",
+    "./src/gen_loader.c",
+    "./src/hashmap.c",
+    "./src/hashmap.h",
+    "./src/libbpf.c",
+    "./src/libbpf.h",
+    "./src/libbpf_common.h",
+    "./src/libbpf_errno.c",
+    "./src/libbpf_internal.h",
+    "./src/libbpf_legacy.h",
+    "./src/libbpf_probes.c",
+    "./src/libbpf_version.h",
+    "./src/netlink.c",
+    "./src/nlattr.c",
+    "./src/nlattr.h",
+    "./src/relo_core.c",
+    "./src/relo_core.h",
+    "./src/ringbuf.c",
+    "./src/skel_internal.h",
+    "./src/str_error.c",
+    "./src/str_error.h",
+    "./src/strset.c",
+    "./src/strset.h",
+    "./src/zip.c",
+  ]
+  configs = [ ":libbpf_config" ]
+  public_configs = [ ":libbpf_public_config" ]
+  output_extension = "so"
+  subsystem_name = "${THIRDPARTY_LIBBPF_SUBSYS_NAME}"
+  part_name = "${THIRDPARTY_LIBBPF_PART_NAME}"
+  install_enable = true
+  license_file = "LICENSE.BSD-2-Clause"
+}

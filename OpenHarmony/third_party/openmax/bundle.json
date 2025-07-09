@@ -1,0 +1,61 @@
+{
+    "name": "@ohos/openmax",
+    "description": "OpenMAX is a royalty-free, cross-platform API that provides comprehensive streaming media codec and application portability by enabling accelerated multimedia components to be developed, integrated and programmed across multiple operating systems and silicon platforms.",
+    "version": "3.1",
+    "license": "MIT license",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/openmax"
+    },
+    "dirs": {},
+    "scripts": {},
+    "readmePath": {
+        "en": "README.md"
+    },
+    "component": {
+        "name": "openmax",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard",
+            "small"
+        ],
+        "rom": "0KB",
+        "ram": "0KB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [ "//third_party/openmax:libopenmax_static" ],
+            "inner_kits": [
+                {
+                    "name": "//third_party/openmax:libopenmax_static",
+                    "header": {
+                        "header_base": "//third_party/openmax/api/1.1.2",
+                        "header_files": [
+                            "OMX_Audio.h",
+                            "OMX_Component.h",
+                            "OMX_ComponentExt.h",
+                            "OMX_ContentPipe.h",
+                            "OMX_Core.h",
+                            "OMX_CoreExt.h",
+                            "OMX_Image.h",
+                            "OMX_ImageExt.h",
+                            "OMX_Index.h",
+                            "OMX_IndexExt.h",
+                            "OMX_IVCommon.h",
+                            "OMX_Other.h",
+                            "OMX_Types.h",
+                            "OMX_Video.h",
+                            "OMX_VideoExt.h",
+                            "codec_omx_ext.h"
+                        ]
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

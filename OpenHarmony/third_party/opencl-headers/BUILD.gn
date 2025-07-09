@@ -1,0 +1,76 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+config("cl_config") {
+  cflags = [
+    "-std=c++17",
+    "-Wno-error=implicit-fallthrough",
+    "-Wno-deprecated-declarations",
+  ]
+}
+
+config("cl_public_config") {
+  include_dirs = [
+    "opencl-headers-CL",
+    "include",
+  ]
+}
+
+ohos_shared_library("libcl") {
+  visibility = [ "*" ]
+  sources = [ "src/opencl_wrapper.cpp" ]
+  configs = [ ":cl_config" ]
+  public_configs = [ ":cl_public_config" ]
+  output_name = "opencl_wrapper"
+  output_extension = "so"
+  innerapi_tags = [ "platformsdk_indirect" ]
+  part_name = "opencl-headers"
+  subsystem_name = "thirdparty"
+}
+
+config("opencl_headers_public_config") {
+  include_dirs = [
+    "opencl-headers-CL",
+    "include",
+  ]
+}
+
+source_set("opencl_headers") {
+  sources = [
+    "CL/cl.h",
+    "CL/cl_d3d10.h",
+    "CL/cl_d3d11.h",
+    "CL/cl_dx9_media_sharing.h",
+    "CL/cl_dx9_media_sharing_intel.h",
+    "CL/cl_egl.h",
+    "CL/cl_ext.h",
+    "CL/cl_ext_intel.h",
+    "CL/cl_function_types.h",
+    "CL/cl_gl.h",
+    "CL/cl_gl_ext.h",
+    "CL/cl_half.h",
+    "CL/cl_icd.h",
+    "CL/cl_layer.h",
+    "CL/cl_platform.h",
+    "CL/cl_va_api_media_sharing_intel.h",
+    "CL/cl_version.h",
+    "CL/opencl.h",
+  ]
+  public_configs = [ ":opencl_headers_public_config" ]
+}
+
+group("cl_tests") {
+  deps = [ "tests:tests" ]
+}

@@ -1,0 +1,64 @@
+{
+    "name": "@ohos/mbedtls",
+    "description": "An open source, portable, easy to use, readable and flexible SSL library.",
+    "version": "5.0",
+    "license": "Apache-2.0 OR GPL-2.0-or-later",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/mbedtls"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "mbedtls",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [
+            "mbedtls_porting_path",
+            "mbedtls_enable_ssl_srv"
+        ],
+        "adapted_system_type": [
+            "mini",
+            "small",
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "bounds_checking_function"
+            ],
+            "third_party": [
+                "bounds_checking_function"
+            ]
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "header" : {
+                        "header_base": "//third_party/mbedtls/include",
+                        "header_files": [
+                            "mbedtls/md.h",
+                            "mbedtls/rsa.h",
+                            "mbedtls/x509.h"
+                        ]
+                    },
+                    "name" : "//third_party/mbedtls:mbedtls_shared"
+                },
+                {
+                    "header" : {
+                        "header_base": "//third_party/mbedtls/include",
+                        "header_files": [
+                            "mbedtls/md.h",
+                            "mbedtls/rsa.h",
+                            "mbedtls/x509.h"
+                        ]
+                    },
+                    "name" : "//third_party/mbedtls:mbedtls_static"
+                }
+            ],
+            "test": []
+        }
+    }
+}

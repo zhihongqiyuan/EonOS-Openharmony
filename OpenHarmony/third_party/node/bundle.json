@@ -1,0 +1,45 @@
+{
+    "name": "@ohos/node",
+    "description": "Node.js is an open-source, cross-platform, JavaScript runtime environment. It executes JavaScript code outside of a browser.",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/node"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "node",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "0",
+        "ram": "0",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/node:node_header_notice",
+                    "header": {
+                        "header_base": "//third_party/node/src",
+                        "header_files": [
+                            "js_native_api.h",
+                            "js_native_api_types.h",
+                            "node_api.h",
+                            "node_api_types.h"
+                        ]
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

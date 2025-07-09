@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "SPIRV-Tools",
+    "License": "Apache-2.0",
+    "License File": "LICENSE",
+    "Version Number": "vulkan-sdk-1.3.275.0",
+    "Owner": "zhangleiyu1@huawei.com",
+    "Upstream URL": "https://github.com/KhronosGroup/SPIRV-Tools.git",
+    "Description": "The SPIR-V Tools project provides an API and commands for processing SPIR-V modules."
+  }
+]

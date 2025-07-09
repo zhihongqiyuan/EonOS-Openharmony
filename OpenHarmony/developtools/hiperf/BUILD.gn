@@ -1,0 +1,643 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("./hiperf.gni")
+
+declare_args() {
+  hiperf_feature_mingw_uapi_dir =
+      "../../kernel/linux/patches/linux-6.16/prebuilts/usr/include"
+}
+
+function_disable_define = []
+
+config("hiperf_inner_config") {
+  visibility = [
+    ":*",
+    "./test/:*",
+  ]
+  ldflags = []
+  cflags = code_check_flag
+  defines = function_disable_define
+
+  if (hiperf_code_analyze && is_ohos) {
+    cflags += code_analyze_flag
+    cflags -= [ "-Werror" ]
+  }
+
+  if (build_variant == "user") {
+    cflags += [ "-DIS_RELEASE_VERSION" ]
+  }
+
+  if (is_mingw) {
+    # lld: error: unable to find library -latomic
+    # lld: error: unable to find library -ldl
+    # lld: error: unable to find library -lrt
+    ldflags += [
+      "-Wl,--whole-archive",
+      "-lpthread",
+      "-Wl,--no-whole-archive",
+    ]
+  } else if (is_linux) {
+    ldflags += [
+      "-Wl,--whole-archive",
+      "-lpthread",
+      "-latomic",
+      "-ldl",
+      "-lrt",
+      "-Wl,--no-whole-archive",
+    ]
+  }
+
+  include_dirs = [ "${hiperf_path}/include" ]
+
+  # debug link
+  # ldflags += [ "-v"]
+
+  if (hiperf_debug) {
+    defines += [
+      "HIPERF_DEBUG",
+      "HIPERF_DEBUG_PRINTF",  # if u want to see printf in the log ?
+    ]
+  }
+
+  if (hiperf_check_time) {
+    defines += [ "HIPERF_DEBUG_TIME" ]
+  }
+
+  cflags += [
+    "-std=c++17",
+    "-fvisibility=hidden",
+    "-fdata-sections",
+    "-ffunction-sections",
+    "-Os",
+  ]
+  cflags_cc = [
+    "-fvisibility-inlines-hidden",
+    "-Os",
+  ]
+  defines += [ "is_mingw=${is_mingw}" ]
+  defines += [ "is_linux=${is_linux}" ]
+  defines += [ "is_ohos=${is_ohos}" ]
+  defines += [ "is_emulator=${is_emulator}" ]
+  defines += [ "is_double_framework=${is_double_framework}" ]
+  if (hiperf_target_host) {
+    defines += [ "target_cpu_${host_cpu}" ]
+  } else {
+    defines += [ "target_cpu_${target_cpu}" ]
+  }
+
+  if (is_mingw) {
+    cflags += [ "-includeMingW64Fix.h" ]
+    defines += [ "WIN32_LEAN_AND_MEAN" ]
+    defines += [ "__LITTLE_ENDIAN_BITFIELD" ]
+
+    include_dirs += [
+      "${hiperf_path}/include/nonlinux/",
+      hiperf_feature_mingw_uapi_dir,
+    ]
+  }
+
+  if (hiperf_test_coverage && is_ohos) {
+    cflags += [
+      "-fprofile-arcs",
+      "-ftest-coverage",
+    ]
+    ldflags += [ "--coverage" ]
+  }
+}
+
+sources_platform_common = [
+  "./src/command.cpp",
+  "./src/command_reporter.cpp",
+  "./src/dwarf_encoding.cpp",
+  "./src/ipc_utilities.cpp",
+  "./src/option.cpp",
+  "./src/perf_event_record.cpp",
+  "./src/perf_file_format.cpp",
+  "./src/perf_file_reader.cpp",
+  "./src/register.cpp",
+  "./src/report.cpp",
+  "./src/report_json_file.cpp",
+  "./src/subcommand.cpp",
+  "./src/subcommand_dump.cpp",
+  "./src/subcommand_help.cpp",
+  "./src/subcommand_report.cpp",
+  "./src/symbols_file.cpp",
+  "./src/unique_stack_table.cpp",
+  "./src/utilities.cpp",
+  "./src/virtual_runtime.cpp",
+  "./src/virtual_thread.cpp",
+]
+
+if (is_ohos) {
+  sources_platform_common += [ "./src/callstack.cpp" ]
+}
+
+if (hiperf_debug) {
+  sources_platform_common += [
+    "./src/debug_logger.cpp",
+    "./src/option_debug.cpp",
+  ]
+}
+
+sources_platform_linux = [
+  "./src/perf_events.cpp",
+  "./src/tracked_command.cpp",
+  "./src/ring_buffer.cpp",
+  "./src/perf_file_writer.cpp",
+  "./src/subcommand_stat.cpp",
+  "./src/subcommand_record.cpp",
+  "./src/subcommand_list.cpp",
+  "./src/spe_decoder.cpp",
+  "./src/perf_pipe.cpp",
+]
+
+common_deps = [
+  ":support_elf",
+  ":support_protobuf",
+]
+
+common_configs = [ ":hiperf_inner_config" ]
+
+if (!hiperf_independent_compilation) {
+  common_configs += [ "../../commonlibrary/c_utils/base:utils_config" ]
+}
+
+if (hiperf_target_static) {
+  common_deps -= [ ":support_protobuf" ]
+}
+
+config("hiperf_syspara_config") {
+  defines = [ "CONFIG_HAS_SYSPARA" ]
+}
+
+config("libunwinder_config") {
+  defines = [ "HAVE_LIBUNWINDER=1" ]
+}
+
+if (hiperf_use_libunwinder) {
+  common_configs += [ ":libunwinder_config" ]
+}
+
+if (is_ohos && hiperf_use_syspara) {
+  common_configs += [ ":hiperf_syspara_config" ]
+}
+
+ohos_source_set("hiperf_platform_common") {
+  part_name = "hiperf"
+  subsystem_name = "developtools"
+  use_exceptions = true
+  public_deps = common_deps
+  public_configs = common_configs
+  defines = []
+
+  if (is_ohos) {
+    external_deps = [
+      "cJSON:cjson",
+      "c_utils:utils",
+      "config_policy:configpolicy_util",
+      "faultloggerd:libunwinder",
+      "hilog:libhilog",
+      "hisysevent:libhisysevent",
+      "init:libbegetutil",
+      "ipc:ipc_core",
+      "samgr:samgr_proxy",
+    ]
+    defines += [ "CONFIG_HAS_CCM" ]
+    if (bundle_framework_enable) {
+      external_deps += [
+        "bundle_framework:appexecfwk_base",
+        "bundle_framework:appexecfwk_core",
+      ]
+      defines += [ "BUNDLE_FRAMEWORK_ENABLE" ]
+    }
+    if (ability_base_enable) {
+      external_deps += [ "ability_base:extractortool" ]
+      defines += [ "ENABLE_HAP_EXTRACTOR" ]
+    }
+  } else {
+    external_deps = [ "faultloggerd:unwinder_host" ]
+    defines += [ "CONFIG_NO_HILOG" ]
+  }
+  external_deps += [
+    "bounds_checking_function:libsec_shared",
+    "zlib:libz",
+  ]
+  if (hiperf_independent_compilation) {
+    external_deps += [
+      "hisysevent:libhisysevent",
+      "protobuf:protobuf_lite",
+    ]
+  }
+  sources = sources_platform_common
+}
+
+config("platform_linux_config") {
+  defines = [ "SUPPORT_PERF_EVENT" ]
+}
+
+ohos_source_set("hiperf_platform_linux") {
+  part_name = "hiperf"
+  subsystem_name = "developtools"
+  use_exceptions = true
+  public_deps = common_deps
+  public_configs = common_configs
+
+  if (is_ohos) {
+    external_deps = [
+      "cJSON:cjson",
+      "faultloggerd:libunwinder",
+      "hilog:libhilog",
+      "init:libbegetutil",
+    ]
+    defines = [ "CONFIG_HAS_CCM" ]
+  } else {
+    external_deps = [ "faultloggerd:unwinder_host" ]
+  }
+  external_deps += [
+    "bounds_checking_function:libsec_shared",
+    "c_utils:utils",
+    "zlib:libz",
+  ]
+  if (hiperf_independent_compilation) {
+    external_deps += [
+      "hisysevent:libhisysevent",
+      "protobuf:protobuf_lite",
+    ]
+  }
+  public_configs += [ ":platform_linux_config" ]
+  configs = [ "interfaces/innerkits/native:hiperf_client_config" ]
+
+  sources = sources_platform_linux
+}
+
+config("elf_config") {
+}
+ohos_source_set("support_elf") {
+  part_name = "hiperf"
+  subsystem_name = "developtools"
+  public_configs = common_configs
+  public_configs += [ ":elf_config" ]
+}
+
+config("protobuf_config") {
+  defines = [ "HAVE_PROTOBUF=1" ]
+  if (!hiperf_independent_compilation) {
+    include_dirs = [ "//third_party/protobuf/src" ]
+  }
+}
+
+ohos_source_set("support_protobuf") {
+  part_name = "hiperf"
+  subsystem_name = "developtools"
+  use_exceptions = true
+
+  #protobuf
+  public_configs = common_configs
+  public_configs += [ ":protobuf_config" ]
+  public_deps = [ ":proto_file_cpp" ]
+
+  if (is_ohos) {
+    external_deps = [ "faultloggerd:libunwinder" ]
+  } else {
+    external_deps = [ "faultloggerd:unwinder_host" ]
+  }
+  external_deps += [ "bounds_checking_function:libsec_shared" ]
+  if (hiperf_independent_compilation) {
+    external_deps += [
+      "c_utils:utils",
+      "protobuf:protobuf_lite",
+    ]
+  }
+  sources = [ "./src/report_protobuf_file.cpp" ]
+}
+
+#protobuf {
+proto_file_defines = [
+  # add your proto file here
+  "report_sample",
+]
+
+proto_base_dir = "proto"
+proto_out_dir = "$target_gen_dir" + "/" + proto_base_dir
+
+proto_file_codegen = []
+proto_file_sources = []
+
+foreach(proto_file, proto_file_defines) {
+  proto_file_codegen += [
+    "$proto_out_dir" + "/" + "$proto_file.pb.h",
+    "$proto_out_dir" + "/" + "$proto_file.pb.cc",
+  ]
+  proto_file_sources += [ "$proto_base_dir" + "/" + "$proto_file.proto" ]
+}
+
+# this is so bad , but someone config the protoc's subsystem_name
+# the better way is build system need provider host tools path or prebuild tools path
+protoc_subsystem_out_path = "thirdparty/protobuf"
+
+if (default_toolchain == current_toolchain) {
+  #if target build
+  host_out_path = "/" + get_label_info(host_toolchain, "name")
+} else {
+  #if host build (for some linke mingw)
+  host_out_path = "/../" + get_label_info(host_toolchain, "name")
+}
+host_protoc_path =
+    root_out_dir + host_out_path + "/" + protoc_subsystem_out_path + "/protoc"
+
+action("hiperf_host_build_proto") {
+  external_deps =
+      [ "protobuf:protoc(//build/toolchain/linux:clang_${host_cpu})" ]
+  args = []
+  outputs = proto_file_codegen
+  sources = []
+  script = "proto/build_proto.sh"
+
+  args += [ rebase_path(host_protoc_path) ]
+  args += [
+    "--proto_path",
+    rebase_path(proto_base_dir),
+  ]
+  args += [
+    "--cpp_out",
+    rebase_path(proto_out_dir),
+  ]
+
+  foreach(proto_file_source, proto_file_sources) {
+    #tell gn to check which files as source time
+    sources += [ rebase_path(proto_file_source) ]
+    args += [ rebase_path(proto_file_source) ]
+  }
+}
+
+config("proto_file_cpp_config") {
+  include_dirs = [ proto_out_dir ]
+  if ("$proto_out_dir" == "*src_test*") {
+    include_dirs +=
+        [ "../../out/default/src_test/gen/developtools/hiperf/proto" ]
+  } else if ("$proto_out_dir" == "*test*") {
+    include_dirs += [ "../../out/default/test/gen/developtools/hiperf/proto" ]
+  } else {
+    include_dirs += [ "../../out/default/src/gen/developtools/hiperf/proto" ]
+  }
+}
+
+ohos_source_set("proto_file_cpp") {
+  part_name = "hiperf"
+  subsystem_name = "developtools"
+  cflags = []
+
+  deps = [ ":hiperf_host_build_proto" ]
+  external_deps = [ "protobuf:protobuf_lite_static" ]
+  if (hiperf_independent_compilation) {
+    external_deps += [ "c_utils:utils" ]
+  }
+  sources = proto_file_codegen
+  public_configs = [ ":proto_file_cpp_config" ]
+}
+
+#protobuf }
+
+ohos_executable("hiperf") {
+  install_enable = true
+  sources = [ "./src/main.cpp" ]
+  deps = [
+    ":hiperf_etc",
+    ":hiperf_platform_common",
+    ":hiperf_platform_linux",
+  ]
+
+  if (hiperf_target_static) {
+    static_link = true
+  }
+
+  if (is_linux || is_mingw) {
+    # ld.lld: error: attempted static link of dynamic object hiviewdfx/hilog_native/libhilog.so
+    static_link = true
+  }
+
+  external_deps = [
+    "abseil-cpp:absl_container",
+    "abseil-cpp:absl_cord",
+    "abseil-cpp:absl_log",
+    "abseil-cpp:absl_strings",
+    "bounds_checking_function:libsec_shared",
+    "c_utils:utils",
+    "faultloggerd:libunwinder",
+    "hilog:libhilog",
+    "ipc:ipc_single",
+  ]
+
+  if (hiperf_independent_compilation) {
+    external_deps += [
+      "hisysevent:libhisysevent",
+      "protobuf:protobuf_lite",
+    ]
+  }
+  subsystem_name = "developtools"
+  part_name = "hiperf"
+}
+
+ohos_executable("hiperf_host") {
+  sources = [ "./src/main.cpp" ]
+  deps = [ ":hiperf_platform_common" ]
+
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "faultloggerd:unwinder_host",
+  ]
+
+  if (hiperf_independent_compilation) {
+    external_deps += [
+      "c_utils:utils",
+      "hisysevent:libhisysevent",
+    ]
+  }
+  subsystem_name = "developtools"
+  part_name = "hiperf"
+}
+
+ohos_prebuilt_etc("hiperf.para") {
+  source = "etc/hiperf.para"
+  install_images = [
+    "system",
+    "updater",
+  ]
+  module_install_dir = "etc/param"
+  part_name = "hiperf"
+  subsystem_name = "developtools"
+}
+
+ohos_prebuilt_etc("hiperf.para.dac") {
+  source = "etc/hiperf.para.dac"
+  install_images = [
+    "system",
+    "updater",
+  ]
+  module_install_dir = "etc/param"
+  part_name = "hiperf"
+  subsystem_name = "developtools"
+}
+
+ohos_prebuilt_etc("hiperf.cfg") {
+  source = "etc/hiperf.cfg"
+  relative_install_dir = "init"
+  subsystem_name = "developtools"
+  part_name = "hiperf"
+}
+
+group("hiperf_etc") {
+  deps = [
+    ":hiperf.cfg",
+    ":hiperf.para",
+    ":hiperf.para.dac",
+  ]
+}
+
+ohos_source_set("hiperf_platform_host") {
+  part_name = "hiperf"
+  subsystem_name = "developtools"
+  sources = [ "./src/hiperf_libreport.cpp" ]
+  public_deps = [ ":hiperf_platform_common" ]
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "faultloggerd:unwinder_host",
+  ]
+  if (hiperf_independent_compilation) {
+    external_deps += [
+      "c_utils:utils",
+      "protobuf:protobuf_lite",
+    ]
+  }
+}
+
+ohos_shared_library("hiperf_host_lib") {
+  public_deps = [ ":hiperf_platform_host" ]
+  output_name = "hiperf_report"
+
+  ldflags = [ "-static-libstdc++" ]
+
+  subsystem_name = "developtools"
+  part_name = "hiperf"
+}
+
+ohos_executable("hiperf_host_lib_demo") {
+  sources = [ "./src/hiperf_libreport_demo.cpp" ]
+  deps = [ ":hiperf_host_lib" ]
+  include_dirs = [ "${hiperf_path}/include" ]
+
+  subsystem_name = "developtools"
+  part_name = "hiperf"
+}
+
+ohos_copy("hiperf_host_python") {
+  sources = [ "./script" ]
+  outputs = [ target_out_dir + "/host/" ]
+
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+  subsystem_name = "developtools"
+  part_name = "hiperf"
+}
+
+ohos_source_set("hiperf_code_analyze") {
+  part_name = "hiperf"
+  deps = [
+    ":hiperf_platform_common",
+    ":hiperf_platform_linux",
+  ]
+  subsystem_name = "developtools"
+  part_name = "hiperf"
+}
+
+group("hiperf_target") {
+  if (hiperf_target_host) {
+    deps = [ ":hiperf(${host_toolchain})" ]
+  } else {
+    deps = [ ":hiperf" ]
+  }
+}
+
+group("hiperf_test_target") {
+  testonly = true
+  deps = [ "test:hiperf_test" ]
+}
+
+group("hiperf_target_all") {
+  if (!is_emulator) {
+    if (is_double_framework) {
+      deps = [ ":hiperf_target" ]
+    } else {
+      deps = []
+      if (!use_libfuzzer) {
+        if (!hiperf_independent_compilation) {
+          deps += [
+            ":hiperf_host(//build/toolchain/linux:clang_${host_cpu})",  # host_linux
+            ":hiperf_host_lib(//build/toolchain/linux:clang_${host_cpu})",  # host_linux
+            ":hiperf_host_lib_demo(//build/toolchain/linux:clang_${host_cpu})",  # host_linux
+          ]
+        }
+        deps += [ ":hiperf_host_python" ]
+        if (!is_tsan && !hiperf_independent_compilation) {
+          deps += [
+            ":hiperf_host(//build/toolchain/mingw:mingw_x86_64)",  # host mingw
+            ":hiperf_host_lib(//build/toolchain/mingw:mingw_x86_64)",  # host_mingw
+          ]
+        }
+      }
+      deps += [
+        ":hiperf_target",
+        "interfaces/innerkits/native:hiperf_client",  # c++ api
+      ]
+      if (is_ohos) {
+        deps += [ "interfaces/kits/js/napi:hiperf_client_napi" ]  # js api
+      }
+    }
+  }
+}
+
+group("hiperf_demo") {
+  if (hiperf_target_host) {
+    deps = [ "demo/cpp:hiperf_demo(${host_toolchain})" ]
+  } else {
+    deps = [ "demo/cpp:hiperf_demo" ]
+  }
+}
+
+group("hiperf_example_cmd") {
+  if (hiperf_target_host) {
+    deps = [ "demo/cpp:hiperf_example_cmd(${host_toolchain})" ]
+  } else {
+    deps = [ "demo/cpp:hiperf_example_cmd" ]
+  }
+}
+
+group("hiperf_all") {
+  testonly = true
+  if (hiperf_code_analyze) {
+    deps = [ ":hiperf_code_analyze" ]
+  } else {
+    deps = [
+      ":hiperf_example_cmd",
+      ":hiperf_target_all",
+    ]
+    if (!is_double_framework) {
+      deps += [
+        ":hiperf_demo",
+        ":hiperf_test_target",
+      ]
+    }
+  }
+}

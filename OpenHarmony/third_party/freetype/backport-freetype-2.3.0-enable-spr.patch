@@ -1,0 +1,19 @@
+From c1c64f8cf9264592bca747c9463814a805150346 Mon Sep 17 00:00:00 2001
+From: besfahbo <besfahbo@fedoraproject.org>
+Date: Jan 18 2007 19:42:34 +0000
+Subject: - Add without_subpixel_rendering.
+
+Conflict:NA
+Reference:https://src.fedoraproject.org/rpms/freetype/c/c1c64f8cf9264592bca747c9463814a805150346
+
+--- freetype-2.3.0/include/freetype/config/ftoption.h.spf	2007-01-18 14:27:34.000000000 -0500
++++ freetype-2.3.0/include/freetype/config/ftoption.h	2007-01-18 14:27:48.000000000 -0500
+@@ -92,7 +92,7 @@
+    * When this macro is not defined, FreeType offers alternative LCD
+    * rendering technology that produces excellent output.
+    */
+-/* #define FT_CONFIG_OPTION_SUBPIXEL_RENDERING */
++#define FT_CONFIG_OPTION_SUBPIXEL_RENDERING
+ 
+ 
+   /**************************************************************************

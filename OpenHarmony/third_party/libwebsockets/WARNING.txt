@@ -1,0 +1,8 @@
+Add this line after upgrade:
+
+lws_plat_set_socket_options(struct lws_vhost *vhost, int fd, int unix_skt)
+{
+    int max_retry = 2;
+    if (setsockopt(fd, IPPROTO_TCP, TCP_SYNCNT, &max_retry, sizeof(max_retry)) < 0) {
+        return 1;
+    }

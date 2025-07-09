@@ -1,0 +1,10 @@
+# some test file
+workspace.code-workspace
+.vscode
+.tags
+**/local.properties
+**/.idea
+**/.gradle
+*.log
+*.patch
+*.pyc

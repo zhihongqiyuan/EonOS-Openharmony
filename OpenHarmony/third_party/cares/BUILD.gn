@@ -1,0 +1,208 @@
+# Copyright (C) 2021-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//third_party/cares/cares.gni")
+
+cares_srcs = [
+  "ares__addrinfo2hostent.c",
+  "ares__addrinfo_localhost.c",
+  "ares__close_sockets.c",
+  "ares__get_hostent.c",
+  "ares__parse_into_addrinfo.c",
+  "ares__read_line.c",
+  "ares__readaddrinfo.c",
+  "ares__sortaddrinfo.c",
+  "ares__timeval.c",
+  "ares_android.c",
+  "ares_cancel.c",
+  "ares_create_query.c",
+  "ares_data.c",
+  "ares_destroy.c",
+  "ares_expand_name.c",
+  "ares_expand_string.c",
+  "ares_fds.c",
+  "ares_free_hostent.c",
+  "ares_free_string.c",
+  "ares_freeaddrinfo.c",
+  "ares_getaddrinfo.c",
+  "ares_getenv.c",
+  "ares_gethostbyaddr.c",
+  "ares_gethostbyname.c",
+  "ares_getnameinfo.c",
+  "ares_getsock.c",
+  "ares_init.c",
+  "ares_library_init.c",
+  "ares_llist.c",
+  "ares_mkquery.c",
+  "ares_nowarn.c",
+  "ares_options.c",
+  "ares_parse_a_reply.c",
+  "ares_parse_aaaa_reply.c",
+  "ares_parse_caa_reply.c",
+  "ares_parse_mx_reply.c",
+  "ares_parse_naptr_reply.c",
+  "ares_parse_ns_reply.c",
+  "ares_parse_ptr_reply.c",
+  "ares_parse_soa_reply.c",
+  "ares_parse_srv_reply.c",
+  "ares_parse_txt_reply.c",
+  "ares_parse_uri_reply.c",
+  "ares_platform.c",
+  "ares_process.c",
+  "ares_query.c",
+  "ares_rand.c",
+  "ares_search.c",
+  "ares_send.c",
+  "ares_strcasecmp.c",
+  "ares_strdup.c",
+  "ares_strerror.c",
+  "ares_strsplit.c",
+  "ares_timeout.c",
+  "ares_version.c",
+  "ares_writev.c",
+  "bitncmp.c",
+  "inet_net_pton.c",
+  "inet_ntop.c",
+  "windows_port.c",
+]
+
+sources_test = [
+  "test/ares-test-main.cc",
+  "test/ares-test.cc",
+  "test/ares-test-ns.cc",
+  "test/ares-test-parse.cc",
+  "test/ares-test-parse-a.cc",
+  "test/ares-test-parse-aaaa.cc",
+  "test/ares-test-parse-caa.cc",
+  "test/ares-test-parse-mx.cc",
+  "test/ares-test-parse-naptr.cc",
+  "test/ares-test-parse-ns.cc",
+  "test/ares-test-parse-ptr.cc",
+  "test/ares-test-parse-soa.cc",
+  "test/ares-test-parse-soa-any.cc",
+  "test/ares-test-parse-srv.cc",
+  "test/ares-test-parse-txt.cc",
+  "test/ares-test-parse-uri.cc",
+  "test/ares-test-misc.cc",
+  "test/ares-test-mock.cc",
+  "test/ares-test-internal.cc",
+  "test/dns-proto.cc",
+  "test/dns-proto-test.cc",
+  "test/gmock-1.11.0/gmock-gtest-all.cc",
+]
+
+src_path = "//third_party/cares"
+cares_path = root_out_dir + "/third_party_cares"
+code_dir = cares_path + "/c-ares-1.18.1"
+
+action("installOpenEulerCares") {
+  print("Cares install")
+  script = "install.sh"
+  args = [
+    rebase_path(src_path, root_build_dir),
+    rebase_path(cares_path, root_build_dir),
+  ]
+  inputs = [ src_path ]
+  outputs = []
+  foreach(src, cares_srcs) {
+    outputs += [ "$code_dir/src/lib/" + src ]
+  }
+  foreach(test, sources_test) {
+    outputs += [ "$code_dir/" + test ]
+  }
+}
+
+config("c_ares_config") {
+  include_dirs = [ "//third_party/cares/include" ]
+  cflags = [
+    "-D_GNU_SOURCE",
+    "-D_HAS_EXCEPTIONS=0",
+    "-DHAVE_CONFIG_H",
+    "-Wno-macro-redefined",
+  ]
+}
+ohos_shared_library("c_ares") {
+  deps = [ ":installOpenEulerCares" ]
+  install_images = [
+    "updater",
+    "system",
+  ]
+  sources = []
+  foreach(src, cares_srcs) {
+    sources += [ "$code_dir/src/lib/" + src ]
+  }
+
+  public_configs = [ ":c_ares_config" ]
+  defines = [ "CARES_SHAREDLIB" ]
+  if (is_standard_system) {
+    defines += [ "OHOS_DNS_PROXY_BY_NETSYS=1" ]
+  }
+
+  include_dirs = [
+    "//third_party/cares/include",
+    "$code_dir",
+    "$code_dir/include",
+  ]
+
+  install_enable = true
+  subsystem_name = "thirdparty"
+  part_name = "cares"
+}
+
+ohos_static_library("c_ares_static") {
+  deps = [ ":installOpenEulerCares" ]
+  sources = []
+  foreach(src, cares_srcs) {
+    sources += [ "$code_dir/src/lib/" + src ]
+  }
+
+  public_configs = [ ":c_ares_config" ]
+
+  include_dirs = [
+    "//third_party/cares/include",
+    "$code_dir",
+    "$code_dir/include",
+  ]
+  subsystem_name = "thirdparty"
+  part_name = "cares"
+}
+
+ohos_executable("cares_test") {
+  sources = []
+  foreach(src, sources_test) {
+    sources += [ "$code_dir/" + src ]
+  }
+  deps = [
+    ":c_ares",
+    ":installOpenEulerCares",
+  ]
+  include_dirs = [
+    "//third_party/cares/include",
+    "$code_dir",
+    "$code_dir/src/lib",
+    "$code_dir/include",
+    "$code_dir/test",
+    "$code_dir/test/gmock-1.11.0",
+  ]
+  subsystem_name = "thirdparty"
+  part_name = "cares"
+}
+
+group("c_ares_target") {
+  deps = [
+    ":c_ares",
+    ":c_ares_static",
+    ":cares_test",
+  ]
+}

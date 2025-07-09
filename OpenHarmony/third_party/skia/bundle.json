@@ -1,0 +1,80 @@
+{
+    "name": "@ohos/skia",
+    "description": "skia is a complete 2D graphic library for drawing Text, Geometries, and Images.",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/skia"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYING",
+    "component": {
+        "name": "skia",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [
+            "skia_feature_product",
+            "skia_feature_enable_pgo",
+            "skia_feature_enable_codemerge",
+            "skia_feature_pgo_path",
+            "skia_feature_zlib",
+            "skia_feature_wuji_enable",
+            "skia_feature_ace_enable_gpu"
+        ],
+        "adapted_system_type": [ "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "hilog",
+                "hitrace",
+                "init",
+                "bounds_checking_function",
+                "zlib",
+                "jsoncpp",
+                "egl",
+                "opengles",
+                "faultloggerd",
+                "icu",
+                "graphic_2d"
+            ],
+            "third_party": [
+                "vulkan-headers"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//third_party/skia:skia_canvaskit"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//third_party/skia/third_party/libjpeg-turbo:libjpeg"
+                },
+                {
+                    "name": "//third_party/skia/third_party/piex:piex"
+                },
+                {
+                    "name": "//third_party/skia/third_party/libwebp:libwebp"
+                },
+                {
+                    "name": "//third_party/skia:skia_canvaskit"
+                },
+                {
+                    "name": "//third_party/skia:skia_canvaskit_static"
+                },
+                {
+                    "name": "//third_party/skia/third_party/expat:expat"
+                },
+                {
+                    "name": "//third_party/skia/modules/skparagraph:skia_paragraph_ohos"
+                },
+                {
+                    "name": "//third_party/skia:sksl_ext_static"
+                }
+            ],
+            "test": []
+        }
+    }
+}

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2023 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+
+-->
+
+<configuration>
+    <oatconfig>
+        <licensefile></licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <policyitem type="compatibility" name="SPDX:LGPL-2.0-or-later" path="gen-changelog.py" desc="生成changelog的脚本，实际未使用"/>
+                <policyitem type="compatibility" name="SPDX:BSL-1.0" path="tests/lib/catch.hpp" desc="经分析该协议是兼容的"/>
+                <policyitem type="compatibility" name="GPL-2.0+-with-LLVM-exception" path="LICENSE.txt" desc="该文件是license说明"/>
+            </policy>
+        </policylist>
+        <filefilterlist>
+            <filefilter name="defaultFilter" desc="Files not to check">
+                <filteritem type="filepath" name="COMPILING" desc="编译指导的文本文件，无license头"/>
+                <filteritem type="filepath" name=".*.am" desc="am文件，用于生成Makefile的模板"/>
+                <filteritem type="filepath" name="VISIBILITY" desc="符号导出的说明文件"/>
+                <filteritem type="filepath" name="COMMIT-LOG-GUIDELINES" desc="提交日志的指导"/>
+                <filteritem type="filepath" name="bash-completion/.*" desc="bash下命令补全的脚本"/>
+                <filteritem type="filepath" name="doc/.*" desc="API以及使用指南"/>
+                <filteritem type="filepath" name="license-change-2020.txt" desc="license变更说明"/>
+                <filteritem type="filepath" name="AUTHORS" desc="作者描述"/>
+                <filteritem type="filepath" name="ChangeLog" desc="版本修改日志"/>
+                <filteritem type="filepath" name="CONTRIBUTING" desc="如何贡献代码的指南"/>
+                <filteritem type="filepath" name="relicensing-scripts/file-licenses.orig.txt" desc="原license说明"/>
+                <filteritem type="filepath" name="ltmain.sh" desc="处理library库的脚本"/>
+                <filteritem type="filepath" name="autoconf-archive/.*" desc="自动配置文档"/>
+                <filteritem type="filepath" name="install-sh" desc="生成二进制的安装脚本"/>
+                <filteritem type="filepath" name="abigail.m4" desc="检测系统里该软件的头文件和库文件的脚本"/>
+                <filteritem type="filepath" name="configure.ac" desc="config配置脚本"/>
+                <filteritem type="filepath" name="default.abignore" desc="配置文件"/>
+                <filteritem type="filepath" name="LICENSE.txt" desc="license声明文件"/>
+            </filefilter>
+            <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
+            </filefilter>
+            <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
+            </filefilter>
+            <filefilter name="licenseFileNamePolicyFilter" desc="Filters for LICENSE file policies">
+            </filefilter>
+            <filefilter name="readmeFileNamePolicyFilter" desc="Filters for README file policies">
+            </filefilter>
+            <filefilter name="readmeOpenSourcefileNamePolicyFilter" desc="Filters for README.OpenSource file policies">
+            </filefilter>
+            <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
+                <filteritem type="filepath" name="tests/data/.*.rpm" desc="test files" />
+                <filteritem type="filepath" name="tests/data/.*.abi" desc="test files" />
+                <filteritem type="filepath" name="tests/data/.*.tar.*" desc="test files" />
+                <filteritem type="filepath" name="tests/data/.*.elf" desc="test files" />
+                <filteritem type="filepath" name="tests/data/.*.deb" desc="test files" />
+                <filteritem type="filepath" name="tests/data/.*.ddeb" desc="test files" />
+                <filteritem type="filepath" name="tests/data/.*.o" desc="test files" />
+                <filteritem type="filepath" name="tests/data/.*.ko" desc="test files" />
+                <filteritem type="filepath" name="tests/data/.*.so.*" desc="test files" />
+                <filteritem type="filepath" name="tests/data/.*.debug" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-diff-filter/PR24430-fold-qualified-array-clang" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-diff-filter/test39/test39-v0" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-abicompat/test6-var-changed-app" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-abicompat/test9-fn-changed-app" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-diff-filter/PR24430-fold-qualified-array-gcc" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-diff-filter/test39/test39-v1" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-abicompat/test3-fn-removed-app" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-types-stability/pr19433-custom0" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-abicompat/test7-fn-changed-app" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-diff-filter/test38/test38-v0" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-types-stability/pr19434-elf0" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-abicompat/test0-fn-changed-app" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-diff-filter/test38/test38-v1" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-read-ctf/test0" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-abicompat/test1-fn-removed-app" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-abicompat/test8-fn-changed-app" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-read-dwarf/test0" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-abicompat/test5-fn-changed-app" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-read-common/PR26261/PR26261-exe" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-alt-dwarf-file/rhbz1951526/usr/bin/gimp-2.10" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-types-stability/pr19138-elf0" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-abicompat/test2-var-removed-app" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-read-dwarf/test1" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-abidiff-exit/PR30329/new-image/usr/lib/debug/dwz/components/sqlite.bst/x86_64-unknown-linux-gnu" desc="test files" />
+                <filteritem type="filepath" name="tests/data/test-abidiff-exit/PR30329/old-image/usr/lib/debug/dwz/components/sqlite.bst/x86_64-unknown-linux-gnu" desc="test files" />
+            </filefilter>
+
+        </filefilterlist>
+        <licensematcherlist>
+        </licensematcherlist>
+    </oatconfig>
+</configuration>

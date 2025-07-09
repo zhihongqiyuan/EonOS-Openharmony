@@ -1,0 +1,164 @@
+{
+    "name": "@ohos/hdf_core",
+    "description": "device driver framework",
+    "version": "4.0",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "drivers/hdf_core"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "hdf_core",
+        "subsystem": "hdf",
+        "features": [
+            "hdf_core_khdf_test_support",
+            "hdf_core_platform_test_support",
+            "hdf_core_platform_rtc_test_support",
+            "hdf_core_default_peripheral_config",
+            "hdf_core_default_hicollie_config"
+        ],
+        "adapted_system_type": ["standard", "small", "mini"],
+        "rom": "735KB",
+        "ram": "1350KB",
+        "deps": {
+            "components": [
+                "hilog",
+                "c_utils",
+                "init",
+                "ipc",
+                "samgr",
+                "selinux_adapter",
+                "hilog_lite",
+                "hicollie"
+            ],
+            "third_party": [
+                "bounds_checking_function"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//drivers/hdf_core/adapter:uhdf_entry"
+            ],
+            "inner_kits": [{
+                    "name": "//drivers/hdf_core/adapter/uhdf2/host:libhdf_host",
+                    "header": {
+                        "header_files": [
+                            "host/uhdf/devhost_dump_reg.h",
+                            "host/shared/hdf_device_desc.h",
+                            "host/shared/hdf_device_object.h"
+                        ],
+                        "header_base": "//drivers/hdf_core/interfaces/inner_api"
+                    }
+                },
+                {
+                    "name": "//drivers/hdf_core/adapter/uhdf2/ipc:libhdf_ipc_adapter",
+                    "header": {
+                        "header_files": [
+                            "ipc/hdf_dump_reg.h",
+                            "ipc/hdf_remote_service.h",
+                            "ipc/hdf_sbuf_ipc.h",
+                            "ipc/iproxy_broker.h",
+                            "core/hdf_object.h"
+                        ],
+                        "header_base": "//drivers/hdf_core/interfaces/inner_api"
+                    }
+                },
+                {
+                    "name": "//drivers/hdf_core/adapter/uhdf2/hdi:libhdi",
+                    "header": {
+                        "header_files": [
+                            "hdi/hdi_base.h",
+                            "hdi/hdi_support.h",
+                            "hdi/stub_collector.h",
+                            "hdi/object_collector.h",
+                            "hdi/devmgr_hdi.h",
+                            "hdi/idevmgr_hdi.h",
+                            "hdi/servmgr_hdi.h",
+                            "hdi/iservmgr_hdi.h",
+                            "hdi/servstat_listener_hdi.h",
+                            "hdi/iservstat_listener_hdi.h",
+                            "hdi/base/buffer_handle.h",
+                            "hdi/base/buffer_util.h",
+                            "hdi/base/hdi_smq.h",
+                            "hdi/base/hdi_smq_meta.h",
+                            "hdi/base/hdi_smq_syncer.h",
+                            "hdi/base/native_buffer.h",
+                            "core/hdf_device_class.h",
+                            "core/hdf_object.h",
+                            "core/hdf_service_status.h"
+                        ],
+                        "header_base": "//drivers/hdf_core/interfaces/inner_api"
+                    }
+                },
+                {
+                    "name": "//drivers/hdf_core/adapter/uhdf2/pub_utils:libpub_utils",
+                    "header": {
+                        "header_files": [
+                            "osal/shared/osal_mem.h",
+                            "osal/shared/osal_time.h",
+                            "osal/uhdf/hdf_log_adapter.h",
+                            "osal/uhdf/hdf_types.h",
+                            "utils/hdf_base.h",
+                            "utils/hdf_log.h",
+                            "utils/hdf_sbuf.h",
+                            "utils/hdf_dlist.h",
+                            "core/hdf_device_class.h",
+                            "core/hdf_object.h",
+                            "core/hdf_service_status.h"
+                        ],
+                        "header_base": "//drivers/hdf_core/interfaces/inner_api"
+                    }
+                },
+                {
+                    "name": "//drivers/hdf_core/adapter/uhdf2/utils:libhdf_utils",
+                    "header": {
+                        "header_files": [
+                            "osal/shared/osal_mem.h",
+                            "osal/shared/osal_time.h",
+                            "osal/uhdf/hdf_log_adapter.h",
+                            "osal/uhdf/hdf_types.h",
+                            "utils/hdf_base.h",
+                            "utils/hdf_log.h",
+                            "utils/hdf_sbuf.h",
+                            "utils/hdf_dlist.h",
+                            "core/hdf_device_class.h",
+                            "core/hdf_object.h",
+                            "core/hdf_service_status.h"
+                        ],
+                        "header_base": "//drivers/hdf_core/interfaces/inner_api"
+                    }
+                },
+                {
+                    "name": "//drivers/hdf_core/adapter/uhdf/posix:hdf_posix_osal",
+                    "header": {
+                        "header_files": [
+                            "osal/shared/osal_mem.h",
+                            "osal/shared/osal_time.h"
+                        ],
+                        "header_base": "//drivers/hdf_core/interfaces/inner_api"
+                    }
+                },
+                {
+                    "name": "//drivers/hdf_core/adapter/uhdf2/platform:libhdf_platform",
+                    "header": {
+                        "header_files": [
+                            "i2c_if.h",
+                            "spi_if.h",
+                            "gpio_if.h",
+                            "platform_if.h"
+                        ],
+                        "header_base": "//drivers/hdf_core/framework/include/platform"
+                    }
+                },
+                {
+                    "name": "//drivers/hdf_core/framework/tools/hc-gen:hc_gen"
+                }
+            ],
+            "test": [
+                "//drivers/hdf_core/adapter:uhdf_test_entry"
+            ]
+        }
+    }
+}

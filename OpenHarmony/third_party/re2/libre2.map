@@ -1,0 +1,20 @@
+{
+  global:
+  extern "C++" {
+    "re2::RE2::~RE2()";
+    "re2::RE2::RE2(re2::StringPiece const&, re2::RE2::Options const&)";
+    "re2::RE2::FullMatchN(re2::StringPiece const&, re2::RE2 const&, re2::RE2::Arg const* const*, int)";
+    "re2::RE2::GlobalReplace(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>*, re2::RE2 const&, re2::StringPiece const&)";
+    "re2::RE2::RE2(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&)";
+    *re2_internal*;
+    "re2::RE2::FindAndConsumeN(re2::StringPiece*, re2::RE2 const&, re2::RE2::Arg const* const*, int)";
+    "re2::RE2::QuoteMeta(re2::StringPiece const&)";
+    "re2::RE2::GlobalReplace(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>*, re2::RE2 const&, std::__h::basic_string_view<char, std::__h::char_traits<char>>)";
+    "re2::RE2::RE2(std::__h::basic_string_view<char, std::__h::char_traits<char>>, re2::RE2::Options const&)";
+    "re2::RE2::FullMatchN(re2::StringPiece const&, re2::RE2 const&, re2::RE2::Arg const* const*, int)";
+    "re2::RE2::FullMatchN(std::__h::basic_string_view<char, std::__h::char_traits<char>>, re2::RE2 const&, re2::RE2::Arg const* const*, int)";
+    "re2::RE2::FindAndConsumeN(std::__h::basic_string_view<char, std::__h::char_traits<char>>*, re2::RE2 const&, re2::RE2::Arg const* const*, int)";
+  };
+  local:
+    *;
+};

@@ -1,0 +1,175 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+LOCATION_ROOT_DIR = "//base/location"
+SUBSYSTEM_DIR = "$LOCATION_ROOT_DIR/services"
+ARKUI_ROOT_DIR = "//foundation/arkui"
+IPC_ROOT_DIR = "//foundation/communication/ipc"
+LOCATION_GNSS_ROOT = "$SUBSYSTEM_DIR/location_gnss/gnss"
+LOCATION_LOCATOR_ROOT = "$SUBSYSTEM_DIR/location_locator/locator"
+LOCATION_LOCATOR_CALLBACK_ROOT =
+    "$SUBSYSTEM_DIR/location_locator/LOCATION_LOCATOR_CALLBACK_ROOT"
+LOCATION_GEOCONVERT_ROOT = "$SUBSYSTEM_DIR/location_geocode/geocode"
+LOCATION_NETWORK_ROOT = "$SUBSYSTEM_DIR/location_network/network"
+LOCATION_PASSIVE_ROOT = "$SUBSYSTEM_DIR/location_passive/passive"
+SAMGR_ROOT_DIR = "//foundation/systemabilitymgr"
+SECURITY_ROOT_DIR = "//base/security"
+START_UP_ROOT_DIR = "//base/startup"
+GOOGLE_TEST_DIR = "//third_party/googletest"
+DFX_HILOG_DIR = "//base/hiviewdfx/hilog"
+ABILITY_RUNTIME = "//foundation/ability/ability_runtime"
+LOCATION_NATIVE_DIR = "$LOCATION_ROOT_DIR/frameworks/native"
+LOCATION_NOTIFICATION_DIR = "$LOCATION_ROOT_DIR/frameworks/native/notification"
+LOCATION_COMMON_DIR = "$LOCATION_ROOT_DIR/frameworks/location_common/common"
+ability_runtime_path = "//foundation/ability/ability_runtime"
+ability_runtime_napi_path = "${ability_runtime_path}/frameworks/js/napi"
+WIFI_MANAGER_ROOT = "//foundation/communication/wifi/wifi"
+
+declare_args() {
+  location_feature_with_geocode = true
+  location_feature_with_gnss = true
+  location_feature_with_network = true
+  location_feature_with_passive = true
+  location_feature_with_jsstack = true
+  i18n_enable = true
+  telephony_core_service_enable = true
+  telephony_cellular_data_enable = true
+  hdf_drivers_interface_location_gnss_enable = true
+  hdf_drivers_interface_location_agnss_enable = true
+  communication_wifi_enable = true
+  communication_bluetooth_enable = true
+  resourceschedule_background_task_mgr_enable = true
+  resourceschedule_schedule_service_enable = true
+  ability_form_fwk_enable = true
+  call_manager_enable = true
+  sms_mms_enable = true
+  common_event_service_enable = true
+  hdf_drivers_interface_location_geofence_enable = true
+  multimedia_image_framework_enable = true
+  notification_distributed_notification_service_enable = true
+  movement_client_enable = true
+  location_device_standby_enable = true
+  time_service_enable = true
+  net_manager_enable = true
+  location_hicollie_enable = true
+  location_sa_recycle_strategy_low_memory = true
+  startup_init = true
+  location_feature_with_opp_switch = true
+
+  if (defined(global_parts_info) && !defined(global_parts_info.global_i18n)) {
+    i18n_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.telephony_core_service)) {
+    telephony_core_service_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.telephony_cellular_data)) {
+    telephony_cellular_data_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.hdf_drivers_interface_location_gnss)) {
+    hdf_drivers_interface_location_gnss_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.hdf_drivers_interface_location_agnss)) {
+    hdf_drivers_interface_location_agnss_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.hdf_drivers_interface_location_geofence)) {
+    hdf_drivers_interface_location_geofence_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.communication_wifi)) {
+    communication_wifi_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.communication_bluetooth)) {
+    communication_bluetooth_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.resourceschedule_background_task_mgr)) {
+    resourceschedule_background_task_mgr_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.ability_form_fwk)) {
+    ability_form_fwk_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.resourceschedule_resource_schedule_service)) {
+    resourceschedule_schedule_service_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.telephony_call_manager)) {
+    call_manager_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.notification_common_event_service)) {
+    common_event_service_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.telephony_sms_mms)) {
+    sms_mms_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.multimedia_image_framework)) {
+    multimedia_image_framework_enable = false
+  }
+
+  if (defined(global_parts_info) && !defined(
+          global_parts_info.notification_distributed_notification_service)) {
+    notification_distributed_notification_service_enable = false
+  }
+
+  if (defined(global_parts_info) && !defined(global_parts_info.msdp_movement)) {
+    movement_client_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.resourceschedule_device_standby)) {
+    location_device_standby_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.time_time_service)) {
+    time_service_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.communication_netmanager_base)) {
+    net_manager_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.hiviewdfx_hicollie)) {
+    location_hicollie_enable = false
+  }
+
+  if (defined(global_parts_info) && !defined(global_parts_info.startup_init)) {
+    startup_init = false
+  }
+}

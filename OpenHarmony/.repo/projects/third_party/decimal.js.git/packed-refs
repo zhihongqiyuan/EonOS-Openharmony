@@ -1,0 +1,16 @@
+# pack-refs with: peeled fully-peeled sorted 
+54eeffa47805355e091146464855495e227523b0 refs/tags/OpenHarmony-v5.0-Beta1
+^14532960138db2f73744b72be33f244e1c7e64de
+9befc9fc6d2a97c9bf7497d88c7d56f9807d8970 refs/tags/OpenHarmony-v5.0.0-Release
+^5d257734bf737790c90b668f2b835cd315538886
+917017064982e2cf959396f0be1710d723885e21 refs/tags/OpenHarmony-v5.0.1-Release
+^517b886111c53f1ea8dae8efdba34331f1631abc
+7e75d5d62781e700d5691b025e0c22e640f3f4a2 refs/tags/OpenHarmony-v5.0.2-Release
+^517b886111c53f1ea8dae8efdba34331f1631abc
+bef09279868058561310b6b649477fc60b7ddcb5 refs/tags/OpenHarmony-v5.0.3-Release
+^517b886111c53f1ea8dae8efdba34331f1631abc
+b7be380e096feef486aff881b7f955cb81d3b554 refs/tags/OpenHarmony-v5.1.0-Release
+^a51e9adb77d0bef3f2c5532db32d3932dc8f656c
+63413d1a3933f6a8ca46c35a61d613d7b6027b29 refs/tags/OpenHarmony-v6.0-Beta1
+^a51e9adb77d0bef3f2c5532db32d3932dc8f656c
+7f01abd83d5632005d5f97ddbea41e069ee69a74 refs/tags/github.com/MikeMcl/decimal.js/v10.4.3

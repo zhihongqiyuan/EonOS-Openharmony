@@ -1,0 +1,17 @@
+import("//build/ohos.gni")
+
+config("nlohmann_json_config") {
+  include_dirs = [
+    "single_include/",
+    "single_include/nlohmann",
+  ]
+
+  cflags_cc = [ "-fexceptions" ]
+  cflags_objcc = cflags_cc
+}
+
+ohos_static_library("nlohmann_json_static") {
+  public_configs = [ ":nlohmann_json_config" ]
+  part_name = "json"
+  subsystem_name = "thirdparty"
+}

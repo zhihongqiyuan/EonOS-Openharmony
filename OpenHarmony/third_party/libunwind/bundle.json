@@ -1,0 +1,34 @@
+{
+    "name": "@ohos/libunwind",
+    "description": "a portable and efficient C programming interface (API) to determine the call-chain of a program.",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/libunwind"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "libunwind",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": ["mini","standard"],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": ["//third_party/libunwind:libunwind"],
+            "inner_kits": [
+                {
+                    "name" : "//third_party/libunwind:libunwind"
+                }
+            ],
+            "test": []
+        }
+    }
+}

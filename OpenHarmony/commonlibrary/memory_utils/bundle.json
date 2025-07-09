@@ -1,0 +1,82 @@
+{
+  "name": "@ohos/memory_utils",
+  "version": "3.1.0",
+  "description": "memory base libraries",
+  "publishAs": "source",
+  "scripts": {},
+  "author": {},
+  "repository": "",
+  "license": "Apache License 2.0",
+  "segment": {
+    "destPath": "commonlibrary/memory_utils"
+  },
+  "component": {
+    "name": "memory_utils",
+    "subsystem": "commonlibrary",
+    "adapted_system_type": [ "standard" ],
+      "rom": "120KB",
+      "ram": "200KB",
+    "deps": {
+      "components": [
+        "c_utils",
+        "drivers_interface_memorytracker",
+        "hilog",
+        "hitrace",
+        "init",
+        "ipc"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "sub_component": [
+          "//commonlibrary/memory_utils/libdmabufheap:libdmabufheap",
+          "//commonlibrary/memory_utils/libmeminfo:libmeminfo",
+          "//commonlibrary/memory_utils/libpurgeablemem:libpurgeablemem",
+          "//commonlibrary/memory_utils/libpurgeablemem:purgeable_memory_ndk"
+      ],
+      "inner_kits": [
+        {
+          "name": "//commonlibrary/memory_utils/libdmabufheap:libdmabufheap",
+          "header": {
+            "header_files": [
+              "dmabuf_alloc.h"
+            ],
+            "header_base": "//commonlibrary/memory_utils/libdmabufheap/include"
+          }
+        },
+        {
+          "name": "//commonlibrary/memory_utils/libmeminfo:libmeminfo",
+          "header": {
+            "header_files": [
+              "meminfo.h"
+            ],
+            "header_base": "//commonlibrary/memory_utils/libmeminfo/include"
+          }
+        },
+        {
+          "name": "//commonlibrary/memory_utils/libpurgeablemem:libpurgeablemem",
+          "header": {
+            "header_files": [
+              "pm_log.h",
+              "pm_smartptr_util.h",
+              "purgeable_ashmem.h",
+              "purgeable_mem.h",
+              "purgeable_mem_base.h",
+              "purgeable_mem_builder.h",
+              "ux_page_table.h"
+            ],
+            "header_base": "//commonlibrary/memory_utils/libpurgeablemem/cpp/include"
+          }
+        }
+      ],
+      "test": [
+          "//commonlibrary/memory_utils/libdmabufheap/test:unittest",
+          "//commonlibrary/memory_utils/libmeminfo/test:libmeminfo_test",
+          "//commonlibrary/memory_utils/libpurgeablemem/test:libpurgeablemem_test"
+      ]
+    },
+    "features": [
+      "memory_utils_purgeable_ashmem_enable"
+    ]
+  }
+}

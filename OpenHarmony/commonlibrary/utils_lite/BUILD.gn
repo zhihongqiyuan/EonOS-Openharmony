@@ -1,0 +1,60 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/ndk/ndk.gni")
+
+declare_args() {
+  utils_lite_feature_file = false
+  utils_lite_feature_kal_timer = false
+  utils_lite_feature_timer_task = false
+  utils_lite_feature_js_builtin = false
+}
+
+group("utils") {
+  deps = []
+  if (ohos_kernel_type == "liteos_m") {
+    deps += [ "file:file" ]
+  }
+}
+
+ndk_lib("native_api") {
+  if (ohos_kernel_type != "liteos_m") {
+    lib_extension = ".so"
+  }
+  deps = []
+  head_files = [ "//commonlibrary/utils_lite/include/utils_config.h" ]
+  if (ohos_kernel_type == "liteos_m") {
+    deps += [ "file:native_file" ]
+    head_files += [ "//commonlibrary/utils_lite/include/utils_file.h" ]
+  }
+}
+
+group("utils_lite") {
+  deps = []
+
+  if (utils_lite_feature_file) {
+    deps += [ "//commonlibrary/utils_lite/file:file" ]
+  }
+
+  if (utils_lite_feature_kal_timer) {
+    deps += [ "//commonlibrary/utils_lite/kal/timer:kal_timer" ]
+  }
+
+  if (utils_lite_feature_timer_task) {
+    deps += [ "//commonlibrary/utils_lite/timer_task:ace_kit_timer" ]
+  }
+
+  if (utils_lite_feature_js_builtin) {
+    deps += [ "//commonlibrary/utils_lite/js/builtin:ace_utils_kits" ]
+  }
+}

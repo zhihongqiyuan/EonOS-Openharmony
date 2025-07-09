@@ -1,0 +1,33 @@
+{
+    "name": "@ohos/littlefs",
+    "description": "A little fail-safe filesystem designed for microcontrollers.",
+    "version": "3.1",
+    "license": "BSD 3-Clause",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/littlefs"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "LICENSE.md",
+    "component": {
+        "name": "littlefs",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "mini"
+        ],
+        "rom": "56KB",
+        "ram": "112KB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

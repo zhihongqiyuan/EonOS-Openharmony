@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+[filter "lfs"]
+	smudge = git-lfs smudge --skip -- %f
+	process = git-lfs filter-process --skip
+[remote "origin"]
+	url = https://gitee.com/openharmony/telephony_sms_mms
+	review = https://openharmony.gitee.com/openharmony/
+	projectname = telephony_sms_mms
+	fetch = +refs/heads/*:refs/remotes/origin/*

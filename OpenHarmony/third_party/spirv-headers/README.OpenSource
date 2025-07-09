@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "SPIRV-Headers",
+    "License": "Apache-2.0",
+    "License File": "LICENSE",
+    "Version Number": "vulkan-sdk-1.3.275.0",
+    "Owner": "zhangleiyu1@huawei.com",
+    "Upstream URL": "https://github.com/KhronosGroup/SPIRV-Headers.git",
+    "Description": "This repository contains machine-readable files for the SPIR-V Registry."
+  }
+]

@@ -1,0 +1,46 @@
+{
+    "name": "@ohos/pcre2",
+    "description": "pcre2 is a re_working of the original PCRE1 library to provide an entirely new API.",
+    "version": "3.1",
+    "license": "PCRE2 LICENCE",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/pcre2"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "pcre2/LICENSE",
+    "component": {
+        "name": "pcre2",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "standard" ],
+        "rom": "512KB",
+        "ram": "512KB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/pcre2:libpcre2",
+                    "header": {
+                      "header_files": [],
+                      "header_base": "//third_party/pcre2/pcre2/src"
+                    }
+                },
+                {
+                    "name": "//third_party/pcre2:libpcre2_static",
+                    "header": {
+                      "header_files": [],
+                      "header_base": "//third_party/pcre2/pcre2/src"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

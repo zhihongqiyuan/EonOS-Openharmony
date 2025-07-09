@@ -1,0 +1,34 @@
+# pack-refs with: peeled fully-peeled sorted 
+2a189f282dc46f2291dc2b9d262c25d7eb4f0f25 refs/tags/OpenHarmony-v4.0-Release
+2829f97320c0159f5ca5d139c84c24acce5a14d4 refs/tags/OpenHarmony-v4.0.1-Release
+b404bbfd03bd9558463fd872f8d2333635466eb8 refs/tags/OpenHarmony-v4.0.2-Release
+^2829f97320c0159f5ca5d139c84c24acce5a14d4
+a7ab5dea5db3030927ae0415cdcc97c9a52f3faf refs/tags/OpenHarmony-v4.0.3-Release
+^2829f97320c0159f5ca5d139c84c24acce5a14d4
+440aa39255ee350d3bb9e3ae2937432bae0e6815 refs/tags/OpenHarmony-v4.0.4-Release
+^2829f97320c0159f5ca5d139c84c24acce5a14d4
+4c1a2d683681fe00fc3173248fb533f912afcaf6 refs/tags/OpenHarmony-v4.1-Beta1
+5af38ed5f251f103fcc37354979b32c08413bfaa refs/tags/OpenHarmony-v4.1-Release
+5af38ed5f251f103fcc37354979b32c08413bfaa refs/tags/OpenHarmony-v4.1.1-Release
+f1e171094e03fb39682f140e35bac8fe492049b2 refs/tags/OpenHarmony-v4.1.2-Release
+^2d6168853154be79fde81f5cc1eefacbcda0fc61
+c12be814b253a514de2683d34df98066856cd9d2 refs/tags/OpenHarmony-v4.1.3-Release
+^2d6168853154be79fde81f5cc1eefacbcda0fc61
+eb34014c69f401031e74c199303c03148ecd770b refs/tags/OpenHarmony-v4.1.4-Release
+^2d6168853154be79fde81f5cc1eefacbcda0fc61
+9519d077c9af29627ee422333b8ad3972464dea0 refs/tags/OpenHarmony-v5.0-Beta1
+^4d63ccd2cdac38f2f9e7eba6637444b331eee3a5
+2f21c2da33979f37419899fe0883e4e968985d41 refs/tags/OpenHarmony-v5.0.0-Release
+^8407994fa8386a572e52ffa140be5373c7d40d6e
+5d6aa6fc49ef85732b8d01bc6af7a2b119ebed92 refs/tags/OpenHarmony-v5.0.1-Release
+^9b208f12bec6f5c12709fad2eef138820fd9ad99
+1e64ba64d7dfced71f77698f3a2aef171f0e62a0 refs/tags/OpenHarmony-v5.0.2-Release
+^54b5c349af1e9a0bf4930ed79991ad2d0d6bfde2
+b6fde6c94093c63d62a2ebb243597772dde550b2 refs/tags/OpenHarmony-v5.0.3-Release
+^54b5c349af1e9a0bf4930ed79991ad2d0d6bfde2
+2ea28d35ce0fb9086a262520b173d6de6ce32f19 refs/tags/OpenHarmony-v5.1.0-Release
+^07b4e915a566629df919e2afcefb2c6f56b27518
+35b72afccb0652cdb0a235f2073fa375fe100b66 refs/tags/OpenHarmony-v6.0-Beta1
+^2828ceaafc9c15babb69c4af37fc8dc771f6d2a9
+1b0cb90801d15490733e464980dce62f472549b9 refs/tags/master-v
+35ebcb83d7aefae29a3ab000e1cc80419ad79027 refs/tags/weekly_20240115-v

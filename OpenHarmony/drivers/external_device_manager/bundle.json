@@ -1,0 +1,90 @@
+{
+    "name": "@ohos/external_device_manager",
+    "description": "external device driver framework",
+    "version": "4.0",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "drivers/external_device_manager"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "external_device_manager",
+        "subsystem": "hdf",
+        "syscap": [
+            "SystemCapability.Driver.HID.Extension",
+            "SystemCapability.Driver.ExternalDevice",
+            "SystemCapability.Driver.USB.Extension",
+            "SystemCapability.Driver.DDK.Extension",
+            "SystemCapability.Driver.UsbSerial.Extension",
+            "SystemCapability.Driver.SCSI.Extension"
+        ],
+        "hisysevent_config": [
+            "//drivers/external_device_manager/hisysevent.yaml"
+        ],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "735KB",
+        "ram": "8000KB",
+        "deps": {
+            "components": [
+                "hilog",
+                "init",
+                "ipc",
+                "samgr",
+                "ability_base",
+                "common_event_service",
+                "c_utils",
+                "os_account",
+                "drivers_interface_usb",
+                "bundle_framework",
+                "ability_runtime",
+                "hisysevent",
+                "hitrace",
+                "napi",
+                "safwk",
+                "eventhandler",
+                "ace_engine",
+                "access_token",
+                "relational_store",
+                "drivers_interface_input",
+                "cJSON",
+                "selinux_adapter"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//drivers/external_device_manager/frameworks:ext_devmgr_frameworks",
+                "//drivers/external_device_manager/services/native/driver_extension:driver_extension_module",
+                "//drivers/external_device_manager/sa_profile:ext_dev_mgr_sa",
+                "//drivers/external_device_manager/services:driver_extension_manager",
+                "//drivers/external_device_manager/services:driver_extension_manager_test",
+                "//drivers/external_device_manager/services/native/driver_extension_manager/src/drivers_pkg_manager:drivers_pkg_manager",
+                "//drivers/external_device_manager/services/native/driver_extension_manager/src/device_manager:driver_extension_device_manager",
+                "//drivers/external_device_manager/services/native/driver_extension_manager/src/bus_extension/core:driver_extension_bus_core",
+                "//drivers/external_device_manager/services/native/driver_extension_manager/src/bus_extension/usb:driver_extension_usb_bus",
+                "//drivers/external_device_manager/services/native/driver_extension_manager/src/drivers_hisysevent:report_sys_event"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//drivers/external_device_manager/interfaces/innerkits:driver_ext_mgr_client",
+                    "header": {
+                        "header_files": [
+                            "driver_ext_mgr_client.h"
+                        ],
+                        "header_base": "//drivers/external_device_manager/interfaces/innerkits"
+                    }
+                }
+            ],
+            "test": [
+                "//drivers/external_device_manager/test/unittest:external_device_manager_ut",
+                "//drivers/external_device_manager/test/unittest/driver_extension_context_test:driver_extension_context_test",
+                "//drivers/external_device_manager/test/fuzztest:fuzztest",
+                "//drivers/external_device_manager/test/moduletest:external_device_manager_mt"
+            ]
+        }
+    }
+}

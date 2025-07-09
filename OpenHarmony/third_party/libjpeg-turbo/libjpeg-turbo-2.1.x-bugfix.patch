@@ -1,0 +1,1627 @@
+diff --git a/java/TJUnitTest.java b/java/TJUnitTest.java
+index 91ad5fd..07c59d8 100644
+--- a/java/TJUnitTest.java
++++ b/java/TJUnitTest.java
+@@ -837,6 +837,54 @@ final class TJUnitTest {
+     if (tjd != null) tjd.close();
+   }
+ 
++  static void overflowTest() throws Exception {
++    /* Ensure that the various buffer size methods don't overflow */
++    int size = 0;
++    boolean exception = false;
++    try {
++      exception = false;
++      size = TJ.bufSize(18919, 18919, TJ.SAMP_444);
++    } catch (Exception e) { exception = true; }
++    if (!exception || size != 0)
++      throw new Exception("TJ.bufSize() overflow");
++    try {
++      exception = false;
++      size = TJ.bufSizeYUV(26755, 1, 26755, TJ.SAMP_444);
++    } catch (Exception e) { exception = true; }
++    if (!exception || size != 0)
++      throw new Exception("TJ.bufSizeYUV() overflow");
++    try {
++      exception = false;
++      size = TJ.bufSizeYUV(26754, 3, 26754, TJ.SAMP_444);
++    } catch (Exception e) { exception = true; }
++    if (!exception || size != 0)
++      throw new Exception("TJ.bufSizeYUV() overflow");
++    try {
++      exception = false;
++      size = TJ.bufSizeYUV(26754, -1, 26754, TJ.SAMP_444);
++    } catch (Exception e) { exception = true; }
++    if (!exception || size != 0)
++      throw new Exception("TJ.bufSizeYUV() overflow");
++    try {
++      exception = false;
++      size = TJ.planeSizeYUV(0, 46341, 0, 46341, TJ.SAMP_444);
++    } catch (Exception e) { exception = true; }
++    if (!exception || size != 0)
++      throw new Exception("TJ.planeSizeYUV() overflow");
++    try {
++      exception = false;
++      size = TJ.planeWidth(0, Integer.MAX_VALUE, TJ.SAMP_420);
++    } catch (Exception e) { exception = true; }
++    if (!exception || size != 0)
++      throw new Exception("TJ.planeWidth() overflow");
++    try {
++      exception = false;
++      size = TJ.planeHeight(0, Integer.MAX_VALUE, TJ.SAMP_420);
++    } catch (Exception e) { exception = true; }
++    if (!exception || size != 0)
++      throw new Exception("TJ.planeHeight() overflow");
++  }
++
+   static void bufSizeTest() throws Exception {
+     int w, h, i, subsamp;
+     byte[] srcBuf, dstBuf = null;
+@@ -912,6 +960,7 @@ final class TJUnitTest {
+       }
+       if (doYUV)
+         FORMATS_4BYTE[4] = -1;
++      overflowTest();
+       doTest(35, 39, bi ? FORMATS_3BYTEBI : FORMATS_3BYTE, TJ.SAMP_444,
+              testName);
+       doTest(39, 41, bi ? FORMATS_4BYTEBI : FORMATS_4BYTE, TJ.SAMP_444,
+diff --git a/jchuff.h b/jchuff.h
+index 314a232..da7809a 100644
+--- a/jchuff.h
++++ b/jchuff.h
+@@ -3,8 +3,8 @@
+  *
+  * This file was part of the Independent JPEG Group's software:
+  * Copyright (C) 1991-1997, Thomas G. Lane.
+- * It was modified by The libjpeg-turbo Project to include only code relevant
+- * to libjpeg-turbo.
++ * libjpeg-turbo Modifications:
++ * Copyright (C) 2022, D. R. Commander.
+  * For conditions of distribution and use, see the accompanying README.ijg
+  * file.
+  *
+@@ -25,6 +25,14 @@
+ #define MAX_COEF_BITS  14
+ #endif
+ 
++/* The progressive Huffman encoder uses an unsigned 16-bit data type to store
++ * absolute values of coefficients, because it is possible to inject a
++ * coefficient value of -32768 into the encoder by attempting to transform a
++ * malformed 12-bit JPEG image, and the absolute value of -32768 would overflow
++ * a signed 16-bit integer.
++ */
++typedef unsigned short UJCOEF;
++
+ /* Derived data constructed for each Huffman table */
+ 
+ typedef struct {
+diff --git a/jcphuff.c b/jcphuff.c
+index 1101987..7c9d7cf 100644
+--- a/jcphuff.c
++++ b/jcphuff.c
+@@ -5,7 +5,7 @@
+  * Copyright (C) 1995-1997, Thomas G. Lane.
+  * libjpeg-turbo Modifications:
+  * Copyright (C) 2011, 2015, 2018, 2021, D. R. Commander.
+- * Copyright (C) 2016, 2018, Matthieu Darbois.
++ * Copyright (C) 2016, 2018, 2022, Matthieu Darbois.
+  * Copyright (C) 2020, Arm Limited.
+  * Copyright (C) 2021, Alex Richardson.
+  * For conditions of distribution and use, see the accompanying README.ijg
+@@ -83,11 +83,11 @@ typedef struct {
+   /* Pointer to routine to prepare data for encode_mcu_AC_first() */
+   void (*AC_first_prepare) (const JCOEF *block,
+                             const int *jpeg_natural_order_start, int Sl,
+-                            int Al, JCOEF *values, size_t *zerobits);
++                            int Al, UJCOEF *values, size_t *zerobits);
+   /* Pointer to routine to prepare data for encode_mcu_AC_refine() */
+   int (*AC_refine_prepare) (const JCOEF *block,
+                             const int *jpeg_natural_order_start, int Sl,
+-                            int Al, JCOEF *absvalues, size_t *bits);
++                            int Al, UJCOEF *absvalues, size_t *bits);
+ 
+   /* Mode flag: TRUE for optimization, FALSE for actual data output */
+   boolean gather_statistics;
+@@ -157,14 +157,14 @@ METHODDEF(boolean) encode_mcu_DC_first(j_compress_ptr cinfo,
+                                        JBLOCKROW *MCU_data);
+ METHODDEF(void) encode_mcu_AC_first_prepare
+   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+-   JCOEF *values, size_t *zerobits);
++   UJCOEF *values, size_t *zerobits);
+ METHODDEF(boolean) encode_mcu_AC_first(j_compress_ptr cinfo,
+                                        JBLOCKROW *MCU_data);
+ METHODDEF(boolean) encode_mcu_DC_refine(j_compress_ptr cinfo,
+                                         JBLOCKROW *MCU_data);
+ METHODDEF(int) encode_mcu_AC_refine_prepare
+   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+-   JCOEF *absvalues, size_t *bits);
++   UJCOEF *absvalues, size_t *bits);
+ METHODDEF(boolean) encode_mcu_AC_refine(j_compress_ptr cinfo,
+                                         JBLOCKROW *MCU_data);
+ METHODDEF(void) finish_pass_phuff(j_compress_ptr cinfo);
+@@ -584,8 +584,8 @@ encode_mcu_DC_first(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+       continue; \
+     /* For a negative coef, want temp2 = bitwise complement of abs(coef) */ \
+     temp2 ^= temp; \
+-    values[k] = temp; \
+-    values[k + DCTSIZE2] = temp2; \
++    values[k] = (UJCOEF)temp; \
++    values[k + DCTSIZE2] = (UJCOEF)temp2; \
+     zerobits |= ((size_t)1U) << k; \
+   } \
+ }
+@@ -593,7 +593,7 @@ encode_mcu_DC_first(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+ METHODDEF(void)
+ encode_mcu_AC_first_prepare(const JCOEF *block,
+                             const int *jpeg_natural_order_start, int Sl,
+-                            int Al, JCOEF *values, size_t *bits)
++                            int Al, UJCOEF *values, size_t *bits)
+ {
+   register int k, temp, temp2;
+   size_t zerobits = 0U;
+@@ -666,9 +666,9 @@ encode_mcu_AC_first(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+   register int nbits, r;
+   int Sl = cinfo->Se - cinfo->Ss + 1;
+   int Al = cinfo->Al;
+-  JCOEF values_unaligned[2 * DCTSIZE2 + 15];
+-  JCOEF *values;
+-  const JCOEF *cvalue;
++  UJCOEF values_unaligned[2 * DCTSIZE2 + 15];
++  UJCOEF *values;
++  const UJCOEF *cvalue;
+   size_t zerobits;
+   size_t bits[8 / SIZEOF_SIZE_T];
+ 
+@@ -681,7 +681,7 @@ encode_mcu_AC_first(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+       emit_restart(entropy, entropy->next_restart_num);
+ 
+ #ifdef WITH_SIMD
+-  cvalue = values = (JCOEF *)PAD((JUINTPTR)values_unaligned, 16);
++  cvalue = values = (UJCOEF *)PAD((size_t)values_unaligned, 16);
+ #else
+   /* Not using SIMD, so alignment is not needed */
+   cvalue = values = values_unaligned;
+@@ -815,7 +815,7 @@ encode_mcu_DC_refine(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+       zerobits |= ((size_t)1U) << k; \
+       signbits |= ((size_t)(temp2 + 1)) << k; \
+     } \
+-    absvalues[k] = (JCOEF)temp; /* save abs value for main pass */ \
++    absvalues[k] = (UJCOEF)temp; /* save abs value for main pass */ \
+     if (temp == 1) \
+       EOB = k + koffset;        /* EOB = index of last newly-nonzero coef */ \
+   } \
+@@ -824,7 +824,7 @@ encode_mcu_DC_refine(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+ METHODDEF(int)
+ encode_mcu_AC_refine_prepare(const JCOEF *block,
+                              const int *jpeg_natural_order_start, int Sl,
+-                             int Al, JCOEF *absvalues, size_t *bits)
++                             int Al, UJCOEF *absvalues, size_t *bits)
+ {
+   register int k, temp, temp2;
+   int EOB = 0;
+@@ -931,9 +931,9 @@ encode_mcu_AC_refine(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+   unsigned int BR;
+   int Sl = cinfo->Se - cinfo->Ss + 1;
+   int Al = cinfo->Al;
+-  JCOEF absvalues_unaligned[DCTSIZE2 + 15];
+-  JCOEF *absvalues;
+-  const JCOEF *cabsvalue, *EOBPTR;
++  UJCOEF absvalues_unaligned[DCTSIZE2 + 15];
++  UJCOEF *absvalues;
++  const UJCOEF *cabsvalue, *EOBPTR;
+   size_t zerobits, signbits;
+   size_t bits[16 / SIZEOF_SIZE_T];
+ 
+@@ -946,7 +946,7 @@ encode_mcu_AC_refine(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+       emit_restart(entropy, entropy->next_restart_num);
+ 
+ #ifdef WITH_SIMD
+-  cabsvalue = absvalues = (JCOEF *)PAD((JUINTPTR)absvalues_unaligned, 16);
++  cabsvalue = absvalues = (UJCOEF *)PAD((size_t)absvalues_unaligned, 16);
+ #else
+   /* Not using SIMD, so alignment is not needed */
+   cabsvalue = absvalues = absvalues_unaligned;
+diff --git a/jerror.c b/jerror.c
+index 936c4f5..aa0c6ee 100644
+--- a/jerror.c
++++ b/jerror.c
+@@ -27,6 +27,8 @@
+ #include "jversion.h"
+ #include "jerror.h"
+ 
++#include <stdlib.h>
++
+ #ifdef USE_WINDOWS_MESSAGEBOX
+ #include <windows.h>
+ #endif
+diff --git a/jsimd.h b/jsimd.h
+index 6c20365..f3a87ee 100644
+--- a/jsimd.h
++++ b/jsimd.h
+@@ -114,10 +114,10 @@ EXTERN(int) jsimd_can_encode_mcu_AC_first_prepare(void);
+ 
+ EXTERN(void) jsimd_encode_mcu_AC_first_prepare
+   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+-   JCOEF *values, size_t *zerobits);
++   UJCOEF *values, size_t *zerobits);
+ 
+ EXTERN(int) jsimd_can_encode_mcu_AC_refine_prepare(void);
+ 
+ EXTERN(int) jsimd_encode_mcu_AC_refine_prepare
+   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+-   JCOEF *absvalues, size_t *bits);
++   UJCOEF *absvalues, size_t *bits);
+diff --git a/jsimd_none.c b/jsimd_none.c
+index 5b38a9f..a25db73 100644
+--- a/jsimd_none.c
++++ b/jsimd_none.c
+@@ -2,8 +2,8 @@
+  * jsimd_none.c
+  *
+  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+- * Copyright (C) 2009-2011, 2014, D. R. Commander.
+- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
++ * Copyright (C) 2009-2011, 2014, 2022, D. R. Commander.
++ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+  * Copyright (C) 2020, Arm Limited.
+  *
+  * Based on the x86 SIMD extension for IJG JPEG library,
+@@ -412,7 +412,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+ GLOBAL(void)
+ jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+                                   const int *jpeg_natural_order_start, int Sl,
+-                                  int Al, JCOEF *values, size_t *zerobits)
++                                  int Al, UJCOEF *values, size_t *zerobits)
+ {
+ }
+ 
+@@ -425,7 +425,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+ GLOBAL(int)
+ jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+                                    const int *jpeg_natural_order_start, int Sl,
+-                                   int Al, JCOEF *absvalues, size_t *bits)
++                                   int Al, UJCOEF *absvalues, size_t *bits)
+ {
+   return 0;
+ }
+diff --git a/simd/arm/aarch32/jsimd.c b/simd/arm/aarch32/jsimd.c
+index fac55df..d6568c5 100644
+--- a/simd/arm/aarch32/jsimd.c
++++ b/simd/arm/aarch32/jsimd.c
+@@ -4,7 +4,7 @@
+  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+  * Copyright (C) 2011, Nokia Corporation and/or its subsidiary(-ies).
+  * Copyright (C) 2009-2011, 2013-2014, 2016, 2018, D. R. Commander.
+- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
++ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+  * Copyright (C) 2019, Google LLC.
+  * Copyright (C) 2020, Arm Limited.
+  *
+@@ -950,7 +950,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+ GLOBAL(void)
+ jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+                                   const int *jpeg_natural_order_start, int Sl,
+-                                  int Al, JCOEF *values, size_t *zerobits)
++                                  int Al, UJCOEF *values, size_t *zerobits)
+ {
+   jsimd_encode_mcu_AC_first_prepare_neon(block, jpeg_natural_order_start,
+                                          Sl, Al, values, zerobits);
+@@ -975,7 +975,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+ GLOBAL(int)
+ jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+                                    const int *jpeg_natural_order_start, int Sl,
+-                                   int Al, JCOEF *absvalues, size_t *bits)
++                                   int Al, UJCOEF *absvalues, size_t *bits)
+ {
+   return jsimd_encode_mcu_AC_refine_prepare_neon(block,
+                                                  jpeg_natural_order_start, Sl,
+diff --git a/simd/arm/aarch64/jsimd.c b/simd/arm/aarch64/jsimd.c
+index 8570b82..7de4f9a 100644
+--- a/simd/arm/aarch64/jsimd.c
++++ b/simd/arm/aarch64/jsimd.c
+@@ -4,7 +4,7 @@
+  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+  * Copyright (C) 2011, Nokia Corporation and/or its subsidiary(-ies).
+  * Copyright (C) 2009-2011, 2013-2014, 2016, 2018, 2020, D. R. Commander.
+- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
++ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+  * Copyright (C) 2020, Arm Limited.
+  *
+  * Based on the x86 SIMD extension for IJG JPEG library,
+@@ -1028,7 +1028,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+ GLOBAL(void)
+ jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+                                   const int *jpeg_natural_order_start, int Sl,
+-                                  int Al, JCOEF *values, size_t *zerobits)
++                                  int Al, UJCOEF *values, size_t *zerobits)
+ {
+   jsimd_encode_mcu_AC_first_prepare_neon(block, jpeg_natural_order_start,
+                                          Sl, Al, values, zerobits);
+@@ -1055,7 +1055,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+ GLOBAL(int)
+ jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+                                    const int *jpeg_natural_order_start, int Sl,
+-                                   int Al, JCOEF *absvalues, size_t *bits)
++                                   int Al, UJCOEF *absvalues, size_t *bits)
+ {
+   return jsimd_encode_mcu_AC_refine_prepare_neon(block,
+                                                  jpeg_natural_order_start,
+diff --git a/simd/arm/jcphuff-neon.c b/simd/arm/jcphuff-neon.c
+index b91c5db..24d756e 100644
+--- a/simd/arm/jcphuff-neon.c
++++ b/simd/arm/jcphuff-neon.c
+@@ -41,10 +41,10 @@
+ 
+ void jsimd_encode_mcu_AC_first_prepare_neon
+   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+-   JCOEF *values, size_t *zerobits)
++   UJCOEF *values, size_t *zerobits)
+ {
+-  JCOEF *values_ptr = values;
+-  JCOEF *diff_values_ptr = values + DCTSIZE2;
++  JCOEF *values_ptr = values;
++  JCOEF *diff_values_ptr = values + DCTSIZE2;
+ 
+   /* Rows of coefficients to zero (since they haven't been processed) */
+   int i, rows_to_zero = 8;
+@@ -274,7 +274,7 @@ void jsimd_encode_mcu_AC_first_prepare_neon
+ 
+ int jsimd_encode_mcu_AC_refine_prepare_neon
+   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+-   JCOEF *absvalues, size_t *bits)
++   UJCOEF *absvalues, size_t *bits)
+ {
+   /* Temporary storage buffers for data used to compute the signbits bitmap and
+    * the end-of-block (EOB) position
+@@ -282,7 +282,7 @@ int jsimd_encode_mcu_AC_refine_prepare_neon
+   uint8_t coef_sign_bits[64];
+   uint8_t coef_eq1_bits[64];
+ 
+-  JCOEF *absvalues_ptr = absvalues;
++  UJCOEF *absvalues_ptr = absvalues;
+   uint8_t *coef_sign_bits_ptr = coef_sign_bits;
+   uint8_t *eq1_bits_ptr = coef_eq1_bits;
+ 
+diff --git a/simd/i386/jsimd.c b/simd/i386/jsimd.c
+index 563949a..ebe0767 100644
+--- a/simd/i386/jsimd.c
++++ b/simd/i386/jsimd.c
+@@ -3,7 +3,7 @@
+  *
+  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+  * Copyright (C) 2009-2011, 2013-2014, 2016, 2018, D. R. Commander.
+- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
++ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+  *
+  * Based on the x86 SIMD extension for IJG JPEG library,
+  * Copyright (C) 1999-2006, MIYASAKA Masaru.
+@@ -1219,7 +1219,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+ GLOBAL(void)
+ jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+                                   const int *jpeg_natural_order_start, int Sl,
+-                                  int Al, JCOEF *values, size_t *zerobits)
++                                  int Al, UJCOEF *values, size_t *zerobits)
+ {
+   jsimd_encode_mcu_AC_first_prepare_sse2(block, jpeg_natural_order_start,
+                                          Sl, Al, values, zerobits);
+@@ -1245,7 +1245,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+ GLOBAL(int)
+ jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+                                    const int *jpeg_natural_order_start, int Sl,
+-                                   int Al, JCOEF *absvalues, size_t *bits)
++                                   int Al, UJCOEF *absvalues, size_t *bits)
+ {
+   return jsimd_encode_mcu_AC_refine_prepare_sse2(block,
+                                                  jpeg_natural_order_start,
+diff --git a/simd/jsimd.h b/simd/jsimd.h
+index 64747c6..abebbf4 100644
+--- a/simd/jsimd.h
++++ b/simd/jsimd.h
+@@ -5,7 +5,7 @@
+  * Copyright (C) 2011, 2014-2016, 2018, 2020, D. R. Commander.
+  * Copyright (C) 2013-2014, MIPS Technologies, Inc., California.
+  * Copyright (C) 2014, Linaro Limited.
+- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
++ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+  * Copyright (C) 2016-2018, Loongson Technology Corporation Limited, BeiJing.
+  * Copyright (C) 2020, Arm Limited.
+  *
+@@ -15,6 +15,8 @@
+  *
+  */
+ 
++#include <stdlib.h>
++
+ /* Bitmask for supported acceleration methods */
+ 
+ #define JSIMD_NONE     0x00
+@@ -1243,16 +1245,16 @@ EXTERN(JOCTET *) jsimd_huff_encode_one_block_neon_slowtbl
+ /* Progressive Huffman encoding */
+ EXTERN(void) jsimd_encode_mcu_AC_first_prepare_sse2
+   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+-   JCOEF *values, size_t *zerobits);
++   UJCOEF *values, size_t *zerobits);
+ 
+ EXTERN(void) jsimd_encode_mcu_AC_first_prepare_neon
+   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+-   JCOEF *values, size_t *zerobits);
++   UJCOEF *values, size_t *zerobits);
+ 
+ EXTERN(int) jsimd_encode_mcu_AC_refine_prepare_sse2
+   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+-   JCOEF *absvalues, size_t *bits);
++   UJCOEF *absvalues, size_t *bits);
+ 
+ EXTERN(int) jsimd_encode_mcu_AC_refine_prepare_neon
+   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+-   JCOEF *absvalues, size_t *bits);
++   UJCOEF *absvalues, size_t *bits);
+diff --git a/simd/mips/jsimd.c b/simd/mips/jsimd.c
+index d2546ee..9be0a96 100644
+--- a/simd/mips/jsimd.c
++++ b/simd/mips/jsimd.c
+@@ -4,7 +4,7 @@
+  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+  * Copyright (C) 2009-2011, 2014, 2016, 2018, 2020, D. R. Commander.
+  * Copyright (C) 2013-2014, MIPS Technologies, Inc., California.
+- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
++ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+  *
+  * Based on the x86 SIMD extension for IJG JPEG library,
+  * Copyright (C) 1999-2006, MIYASAKA Masaru.
+@@ -1128,7 +1128,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+ GLOBAL(void)
+ jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+                                   const int *jpeg_natural_order_start, int Sl,
+-                                  int Al, JCOEF *values, size_t *zerobits)
++                                  int Al, UJCOEF *values, size_t *zerobits)
+ {
+ }
+ 
+@@ -1141,7 +1141,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+ GLOBAL(int)
+ jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+                                    const int *jpeg_natural_order_start, int Sl,
+-                                   int Al, JCOEF *absvalues, size_t *bits)
++                                   int Al, UJCOEF *absvalues, size_t *bits)
+ {
+   return 0;
+ }
+diff --git a/simd/mips64/jsimd.c b/simd/mips64/jsimd.c
+index e8f1af5..bb9785b 100644
+--- a/simd/mips64/jsimd.c
++++ b/simd/mips64/jsimd.c
+@@ -851,7 +851,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+ GLOBAL(void)
+ jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+                                   const int *jpeg_natural_order_start, int Sl,
+-                                  int Al, JCOEF *values, size_t *zerobits)
++                                  int Al, UJCOEF *values, size_t *zerobits)
+ {
+ }
+ 
+@@ -864,7 +864,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+ GLOBAL(int)
+ jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+                                    const int *jpeg_natural_order_start, int Sl,
+-                                   int Al, JCOEF *absvalues, size_t *bits)
++                                   int Al, UJCOEF *absvalues, size_t *bits)
+ {
+   return 0;
+ }
+diff --git a/simd/powerpc/jsimd.c b/simd/powerpc/jsimd.c
+index d0d3981..8affc5e 100644
+--- a/simd/powerpc/jsimd.c
++++ b/simd/powerpc/jsimd.c
+@@ -3,7 +3,7 @@
+  *
+  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+  * Copyright (C) 2009-2011, 2014-2016, 2018, D. R. Commander.
+- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
++ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+  *
+  * Based on the x86 SIMD extension for IJG JPEG library,
+  * Copyright (C) 1999-2006, MIYASAKA Masaru.
+@@ -853,7 +853,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+ GLOBAL(void)
+ jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+                                   const int *jpeg_natural_order_start, int Sl,
+-                                  int Al, JCOEF *values, size_t *zerobits)
++                                  int Al, UJCOEF *values, size_t *zerobits)
+ {
+ }
+ 
+@@ -866,7 +866,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+ GLOBAL(int)
+ jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+                                    const int *jpeg_natural_order_start, int Sl,
+-                                   int Al, JCOEF *absvalues, size_t *bits)
++                                   int Al, UJCOEF *absvalues, size_t *bits)
+ {
+   return 0;
+ }
+diff --git a/simd/x86_64/jsimd.c b/simd/x86_64/jsimd.c
+index eb76679..1ede507 100644
+--- a/simd/x86_64/jsimd.c
++++ b/simd/x86_64/jsimd.c
+@@ -3,7 +3,7 @@
+  *
+  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+  * Copyright (C) 2009-2011, 2014, 2016, 2018, D. R. Commander.
+- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
++ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+  *
+  * Based on the x86 SIMD extension for IJG JPEG library,
+  * Copyright (C) 1999-2006, MIYASAKA Masaru.
+@@ -1040,7 +1040,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+ GLOBAL(void)
+ jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+                                   const int *jpeg_natural_order_start, int Sl,
+-                                  int Al, JCOEF *values, size_t *zerobits)
++                                  int Al, UJCOEF *values, size_t *zerobits)
+ {
+   jsimd_encode_mcu_AC_first_prepare_sse2(block, jpeg_natural_order_start,
+                                          Sl, Al, values, zerobits);
+@@ -1064,7 +1064,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+ GLOBAL(int)
+ jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+                                    const int *jpeg_natural_order_start, int Sl,
+-                                   int Al, JCOEF *absvalues, size_t *bits)
++                                   int Al, UJCOEF *absvalues, size_t *bits)
+ {
+   return jsimd_encode_mcu_AC_refine_prepare_sse2(block,
+                                                  jpeg_natural_order_start,
+diff --git a/tjbench.c b/tjbench.c
+index 156c906..8c83025 100644
+--- a/tjbench.c
++++ b/tjbench.c
+@@ -592,10 +592,16 @@ static int decompTest(char *fileName)
+     if ((flags & TJFLAG_NOREALLOC) != 0 &&
+         (doTile || xformOp != TJXOP_NONE || xformOpt != 0 || customFilter))
+       for (i = 0; i < ntilesw * ntilesh; i++) {
+-        if (tjBufSize(tilew, tileh, subsamp) > (unsigned long)INT_MAX)
++        unsigned long jpegBufSize;
++
++        if (xformOp == TJXOP_TRANSPOSE || xformOp == TJXOP_TRANSVERSE ||
++            xformOp == TJXOP_ROT90 || xformOp == TJXOP_ROT270)
++          jpegBufSize = tjBufSize(tileh, tilew, subsamp);
++        else
++          jpegBufSize = tjBufSize(tilew, tileh, subsamp);
++        if (jpegBufSize > (unsigned long)INT_MAX)
+           THROW("getting buffer size", "Image is too large");
+-        if ((jpegBuf[i] = (unsigned char *)
+-                          tjAlloc(tjBufSize(tilew, tileh, subsamp))) == NULL)
++        if ((jpegBuf[i] = (unsigned char *)tjAlloc(jpegBufSize)) == NULL)
+           THROW_UNIX("allocating JPEG tiles");
+       }
+ 
+diff --git a/tjexample.c b/tjexample.c
+index a9cd865..2ac1fed 100644
+--- a/tjexample.c
++++ b/tjexample.c
+@@ -32,6 +32,7 @@
+  * images using the TurboJPEG C API
+  */
+ 
++#include <limits.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+@@ -273,6 +274,8 @@ int main(int argc, char **argv)
+     if (size == 0)
+       THROW("determining input file size", "Input file contains no data");
+     jpegSize = (unsigned long)size;
++    if (jpegSize > (unsigned long)INT_MAX)
++      THROW("allocating JPEG buffer", "Input file is too large");
+     if ((jpegBuf = (unsigned char *)tjAlloc(jpegSize)) == NULL)
+       THROW_UNIX("allocating JPEG buffer");
+     if (fread(jpegBuf, jpegSize, 1, jpegFile) < 1)
+@@ -330,8 +333,12 @@ int main(int argc, char **argv)
+       outSubsamp = inSubsamp;
+ 
+     pixelFormat = TJPF_BGRX;
+-    if ((imgBuf = (unsigned char *)tjAlloc(width * height *
+-                                           tjPixelSize[pixelFormat])) == NULL)
++    if ((unsigned long long)width * height * tjPixelSize[pixelFormat] >
++        (unsigned long long)((size_t)-1))
++      THROW("allocating uncompressed image buffer", "Image is too large");
++    if ((imgBuf =
++         (unsigned char *)malloc(sizeof(unsigned char) * width * height *
++                                 tjPixelSize[pixelFormat])) == NULL)
+       THROW_UNIX("allocating uncompressed image buffer");
+ 
+     if (tjDecompress2(tjInstance, jpegBuf, jpegSize, imgBuf, width, 0, height,
+diff --git a/tjunittest.c b/tjunittest.c
+index f59939f..38ada63 100644
+--- a/tjunittest.c
++++ b/tjunittest.c
+@@ -33,6 +33,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <limits.h>
+ #include <errno.h>
+ #include "tjutil.h"
+ #include "turbojpeg.h"
+@@ -566,11 +567,16 @@ bailout:
+     THROW(#function " overflow"); \
+ }
+ #endif
++#define CHECKSIZEINT(function) { \
++  if (intsize != -1 || !strcmp(tjGetErrorStr2(NULL), "No error")) \
++    THROW(#function " overflow"); \
++}
+ 
+ static void overflowTest(void)
+ {
+   /* Ensure that the various buffer size functions don't overflow */
+   unsigned long size;
++  int intsize;
+ 
+   size = tjBufSize(26755, 26755, TJSAMP_444);
+   CHECKSIZE(tjBufSize());
+@@ -584,6 +590,10 @@ static void overflowTest(void)
+   CHECKSIZE(tjBufSizeYUV());
+   size = tjPlaneSizeYUV(0, 65536, 0, 65536, TJSAMP_444);
+   CHECKSIZE(tjPlaneSizeYUV());
++  intsize = tjPlaneWidth(0, INT_MAX, TJSAMP_420);
++  CHECKSIZEINT(tjPlaneWidth());
++  intsize = tjPlaneHeight(0, INT_MAX, TJSAMP_420);
++  CHECKSIZEINT(tjPlaneHeight());
+ 
+ bailout:
+   return;
+diff --git a/turbojpeg-jni.c b/turbojpeg-jni.c
+index 1b728e3..053edbd 100644
+--- a/turbojpeg-jni.c
++++ b/turbojpeg-jni.c
+@@ -26,6 +26,7 @@
+  * POSSIBILITY OF SUCH DAMAGE.
+  */
+ 
++#include <limits.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include "turbojpeg.h"
+@@ -128,24 +129,28 @@ bailout:
+ JNIEXPORT jint JNICALL Java_org_libjpegturbo_turbojpeg_TJ_bufSize
+   (JNIEnv *env, jclass cls, jint width, jint height, jint jpegSubsamp)
+ {
+-  jint retval = (jint)tjBufSize(width, height, jpegSubsamp);
++  unsigned long retval = tjBufSize(width, height, jpegSubsamp);
+ 
+-  if (retval == -1) THROW_ARG(tjGetErrorStr());
++  if (retval == (unsigned long)-1) THROW_ARG(tjGetErrorStr());
++  if (retval > (unsigned long)INT_MAX)
++    THROW_ARG("Image is too large");
+ 
+ bailout:
+-  return retval;
++  return (jint)retval;
+ }
+ 
+ /* TurboJPEG 1.4.x: TJ::bufSizeYUV() */
+ JNIEXPORT jint JNICALL Java_org_libjpegturbo_turbojpeg_TJ_bufSizeYUV__IIII
+   (JNIEnv *env, jclass cls, jint width, jint pad, jint height, jint subsamp)
+ {
+-  jint retval = (jint)tjBufSizeYUV2(width, pad, height, subsamp);
++  unsigned long retval = tjBufSizeYUV2(width, align, height, subsamp);
+ 
+-  if (retval == -1) THROW_ARG(tjGetErrorStr());
++  if (retval == (unsigned long)-1) THROW_ARG(tjGetErrorStr());
++  if (retval > (unsigned long)INT_MAX)
++    THROW_ARG("Image is too large");
+ 
+ bailout:
+-  return retval;
++  return (jint)retval;
+ }
+ 
+ /* TurboJPEG 1.2.x: TJ::bufSizeYUV() */
+@@ -162,13 +167,15 @@ JNIEXPORT jint JNICALL Java_org_libjpegturbo_turbojpeg_TJ_planeSizeYUV__IIIII
+   (JNIEnv *env, jclass cls, jint componentID, jint width, jint stride,
+    jint height, jint subsamp)
+ {
+-  jint retval = (jint)tjPlaneSizeYUV(componentID, width, stride, height,
+-                                     subsamp);
++  unsigned long retval = tjPlaneSizeYUV(componentID, width, stride, height,
++                                        subsamp);
+ 
+-  if (retval == -1) THROW_ARG(tjGetErrorStr());
++  if (retval == (unsigned long)-1) THROW_ARG(tjGetErrorStr());
++  if (retval > (unsigned long)INT_MAX)
++    THROW_ARG("Image is too large");
+ 
+ bailout:
+-  return retval;
++  return (jint)retval;
+ }
+ 
+ /* TurboJPEG 1.4.x: TJ::planeWidth() */
+@@ -1176,6 +1183,10 @@ JNIEXPORT jintArray JNICALL Java_org_libjpegturbo_turbojpeg_TJTransformer_transf
+   for (i = 0; i < n; i++) {
+     int w = jpegWidth, h = jpegHeight;
+ 
++    if (t[i].op == TJXOP_TRANSPOSE || t[i].op == TJXOP_TRANSVERSE ||
++        t[i].op == TJXOP_ROT90 || t[i].op == TJXOP_ROT270) {
++      w = jpegHeight;  h = jpegWidth;
++    }
+     if (t[i].r.w != 0) w = t[i].r.w;
+     if (t[i].r.h != 0) h = t[i].r.h;
+     BAILIF0(jdstBufs[i] = (*env)->GetObjectArrayElement(env, dstobjs, i));
+diff --git a/turbojpeg.c b/turbojpeg.c
+index 47c5999..6c425be 100644
+--- a/turbojpeg.c
++++ b/turbojpeg.c
+@@ -33,6 +33,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <ctype.h>
++#include <limits.h>
+ #include <jinclude.h>
+ #define JPEG_INTERNALS
+ #include <jpeglib.h>
+@@ -599,7 +600,8 @@ DLLEXPORT unsigned long TJBUFSIZEYUV(int width, int height, int subsamp)
+ 
+ DLLEXPORT int tjPlaneWidth(int componentID, int width, int subsamp)
+ {
+-  int pw, nc, retval = 0;
++  unsigned long long pw, retval = 0;
++  int nc;
+ 
+   if (width < 1 || subsamp < 0 || subsamp >= TJ_NUMSAMP)
+     THROWG("tjPlaneWidth(): Invalid argument");
+@@ -613,14 +615,18 @@ DLLEXPORT int tjPlaneWidth(int componentID, int width, int subsamp)
+   else
+     retval = pw * 8 / tjMCUWidth[subsamp];
+ 
++  if (retval > (unsigned long long)INT_MAX)
++    THROWG("tjPlaneWidth(): Width is too large");
++
+ bailout:
+-  return retval;
++  return (int)retval;
+ }
+ 
+ 
+ DLLEXPORT int tjPlaneHeight(int componentID, int height, int subsamp)
+ {
+-  int ph, nc, retval = 0;
++  unsigned long long ph, retval = 0;
++  int nc;
+ 
+   if (height < 1 || subsamp < 0 || subsamp >= TJ_NUMSAMP)
+     THROWG("tjPlaneHeight(): Invalid argument");
+@@ -634,8 +640,11 @@ DLLEXPORT int tjPlaneHeight(int componentID, int height, int subsamp)
+   else
+     retval = ph * 8 / tjMCUHeight[subsamp];
+ 
++  if (retval > (unsigned long long)INT_MAX)
++    THROWG("tjPlaneHeight(): Height is too large");
++
+ bailout:
+-  return retval;
++  return (int)retval;
+ }
+ 
+ 
+@@ -1985,6 +1994,10 @@ DLLEXPORT int tjTransform(tjhandle handle, const unsigned char *jpegBuf,
+ 
+     if (!xinfo[i].crop) {
+       w = dinfo->image_width;  h = dinfo->image_height;
++      if (t[i].op == TJXOP_TRANSPOSE || t[i].op == TJXOP_TRANSVERSE ||
++          t[i].op == TJXOP_ROT90 || t[i].op == TJXOP_ROT270) {
++        w = dinfo->image_height;  h = dinfo->image_width;
++      }
+     } else {
+       w = xinfo[i].crop_width;  h = xinfo[i].crop_height;
+     }
+diff --git a/libjpeg-turbo-2.1.x-bugfix.patch b/libjpeg-turbo-2.1.x-bugfix.patch
+index c4c0b10..2eac16b 100644
+--- a/libjpeg-turbo-2.1.x-bugfix.patch
++++ b/libjpeg-turbo-2.1.x-bugfix.patch
+@@ -1,804 +0,0 @@
+-diff --git a/java/TJUnitTest.java b/java/TJUnitTest.java
+-index 91ad5fd..07c59d8 100644
+---- a/java/TJUnitTest.java
+-+++ b/java/TJUnitTest.java
+-@@ -837,6 +837,54 @@ final class TJUnitTest {
+-     if (tjd != null) tjd.close();
+-   }
+- 
+-+  static void overflowTest() throws Exception {
+-+    /* Ensure that the various buffer size methods don't overflow */
+-+    int size = 0;
+-+    boolean exception = false;
+-+    try {
+-+      exception = false;
+-+      size = TJ.bufSize(18919, 18919, TJ.SAMP_444);
+-+    } catch (Exception e) { exception = true; }
+-+    if (!exception || size != 0)
+-+      throw new Exception("TJ.bufSize() overflow");
+-+    try {
+-+      exception = false;
+-+      size = TJ.bufSizeYUV(26755, 1, 26755, TJ.SAMP_444);
+-+    } catch (Exception e) { exception = true; }
+-+    if (!exception || size != 0)
+-+      throw new Exception("TJ.bufSizeYUV() overflow");
+-+    try {
+-+      exception = false;
+-+      size = TJ.bufSizeYUV(26754, 3, 26754, TJ.SAMP_444);
+-+    } catch (Exception e) { exception = true; }
+-+    if (!exception || size != 0)
+-+      throw new Exception("TJ.bufSizeYUV() overflow");
+-+    try {
+-+      exception = false;
+-+      size = TJ.bufSizeYUV(26754, -1, 26754, TJ.SAMP_444);
+-+    } catch (Exception e) { exception = true; }
+-+    if (!exception || size != 0)
+-+      throw new Exception("TJ.bufSizeYUV() overflow");
+-+    try {
+-+      exception = false;
+-+      size = TJ.planeSizeYUV(0, 46341, 0, 46341, TJ.SAMP_444);
+-+    } catch (Exception e) { exception = true; }
+-+    if (!exception || size != 0)
+-+      throw new Exception("TJ.planeSizeYUV() overflow");
+-+    try {
+-+      exception = false;
+-+      size = TJ.planeWidth(0, Integer.MAX_VALUE, TJ.SAMP_420);
+-+    } catch (Exception e) { exception = true; }
+-+    if (!exception || size != 0)
+-+      throw new Exception("TJ.planeWidth() overflow");
+-+    try {
+-+      exception = false;
+-+      size = TJ.planeHeight(0, Integer.MAX_VALUE, TJ.SAMP_420);
+-+    } catch (Exception e) { exception = true; }
+-+    if (!exception || size != 0)
+-+      throw new Exception("TJ.planeHeight() overflow");
+-+  }
+-+
+-   static void bufSizeTest() throws Exception {
+-     int w, h, i, subsamp;
+-     byte[] srcBuf, dstBuf = null;
+-@@ -912,6 +960,7 @@ final class TJUnitTest {
+-       }
+-       if (doYUV)
+-         FORMATS_4BYTE[4] = -1;
+-+      overflowTest();
+-       doTest(35, 39, bi ? FORMATS_3BYTEBI : FORMATS_3BYTE, TJ.SAMP_444,
+-              testName);
+-       doTest(39, 41, bi ? FORMATS_4BYTEBI : FORMATS_4BYTE, TJ.SAMP_444,
+-diff --git a/jchuff.h b/jchuff.h
+-index 314a232..da7809a 100644
+---- a/jchuff.h
+-+++ b/jchuff.h
+-@@ -3,8 +3,8 @@
+-  *
+-  * This file was part of the Independent JPEG Group's software:
+-  * Copyright (C) 1991-1997, Thomas G. Lane.
+-- * It was modified by The libjpeg-turbo Project to include only code relevant
+-- * to libjpeg-turbo.
+-+ * libjpeg-turbo Modifications:
+-+ * Copyright (C) 2022, D. R. Commander.
+-  * For conditions of distribution and use, see the accompanying README.ijg
+-  * file.
+-  *
+-@@ -25,6 +25,14 @@
+- #define MAX_COEF_BITS  14
+- #endif
+- 
+-+/* The progressive Huffman encoder uses an unsigned 16-bit data type to store
+-+ * absolute values of coefficients, because it is possible to inject a
+-+ * coefficient value of -32768 into the encoder by attempting to transform a
+-+ * malformed 12-bit JPEG image, and the absolute value of -32768 would overflow
+-+ * a signed 16-bit integer.
+-+ */
+-+typedef unsigned short UJCOEF;
+-+
+- /* Derived data constructed for each Huffman table */
+- 
+- typedef struct {
+-diff --git a/jcphuff.c b/jcphuff.c
+-index 1101987..7c9d7cf 100644
+---- a/jcphuff.c
+-+++ b/jcphuff.c
+-@@ -5,7 +5,7 @@
+-  * Copyright (C) 1995-1997, Thomas G. Lane.
+-  * libjpeg-turbo Modifications:
+-  * Copyright (C) 2011, 2015, 2018, 2021, D. R. Commander.
+-- * Copyright (C) 2016, 2018, Matthieu Darbois.
+-+ * Copyright (C) 2016, 2018, 2022, Matthieu Darbois.
+-  * Copyright (C) 2020, Arm Limited.
+-  * Copyright (C) 2021, Alex Richardson.
+-  * For conditions of distribution and use, see the accompanying README.ijg
+-@@ -83,11 +83,11 @@ typedef struct {
+-   /* Pointer to routine to prepare data for encode_mcu_AC_first() */
+-   void (*AC_first_prepare) (const JCOEF *block,
+-                             const int *jpeg_natural_order_start, int Sl,
+--                            int Al, JCOEF *values, size_t *zerobits);
+-+                            int Al, UJCOEF *values, size_t *zerobits);
+-   /* Pointer to routine to prepare data for encode_mcu_AC_refine() */
+-   int (*AC_refine_prepare) (const JCOEF *block,
+-                             const int *jpeg_natural_order_start, int Sl,
+--                            int Al, JCOEF *absvalues, size_t *bits);
+-+                            int Al, UJCOEF *absvalues, size_t *bits);
+- 
+-   /* Mode flag: TRUE for optimization, FALSE for actual data output */
+-   boolean gather_statistics;
+-@@ -157,14 +157,14 @@ METHODDEF(boolean) encode_mcu_DC_first(j_compress_ptr cinfo,
+-                                        JBLOCKROW *MCU_data);
+- METHODDEF(void) encode_mcu_AC_first_prepare
+-   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+--   JCOEF *values, size_t *zerobits);
+-+   UJCOEF *values, size_t *zerobits);
+- METHODDEF(boolean) encode_mcu_AC_first(j_compress_ptr cinfo,
+-                                        JBLOCKROW *MCU_data);
+- METHODDEF(boolean) encode_mcu_DC_refine(j_compress_ptr cinfo,
+-                                         JBLOCKROW *MCU_data);
+- METHODDEF(int) encode_mcu_AC_refine_prepare
+-   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+--   JCOEF *absvalues, size_t *bits);
+-+   UJCOEF *absvalues, size_t *bits);
+- METHODDEF(boolean) encode_mcu_AC_refine(j_compress_ptr cinfo,
+-                                         JBLOCKROW *MCU_data);
+- METHODDEF(void) finish_pass_phuff(j_compress_ptr cinfo);
+-@@ -584,8 +584,8 @@ encode_mcu_DC_first(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+-       continue; \
+-     /* For a negative coef, want temp2 = bitwise complement of abs(coef) */ \
+-     temp2 ^= temp; \
+--    values[k] = temp; \
+--    values[k + DCTSIZE2] = temp2; \
+-+    values[k] = (UJCOEF)temp; \
+-+    values[k + DCTSIZE2] = (UJCOEF)temp2; \
+-     zerobits |= ((size_t)1U) << k; \
+-   } \
+- }
+-@@ -593,7 +593,7 @@ encode_mcu_DC_first(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+- METHODDEF(void)
+- encode_mcu_AC_first_prepare(const JCOEF *block,
+-                             const int *jpeg_natural_order_start, int Sl,
+--                            int Al, JCOEF *values, size_t *bits)
+-+                            int Al, UJCOEF *values, size_t *bits)
+- {
+-   register int k, temp, temp2;
+-   size_t zerobits = 0U;
+-@@ -666,9 +666,9 @@ encode_mcu_AC_first(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+-   register int nbits, r;
+-   int Sl = cinfo->Se - cinfo->Ss + 1;
+-   int Al = cinfo->Al;
+--  JCOEF values_unaligned[2 * DCTSIZE2 + 15];
+--  JCOEF *values;
+--  const JCOEF *cvalue;
+-+  UJCOEF values_unaligned[2 * DCTSIZE2 + 15];
+-+  UJCOEF *values;
+-+  const UJCOEF *cvalue;
+-   size_t zerobits;
+-   size_t bits[8 / SIZEOF_SIZE_T];
+- 
+-@@ -681,7 +681,7 @@ encode_mcu_AC_first(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+-       emit_restart(entropy, entropy->next_restart_num);
+- 
+- #ifdef WITH_SIMD
+--  cvalue = values = (JCOEF *)PAD((JUINTPTR)values_unaligned, 16);
+-+  cvalue = values = (UJCOEF *)PAD((size_t)values_unaligned, 16);
+- #else
+-   /* Not using SIMD, so alignment is not needed */
+-   cvalue = values = values_unaligned;
+-@@ -815,7 +815,7 @@ encode_mcu_DC_refine(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+-       zerobits |= ((size_t)1U) << k; \
+-       signbits |= ((size_t)(temp2 + 1)) << k; \
+-     } \
+--    absvalues[k] = (JCOEF)temp; /* save abs value for main pass */ \
+-+    absvalues[k] = (UJCOEF)temp; /* save abs value for main pass */ \
+-     if (temp == 1) \
+-       EOB = k + koffset;        /* EOB = index of last newly-nonzero coef */ \
+-   } \
+-@@ -824,7 +824,7 @@ encode_mcu_DC_refine(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+- METHODDEF(int)
+- encode_mcu_AC_refine_prepare(const JCOEF *block,
+-                              const int *jpeg_natural_order_start, int Sl,
+--                             int Al, JCOEF *absvalues, size_t *bits)
+-+                             int Al, UJCOEF *absvalues, size_t *bits)
+- {
+-   register int k, temp, temp2;
+-   int EOB = 0;
+-@@ -931,9 +931,9 @@ encode_mcu_AC_refine(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+-   unsigned int BR;
+-   int Sl = cinfo->Se - cinfo->Ss + 1;
+-   int Al = cinfo->Al;
+--  JCOEF absvalues_unaligned[DCTSIZE2 + 15];
+--  JCOEF *absvalues;
+--  const JCOEF *cabsvalue, *EOBPTR;
+-+  UJCOEF absvalues_unaligned[DCTSIZE2 + 15];
+-+  UJCOEF *absvalues;
+-+  const UJCOEF *cabsvalue, *EOBPTR;
+-   size_t zerobits, signbits;
+-   size_t bits[16 / SIZEOF_SIZE_T];
+- 
+-@@ -946,7 +946,7 @@ encode_mcu_AC_refine(j_compress_ptr cinfo, JBLOCKROW *MCU_data)
+-       emit_restart(entropy, entropy->next_restart_num);
+- 
+- #ifdef WITH_SIMD
+--  cabsvalue = absvalues = (JCOEF *)PAD((JUINTPTR)absvalues_unaligned, 16);
+-+  cabsvalue = absvalues = (UJCOEF *)PAD((size_t)absvalues_unaligned, 16);
+- #else
+-   /* Not using SIMD, so alignment is not needed */
+-   cabsvalue = absvalues = absvalues_unaligned;
+-diff --git a/jerror.c b/jerror.c
+-index 936c4f5..aa0c6ee 100644
+---- a/jerror.c
+-+++ b/jerror.c
+-@@ -27,6 +27,8 @@
+- #include "jversion.h"
+- #include "jerror.h"
+- 
+-+#include <stdlib.h>
+-+
+- #ifdef USE_WINDOWS_MESSAGEBOX
+- #include <windows.h>
+- #endif
+-diff --git a/jsimd.h b/jsimd.h
+-index 6c20365..f3a87ee 100644
+---- a/jsimd.h
+-+++ b/jsimd.h
+-@@ -114,10 +114,10 @@ EXTERN(int) jsimd_can_encode_mcu_AC_first_prepare(void);
+- 
+- EXTERN(void) jsimd_encode_mcu_AC_first_prepare
+-   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+--   JCOEF *values, size_t *zerobits);
+-+   UJCOEF *values, size_t *zerobits);
+- 
+- EXTERN(int) jsimd_can_encode_mcu_AC_refine_prepare(void);
+- 
+- EXTERN(int) jsimd_encode_mcu_AC_refine_prepare
+-   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+--   JCOEF *absvalues, size_t *bits);
+-+   UJCOEF *absvalues, size_t *bits);
+-diff --git a/jsimd_none.c b/jsimd_none.c
+-index 5b38a9f..a25db73 100644
+---- a/jsimd_none.c
+-+++ b/jsimd_none.c
+-@@ -2,8 +2,8 @@
+-  * jsimd_none.c
+-  *
+-  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+-- * Copyright (C) 2009-2011, 2014, D. R. Commander.
+-- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
+-+ * Copyright (C) 2009-2011, 2014, 2022, D. R. Commander.
+-+ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+-  * Copyright (C) 2020, Arm Limited.
+-  *
+-  * Based on the x86 SIMD extension for IJG JPEG library,
+-@@ -412,7 +412,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+- GLOBAL(void)
+- jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+-                                   const int *jpeg_natural_order_start, int Sl,
+--                                  int Al, JCOEF *values, size_t *zerobits)
+-+                                  int Al, UJCOEF *values, size_t *zerobits)
+- {
+- }
+- 
+-@@ -425,7 +425,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+- GLOBAL(int)
+- jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+-                                    const int *jpeg_natural_order_start, int Sl,
+--                                   int Al, JCOEF *absvalues, size_t *bits)
+-+                                   int Al, UJCOEF *absvalues, size_t *bits)
+- {
+-   return 0;
+- }
+-diff --git a/simd/arm/aarch32/jsimd.c b/simd/arm/aarch32/jsimd.c
+-index fac55df..d6568c5 100644
+---- a/simd/arm/aarch32/jsimd.c
+-+++ b/simd/arm/aarch32/jsimd.c
+-@@ -4,7 +4,7 @@
+-  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+-  * Copyright (C) 2011, Nokia Corporation and/or its subsidiary(-ies).
+-  * Copyright (C) 2009-2011, 2013-2014, 2016, 2018, D. R. Commander.
+-- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
+-+ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+-  * Copyright (C) 2019, Google LLC.
+-  * Copyright (C) 2020, Arm Limited.
+-  *
+-@@ -950,7 +950,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+- GLOBAL(void)
+- jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+-                                   const int *jpeg_natural_order_start, int Sl,
+--                                  int Al, JCOEF *values, size_t *zerobits)
+-+                                  int Al, UJCOEF *values, size_t *zerobits)
+- {
+-   jsimd_encode_mcu_AC_first_prepare_neon(block, jpeg_natural_order_start,
+-                                          Sl, Al, values, zerobits);
+-@@ -975,7 +975,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+- GLOBAL(int)
+- jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+-                                    const int *jpeg_natural_order_start, int Sl,
+--                                   int Al, JCOEF *absvalues, size_t *bits)
+-+                                   int Al, UJCOEF *absvalues, size_t *bits)
+- {
+-   return jsimd_encode_mcu_AC_refine_prepare_neon(block,
+-                                                  jpeg_natural_order_start, Sl,
+-diff --git a/simd/arm/aarch64/jsimd.c b/simd/arm/aarch64/jsimd.c
+-index 8570b82..7de4f9a 100644
+---- a/simd/arm/aarch64/jsimd.c
+-+++ b/simd/arm/aarch64/jsimd.c
+-@@ -4,7 +4,7 @@
+-  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+-  * Copyright (C) 2011, Nokia Corporation and/or its subsidiary(-ies).
+-  * Copyright (C) 2009-2011, 2013-2014, 2016, 2018, 2020, D. R. Commander.
+-- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
+-+ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+-  * Copyright (C) 2020, Arm Limited.
+-  *
+-  * Based on the x86 SIMD extension for IJG JPEG library,
+-@@ -1028,7 +1028,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+- GLOBAL(void)
+- jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+-                                   const int *jpeg_natural_order_start, int Sl,
+--                                  int Al, JCOEF *values, size_t *zerobits)
+-+                                  int Al, UJCOEF *values, size_t *zerobits)
+- {
+-   jsimd_encode_mcu_AC_first_prepare_neon(block, jpeg_natural_order_start,
+-                                          Sl, Al, values, zerobits);
+-@@ -1055,7 +1055,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+- GLOBAL(int)
+- jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+-                                    const int *jpeg_natural_order_start, int Sl,
+--                                   int Al, JCOEF *absvalues, size_t *bits)
+-+                                   int Al, UJCOEF *absvalues, size_t *bits)
+- {
+-   return jsimd_encode_mcu_AC_refine_prepare_neon(block,
+-                                                  jpeg_natural_order_start,
+-diff --git a/simd/arm/jcphuff-neon.c b/simd/arm/jcphuff-neon.c
+-index b91c5db..2640097 100644
+---- a/simd/arm/jcphuff-neon.c
+-+++ b/simd/arm/jcphuff-neon.c
+-@@ -41,7 +41,7 @@
+- 
+- void jsimd_encode_mcu_AC_first_prepare_neon
+-   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+--   JCOEF *values, size_t *zerobits)
+-+   UJCOEF *values, size_t *zerobits)
+- {
+-   JCOEF *values_ptr = values;
+-   JCOEF *diff_values_ptr = values + DCTSIZE2;
+-@@ -274,7 +274,7 @@ void jsimd_encode_mcu_AC_first_prepare_neon
+- 
+- int jsimd_encode_mcu_AC_refine_prepare_neon
+-   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+--   JCOEF *absvalues, size_t *bits)
+-+   UJCOEF *absvalues, size_t *bits)
+- {
+-   /* Temporary storage buffers for data used to compute the signbits bitmap and
+-    * the end-of-block (EOB) position
+-diff --git a/simd/i386/jsimd.c b/simd/i386/jsimd.c
+-index 563949a..ebe0767 100644
+---- a/simd/i386/jsimd.c
+-+++ b/simd/i386/jsimd.c
+-@@ -3,7 +3,7 @@
+-  *
+-  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+-  * Copyright (C) 2009-2011, 2013-2014, 2016, 2018, D. R. Commander.
+-- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
+-+ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+-  *
+-  * Based on the x86 SIMD extension for IJG JPEG library,
+-  * Copyright (C) 1999-2006, MIYASAKA Masaru.
+-@@ -1219,7 +1219,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+- GLOBAL(void)
+- jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+-                                   const int *jpeg_natural_order_start, int Sl,
+--                                  int Al, JCOEF *values, size_t *zerobits)
+-+                                  int Al, UJCOEF *values, size_t *zerobits)
+- {
+-   jsimd_encode_mcu_AC_first_prepare_sse2(block, jpeg_natural_order_start,
+-                                          Sl, Al, values, zerobits);
+-@@ -1245,7 +1245,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+- GLOBAL(int)
+- jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+-                                    const int *jpeg_natural_order_start, int Sl,
+--                                   int Al, JCOEF *absvalues, size_t *bits)
+-+                                   int Al, UJCOEF *absvalues, size_t *bits)
+- {
+-   return jsimd_encode_mcu_AC_refine_prepare_sse2(block,
+-                                                  jpeg_natural_order_start,
+-diff --git a/simd/jsimd.h b/simd/jsimd.h
+-index 64747c6..abebbf4 100644
+---- a/simd/jsimd.h
+-+++ b/simd/jsimd.h
+-@@ -5,7 +5,7 @@
+-  * Copyright (C) 2011, 2014-2016, 2018, 2020, D. R. Commander.
+-  * Copyright (C) 2013-2014, MIPS Technologies, Inc., California.
+-  * Copyright (C) 2014, Linaro Limited.
+-- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
+-+ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+-  * Copyright (C) 2016-2018, Loongson Technology Corporation Limited, BeiJing.
+-  * Copyright (C) 2020, Arm Limited.
+-  *
+-@@ -15,6 +15,8 @@
+-  *
+-  */
+- 
+-+#include <stdlib.h>
+-+
+- /* Bitmask for supported acceleration methods */
+- 
+- #define JSIMD_NONE     0x00
+-@@ -1243,16 +1245,16 @@ EXTERN(JOCTET *) jsimd_huff_encode_one_block_neon_slowtbl
+- /* Progressive Huffman encoding */
+- EXTERN(void) jsimd_encode_mcu_AC_first_prepare_sse2
+-   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+--   JCOEF *values, size_t *zerobits);
+-+   UJCOEF *values, size_t *zerobits);
+- 
+- EXTERN(void) jsimd_encode_mcu_AC_first_prepare_neon
+-   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+--   JCOEF *values, size_t *zerobits);
+-+   UJCOEF *values, size_t *zerobits);
+- 
+- EXTERN(int) jsimd_encode_mcu_AC_refine_prepare_sse2
+-   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+--   JCOEF *absvalues, size_t *bits);
+-+   UJCOEF *absvalues, size_t *bits);
+- 
+- EXTERN(int) jsimd_encode_mcu_AC_refine_prepare_neon
+-   (const JCOEF *block, const int *jpeg_natural_order_start, int Sl, int Al,
+--   JCOEF *absvalues, size_t *bits);
+-+   UJCOEF *absvalues, size_t *bits);
+-diff --git a/simd/mips/jsimd.c b/simd/mips/jsimd.c
+-index d2546ee..9be0a96 100644
+---- a/simd/mips/jsimd.c
+-+++ b/simd/mips/jsimd.c
+-@@ -4,7 +4,7 @@
+-  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+-  * Copyright (C) 2009-2011, 2014, 2016, 2018, 2020, D. R. Commander.
+-  * Copyright (C) 2013-2014, MIPS Technologies, Inc., California.
+-- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
+-+ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+-  *
+-  * Based on the x86 SIMD extension for IJG JPEG library,
+-  * Copyright (C) 1999-2006, MIYASAKA Masaru.
+-@@ -1128,7 +1128,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+- GLOBAL(void)
+- jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+-                                   const int *jpeg_natural_order_start, int Sl,
+--                                  int Al, JCOEF *values, size_t *zerobits)
+-+                                  int Al, UJCOEF *values, size_t *zerobits)
+- {
+- }
+- 
+-@@ -1141,7 +1141,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+- GLOBAL(int)
+- jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+-                                    const int *jpeg_natural_order_start, int Sl,
+--                                   int Al, JCOEF *absvalues, size_t *bits)
+-+                                   int Al, UJCOEF *absvalues, size_t *bits)
+- {
+-   return 0;
+- }
+-diff --git a/simd/mips64/jsimd.c b/simd/mips64/jsimd.c
+-index e8f1af5..bb9785b 100644
+---- a/simd/mips64/jsimd.c
+-+++ b/simd/mips64/jsimd.c
+-@@ -851,7 +851,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+- GLOBAL(void)
+- jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+-                                   const int *jpeg_natural_order_start, int Sl,
+--                                  int Al, JCOEF *values, size_t *zerobits)
+-+                                  int Al, UJCOEF *values, size_t *zerobits)
+- {
+- }
+- 
+-@@ -864,7 +864,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+- GLOBAL(int)
+- jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+-                                    const int *jpeg_natural_order_start, int Sl,
+--                                   int Al, JCOEF *absvalues, size_t *bits)
+-+                                   int Al, UJCOEF *absvalues, size_t *bits)
+- {
+-   return 0;
+- }
+-diff --git a/simd/powerpc/jsimd.c b/simd/powerpc/jsimd.c
+-index d0d3981..8affc5e 100644
+---- a/simd/powerpc/jsimd.c
+-+++ b/simd/powerpc/jsimd.c
+-@@ -3,7 +3,7 @@
+-  *
+-  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+-  * Copyright (C) 2009-2011, 2014-2016, 2018, D. R. Commander.
+-- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
+-+ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+-  *
+-  * Based on the x86 SIMD extension for IJG JPEG library,
+-  * Copyright (C) 1999-2006, MIYASAKA Masaru.
+-@@ -853,7 +853,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+- GLOBAL(void)
+- jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+-                                   const int *jpeg_natural_order_start, int Sl,
+--                                  int Al, JCOEF *values, size_t *zerobits)
+-+                                  int Al, UJCOEF *values, size_t *zerobits)
+- {
+- }
+- 
+-@@ -866,7 +866,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+- GLOBAL(int)
+- jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+-                                    const int *jpeg_natural_order_start, int Sl,
+--                                   int Al, JCOEF *absvalues, size_t *bits)
+-+                                   int Al, UJCOEF *absvalues, size_t *bits)
+- {
+-   return 0;
+- }
+-diff --git a/simd/x86_64/jsimd.c b/simd/x86_64/jsimd.c
+-index eb76679..1ede507 100644
+---- a/simd/x86_64/jsimd.c
+-+++ b/simd/x86_64/jsimd.c
+-@@ -3,7 +3,7 @@
+-  *
+-  * Copyright 2009 Pierre Ossman <ossman@cendio.se> for Cendio AB
+-  * Copyright (C) 2009-2011, 2014, 2016, 2018, D. R. Commander.
+-- * Copyright (C) 2015-2016, 2018, Matthieu Darbois.
+-+ * Copyright (C) 2015-2016, 2018, 2022, Matthieu Darbois.
+-  *
+-  * Based on the x86 SIMD extension for IJG JPEG library,
+-  * Copyright (C) 1999-2006, MIYASAKA Masaru.
+-@@ -1040,7 +1040,7 @@ jsimd_can_encode_mcu_AC_first_prepare(void)
+- GLOBAL(void)
+- jsimd_encode_mcu_AC_first_prepare(const JCOEF *block,
+-                                   const int *jpeg_natural_order_start, int Sl,
+--                                  int Al, JCOEF *values, size_t *zerobits)
+-+                                  int Al, UJCOEF *values, size_t *zerobits)
+- {
+-   jsimd_encode_mcu_AC_first_prepare_sse2(block, jpeg_natural_order_start,
+-                                          Sl, Al, values, zerobits);
+-@@ -1064,7 +1064,7 @@ jsimd_can_encode_mcu_AC_refine_prepare(void)
+- GLOBAL(int)
+- jsimd_encode_mcu_AC_refine_prepare(const JCOEF *block,
+-                                    const int *jpeg_natural_order_start, int Sl,
+--                                   int Al, JCOEF *absvalues, size_t *bits)
+-+                                   int Al, UJCOEF *absvalues, size_t *bits)
+- {
+-   return jsimd_encode_mcu_AC_refine_prepare_sse2(block,
+-                                                  jpeg_natural_order_start,
+-diff --git a/tjbench.c b/tjbench.c
+-index 156c906..8c83025 100644
+---- a/tjbench.c
+-+++ b/tjbench.c
+-@@ -592,10 +592,16 @@ static int decompTest(char *fileName)
+-     if ((flags & TJFLAG_NOREALLOC) != 0 &&
+-         (doTile || xformOp != TJXOP_NONE || xformOpt != 0 || customFilter))
+-       for (i = 0; i < ntilesw * ntilesh; i++) {
+--        if (tjBufSize(tilew, tileh, subsamp) > (unsigned long)INT_MAX)
+-+        unsigned long jpegBufSize;
+-+
+-+        if (xformOp == TJXOP_TRANSPOSE || xformOp == TJXOP_TRANSVERSE ||
+-+            xformOp == TJXOP_ROT90 || xformOp == TJXOP_ROT270)
+-+          jpegBufSize = tjBufSize(tileh, tilew, subsamp);
+-+        else
+-+          jpegBufSize = tjBufSize(tilew, tileh, subsamp);
+-+        if (jpegBufSize > (unsigned long)INT_MAX)
+-           THROW("getting buffer size", "Image is too large");
+--        if ((jpegBuf[i] = (unsigned char *)
+--                          tjAlloc(tjBufSize(tilew, tileh, subsamp))) == NULL)
+-+        if ((jpegBuf[i] = (unsigned char *)tjAlloc(jpegBufSize)) == NULL)
+-           THROW_UNIX("allocating JPEG tiles");
+-       }
+- 
+-diff --git a/tjexample.c b/tjexample.c
+-index a9cd865..2ac1fed 100644
+---- a/tjexample.c
+-+++ b/tjexample.c
+-@@ -32,6 +32,7 @@
+-  * images using the TurboJPEG C API
+-  */
+- 
+-+#include <limits.h>
+- #include <stdio.h>
+- #include <stdlib.h>
+- #include <string.h>
+-@@ -273,6 +274,8 @@ int main(int argc, char **argv)
+-     if (size == 0)
+-       THROW("determining input file size", "Input file contains no data");
+-     jpegSize = (unsigned long)size;
+-+    if (jpegSize > (unsigned long)INT_MAX)
+-+      THROW("allocating JPEG buffer", "Input file is too large");
+-     if ((jpegBuf = (unsigned char *)tjAlloc(jpegSize)) == NULL)
+-       THROW_UNIX("allocating JPEG buffer");
+-     if (fread(jpegBuf, jpegSize, 1, jpegFile) < 1)
+-@@ -330,8 +333,12 @@ int main(int argc, char **argv)
+-       outSubsamp = inSubsamp;
+- 
+-     pixelFormat = TJPF_BGRX;
+--    if ((imgBuf = (unsigned char *)tjAlloc(width * height *
+--                                           tjPixelSize[pixelFormat])) == NULL)
+-+    if ((unsigned long long)width * height * tjPixelSize[pixelFormat] >
+-+        (unsigned long long)((size_t)-1))
+-+      THROW("allocating uncompressed image buffer", "Image is too large");
+-+    if ((imgBuf =
+-+         (unsigned char *)malloc(sizeof(unsigned char) * width * height *
+-+                                 tjPixelSize[pixelFormat])) == NULL)
+-       THROW_UNIX("allocating uncompressed image buffer");
+- 
+-     if (tjDecompress2(tjInstance, jpegBuf, jpegSize, imgBuf, width, 0, height,
+-diff --git a/tjunittest.c b/tjunittest.c
+-index f59939f..38ada63 100644
+---- a/tjunittest.c
+-+++ b/tjunittest.c
+-@@ -33,6 +33,7 @@
+- #include <stdio.h>
+- #include <stdlib.h>
+- #include <string.h>
+-+#include <limits.h>
+- #include <errno.h>
+- #include "tjutil.h"
+- #include "turbojpeg.h"
+-@@ -566,11 +567,16 @@ bailout:
+-     THROW(#function " overflow"); \
+- }
+- #endif
+-+#define CHECKSIZEINT(function) { \
+-+  if (intsize != -1 || !strcmp(tjGetErrorStr2(NULL), "No error")) \
+-+    THROW(#function " overflow"); \
+-+}
+- 
+- static void overflowTest(void)
+- {
+-   /* Ensure that the various buffer size functions don't overflow */
+-   unsigned long size;
+-+  int intsize;
+- 
+-   size = tjBufSize(26755, 26755, TJSAMP_444);
+-   CHECKSIZE(tjBufSize());
+-@@ -584,6 +590,10 @@ static void overflowTest(void)
+-   CHECKSIZE(tjBufSizeYUV());
+-   size = tjPlaneSizeYUV(0, 65536, 0, 65536, TJSAMP_444);
+-   CHECKSIZE(tjPlaneSizeYUV());
+-+  intsize = tjPlaneWidth(0, INT_MAX, TJSAMP_420);
+-+  CHECKSIZEINT(tjPlaneWidth());
+-+  intsize = tjPlaneHeight(0, INT_MAX, TJSAMP_420);
+-+  CHECKSIZEINT(tjPlaneHeight());
+- 
+- bailout:
+-   return;
+-diff --git a/turbojpeg-jni.c b/turbojpeg-jni.c
+-index 1b728e3..053edbd 100644
+---- a/turbojpeg-jni.c
+-+++ b/turbojpeg-jni.c
+-@@ -26,6 +26,7 @@
+-  * POSSIBILITY OF SUCH DAMAGE.
+-  */
+- 
+-+#include <limits.h>
+- #include <stdlib.h>
+- #include <string.h>
+- #include "turbojpeg.h"
+-@@ -128,24 +129,28 @@ bailout:
+- JNIEXPORT jint JNICALL Java_org_libjpegturbo_turbojpeg_TJ_bufSize
+-   (JNIEnv *env, jclass cls, jint width, jint height, jint jpegSubsamp)
+- {
+--  jint retval = (jint)tjBufSize(width, height, jpegSubsamp);
+-+  unsigned long retval = tjBufSize(width, height, jpegSubsamp);
+- 
+--  if (retval == -1) THROW_ARG(tjGetErrorStr());
+-+  if (retval == (unsigned long)-1) THROW_ARG(tjGetErrorStr());
+-+  if (retval > (unsigned long)INT_MAX)
+-+    THROW_ARG("Image is too large");
+- 
+- bailout:
+--  return retval;
+-+  return (jint)retval;
+- }
+- 
+- /* TurboJPEG 1.4.x: TJ::bufSizeYUV() */
+- JNIEXPORT jint JNICALL Java_org_libjpegturbo_turbojpeg_TJ_bufSizeYUV__IIII
+-   (JNIEnv *env, jclass cls, jint width, jint pad, jint height, jint subsamp)
+- {
+--  jint retval = (jint)tjBufSizeYUV2(width, pad, height, subsamp);
+-+  unsigned long retval = tjBufSizeYUV2(width, align, height, subsamp);
+- 
+--  if (retval == -1) THROW_ARG(tjGetErrorStr());
+-+  if (retval == (unsigned long)-1) THROW_ARG(tjGetErrorStr());
+-+  if (retval > (unsigned long)INT_MAX)
+-+    THROW_ARG("Image is too large");
+- 
+- bailout:
+--  return retval;
+-+  return (jint)retval;
+- }
+- 
+- /* TurboJPEG 1.2.x: TJ::bufSizeYUV() */
+-@@ -162,13 +167,15 @@ JNIEXPORT jint JNICALL Java_org_libjpegturbo_turbojpeg_TJ_planeSizeYUV__IIIII
+-   (JNIEnv *env, jclass cls, jint componentID, jint width, jint stride,
+-    jint height, jint subsamp)
+- {
+--  jint retval = (jint)tjPlaneSizeYUV(componentID, width, stride, height,
+--                                     subsamp);
+-+  unsigned long retval = tjPlaneSizeYUV(componentID, width, stride, height,
+-+                                        subsamp);
+- 
+--  if (retval == -1) THROW_ARG(tjGetErrorStr());
+-+  if (retval == (unsigned long)-1) THROW_ARG(tjGetErrorStr());
+-+  if (retval > (unsigned long)INT_MAX)
+-+    THROW_ARG("Image is too large");
+- 
+- bailout:
+--  return retval;
+-+  return (jint)retval;
+- }
+- 
+- /* TurboJPEG 1.4.x: TJ::planeWidth() */
+-@@ -1176,6 +1183,10 @@ JNIEXPORT jintArray JNICALL Java_org_libjpegturbo_turbojpeg_TJTransformer_transf
+-   for (i = 0; i < n; i++) {
+-     int w = jpegWidth, h = jpegHeight;
+- 
+-+    if (t[i].op == TJXOP_TRANSPOSE || t[i].op == TJXOP_TRANSVERSE ||
+-+        t[i].op == TJXOP_ROT90 || t[i].op == TJXOP_ROT270) {
+-+      w = jpegHeight;  h = jpegWidth;
+-+    }
+-     if (t[i].r.w != 0) w = t[i].r.w;
+-     if (t[i].r.h != 0) h = t[i].r.h;
+-     BAILIF0(jdstBufs[i] = (*env)->GetObjectArrayElement(env, dstobjs, i));
+-diff --git a/turbojpeg.c b/turbojpeg.c
+-index 47c5999..6c425be 100644
+---- a/turbojpeg.c
+-+++ b/turbojpeg.c
+-@@ -33,6 +33,7 @@
+- #include <stdio.h>
+- #include <stdlib.h>
+- #include <ctype.h>
+-+#include <limits.h>
+- #include <jinclude.h>
+- #define JPEG_INTERNALS
+- #include <jpeglib.h>
+-@@ -599,7 +600,8 @@ DLLEXPORT unsigned long TJBUFSIZEYUV(int width, int height, int subsamp)
+- 
+- DLLEXPORT int tjPlaneWidth(int componentID, int width, int subsamp)
+- {
+--  int pw, nc, retval = 0;
+-+  unsigned long long pw, retval = 0;
+-+  int nc;
+- 
+-   if (width < 1 || subsamp < 0 || subsamp >= TJ_NUMSAMP)
+-     THROWG("tjPlaneWidth(): Invalid argument");
+-@@ -613,14 +615,18 @@ DLLEXPORT int tjPlaneWidth(int componentID, int width, int subsamp)
+-   else
+-     retval = pw * 8 / tjMCUWidth[subsamp];
+- 
+-+  if (retval > (unsigned long long)INT_MAX)
+-+    THROWG("tjPlaneWidth(): Width is too large");
+-+
+- bailout:
+--  return retval;
+-+  return (int)retval;
+- }
+- 
+- 
+- DLLEXPORT int tjPlaneHeight(int componentID, int height, int subsamp)
+- {
+--  int ph, nc, retval = 0;
+-+  unsigned long long ph, retval = 0;
+-+  int nc;
+- 
+-   if (height < 1 || subsamp < 0 || subsamp >= TJ_NUMSAMP)
+-     THROWG("tjPlaneHeight(): Invalid argument");
+-@@ -634,8 +640,11 @@ DLLEXPORT int tjPlaneHeight(int componentID, int height, int subsamp)
+-   else
+-     retval = ph * 8 / tjMCUHeight[subsamp];
+- 
+-+  if (retval > (unsigned long long)INT_MAX)
+-+    THROWG("tjPlaneHeight(): Height is too large");
+-+
+- bailout:
+--  return retval;
+-+  return (int)retval;
+- }
+- 
+- 
+-@@ -1985,6 +1994,10 @@ DLLEXPORT int tjTransform(tjhandle handle, const unsigned char *jpegBuf,
+- 
+-     if (!xinfo[i].crop) {
+-       w = dinfo->image_width;  h = dinfo->image_height;
+-+      if (t[i].op == TJXOP_TRANSPOSE || t[i].op == TJXOP_TRANSVERSE ||
+-+          t[i].op == TJXOP_ROT90 || t[i].op == TJXOP_ROT270) {
+-+        w = dinfo->image_height;  h = dinfo->image_width;
+-+      }
+-     } else {
+-       w = xinfo[i].crop_width;  h = xinfo[i].crop_height;
+-     }

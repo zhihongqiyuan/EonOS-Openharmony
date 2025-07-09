@@ -1,0 +1,31 @@
+{
+    "name": "@ohos/unity",
+    "description": "Third-party open-source software Unity | Simple Unit Testing for C",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/unity"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "LICENSE.txt",
+    "component": {
+        "name": "unity",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": ["mini","small"],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "libabigail",
+    "License": "Apache License 2.0",
+    "License File": "LICENSE.txt",
+    "Version Number": "2.4",
+    "Owner": "zhanghaibo0@huawei.com",
+    "Upstream URL": "https://sourceware.org/libabigail/",
+    "Description": "ABI check for dynamic libraries of different versions."
+  }
+]

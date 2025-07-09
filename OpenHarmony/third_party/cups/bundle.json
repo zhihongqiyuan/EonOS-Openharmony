@@ -1,0 +1,52 @@
+{
+    "name": "@ohos/cups",
+    "description": "OpenPrinting CUPS is the most current version of CUPS, a standards-based, open source printing system for Linux® and other Unix®-like operating systems.",
+    "version": "4.0",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/cups"
+    },
+    "dirs": {},
+    "scripts": {},
+    "readmePath": {
+        "en": "README.md"
+    },
+    "component": {
+        "name": "cups",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [ "cups_feature_pstops_filter" ],
+        "adapted_system_type": [ "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "c_utils",
+                "drivers_interface_usb",
+                "hilog",
+                "usb_manager",
+                "zlib",
+                "openssl",
+                "libusb"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//third_party/cups:third_party_cups"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//third_party/cups:cups",
+                    "header": {
+                      "header_files": [
+                        "config.h"
+                      ],
+                      "header_base": "//third_party/cups"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

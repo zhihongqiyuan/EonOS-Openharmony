@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+
+-->
+
+<configuration>
+    <oatconfig>
+        <licensefile>pcre2/LICENCE</licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <policyitem type="copyright" name="University of Cambridge" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc=""/>
+                <policyitem type="copyright" name="北京万里红科技有限公司" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc=""/>
+                <policyitem type="copyright" name="Huawei Device Co., Ltd." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc=""/>
+                <policyitem type="copyright" name="Steven G. Johnson &lt;stevenj@alum.mit.edu&gt;" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc=""/>
+                <policyitem type="copyright" name="Daniel Richard G. &lt;skunk@iSKUNK.ORG&gt;" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc=""/>
+                <policyitem type="copyright" name="X Consortium" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc=""/>
+                <policyitem type="copyright" name="Free Software Foundation, Inc" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc=""/>
+                <policyitem type="copyright" name=" Free Software" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc=""/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="pcre2/missing" desc="协议为 Autoconf/Libtool exception to GPL 2.0 or later，满足该协议的约束，不受GPL协议影响。"/>
+                <policyitem type="license" name="GPLStyleLicense" path="pcre2/missing" desc="协议为 Autoconf/Libtool exception to GPL 2.0 or later，满足该协议的约束，不受GPL协议影响。"/>
+                <policyitem type="license" name="GPLStyleLicense" path="pcre2/test-driver" desc="协议为 Autoconf/Libtool exception to GPL 2.0 or later，满足该协议的约束，不受GPL协议影响。"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="pcre2/test-driver" desc="协议为 Autoconf/Libtool exception to GPL 2.0 or later，满足该协议的约束，不受GPL协议影响。"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="pcre2/ar-lib" desc="协议为 Autoconf/Libtool exception to GPL 2.0 or later，满足该协议的约束，不受GPL协议影响。"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="pcre2/compile" desc="协议为 Autoconf/Libtool exception to GPL 2.0 or later，满足该协议的约束，不受GPL协议影响。"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="pcre2/config.guess" desc="协议为 Autoconf/Libtool exception to GPL 2.0 or later，满足该协议的约束，不受GPL协议影响。"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="pcre2/config.sub" desc="协议为 Autoconf/Libtool exception to GPL 2.0 or later，满足该协议的约束，不受GPL协议影响。"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="pcre2/depcomp" desc="协议为 Autoconf/Libtool exception to GPL 2.0 or later，满足该协议的约束，不受GPL协议影响。"/>
+                <policyitem type="compatibility" name="GPL-3.0+" path="pcre2/m4/ax_pthread.m4" desc="协议为 Autoconf/Libtool exception to GPL 2.0 or later，满足该协议的约束，不受GPL协议影响。"/>
+                <policyitem type="compatibility" name="GPLStyleLicense-with-Libtool-exception" path="pcre2/m4/libtool.m4" desc="Not used in ohos."/>
+                <policyitem type="compatibility" name="FSFULLR" path="pcre2/m4/.*.m4" desc="Not used in ohos."/>
+                <policyitem type="compatibility" name="FSFUL" path="pcre2/configure" desc="Not used in ohos."/>
+                <policyitem type="compatibility" name="PCRE2 LICENCE" path="pcre2/cmake/COPYING-CMAKE-SCRIPTS" desc="Not used in ohos."/>
+                <policyitem type="license" name="FSFUL" path="pcre2/configure" desc="Not used in ohos."/>
+                <policyitem type="compatibility" name="BSD-3-Clause" path="pcre2/src/.*" desc="兼容license"/>
+                <policyitem type="compatibility" name="BSD-2-Clause" path="pcre2/src/sljit/.*" desc="兼容license"/>
+                <policyitem type="license" name="BSD-2-Clause" path="pcre2/src/sljit/sljitLir.h" desc="兼容license"/>
+                <policyitem type="license" name="BSD-3-Clause" path="pcre2/src/.*.h" desc="兼容license"/>
+                <policyitem type="license" name="GPL-3.0+" path="pcre2/m4/ax_pthread.m4" desc="兼容license"/>
+                <policyitem type="license" name="GPLStyleLicense" path="pcre2/ar-lib" desc="兼容license"/>
+                <policyitem type="license" name="GPLStyleLicense-with-Libtool-exception" path="pcre2/m4/libtool.m4" desc="兼容license"/>
+                <policyitem type="license" name="GPLStyleLicense" path="pcre2/depcomp" desc="兼容license"/>
+                <policyitem type="license" name="GPLStyleLicense" path="pcre2/compile" desc="兼容license"/>
+                <policyitem type="license" name="FSFULLR" path="pcre2/m4/.*.m4" desc="兼容license"/>
+                <policyitem type="license" name="GPLStyleLicense" path="pcre2/config.guess" desc="兼容license"/>
+                <policyitem type="license" name="MIT" path="pcre2/install-sh" desc="兼容license"/>
+                <policyitem type="license" name="GPLStyleLicense" path="pcre2/config.sub" desc="兼容license"/>
+                <policyitem type="compatibility" name="BSD-2-Clause" path="pcre2/mp4/.*" desc="兼容license"/>
+                <policyitem type="compatibility" name="MIT" path="pcre2/install-sh" desc="兼容license"/>
+                <policyitem type="license" name="BSD-2-Clause" path="pcre2/src/sljit/sljitConfig.h" desc="兼容license"/>
+                <policyitem type="license" name="BSD-2-Clause" path="pcre2/src/sljit/sljitConfigInternal.h" desc="兼容license"/>
+                <policyitem type="compatibility" name="FSF Unlimited License" path="pcre2/m4/pcre2_visibility.m4" desc="兼容license"/>
+                <policyitem type="license" name="FSF Unlimited License" path="pcre2/m4/pcre2_visibility.m4" desc="兼容license"/>
+                <policyitem type="compatibility" name="FSF Unlimited License" path="pcre2/INSTALL" desc="兼容license"/>
+                <policyitem type="compatibility" name="GNU GPL" path="pcre2/Makefile.am" desc="兼容license"/>
+                <policyitem type="compatibility" name="Cygwin licence" path="pcre2/NON-AUTOTOOLS-BUILD" desc="兼容license"/>
+                <policyitem type="license" name="Cygwin licence" path="pcre2/NON-AUTOTOOLS-BUILD" desc="兼容license"/>
+                <policyitem type="license" name="BSD LICENCE" path="pcre2/doc/pcre2test.1" desc="兼容license"/>
+                <policyitem type="license" name="BSD LICENCE" path="pcre2/src/pcre2_chartables.c.dist" desc="兼容license"/>
+                <policyitem type="compatibility" name="BSD LICENCE" path="pcre2/src/pcre2_chartables.c.dist" desc="兼容license"/>
+                <policyitem type="license" name="BSD-3-Clause" path="pcre2/cmake/COPYING-CMAKE-SCRIPTS" desc="兼容license"/>
+                <policyitem type="compatibility" name="BSD-3-Clause" path="pcre2/cmake/COPYING-CMAKE-SCRIPTS" desc="兼容license"/>
+                <policyitem type="license" name="BSD LICENCE" path="pcre2/RunTest.bat" desc="兼容license"/>
+                <policyitem type="license" name="BSD LICENCE" path="pcre2/COPYING" desc="兼容license"/>
+                <policyitem type="license" name="FSF Unlimited License" path="pcre2/INSTALL" desc="兼容license"/>
+                <policyitem type="license" name="BSD-2-clause" path="pcre2/LICENCE" desc="兼容license"/>
+                <policyitem type="license" name="GNU GPL" path="pcre2/Makefile.am" desc="兼容license"/>
+            </policy>
+        </policylist>
+        <filefilterlist>
+            <filefilter name="defaultFilter" desc="Files not to check">
+            </filefilter>
+            <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
+                <filteritem type="filepath" name="pcre2/doc/.*.3" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/testdata/.*" desc="no license header"/>
+                <filteritem type="filepath" name="include/pcre2.h" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/PrepareRelease" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/src/.*.c" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/AUTHORS" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/ChangeLog" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/CheckMan" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/CleanTxt" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/Detrail" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/HACKING" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/configure.ac" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/perltest.sh" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/RunGrepTest" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/RunGrepTest.bat" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/132html" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/RunTest" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/doc/index.html.src" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/doc/pcre2-config.1" desc="no license header"/>
+                <filteritem type="filepath" name="pcre2/doc/pcre2grep.1" desc="no license header"/>
+            </filefilter>
+            <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
+                <filteritem type="filepath" name="pcre2/src/sljit/.*.c" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/132html" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/CleanTxt" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/GenerateUtt.py" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/GenerateUcpTables.py" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/GenerateCommon.py" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/GenerateTest26.py" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/GenerateUcd.py" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/GenerateUcpHeader.py" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/ManyConfigTests" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/MultiStage2.py" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/pcre2_chartables.c.non-standard" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/autogen.sh" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/utf8.c" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/pcre2_fuzzer.dict" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/pcre2_fuzzer.options" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/ucptestdata/testinput1" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/ucptestdata/testinput2" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/ucptestdata/testoutput1" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/maint/ucptestdata/testoutput2" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/src/pcre2posix_test.c" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/MODULE.bazel" desc="Copyright Header Invalid: NULL"/>
+                <filteritem type="filepath" name="pcre2/WORKSPACE.bazel" desc="Copyright Header Invalid: NULL"/>
+                <filteritem type="filepath" name="pcre2/BUILD.bazel" desc="Copyright Header Invalid: NULL"/>
+                <filteritem type="filepath" name="pcre2/.bazelrc" desc="Copyright Header Invalid: NULL"/>
+                <filteritem type="filepath" name="pcre2/testdata/.*" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="include/pcre2.h" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/PrepareRelease" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/doc/.*.3" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/perltest.sh" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/RunGrepTest" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/src/pcre2_.*.c" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/RunGrepTest.bat" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/cmake/COPYING-CMAKE-SCRIPTS" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/RunTest" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/RunTest.bat" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/Detrail" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/NON-AUTOTOOLS-BUILD" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/HACKING" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/configure.ac" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/src/pcre2demo.c" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/src/sljit/.*.h" desc="InvalidCopyright"/>
+                <filteritem type="filepath" name="pcre2/doc/.*.1" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/src/pcre2_chartables.c.dist" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/CheckMan" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/doc/index.html.src" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="pcre2/Makefile.am" desc="Describe the reason for filtering scan results"/>
+            </filefilter>
+            <filefilter name="licenseFileNamePolicyFilter" desc="Filters for LICENSE file policies">
+            </filefilter>
+            <filefilter name="readmeFileNamePolicyFilter" desc="Filters for README file policies">
+            </filefilter>
+            <filefilter name="readmeOpenSourcefileNamePolicyFilter" desc="Filters for README.OpenSource file policies">
+            </filefilter>
+            <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
+                <filteritem type="filepath" name="pcre2/testdata/testoutput10" desc="already checked"/>
+                <filteritem type="filepath" name="pcre2/testdata/testbtables" desc="already checked"/>
+                <filteritem type="filepath" name="pcre2/testdata/testinput10" desc="already checked"/>
+            </filefilter>
+        </filefilterlist>
+
+        <licensematcherlist>
+            <licensematcher name="BSD-2-clause" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                    Redistribution and use in source and binary forms, with or without
+                    modification, are permitted provided that the following conditions are met:
+                        * Redistributions of source code must retain the above copyright notices,
+                        this list of conditions and the following disclaimer.
+                        * Redistributions in binary form must reproduce the above copyright
+                        notices, this list of conditions and the following disclaimer in the
+                        documentation and/or other materials provided with the distribution.
+                        * Neither the name of the University of Cambridge nor the names of any
+                        contributors may be used to endorse or promote products derived from this
+                        software without specific prior written permission.
+                    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+                    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+                    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+                    ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+                    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+                    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+                    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+                    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+                    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+                    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+                    POSSIBILITY OF SUCH DAMAGE.
+                " desc=""/>
+            </licensematcher>
+            <licensematcher name="BSD-3-Clause" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                    Redistribution and use in source and binary forms, with or without
+                    modification, are permitted provided that the following conditions
+                    are met:
+                    1. Redistributions of source code must retain the copyright
+                    notice, this list of conditions and the following disclaimer.
+                    2. Redistributions in binary form must reproduce the copyright
+                    notice, this list of conditions and the following disclaimer in the
+                    documentation and/or other materials provided with the distribution.
+                    3. The name of the author may not be used to endorse or promote products 
+                    derived from this software without specific prior written permission.
+                    THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+                    IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+                    OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+                    IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+                    INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+                    NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+                    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+                    THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+                    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+                    THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                " desc=""/>
+            </licensematcher>
+            <licensematcher name="Cygwin licence" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                    Building PCRE2 without using autotools
+                " desc=""/>
+            </licensematcher>
+            <licensematcher name="GNU GPL" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                    ## Process this file with automake to produce Makefile.in.
+                " desc="license text in Makefile.in"/>
+            </licensematcher>
+            <licensematcher name="BSD LICENCE" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                    Perl-Compatible Regular Expressions
+                " desc=""/>
+                <licensetext name="
+                    @rem MS Windows batch file to run pcre2test on testfiles with the correct
+                    @rem options. This file must use CRLF linebreaks to function properly,
+                    @rem and requires both pcre2test and pcre2grep.
+                    @rem
+                    @rem ------------------------ HISTORY ----------------------------------
+                    @rem This file was originally contributed to PCRE1 by Ralf Junker, and touched
+                    @rem up by Daniel Richard G. Tests 10-12 added by Philip H.
+                    @rem Philip H also changed test 3 to use &quot;wintest&quot; files.
+                    @rem
+                    @rem Updated by Tom Fortmann to support explicit test numbers on the command
+                    @rem line. Added argument validation and added error reporting.
+                    @rem
+                    @rem Sheri Pierce added logic to skip feature dependent tests
+                    @rem tests 4 5 7 10 12 14 19 and 22 require Unicode support
+                    @rem 8 requires Unicode and link size 2
+                    @rem 16 requires absence of jit support
+                    @rem 17 requires presence of jit support
+                    @rem Sheri P also added override tests for study and jit testing
+                    @rem Zoltan Herczeg added libpcre16 support
+                    @rem Zoltan Herczeg added libpcre32 support
+                    @rem -------------------------------------------------------------------
+                    @rem
+                    @rem The file was converted for PCRE2 by PH, February 2015.
+                    @rem Updated for new test 14 (moving others up a number), August 2015.
+                    @rem Tidied and updated for new tests 21, 22, 23 by PH, October 2015.
+                    @rem PH added missing &quot;set type&quot; for test 22, April 2016.
+                " desc=""/>
+                <licensetext name="
+                    Please see the file LICENCE in the PCRE2 distribution for licensing details.
+                " desc=""/>
+            </licensematcher>
+            <licensematcher name="FSF Unlimited License" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                    dnl Copyright (C) 2005, 2008, 2010-2011 Free Software Foundation, Inc.
+                    dnl This file is free software; the Free Software Foundation
+                    dnl gives unlimited permission to copy and/or distribute it,
+                    dnl with or without modifications, as long as this notice is preserved.
+                " desc=""/>
+                <licensetext name="
+                    Copyright (C) 1994-1996, 1999-2002, 2004-2016 Free Software
+                    Foundation, Inc.
+                    Copying and distribution of this file, with or without modification,
+                    are permitted in any medium without royalty provided the copyright
+                    notice and this notice are preserved.  This file is offered as-is,
+                    without warranty of any kind.
+                " desc=""/>
+            </licensematcher>
+        </licensematcherlist>
+    </oatconfig>
+</configuration>

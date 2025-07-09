@@ -1,0 +1,34 @@
+{
+    "name": "@ohos/glfw",
+    "description": "GLFW is an Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan application development.",
+    "version": "3.4",
+    "license": "Zlib",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/glfw"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYING.txt",
+    "readmePath": {
+        "en": ""
+    },
+    "component": {
+        "name": "glfw",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

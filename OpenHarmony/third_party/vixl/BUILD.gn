@@ -1,0 +1,142 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+#   * Redistributions of source code must retain the above copyright notice,
+#     this list of conditions and the following disclaimer.
+#   * Redistributions in binary form must reproduce the above copyright notice,
+#     this list of conditions and the following disclaimer in the documentation
+#     and/or other materials provided with the distribution.
+#   * Neither the name of ARM Limited nor the names of its contributors may be
+#     used to endorse or promote products derived from this software without
+#     specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS CONTRIBUTORS "AS IS" AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+import("//build/ohos.gni")
+
+config("vixl_public_config") {
+  defines = []
+  if (is_debug) {
+    defines += [ "VIXL_DEBUG" ]
+  }
+
+  defines += [ "PANDA_BUILD" ]
+
+  if (defined(ark_standalone_build) && ark_standalone_build) {
+    cflags_cc = [ "-Wno-bitwise-instead-of-logical" ]
+  }
+
+  include_dirs = [
+    ".",
+    "src",
+  ]
+  if (target_cpu == "arm") {
+    include_dirs += [ "src/aarch32" ]
+  } else if (target_cpu == "arm64" || target_cpu == "amd64" ||
+             target_cpu == "x64" || target_cpu == "x86_64") {
+    include_dirs += [ "src/aarch64" ]
+  }
+}
+
+ohos_static_library("libvixl") {
+  sources = [
+    "src/code-buffer-vixl.cc",
+    "src/compiler-intrinsics-vixl.cc",
+    "src/cpu-features.cc",
+    "src/utils-vixl.cc",
+  ]
+
+  defines = []
+  cflags_cc = [
+    "-std=c++17",
+    "-pedantic",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fno-rtti",
+    "-fno-exceptions",
+    "-Wno-invalid-offsetof",
+
+    "-Wno-gnu-statement-expression",
+    "-Wno-unused-parameter",
+    "-Wno-unused-result",
+    "-Wno-deprecated-declarations",
+  ]
+  if (is_debug) {
+    cflags_cc += [
+      "-Og",
+      "-ggdb3",
+      "-gdwarf-4",
+    ]
+  }
+
+  if (is_asan) {
+    cflags_cc += [ "-g" ]
+    defines += [ "__SANITIZE_ADDRESS__" ]
+  }
+
+  if (target_cpu == "arm") {
+    sources += [
+      "src/aarch32/assembler-aarch32.cc",
+      "src/aarch32/constants-aarch32.cc",
+      "src/aarch32/disasm-aarch32.cc",
+      "src/aarch32/instructions-aarch32.cc",
+      "src/aarch32/location-aarch32.cc",
+      "src/aarch32/macro-assembler-aarch32.cc",
+      "src/aarch32/operands-aarch32.cc",
+    ]
+    defines += [ "VIXL_INCLUDE_TARGET_A32" ]
+  } else if (target_cpu == "arm64" || target_cpu == "amd64" ||
+             target_cpu == "x64" || target_cpu == "x86_64") {
+    sources += [
+      "src/aarch64/assembler-aarch64.cc",
+      "src/aarch64/assembler-sve-aarch64.cc",
+      "src/aarch64/cpu-aarch64.cc",
+      "src/aarch64/cpu-features-auditor-aarch64.cc",
+      "src/aarch64/debugger-aarch64.cc",
+      "src/aarch64/decoder-aarch64.cc",
+      "src/aarch64/disasm-aarch64.cc",
+      "src/aarch64/instructions-aarch64.cc",
+      "src/aarch64/logic-aarch64.cc",
+      "src/aarch64/macro-assembler-aarch64.cc",
+      "src/aarch64/macro-assembler-sve-aarch64.cc",
+      "src/aarch64/operands-aarch64.cc",
+      "src/aarch64/pointer-auth-aarch64.cc",
+      "src/aarch64/simulator-aarch64.cc",
+    ]
+    defines += [
+      "VIXL_INCLUDE_TARGET_A64",
+      "VIXL_INCLUDE_SIMULATOR_AARCH64",
+    ]
+  }
+  if (current_cpu == "arm") {
+    cflags_cc += [
+      "-march=armv7-a",
+      "-mfloat-abi=softfp",
+      "-marm",
+      "-mfpu=vfp",
+    ]
+  }
+
+  if (is_mac) {
+    cflags_cc += [ "-DVIXL_CODE_BUFFER_MALLOC" ]
+  } else {
+    cflags_cc += [ "-DVIXL_CODE_BUFFER_MMAP" ]
+  }
+
+  public_configs = [ ":vixl_public_config" ]
+
+  subsystem_name = "thirdparty"
+  part_name = "vixl"
+}

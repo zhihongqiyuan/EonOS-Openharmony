@@ -1,0 +1,32 @@
+{
+    "name": "@ohos/contacts",
+    "description": "Contacts app for standard system.",
+    "version": "3.0",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "applications/standard/contacts"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "contacts",
+        "subsystem": "applications",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "6MB",
+        "ram": "86650KB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "Khronos Group - OpenSL ES",
+        "License": "null",
+        "License File": "NOTICE",
+        "Version Number": "1.0.1",
+        "Owner": "yangshuai67@huawei.com",
+        "Upstream URL": "https://github.com/KhronosGroup/OpenSL-ES-Registry.git",
+        "Description": "OpenSL ES™ is a royalty-free, cross-platform, hardware-accelerated audio API tuned for embedded systems."
+    }
+]

@@ -1,0 +1,41 @@
+{
+    "name": "@ohos/vixl",
+    "description": "vixl",
+    "version": "7.0.0",
+    "license": "BSD-3-Clause",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/vixl"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "LICENCE",
+    "component": {
+        "name": "vixl",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//third_party/vixl:libvixl"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//third_party/vixl:libvixl",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//third_party/vixl/src"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

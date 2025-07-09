@@ -1,0 +1,14 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+[filter "lfs"]
+	smudge = git-lfs smudge --skip -- %f
+	process = git-lfs filter-process --skip
+[remote "origin"]
+	url = https://gitee.com/openharmony/manifest
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[repo]
+	clonebundle = false
+[branch "default"]
+	remote = origin
+	merge = refs/tags/OpenHarmony-v6.0-Beta1

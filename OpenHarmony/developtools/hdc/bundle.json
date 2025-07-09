@@ -1,0 +1,71 @@
+{
+  "name": "@ohos/hdc",
+  "description": "Device debug connector that provides the device connection capability and a command line tool",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "developtools/hdc"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "hdc",
+    "subsystem": "developtools",
+    "features": [
+      "hdc_feature_support_sudo"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "1725KB",
+    "ram": "1599KB",
+    "deps": {
+      "components": [
+        "init",
+        "c_utils",
+        "faultloggerd",
+        "hitrace",
+        "hilog",
+        "ipc",
+        "ability_base",
+        "ability_runtime",
+        "window_manager",
+        "ylong_runtime",
+        "bounds_checking_function",
+        "lz4",
+        "selinux",
+        "openssl",
+        "libusb",
+        "libuv",
+        "os_account",
+        "user_auth_framework",
+        "pin_auth",
+        "rust_rust-openssl",
+        "huks"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "sub_component": [
+        "//developtools/hdc:hdcd_system",
+        "//developtools/hdc/hdcd_user_permit:hdcd_user_permit",
+        "//developtools/hdc:hdc_register",
+        "//developtools/hdc:hdcd_updater",
+        "//developtools/hdc:hdc_updater",
+        "//developtools/hdc/sudo:sudo"
+      ],
+      "inner_kits": [
+        {
+            "name":"//developtools/hdc:hdc_updater",
+            "header":{
+                "header_files":[
+                ],
+                "header_base":"//developtools/hdc/src"
+            }
+        }
+      ],
+      "test": [ "//developtools/hdc/test:hdc_fuzztest" ]
+    }
+  }
+}

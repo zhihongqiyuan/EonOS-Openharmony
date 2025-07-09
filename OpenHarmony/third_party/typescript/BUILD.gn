@@ -1,0 +1,138 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/ohos/notice/notice.gni")
+
+typescript_sources = [
+  "lib/.gitattributes",
+  "lib/README.md",
+  "lib/cancellationToken.js",
+  "lib/cs/diagnosticMessages.generated.json",
+  "lib/de/diagnosticMessages.generated.json",
+  "lib/es/diagnosticMessages.generated.json",
+  "lib/fr/diagnosticMessages.generated.json",
+  "lib/it/diagnosticMessages.generated.json",
+  "lib/ja/diagnosticMessages.generated.json",
+  "lib/ko/diagnosticMessages.generated.json",
+  "lib/lib.d.ts",
+  "lib/lib.dom.d.ts",
+  "lib/lib.dom.iterable.d.ts",
+  "lib/lib.es2015.collection.d.ts",
+  "lib/lib.es2015.core.d.ts",
+  "lib/lib.es2015.d.ts",
+  "lib/lib.es2015.generator.d.ts",
+  "lib/lib.es2015.iterable.d.ts",
+  "lib/lib.es2015.promise.d.ts",
+  "lib/lib.es2015.proxy.d.ts",
+  "lib/lib.es2015.reflect.d.ts",
+  "lib/lib.es2015.symbol.d.ts",
+  "lib/lib.es2015.symbol.wellknown.d.ts",
+  "lib/lib.es2016.array.include.d.ts",
+  "lib/lib.es2016.d.ts",
+  "lib/lib.es2016.full.d.ts",
+  "lib/lib.es2017.d.ts",
+  "lib/lib.es2017.full.d.ts",
+  "lib/lib.es2017.intl.d.ts",
+  "lib/lib.es2017.object.d.ts",
+  "lib/lib.es2017.sharedmemory.d.ts",
+  "lib/lib.es2017.string.d.ts",
+  "lib/lib.es2017.typedarrays.d.ts",
+  "lib/lib.es2018.asyncgenerator.d.ts",
+  "lib/lib.es2018.asynciterable.d.ts",
+  "lib/lib.es2018.d.ts",
+  "lib/lib.es2018.full.d.ts",
+  "lib/lib.es2018.intl.d.ts",
+  "lib/lib.es2018.promise.d.ts",
+  "lib/lib.es2018.regexp.d.ts",
+  "lib/lib.es2019.array.d.ts",
+  "lib/lib.es2019.d.ts",
+  "lib/lib.es2019.full.d.ts",
+  "lib/lib.es2019.intl.d.ts",
+  "lib/lib.es2019.object.d.ts",
+  "lib/lib.es2019.string.d.ts",
+  "lib/lib.es2019.symbol.d.ts",
+  "lib/lib.es2020.bigint.d.ts",
+  "lib/lib.es2020.d.ts",
+  "lib/lib.es2020.date.d.ts",
+  "lib/lib.es2020.full.d.ts",
+  "lib/lib.es2020.intl.d.ts",
+  "lib/lib.es2020.number.d.ts",
+  "lib/lib.es2020.promise.d.ts",
+  "lib/lib.es2020.sharedmemory.d.ts",
+  "lib/lib.es2020.string.d.ts",
+  "lib/lib.es2020.symbol.wellknown.d.ts",
+  "lib/lib.es2021.d.ts",
+  "lib/lib.es2021.full.d.ts",
+  "lib/lib.es2021.intl.d.ts",
+  "lib/lib.es2021.promise.d.ts",
+  "lib/lib.es2021.string.d.ts",
+  "lib/lib.es2021.weakref.d.ts",
+  "lib/lib.es2022.array.d.ts",
+  "lib/lib.es2022.d.ts",
+  "lib/lib.es2022.error.d.ts",
+  "lib/lib.es2022.full.d.ts",
+  "lib/lib.es2022.intl.d.ts",
+  "lib/lib.es2022.object.d.ts",
+  "lib/lib.es2022.sharedmemory.d.ts",
+  "lib/lib.es2022.string.d.ts",
+  "lib/lib.es5.d.ts",
+  "lib/lib.es6.d.ts",
+  "lib/lib.esnext.d.ts",
+  "lib/lib.esnext.full.d.ts",
+  "lib/lib.esnext.intl.d.ts",
+  "lib/lib.scripthost.d.ts",
+  "lib/lib.webworker.d.ts",
+  "lib/lib.webworker.importscripts.d.ts",
+  "lib/lib.webworker.iterable.d.ts",
+  "lib/pl/diagnosticMessages.generated.json",
+  "lib/pt-br/diagnosticMessages.generated.json",
+  "lib/ru/diagnosticMessages.generated.json",
+  "lib/tr/diagnosticMessages.generated.json",
+  "lib/tsc.js",
+  "lib/tsserver.js",
+  "lib/tsserverlibrary.d.ts",
+  "lib/tsserverlibrary.js",
+  "lib/typesMap.json",
+  "lib/typescript.d.ts",
+  "lib/typescript.js",
+  "lib/typingsInstaller.js",
+  "lib/watchGuard.js",
+  "lib/zh-cn/diagnosticMessages.generated.json",
+  "lib/zh-tw/diagnosticMessages.generated.json",
+]
+
+group("build_typescript") {
+  deps = [
+    "//third_party/typescript:build_typescript_pack",
+    "//third_party/typescript:typescript_notice",
+  ]
+}
+
+action("build_typescript_pack") {
+  sources = typescript_sources
+  script = "compile_typescript.py"
+  args = [
+    rebase_path(get_path_info("./", "abspath")),
+    rebase_path("${target_out_dir}"),
+  ]
+  outputs = [ "${target_out_dir}/ohos-typescript-4.9.5-r4.tgz" ]
+}
+
+collect_notice("typescript_notice") {
+  license_file = "LICENSE"
+  module_source_dir = get_label_info(":${target_name}", "dir")
+  outputs = [
+    "${sdk_notice_dir}/ets/build-tools/ets-loader/node_modules/typescript.txt",
+  ]
+}

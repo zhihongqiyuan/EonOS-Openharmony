@@ -1,0 +1,25 @@
+From 97ca1ba6c5db46675e08899cfda80edf326a21af Mon Sep 17 00:00:00 2001
+From: doupengda <doupengda@loongson.cn>
+Date: Mon, 5 Dec 2022 02:46:49 +0000
+Subject: [PATCH] Add loongarch64
+
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c01ec25..693cfc4 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -927,7 +927,7 @@ if(CPU_TYPE STREQUAL "x86_64" OR CPU_TYPE STREQUAL "i386")
+   # manually.
+   endif()
+ else()
+-  if((CPU_TYPE STREQUAL "powerpc" OR CPU_TYPE STREQUAL "arm64") AND
++  if((CPU_TYPE STREQUAL "powerpc" OR CPU_TYPE STREQUAL "arm64" OR CPU_TYPE STREQUAL "loongarch64") AND
+     NOT CMAKE_C_COMPILER_ID STREQUAL "Clang" AND NOT MSVC)
+     set(DEFAULT_FLOATTEST fp-contract)
+   else()
+-- 
+2.33.0
+

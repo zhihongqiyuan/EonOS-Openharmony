@@ -1,0 +1,10 @@
+[
+  {
+    "Name": "openEuler:protobuf",
+    "License": "BSD 3-Clause License",
+    "License File": "LICENSE",
+    "Version Number": "3.14.0-8.oe2203sp3",
+    "Upstream URL": "https://gitee.com/src-openeuler/protobuf.git",
+    "Description": "Protocol Buffers - Google's data interchange format."
+  }
+]

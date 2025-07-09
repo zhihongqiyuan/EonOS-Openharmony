@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<configuration>
+    <oatconfig>
+        <licensefile></licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="openssl source code">
+                <policyitem type="compatibility" name="OpenSSL" path=".*" desc="OpenSSL license"/>
+                <policyitem type="compatibility" name="GPL-2.0+" path="external/perl/Text-Template-1.46/.*" desc="BSD-like with advertising clause or GNU GPL v2 or later"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="crypto/.*" desc="Compile tool not runs target, running on host build environment only."/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="crypto/.*" desc="Compile tool not runs target, running on host build environment only."/>
+                <policyitem type="compatibility" name="OpenSSL|LGPLStyleLicense" path="crypto/.*" desc="Compile tool not runs target, running on host build environment only."/>
+                <policyitem type="compatibility" name="OpenSSL|GPLStyleLicense" path="crypto/.*" desc="Compile tool not runs target, running on host build environment only."/>
+                <policyitem type="compatibility" name="Artistic-1.0-Perl" path="external/perl/Text-Template-1.46/.*" desc="Compile tool not runs target, running on host build environment only."/>
+                <policyitem type="compatibility" name="InvalidLicense" path="external/perl/Text-Template-1.46/lib/Text/Template.pm" desc="release file,not need license declare"/>
+                <policyitem type="compatibility" name="InvalidLicense" path="NOTES.PERL" desc="release file,not need license declare"/>
+                <policyitem type="compatibility" name="InvalidLicense" path="external/perl/Text-Template-1.56/Changes" desc="release file,not need license declare"/>
+                <policyitem type="compatibility" name="GPL-1.0+" path="external/perl/Text-Template-1.56/LICENSE" desc="Compile tool not runs target, running on host build environment only."/>
+                <policyitem type="compatibility" name="InvalidLicense" path="external/perl/Text-Template-1.56/lib/Text/Template.pm" desc="release file,not need license declare"/>
+            </policy>
+        </policylist>
+        <filefilterlist>
+            <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
+                <filteritem type="filepath" name=".*" desc="test or certification binary."/>
+            </filefilter>
+        </filefilterlist>
+    </oatconfig>
+</configuration>

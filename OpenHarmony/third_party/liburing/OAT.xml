@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2022 Huawei Device Co., Ltd.
+
+    This library is free software; you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation; either version 2.1 of
+    the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+
+-->
+<configuration>
+    <oatconfig>
+        <licensefile>COPYING</licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+            <policyitem type="compatibility" name="GPLStyleLicense" path=".*" desc="Compile tool not runs target,running on host build environment only."/>
+            <policyitem type="compatibility" name="GPL-2.0-or-later" path=".*" rule="may" group="defaultGroup" filefilter="defaultPolicyFilter"
+                desc="Compile tool not runs target,running on host build environment only."/>
+            </policy>
+        </policylist>
+
+
+        <filefilterlist>
+            <filefilter name="defaultFilter" desc="Files not to check">
+                <filteritem type="filename" name="*.spec" desc="spec file,can not add license head"/>
+                <filteritem type="filepath" name="man/io_uring_submit_and_get_events.3" desc="config file,can not add license head"/>
+                <filteritem type="filepath" name="debian/copyright" desc="copyright file,can not add license head"/>
+                <filteritem type="filepath" name="install.sh" desc="compile build scripts, use Apache-2.0 license which is incompatible with GPL-2.0 license"/>
+	        </filefilter>
+            <filefilter name="defaultFilter" desc="Filters for compatibility,license header policies">
+            <filteritem type="filename" name="COPYING"/>
+            </filefilter>
+        </filefilterlist>
+    </oatconfig>
+</configuration>

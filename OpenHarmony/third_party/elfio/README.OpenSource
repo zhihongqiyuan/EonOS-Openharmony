@@ -1,0 +1,11 @@
+[
+    {
+        "Name"                  : "elfio",
+        "License"               : "The MIT License",
+        "License File"          : "COPYING",
+        "Version Number"        : "Release_3.11",
+        "Owner"                 : "lichunlin2@huawei.com",
+        "Upstream URL"          : "http://elfio.sourceforge.net/",
+        "Description"           : "ELFIO is a small, header-only C++ library that provides a simple interface for reading and generating files in ELF binary format."
+    }
+]

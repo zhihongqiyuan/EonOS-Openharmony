@@ -1,0 +1,55 @@
+{
+    "name": "@ohos/googletest",
+    "description": "The 1.8.x is the last release supporting pre-C++11 compilers. The 1.8.x will not accept any requests for any new features and any bugfix requests will only be accepted if proven critical",
+    "version": "3.1",
+    "license": "BSD 3-Clause",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/googletest"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "googletest",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "small",
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/googletest:gtest"
+                },
+                {
+                    "name": "//third_party/googletest:gmock"
+                },
+                {
+                    "name": "//third_party/googletest:gtest_rtti_main"
+                },
+                {
+                    "name": "//third_party/googletest:gtest_main"
+                },
+                {
+                    "name": "//third_party/googletest:gmock_main"
+                },
+                {
+                    "name": "//third_party/googletest:gtest_rtti"
+                },
+                {
+                    "name": "//third_party/googletest:gmock_rtti"
+                }
+            ],
+            "test": []
+        }
+    }
+}

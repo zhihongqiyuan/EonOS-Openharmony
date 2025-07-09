@@ -1,0 +1,8 @@
+/node_modules
+/local.properties
+/.idea
+**/build
+/.hvigor
+/oh_modules
+/dependencies
+.clang-format

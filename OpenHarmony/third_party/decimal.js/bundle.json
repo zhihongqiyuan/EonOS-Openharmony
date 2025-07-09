@@ -1,0 +1,35 @@
+{
+    "name": "@ohos/decimal.js",
+    "description": "An arbitary-precision Decimal type for JavaScript.",
+    "version": "10.4.3",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/decimal.js"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "LICENSE",
+    "component": {
+        "name": "decimal.js",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "napi"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": ["//third_party/decimal.js:decimal"],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

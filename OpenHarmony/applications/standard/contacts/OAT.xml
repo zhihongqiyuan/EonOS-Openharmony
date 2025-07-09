@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2022 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+
+-->
+
+<configuration>
+    <oatconfig>
+        <licensefile></licensefile>
+        <policylist>
+            <policy
+                    desc=""
+                    name="projectPolicy">
+                <!--policyitem type="compatibility" name="GPL-2.0+" path="abc/.*" desc="Process that runs independently, invoked by the X process."/-->
+                <!--policyitem type="license" name="LGPL" path="abc/.*" desc="Dynamically linked by module X"/-->
+                <!--policyitem type="copyright" name="xxx" path="abc/.*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed by X Company"/-->
+            </policy>
+        </policylist>
+        <filefilterlist>
+            <filefilter
+                    desc="Files that do not need to be scanned"
+                    name="defaultFilter">
+                <filteritem
+                        desc="out put files"
+                        name="gradle/wrapper/.*.jar"
+                        type="filepath"/>
+                <filteritem
+                        desc="out put files"
+                        name="sign/.*"
+                        type="filepath"/>
+            </filefilter>
+            <filefilter
+                    desc="Filters for compatibility，license header policies"
+                    name="defaultPolicyFilter">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter
+                    desc="Filters for copyright header policies"
+                    name="copyrightPolicyFilter">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter
+                    desc="Filters for LICENSE file policies"
+                    name="licenseFileNamePolicyFilter">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter
+                    desc="Filters for README file policies"
+                    name="readmeFileNamePolicyFilter">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter
+                    desc="Filters for README.OpenSource file policies"
+                    name="readmeOpenSourcefileNamePolicyFilter">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="defaultFilter" desc="Files not to check">
+                <filteritem type="filepath" name=".*.json5" desc="build config file"/>
+                <filteritem type="filepath" name="AppScope/.*.json5" desc="build config file"/>
+                <filteritem type="filepath" name="entry/.*.json5" desc="build config file"/>
+                <filteritem type="filepath" name="entry/src/main/ets/MainAbility/workers/.*.js" desc="worker file"/>
+                <filteritem type="filepath" name="entry/src/main/.*.json5" desc="build config file"/>
+                <filteritem type="filename" name="*.json" desc=""/>
+                <filteritem type="filename" name="hvigorfile.js" desc="hvigorfile.js no need to add policy"/>
+                <filteritem type="filepath" name="gradle/wrapper/.*.jar" desc="out put files"/>
+                <filteritem type="filepath" name="dir name underproject/.*.uvwxyz" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/>
+                <filteritem type="filepath" name="hvigor/.*.js" desc="Compile automatically generated files"/>
+            </filefilter>
+            <filefilter
+                    desc="Filters for binary file policies"
+                    name="binaryFileTypePolicyFilter">
+                <filteritem
+                        desc="self developed image"
+                        name="doc/image/.*.png"
+                        type="filepath"/>
+                <filteritem
+                        desc="self developed image"
+                        name="entry/src/main/resources/base/media/.*.png"
+                        type="filepath"/>
+                <filteritem
+                        desc="self developed image"
+                        name="entry/src/main/resources/base/media/.*.svg"
+                        type="filepath"/>
+                <filteritem
+                        desc="self developed audio"
+                        name="entry/src/main/resources/rawfile/.*.ogg"
+                        type="filepath"/>
+                <filteritem type="filepath" name="entry/src/main/ets/default/assets/picture/.*.png" desc="self developed image"/>
+                <filteritem type="filepath" name="entry/src/main/ets/default/assets/picture/.*.svg" desc="self developed image"/>
+                <filteritem type="filepath" name="figures/.*.png" desc="self developed image"/>
+                <filteritem type="filepath" name="AppScope/resources/base/media/app_icon.png" desc="self developed image"/>
+            </filefilter>
+            <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
+                <filteritem type="filepath" name="hvigorw" desc="Build Files"/>
+                <filteritem type="filepath" name="hvigorw.bat" desc="Build Files"/>
+            </filefilter>
+            <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
+                <filteritem type="filepath" name="hvigorw" desc="Build Files"/>
+                <filteritem type="filepath" name="hvigorw.bat" desc="Build Files"/>
+                <filteritem type="filepath" name="hvigor/.*.js" desc="Compile automatically generated files"/>
+            </filefilter>
+
+        </filefilterlist>
+        <licensematcherlist>
+            <!--licensematcher name="uvwxyz License" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                    uvwxyz license textA xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                 " desc=""/>
+                <licensetext name="
+                    uvwxyz license textB xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                 " desc=""/>
+            </licensematcher-->
+        </licensematcherlist>
+    </oatconfig>
+</configuration>

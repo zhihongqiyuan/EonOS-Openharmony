@@ -1,0 +1,1900 @@
+# Copyright (c) 2021-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//arkcompiler/ets_frontend/es2panda/es2abc_config.gni")
+import("//arkcompiler/ets_runtime/js_runtime_config.gni")
+import("$build_root/toolchain/toolchain.gni")
+
+if (!ark_standalone_build && is_ohos) {
+  import("//build/ohos.gni")
+}
+
+group("ark_js_packages") {
+  deps = []
+
+  deps += [
+    ":js_type_metadata",
+    ":libark_jsruntime",
+    "ecmascript/compiler:stub.an",
+    "ecmascript/dfx/hprof:ark_js_heap_snapshot_tool",
+    "ecmascript/dfx/hprof/rawheap_translate:rawheap_translator",
+    "ecmascript/js_vm:ark_js_vm",
+    "ecmascript/quick_fix:quick_fix",
+  ]
+  if (is_clang && clang_version != "9.0.3" && current_cpu == "arm64" &&
+      is_ohos) {
+    deps += [
+      "ecmascript/compiler:ark_aot_compiler",
+      "ecmascript/compiler:libark_jsoptimizer",
+    ]
+  }
+}
+
+group("ap_viewer_all_host_tools_packages") {
+  if (host_os != "mac" && target_os != "android") {
+    deps = [
+      "tools/ap_file_viewer/native:apViewer($build_root/toolchain/mingw:mingw_x86_64)",
+      "tools/ap_file_viewer/native:apViewer(${host_toolchain})",
+    ]
+  }
+}
+
+group("ark_js_host_windows_tools_packages") {
+  deps = []
+  if (host_os != "mac" && target_os != "android") {
+    deps += [
+      "ecmascript/compiler:ark_aot_compiler($build_root/toolchain/mingw:mingw_x86_64)",
+      "ecmascript/js_vm:ark_js_vm($build_root/toolchain/mingw:mingw_x86_64)",
+      "ecmascript/pgo_profiler/prof_dump:profdump($build_root/toolchain/mingw:mingw_x86_64)",
+    ]
+  }
+}
+
+group("ark_js_host_mac_tools_packages") {
+  deps = []
+  if (host_os == "mac") {
+    if (host_cpu == "arm64") {
+      deps += [
+        "ecmascript/compiler:ark_aot_compiler($build_root/toolchain/mac:clang_arm64)",
+        "ecmascript/js_vm:ark_js_vm($build_root/toolchain/mac:clang_arm64)",
+        "ecmascript/pgo_profiler/prof_dump:profdump($build_root/toolchain/mac:clang_arm64)",
+      ]
+    } else {
+      deps += [
+        "ecmascript/compiler:ark_aot_compiler($build_root/toolchain/mac:clang_x64)",
+        "ecmascript/js_vm:ark_js_vm($build_root/toolchain/mac:clang_x64)",
+        "ecmascript/pgo_profiler/prof_dump:profdump($build_root/toolchain/mac:clang_x64)",
+      ]
+    }
+  }
+}
+
+ohos_static_library("ark_js_host_linux_tools_packages") {
+  deps = []
+
+  deps += [
+    "ecmascript/dfx/hprof:ark_js_heap_snapshot_tool(${host_toolchain})",
+    "ecmascript/js_vm:ark_js_vm(${host_toolchain})",
+    "ecmascript/quick_fix:quick_fix(${host_toolchain})",
+  ]
+  if (is_standard_system) {
+    deps += [
+      "ecmascript/compiler:ark_aot_compiler(${host_toolchain})",
+      "ecmascript/compiler:ark_stub_compiler(${host_toolchain})",
+      "ecmascript/compiler:libark_jsoptimizer(${host_toolchain})",
+      "ecmascript/pgo_profiler/prof_dump:profdump(${host_toolchain})",
+    ]
+  }
+  part_name = "ets_runtime"
+  subsystem_name = "arkcompiler"
+}
+
+group("ark_js_unittest") {
+  testonly = true
+  deps = []
+
+  deps += [
+    "ecmascript/base/tests:unittest",
+    "ecmascript/builtins/tests:unittest",
+    "ecmascript/containers/tests:unittest",
+    "ecmascript/debugger/tests:unittest",
+    "ecmascript/dfx/cpu_profiler/tests:unittest",
+    "ecmascript/dfx/hprof/tests:unittest",
+    "ecmascript/dfx/stackinfo/tests:unittest",
+    "ecmascript/extractortool/tests:unittest",
+    "ecmascript/ic/tests:unittest",
+    "ecmascript/jobs/tests:unittest",
+    "ecmascript/jspandafile/tests:unittest",
+    "ecmascript/module/tests:unittest",
+    "ecmascript/napi/test:unittest",
+    "ecmascript/napi/test:workload_test",
+    "ecmascript/platform/unix/ohos/tests:unittest",
+    "ecmascript/regexp/tests:unittest",
+    "ecmascript/require/tests:unittest",
+    "ecmascript/serializer/tests:unittest",
+    "ecmascript/snapshot/tests:unittest",
+    "ecmascript/tests:unittest",
+  ]
+  if (is_ohos && is_standard_system) {
+    deps += [ "test/fuzztest:fuzztest" ]
+  }
+  if (current_cpu == "arm64") {
+    deps += [
+      "ecmascript/compiler/aot_file/tests:host_unittest",
+      "ecmascript/pgo_profiler/tests:unittest",
+    ]
+  }
+  if (current_cpu == "arm64" || current_cpu == "amd64") {
+    deps += [ "ecmascript/jit/tests:unittest" ]
+  }
+}
+
+group("ark_js_perform") {
+  testonly = true
+  deps = []
+  deps += [ "//arkcompiler/ets_runtime/test/perform:perform" ]
+}
+
+group("ark_unittest") {
+  testonly = true
+  deps = []
+
+  # js unittest
+  deps += [  # Register the executable block name of the unit test script here
+    "ecmascript/base/tests:host_unittest",
+    "ecmascript/builtins/tests:host_unittest",
+    "ecmascript/compiler/aot_file/tests:host_unittest",
+    "ecmascript/compiler/codegen/maple/test:host_unittest",
+    "ecmascript/containers/tests:host_unittest",
+    "ecmascript/dfx/cpu_profiler/tests:host_unittest",
+    "ecmascript/dfx/hprof/tests:host_unittest",
+    "ecmascript/dfx/stackinfo/tests:host_unittest",
+    "ecmascript/extractortool/tests:host_unittest",
+    "ecmascript/ic/tests:host_unittest",
+    "ecmascript/jit/tests:host_unittest",
+    "ecmascript/jobs/tests:host_unittest",
+    "ecmascript/jspandafile/tests:host_unittest",
+    "ecmascript/module/tests:host_unittest",
+    "ecmascript/napi/test:host_unittest",
+    "ecmascript/pgo_profiler/tests:host_unittest",
+    "ecmascript/platform/unix/ohos/tests:host_unittest",
+    "ecmascript/regexp/tests:host_unittest",
+    "ecmascript/require/tests:host_unittest",
+    "ecmascript/serializer/tests:host_unittest",
+    "ecmascript/snapshot/tests:host_unittest",
+    "ecmascript/tests:host_unittest",
+  ]
+  if (!run_with_asan) {
+    if (!(ark_standalone_build && current_os == "ohos")) {
+      deps += [
+        "ecmascript/compiler/tests:host_unittest",
+        "ecmascript/ohos/tests:host_unittest",
+      ]
+    }
+  }
+}
+
+ohos_static_library("ark_runtime_host_unittest") {
+  testonly = true
+  deps = []
+
+  # js unittest
+  deps += [
+    ":ark_unittest",
+    "$js_root/test/pgotypeinfer:ark_pgotypeinfer_test",
+  ]
+
+  # js bytecode test
+  deps += [
+    "$js_root/test/moduletest:ark_js_assert_moduletest",
+    "$js_root/test/moduletest:ark_js_moduletest",
+  ]
+
+  # quickfix test
+  deps += [ "$js_root/test/quickfix:ark_quickfix_test" ]
+  if (!ark_standalone_build && run_regress_test) {
+    deps += [ "$js_root/test/regresstest:ark_regress_test" ]
+  }
+
+  # execution test
+  deps += [ "$js_root/test/executiontest:ark_execution_test" ]
+
+  # jit test
+  deps += [ "$js_root/test/jittest:ark_jit_test" ]
+
+  # ts aot test and asm test
+  if (!run_with_asan) {
+    deps += [
+      "$js_root/test/aottest:ark_aot_test",
+      "$js_root/test/deopttest:ark_deopt_test",
+
+      # Temporarily closed
+      # "$js_root/test/deopttest:ark_deopt_to_baseline_test",
+      "$js_root/test/moduletest:ark_asm_assert_test",
+      "$js_root/test/moduletest:ark_asm_test",
+    ]
+
+    if (is_mac) {
+      deps -= [
+        "$js_root/test/moduletest:ark_asm_assert_test",
+        "$js_root/test/moduletest:ark_asm_test",
+      ]
+    }
+
+    # TODO: CMC-GC UT FIX LATER
+    if (ets_runtime_enable_cmc_gc) {
+      deps -= [ "$js_root/test/jittest:ark_jit_test" ]
+      if (!run_with_asan) {
+        deps -= [
+          "$js_root/test/aottest:ark_aot_test",
+          "$js_root/test/deopttest:ark_deopt_test",
+        ]
+      }
+    }
+  }
+  part_name = "ets_runtime"
+  subsystem_name = "arkcompiler"
+}
+
+config("ark_jsruntime_public_config") {
+  configs = [
+    "$ark_root/common_interfaces:common_interfaces_public_config",
+    "$ark_root/libpandabase:arkbase_public_config",
+    "$ark_root/libpandafile:arkfile_public_config",
+    "$ark_third_party_root/icu/icu4c:icu_config",
+    sdk_libc_secshared_config,
+  ]
+
+  include_dirs = [
+    "$js_root",
+    "$js_root/ecmascript/napi/include",
+  ]
+
+  defines = []
+  ldflags = []
+
+  if (ark_js_hybrid) {
+    defines += [ "PANDA_JS_ETS_HYBRID_MODE" ]
+    configs += [ "$ark_root/arkplatform:arkplatform_public_config" ]
+  }
+
+  if (ark_hybrid) {
+    defines += [ "ARK_HYBRID" ]
+
+    if (current_cpu == "amd64" || current_cpu == "x64" ||
+        current_cpu == "x86_64") {
+      ldflags += [ "-latomic" ]
+    }
+  }
+}
+
+intl_sources = []
+
+if (enable_ark_intl) {
+  intl_sources += [
+    "ecmascript/builtins/builtins_collator.cpp",
+    "ecmascript/builtins/builtins_date_time_format.cpp",
+    "ecmascript/builtins/builtins_displaynames.cpp",
+    "ecmascript/builtins/builtins_intl.cpp",
+    "ecmascript/builtins/builtins_list_format.cpp",
+    "ecmascript/builtins/builtins_locale.cpp",
+    "ecmascript/builtins/builtins_number_format.cpp",
+    "ecmascript/builtins/builtins_plural_rules.cpp",
+    "ecmascript/builtins/builtins_relative_time_format.cpp",
+    "ecmascript/builtins/builtins_segment_iterator.cpp",
+    "ecmascript/builtins/builtins_segmenter.cpp",
+    "ecmascript/builtins/builtins_segments.cpp",
+    "ecmascript/js_collator.cpp",
+    "ecmascript/js_date_time_format.cpp",
+    "ecmascript/js_displaynames.cpp",
+    "ecmascript/js_list_format.cpp",
+    "ecmascript/js_locale.cpp",
+    "ecmascript/js_number_format.cpp",
+    "ecmascript/js_plural_rules.cpp",
+    "ecmascript/js_relative_time_format.cpp",
+    "ecmascript/js_segment_iterator.cpp",
+    "ecmascript/js_segmenter.cpp",
+    "ecmascript/js_segments.cpp",
+  ]
+} else {
+  if (target_os != "android" && target_os != "ios") {
+    intl_sources += [ "ecmascript/intl/global_intl_helper.cpp" ]
+  }
+}
+
+config("ark_jsruntime_compiler_config") {
+  configs = [ "$js_root:ark_jsruntime_common_config" ]
+}
+
+config("hiviewdfx_config") {
+  defines = []
+  if (enable_dump_in_faultlog) {
+    defines += [ "ENABLE_DUMP_IN_FAULTLOG" ]
+  }
+  if (enable_bytrace) {
+    defines += [ "ENABLE_BYTRACE" ]
+    cflags_cc = [ "-Wno-gnu-zero-variadic-macro-arguments" ]
+  }
+  if (enable_hitrace) {
+    defines += [ "ENABLE_HITRACE" ]
+  }
+  if (enable_hilog) {
+    defines += [ "ENABLE_HILOG" ]
+  }
+  if (enable_hisysevent) {
+    defines += [
+      "ENABLE_HISYSEVENT",
+      "ENABLE_UCOLLECTION",
+    ]
+  }
+  if (enable_unwinder) {
+    defines += [ "ENABLE_UNWINDER" ]
+  }
+
+  include_dirs = [ "$hilog_root/include" ]
+}
+
+config("ark_jsruntime_common_config") {
+  configs = [ ":hiviewdfx_config" ]
+
+  defines = [ "PANDA_ENABLE_LTO" ]
+
+  if (ets_runtime_enable_cmc_gc) {
+    defines += [ "USE_CMC_GC" ]
+    defines += [ "USE_READ_BARRIER" ]
+  }
+
+  if (ark_standalone_build) {
+    defines += [ "STANDALONE_MODE" ]
+  }
+
+  cflags_cc = [
+    "-Wall",
+    "-Wshadow",
+    "-Werror",
+    "-Wextra",
+    "-pedantic",
+    "-Wno-invalid-offsetof",
+    "-Wno-gnu-statement-expression",
+    "-pipe",
+    "-Wdate-time",
+    "-funwind-tables",
+    "-fno-rtti",
+    "-fasynchronous-unwind-tables",
+    "-Wformat=2",
+    "-std=c++17",
+  ]
+
+  cflags_cc += [
+    "-Wno-unused-command-line-argument",
+    "-Wno-variadic-macros",
+    "-Wno-gnu-anonymous-struct",
+    "-Wno-zero-length-array",
+    "-Wno-nested-anon-types",
+    "-Wno-c99-extensions",
+    "-Wno-unused-parameter",
+    "-Wno-shadow",
+    "-Wno-pedantic",
+    "-Wno-gnu-zero-variadic-macro-arguments",
+    "-Wno-unused-lambda-capture",
+    "-Wno-unused-function",
+    "-Wno-unused-variable",
+    "-Wno-unused-but-set-variable",
+  ]
+  cflags_c = []
+
+  if (is_ohos && is_clang && (target_cpu == "arm" || target_cpu == "arm64")) {
+    if (ets_runtime_feature_enable_pgo) {
+      cflags = [
+        "-fprofile-use=" + rebase_path(
+                "${ets_runtime_feature_pgo_path}/libark_jsruntime.profdata",
+                root_build_dir),
+        "-Wno-error=backend-plugin",
+        "-Wno-profile-instr-out-of-date",
+        "-Wno-profile-instr-unprofiled",
+      ]
+    }
+  }
+
+  if (use_musl) {
+    defines += [ "PANDA_USE_MUSL" ]
+  }
+
+  if (build_public_version) {
+    defines += [ "IS_PUBLIC_VERSION" ]
+  }
+
+  if (is_arkui_x) {
+    defines += [ "CROSS_PLATFORM" ]
+  }
+
+  if (target_os == "android") {
+    defines += [ "ANDROID_PLATFORM" ]
+  }
+
+  if (ark_compile_mode != "release") {
+    ark_profiler_features = [
+      "ECMASCRIPT_SUPPORT_CPUPROFILER",
+      "ECMASCRIPT_SUPPORT_HEAPPROFILER",
+      "ECMASCRIPT_SUPPORT_HEAPSAMPLING",
+      "ECMASCRIPT_SUPPORT_SNAPSHOT",
+      "ECMASCRIPT_SUPPORT_TRACING",
+    ]
+    defines += [ "ECMASCRIPT_SUPPORT_DEBUGGER" ]
+    defines += ark_profiler_features
+  }
+
+  ldflags = []
+  if (is_linux) {
+    defines += [
+      "PANDA_TARGET_PREVIEW",
+      "PANDA_TARGET_UNIX",
+      "PANDA_TARGET_LINUX",
+      "PANDA_USE_FUTEX",
+    ]
+  } else if (is_mingw) {
+    cflags_cc += [
+      "-std=c++17",
+      "-Wno-ignored-attributes",
+    ]
+    defines += [
+      "PANDA_TARGET_PREVIEW",
+      "PANDA_TARGET_WINDOWS",
+      "_CRTBLD",
+      "__LIBMSVCRT__",
+    ]
+
+    ldflags += [ "-lshlwapi" ]
+
+    # not support profiler on Windows yet
+    if (ark_compile_mode != "release") {
+      defines -= ark_profiler_features
+    }
+  } else if (is_mac) {
+    cflags_cc += [ "-std=c++17" ]
+    defines += [
+      "PANDA_TARGET_PREVIEW",
+      "PANDA_TARGET_UNIX",
+      "PANDA_TARGET_MACOS",
+    ]
+
+    # not support profiler on MacOS yet
+    if (ark_compile_mode != "release") {
+      defines -= ark_profiler_features
+    }
+  } else if (target_os == "android") {
+    defines += [
+      "PANDA_TARGET_ANDROID",
+      "PANDA_TARGET_UNIX",
+      "PANDA_USE_FUTEX",
+    ]
+    if (current_cpu == "arm64") {
+      defines += [ "EXCLUDE_C_INTERPRETER" ]
+    }
+    if (!ark_standalone_build) {
+      defines += [ "ENABLE_ANLOG" ]
+    }
+  } else if (target_os == "ios") {
+    defines += [
+      "PANDA_TARGET_IOS",
+      "PANDA_TARGET_UNIX",
+    ]
+
+    # not support profiler on iOS yet
+    if (ark_compile_mode != "release") {
+      defines -= ark_profiler_features
+    }
+  } else {
+    defines += [
+      "PANDA_TARGET_UNIX",
+      "PANDA_USE_FUTEX",
+    ]
+    if (!is_standard_system && (current_cpu != "arm" || is_wearable_product)) {
+      defines += [ "PANDA_TARGET_MOBILE" ]
+    }
+  }
+
+  if (is_ohos) {
+    defines += [ "PANDA_TARGET_OHOS" ]
+  }
+
+  if (is_qemu_runtime && is_ohos) {
+    defines += [ "OHOS_FOR_QEMU" ]
+  }
+
+  if (!is_mac && target_os != "ios" && !use_libfuzzer && !enable_lto_O0) {
+    cflags_cc += [ "-flto=thin" ]
+    ldflags += [ "-flto=thin" ]
+  }
+
+  if (use_libfuzzer) {
+    defines += [ "FUZZ_TEST" ]
+  }
+
+  if (is_fastverify) {
+    cflags_cc += [
+      "-O3",
+      "-ggdb3",
+      "-fno-omit-frame-pointer",
+      "-D_GLIBCXX_ASSERTIONS",
+    ]
+    cflags_c += [
+      "-O3",
+      "-ggdb3",
+      "-fno-omit-frame-pointer",
+      "-D_GLIBCXX_ASSERTIONS",
+    ]
+  } else if (is_debug) {
+    cflags_cc += [
+      "-O0",
+      "-ggdb3",
+    ]
+  } else {
+    defines += [ "NDEBUG" ]
+  }
+
+  if (enable_asm_assert) {
+    defines += [ "ENABLE_ASM_ASSERT" ]
+  }
+
+  if (run_with_asan) {
+    defines += [ "RUN_WITH_ASAN" ]
+  }
+
+  if (enable_cow_array) {
+    defines += [ "ENABLE_COW_ARRAY" ]
+  }
+
+  if (current_cpu == "arm") {
+    defines += [
+      "PANDA_TARGET_ARM32_ABI_SOFT=1",
+      "PANDA_TARGET_ARM32",
+      "PANDA_TARGET_32",
+    ]
+  } else if (current_cpu == "arm64") {
+    defines += [
+      "PANDA_TARGET_ARM64",
+      "PANDA_TARGET_64",
+      "PANDA_ENABLE_GLOBAL_REGISTER_VARIABLES",
+      "PANDA_USE_32_BIT_POINTER",
+    ]
+  } else if (current_cpu == "x86") {
+    defines += [ "PANDA_TARGET_X86" ]
+  } else if (current_cpu == "amd64" || current_cpu == "x64" ||
+             current_cpu == "x86_64") {
+    defines += [
+      "PANDA_TARGET_64",
+      "PANDA_TARGET_AMD64",
+      "PANDA_USE_32_BIT_POINTER",
+    ]
+  }
+  if (enable_ark_intl) {
+    defines += [ "ARK_SUPPORT_INTL" ]
+  } else {
+    if (target_os == "android" || target_os == "ios") {
+      defines += [ "ARK_NOT_SUPPORT_INTL_GLOBAL" ]
+    } else {
+      configs += [ "$global_root/frameworks/intl:intl_util_config" ]
+    }
+  }
+
+  if (enable_handle_leak_detect) {
+    defines += [ "ENABLE_LOCAL_HANDLE_LEAK_DETECT" ]
+  }
+
+  if (is_ohos && is_standard_system) {
+    defines += [ "ENABLE_EXCEPTION_BACKTRACE" ]
+
+    if (use_musl && (current_cpu == "arm" || current_cpu == "arm64") &&
+        !is_mac && !is_mingw && target_os != "ios" && !is_asan) {
+      defines += [ "HOOK_ENABLE" ]
+    }
+  }
+
+  # is_asan: skynet config; run_with_asan: est_runtime enable asan config
+  if (is_asan) {
+    defines += [
+      "ECMASCRIPT_ENABLE_ASAN_DFX_CONFIG",
+      "ECMASCRIPT_ENABLE_ASAN_THREAD_CHECK",
+    ]
+  }
+
+  code_encrypto_enable = true
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.security_code_crypto_metadata_process)) {
+    code_encrypto_enable = false
+  }
+  if (is_mingw && ark_standalone_build) {
+    code_encrypto_enable = false
+  }
+  if (code_encrypto_enable) {
+    defines += [ "CODE_ENCRYPTION_ENABLE" ]
+  }
+}
+
+# ecmascript unit testcase config
+config("ecma_test_config") {
+  visibility = [
+    "./ecmascript/*",
+    "./test/executiontest/*",
+    "./test/fuzztest/*",
+    "./tools/ap_file_viewer/*",
+  ]
+
+  configs = [
+    "$js_root:ark_jsruntime_public_config",
+    "$js_root:ark_jsruntime_common_config",
+  ]
+
+  if (enable_handle_leak_detect) {
+    defines = [ "ENABLE_LOCAL_HANDLE_LEAK_DETECT" ]
+  }
+  if (!is_mac) {
+    ldflags = [ "-Wl,-rpath=\$ORIGIN/" ]
+  } else {
+    ldflags = [ "-Wl" ]
+  }
+
+  if (!ark_standalone_build) {
+    ldflags += [ "-Wl,--lto-O0" ]
+  }
+}
+
+# ecmascript icu path for testcase config
+config("icu_path_test_config") {
+  icu_data_path = rebase_path("//third_party/icu/ohos_icu4j/data")
+  defines = [ "ICU_PATH=\"${icu_data_path}\"" ]
+}
+
+# asm interpreter enable config
+config("asm_interp_enable_config") {
+  if ((current_cpu == "amd64" || current_cpu == "x64" ||
+       current_cpu == "x86_64" || current_cpu == "arm64") && !is_mingw &&
+      !is_mac && target_os != "ios") {
+    defines = [ "SUPPORT_ENABLE_ASM_INTERP" ]
+  }
+}
+
+ecma_source = [
+  "ecmascript/base/array_helper.cpp",
+  "ecmascript/base/atomic_helper.cpp",
+  "ecmascript/base/builtins_base.cpp",
+  "ecmascript/base/dtoa_helper.cpp",
+  "ecmascript/base/error_helper.cpp",
+  "ecmascript/base/json_helper.cpp",
+  "ecmascript/base/json_parser.cpp",
+  "ecmascript/base/json_stringifier.cpp",
+  "ecmascript/base/number_helper.cpp",
+  "ecmascript/base/path_helper.cpp",
+  "ecmascript/base/sort_helper.cpp",
+  "ecmascript/base/string_helper.cpp",
+  "ecmascript/base/typed_array_helper.cpp",
+  "ecmascript/base/utf_helper.cpp",
+  "ecmascript/builtins/builtins.cpp",
+  "ecmascript/builtins/builtins_ark_tools.cpp",
+  "ecmascript/builtins/builtins_array.cpp",
+  "ecmascript/builtins/builtins_shared_array.cpp",
+  "ecmascript/builtins/builtins_sendable_arraybuffer.cpp",
+  "ecmascript/builtins/builtins_arraybuffer.cpp",
+  "ecmascript/builtins/builtins_async_from_sync_iterator.cpp",
+  "ecmascript/builtins/builtins_async_function.cpp",
+  "ecmascript/builtins/builtins_shared_async_function.cpp",
+  "ecmascript/builtins/builtins_async_generator.cpp",
+  "ecmascript/builtins/builtins_atomics.cpp",
+  "ecmascript/builtins/builtins_bigint.cpp",
+  "ecmascript/builtins/builtins_boolean.cpp",
+  "ecmascript/builtins/builtins_dataview.cpp",
+  "ecmascript/builtins/builtins_date.cpp",
+  "ecmascript/builtins/builtins_errors.cpp",
+  "ecmascript/builtins/builtins_finalization_registry.cpp",
+  "ecmascript/builtins/builtins_function.cpp",
+  "ecmascript/builtins/builtins_gc.cpp",
+  "ecmascript/builtins/builtins_generator.cpp",
+  "ecmascript/builtins/builtins_global.cpp",
+  "ecmascript/builtins/builtins_global_uri.cpp",
+  "ecmascript/builtins/builtins_iterator.cpp",
+  "ecmascript/builtins/builtins_async_iterator.cpp",
+  "ecmascript/builtins/builtins_json.cpp",
+  "ecmascript/builtins/builtins_lazy_callback.cpp",
+  "ecmascript/builtins/builtins_map.cpp",
+  "ecmascript/builtins/builtins_math.cpp",
+  "ecmascript/builtins/builtins_number.cpp",
+  "ecmascript/builtins/builtins_object.cpp",
+  "ecmascript/builtins/builtins_promise.cpp",
+  "ecmascript/builtins/builtins_promise_handler.cpp",
+  "ecmascript/builtins/builtins_promise_job.cpp",
+  "ecmascript/builtins/builtins_proxy.cpp",
+  "ecmascript/builtins/builtins_reflect.cpp",
+  "ecmascript/builtins/builtins_regexp.cpp",
+  "ecmascript/builtins/builtins_set.cpp",
+  "ecmascript/builtins/builtins_sharedarraybuffer.cpp",
+  "ecmascript/builtins/builtins_string.cpp",
+  "ecmascript/builtins/builtins_shared_function.cpp",
+  "ecmascript/builtins/builtins_string_iterator.cpp",
+  "ecmascript/builtins/builtins_shared_object.cpp",
+  "ecmascript/builtins/builtins_shared_set.cpp",
+  "ecmascript/builtins/builtins_shared_map.cpp",
+  "ecmascript/builtins/builtins_shared_typedarray.cpp",
+  "ecmascript/builtins/builtins_symbol.cpp",
+  "ecmascript/builtins/builtins_typedarray.cpp",
+  "ecmascript/builtins/builtins_weak_map.cpp",
+  "ecmascript/builtins/builtins_weak_ref.cpp",
+  "ecmascript/builtins/builtins_weak_set.cpp",
+  "ecmascript/builtins/shared_builtins.cpp",
+  "ecmascript/byte_array.cpp",
+  "ecmascript/ohos/code_decrypt.cpp",
+  "ecmascript/ohos/enable_aot_list_helper.cpp",
+  "ecmascript/compiler/aot_constantpool_patcher.cpp",
+  "ecmascript/compiler/aot_file/elf_builder.cpp",
+  "ecmascript/compiler/aot_file/elf_reader.cpp",
+  "ecmascript/compiler/aot_file/elf_checker.cpp",
+  "ecmascript/compiler/aot_file/an_file_data_manager.cpp",
+  "ecmascript/compiler/aot_file/an_file_info.cpp",
+  "ecmascript/compiler/aot_file/aot_checksum_helper.cpp",
+  "ecmascript/compiler/aot_file/aot_file_info.cpp",
+  "ecmascript/compiler/aot_file/stub_file_info.cpp",
+  "ecmascript/compiler/aot_file/gdb_jit.cpp",
+  "ecmascript/compiler/aot_file/binary_buffer_parser.cpp",
+  "ecmascript/compiler/aot_file/module_section_des.cpp",
+  "ecmascript/compiler/aot_file/aot_file_manager.cpp",
+  "ecmascript/compiler/aot_file/aot_version.cpp",
+  "ecmascript/compiler/aot_snapshot/aot_snapshot.cpp",
+  "ecmascript/compiler/aot_snapshot/snapshot_constantpool_data.cpp",
+  "ecmascript/compiler/aot_snapshot/snapshot_global_data.cpp",
+  "ecmascript/compiler/pgo_bc_info.cpp",
+  "ecmascript/compiler/pgo_type/pgo_hclass_generator.cpp",
+  "ecmascript/compiler/pgo_type/pgo_type_manager.cpp",
+  "ecmascript/compiler/pgo_type/pgo_type_parser.cpp",
+  "ecmascript/compiler/pgo_type/pgo_type_recorder.cpp",
+  "ecmascript/compiler/lazy_deopt_dependency.cpp",
+  "ecmascript/containers/containers_arraylist.cpp",
+  "ecmascript/containers/containers_bitvector.cpp",
+  "ecmascript/containers/containers_buffer.cpp",
+  "ecmascript/containers/containers_deque.cpp",
+  "ecmascript/containers/containers_errors.cpp",
+  "ecmascript/containers/containers_hashmap.cpp",
+  "ecmascript/containers/containers_hashset.cpp",
+  "ecmascript/containers/containers_lightweightmap.cpp",
+  "ecmascript/containers/containers_lightweightset.cpp",
+  "ecmascript/containers/containers_linked_list.cpp",
+  "ecmascript/containers/containers_list.cpp",
+  "ecmascript/containers/containers_plainarray.cpp",
+  "ecmascript/containers/containers_private.cpp",
+  "ecmascript/containers/containers_queue.cpp",
+  "ecmascript/containers/containers_stack.cpp",
+  "ecmascript/containers/containers_treemap.cpp",
+  "ecmascript/containers/containers_treeset.cpp",
+  "ecmascript/containers/containers_vector.cpp",
+  "ecmascript/date_parse.cpp",
+  "ecmascript/debugger/js_debugger_manager.cpp",
+  "ecmascript/deoptimizer/calleeReg.cpp",
+  "ecmascript/deoptimizer/deoptimizer.cpp",
+  "ecmascript/dependent_infos.cpp",
+  "ecmascript/dfx/stackinfo/async_stack_trace.cpp",
+  "ecmascript/dfx/dump_code/jit_dump_elf.cpp",
+  "ecmascript/dfx/native_module_failure_info.cpp",
+  "ecmascript/dfx/stackinfo/js_stackinfo.cpp",
+  "ecmascript/dfx/vmstat/caller_stat.cpp",
+  "ecmascript/dfx/vmstat/function_call_timer.cpp",
+  "ecmascript/dfx/vmstat/opt_code_profiler.cpp",
+  "ecmascript/dfx/vmstat/runtime_stat.cpp",
+  "ecmascript/dfx/vm_thread_control.cpp",
+  "ecmascript/dump.cpp",
+  "ecmascript/ecma_handle_scope.cpp",
+  "ecmascript/ecma_string.cpp",
+  "ecmascript/ecma_string_table.cpp",
+  "ecmascript/ecma_string_table_optimization.cpp",
+  "ecmascript/ecma_vm.cpp",
+  "ecmascript/element_accessor.cpp",
+  "ecmascript/elements.cpp",
+  "ecmascript/extractortool/src/source_map.cpp",
+  "ecmascript/frames.cpp",
+  "ecmascript/free_object.cpp",
+  "ecmascript/generator_helper.cpp",
+  "ecmascript/async_generator_helper.cpp",
+  "ecmascript/global_env.cpp",
+  "ecmascript/global_env_constants.cpp",
+  "ecmascript/ic/ic_handler.cpp",
+  "ecmascript/ic/ic_runtime.cpp",
+  "ecmascript/ic/profile_type_info.cpp",
+  "ecmascript/ic/mega_ic_cache.cpp",
+  "ecmascript/ic/property_box.cpp",
+  "ecmascript/ic/proto_change_details.cpp",
+  "ecmascript/interpreter/frame_handler.cpp",
+  "ecmascript/interpreter/interpreter.cpp",
+  "ecmascript/interpreter/interpreter_assembly.cpp",
+  "ecmascript/interpreter/interpreter-inl.cpp",
+  "ecmascript/interpreter/slow_runtime_stub.cpp",
+  "ecmascript/intl/locale_helper.cpp",
+  "ecmascript/jit/rewriter/reloc_rewriter_aarch64.cpp",
+  "ecmascript/jit/compile_decision.cpp",
+  "ecmascript/jit/jit.cpp",
+  "ecmascript/jit/jit_dfx.cpp",
+  "ecmascript/jit/jit_task.cpp",
+  "ecmascript/jit/jit_resources.cpp",
+  "ecmascript/jit/jit_thread.cpp",
+  "ecmascript/jit/jit_profiler.cpp",
+  "ecmascript/jobs/micro_job_queue.cpp",
+  "ecmascript/jspandafile/js_pandafile.cpp",
+  "ecmascript/jspandafile/js_pandafile_manager.cpp",
+  "ecmascript/jspandafile/class_info_extractor.cpp",
+  "ecmascript/jspandafile/debug_info_extractor.cpp",
+  "ecmascript/jspandafile/literal_data_extractor.cpp",
+  "ecmascript/jspandafile/panda_file_translator.cpp",
+  "ecmascript/jspandafile/js_pandafile_executor.cpp",
+  "ecmascript/jspandafile/scope_info_extractor.cpp",
+  "ecmascript/jspandafile/method_literal.cpp",
+  "ecmascript/jspandafile/program_object.cpp",
+  "ecmascript/js_api/js_api_arraylist.cpp",
+  "ecmascript/js_api/js_api_arraylist_iterator.cpp",
+  "ecmascript/js_api/js_api_bitvector.cpp",
+  "ecmascript/js_api/js_api_bitvector_iterator.cpp",
+  "ecmascript/js_api/js_api_buffer.cpp",
+  "ecmascript/js_api/js_api_deque.cpp",
+  "ecmascript/js_api/js_api_deque_iterator.cpp",
+  "ecmascript/js_api/js_api_hashmap.cpp",
+  "ecmascript/js_api/js_api_hashmap_iterator.cpp",
+  "ecmascript/js_api/js_api_hashset.cpp",
+  "ecmascript/js_api/js_api_hashset_iterator.cpp",
+  "ecmascript/js_api/js_api_lightweightmap.cpp",
+  "ecmascript/js_api/js_api_lightweightmap_iterator.cpp",
+  "ecmascript/js_api/js_api_lightweightset.cpp",
+  "ecmascript/js_api/js_api_lightweightset_iterator.cpp",
+  "ecmascript/js_api/js_api_linked_list.cpp",
+  "ecmascript/js_api/js_api_linked_list_iterator.cpp",
+  "ecmascript/js_api/js_api_list.cpp",
+  "ecmascript/js_api/js_api_list_iterator.cpp",
+  "ecmascript/js_api/js_api_plain_array.cpp",
+  "ecmascript/js_api/js_api_plain_array_iterator.cpp",
+  "ecmascript/js_api/js_api_queue.cpp",
+  "ecmascript/js_api/js_api_queue_iterator.cpp",
+  "ecmascript/js_api/js_api_stack.cpp",
+  "ecmascript/js_api/js_api_stack_iterator.cpp",
+  "ecmascript/js_api/js_api_tree_map.cpp",
+  "ecmascript/js_api/js_api_tree_map_iterator.cpp",
+  "ecmascript/js_api/js_api_tree_set.cpp",
+  "ecmascript/js_api/js_api_tree_set_iterator.cpp",
+  "ecmascript/js_api/js_api_vector.cpp",
+  "ecmascript/js_api/js_api_vector_iterator.cpp",
+  "ecmascript/js_arguments.cpp",
+  "ecmascript/js_array.cpp",
+  "ecmascript/shared_objects/js_shared_array.cpp",
+  "ecmascript/js_array_iterator.cpp",
+  "ecmascript/shared_objects/js_shared_array_iterator.cpp",
+  "ecmascript/js_arraybuffer.cpp",
+  "ecmascript/js_async_from_sync_iterator.cpp",
+  "ecmascript/js_async_function.cpp",
+  "ecmascript/js_bigint.cpp",
+  "ecmascript/js_dataview.cpp",
+  "ecmascript/js_date.cpp",
+  "ecmascript/js_for_in_iterator.cpp",
+  "ecmascript/js_finalization_registry.cpp",
+  "ecmascript/js_file_path.cpp",
+  "ecmascript/js_function.cpp",
+  "ecmascript/js_generator_object.cpp",
+  "ecmascript/js_async_generator_object.cpp",
+  "ecmascript/js_hclass.cpp",
+  "ecmascript/js_iterator.cpp",
+  "ecmascript/js_map.cpp",
+  "ecmascript/js_map_iterator.cpp",
+  "ecmascript/jsnapi_sendable.cpp",
+  "ecmascript/method.cpp",
+  "ecmascript/js_native_pointer.cpp",
+  "ecmascript/js_object.cpp",
+  "ecmascript/js_primitive_ref.cpp",
+  "ecmascript/js_promise.cpp",
+  "ecmascript/js_proxy.cpp",
+  "ecmascript/js_regexp_iterator.cpp",
+  "ecmascript/js_runtime_options.cpp",
+  "ecmascript/js_set.cpp",
+  "ecmascript/js_set_iterator.cpp",
+  "ecmascript/js_stable_array.cpp",
+  "ecmascript/js_string_iterator.cpp",
+  "ecmascript/js_tagged_value.cpp",
+  "ecmascript/js_thread.cpp",
+  "ecmascript/js_typed_array.cpp",
+  "ecmascript/js_weak_container.cpp",
+  "ecmascript/linked_hash_table.cpp",
+  "ecmascript/message_string.cpp",
+  "ecmascript/mem/assert_scope.cpp",
+  "ecmascript/mem/barriers.cpp",
+  "ecmascript/mem/c_string.cpp",
+  "ecmascript/mem/chunk.cpp",
+  "ecmascript/mem/dyn_chunk.cpp",
+  "ecmascript/mem/dynamic_object_operator.cpp",
+  "ecmascript/mem/full_gc.cpp",
+  "ecmascript/mem/concurrent_marker.cpp",
+  "ecmascript/mem/concurrent_sweeper.cpp",
+  "ecmascript/mem/free_object_list.cpp",
+  "ecmascript/mem/free_object_set.cpp",
+  "ecmascript/mem/gc_stats.cpp",
+  "ecmascript/mem/idle_gc_trigger.cpp",
+  "ecmascript/mem/gc_key_stats.cpp",
+  "ecmascript/mem/heap.cpp",
+  "ecmascript/mem/heap_region_allocator.cpp",
+  "ecmascript/mem/incremental_marker.cpp",
+  "ecmascript/mem/linear_space.cpp",
+  "ecmascript/mem/machine_code.cpp",
+  "ecmascript/mem/mem_controller.cpp",
+  "ecmascript/mem/shared_mem_controller.cpp",
+  "ecmascript/mem/mem_controller_utils.cpp",
+  "ecmascript/mem/mem_map_allocator.cpp",
+  "ecmascript/mem/native_area_allocator.cpp",
+  "ecmascript/mem/parallel_evacuator.cpp",
+  "ecmascript/mem/parallel_marker.cpp",
+  "ecmascript/mem/partial_gc.cpp",
+  "ecmascript/mem/regexp_cached_chunk.cpp",
+  "ecmascript/mem/shared_heap/shared_concurrent_marker.cpp",
+  "ecmascript/mem/shared_heap/shared_concurrent_sweeper.cpp",
+  "ecmascript/mem/shared_heap/shared_gc.cpp",
+  "ecmascript/mem/shared_heap/shared_gc_evacuator.cpp",
+  "ecmascript/mem/shared_heap/shared_full_gc.cpp",
+  "ecmascript/mem/shared_heap/shared_gc_marker.cpp",
+  "ecmascript/mem/shared_heap/shared_space.cpp",
+  "ecmascript/mem/space.cpp",
+  "ecmascript/mem/sparse_space.cpp",
+  "ecmascript/mem/tagged_object.cpp",
+  "ecmascript/mem/thread_local_allocation_buffer.cpp",
+  "ecmascript/mem/verification.cpp",
+  "ecmascript/mem/work_space_chunk.cpp",
+  "ecmascript/mem/allocation_inspector.cpp",
+  "ecmascript/mem/jit_fort.cpp",
+  "ecmascript/module/accessor/module_data_accessor.cpp",
+  "ecmascript/module/js_module_manager.cpp",
+  "ecmascript/module/js_dynamic_import.cpp",
+  "ecmascript/module/js_module_namespace.cpp",
+  "ecmascript/module/js_module_source_text.cpp",
+  "ecmascript/module/js_module_deregister.cpp",
+  "ecmascript/module/js_shared_module.cpp",
+  "ecmascript/module/js_shared_module_manager.cpp",
+  "ecmascript/module/module_data_extractor.cpp",
+  "ecmascript/module/module_logger.cpp",
+  "ecmascript/module/module_value_accessor.cpp",
+  "ecmascript/module/module_path_helper.cpp",
+  "ecmascript/module/napi_module_loader.cpp",
+  "ecmascript/module/module_resolver.cpp",
+  "ecmascript/mutator_lock.cpp",
+  "ecmascript/napi/jsnapi.cpp",
+  "ecmascript/napi/jsnapi_expo.cpp",
+  "ecmascript/object_factory.cpp",
+  "ecmascript/object_operator.cpp",
+  "ecmascript/patch/patch_loader.cpp",
+  "ecmascript/patch/quick_fix_manager.cpp",
+  "ecmascript/patch/quick_fix_helper.cpp",
+  "ecmascript/pgo_profiler/ap_file/pgo_file_info.cpp",
+  "ecmascript/pgo_profiler/pgo_profiler.cpp",
+  "ecmascript/pgo_profiler/pgo_profiler_decoder.cpp",
+  "ecmascript/pgo_profiler/pgo_profiler_encoder.cpp",
+  "ecmascript/pgo_profiler/pgo_profiler_info.cpp",
+  "ecmascript/pgo_profiler/pgo_profiler_layout.cpp",
+  "ecmascript/pgo_profiler/pgo_profiler_manager.cpp",
+  "ecmascript/pgo_profiler/pgo_utils.cpp",
+  "ecmascript/pgo_profiler/pgo_state.cpp",
+  "ecmascript/pgo_profiler/pgo_info.cpp",
+  "ecmascript/pgo_profiler/ap_file/pgo_method_type_set.cpp",
+  "ecmascript/pgo_profiler/types/pgo_profile_type.cpp",
+  "ecmascript/property_accessor.cpp",
+  "ecmascript/serializer/base_deserializer.cpp",
+  "ecmascript/serializer/base_serializer.cpp",
+  "ecmascript/serializer/value_serializer.cpp",
+  "ecmascript/shared_object_factory.cpp",
+  "ecmascript/shared_objects/js_shared_map.cpp",
+  "ecmascript/shared_objects/js_shared_map_iterator.cpp",
+  "ecmascript/shared_objects/js_shared_set.cpp",
+  "ecmascript/shared_objects/js_shared_set_iterator.cpp",
+  "ecmascript/shared_objects/js_sendable_arraybuffer.cpp",
+  "ecmascript/stackmap/ark_stackmap_builder.cpp",
+  "ecmascript/stackmap/ark_stackmap_parser.cpp",
+  "ecmascript/stackmap/litecg/litecg_stackmap_type.cpp",
+  "ecmascript/stackmap/llvm/llvm_stackmap_parser.cpp",
+  "ecmascript/stackmap/llvm/llvm_stackmap_type.cpp",
+  "ecmascript/sustaining_js_handle.cpp",
+  "ecmascript/taskpool/taskpool.cpp",
+  "ecmascript/taskpool/runner.cpp",
+  "ecmascript/taskpool/task_queue.cpp",
+  "ecmascript/layout_info.cpp",
+  "ecmascript/regexp/regexp_executor.cpp",
+  "ecmascript/regexp/regexp_opcode.cpp",
+  "ecmascript/regexp/regexp_parser.cpp",
+  "ecmascript/regexp/regexp_parser_cache.cpp",
+  "ecmascript/daemon/daemon_thread.cpp",
+  "ecmascript/runtime.cpp",
+  "ecmascript/runtime_lock.cpp",
+  "ecmascript/shared_mm/shared_mm.cpp",
+  "ecmascript/tagged_dictionary.cpp",
+  "ecmascript/tagged_hash_array.cpp",
+  "ecmascript/tagged_list.cpp",
+  "ecmascript/tagged_node.cpp",
+  "ecmascript/tagged_array.cpp",
+  "ecmascript/tagged_tree.cpp",
+  "ecmascript/template_string.cpp",
+  "ecmascript/vtable.cpp",
+  "ecmascript/waiter_list.cpp",
+  "ecmascript/weak_vector.cpp",
+  "ecmascript/stubs/runtime_stubs.cpp",
+  "ecmascript/stubs/test_runtime_stubs.cpp",
+  "ecmascript/builtins/builtins_cjs_module.cpp",
+  "ecmascript/builtins/builtins_cjs_require.cpp",
+  "ecmascript/builtins/builtins_cjs_exports.cpp",
+  "ecmascript/require/js_cjs_module_cache.cpp",
+  "ecmascript/require/js_cjs_module.cpp",
+  "ecmascript/require/js_require_manager.cpp",
+]
+
+# ecmascript use implement from common_components
+ecma_source += [
+  "common_components/log/log.cpp",
+  "common_components/objects/base_object.cpp",
+  "common_components/objects/base_string.cpp",
+]
+
+if (ets_runtime_enable_cmc_gc) {
+  ecma_source += [ "ecmascript/mem/cmc_gc/hooks.cpp" ]
+}
+
+if (ark_js_hybrid) {
+  ecma_source += [ "ecmascript/cross_vm/cross_vm_operator.cpp" ]
+}
+
+if (current_cpu == "arm64") {
+  ecma_source += [ "ecmascript/trampoline/aarch64/raw_asm_stub.S" ]
+} else if (current_cpu == "amd64" || current_cpu == "x64" ||
+           current_cpu == "x86_64") {
+  ecma_source += [ "ecmascript/trampoline/x64/raw_asm_stub.S" ]
+} else if (current_cpu == "arm") {
+  ecma_source += [ "ecmascript/trampoline/arm32/raw_asm_stub.S" ]
+}
+
+hitrace_scope_source = []
+if (is_ohos && is_standard_system && enable_hitrace) {
+  hitrace_scope_source += [ "ecmascript/jobs/hitrace_scope.cpp" ]
+}
+
+ecma_debugger_source = [
+  "ecmascript/debugger/debugger_api.cpp",
+  "ecmascript/debugger/js_debugger.cpp",
+  "ecmascript/debugger/dropframe_manager.cpp",
+  "ecmascript/debugger/hot_reload_manager.cpp",
+]
+
+ecma_profiler_source = [ "ecmascript/napi/dfx_jsnapi.cpp" ]
+if (!is_mingw && !is_mac && target_os != "ios") {
+  if (ark_compile_mode == "debug") {
+    ecma_profiler_source += [
+      "ecmascript/dfx/cpu_profiler/cpu_profiler.cpp",
+      "ecmascript/dfx/cpu_profiler/sampling_processor.cpp",
+      "ecmascript/dfx/cpu_profiler/samples_record.cpp",
+      "ecmascript/dfx/hprof/file_stream.cpp",
+      "ecmascript/dfx/hprof/heap_marker.cpp",
+      "ecmascript/dfx/hprof/heap_profiler.cpp",
+      "ecmascript/dfx/hprof/heap_profiler_interface.cpp",
+      "ecmascript/dfx/hprof/heap_root_visitor.cpp",
+      "ecmascript/dfx/hprof/heap_sampling.cpp",
+      "ecmascript/dfx/hprof/heap_snapshot.cpp",
+      "ecmascript/dfx/hprof/heap_snapshot_json_serializer.cpp",
+      "ecmascript/dfx/hprof/heap_tracker.cpp",
+      "ecmascript/dfx/hprof/string_hashmap.cpp",
+      "ecmascript/dfx/stackinfo/js_stackgetter.cpp",
+      "ecmascript/base/block_hook_scope.cpp",
+      "ecmascript/dfx/tracing/tracing.cpp",
+    ]
+  }
+}
+
+ecma_profiler_source += [
+  "ecmascript/snapshot/mem/snapshot.cpp",
+  "ecmascript/snapshot/mem/snapshot_env.cpp",
+  "ecmascript/snapshot/mem/snapshot_processor.cpp",
+]
+
+ecma_stackinfo_source = []
+
+ecma_stackinfo_source = [
+  "ecmascript/extractortool/src/extractor.cpp",
+  "ecmascript/extractortool/src/file_mapper.cpp",
+  "ecmascript/extractortool/src/file_path_utils.cpp",
+  "ecmascript/extractortool/src/zip_file_reader_io.cpp",
+  "ecmascript/extractortool/src/zip_file_reader_mem.cpp",
+  "ecmascript/extractortool/src/zip_file_reader.cpp",
+  "ecmascript/extractortool/src/zip_file.cpp",
+]
+
+ecma_platform_source = []
+
+ecma_platform_source += [
+  "ecmascript/platform/common/map.cpp",
+  "ecmascript/platform/common/mutex.cpp",
+  "ecmascript/platform/common/filesystem.cpp",
+  "ecmascript/platform/common/ffrt.cpp",
+]
+
+config("include_llvm") {
+  if (compile_llvm_online) {
+    include_dirs = [
+      "//third_party/third_party_llvm-project/build/include",
+      "//third_party/third_party_llvm-project/llvm/include/",
+    ]
+  } else {
+    if (is_mingw) {
+      include_dirs = [
+        "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts_windows/llvm/include",
+        "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts_windows/build/include",
+      ]
+    } else if (is_mac || is_ios) {
+      if (host_cpu == "arm64") {
+        include_dirs = [
+          "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts_darwin_arm64/llvm/include",
+          "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts_darwin_arm64/build/include",
+        ]
+      } else {
+        include_dirs = [
+          "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts_darwin_x64/llvm/include",
+          "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts_darwin_x64/build/include",
+        ]
+      }
+    } else {
+      if (host_cpu == "arm64" && host_os == "linux") {
+        if (current_os == "ohos") {
+          include_dirs = [
+            "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts_aarch64/llvm/include",
+            "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts_aarch64/build/include",
+          ]
+        } else {
+          include_dirs = [
+            "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts_linux_aarch64/llvm/include",
+            "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts_linux_aarch64/build/include",
+          ]
+        }
+      } else {
+        if (current_cpu == "arm64") {
+          include_dirs = [
+            "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts_aarch64/llvm/include",
+            "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts_aarch64/build/include",
+          ]
+        } else {
+          include_dirs = [
+            "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts/llvm/include",
+            "//prebuilts/ark_tools/ark_js_prebuilts/llvm_prebuilts/build/include",
+          ]
+        }
+      }
+    }
+  }
+  cflags_cc = [ "-DARK_GC_SUPPORT" ]
+}
+
+if (is_mingw) {
+  ecma_platform_source += [
+    "ecmascript/platform/common/dfx_crash_obj.cpp",
+    "ecmascript/platform/windows/backtrace.cpp",
+    "ecmascript/platform/windows/async_detect.cpp",
+    "ecmascript/platform/windows/map.cpp",
+    "ecmascript/platform/windows/file.cpp",
+    "ecmascript/platform/windows/os.cpp",
+    "ecmascript/platform/windows/time.cpp",
+    "ecmascript/platform/windows/log.cpp",
+    "ecmascript/platform/windows/aot_crash_info.cpp",
+    "ecmascript/platform/windows/dfx_hisys_event.cpp",
+    "ecmascript/platform/windows/pandafile.cpp",
+    "ecmascript/platform/windows/module.cpp",
+    "ecmascript/platform/common/ecma_context.cpp",
+    "ecmascript/platform/common/parameters.cpp",
+  ]
+} else {
+  ecma_platform_source += [
+    "ecmascript/platform/unix/file.cpp",
+    "ecmascript/platform/unix/map.cpp",
+    "ecmascript/platform/unix/time.cpp",
+    "ecmascript/platform/unix/aot_crash_info.cpp",
+  ]
+  if (is_mac) {
+    ecma_platform_source += [
+      "ecmascript/platform/common/dfx_crash_obj.cpp",
+      "ecmascript/platform/unix/mac/os.cpp",
+      "ecmascript/platform/unix/mac/backtrace.cpp",
+      "ecmascript/platform/unix/mac/async_detect.cpp",
+      "ecmascript/platform/unix/mac/log.cpp",
+      "ecmascript/platform/unix/mac/dfx_hisys_event.cpp",
+      "ecmascript/platform/unix/mac/pandafile.cpp",
+      "ecmascript/platform/unix/mac/module.cpp",
+      "ecmascript/platform/common/ecma_context.cpp",
+      "ecmascript/platform/common/parameters.cpp",
+    ]
+  } else if (target_os == "ios") {
+    ecma_platform_source += [
+      "ecmascript/platform/unix/mac/os.cpp",
+      "ecmascript/platform/unix/mac/backtrace.cpp",
+      "ecmascript/platform/unix/mac/async_detect.cpp",
+      "ecmascript/platform/common/dfx_crash_obj.cpp",
+      "ecmascript/platform/common/log.cpp",
+      "ecmascript/platform/unix/mac/dfx_hisys_event.cpp",
+      "ecmascript/platform/common/pandafile.cpp",
+      "ecmascript/platform/common/module.cpp",
+      "ecmascript/platform/common/ecma_context.cpp",
+      "ecmascript/platform/common/parameters.cpp",
+    ]
+  } else if (is_ohos || target_os == "android") {
+    ecma_platform_source += [
+      "ecmascript/platform/unix/linux/os.cpp",
+      "ecmascript/platform/unix/ohos/backtrace.cpp",
+      "ecmascript/platform/unix/ohos/async_detect.cpp",
+      "ecmascript/platform/common/log.cpp",
+      "ecmascript/platform/unix/ohos/memory.cpp",
+      "ecmascript/platform/unix/ohos/dfx_hisys_event.cpp",
+      "ecmascript/platform/common/module.cpp",
+    ]
+
+    if (is_ohos) {
+      ecma_platform_source += [
+        "ecmascript/platform/unix/ohos/pandafile.cpp",
+        "ecmascript/platform/unix/ohos/ecma_context.cpp",
+        "ecmascript/platform/unix/ohos/parameters.cpp",
+      ]
+    } else {
+      ecma_platform_source += [
+        "ecmascript/platform/common/pandafile.cpp",
+        "ecmascript/platform/common/ecma_context.cpp",
+        "ecmascript/platform/common/parameters.cpp",
+      ]
+    }
+
+    if (is_ohos && !ark_standalone_build &&
+        (current_cpu == "arm64" || current_cpu == "arm")) {
+      ecma_platform_source +=
+          [ "ecmascript/platform/unix/ohos/dfx_crash_obj.cpp" ]
+    } else {
+      ecma_platform_source += [ "ecmascript/platform/common/dfx_crash_obj.cpp" ]
+    }
+  } else if (is_linux) {
+    ecma_platform_source += [
+      "ecmascript/platform/unix/linux/os.cpp",
+      "ecmascript/platform/unix/linux/backtrace.cpp",
+      "ecmascript/platform/unix/linux/async_detect.cpp",
+      "ecmascript/platform/common/dfx_crash_obj.cpp",
+      "ecmascript/platform/common/log.cpp",
+      "ecmascript/platform/unix/linux/memory.cpp",
+      "ecmascript/platform/unix/linux/dfx_hisys_event.cpp",
+      "ecmascript/platform/unix/linux/pandafile.cpp",
+      "ecmascript/platform/common/module.cpp",
+      "ecmascript/platform/common/ecma_context.cpp",
+      "ecmascript/platform/common/parameters.cpp",
+    ]
+  } else {
+    print("Invalid os!")
+    assert(false)
+  }
+}
+
+if (enable_target_compilation) {
+  ecma_platform_source += [ "ecmascript/platform/unix/ohos/directory.cpp" ]
+} else if (is_mingw) {
+  ecma_platform_source += [ "ecmascript/platform/windows/directory.cpp" ]
+} else {
+  ecma_platform_source += [ "ecmascript/platform/unix/directory.cpp" ]
+}
+
+# Only use when cmc-gc enable
+ohos_source_set("libcommon_components_set") {
+  sources = [
+    "common_components/base_runtime/base_runtime.cpp",
+    "common_components/base_runtime/base_runtime_param.cpp",
+    "common_components/heap/heap_allocator.cpp",
+    "common_components/heap/heap_visitor.cpp",
+    "common_components/serialize/serialize_utils.cpp",
+    "common_components/thread/thread_holder.cpp",
+    "common_components/thread/thread_holder_manager.cpp",
+    "ecmascript/dynamic_object_accessor.cpp",
+    "ecmascript/dynamic_object_descriptor.cpp",
+    "ecmascript/dynamic_type_converter.cpp",
+  ]
+
+  public_configs = [ "$js_root:ark_jsruntime_public_config" ]
+
+  configs = [
+    "$js_root:ark_jsruntime_common_config",
+    ":include_llvm",
+  ]
+
+  deps = []
+  external_deps = []
+
+  if (!is_arkui_x) {
+    external_deps += [ "runtime_core:arkfile_header_deps" ]
+  } else {
+    deps += [ "$ark_root/libpandafile:arkfile_header_deps" ]
+  }
+  deps += [ "common_components/common_runtime/src:libarkcommon-runtime" ]
+
+  # hiviewdfx libraries
+  external_deps += hiviewdfx_ext_deps
+  deps += hiviewdfx_deps
+
+  part_name = "ets_runtime"
+  subsystem_name = "arkcompiler"
+}
+
+libark_jsruntime_common_set("libark_jsruntime_set") {
+}
+
+libark_jsruntime_common_set("libark_jsruntime_arm_set") {
+  if (enable_sanitize) {
+    sanitize = {
+      ubsan = true
+    }
+  }
+}
+
+libark_jsruntime_intl_common_set("libark_js_intl_set") {
+}
+
+libark_jsruntime_intl_common_set("libark_js_intl_arm_set") {
+  if (enable_sanitize) {
+    sanitize = {
+      ubsan = true
+    }
+  }
+}
+
+config("ark_jsruntime_test_nolto") {
+  cflags_cc = [ "-fno-lto" ]
+}
+
+ohos_source_set("libark_jsruntime_test_set") {
+  stack_protector_ret = false
+  sources = ecma_source
+  sources += intl_sources
+  sources += ecma_profiler_source
+  sources += ecma_debugger_source
+  sources += hitrace_scope_source
+  sources += ecma_platform_source
+
+  defines = [ "OHOS_UNIT_TEST" ]
+
+  if (is_ohos) {
+    sources += ecma_stackinfo_source
+  }
+
+  if (is_ohos && is_standard_system) {
+    stub_an_file_path =
+        "${arkcompiler_lib64_path}/${arkcompiler_relative_lib_path}/stub.an"
+  } else {
+    stub_an_file_path =
+        rebase_path("$root_gen_dir/arkcompiler/ets_runtime/stub.an")
+  }
+  defines += [ "STUB_AN_FILE=\"${stub_an_file_path}\"" ]
+
+  deps = []
+  external_deps = [
+    "libuv:uv",
+    "zlib:libz",
+  ]
+  if (enable_hilog) {
+    external_deps += [ "hilog:libhilog" ]
+  }
+
+  if (defined(is_arkui_x) && is_arkui_x) {
+    deps += [
+      "$ark_third_party_root/icu/icu4c:static_icui18n",
+      "$ark_third_party_root/icu/icu4c:static_icuuc",
+    ]
+  } else {
+    external_deps += [
+      "icu:shared_icui18n",
+      "icu:shared_icuuc",
+    ]
+  }
+
+  if (!is_arkui_x) {
+    external_deps += [ "runtime_core:arkfile_header_deps" ]
+  } else {
+    deps += [ "$ark_root/libpandafile:arkfile_header_deps" ]
+  }
+
+  if (enable_coverage) {
+    ldflags = [ "--coverage" ]
+    cflags_cc = [ "--coverage" ]
+  }
+
+  if ((current_cpu == "amd64" || current_cpu == "x64" ||
+       current_cpu == "x86_64" || current_cpu == "arm64") && !is_mingw &&
+      !is_mac && target_os != "ios") {
+    deps += [ "ecmascript/compiler:libark_stub_set" ]
+  } else {
+    deps += [ "$js_root/ecmascript/compiler:libark_mock_stub_set" ]
+  }
+
+  if (enable_handle_leak_detect) {
+    defines += [ "ENABLE_LOCAL_HANDLE_LEAK_DETECT" ]
+  }
+
+  if (ets_runtime_enable_cmc_gc) {
+    deps += [ ":libcommon_components_set" ]
+    if (ark_hybrid) {
+      deps += [ "$ark_root/static_core/runtime:libarkruntime_set_static" ]
+    }
+  }
+
+  public_configs = [ "$js_root:ark_jsruntime_public_config" ]
+  public_configs += [ ":include_llvm" ]
+
+  configs = [
+    "$js_root:ark_jsruntime_common_config",
+    "$js_root:asm_interp_enable_config",
+    "$js_root:icu_path_test_config",
+    "$js_root:ark_jsruntime_test_nolto",
+  ]
+
+  if (enable_target_compilation) {
+    external_deps += [ "c_utils:utils" ]
+  }
+
+  # hiviewdfx libraries
+  external_deps += hiviewdfx_ext_deps
+  deps += hiviewdfx_deps
+  part_name = "ets_runtime"
+  subsystem_name = "arkcompiler"
+}
+
+ohos_source_set("libark_jsruntime_static") {
+  stack_protector_ret = false
+  if (enable_sanitize) {
+    sanitize = {
+      ubsan = true
+    }
+  }
+
+  if (is_ohos && is_standard_system) {
+    deps = [
+      ":libark_js_intl_arm_set",
+      ":libark_jsruntime_arm_set",
+    ]
+  } else {
+    # in this case libark_jsruntime_arm_set and libark_jsruntime_set are identical
+    deps = [
+      ":libark_js_intl_set",
+      ":libark_jsruntime_set",
+    ]
+  }
+
+  if (ets_runtime_enable_cmc_gc) {
+    deps += [ ":libcommon_components_set" ]
+    if (ark_hybrid) {
+      deps += [ "$ark_root/static_core/runtime:libarkruntime_set_static" ]
+    }
+  }
+
+  external_deps = []
+  if (!is_arkui_x) {
+    external_deps += [ "runtime_core:arkfile_header_deps" ]
+  } else {
+    deps += [ "$ark_root/libpandafile:arkfile_header_deps" ]
+    all_dependent_configs = [ ":ark_jsruntime_public_config" ]
+  }
+
+  public_configs = [ "$js_root:ark_jsruntime_public_config" ]
+
+  if (!is_ohos) {
+    if ((current_cpu == "amd64" || current_cpu == "x64" ||
+         current_cpu == "x86_64" || current_cpu == "arm64") && !is_mingw &&
+        !is_mac && target_os != "ios") {
+      deps += [ "ecmascript/compiler:libark_stub_set" ]
+    } else {
+      deps += [ "$js_root/ecmascript/compiler:libark_mock_stub_set" ]
+    }
+  }
+  part_name = "ets_runtime"
+  subsystem_name = "arkcompiler"
+}
+
+config("arkjs_runtime_lto_link_config") {
+  ldflags = []
+  if (!ark_standalone_build && is_ohos && enhanced_opt && is_clang &&
+      (target_cpu == "arm" || target_cpu == "arm64")) {
+    if (ets_runtime_feature_enable_bsymbolic) {
+      ldflags += [ "-Wl,-Bsymbolic" ]
+    }
+    if (ets_runtime_feature_enable_pgo && enable_enhanced_opt) {
+      ldflags += [ "-Wl,--aarch64-inline-plt" ]
+      if (ets_runtime_feature_enable_codemerge) {
+        ldflags += [
+          "-Wl,-plugin-opt=-split-machine-functions",
+          "-Wl,-mllvm",
+          "-Wl,-fixup-unconditional-branch-unsafely",
+          "-Wl,--no-create-thunks-introduced-by-mfs",
+          "-Wl,-mllvm",
+          "-Wl,-mfs-psi-cutoff=999500",
+          "-Wl,-z",
+          "-Wl,keep-text-section-prefix",
+          "-Wl,--symbol-ordering-file=" + rebase_path(
+                  "${ets_runtime_feature_pgo_path}/libark_jsruntime.txt",
+                  root_build_dir),
+          "-Wl,--no-warn-symbol-ordering",
+        ]
+      }
+    }
+  }
+}
+
+ohos_shared_library("libark_jsruntime") {
+  stack_protector_ret = false
+  if (enable_sanitize) {
+    sanitize = {
+      ubsan = true
+    }
+  }
+
+  deps = [ ":libark_jsruntime_static" ]
+
+  external_deps = []
+  if (is_arkui_x && target_os == "ios") {
+    deps += [ "$ark_third_party_root/bounds_checking_function:libsec_static" ]
+  } else {
+    external_deps += [ "bounds_checking_function:libsec_shared" ]
+  }
+
+  if (!is_arkui_x) {
+    external_deps += [ "runtime_core:libarkfile_runtime_static" ]
+  } else {
+    deps += [ "$ark_root/libpandafile:libarkfile_runtime_static" ]
+  }
+
+  all_dependent_configs = [ ":ark_jsruntime_public_config" ]
+  public_configs = [ ":ark_jsruntime_public_config" ]
+
+  if (is_ohos && is_standard_system && !is_debug) {
+    version_script = "libark_jsruntime.map"
+  }
+
+  # hiviewdfx libraries
+  external_deps += hiviewdfx_ext_deps
+  deps += hiviewdfx_deps
+
+  if (!enable_ark_intl) {
+    external_deps += [ "i18n:intl_util" ]
+  }
+
+  install_enable = true
+
+  if (!is_mingw && !is_mac) {
+    output_extension = "so"
+  }
+  if (!is_standard_system) {
+    relative_install_dir = "ark"
+  }
+
+  if (target_os == "android" && !ark_standalone_build) {
+    libs = [ "log" ]
+    version_script = "libark_jsruntime.map"
+  }
+  if (ark_standalone_build || (defined(is_arkui_x) && is_arkui_x)) {
+    deps += [
+      "$ark_third_party_root/icu/icu4c:static_icui18n",
+      "$ark_third_party_root/icu/icu4c:static_icuuc",
+    ]
+  } else {
+    public_external_deps = [
+      "icu:shared_icui18n",
+      "icu:shared_icuuc",
+      "runtime_core:common_interfaces_header",
+    ]
+  }
+  innerapi_tags = [ "platformsdk_indirect" ]
+  part_name = "ets_runtime"
+  subsystem_name = "arkcompiler"
+
+  configs = [
+    ":ark_jsruntime_common_config",
+    ":arkjs_runtime_lto_link_config",
+  ]
+}
+
+ohos_shared_library("libark_jsruntime_test") {
+  testonly = true
+  stack_protector_ret = false
+  deps = [ ":libark_jsruntime_test_set" ]
+
+  public_configs = [ "$js_root:ark_jsruntime_public_config" ]
+  public_configs += [ ":include_llvm" ]
+
+  if (!ark_standalone_build) {
+    public_external_deps = [
+      "runtime_core:libarkfile_runtime_static",
+      "zlib:libz",
+    ]
+  } else {
+    external_deps = [
+      "runtime_core:libarkfile_runtime_static",
+      "zlib:libz",
+    ]
+  }
+
+  ldflags = []
+  if (enable_coverage) {
+    ldflags += [ "--coverage" ]
+    cflags_cc = [ "--coverage" ]
+  }
+  if (!ark_standalone_build) {
+    ldflags += [ "-Wl,--lto-O0" ]
+  }
+
+  install_enable = false
+  if (!is_mingw && !is_mac) {
+    output_extension = "so"
+  }
+
+  part_name = "ets_runtime"
+  subsystem_name = "arkcompiler"
+}
+
+ohos_prebuilt_etc("app_aot_jit_enable_list") {
+  relative_install_dir = "ark"
+  if (ets_runtime_feature_enable_list) {
+    source = "$js_root/ecmascript/ohos/app_aot_jit_enable_list.conf"
+  } else {
+    source = "$js_root/ecmascript/ohos/app_aot_jit_enable_list_default.conf"
+  }
+
+  # Set the subsystem name
+  part_name = "ets_runtime"
+  subsystem_name = "arkcompiler"
+}
+
+js_type_metadata_sources = [
+  "ecmascript/js_type_metadata/accessor_data.json",
+  "ecmascript/js_type_metadata/aot_literal_info.json",
+  "ecmascript/js_type_metadata/async_generator_request.json",
+  "ecmascript/js_type_metadata/async_iterator_record.json",
+  "ecmascript/js_type_metadata/bigint.json",
+  "ecmascript/js_type_metadata/byte_array.json",
+  "ecmascript/js_type_metadata/cell_record.json",
+  "ecmascript/js_type_metadata/class_info_extractor.json",
+  "ecmascript/js_type_metadata/class_literal.json",
+  "ecmascript/js_type_metadata/completion_record.json",
+  "ecmascript/js_type_metadata/constant_pool.json",
+  "ecmascript/js_type_metadata/cow_mutant_tagged_array.json",
+  "ecmascript/js_type_metadata/cow_tagged_array.json",
+  "ecmascript/js_type_metadata/dictionary_layout.json",
+  "ecmascript/js_type_metadata/ecma_object.json",
+  "ecmascript/js_type_metadata/ecma_string.json",
+  "ecmascript/js_type_metadata/extra_profile_type_info.json",
+  "ecmascript/js_type_metadata/function_template.json",
+  "ecmascript/js_type_metadata/global_env.json",
+  "ecmascript/js_type_metadata/hclass.json",
+  "ecmascript/js_type_metadata/importentry_record.json",
+  "ecmascript/js_type_metadata/indirect_exportentry_record.json",
+  "ecmascript/js_type_metadata/internal_accessor.json",
+  "ecmascript/js_type_metadata/js_aggregate_error.json",
+  "ecmascript/js_type_metadata/js_api_array_list.json",
+  "ecmascript/js_type_metadata/js_api_arraylist_iterator.json",
+  "ecmascript/js_type_metadata/js_api_bitvector.json",
+  "ecmascript/js_type_metadata/js_api_bitvector_iterator.json",
+  "ecmascript/js_type_metadata/js_api_deque.json",
+  "ecmascript/js_type_metadata/js_api_deque_iterator.json",
+  "ecmascript/js_type_metadata/js_api_hash_map.json",
+  "ecmascript/js_type_metadata/js_api_hash_set.json",
+  "ecmascript/js_type_metadata/js_api_hashmap_iterator.json",
+  "ecmascript/js_type_metadata/js_api_hashset_iterator.json",
+  "ecmascript/js_type_metadata/js_api_light_weight_map.json",
+  "ecmascript/js_type_metadata/js_api_light_weight_map_iterator.json",
+  "ecmascript/js_type_metadata/js_api_light_weight_set.json",
+  "ecmascript/js_type_metadata/js_api_light_weight_set_iterator.json",
+  "ecmascript/js_type_metadata/js_api_linked_list.json",
+  "ecmascript/js_type_metadata/js_api_linked_list_iterator.json",
+  "ecmascript/js_type_metadata/js_api_list.json",
+  "ecmascript/js_type_metadata/js_api_list_iterator.json",
+  "ecmascript/js_type_metadata/js_api_plain_array.json",
+  "ecmascript/js_type_metadata/js_api_plain_array_iterator.json",
+  "ecmascript/js_type_metadata/js_api_queue.json",
+  "ecmascript/js_type_metadata/js_api_queue_iterator.json",
+  "ecmascript/js_type_metadata/js_api_stack.json",
+  "ecmascript/js_type_metadata/js_api_stack_iterator.json",
+  "ecmascript/js_type_metadata/js_api_tree_map.json",
+  "ecmascript/js_type_metadata/js_api_tree_set.json",
+  "ecmascript/js_type_metadata/js_api_treemap_iterator.json",
+  "ecmascript/js_type_metadata/js_api_treeset_iterator.json",
+  "ecmascript/js_type_metadata/js_api_vector.json",
+  "ecmascript/js_type_metadata/js_api_vector_iterator.json",
+  "ecmascript/js_type_metadata/js_arguments.json",
+  "ecmascript/js_type_metadata/js_array.json",
+  "ecmascript/js_type_metadata/js_array_buffer.json",
+  "ecmascript/js_type_metadata/js_array_iterator.json",
+  "ecmascript/js_type_metadata/js_async_await_status_function.json",
+  "ecmascript/js_type_metadata/js_async_from_sync_iter_unwarp_function.json",
+  "ecmascript/js_type_metadata/js_async_from_sync_iterator.json",
+  "ecmascript/js_type_metadata/js_async_func_object.json",
+  "ecmascript/js_type_metadata/js_async_function.json",
+  "ecmascript/js_type_metadata/js_async_generator_function.json",
+  "ecmascript/js_type_metadata/js_async_generator_object.json",
+  "ecmascript/js_type_metadata/js_async_generator_resume_next.json",
+  "ecmascript/js_type_metadata/js_async_module_fulfilled_function.json",
+  "ecmascript/js_type_metadata/js_async_module_rejected_function.json",
+  "ecmascript/js_type_metadata/js_asynciterator.json",
+  "ecmascript/js_type_metadata/js_bigint64_array.json",
+  "ecmascript/js_type_metadata/js_biguint64_array.json",
+  "ecmascript/js_type_metadata/js_bound_function.json",
+  "ecmascript/js_type_metadata/js_cjs_exports.json",
+  "ecmascript/js_type_metadata/js_cjs_module.json",
+  "ecmascript/js_type_metadata/js_cjs_require.json",
+  "ecmascript/js_type_metadata/js_collator.json",
+  "ecmascript/js_type_metadata/js_data_view.json",
+  "ecmascript/js_type_metadata/js_date.json",
+  "ecmascript/js_type_metadata/js_date_time_format.json",
+  "ecmascript/js_type_metadata/js_displaynames.json",
+  "ecmascript/js_type_metadata/js_error.json",
+  "ecmascript/js_type_metadata/js_eval_error.json",
+  "ecmascript/js_type_metadata/js_finalization_registry.json",
+  "ecmascript/js_type_metadata/js_float32_array.json",
+  "ecmascript/js_type_metadata/js_float64_array.json",
+  "ecmascript/js_type_metadata/js_forin_iterator.json",
+  "ecmascript/js_type_metadata/js_function.json",
+  "ecmascript/js_type_metadata/js_function_base.json",
+  "ecmascript/js_type_metadata/js_generator_context.json",
+  "ecmascript/js_type_metadata/js_generator_function.json",
+  "ecmascript/js_type_metadata/js_generator_object.json",
+  "ecmascript/js_type_metadata/js_global_object.json",
+  "ecmascript/js_type_metadata/js_int16_array.json",
+  "ecmascript/js_type_metadata/js_int32_array.json",
+  "ecmascript/js_type_metadata/js_int8_array.json",
+  "ecmascript/js_type_metadata/js_intl.json",
+  "ecmascript/js_type_metadata/js_intl_bound_function.json",
+  "ecmascript/js_type_metadata/js_iterator.json",
+  "ecmascript/js_type_metadata/js_list_format.json",
+  "ecmascript/js_type_metadata/js_locale.json",
+  "ecmascript/js_type_metadata/js_map.json",
+  "ecmascript/js_type_metadata/js_map_iterator.json",
+  "ecmascript/js_type_metadata/js_module_namespace.json",
+  "ecmascript/js_type_metadata/js_native_pointer.json",
+  "ecmascript/js_type_metadata/js_number_format.json",
+  "ecmascript/js_type_metadata/js_object.json",
+  "ecmascript/js_type_metadata/js_oom_error.json",
+  "ecmascript/js_type_metadata/js_plural_rules.json",
+  "ecmascript/js_type_metadata/js_primitive_ref.json",
+  "ecmascript/js_type_metadata/js_promise.json",
+  "ecmascript/js_type_metadata/js_promise_all_resolve_element_function.json",
+  "ecmascript/js_type_metadata/js_promise_all_settled_element_function.json",
+  "ecmascript/js_type_metadata/js_promise_any_reject_element_function.json",
+  "ecmascript/js_type_metadata/js_promise_executor_function.json",
+  "ecmascript/js_type_metadata/js_promise_finally_function.json",
+  "ecmascript/js_type_metadata/js_promise_reactions_function.json",
+  "ecmascript/js_type_metadata/js_promise_value_thunk_or_thrower_function.json",
+  "ecmascript/js_type_metadata/js_proxy.json",
+  "ecmascript/js_type_metadata/js_proxy_revoc_function.json",
+  "ecmascript/js_type_metadata/js_range_error.json",
+  "ecmascript/js_type_metadata/js_realm.json",
+  "ecmascript/js_type_metadata/js_reference_error.json",
+  "ecmascript/js_type_metadata/js_reg_exp.json",
+  "ecmascript/js_type_metadata/js_reg_exp_iterator.json",
+  "ecmascript/js_type_metadata/js_relative_time_format.json",
+  "ecmascript/js_type_metadata/js_segment_iterator.json",
+  "ecmascript/js_type_metadata/js_segmenter.json",
+  "ecmascript/js_type_metadata/js_segments.json",
+  "ecmascript/js_type_metadata/js_sendable_array_buffer.json",
+  "ecmascript/js_type_metadata/js_set.json",
+  "ecmascript/js_type_metadata/js_set_iterator.json",
+  "ecmascript/js_type_metadata/js_shared_array.json",
+  "ecmascript/js_type_metadata/js_shared_array_buffer.json",
+  "ecmascript/js_type_metadata/js_shared_array_iterator.json",
+  "ecmascript/js_type_metadata/js_shared_async_function.json",
+  "ecmascript/js_type_metadata/js_shared_bigint64_array.json",
+  "ecmascript/js_type_metadata/js_shared_biguint64_array.json",
+  "ecmascript/js_type_metadata/js_shared_float32_array.json",
+  "ecmascript/js_type_metadata/js_shared_float64_array.json",
+  "ecmascript/js_type_metadata/js_shared_function.json",
+  "ecmascript/js_type_metadata/js_shared_int16_array.json",
+  "ecmascript/js_type_metadata/js_shared_int32_array.json",
+  "ecmascript/js_type_metadata/js_shared_int8_array.json",
+  "ecmascript/js_type_metadata/js_shared_map.json",
+  "ecmascript/js_type_metadata/js_shared_map_iterator.json",
+  "ecmascript/js_type_metadata/js_shared_object.json",
+  "ecmascript/js_type_metadata/js_shared_set.json",
+  "ecmascript/js_type_metadata/js_shared_set_iterator.json",
+  "ecmascript/js_type_metadata/js_shared_typed_array.json",
+  "ecmascript/js_type_metadata/js_shared_uint16_array.json",
+  "ecmascript/js_type_metadata/js_shared_uint32_array.json",
+  "ecmascript/js_type_metadata/js_shared_uint8_array.json",
+  "ecmascript/js_type_metadata/js_shared_uint8_clamped_array.json",
+  "ecmascript/js_type_metadata/js_string_iterator.json",
+  "ecmascript/js_type_metadata/js_syntax_error.json",
+  "ecmascript/js_type_metadata/js_termination_error.json",
+  "ecmascript/js_type_metadata/js_type_error.json",
+  "ecmascript/js_type_metadata/js_typed_array.json",
+  "ecmascript/js_type_metadata/js_uint16_array.json",
+  "ecmascript/js_type_metadata/js_uint32_array.json",
+  "ecmascript/js_type_metadata/js_uint8_array.json",
+  "ecmascript/js_type_metadata/js_uint8_clamped_array.json",
+  "ecmascript/js_type_metadata/js_uri_error.json",
+  "ecmascript/js_type_metadata/js_weak_map.json",
+  "ecmascript/js_type_metadata/js_weak_ref.json",
+  "ecmascript/js_type_metadata/js_weak_set.json",
+  "ecmascript/js_type_metadata/lexical_env.json",
+  "ecmascript/js_type_metadata/line_string.json",
+  "ecmascript/js_type_metadata/linked_node.json",
+  "ecmascript/js_type_metadata/local_exportentry_record.json",
+  "ecmascript/js_type_metadata/machine_code_object.json",
+  "ecmascript/js_type_metadata/marker_cell.json",
+  "ecmascript/js_type_metadata/method.json",
+  "ecmascript/js_type_metadata/micro_job_queue.json",
+  "ecmascript/js_type_metadata/module_record.json",
+  "ecmascript/js_type_metadata/mutant_tagged_array.json",
+  "ecmascript/js_type_metadata/native_module_failure_info.json",
+  "ecmascript/js_type_metadata/pending_job.json",
+  "ecmascript/js_type_metadata/profile_type_info.json",
+  "ecmascript/js_type_metadata/profile_type_info_cell_0.json",
+  "ecmascript/js_type_metadata/profile_type_info_cell_1.json",
+  "ecmascript/js_type_metadata/profile_type_info_cell_n.json",
+  "ecmascript/js_type_metadata/program.json",
+  "ecmascript/js_type_metadata/promise_capability.json",
+  "ecmascript/js_type_metadata/promise_iterator_record.json",
+  "ecmascript/js_type_metadata/promise_reactions.json",
+  "ecmascript/js_type_metadata/promise_record.json",
+  "ecmascript/js_type_metadata/property_box.json",
+  "ecmascript/js_type_metadata/proto_change_marker.json",
+  "ecmascript/js_type_metadata/prototype_handler.json",
+  "ecmascript/js_type_metadata/prototype_info.json",
+  "ecmascript/js_type_metadata/rb_treenode.json",
+  "ecmascript/js_type_metadata/record.json",
+  "ecmascript/js_type_metadata/resolvedbinding_record.json",
+  "ecmascript/js_type_metadata/resolvedindexbinding_record.json",
+  "ecmascript/js_type_metadata/resolvedrecordbinding_record.json",
+  "ecmascript/js_type_metadata/resolvedrecordindexbinding_record.json",
+  "ecmascript/js_type_metadata/resolving_functions_record.json",
+  "ecmascript/js_type_metadata/sendable_env.json",
+  "ecmascript/js_type_metadata/sfunction_env.json",
+  "ecmascript/js_type_metadata/sliced_string.json",
+  "ecmascript/js_type_metadata/source_text_module_record.json",
+  "ecmascript/js_type_metadata/star_exportentry_record.json",
+  "ecmascript/js_type_metadata/store_ts_handler.json",
+  "ecmascript/js_type_metadata/symbol.json",
+  "ecmascript/js_type_metadata/tagged_array.json",
+  "ecmascript/js_type_metadata/tagged_dictionary.json",
+  "ecmascript/js_type_metadata/tagged_node.json",
+  "ecmascript/js_type_metadata/tagged_object.json",
+  "ecmascript/js_type_metadata/template_map.json",
+  "ecmascript/js_type_metadata/track_info.json",
+  "ecmascript/js_type_metadata/trans_with_proto_handler.json",
+  "ecmascript/js_type_metadata/transition_handler.json",
+  "ecmascript/js_type_metadata/tree_string.json",
+  "ecmascript/js_type_metadata/type_enums.json",
+  "ecmascript/js_type_metadata/type_range.json",
+  "ecmascript/js_type_metadata/vtable.json",
+]
+
+action("gen_js_type_metadata") {
+  inputs = js_type_metadata_sources
+
+  script = "$js_root/script/metadata_generate.py"
+
+  metadata_file_gen_dir = "$root_gen_dir/arkcompiler/ets_runtime"
+
+  args = [
+    "--enum",
+    rebase_path("$js_root/ecmascript/js_type_metadata/type_enums.json"),
+    "--metadata",
+    rebase_path("$js_root/ecmascript/js_type_metadata"),
+    "--output",
+    rebase_path("$metadata_file_gen_dir/metadata.json"),
+    "--version",
+    "1.0.0",
+  ]
+
+  outputs = [ "$metadata_file_gen_dir/metadata.json" ]
+}
+
+ohos_prebuilt_shared_library("js_type_metadata") {
+  deps = [ ":gen_js_type_metadata" ]
+  source = "$root_gen_dir/arkcompiler/ets_runtime/metadata.json"
+
+  relative_install_dir = arkcompiler_relative_lib_path
+  part_name = "ets_runtime"
+  subsystem_name = "arkcompiler"
+}

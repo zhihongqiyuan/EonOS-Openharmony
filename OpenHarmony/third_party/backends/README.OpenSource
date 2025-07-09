@@ -1,0 +1,11 @@
+[
+    {
+        "Name"                  : "sane-backends",
+        "License"               : "GPL v2",
+        "License File"          : "LICENSE",
+        "Version Number"        : "1.2.1",
+        "Owner"                 : "guoshengbang@huawei.com",
+        "Upstream URL"          : "https://gitlab.com/sane-project/backends/-/releases/1.1.1",
+        "Description"           : "SANE stands is an application programming interface (API) that provides standardized access to any raster image scanner hardware. "
+    }
+]

@@ -1,0 +1,38 @@
+{
+    "name": "@ohos/popt",
+    "description": "Popt is a C library for parsing command line parameters",
+    "version": "3.1",
+    "license": "X Consortium",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/popt"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYING",
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "popt",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": ["standard"],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/popt:popt_static"
+                }
+            ],
+            "test": []
+        }
+    }
+}

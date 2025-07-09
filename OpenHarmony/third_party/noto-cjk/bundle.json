@@ -1,0 +1,35 @@
+{
+    "name": "@ohos/noto-cjk",
+    "description": "font resources",
+    "version": "4.1",
+    "license": "SIL Open Font 1.1 License",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/noto-cjk"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "Sans/LICENSE",
+    "component": {
+        "name": "noto-cjk",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [
+            "noto_cjk_font_feature_product"
+        ],
+        "adapted_system_type": [ "mini", "small", "standard" ],
+        "rom": "0",
+        "ram": "0",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//third_party/noto-cjk:fonts_notocjk"
+            ],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

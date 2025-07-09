@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "Khronos Group - OpenGL ES",
+        "License": "Apache-2.0",
+        "License File": "LICENSE",
+        "Version Number": "63161d674db04a96635c6ab300db793e83f6762c",
+        "Owner": "lizheng2@huawei.com",
+        "Upstream URL": "https://github.com/KhronosGroup/OpenGL-Registry.git",
+        "Description": "The OpenGL ES registry contains specifications of the core API and shading language; specifications of Khronos- and vendor-approved OpenGL ES extensions; header files corresponding to the specificatio"
+    }
+]

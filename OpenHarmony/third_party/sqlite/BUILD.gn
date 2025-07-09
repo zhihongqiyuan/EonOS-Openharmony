@@ -1,0 +1,334 @@
+# Copyright (C) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//third_party/sqlite/sqlite.gni")
+
+is_cross_platform_build = defined(is_arkui_x) && is_arkui_x
+sqlite_patched_dir = root_out_dir + "/patched_sqlite"
+
+# Lets callers do '#include <sqlite3.h>'
+config("sqlite_config") {
+  include_dirs = [ "$sqlite_patched_dir/include" ]
+}
+
+# This is the configuration used to build sqlite itself.
+# It should not be needed outside of this library.
+config("sqlite3_private_config") {
+  visibility = [ ":*" ]
+  include_dirs = [ "$sqlite_patched_dir/include" ]
+}
+
+group("libsqlite") {
+  public_deps = [
+    ":sqlite",
+    ":sqliteicu",
+  ]
+}
+
+ohos_shared_library("sqliteicu") {
+  branch_protector_ret = "pac_ret"
+  sources = [ "$sqlite_patched_dir/src/sqlite3icu.c" ]
+
+  defines = [
+    "NDEBUG=1",
+    "SQLITE_EXPORT_SYMBOLS",
+    "SQLITE_ENABLE_FTS3",
+    "HARMONY_OS",
+    "SQLITE_ENABLE_ICU",
+  ]
+  cflags_c = [
+    "-fvisibility=hidden",
+    "-Wno-implicit-fallthrough",
+  ]
+  if (target_os != "ios") {
+    ldflags = [ "-Wl,--exclude-libs,ALL" ]
+  }
+  deps = [
+    ":sqlite",
+    "//third_party/sqlite/patch:apply_patch",
+  ]
+  public_configs = [ ":sqlite_config" ]
+  configs = [ ":sqlite3_private_config" ]
+  innerapi_tags = [ "platformsdk_indirect" ]
+  part_name = "sqlite"
+  subsystem_name = "thirdparty"
+  install_images = [ system_base_dir ]
+  relative_install_dir = "platformsdk"
+  external_deps = []
+  if (is_cross_platform_build) {
+    if (target_os == "ios") {
+      deps += [ "//third_party/bounds_checking_function:libsec_shared" ]
+    } else {
+      deps += [ "//commonlibrary/c_utils/base:utils" ]
+    }
+  } else {
+    external_deps += [ "c_utils:utils" ]
+  }
+  external_deps += [
+    "icu:shared_icui18n",
+    "icu:shared_icuuc",
+  ]
+}
+
+ohos_shared_library("sqlite") {
+  branch_protector_ret = "pac_ret"
+  sources = [ "$sqlite_patched_dir/src/sqlite3.c" ]
+
+  defines = [
+    "NDEBUG=1",
+    "HAVE_USLEEP=1",
+    "SQLITE_HAVE_ISNAN",
+    "SQLITE_DEFAULT_JOURNAL_SIZE_LIMIT=1048576",
+    "SQLITE_THREADSAFE=2",
+    "SQLITE_TEMP_STORE=3",
+    "SQLITE_POWERSAFE_OVERWRITE=1",
+    "SQLITE_DEFAULT_FILE_FORMAT=4",
+    "SQLITE_DEFAULT_AUTOVACUUM=1",
+    "SQLITE_ENABLE_MEMORY_MANAGEMENT=1",
+    "SQLITE_ENABLE_LOAD_EXTENSION",
+    "SQLITE_ENABLE_FTS3",
+    "SQLITE_ENABLE_FTS3_TOKENIZER",
+    "SQLITE_ENABLE_FTS4",
+    "SQLITE_ENABLE_FTS5",
+    "SQLITE_OMIT_COMPILEOPTION_DIAGS",
+    "SQLITE_DEFAULT_FILE_PERMISSIONS=0660",
+    "SQLITE_SECURE_DELETE",
+    "SQLITE_ENABLE_BATCH_ATOMIC_WRITE",
+    "USE_PREAD64",
+    "fdatasync=fdatasync",
+    "HAVE_MALLOC_H=1",
+    "HAVE_MALLOC_USABLE_SIZE",
+    "SQLITE_DIRECT_OVERFLOW_READ",
+    "SQLITE_HAS_CODEC",
+    "SQLITE_EXPORT_SYMBOLS",
+    "SQLITE_SHARED_BLOCK_OPTIMIZATION",
+    "SQLITE_CODEC_ATTACH_CHANGED",
+    "SQLITE_ENABLE_DROPTABLE_CALLBACK",
+    "OPENSSL_SUPPRESS_DEPRECATED",
+    "LOG_DUMP",
+    "FDSAN_ENABLE",
+    "HARMONY_OS",
+    "SQLITE_HDR_CHECK",
+    "SQLITE_ENABLE_ICU",
+    "SQLITE_META_DWR",
+    "SQLITE_ENABLE_BINLOG",
+  ]
+  if (sqlite_support_check_pages) {
+    defines += [ "SQLITE_CHECK_PAGES" ]
+  }
+  cflags_c = [
+    "-fvisibility=hidden",
+    "-Wno-implicit-fallthrough",
+  ]
+  if (target_os != "ios") {
+    ldflags = [ "-Wl,--exclude-libs,ALL" ]
+  }
+  deps = [ "//third_party/sqlite/patch:apply_patch" ]
+  public_configs = [ ":sqlite_config" ]
+  public_external_deps = [ "c_utils:utils" ]
+  configs = [ ":sqlite3_private_config" ]
+  innerapi_tags = [ "platformsdk_indirect" ]
+  part_name = "sqlite"
+  subsystem_name = "thirdparty"
+  install_images = [ system_base_dir ]
+  relative_install_dir = "platformsdk"
+  if (is_cross_platform_build) {
+    if (target_os == "ios") {
+      deps += [ "//third_party/bounds_checking_function:libsec_shared" ]
+    } else {
+      external_deps = [ "c_utils:utils" ]
+    }
+  } else {
+    external_deps = [
+      "c_utils:utils",
+      "openssl:libcrypto_shared",
+    ]
+  }
+  if (is_ohos && is_clang && enhanced_opt &&
+      (target_cpu == "arm" || target_cpu == "arm64")) {
+    ldflags += [ "-Wl,-Bsymbolic" ]
+    if (sqlite_feature_enable_pgo) {
+      cflags_c += [
+        "-fprofile-use=" +
+          rebase_path("${sqlite_feature_pgo_path}/libsqlite.profdata",
+                      root_build_dir),
+        "-Wno-error=backend_plugin",
+        "-Wno-profile-instr-out-of-date",
+        "-Wno-profile-instr-unprofiled",
+      ]
+      if(target_cpu == "arm64" && enable_enhanced_opt) {
+        ldflags += [ "-Wl,--aarch64-inline-plt" ]
+      }
+    }
+  }
+}
+
+ohos_executable("sqlite3") {
+  include_dirs = [ "$sqlite_patched_dir/include" ]
+  sources = [
+    "$sqlite_patched_dir/src/shell.c",
+    "$sqlite_patched_dir/src/sqlite3.c",
+  ]
+
+  defines = [
+    "NDEBUG=1",
+    "HAVE_USLEEP=1",
+    "SQLITE_HAVE_ISNAN",
+    "SQLITE_DEFAULT_JOURNAL_SIZE_LIMIT=1048576",
+    "SQLITE_THREADSAFE=2",
+    "SQLITE_TEMP_STORE=3",
+    "SQLITE_POWERSAFE_OVERWRITE=1",
+    "SQLITE_DEFAULT_FILE_FORMAT=4",
+    "SQLITE_DEFAULT_AUTOVACUUM=1",
+    "SQLITE_ENABLE_MEMORY_MANAGEMENT=1",
+    "SQLITE_ENABLE_FTS3",
+    "SQLITE_ENABLE_FTS4",
+    "SQLITE_OMIT_COMPILEOPTION_DIAGS",
+    "SQLITE_DEFAULT_FILE_PERMISSIONS=0600",
+    "SQLITE_SECURE_DELETE",
+    "SQLITE_ENABLE_BATCH_ATOMIC_WRITE",
+    "USE_PREAD64",
+    "fdatasync=fdatasync",
+    "SQLITE_DIRECT_OVERFLOW_READ",
+    "SQLITE_SHARED_BLOCK_OPTIMIZATION",
+    "OPENSSL_SUPPRESS_DEPRECATED",
+    "LOG_DUMP",
+    "FDSAN_ENABLE",
+    "HARMONY_OS",
+  ]
+
+  cflags = [
+    "-Wno-error=implicit-function-declaration",
+    "-Wno-implicit-fallthrough",
+  ]
+
+  deps = [ "//third_party/sqlite/patch:apply_patch" ]
+}
+
+if (is_mingw || is_mac) {
+  ohos_shared_library("sqlite_sdk") {
+    include_dirs = [
+      "$sqlite_patched_dir/include",
+      "//third_party/bounds_checking_function/include",
+    ]
+
+    sources = [ "$sqlite_patched_dir/src/sqlite3.c" ]
+
+    defines = [
+      "NDEBUG=1",
+      "HAVE_USLEEP=1",
+      "SQLITE_HAVE_ISNAN",
+      "SQLITE_DEFAULT_JOURNAL_SIZE_LIMIT=1048576",
+      "SQLITE_THREADSAFE=2",
+      "SQLITE_TEMP_STORE=3",
+      "SQLITE_POWERSAFE_OVERWRITE=1",
+      "SQLITE_DEFAULT_FILE_FORMAT=4",
+      "SQLITE_DEFAULT_AUTOVACUUM=1",
+      "SQLITE_ENABLE_MEMORY_MANAGEMENT=1",
+      "SQLITE_ENABLE_FTS3",
+      "SQLITE_ENABLE_FTS4",
+      "SQLITE_OMIT_COMPILEOPTION_DIAGS",
+      "SQLITE_DEFAULT_FILE_PERMISSIONS=0600",
+      "SQLITE_SECURE_DELETE",
+      "SQLITE_ENABLE_BATCH_ATOMIC_WRITE",
+      "USE_PREAD64",
+      "fdatasync=fdatasync",
+      "SQLITE_DIRECT_OVERFLOW_READ",
+      "SQLITE_HAS_CODEC",
+      "SQLITE_EXPORT_SYMBOLS",
+      "SQLITE_SHARED_BLOCK_OPTIMIZATION",
+      "OPENSSL_SUPPRESS_DEPRECATED",
+    ]
+    remove_configs = [ "//build/config/compiler:chromium_code" ]
+    deps = [
+      "//third_party/bounds_checking_function:libsec_shared",
+      "//third_party/sqlite/patch:apply_patch",
+    ]
+    external_deps = [ "openssl:libcrypto_restool" ]
+    if (is_mingw) {
+      libs = [ "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libws2_32.a" ]
+    }
+    cflags = [
+      "-Wno-error=implicit-function-declaration",
+      "-Wno-implicit-fallthrough",
+    ]
+    part_name = "sqlite"
+    subsystem_name = "thirdparty"
+  }
+}
+
+if (is_cross_platform_build) {
+  ohos_static_library("sqlite_static") {
+    visibility = [ "//foundation/distributeddatamgr/*" ]
+    visibility += [ "//foundation/multimodalinput/*" ]
+    visibility +=
+        [ "//hit/fuzzing_test/projects/multimodal_InputService_fuzzer/*" ]
+    visibility += [ "//foundation/communication/*" ]
+    visibility += [ "//build/common/*" ]
+    visibility += [ ":*" ]
+    visibility += [ "//base/security/*" ]
+    visibility += [ "//third_party/libsoup/*" ]
+    visibility +=
+        [ "//foundation/resourceschedule/resource_schedule_service/*" ]
+    visibility += [ "//foundation/bundlemanager/ecological_rule_mgr/*" ]
+
+    sources = [ "$sqlite_patched_dir/src/sqlite3.c" ]
+
+    defines = [
+      "NDEBUG=1",
+      "HAVE_USLEEP=1",
+      "SQLITE_HAVE_ISNAN",
+      "SQLITE_DEFAULT_JOURNAL_SIZE_LIMIT=1048576",
+      "SQLITE_THREADSAFE=2",
+      "SQLITE_TEMP_STORE=3",
+      "SQLITE_POWERSAFE_OVERWRITE=1",
+      "SQLITE_DEFAULT_FILE_FORMAT=4",
+      "SQLITE_DEFAULT_AUTOVACUUM=1",
+      "SQLITE_ENABLE_MEMORY_MANAGEMENT=1",
+      "SQLITE_ENABLE_FTS3",
+      "SQLITE_ENABLE_FTS4",
+      "SQLITE_ENABLE_FTS5",
+      "SQLITE_OMIT_COMPILEOPTION_DIAGS",
+      "SQLITE_DEFAULT_FILE_PERMISSIONS=0660",
+      "SQLITE_SECURE_DELETE",
+      "SQLITE_ENABLE_BATCH_ATOMIC_WRITE",
+      "USE_PREAD64",
+      "fdatasync=fdatasync",
+      "HAVE_MALLOC_H=1",
+      "HAVE_MALLOC_USABLE_SIZE",
+      "SQLITE_DIRECT_OVERFLOW_READ",
+      "SQLITE_HAS_CODEC",
+      "SQLITE_EXPORT_SYMBOLS",
+      "SQLITE_SHARED_BLOCK_OPTIMIZATION",
+      "SQLITE_CODEC_ATTACH_CHANGED",
+      "SQLITE_ENABLE_DROPTABLE_CALLBACK",
+      "OPENSSL_SUPPRESS_DEPRECATED",
+    ]
+
+    cflags_c = [
+      "-fvisibility=hidden",
+      "-Wno-implicit-fallthrough",
+    ]
+
+    deps = [
+      "//third_party/bounds_checking_function:libsec_static",
+      "//third_party/openssl:libcrypto_static",
+      "//third_party/sqlite/patch:apply_patch",
+    ]
+    public_configs = [ ":sqlite_config" ]
+    configs = [ ":sqlite3_private_config" ]
+    part_name = "sqlite"
+    subsystem_name = "thirdparty"
+  }
+}

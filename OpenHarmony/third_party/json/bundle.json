@@ -1,0 +1,39 @@
+{
+    "name": "@ohos/json",
+    "description": "The JSON for Modern C++ Library has intutitve syntax, trivial integration and memory efficiency features.",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/json"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "LICENSE.MIT",
+    "component": {
+        "name": "json",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "header": {
+                        "header_base": "//third_party/json/single_include",
+                        "header_files": []
+                    },
+                    "name": "//third_party/json:nlohmann_json_static"
+                }
+            ],
+            "test": []
+        }
+    }
+}

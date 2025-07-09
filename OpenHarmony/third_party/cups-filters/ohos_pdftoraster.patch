@@ -1,0 +1,298 @@
+diff --git a/filter/pdftoraster.cxx b/filter/pdftoraster.cxx
+index e8af184f..78849019 100755
+--- a/filter/pdftoraster.cxx
++++ b/filter/pdftoraster.cxx
+@@ -49,12 +49,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ #include <cupsfilters/colormanager.h>
+ #include <strings.h>
+ #include <math.h>
+-#include <poppler/cpp/poppler-document.h>
+-#include <poppler/cpp/poppler-page.h>
+-#include <poppler/cpp/poppler-global.h>
+-#include <poppler/cpp/poppler-image.h>
+-#include <poppler/cpp/poppler-page-renderer.h>
+-#include <poppler/cpp/poppler-rectangle.h>
++#include <vector>
++#include "pdfservice_inner.h"
+ #ifdef USE_LCMS1
+ #include <lcms.h>
+ #define cmsColorSpaceSignature icColorSpaceSignature
+@@ -120,6 +116,7 @@ namespace {
+   bool swap_margin_x = false;
+   bool swap_margin_y = false;
+   bool allocLineBuf = false;
++  static int g_pdfSdkCount = 0;
+   ConvertLineFunc convertLineOdd;
+   ConvertLineFunc convertLineEven;
+   ConvertCSpaceFunc convertCSpace;
+@@ -1521,12 +1518,14 @@ static unsigned char *onebitpixel(unsigned char *src, unsigned char *dst, unsign
+       unsigned char tem=0;
+       for(int k=0;k<8;k++){
+         cnt++;
+-          tem <<=1;
++        tem <<=1;
++        if (j + k < width) {
+           unsigned int var=*src;
+           if(var > dither1[i & 0xf][(j+k) & 0xf]){
+             tem |= 0x1;
+           }
+           src +=1;
++        }
+       }
+       *dst=tem;
+       dst+=1;
+@@ -1551,7 +1550,7 @@ static unsigned char *removeAlpha(unsigned char *src, unsigned char *dst, unsign
+   return temp;
+ }
+ 
+-static void writePageImage(cups_raster_t *raster, poppler::document *doc,
++static void writePageImage(cups_raster_t *raster, PDFInner::PDFDocument* doc,
+   int pageNo)
+ {
+   ConvertLineFunc convertLine;
+@@ -1559,36 +1558,35 @@ static void writePageImage(cups_raster_t *raster, poppler::document *doc,
+   unsigned char *dp;
+   unsigned int rowsize;
+ 
+-  poppler::page *current_page =doc->create_page(pageNo-1);
+-  poppler::page_renderer pr;
+-  pr.set_render_hint(poppler::page_renderer::antialiasing, true);
+-  pr.set_render_hint(poppler::page_renderer::text_antialiasing, true);
+-
+   unsigned char *colordata,*newdata,*graydata,*onebitdata;
+   unsigned int pixel_count;
+-  poppler::image im;
++  std::vector<unsigned char>* buffer;
++  unsigned char* newBuffer;
+   //render the page according to the colourspace and generate the requried data
+   switch (header.cupsColorSpace) {
+    case CUPS_CSPACE_W://gray
+    case CUPS_CSPACE_K://black
+    case CUPS_CSPACE_SW://sgray
+     if(header.cupsBitsPerColor==1){ //special case for 1-bit colorspaces
+-      im = pr.render_page(current_page,header.HWResolution[0],header.HWResolution[1],bitmapoffset[0],bitmapoffset[1],bytesPerLine*8,header.cupsHeight);
+-    newdata = (unsigned char *)malloc(sizeof(char)*3*im.width()*im.height());
+-    newdata = removeAlpha((unsigned char *)im.const_data(),newdata,im.width(),im.height());
+-    graydata=(unsigned char *)malloc(sizeof(char)*im.width()*im.height());
+-    cupsImageRGBToWhite(newdata,graydata,im.width()*im.height());
+-    onebitdata=(unsigned char *)malloc(sizeof(char)*bytesPerLine*im.height());
+-    onebitpixel(graydata,onebitdata,im.width(),im.height());
++    buffer = doc->GetPageBitMapBuffer(pageNo-1, bitmapoffset[0], bitmapoffset[1], bytesPerLine*8, header.cupsHeight,
++        3, header.cupsWidth, header.cupsHeight, 0, 0, 0xFFFFFFFF);
++    newBuffer = &((*buffer)[0]);
++    newdata = (unsigned char *)malloc(sizeof(char)*3*header.cupsWidth*header.cupsHeight);
++    newdata = removeAlpha(newBuffer, newdata, header.cupsWidth, header.cupsHeight);
++    graydata=(unsigned char *)malloc(sizeof(char)*header.cupsWidth*header.cupsHeight);
++    cupsImageRGBToWhite(newdata,graydata,header.cupsWidth*header.cupsHeight);
++    onebitdata=(unsigned char *)malloc(sizeof(char)*bytesPerLine*header.cupsHeight);
++    onebitpixel(graydata,onebitdata,header.cupsWidth, header.cupsHeight);
+     colordata=onebitdata;
+     rowsize=bytesPerLine;
+-    }
+-    else{
+-      im = pr.render_page(current_page,header.HWResolution[0],header.HWResolution[1],bitmapoffset[0],bitmapoffset[1],header.cupsWidth,header.cupsHeight);
+-      newdata = (unsigned char *)malloc(sizeof(char)*3*im.width()*im.height());
+-      newdata = removeAlpha((unsigned char *)im.const_data(),newdata,im.width(),im.height());
+-      pixel_count=im.width()*im.height();
+-      graydata=(unsigned char *)malloc(sizeof(char)*im.width()*im.height());
++    } else {
++      buffer = doc->GetPageBitMapBuffer(pageNo-1, bitmapoffset[0], bitmapoffset[1], header.cupsWidth, header.cupsHeight,
++          3, header.cupsWidth, header.cupsHeight, 0, 0, 0xFFFFFFFF);
++      newBuffer = &((*buffer)[0]);
++      newdata = (unsigned char *)malloc(sizeof(char)*3*header.cupsWidth*header.cupsHeight);
++      newdata = removeAlpha(newBuffer, newdata, header.cupsWidth, header.cupsHeight);
++      pixel_count=header.cupsWidth * header.cupsHeight;
++      graydata=(unsigned char *)malloc(sizeof(char)*header.cupsWidth*header.cupsHeight);
+       cupsImageRGBToWhite(newdata,graydata,pixel_count);
+       colordata=graydata;
+       rowsize=header.cupsWidth;
+@@ -1602,10 +1600,12 @@ static void writePageImage(cups_raster_t *raster, poppler::document *doc,
+    case CUPS_CSPACE_CMY:
+    case CUPS_CSPACE_RGBW:
+    default:
+-   im = pr.render_page(current_page,header.HWResolution[0],header.HWResolution[1],bitmapoffset[0],bitmapoffset[1],header.cupsWidth,header.cupsHeight);
+-   newdata = (unsigned char *)malloc(sizeof(char)*3*im.width()*im.height());
+-   newdata = removeAlpha((unsigned char *)im.const_data(),newdata,im.width(),im.height());
+-   pixel_count=im.width()*im.height();
++   buffer = doc->GetPageBitMapBuffer(pageNo-1, bitmapoffset[0], bitmapoffset[1], header.cupsWidth, header.cupsHeight,
++       3, header.cupsWidth, header.cupsHeight, 0, 0, 0xFFFFFFFF);
++   newBuffer = &((*buffer)[0]);
++   newdata = (unsigned char *)malloc(sizeof(char)*3*header.cupsWidth*header.cupsHeight);
++   newdata = removeAlpha(newBuffer, newdata, header.cupsWidth, header.cupsHeight);
++   pixel_count=header.cupsWidth * header.cupsHeight;
+    rowsize=header.cupsWidth*3;
+    colordata=newdata;
+      break;
+@@ -1645,11 +1645,18 @@ static void writePageImage(cups_raster_t *raster, poppler::document *doc,
+       }
+     }
+   }
+-  free(colordata);
++  if (colordata == newdata) {
++     if (colordata) free(colordata);
++  } else {
++     if (colordata) free(colordata);
++     if (newdata) free(newdata);
++  }
++  if (buffer) delete(buffer);
++  newBuffer = NULL;
+   if (allocLineBuf) delete[] lineBuf;
+ }
+ 
+-static void outPage(poppler::document *doc, int pageNo,
++static void outPage(PDFInner::PDFDocument* doc, int pageNo,
+   cups_raster_t *raster)
+ {
+   int rotate = 0;
+@@ -1661,28 +1668,21 @@ static void outPage(poppler::document *doc, int pageNo,
+   int imageable_area_fit = 0;
+   int i;
+ 
+-  poppler::page *current_page =doc->create_page(pageNo-1);
+-  poppler::page_box_enum box = poppler::page_box_enum::media_box;
+-  poppler::rectf mediaBox = current_page->page_rect(box);
+-  poppler::page::orientation_enum orient = current_page->orientation();
+-  switch (orient) {
+-    case poppler::page::landscape: rotate=90;
+-     break;
+-    case poppler::page::upside_down: rotate=180;
+-     break;
+-    case poppler::page::seascape: rotate=270;
+-     break;
+-     default:rotate=0;
+-  }
++  float left = 0;
++  float bottom = 0;
++  float right = 0;
++  float top = 0;
++  doc->GetMediaBox(pageNo-1, &left, &bottom, &right, &top);
++  rotate = doc->GetPageRotation(pageNo-1);
+   fprintf(stderr, "DEBUG: mediaBox = [ %f %f %f %f ]; rotate = %d\n",
+-	  mediaBox.left(), mediaBox.top(), mediaBox.right(), mediaBox.bottom(), rotate);
+-  l = mediaBox.width();
++	  left, top, right, bottom, rotate);
++  l = right - left;
+   if (l < 0) l = -l;
+   if (rotate == 90 || rotate == 270)
+     header.PageSize[1] = (unsigned)l;
+   else
+     header.PageSize[0] = (unsigned)l;
+-  l = mediaBox.height();
++  l = bottom - top;
+   if (l < 0) l = -l;
+   if (rotate == 90 || rotate == 270)
+     header.PageSize[0] = (unsigned)l;
+@@ -1831,8 +1831,8 @@ static void outPage(poppler::document *doc, int pageNo,
+   }
+ 
+   if (imageable_area_fit == 0) {
+-    bitmapoffset[0] = margins[0] / 72.0 * header.HWResolution[0];
+-    bitmapoffset[1] = margins[3] / 72.0 * header.HWResolution[1];
++    bitmapoffset[0] = margins[0];
++    bitmapoffset[1] = margins[3];
+   } else {
+     bitmapoffset[0] = 0;
+     bitmapoffset[1] = 0;
+@@ -1972,7 +1972,9 @@ static void setPopplerColorProfile()
+ }
+ 
+ int main(int argc, char *argv[]) {
+-  poppler::document *doc;
++  g_pdfSdkCount++;
++  PDFInner::PDFSdk sdk = PDFInner::PDFSdk::GetSdkInstance();
++  PDFInner::PDFDocument* doc = sdk.GetDocInstance();
+   int i;
+   int npages=0;
+   cups_raster_t *raster;
+@@ -2002,7 +2004,20 @@ int main(int argc, char *argv[]) {
+       }
+     }
+     close(fd);
+-    doc=poppler::document::load_from_file(name,"","");
++    if (doc != nullptr) {
++        size_t len = mbstowcs(NULL, name, 0) + 1;
++        wchar_t *wName = new wchar_t[len];
++        mbstowcs(wName, name, len);
++        doc->LoadDocument(wName, "");
++        delete[] wName;
++    }
++    FILE* fp;
++    if ((fp = fopen(name, "rb")) == nullptr) {
++      fprintf(stderr, "ERROR: Can't open input stdin file\n");
++      exit(1);
++    }
++    parsePDFTOPDFComment(fp);
++    fclose(fp);
+     /* remove name */
+     unlink(name);
+   } else {
+@@ -2015,14 +2030,21 @@ int main(int argc, char *argv[]) {
+     }
+     parsePDFTOPDFComment(fp);
+     fclose(fp);
+-    doc=poppler::document::load_from_file(argv[6],"","");
++    if (doc != nullptr) {
++        size_t len = strlen(argv[6]) + 1;
++        wchar_t *wstr = new wchar_t[len];
++        mbstowcs(wstr, argv[6], len);
++        doc->LoadDocument(wstr, "");
++        delete[] wstr;
++    }
+   }
+ 
+   if(doc != NULL)
+-    npages = doc->pages();
++    npages = doc->GetPageCount();
+ 
+   /* fix NumCopies, Collate ccording to PDFTOPDFComments */
+   header.NumCopies = deviceCopies;
++  fprintf(stderr, "ERROR: NumCopies: %d\n", header.NumCopies);
+   header.Collate = deviceCollate ? CUPS_TRUE : CUPS_FALSE;
+   /* fixed other values that pdftopdf handles */
+   header.MirrorPrint = CUPS_FALSE;
+@@ -2127,7 +2149,13 @@ int main(int argc, char *argv[]) {
+ 
+   cupsRasterClose(raster);
+ 
+-  delete doc;
++  if (doc != nullptr) {
++    sdk.ReleaseDocInstance(doc);
++  }
++  g_pdfSdkCount--;
++  if (g_pdfSdkCount == 0) {
++    sdk.Release();
++  }
+   if (ppd != NULL) {
+     ppdClose(ppd);
+   }
+@@ -2143,30 +2171,3 @@ int main(int argc, char *argv[]) {
+ 
+   return exitCode;
+ }
+-
+-/* replace memory allocation methods for memory check */
+-/* For compatibility with g++ >= 4.7 compilers _GLIBCXX_THROW
+- *  should be used as a guard, otherwise use traditional definition */
+-#ifndef _GLIBCXX_THROW
+-#define _GLIBCXX_THROW throw
+-#endif
+-
+-void * operator new(size_t size) _GLIBCXX_THROW (std::bad_alloc)
+-{
+-  return malloc(size);
+-}
+-
+-void operator delete(void *p) throw ()
+-{
+-  free(p);
+-}
+-
+-void * operator new[](size_t size) _GLIBCXX_THROW (std::bad_alloc)
+-{
+-  return malloc(size);
+-}
+-
+-void operator delete[](void *p) throw ()
+-{
+-  free(p);
+-}

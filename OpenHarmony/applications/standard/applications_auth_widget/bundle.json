@@ -1,0 +1,33 @@
+{
+  "name": "@ohos/auth_widget",
+  "version": "4.0",
+  "description": "User Authentication capability",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "applications/standard/auth_widget"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "auth_widget",
+    "subsystem": "applications",
+    "features": ["auth_widget_enabled"],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "860KB",
+    "ram": "0KB",
+    "deps": {
+      "components": [],
+      "third_party": []
+    },
+    "build": {
+      "sub_component": [
+        "//applications/standard/applications_auth_widget:auth_widget"
+      ],
+      "inner_kits": [],
+      "test": []
+    }
+  }
+}

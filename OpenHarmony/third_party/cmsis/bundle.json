@@ -1,0 +1,36 @@
+{
+    "name": "@ohos/cmsis",
+    "description": "The Cortex Microcontroller Software Interface Standard (CMSIS) is a vendor-independent hardware abstraction layer for microcontrollers that are based on Arm® Cortex® processors",
+    "version": "3.1",
+    "license": "Apache V2",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/cmsis"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "LICENSE.txt",
+    "readmePath": {
+        "en": ""
+    },
+    "component": {
+        "name": "cmsis",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "mini"
+        ],
+        "rom": "7KB",
+        "ram": "14KB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

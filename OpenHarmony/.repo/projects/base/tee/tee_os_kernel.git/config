@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+[filter "lfs"]
+	smudge = git-lfs smudge --skip -- %f
+	process = git-lfs filter-process --skip
+[remote "origin"]
+	url = https://gitee.com/openharmony/tee_tee_os_kernel
+	review = https://openharmony.gitee.com/openharmony/
+	projectname = tee_tee_os_kernel
+	fetch = +refs/heads/*:refs/remotes/origin/*

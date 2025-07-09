@@ -1,0 +1,56 @@
+{
+    "name": "@ohos/uniproton",
+    "version": "3.1.0",
+    "description": "uniproton kernel",
+    "publishAs": "code-segment",
+    "homePage": "https://gitee.com/openeuler/UniProton",
+    "repository": "https://gitee.com/openeuler/UniProton",
+    "license": "BSD 3-clause",
+    "domain": "os",
+    "language": "",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "kernel"
+    ],
+    "keywords": [
+        "kernel",
+        "uniproton"
+    ],
+    "envs": [],
+    "dirs": [],
+    "author": {},
+    "contributors": [],
+    "segment": {
+        "destPath": "kernel/uniproton"
+    },
+    "component": {
+        "name": "uniproton",
+        "subsystem": "kernel",
+        "syscap": [
+            "SystemCapability.Kernel.Uniproton"
+        ],
+        "features": [],
+        "adapted_system_type": [
+            "mini"
+        ],
+        "rom": "300KB",
+        "ram": "100KB",
+        "deps": {
+            "components": [
+                "utils_lite"
+            ],
+            "third_party": [
+                "bounds_checking_function"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//kernel/uniproton:kernel",
+                "//kernel/uniproton:build_kernel_image"
+            ],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

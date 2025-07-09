@@ -1,0 +1,73 @@
+# pack-refs with: peeled fully-peeled sorted 
+7edb802672cb9de7e2de02f6a97286ee3ef07203 refs/tags/OpenHarmony-2.0-Canary
+f6bc103824947add252f665c9f9a1b5db722e24a refs/tags/OpenHarmony-v1.1.1-LTS
+f6bc103824947add252f665c9f9a1b5db722e24a refs/tags/OpenHarmony-v1.1.2-LTS
+3d1b264ba87213950b9c190d5f2211a0575e4f4e refs/tags/OpenHarmony-v1.1.3-LTS
+3d1b264ba87213950b9c190d5f2211a0575e4f4e refs/tags/OpenHarmony-v1.1.4-LTS
+3d1b264ba87213950b9c190d5f2211a0575e4f4e refs/tags/OpenHarmony-v1.1.5-LTS
+7edb802672cb9de7e2de02f6a97286ee3ef07203 refs/tags/OpenHarmony-v2.2-Beta2
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.0-Beta1
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.0-LTS
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.0.1-LTS
+fed7b6f24ae8e34f69f3630bdbe1b2458e3c8c7d refs/tags/OpenHarmony-v3.0.2-LTS
+fed7b6f24ae8e34f69f3630bdbe1b2458e3c8c7d refs/tags/OpenHarmony-v3.0.3-LTS
+fed7b6f24ae8e34f69f3630bdbe1b2458e3c8c7d refs/tags/OpenHarmony-v3.0.5-LTS
+fed7b6f24ae8e34f69f3630bdbe1b2458e3c8c7d refs/tags/OpenHarmony-v3.0.6-LTS
+fed7b6f24ae8e34f69f3630bdbe1b2458e3c8c7d refs/tags/OpenHarmony-v3.0.7-LTS
+fed7b6f24ae8e34f69f3630bdbe1b2458e3c8c7d refs/tags/OpenHarmony-v3.0.8-LTS
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.1-Beta
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.1-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.1.1-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.1.2-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.1.3-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.1.4-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.1.5-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.1.6-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.1.7-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.2-Beta1
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.2-Beta2
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.2-Beta3
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.2-Beta4
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.2-Beta5
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.2-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.2.1-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.2.2-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.2.3-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v3.2.4-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v4.0-Beta1
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v4.0-Beta2
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v4.0-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v4.0.1-Release
+8ada56bf52d306be62e259118180e9e47521511b refs/tags/OpenHarmony-v4.0.2-Release
+^ab110a125e16604a4feb3719de90962b3fc1a628
+a63c0a6293713c3c9f38fcd848253b61207b4807 refs/tags/OpenHarmony-v4.0.3-Release
+^ab110a125e16604a4feb3719de90962b3fc1a628
+625237e27b4c62672f91ba928a96c7b4bfd3c91f refs/tags/OpenHarmony-v4.0.4-Release
+^ab110a125e16604a4feb3719de90962b3fc1a628
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v4.1-Beta1
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v4.1-Release
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/OpenHarmony-v4.1.1-Release
+97dcf4a937449e87ce9967abc8e999898c1e85cf refs/tags/OpenHarmony-v4.1.2-Release
+^ab110a125e16604a4feb3719de90962b3fc1a628
+873febf30777cb8c898c7ae71d589ebae5664a15 refs/tags/OpenHarmony-v4.1.3-Release
+^ab110a125e16604a4feb3719de90962b3fc1a628
+7d4c7352f533cf6236dce9ec354824fdaa3940d8 refs/tags/OpenHarmony-v4.1.4-Release
+^ab110a125e16604a4feb3719de90962b3fc1a628
+cb0b71e96bb3a3e9efe11fd3be998e64ff202bd5 refs/tags/OpenHarmony-v5.0-Beta1
+^ab110a125e16604a4feb3719de90962b3fc1a628
+799d58551dad8fc3bedabf1d6095e6f7e9675fab refs/tags/OpenHarmony-v5.0.0-Release
+^ab110a125e16604a4feb3719de90962b3fc1a628
+8b7063e9152ed370cce50328cf7475dd04de21b3 refs/tags/OpenHarmony-v5.0.1-Release
+^ab110a125e16604a4feb3719de90962b3fc1a628
+62d01c0c3fc677e1ad712e649dd6b486e21ced36 refs/tags/OpenHarmony-v5.0.2-Release
+^ab110a125e16604a4feb3719de90962b3fc1a628
+1ae3bd7dbfd88b5ddcb48bd3e79a7b6940c9d81c refs/tags/OpenHarmony-v5.0.3-Release
+^ab110a125e16604a4feb3719de90962b3fc1a628
+af4514d3b9138f90e9025c7123941398169022ba refs/tags/OpenHarmony-v5.1.0-Release
+^ab110a125e16604a4feb3719de90962b3fc1a628
+e6da2f2a6327164d6841f89fe6843e062f118b95 refs/tags/OpenHarmony-v6.0-Beta1
+^ab110a125e16604a4feb3719de90962b3fc1a628
+76133c5462fe9bb2ae7d379fd39821114d1a7671 refs/tags/OpenHarmony_release_v1.1.0
+^f6bc103824947add252f665c9f9a1b5db722e24a
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/master-v
+ab110a125e16604a4feb3719de90962b3fc1a628 refs/tags/weekly_20240115-v

@@ -1,0 +1,41 @@
+{
+    "name": "@ohos/re2",
+    "description": "RE2 is a fast, safe, thread-friendly alternative to backtracking regular expression engines like those used in PCRE, Perl, and Python. It is a C++ library.",
+    "version": "3.1",
+    "license": "BSD-3-Clause",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/re2"
+    },
+    "dirs": {},
+    "scripts": {},
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "re2",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "abseil-cpp"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/re2:re2"
+                }
+            ],
+            "test": []
+        }
+    }
+}

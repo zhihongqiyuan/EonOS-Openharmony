@@ -1,0 +1,31 @@
+{
+    "name": "@ohos/ninja",
+    "description": "a small build system with a focus on speed",
+    "version": "3.1",
+    "license": "Apache V2",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/ninja"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYING",
+    "component": {
+        "name": "ninja",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": ["mini","small","standard"],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

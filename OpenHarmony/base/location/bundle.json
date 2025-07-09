@@ -1,0 +1,170 @@
+{
+    "name": "@ohos/location",
+    "version": "3.1.0",
+    "description": "Location service, providing location and geocoding capabilities.",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache License 2.0",
+    "repository": "",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "segment": {
+        "destPath": "base/location"
+    },
+    "component": {
+        "name": "location",
+        "subsystem": "location",
+        "syscap": [
+            "SystemCapability.Location.Location.Core",
+            "SystemCapability.Location.Location.Gnss",
+            "SystemCapability.Location.Location.Geofence",
+            "SystemCapability.Location.Location.Geocoder",
+            "SystemCapability.Location.Location.Lite"
+        ],
+        "features": [
+            "location_feature_with_geocode",
+            "location_feature_with_gnss",
+            "location_feature_with_network",
+            "location_feature_with_passive",
+            "location_feature_with_jsstack",
+            "location_sa_recycle_strategy_low_memory",
+            "location_feature_with_opp_switch"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "1769KB",
+        "ram": "8458KB",
+        "hisysevent_config": [
+            "//base/location/services/location_locator/hisysevent.yaml"
+        ],
+        "deps": {
+            "components": [
+                "ability_base",
+                "ability_runtime",
+                "access_token",
+                "background_task_mgr",
+                "bundle_framework",
+                "call_manager",
+                "cellular_data",
+                "common_event_service",
+                "core_service",
+                "c_utils",
+                "data_share",
+                "drivers_interface_location_agnss",
+                "drivers_interface_location_gnss",
+                "drivers_interface_location_geofence",
+                "eventhandler",
+                "ffrt",
+                "form_fwk",
+                "hdf_core",
+                "hicollie",
+                "hisysevent",
+                "hiview",
+                "hilog",
+                "i18n",
+                "init",
+                "ipc",
+                "napi",
+                "os_account",
+                "relational_store",
+                "resource_schedule_service",
+                "safwk",
+                "samgr",
+                "sms_mms",
+                "wifi",
+                "bluetooth",
+                "distributed_notification_service",
+                "image_framework",
+                "movement",
+                "device_standby",
+                "time_service",
+                "netmanager_base",
+                "cJSON"
+            ]
+        },
+        "build": {
+            "group_type": {
+                "base_group": [
+                    "//base/location/services/utils:lbsresources",
+                    "//base/location/frameworks/base_module:lbsbase_module"
+                ],
+                "fwk_group": [
+                    "//base/location/frameworks/native/locator_sdk:locator_sdk",
+                    "//base/location/frameworks/js/napi:geolocation",
+                    "//base/location/frameworks/js/napi/fence_extension_ability:fenceextensionability_napi",
+                    "//base/location/frameworks/js/napi/fence_extension_ability_context:fenceextensioncontext_napi",
+                    "//base/location/frameworks/native/fence_extension_ability:fence_extension_ability",
+                    "//base/location/frameworks/js/napi:geolocationmanager",
+                    "//base/location/frameworks/cj:cj_geolocationmanager_ffi",
+                    "//base/location/frameworks/location_common/common:lbsservice_common",
+                    "//base/location/frameworks/native/locator_agent:locator_agent",
+                    "//base/location/frameworks/native/geofence_sdk:geofence_sdk",
+                    "//base/location/frameworks/native/location_ndk:location_ndk"
+                ],
+                "service_group": [
+                    "//base/location/services/location_geocode/geocode:lbsservice_geocode",
+                    "//base/location/services/location_gnss/gnss:lbsservice_gnss",
+                    "//base/location/services/location_locator/locator:lbsservice_locator",
+                    "//base/location/services/location_network/network:lbsservice_network",
+                    "//base/location/services/location_passive/passive:lbsservice_passive",
+                    "//base/location/services/etc:etc",
+                    "//base/location/sa_profile:location_sa_profile",
+                    "//base/location/services/location_ui:location_dialog_hap"
+                ]
+            },
+            "inner_kits": [
+                {
+                    "header": {
+                        "header_base": "//base/location/interfaces/inner_api/include",
+                        "header_files": [
+                            "locator_impl.h"
+                        ]
+                    },
+                    "name": "//base/location/frameworks/native/locator_sdk:locator_sdk"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/location/interfaces/inner_api/include",
+                        "header_files": []
+                    },
+                    "name": "//base/location/frameworks/location_common/common:lbsservice_common"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/location/interfaces/inner_api/include",
+                        "header_files": []
+                    },
+                    "name": "//base/location/frameworks/native/locator_agent:locator_agent"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/location/interfaces/inner_api/include",
+                        "header_files": []
+                    },
+                    "name": "//base/location/frameworks/native/geofence_sdk:geofence_sdk"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/location/frameworks/cj/include",
+                        "header_files": []
+                    },
+                    "name": "//base/location/frameworks/cj:cj_geolocationmanager_ffi"
+                }
+            ],
+            "test": [
+                "//base/location/test/location_common:unittest",
+                "//base/location/test/location_geocode:unittest",
+                "//base/location/test/location_geofence:unittest",
+                "//base/location/test/location_gnss:unittest",
+                "//base/location/test/location_locator:unittest",
+                "//base/location/test/location_manager:unittest",
+                "//base/location/test/location_network:unittest",
+                "//base/location/test/location_passive:unittest",
+                "//base/location/test/location_mock_ipc:unittest",
+                "//base/location/test/fuzztest:fuzztest"
+            ]
+        }
+    }
+}

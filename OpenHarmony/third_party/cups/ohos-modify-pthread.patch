@@ -1,0 +1,13 @@
+diff --git a/cups/thread.c b/cups/thread.c
+index 0e01cbf..7898312 100644
+--- a/cups/thread.c
++++ b/cups/thread.c
+@@ -154,7 +154,7 @@ _cupsRWUnlock(_cups_rwlock_t *rwlock)	/* I - Reader/writer lock */
+ void
+ _cupsThreadCancel(_cups_thread_t thread)/* I - Thread ID */
+ {
+-  pthread_cancel(thread);
++  pthread_kill(thread, 10);
+ }
+ 
+ 

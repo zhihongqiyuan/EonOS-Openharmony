@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "Khronos Group - EGL",
+        "License": "Apache-2.0",
+        "License File": "LICENSE",
+        "Version Number": "1.5",
+        "Owner": "lizheng2@huawei.com",
+        "Upstream URL": "https://github.com/KhronosGroup/EGL-Registry.git",
+        "Description": "EGL is an interface between Khronos rendering APIs such as OpenGL ES or OpenVG and the underlying native platform window system."
+    }
+]

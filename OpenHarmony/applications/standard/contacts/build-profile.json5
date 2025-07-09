@@ -1,0 +1,64 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "storePassword": "000000198E62D3EBAD27221BC23C17589B3C2F7150510F1FEA2EF28DECF81B022C7079AD4243C34E1A",
+          "certpath": "sign/IDE.cer",
+          "keyAlias": "OpenHarmony Application CA",
+          "keyPassword": "00000019599D4D854A2568E05D356DD762CB34576298AFC53D9E228813C8711327BB991AC74C0D597E",
+          "profile": "sign/contacts.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "sign/OpenHarmony_stage.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": 20,
+        "compatibleSdkVersion": 20
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "common",
+      "srcPath": "./common"
+    },
+    {
+      "name": "phonenumber",
+      "srcPath": "./feature/phonenumber"
+    },
+    {
+      "name": "contact",
+      "srcPath": "./feature/contact"
+    },
+    {
+      "name": "account",
+      "srcPath": "./feature/account"
+    },
+    {
+      "name": "call",
+      "srcPath": "./feature/call"
+    },
+    {
+      "name": "dialpad",
+      "srcPath": "./feature/dialpad"
+    }
+  ]
+}

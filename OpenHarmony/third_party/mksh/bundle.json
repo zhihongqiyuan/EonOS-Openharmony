@@ -1,0 +1,41 @@
+{
+    "name": "@ohos/mksh",
+    "description": "a secure operating system from the BSD family for 32-bit i386 and sparc systems",
+    "version": "3.1",
+    "license": "MirOS",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/mksh"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYRIGHT",
+    "readmePath": {
+        "en": ""
+    },
+    "component": {
+        "name": "mksh",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [ "mksh_terminal_ext" ],
+        "adapted_system_type": [
+            "standard",
+            "small"
+        ],
+        "rom": "172KB",
+        "ram": "344KB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name" : "//third_party/mksh:sh"
+                }
+            ],
+            "test": []
+        }
+    }
+}

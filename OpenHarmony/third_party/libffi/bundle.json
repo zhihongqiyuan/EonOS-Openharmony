@@ -1,0 +1,34 @@
+{
+    "name": "@ohos/libffi",
+    "description": "The libffi library provides a portable, high level programming interface to various calling conventions. This allows a programmer to call any function specified by a call interface description at run-time.",
+    "version": "3.4.2",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/libffi"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "libffi",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/libffi:ffi"
+                }
+            ],
+            "test": []
+        }
+    }
+}

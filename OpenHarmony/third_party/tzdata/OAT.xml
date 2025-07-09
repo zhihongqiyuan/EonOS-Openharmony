@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+
+-->
+
+<configuration>
+    <oatconfig>
+        <licensefile></licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <policyitem type="copyright" name="Copyright 1989, 1991 The Regents of the University of California." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc=""/>
+                <policyitem type="copyright" name="Copyright 1985, 1987, 1988 The Regents of the University of California." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc=""/>
+                <policyitem type="copyright" name="Copyright 1989 The Regents of the University of California." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc=""/>
+                <policyitem type="license" name="BSD-3-Clause" path="date.c" desc="兼容license"/>
+                <policyitem type="license" name="BSD-3-Clause" path="strftime.c" desc="兼容license"/>
+                <policyitem type="license" name="BSD-3-Clause" path="LICENSE" desc="兼容license"/>
+            </policy>
+        </policylist>
+        <filefilterlist>
+            <filefilter name="defaultFilter" desc="Files not to check">
+            </filefilter>
+            <filefilter name="binaryFileTypePolicyFilter" desc="binary file filter policy">
+                <filteritem type="filepath" name="openEuler/tzdata/tzdata-2022a-16.oe2203sp3.src.rpm" desc="openEuler raw file"/>
+                <filteritem type="filepath" name="data/prebuild/posix/tzdata" desc="packaged binary file"/>
+            </filefilter>
+            <filefilter name="defaultPolicyFilter" desc="Filters for compatibility, license header policies">      
+                <filteritem type="filepath" name="date.1" desc="no license header"/>
+                <filteritem type="filepath" name=".*.3" desc="no license header"/>
+                <filteritem type="filepath" name=".*.5" desc="no license header"/>
+                <filteritem type="filepath" name=".*.8" desc="no license header"/>
+                <filteritem type="filepath" name=".*.awk" desc="no license header"/>
+                <filteritem type="filepath" name=".*.tab" desc="no license header"/>
+
+                <filteritem type="filepath" name="CONTRIBUTING" desc="no license header"/>
+                <filteritem type="filepath" name="SECURITY" desc="no license header"/>
+                <filteritem type="filepath" name="to2050.tzs" desc="no license header"/>
+                <filteritem type="filepath" name="tzdata.zi" desc="no license header"/>
+                <filteritem type="filepath" name="difftime.c" desc="no license header"/>
+                <filteritem type="filepath" name="etcetera" desc="no license header"/>
+                <filteritem type="filepath" name="europe" desc="no license header"/>
+                <filteritem type="filepath" name="tzfile.h" desc="no license header"/>
+                <filteritem type="filepath" name="factory" desc="no license header"/>
+                <filteritem type="filepath" name="africa" desc="no license header"/>
+                <filteritem type="filepath" name="tzselect.ksh" desc="no license header"/>
+                <filteritem type="filepath" name="antarctica" desc="no license header"/>
+                <filteritem type="filepath" name="leap-seconds.list" desc="no license header"/>
+                <filteritem type="filepath" name="version" desc="no license header"/>
+                <filteritem type="filepath" name="asctime.c" desc="no license header"/>
+                <filteritem type="filepath" name="leapseconds" desc="no license header"/>
+                <filteritem type="filepath" name="workman.sh" desc="no license header"/>
+                <filteritem type="filepath" name="asia" desc="no license header"/>
+                <filteritem type="filepath" name="australasia" desc="no license header"/>
+                <filteritem type="filepath" name="localtime.c" desc="no license header"/>
+                <filteritem type="filepath" name="zdump.c" desc="no license header"/>
+                <filteritem type="filepath" name="backward" desc="no license header"/>
+                <filteritem type="filepath" name="backzone" desc="no license header"/>
+                <filteritem type="filepath" name="zic.c" desc="no license header"/>
+                <filteritem type="filepath" name="calendars" desc="no license header"/>
+                <filteritem type="filepath" name="northamerica" desc="no license header"/>
+                <filteritem type="filepath" name="private.h" desc="no license header"/>
+                <filteritem type="filepath" name="southamerica" desc="no license header"/>
+                <filteritem type="filepath" name="zoneinfo2tdf.pl" desc="no license header"/>
+
+            </filefilter>
+            <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
+                <filteritem type="filepath" name="date.1" desc="Describe the reason for filtering scan results"/> 
+                <filteritem type="filepath" name=".*.3" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name=".*.5" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name=".*.8" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name=".*.awk" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name=".*.tab" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="data/.*.gn" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="tool/.*.java" desc="Describe the reason for filtering scan results"/>
+
+                <filteritem type="filepath" name="CONTRIBUTING" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="SECURITY" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="to2050.tzs" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="tzdata.zi" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="difftime.c" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="etcetera" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="europe" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="tzfile.h" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="factory" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="africa" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="tzselect.ksh" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="antarctica" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="leap-seconds.list" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="version" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="asctime.c" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="leapseconds" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="workman.sh" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="asia" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="australasia" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="localtime.c" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="zdump.c" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="backward" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="backzone" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="zic.c" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="calendars" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="northamerica" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="private.h" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="southamerica" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="zoneinfo2tdf.pl" desc="Describe the reason for filtering scan results"/>
+
+            </filefilter>         
+        </filefilterlist>
+        <licensematcherlist>
+            <licensematcher name="BSD-3-Clause" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                    Unless specified below, all files in the tz code and data (including
+                    this LICENSE file) are in the public domain.
+
+                    If the files date.c, newstrftime.3, and strftime.c are present, they
+                    contain material derived from BSD and use the BSD 3-clause license.
+                " desc=""/>
+            </licensematcher>
+        </licensematcherlist>        
+    </oatconfig>
+</configuration>

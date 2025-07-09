@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "cups-filters",
+        "License": "Apache 2.0 License",
+        "License File": "COPYING",
+        "Version Number": "1.28.17",
+        "Owner": "dongzhengkuan@huawei.com",
+        "Upstream URL": "https://github.com/OpenPrinting/cups-filter/releases/download/1.28.17/cups-filter-1.28.17.tar.gz",
+        "Description": "This project provides backends, filters, and other software that was once part of the core CUPS distribution"
+    }
+]

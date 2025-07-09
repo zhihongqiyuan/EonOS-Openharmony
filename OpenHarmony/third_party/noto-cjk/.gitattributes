@@ -1,0 +1,30 @@
+# Ignore files when creating a Release so we can control how we attach the assets
+.gitattributes export-ignore
+.gitignore export-ignore
+
+# Exclude everything so that we can control release assets instead of making a single zip file
+# with both Sans and Serif 
+Sans export-ignore
+Serif export-ignore
+google-fonts export-ignore
+*.sh export-ignore
+*.tgz filter=lfs diff=lfs merge=lfs -text
+*.trp filter=lfs diff=lfs merge=lfs -text
+*.apk filter=lfs diff=lfs merge=lfs -text
+*.jar filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.asm filter=lfs diff=lfs merge=lfs -text
+*.8svn filter=lfs diff=lfs merge=lfs -text
+*.9svn filter=lfs diff=lfs merge=lfs -text
+*.dylib filter=lfs diff=lfs merge=lfs -text
+*.exe filter=lfs diff=lfs merge=lfs -text
+*.a filter=lfs diff=lfs merge=lfs -text
+*.so filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
+*.dll filter=lfs diff=lfs merge=lfs -text
+*.har filter=lfs diff=lfs merge=lfs -text
+*.ttf filter=lfs diff=lfs merge=lfs -text
+*.0tf filter=lfs diff=lfs merge=lfs -text
+*.otf filter=lfs diff=lfs merge=lfs -text
+*.ttc filter=lfs diff=lfs merge=lfs -text

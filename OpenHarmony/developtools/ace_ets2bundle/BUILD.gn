@@ -1,0 +1,377 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/ohos/ace/ace.gni")
+import("//build/ohos_var.gni")
+import("//foundation/arkui/ace_engine/ace_config.gni")
+if (sdk_build_public) {
+  import("//out/sdk-public/public_interface/sdk-js/interface_config.gni")
+} else {
+  import("//interface/sdk-js/interface_config.gni")
+}
+
+ets_loader_lib_dir =
+    get_label_info(":build_ets_loader_library", "target_out_dir") + "/lib"
+ets_loader_declarations_dir = get_label_info(":build_ets_loader_library",
+                                             "target_out_dir") + "/declarations"
+ets_loader_component_config_file =
+    get_label_info(":build_ets_loader_library", "target_out_dir") +
+    "/component_config.json"
+ets_loader_form_config_file =
+    get_label_info(":build_ets_loader_library", "target_out_dir") +
+    "/form_config.json"
+ets_loader_build_config_file =
+    get_label_info(":build_ets_loader_library", "target_out_dir") +
+    "/build_config.json"
+ets_sysResource = get_label_info(":build_ets_sysResource", "target_out_dir") +
+                  "/sysResource.js"
+ets_loader_kit_configs_dir = get_label_info(":build_ets_loader_library",
+                                            "target_out_dir") + "/kit_configs"
+
+action("build_ets_loader_library") {
+  deps = [
+    ":components",
+    ":form_components",
+    ":install_arkguard_tsc",
+    ":server",
+  ]
+  script = "build_ets_loader_library.py"
+  depfile = "$target_gen_dir/$target_name.d"
+  outputs = [
+    ets_loader_lib_dir,
+    ets_loader_declarations_dir,
+    ets_loader_component_config_file,
+    ets_loader_form_config_file,
+    ets_loader_kit_configs_dir,
+    ets_loader_build_config_file,
+  ]
+
+  _ets_loader_dir = "compiler"
+  if (is_standard_system) {
+    _ace_config_dir = "compiler"
+  } else {
+    _ace_config_dir = "//prebuilts/ace-toolkit/ets-loader/compiler"
+  }
+  _declarations_file_dir = "//interface/sdk-js/api/@internal/component/ets"
+  _kit_configs_file_dir = "//interface/sdk-js/kits"
+  _kit_apis_file_dir = "//interface/sdk-js/api"
+  _arkts_apis_file_dir = "//interface/sdk-js/arkts"
+  isPublic = "false"
+  if (sdk_build_public) {
+    _declarations_file_dir =
+        "//out/sdk-public/public_interface/sdk-js/api/@internal/component/ets"
+    _kit_configs_file_dir = "//out/sdk-public/public_interface/sdk-js/kits"
+    _kit_apis_file_dir = "//out/sdk-public/public_interface/sdk-js/api"
+    _arkts_apis_file_dir = "//out/sdk-public/public_interface/sdk-js/arkts"
+    isPublic = "true"
+  }
+
+  _babel_js = _ace_config_dir + "/node_modules/@babel/cli/bin/babel.js"
+  _babel_config_js = _ace_config_dir + "/babel.config.js"
+  _uglify_source_js = _ace_config_dir + "/uglify-source.js"
+  _copy_json_files_js = _ace_config_dir + "/copy_json_files.js"
+  _build_declarations_file_js = _ace_config_dir + "/build_declarations_file.js"
+  _build_kit_configs_file_js = _ace_config_dir + "/build_kitConfigs_file.js"
+
+  inputs = [
+    _babel_config_js,
+    _babel_js,
+    _uglify_source_js,
+    _copy_json_files_js,
+    _build_declarations_file_js,
+    _build_kit_configs_file_js,
+  ]
+
+  nodejs_path = "//prebuilts/build-tools/common/nodejs/current/bin/node"
+
+  args = [
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+    "--node",
+    rebase_path(nodejs_path, root_build_dir),
+    "--babel-js",
+    rebase_path(_babel_js, root_build_dir),
+    "--ets-loader-src-dir",
+    rebase_path(_ets_loader_dir + "/src", root_build_dir),
+    "--babel-config-js",
+    rebase_path(_babel_config_js, root_build_dir),
+    "--uglify-source-js",
+    rebase_path(_uglify_source_js, root_build_dir),
+    "--output-dir",
+    rebase_path(ets_loader_lib_dir, root_build_dir),
+    "--copy-json-files-js",
+    rebase_path(_copy_json_files_js, root_build_dir),
+    "--copy-src-dir",
+    rebase_path(_ets_loader_dir + "/src", root_build_dir),
+    "--copy-dest-dir",
+    rebase_path(ets_loader_lib_dir, root_build_dir),
+    "--declarations-file-dir",
+    rebase_path(_declarations_file_dir, root_build_dir),
+    "--build-declarations-file-js",
+    rebase_path(_build_declarations_file_js, root_build_dir),
+    "--output-declarations-dir",
+    rebase_path(ets_loader_declarations_dir, root_build_dir),
+    "--output-component-config-file",
+    rebase_path(ets_loader_component_config_file, root_build_dir),
+    "--output-form-config-file",
+    rebase_path(ets_loader_form_config_file, root_build_dir),
+    "--output-build-config-file",
+    rebase_path(ets_loader_build_config_file, root_build_dir),
+    "--kit-configs-file-dir",
+    rebase_path(_kit_configs_file_dir, root_build_dir),
+    "--build-kit-configs-file-js",
+    rebase_path(_build_kit_configs_file_js, root_build_dir),
+    "--output-kit-configs-dir",
+    rebase_path(ets_loader_kit_configs_dir, root_build_dir),
+    "--kit-apis-file-dir",
+    rebase_path(_kit_apis_file_dir, root_build_dir),
+    "--arkts-apis-file-dir",
+    rebase_path(_arkts_apis_file_dir, root_build_dir),
+    "--build-public-sdk",
+    isPublic,
+  ]
+}
+
+action("build_ets_sysResource") {
+  if (is_standard_system) {
+    script = "//developtools/ace_ets2bundle/generateSysResource.py"
+  } else {
+    script = "//foundation/ace/huawei_proprietary/tools/ets-loader/generateSysResource.py"
+  }
+  outputs = [ ets_sysResource ]
+
+  _id_defined_json = "//base/global/system_resources/systemres/main/resources/base/element/id_defined.json"
+  inputs = [ _id_defined_json ]
+
+  args = [
+    "--input-json",
+    rebase_path(_id_defined_json, root_build_dir),
+    "--output-js",
+    rebase_path(ets_sysResource, root_build_dir),
+  ]
+}
+
+ets_loader_sources = [
+  "compiler/compile_plugin.js",
+  "compiler/config/obfuscateWhiteList.json5",
+  "compiler/main.js",
+  "compiler/node_modules",
+  "compiler/npm-install.js",
+  "compiler/package-lock.json",
+  "compiler/package.json",
+  "compiler/rollup.config.js",
+  "compiler/tsconfig.esm.json",
+  "compiler/tsconfig.json",
+  "compiler/webpack.config.js",
+]
+
+ohos_copy("ets_loader") {
+  deps = [
+    ":build_ets_loader_library",
+    ":install_arkguard_tsc",
+  ]
+  sources = ets_loader_sources
+  deps += [ ":build_ets_sysResource" ]
+  sources += [ ets_sysResource ]
+
+  outputs = [ target_out_dir + "/$target_name/{{source_file_part}}" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+ohos_copy("ets_loader_component_config") {
+  deps = [ ":build_ets_loader_library" ]
+  sources = [
+    ets_loader_build_config_file,
+    ets_loader_component_config_file,
+  ]
+
+  outputs = [ target_out_dir + "/$target_name/{{source_file_part}}" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+ohos_copy("ets_loader_form_config") {
+  deps = [ ":build_ets_loader_library" ]
+  sources = [ ets_loader_form_config_file ]
+
+  outputs = [ target_out_dir + "/$target_name/{{source_file_part}}" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+ohos_copy("ets_loader_library") {
+  deps = [ ":build_ets_loader_library" ]
+  sources = [ ets_loader_lib_dir ]
+  outputs = [ target_out_dir + "/$target_name" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+ohos_copy("ets_loader_kit_configs") {
+  deps = [ ":build_ets_loader_library" ]
+  sources = [ ets_loader_kit_configs_dir ]
+  outputs = [ target_out_dir + "/$target_name" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+ohos_copy("components") {
+  sources = [ "compiler/components" ]
+  outputs = [ target_out_dir + "/$target_name" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+ohos_copy("form_components") {
+  sources = [ "compiler/form_components" ]
+  outputs = [ target_out_dir + "/$target_name" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+ohos_copy("server") {
+  sources = [ "compiler/server" ]
+  outputs = [ target_out_dir + "/$target_name" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+ohos_copy("codegen") {
+  sources = [ "compiler/codegen" ]
+  outputs = [ target_out_dir + "/$target_name" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+ohos_copy("ets_loader_declaration") {
+  deps = [ ":build_ets_loader_library" ]
+  sources = [ ets_loader_declarations_dir ]
+  outputs = [ target_out_dir + "/$target_name" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+ohos_copy("ets_loader_ark") {
+  deps = [
+    ":build_ets_loader_library",
+    ":install_arkguard_tsc",
+  ]
+  sources = ets_loader_sources
+  deps += [ ":build_ets_sysResource" ]
+  sources += [ ets_sysResource ]
+  outputs = [ target_out_dir + "/$target_name/{{source_file_part}}" ]
+}
+
+ohos_copy("ets_loader_ark_lib") {
+  deps = [
+    ":build_ets_loader_library",
+    ":ets_loader_ark",
+  ]
+  sources = [ ets_loader_lib_dir ]
+  outputs = [ target_out_dir + "/ets_loader_ark/lib" ]
+}
+
+ohos_copy("ets_loader_ark_declaration") {
+  deps = [
+    ":build_ets_loader_library",
+    ":ets_loader_ark",
+  ]
+  sources = [ ets_loader_declarations_dir ]
+  outputs = [ target_out_dir + "/ets_loader_ark/declarations" ]
+}
+
+ohos_copy("ets_loader_ark_components") {
+  deps = [
+    ":build_ets_loader_library",
+    ":ets_loader_ark",
+  ]
+  sources = [ "compiler/components" ]
+  outputs = [ target_out_dir + "/ets_loader_ark/components" ]
+}
+
+ohos_copy("ets_loader_ark_form_components") {
+  deps = [
+    ":build_ets_loader_library",
+    ":ets_loader_ark",
+  ]
+  sources = [ "compiler/form_components" ]
+  outputs = [ target_out_dir + "/ets_loader_ark/form_components" ]
+}
+
+ohos_copy("ets_loader_ark_server") {
+  deps = [
+    ":build_ets_loader_library",
+    ":ets_loader_ark",
+  ]
+  sources = [ "compiler/server" ]
+  outputs = [ target_out_dir + "/ets_loader_ark/server" ]
+}
+
+ohos_copy("ets_loader_ark_codegen") {
+  deps = [
+    ":build_ets_loader_library",
+    ":ets_loader_ark",
+  ]
+  sources = [ "compiler/codegen" ]
+  outputs = [ target_out_dir + "/ets_loader_ark/codegen" ]
+}
+
+ohos_copy("ohos_declaration_ets_ark") {
+  deps = []
+  if (sdk_build_public) {
+    deps += [ "//out/sdk-public/public_interface/sdk-js:ohos_declaration_ets" ]
+  } else {
+    deps += [ "//interface/sdk-js:ohos_declaration_ets" ]
+  }
+
+  sources = [ root_out_dir + "/ohos_declaration/ohos_declaration_ets" ]
+
+  outputs = [ target_out_dir + "/../api" ]
+}
+
+ohos_copy("ets_loader_ark_hap") {
+  sources = common_api_src
+  deps = [
+    ":ets_loader_ark",
+    ":ets_loader_ark_codegen",
+    ":ets_loader_ark_components",
+    ":ets_loader_ark_declaration",
+    ":ets_loader_ark_form_components",
+    ":ets_loader_ark_lib",
+    ":ets_loader_ark_server",
+    ":ohos_declaration_ets_ark",
+  ]
+  outputs = [ target_out_dir + "/../../developtools/api/{{source_file_part}}" ]
+  module_install_name = ""
+}
+
+typescript_dir = get_label_info("//third_party/typescript:build_typescript",
+                                "target_out_dir")
+
+action("install_arkguard_tsc") {
+  deps = [
+    "//arkcompiler/ets_frontend/arkguard:build_arkguard",
+    "//third_party/typescript:build_typescript",
+  ]
+  script = "install_arkguard_tsc.py"
+  args = [
+    rebase_path("${typescript_dir}/ohos-typescript-4.9.5-r4.tgz"),
+    rebase_path(
+        "${root_out_dir}/obj/arkcompiler/ets_frontend/arkguard/arkguard-1.1.3.tgz"),
+    rebase_path("//developtools/ace_ets2bundle/compiler"),
+    current_os,
+  ]
+  outputs = [ "${target_out_dir}/${target_name}.stamp" ]
+}

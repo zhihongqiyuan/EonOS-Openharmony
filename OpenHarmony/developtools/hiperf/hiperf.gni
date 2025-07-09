@@ -1,0 +1,66 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+hiperf_path = "//developtools/hiperf"
+
+innerkits_path = "${hiperf_path}/interfaces/innerkits"
+
+kits_path = "${hiperf_path}/interfaces/kits"
+
+hiperf_fuzz_test_output_path = "hiperf/hiperf"
+
+declare_args() {
+  hiperf_target_host = false
+  hiperf_target_static = false
+  hiperf_test_coverage = false
+  hiperf_test_fuzz = true
+  hiperf_sanitize = false
+  hiperf_check_time = false
+  hiperf_use_libunwind = false
+  hiperf_use_libunwinder = true
+  hiperf_debug = true
+  hiperf_code_analyze = false
+  hiperf_use_syspara = true
+  hiperf_independent_compilation = true
+  bundle_framework_enable = false
+  ability_base_enable = false
+  if (defined(global_parts_info) &&
+      defined(global_parts_info.bundlemanager_bundle_framework)) {
+    bundle_framework_enable = true
+  }
+  if (defined(global_parts_info) &&
+      defined(global_parts_info.ability_ability_base)) {
+    ability_base_enable = true
+  }
+}
+
+code_check_flag = []
+
+code_analyze_flag = [
+  "--analyze",
+  "-Xanalyzer",
+  "-analyzer-checker=cplusplus",
+  "-Xanalyzer",
+  "-analyzer-checker=core",
+  "-Xanalyzer",
+  "-analyzer-checker=security",
+  "-Xanalyzer",
+  "-analyzer-checker=unix",
+]
+
+if (is_double_framework && target_cpu == "arm64") {
+  # format specifies type 'long' but the argument has type
+  # 'std::__1::chrono::duration<long long, std::__1::ratio<1, 1000> >::rep' (aka 'long long')
+  # [-Werror,-Wformat]
+  code_check_flag += [ "-Wno-format" ]
+}

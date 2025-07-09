@@ -1,0 +1,414 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+platform = "${current_os}_${current_cpu}"
+
+if (target_os == "ios") {
+  libwebsockets_path = rebase_path("//third_party/libwebsockets")
+  exec_script("for_ios.sh", [ "$libwebsockets_path" ])
+}
+
+ohos_static_library("websockets") {
+  sources = [
+    "//third_party/libwebsockets/lib/core-net/adopt.c",
+    "//third_party/libwebsockets/lib/core-net/client/client.c",
+    "//third_party/libwebsockets/lib/core-net/client/conmon.c",
+    "//third_party/libwebsockets/lib/core-net/client/connect.c",
+    "//third_party/libwebsockets/lib/core-net/client/connect2.c",
+    "//third_party/libwebsockets/lib/core-net/client/connect3.c",
+    "//third_party/libwebsockets/lib/core-net/client/connect4.c",
+    "//third_party/libwebsockets/lib/core-net/client/sort-dns.c",
+    "//third_party/libwebsockets/lib/core-net/close.c",
+    "//third_party/libwebsockets/lib/core-net/dummy-callback.c",
+    "//third_party/libwebsockets/lib/core-net/network.c",
+    "//third_party/libwebsockets/lib/core-net/output.c",
+    "//third_party/libwebsockets/lib/core-net/pollfd.c",
+    "//third_party/libwebsockets/lib/core-net/service.c",
+    "//third_party/libwebsockets/lib/core-net/sorted-usec-list.c",
+    "//third_party/libwebsockets/lib/core-net/state.c",
+    "//third_party/libwebsockets/lib/core-net/wsi-timeout.c",
+    "//third_party/libwebsockets/lib/core-net/wsi.c",
+    "//third_party/libwebsockets/lib/core/alloc.c",
+    "//third_party/libwebsockets/lib/core/buflist.c",
+    "//third_party/libwebsockets/lib/core/context.c",
+    "//third_party/libwebsockets/lib/core/libwebsockets.c",
+    "//third_party/libwebsockets/lib/core/logs.c",
+    "//third_party/libwebsockets/lib/core/lws_dll2.c",
+    "//third_party/libwebsockets/lib/core/lws_map.c",
+    "//third_party/libwebsockets/lib/core/vfs.c",
+    "//third_party/libwebsockets/lib/event-libs/poll/poll.c",
+    "//third_party/libwebsockets/lib/misc/base64-decode.c",
+    "//third_party/libwebsockets/lib/misc/cache-ttl/file.c",
+    "//third_party/libwebsockets/lib/misc/cache-ttl/heap.c",
+    "//third_party/libwebsockets/lib/misc/cache-ttl/lws-cache-ttl.c",
+    "//third_party/libwebsockets/lib/misc/dir.c",
+    "//third_party/libwebsockets/lib/misc/lejp.c",
+    "//third_party/libwebsockets/lib/misc/lws-ring.c",
+    "//third_party/libwebsockets/lib/misc/lwsac/cached-file.c",
+    "//third_party/libwebsockets/lib/misc/lwsac/lwsac.c",
+    "//third_party/libwebsockets/lib/misc/prng.c",
+    "//third_party/libwebsockets/lib/misc/sha-1.c",
+    "//third_party/libwebsockets/lib/plat/unix/unix-caps.c",
+    "//third_party/libwebsockets/lib/plat/unix/unix-fds.c",
+    "//third_party/libwebsockets/lib/plat/unix/unix-file.c",
+    "//third_party/libwebsockets/lib/plat/unix/unix-init.c",
+    "//third_party/libwebsockets/lib/plat/unix/unix-misc.c",
+    "//third_party/libwebsockets/lib/plat/unix/unix-pipe.c",
+    "//third_party/libwebsockets/lib/plat/unix/unix-service.c",
+    "//third_party/libwebsockets/lib/plat/unix/unix-sockets.c",
+    "//third_party/libwebsockets/lib/roles/h1/ops-h1.c",
+    "//third_party/libwebsockets/lib/roles/h2/hpack.c",
+    "//third_party/libwebsockets/lib/roles/h2/http2.c",
+    "//third_party/libwebsockets/lib/roles/h2/ops-h2.c",
+    "//third_party/libwebsockets/lib/roles/http/client/client-http.c",
+    "//third_party/libwebsockets/lib/roles/http/cookie.c",
+    "//third_party/libwebsockets/lib/roles/http/date.c",
+    "//third_party/libwebsockets/lib/roles/http/header.c",
+    "//third_party/libwebsockets/lib/roles/http/parsers.c",
+    "//third_party/libwebsockets/lib/roles/http/server/lejp-conf.c",
+    "//third_party/libwebsockets/lib/roles/http/server/lws-spa.c",
+    "//third_party/libwebsockets/lib/roles/http/server/server.c",
+    "//third_party/libwebsockets/lib/roles/listen/ops-listen.c",
+    "//third_party/libwebsockets/lib/roles/pipe/ops-pipe.c",
+    "//third_party/libwebsockets/lib/roles/raw-file/ops-raw-file.c",
+    "//third_party/libwebsockets/lib/roles/raw-skt/ops-raw-skt.c",
+    "//third_party/libwebsockets/lib/roles/ws/client-parser-ws.c",
+    "//third_party/libwebsockets/lib/roles/ws/client-ws.c",
+    "//third_party/libwebsockets/lib/roles/ws/ops-ws.c",
+    "//third_party/libwebsockets/lib/roles/ws/server-ws.c",
+    "//third_party/libwebsockets/lib/system/smd/smd.c",
+    "//third_party/libwebsockets/lib/system/system.c",
+    "//third_party/libwebsockets/lib/tls/openssl/openssl-client.c",
+    "//third_party/libwebsockets/lib/tls/openssl/openssl-server.c",
+    "//third_party/libwebsockets/lib/tls/openssl/openssl-session.c",
+    "//third_party/libwebsockets/lib/tls/openssl/openssl-ssl.c",
+    "//third_party/libwebsockets/lib/tls/openssl/openssl-tls.c",
+    "//third_party/libwebsockets/lib/tls/openssl/openssl-x509.c",
+    "//third_party/libwebsockets/lib/tls/tls-client.c",
+    "//third_party/libwebsockets/lib/tls/tls-network.c",
+    "//third_party/libwebsockets/lib/tls/tls-server.c",
+    "//third_party/libwebsockets/lib/tls/tls-sessions.c",
+    "//third_party/libwebsockets/lib/tls/tls.c",
+  ]
+
+  part_name = "libwebsockets"
+  subsystem_name = "thirdparty"
+
+  if (target_os != "ios") {
+    sources += [
+      "//third_party/libwebsockets/lib/core-net/route.c",
+      "//third_party/libwebsockets/lib/roles/netlink/ops-netlink.c",
+    ]
+  }
+
+  include_dirs = [
+    "//third_party/libwebsockets/include",
+    "//third_party/libwebsockets/include/libwebsockets",
+    "//third_party/libwebsockets/include/libwebsockets/abstract",
+    "//third_party/libwebsockets/include/libwebsockets/abstract/protocols",
+
+    #################################################
+    "//third_party/libwebsockets/lib",
+    "//third_party/libwebsockets/lib/plat",
+    "//third_party/libwebsockets/lib/plat/windows",
+    "//third_party/libwebsockets/lib/plat/unix",
+    "//third_party/libwebsockets/lib/plat/unix/android",
+    "//third_party/libwebsockets/lib/plat/optee",
+    "//third_party/libwebsockets/lib/plat/freertos",
+    "//third_party/libwebsockets/lib/plat/freertos/esp32",
+    "//third_party/libwebsockets/lib/plat/freertos/esp32/drivers",
+    "//third_party/libwebsockets/lib/plat/freertos/esp32/drivers/netdev",
+    "//third_party/libwebsockets/lib/event-libs",
+    "//third_party/libwebsockets/lib/event-libs/libevent",
+    "//third_party/libwebsockets/lib/event-libs/libuv",
+    "//third_party/libwebsockets/lib/event-libs/uloop",
+    "//third_party/libwebsockets/lib/event-libs/libev",
+    "//third_party/libwebsockets/lib/event-libs/sdevent",
+    "//third_party/libwebsockets/lib/event-libs/poll",
+    "//third_party/libwebsockets/lib/event-libs/glib",
+    "//third_party/libwebsockets/lib/cose",
+    "//third_party/libwebsockets/lib/core-net",
+    "//third_party/libwebsockets/lib/core-net/client",
+    "//third_party/libwebsockets/lib/tls",
+    "//third_party/libwebsockets/lib/tls/openssl",
+    "//third_party/libwebsockets/lib/abstract",
+    "//third_party/libwebsockets/lib/abstract/protocols",
+    "//third_party/libwebsockets/lib/abstract/protocols/smtp",
+    "//third_party/libwebsockets/lib/abstract/transports",
+    "//third_party/libwebsockets/lib/core",
+    "//third_party/libwebsockets/lib/misc",
+    "//third_party/libwebsockets/lib/misc/threadpool",
+    "//third_party/libwebsockets/lib/misc/fts",
+    "//third_party/libwebsockets/lib/misc/cache-ttl",
+    "//third_party/libwebsockets/lib/misc/lwsac",
+    "//third_party/libwebsockets/lib/secure-streams",
+    "//third_party/libwebsockets/lib/secure-streams/plugins",
+    "//third_party/libwebsockets/lib/secure-streams/plugins/ssp-h1url",
+    "//third_party/libwebsockets/lib/secure-streams/cpp",
+    "//third_party/libwebsockets/lib/secure-streams/protocols",
+    "//third_party/libwebsockets/lib/secure-streams/system",
+    "//third_party/libwebsockets/lib/secure-streams/system/auth-sigv4",
+    "//third_party/libwebsockets/lib/secure-streams/system/auth-api.amazon.com",
+    "//third_party/libwebsockets/lib/secure-streams/system/fetch-policy",
+    "//third_party/libwebsockets/lib/secure-streams/system/captive-portal-detect",
+    "//third_party/libwebsockets/lib/jose",
+    "//third_party/libwebsockets/lib/jose/jwk",
+    "//third_party/libwebsockets/lib/jose/jwe",
+    "//third_party/libwebsockets/lib/jose/jwe/enc",
+    "//third_party/libwebsockets/lib/jose/jws",
+    "//third_party/libwebsockets/lib/drivers",
+    "//third_party/libwebsockets/lib/drivers/spi",
+    "//third_party/libwebsockets/lib/drivers/spi/bitbang",
+    "//third_party/libwebsockets/lib/drivers/pwm",
+    "//third_party/libwebsockets/lib/drivers/netdev",
+    "//third_party/libwebsockets/lib/drivers/devices",
+    "//third_party/libwebsockets/lib/drivers/devices/display",
+    "//third_party/libwebsockets/lib/drivers/i2c",
+    "//third_party/libwebsockets/lib/drivers/i2c/bitbang",
+    "//third_party/libwebsockets/lib/drivers/display",
+    "//third_party/libwebsockets/lib/drivers/button",
+    "//third_party/libwebsockets/lib/drivers/settings",
+    "//third_party/libwebsockets/lib/drivers/led",
+    "//third_party/libwebsockets/lib/system",
+    "//third_party/libwebsockets/lib/system/fault-injection",
+    "//third_party/libwebsockets/lib/system/dhcpclient",
+    "//third_party/libwebsockets/lib/system/ntpclient",
+    "//third_party/libwebsockets/lib/system/metrics",
+    "//third_party/libwebsockets/lib/system/async-dns",
+    "//third_party/libwebsockets/lib/system/smd",
+    "//third_party/libwebsockets/lib/roles",
+    "//third_party/libwebsockets/lib/roles/raw-proxy",
+    "//third_party/libwebsockets/lib/roles/http",
+    "//third_party/libwebsockets/lib/roles/http/server",
+    "//third_party/libwebsockets/lib/roles/http/client",
+    "//third_party/libwebsockets/lib/roles/http/compression",
+    "//third_party/libwebsockets/lib/roles/http/compression/deflate",
+    "//third_party/libwebsockets/lib/roles/http/compression/brotli",
+    "//third_party/libwebsockets/lib/roles/h2",
+    "//third_party/libwebsockets/lib/roles/netlink",
+    "//third_party/libwebsockets/lib/roles/raw-skt",
+    "//third_party/libwebsockets/lib/roles/mqtt",
+    "//third_party/libwebsockets/lib/roles/mqtt/client",
+    "//third_party/libwebsockets/lib/roles/cgi",
+    "//third_party/libwebsockets/lib/roles/dbus",
+    "//third_party/libwebsockets/lib/roles/pipe",
+    "//third_party/libwebsockets/lib/roles/h1",
+    "//third_party/libwebsockets/lib/roles/listen",
+    "//third_party/libwebsockets/lib/roles/ws",
+    "//third_party/libwebsockets/lib/roles/ws/ext",
+    "//third_party/libwebsockets/lib/roles/raw-file",
+  ]
+
+  deps = []
+
+  if (is_arkui_x) {
+    if (target_os == "ios") {
+      deps += [
+        "//third_party/openssl:libcrypto_static",
+        "//third_party/openssl:libssl_static",
+      ]
+    } else {
+      deps += [
+        "//third_party/openssl:libcrypto_shared",
+        "//third_party/openssl:libssl_shared",
+      ]
+    }
+    include_dirs += [
+      "//third_party/openssl/include/openssl",
+      "//third_party/openssl/crypto/evp",
+      "//third_party/glib/glib",
+      "//third_party/glib",
+    ]
+  }
+
+  if (target_os == "ios") {
+    sources += [ "//third_party/libwebsockets/lib/core-net/vhost_ios.c" ]
+  } else {
+    sources += [ "//third_party/libwebsockets/lib/core-net/vhost.c" ]
+  }
+
+  defines = [
+    "OHOS_LIBWEBSOCKETS=1",
+    "OPENSSL_SUPPRESS_DEPRECATED",
+  ]
+  if (target_os == "ios") {
+    defines += [ "LWS_DETECTED_PLAT_IOS=1" ]
+    defines += [ "CROSS_PLATFORM_IOS_LIBWEBSOCKETS=1" ]
+  }
+
+  cflags = [
+    "-fPIC",
+    "-Os",
+    "-g",
+    "-Wall",
+    "-fno-strict-aliasing",
+    "-fvisibility=hidden",
+    "-Wmissing-declarations",
+    "-Waggregate-return",
+    "-pipe",
+  ]
+
+  external_deps = [
+    "glib:glib",
+    "openssl:libcrypto_shared",
+    "openssl:libssl_shared",
+    "zlib:libz",
+  ]
+  public_configs = [ ":websockets_public_config" ]
+}
+
+config("websocket_config") {
+  cflags = [
+    "-Wall",
+    "-Wsign-compare",
+    "-Wstrict-aliasing",
+    "-Wuninitialized",
+    "-fvisibility=hidden",
+    "-Wtype-limits",
+    "-Wignored-qualifiers",
+    "-Wno-deprecated-declarations",
+    "-pthread",
+    "-Wno-unused-command-line-argument",
+    "-Wno-unused-parameter",
+    "-Wno-implicit-function-declaration",
+  ]
+}
+
+config("websockets_public_config") {
+  include_dirs = [
+    "//third_party/libwebsockets/plugins",
+    "//third_party/libwebsockets/lib/core",
+    "//third_party/libwebsockets/lib/core-net",
+    "//third_party/libwebsockets/lib/event-libs",
+    "//third_party/libwebsockets/lib/abstract",
+    "//third_party/libwebsockets/lib/tls",
+    "//third_party/libwebsockets/lib/roles",
+    "//third_party/libwebsockets/lib/event-libs/libuv",
+    "//third_party/libwebsockets/lib/event-libs/poll",
+    "//third_party/libwebsockets/lib/event-libs/libevent",
+    "//third_party/libwebsockets/lib/event-libs/glib",
+    "//third_party/libwebsockets/lib/event-libs/libev",
+    "//third_party/libwebsockets/lib/jose/jwe",
+    "//third_party/libwebsockets/lib/jose/jws",
+    "//third_party/libwebsockets/lib/jose",
+    "//third_party/libwebsockets/lib/misc",
+    "//third_party/libwebsockets/lib/roles/http",
+    "//third_party/libwebsockets/lib/roles/http/compression",
+    "//third_party/libwebsockets/lib/roles/h1",
+    "//third_party/libwebsockets/lib/roles/h2",
+    "//third_party/libwebsockets/lib/roles/ws",
+    "//third_party/libwebsockets/lib/roles/cgi",
+    "//third_party/libwebsockets/lib/roles/dbus",
+    "//third_party/libwebsockets/lib/roles/raw-proxy",
+    "//third_party/libwebsockets/lib/abstract",
+    "//third_party/libwebsockets/lib/system/async-dns",
+    "//third_party/libwebsockets/lib/roles/mqtt",
+    "//third_party/libwebsockets/lib/system/metrics",
+    "//third_party/libwebsockets/lib",
+    "//third_party/libwebsockets/win32port/win32helpers",
+    "//third_party/libwebsockets/include",
+  ]
+  if (platform == "mingw_x86_64") {
+    include_dirs += [ "//third_party/libwebsockets/lib/plat/windows" ]
+  } else if (platform == "mac_arm64" || platform == "mac_x64" ||
+             platform == "linux_x64" || platform == "linux_arm64") {
+    include_dirs += [ "//third_party/libwebsockets/lib/plat/unix" ]
+  }
+  cflags = [ "-Wno-error=#warnings" ]
+}
+
+ohos_static_library("websockets_static") {
+  sources = [
+    "//third_party/libwebsockets/lib/core-net/adopt.c",
+    "//third_party/libwebsockets/lib/core-net/client/client.c",
+    "//third_party/libwebsockets/lib/core-net/client/connect.c",
+    "//third_party/libwebsockets/lib/core-net/client/connect2.c",
+    "//third_party/libwebsockets/lib/core-net/client/connect3.c",
+    "//third_party/libwebsockets/lib/core-net/client/connect4.c",
+    "//third_party/libwebsockets/lib/core-net/client/sort-dns.c",
+    "//third_party/libwebsockets/lib/core-net/close.c",
+    "//third_party/libwebsockets/lib/core-net/dummy-callback.c",
+    "//third_party/libwebsockets/lib/core-net/network.c",
+    "//third_party/libwebsockets/lib/core-net/output.c",
+    "//third_party/libwebsockets/lib/core-net/pollfd.c",
+    "//third_party/libwebsockets/lib/core-net/sequencer.c",
+    "//third_party/libwebsockets/lib/core-net/service.c",
+    "//third_party/libwebsockets/lib/core-net/sorted-usec-list.c",
+    "//third_party/libwebsockets/lib/core-net/state.c",
+    "//third_party/libwebsockets/lib/core-net/vhost.c",
+    "//third_party/libwebsockets/lib/core-net/wsi-timeout.c",
+    "//third_party/libwebsockets/lib/core-net/wsi.c",
+    "//third_party/libwebsockets/lib/core/alloc.c",
+    "//third_party/libwebsockets/lib/core/buflist.c",
+    "//third_party/libwebsockets/lib/core/context.c",
+    "//third_party/libwebsockets/lib/core/libwebsockets.c",
+    "//third_party/libwebsockets/lib/core/logs.c",
+    "//third_party/libwebsockets/lib/core/lws_dll2.c",
+    "//third_party/libwebsockets/lib/core/vfs.c",
+    "//third_party/libwebsockets/lib/event-libs/poll/poll.c",
+    "//third_party/libwebsockets/lib/misc/base64-decode.c",
+    "//third_party/libwebsockets/lib/misc/lejp.c",
+    "//third_party/libwebsockets/lib/misc/lws-ring.c",
+    "//third_party/libwebsockets/lib/misc/lwsac/cached-file.c",
+    "//third_party/libwebsockets/lib/misc/lwsac/lwsac.c",
+    "//third_party/libwebsockets/lib/misc/peer-limits.c",
+    "//third_party/libwebsockets/lib/misc/sha-1.c",
+    "//third_party/libwebsockets/lib/roles/h1/ops-h1.c",
+    "//third_party/libwebsockets/lib/roles/h2/hpack.c",
+    "//third_party/libwebsockets/lib/roles/h2/http2.c",
+    "//third_party/libwebsockets/lib/roles/h2/ops-h2.c",
+    "//third_party/libwebsockets/lib/roles/http/client/client-http.c",
+    "//third_party/libwebsockets/lib/roles/http/date.c",
+    "//third_party/libwebsockets/lib/roles/http/header.c",
+    "//third_party/libwebsockets/lib/roles/http/parsers.c",
+    "//third_party/libwebsockets/lib/roles/http/server/server.c",
+    "//third_party/libwebsockets/lib/roles/listen/ops-listen.c",
+    "//third_party/libwebsockets/lib/roles/pipe/ops-pipe.c",
+    "//third_party/libwebsockets/lib/roles/raw-file/ops-raw-file.c",
+    "//third_party/libwebsockets/lib/roles/raw-skt/ops-raw-skt.c",
+    "//third_party/libwebsockets/lib/roles/ws/client-parser-ws.c",
+    "//third_party/libwebsockets/lib/roles/ws/client-ws.c",
+    "//third_party/libwebsockets/lib/roles/ws/ops-ws.c",
+    "//third_party/libwebsockets/lib/roles/ws/server-ws.c",
+    "//third_party/libwebsockets/lib/system/system.c",
+  ]
+  if (platform == "mingw_x86_64") {
+    sources += [
+      "//third_party/libwebsockets/lib/plat/windows/windows-fds.c",
+      "//third_party/libwebsockets/lib/plat/windows/windows-file.c",
+      "//third_party/libwebsockets/lib/plat/windows/windows-init.c",
+      "//third_party/libwebsockets/lib/plat/windows/windows-misc.c",
+      "//third_party/libwebsockets/lib/plat/windows/windows-pipe.c",
+      "//third_party/libwebsockets/lib/plat/windows/windows-plugins.c",
+      "//third_party/libwebsockets/lib/plat/windows/windows-service.c",
+      "//third_party/libwebsockets/lib/plat/windows/windows-sockets.c",
+    ]
+  } else if (platform == "mac_arm64" || platform == "mac_x64" ||
+             platform == "linux_x64" || platform == "linux_arm64") {
+    defines = [ "LWS_HAVE_SYS_RESOURCE_H" ]
+    sources += [
+      "//third_party/libwebsockets/lib/plat/unix/unix-caps.c",
+      "//third_party/libwebsockets/lib/plat/unix/unix-fds.c",
+      "//third_party/libwebsockets/lib/plat/unix/unix-file.c",
+      "//third_party/libwebsockets/lib/plat/unix/unix-init.c",
+      "//third_party/libwebsockets/lib/plat/unix/unix-misc.c",
+      "//third_party/libwebsockets/lib/plat/unix/unix-pipe.c",
+      "//third_party/libwebsockets/lib/plat/unix/unix-service.c",
+      "//third_party/libwebsockets/lib/plat/unix/unix-sockets.c",
+    ]
+  }
+  configs = [ ":websocket_config" ]
+  public_configs = [ ":websockets_public_config" ]
+}

@@ -1,0 +1,44 @@
+{
+    "name": "@ohos/opencl-headers",
+    "description": "OpenCL C Headers.",
+    "version": "3.2",
+    "license": "Apache License 2.0",
+    "pubiishAs": "code-segment",
+    "segment": {
+      "destPath": "third_party/opencl-headers"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+      "name": "opencl-headers",
+      "subsystem": "thirdparty",
+      "feature": [],
+      "adapted_system_type": [
+        "standard"
+      ],
+      "rom": "0",
+      "ram": "0",
+      "deps": {
+        "components": [],
+        "third_party": []
+      },
+      "build": {
+        "sub_component": [
+          "//third_party/opencl-headers:libcl"
+        ],
+        "inner_kits": [
+          {
+            "name": "//third_party/opencl-headers:libcl",
+            "header": {
+              "header_files": [
+                "opencl_wrapper.h"
+              ],
+              "header_base": "//third_party/opencl-headers/include/"
+            }
+          }
+        ],
+        "test": [
+        ]
+      }
+    }
+  }

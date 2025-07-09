@@ -1,0 +1,76 @@
+{
+    "name": "@ohos/openssl",
+    "description": "OpenSSL is a robust, commercial-grade, full-featured Open Source Toolkit for the Transport Layer Security (TLS) protocol formerly known as the Secure Sockets Layer (SSL) protocol.",
+    "version": "4.0",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/openssl"
+    },
+    "dirs": {},
+    "scripts": {},
+    "readmePath": {
+        "en": "README.md"
+    },
+    "component": {
+        "name": "openssl",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [ "openssl_enabled" ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//third_party/openssl:openssl"
+            ],
+            "inner_kits": [
+                {
+                    "name" : "//third_party/openssl:libcrypto_shared",
+                    "header": {
+                        "header_base": "//third_party/openssl/include",
+                        "header_files": []
+                    }
+                },
+                {
+                    "name" : "//third_party/openssl:libcrypto_static",
+                    "header": {
+                        "header_base": "//third_party/openssl/include",
+                        "header_files": []
+                    }
+                },
+                {
+                    "name" : "//third_party/openssl:libcrypto_restool"
+                },
+                {
+                    "name" : "//third_party/openssl:libssl_shared",
+                    "header": {
+                        "header_base": "//third_party/openssl/include",
+                        "header_files": []
+                    }
+                },
+                {
+                    "name" : "//third_party/openssl:libssl_static",
+                    "header": {
+                        "header_base": "//third_party/openssl/include",
+                        "header_files": []
+                    }
+                },
+                {
+                    "name" : "//third_party/openssl:ssl_source",
+                    "header": {
+                        "header_base": "//third_party/openssl/include",
+                        "header_files": []
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

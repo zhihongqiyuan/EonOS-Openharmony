@@ -1,0 +1,47 @@
+{
+    "name": "@ohos/lzma",
+    "description": "LZMA is default and general compression method of 7z and xz format.",
+    "version": "3.1",
+    "license": "Public domain",
+    "publishAs": "code-segment",
+    "segment": {
+      "destPath": "third_party/lzma"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "lzma",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/lzma:lzma_shared",
+                    "header": {
+                      "header_files": [],
+                      "header_base": "//third_party/lzma"
+                    }
+                },
+                {
+                    "name": "//third_party/lzma:lzma_static",
+                    "header": {
+                      "header_files": [],
+                      "header_base": "//third_party/lzma"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+  }

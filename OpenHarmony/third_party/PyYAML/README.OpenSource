@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "openEuler:PyYAML",
+    "License": "MIT License",
+    "License File": "LICENSE",
+    "Version Number": "6.0-2.oe2203sp3",
+    "Owner": "xuyong59@huawei.com",
+    "Upstream URL": "https://www.openeuler.org",
+    "Description": "A YAML parser and emitter for Python"
+  }
+]

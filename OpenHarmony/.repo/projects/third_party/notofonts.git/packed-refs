@@ -1,0 +1,16 @@
+# pack-refs with: peeled fully-peeled sorted 
+89e522d8da9e70f24fece419234d0a0294f7c637 refs/tags/OpenHarmony-v5.0-Beta1
+^889d5094319831ae04c392532b6b2e72ea524a5a
+24635c10cab7abbbc74e434f59ee509df71135dd refs/tags/OpenHarmony-v5.0.0-Release
+^21e39c79c10e564736eef6529705b744809f764e
+4831762a65ebd6691180544cdb64357d251d65c0 refs/tags/OpenHarmony-v5.0.1-Release
+^21e39c79c10e564736eef6529705b744809f764e
+c02a7810a624247f5388ea034d133f29a519fb37 refs/tags/OpenHarmony-v5.0.2-Release
+^21e39c79c10e564736eef6529705b744809f764e
+d425b4a9892c920463d76e35dbb79a3404782a63 refs/tags/OpenHarmony-v5.0.3-Release
+^21e39c79c10e564736eef6529705b744809f764e
+88423a6db1f2595c80e12c8d32cb2fcaf3931154 refs/tags/OpenHarmony-v5.1.0-Release
+^1c2cd5a06322e9052f700a582f19e14cfd658a71
+253b992e84e4606046cce01093cbaf3129c98f92 refs/tags/OpenHarmony-v6.0-Beta1
+^1c2cd5a06322e9052f700a582f19e14cfd658a71
+ee18a858dc8d1dafb9f1ad2c7e4f86f1e55fa4e5 refs/tags/github.com/notofonts/notofonts.github.io/NotoSansMath-v2.539

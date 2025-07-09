@@ -1,0 +1,44 @@
+{
+    "name": "@ohos/bzip2",
+    "description": "bzip2 is a freely available, patent free (see below), high-quality data compressor. It typically compresses files to within 10% to 15% of the best available techniques (the PPM family of statistical compressors), whilst being around twice as fast at compression and six times faster at decompression.",
+    "version": "3.1",
+    "license": "bzip2-1.0.6",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/bzip2"
+    },
+    "dirs": {},
+    "scripts": {},
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "bzip2",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/bzip2:libbz2",
+                    "header": {
+                      "header_files": [
+                        "bzlib_private.h",
+                        "bzlib.h"
+                      ],
+                      "header_base": "//third_party/bzip2"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

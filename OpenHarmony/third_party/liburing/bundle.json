@@ -1,0 +1,46 @@
+{
+    "name": "@ohos/liburing",
+    "description": "liburing provides helpers to setup and teardown io_uring instances, and also a simplified interface for applications that don't need (or want) to deal with the full kernel side implementation.",
+    "version": "2.7",
+    "license": "MIT License",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/liburing"
+    },
+    "dirs": {},
+    "scripts": {},
+	"licensePath": "COPYING",
+	"readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "liburing",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "mini","small","standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//third_party/liburing:liburing"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//third_party/liburing:liburing",
+                    "header": {
+                        "header_files": [
+                            "liburing.h"
+                        ],
+                        "header_base": "//third_party/liburing/src/include"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

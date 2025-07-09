@@ -1,0 +1,83 @@
+# pack-refs with: peeled fully-peeled sorted 
+f67ff9fbc2edf520fa1420576ac8f37cfc3cfa53 refs/tags/OpenHarmony-v3.1-Release
+f67ff9fbc2edf520fa1420576ac8f37cfc3cfa53 refs/tags/OpenHarmony-v3.1.1-Release
+f67ff9fbc2edf520fa1420576ac8f37cfc3cfa53 refs/tags/OpenHarmony-v3.1.2-Release
+f67ff9fbc2edf520fa1420576ac8f37cfc3cfa53 refs/tags/OpenHarmony-v3.1.3-Release
+0b39f3d9344b696bf9e5fda19604e38d5ef644a8 refs/tags/OpenHarmony-v3.1.4-Release
+0b39f3d9344b696bf9e5fda19604e38d5ef644a8 refs/tags/OpenHarmony-v3.1.5-Release
+0b39f3d9344b696bf9e5fda19604e38d5ef644a8 refs/tags/OpenHarmony-v3.1.6-Release
+0b39f3d9344b696bf9e5fda19604e38d5ef644a8 refs/tags/OpenHarmony-v3.1.7-Release
+93a90f9c28e422acb9b66e24e38bf4793099ae12 refs/tags/OpenHarmony-v3.2-Beta1
+8122e83f9c5fef6418c3f6bcb9b664453d3da9ba refs/tags/OpenHarmony-v3.2-Beta2
+21ffb58446140a266bba06ae43dfa59c17eb81d5 refs/tags/OpenHarmony-v3.2-Beta3
+21ffb58446140a266bba06ae43dfa59c17eb81d5 refs/tags/OpenHarmony-v3.2-Beta4
+21ffb58446140a266bba06ae43dfa59c17eb81d5 refs/tags/OpenHarmony-v3.2-Beta5
+21ffb58446140a266bba06ae43dfa59c17eb81d5 refs/tags/OpenHarmony-v3.2-Release
+21ffb58446140a266bba06ae43dfa59c17eb81d5 refs/tags/OpenHarmony-v3.2.1-Release
+21ffb58446140a266bba06ae43dfa59c17eb81d5 refs/tags/OpenHarmony-v3.2.2-Release
+21ffb58446140a266bba06ae43dfa59c17eb81d5 refs/tags/OpenHarmony-v3.2.3-Release
+21ffb58446140a266bba06ae43dfa59c17eb81d5 refs/tags/OpenHarmony-v3.2.4-Release
+d2342b51017b5349a5a87be1a5431a5f8f01c748 refs/tags/OpenHarmony-v4.0-Beta1
+408e4df01c67fb547d5f0e1566e292b38c67b962 refs/tags/OpenHarmony-v4.0-Beta2
+570930ef87fde86b588815b1e3a58fc1c5ed82b9 refs/tags/OpenHarmony-v4.0-Release
+8c2d635d77b8728e987524c31002d51d3fbd07fd refs/tags/OpenHarmony-v4.0.1-Release
+6d8aada42bf9bc6e78d0f86ff804193f3aa954c4 refs/tags/OpenHarmony-v4.0.2-Release
+^8c2d635d77b8728e987524c31002d51d3fbd07fd
+e8276d08b7a53f4cefdf24f9fe5ecebb4fa4c6be refs/tags/OpenHarmony-v4.0.3-Release
+^7078f33cf9754ccc0aaf586b7a8080d41f7b1e4d
+5d043158ce74155eb5106571a3f75d60c4241a2f refs/tags/OpenHarmony-v4.0.4-Release
+^970d8ee551258c6776f89ae5a32a74d734accd20
+a8e292a64dcea2f7b00d744c79cf7b7016dd2959 refs/tags/OpenHarmony-v4.1-Beta1
+3267296eedaa9667a6cf28dc507faa1470ec274c refs/tags/OpenHarmony-v4.1-Release
+6c8c882ccf931583db96473f0fefd802e88a4d87 refs/tags/OpenHarmony-v4.1.1-Release
+e3dfab941445272bfc01e1f5a2738d80716f98e6 refs/tags/OpenHarmony-v4.1.2-Release
+^0bfc4f4ab4aa3f5d2c9d23d5789681ec8eae4677
+406cf54f6608da2531dd956cc287b133e7ff38ce refs/tags/OpenHarmony-v4.1.3-Release
+^0bfc4f4ab4aa3f5d2c9d23d5789681ec8eae4677
+7080313270adec1515a70c03a90f8274b5f50215 refs/tags/OpenHarmony-v4.1.4-Release
+^559da9d9370c524018ebd560ca950c17c7793552
+fc717c670d2e8424946c1acb00934252be90f8f5 refs/tags/OpenHarmony-v5.0-Beta1
+^842eb42617fb7d07828bbfd9ea57d040c2cabe3e
+a95a369f90ab94d648729608ccfe0d3afc3ba9a4 refs/tags/OpenHarmony-v5.0.0-Release
+^778e77e466c63f7981957b9547f5ae8d2d144b86
+09a2281dc3bb391e81ffe5ee395309455bb63806 refs/tags/OpenHarmony-v5.0.1-Release
+^3839666b3c89863635409b86bb284b2335ad3b91
+1e56db1a28ca6019f7a5af869fa064f4dd87410c refs/tags/OpenHarmony-v5.0.2-Release
+^b799bfe5cf978a02af461a547ef28599a53b8d0e
+166fd9f68b927ca43f89051629090778ec3c4e41 refs/tags/OpenHarmony-v5.0.3-Release
+^1c213a4876a71d69b0f512a61e4337a1f1d753eb
+d9b0c609d288da27569eea2db75ba1ee986b3c68 refs/tags/OpenHarmony-v5.1.0-Release
+^8850f8d521da63d823d2a27b810a8727df995bbe
+f65c1c75c943db1dac7708310aa7f2227166015e refs/tags/OpenHarmony-v6.0-Beta1
+^81e7f7ac2d62c20896da774d44235bb3fb4e28fa
+ef1e175d71ca375ac1c89140f17deb8f42932107 refs/tags/canvaskit/0.22.0
+^81da68af2ecf8d5a2d2d066d597bc4e3c5deff92
+d396828e8d4609949aaa4121d52399c5d0bd98fe refs/tags/canvaskit/0.23.0
+^a0fea4048646eadf31c4f1c74838e021bffd3663
+ab0728cf04264b1a5d49efa2273e93a24234cb1d refs/tags/canvaskit/0.24.0
+^26f4962b3fcb96815e70313ace8e05dbb82f4293
+3a0030839cb1a9a10273a975bc045762e45ed597 refs/tags/canvaskit/0.25.0
+^0676317b1f7fb7beedca4933fd001c95f3c1d8e1
+c67cc5c4f4362233b802fabfaa0e27412eac025e refs/tags/canvaskit/0.25.1
+^2ee4d7a7f5bca64293d0365734361fb16ada33a6
+afa672cca54476b2028f96c2e5297417e8ee34e9 refs/tags/canvaskit/0.26.0
+^7978abafee4172fdeefc8ca832f826e37c83140f
+e6f3714d2bacb6dcdebb30435864e90afe1d53f1 refs/tags/canvaskit/0.27.0
+^6017b4833fa01769a534010573d5b8fe7504f3dc
+f26ce2dbb138524955ae1b4f7766be9f0e8aa9ab refs/tags/canvaskit/0.28.0
+^fba8a742cb5a4cb09d60d877a0f6b79276a07550
+9a511b5a352118c1bb3d3f25a580dcd60681f2d7 refs/tags/canvaskit/0.28.1
+^9f39daff8fd5e924afa750c2daf25fd16f107c2d
+baeb6fa1acadcced7f7c2138c3bd73ee13860a11 refs/tags/canvaskit/0.29.0
+^a40ddcd63d40d647fcc5ed3b11acd2fa8ee834ed
+d2e486d6edfaa537ad071956fd393e31730d0c6d refs/tags/canvaskit/0.30.0
+2e04267c5ef66b1bb9e7d75f30825fa55cfe5e15 refs/tags/canvaskit/0.31.0
+^f4db9165ebe4c81130957cb73ff2e3925c4134b1
+c4e60450de409936a4d5b616265f5e3f51a60f5a refs/tags/canvaskit/0.32.0
+^dc60ca197e0280fb2fe82e42321498a0443b408f
+8e712021de51eadb887c4aa6b18ceb4bf3f78f07 refs/tags/chrome/m37_2062
+9112a5fed24da8442a5d263c634adbbf6b57862c refs/tags/chrome/m37_2062_94
+f3ffa8b4d54a992b9c5af430aca61dc242090950 refs/tags/chrome/m38_2125
+00962b6982e9b9053ef9658b7419d623414b912d refs/tags/chrome/m39_2138
+ca2d5378e363eea8ac88149271b4bcb6f3817498 refs/tags/master-v
+f97c7c2ce28a83fb628562904b5879b981b0444e refs/tags/weekly_20240115-v

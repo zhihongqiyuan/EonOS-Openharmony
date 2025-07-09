@@ -1,0 +1,38 @@
+{
+    "name": "@ohos/libinput",
+    "description": "libinput is a library that provides a full input stack for display servers and other applications that need to handle input devices provided by the kernel",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/libinput"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYING",
+    "component": {
+        "name": "libinput",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": ["libinput_feature_pen"],
+        "adapted_system_type": [ "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": [
+              "libevdev",
+              "mtdev"
+            ]
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+              {
+                "name": "//third_party/libinput:libinput-third-mmi"
+              }
+            ],
+            "test": []
+        }
+    }
+}

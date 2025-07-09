@@ -1,0 +1,37 @@
+# pack-refs with: peeled fully-peeled sorted 
+fe89afb271d7258b6637cc43fda74d8d65168900 refs/tags/20230614/github.com/OpenPrinting/cups/v2.4.0
+^7b114a26fe8bbe3c280d3ac743d30e5cb8f6ef93
+76788a0c895741d5d81bbed890be66987458a034 refs/tags/OpenHarmony-v4.0-Release
+76788a0c895741d5d81bbed890be66987458a034 refs/tags/OpenHarmony-v4.0.1-Release
+81c800a4903f28c0c3d41b9e6ca1ee775efc3f1a refs/tags/OpenHarmony-v4.0.2-Release
+^76788a0c895741d5d81bbed890be66987458a034
+02290f3f27101e686c60237fe1ff86556b85dad7 refs/tags/OpenHarmony-v4.0.3-Release
+^76788a0c895741d5d81bbed890be66987458a034
+857c80aea41f7c798a38df4011c4f6521a72f7b5 refs/tags/OpenHarmony-v4.0.4-Release
+^76788a0c895741d5d81bbed890be66987458a034
+57b9f3adf21aa984fe510417bfe5ae80401253d0 refs/tags/OpenHarmony-v4.1-Beta1
+882975b47ab558777750ed8541ccc720b9008372 refs/tags/OpenHarmony-v4.1-Release
+882975b47ab558777750ed8541ccc720b9008372 refs/tags/OpenHarmony-v4.1.1-Release
+483335d8896e4f610479dcf7a02c05866b0f64db refs/tags/OpenHarmony-v4.1.2-Release
+^f738f09f3b487a6f055039f3f9c3958d0f794059
+8919f6731c88bd87b5f61e6959c01f17da43f317 refs/tags/OpenHarmony-v4.1.3-Release
+^f738f09f3b487a6f055039f3f9c3958d0f794059
+ab41a53c4497fa38212c1ff89a5ca7600764df0d refs/tags/OpenHarmony-v4.1.4-Release
+^f738f09f3b487a6f055039f3f9c3958d0f794059
+6791848b3aeeff3cbbcd8bb84a56d95d73bc7c42 refs/tags/OpenHarmony-v5.0-Beta1
+^88c0e187d92a292c346e61210563a72f1c987bea
+4754bbe5ca9883661f3771d9abc623aa317976d8 refs/tags/OpenHarmony-v5.0.0-Release
+^d8df03d083db28fbf9d37a9e5d3a6f39eb5873ab
+69bdc2f3f6bc79297a58caeb754485fef3129ace refs/tags/OpenHarmony-v5.0.1-Release
+^978758489456fc2d9166a7557340a725e6e044ba
+968b6ac0896f8ade450cfc65e04f55c658ca26c2 refs/tags/OpenHarmony-v5.0.2-Release
+^4ac56afa97d940df4c2d81f31dc9867ca9b5fd1c
+8ab6b018d8d96f64657ea06e62475091cc29b667 refs/tags/OpenHarmony-v5.0.3-Release
+^44d54cdd0f3accf70f41d8e2826a0a27b9ebe3e9
+1283a3681294e046d55d6b47d41fc4b3c4a050db refs/tags/OpenHarmony-v5.1.0-Release
+^09dd8d60c3446ea3332fe2f72a39cee2fe2c14dc
+9680b6c8f7481d4a893886eb75c51c9889d65e44 refs/tags/OpenHarmony-v6.0-Beta1
+^60ccd6abe3dea152b82320915b2e2edc1bfed6bf
+40dcca58e8ff35d84cb55fc5a592673068f13a8e refs/tags/gitee.com/src-openeuler/cups/refs/tags/openEuler-22.03-LTS-SP1
+57b9f3adf21aa984fe510417bfe5ae80401253d0 refs/tags/master-v
+57b9f3adf21aa984fe510417bfe5ae80401253d0 refs/tags/weekly_20240115-v

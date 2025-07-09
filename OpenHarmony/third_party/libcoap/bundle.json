@@ -1,0 +1,32 @@
+{
+    "name": "@ohos/libcoap",
+    "description": "libcoap is a C implementation of a lightweight application-protocol.",
+    "version": "4.3.4",
+    "license": "BSD-2-Clause",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/libcoap"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "libcoap",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "mini", "small", "standard" ],
+        "deps": {
+            "components": [ "bounds_checking_function" ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/libcoap:libcoap"
+                }
+            ],
+            "test": []
+        }
+    }
+}

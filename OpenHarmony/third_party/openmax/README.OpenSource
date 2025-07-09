@@ -1,0 +1,12 @@
+[
+    {
+        "Name": "Khronos Group - OpenMAX IL",
+        "License": "MIT license",
+        "License File": "LICENSE",
+        "Version Number": "1.1.2",
+        "Owner": "liufeihu@huawei.com",
+        "Upstream URL": "https://github.com/KhronosGroup/OpenMAX-IL-Registry/tree/main/api/1.1.2",
+        "Description": "The OpenMAX IL (Integration Layer) API defines a standardized media component interface to enable developers and platform providers to integrate and communicate with multimedia codecs implemented in hardware or software.",
+        "Dependencies": ""
+    }
+]

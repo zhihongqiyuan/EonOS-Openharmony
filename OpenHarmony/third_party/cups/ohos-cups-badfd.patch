@@ -1,0 +1,85 @@
+diff --git a/scheduler/job.c b/scheduler/job.c
+index fd69f71..f44c522 100644
+--- a/scheduler/job.c
++++ b/scheduler/job.c
+@@ -1355,7 +1355,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
+ 
+   cupsdRemoveSelect(job->status_pipes[0]);
+   cupsdClosePipe(job->status_pipes);
+-  cupsdStatBufDelete(job->status_buffer);
++  cupsdStatBufDeleteForJob(job->status_buffer);
+   job->status_buffer = NULL;
+ 
+  /*
+@@ -3144,7 +3144,7 @@ finalize_job(cupsd_job_t *job,		/* I - Job */
+ 
+   cupsdRemoveSelect(job->status_pipes[0]);
+   cupsdClosePipe(job->status_pipes);
+-  cupsdStatBufDelete(job->status_buffer);
++  cupsdStatBufDeleteForJob(job->status_buffer);
+   job->status_buffer = NULL;
+ 
+  /*
+@@ -4919,7 +4919,7 @@ start_job(cupsd_job_t     *job,		/* I - Job ID */
+ 		     "back-channel pipes.");
+ 
+     cupsdClosePipe(job->status_pipes);
+-    cupsdStatBufDelete(job->status_buffer);
++    cupsdStatBufDeleteForJob(job->status_buffer);
+     job->status_buffer = NULL;
+ 
+     cupsdDestroyProfile(job->profile);
+@@ -4950,7 +4950,7 @@ start_job(cupsd_job_t     *job,		/* I - Job ID */
+     cupsdClosePipe(job->back_pipes);
+ 
+     cupsdClosePipe(job->status_pipes);
+-    cupsdStatBufDelete(job->status_buffer);
++    cupsdStatBufDeleteForJob(job->status_buffer);
+     job->status_buffer = NULL;
+ 
+     cupsdDestroyProfile(job->profile);
+diff --git a/scheduler/statbuf.c b/scheduler/statbuf.c
+index db9d98d..18eb7b8 100644
+--- a/scheduler/statbuf.c
++++ b/scheduler/statbuf.c
+@@ -39,6 +39,28 @@ cupsdStatBufDelete(cupsd_statbuf_t *sb)	/* I - Status buffer */
+ }
+ 
+ 
++/*
++ * 'cupsdStatBufDeleteForJob()' - Destroy a status buffer.
++ */
++
++void
++cupsdStatBufDeleteForJob(cupsd_statbuf_t *sb)	/* I - Status buffer */
++{
++ /*
++  * Range check input...
++  */
++
++  if (!sb)
++    return;
++
++ /*
++  * Free memory used...
++  */
++
++  free(sb);
++}
++
++
+ /*
+  * 'cupsdStatBufNew()' - Create a new status buffer.
+  */
+diff --git a/scheduler/statbuf.h b/scheduler/statbuf.h
+index 4ac7c81..196cd6d 100644
+--- a/scheduler/statbuf.h
++++ b/scheduler/statbuf.h
+@@ -33,6 +33,7 @@ typedef struct				/**** Status buffer */
+  */
+ 
+ extern void		cupsdStatBufDelete(cupsd_statbuf_t *sb);
++extern void		cupsdStatBufDeleteForJob(cupsd_statbuf_t *sb);
+ extern cupsd_statbuf_t	*cupsdStatBufNew(int fd, const char *prefix, ...);
+ extern char		*cupsdStatBufUpdate(cupsd_statbuf_t *sb, int *loglevel,
+ 			                    char *line, int linelen);

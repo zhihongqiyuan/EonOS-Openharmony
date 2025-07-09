@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Copyright (c) 2023 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+
+-->
+
+<config>
+    <version>1.0.0</version>
+    <UniProton_compile_mode>release</UniProton_compile_mode>
+    <tools>
+        <tool tool_name="cmake">
+            <tool_path>/opt/buildtools/cmake-3.20.5/bin</tool_path>
+        </tool>
+    </tools>
+    <projects>
+        <project cpu_type="m4">
+            <lib_type>SRE</lib_type>
+            <platform plat_name="cortex">
+                <name>cortex</name>
+                <compile_path_x86>/opt/buildtools/gcc-arm-none-eabi-10-2020-q4-major/bin</compile_path_x86>
+                <compile_path_arm64>/opt/buildtools/gcc-arm-none-eabi-10-2020-q4-major/bin</compile_path_arm64>
+                <kconf_dir>m4</kconf_dir>
+            </platform>
+        </project>
+    </projects>
+    <projects>
+        <project cpu_type="raspi4">
+            <lib_type>SRE</lib_type>
+            <platform plat_name="armv8">
+                <name>armv8</name>
+                <compile_path_x86>/opt/buildtools/gcc-arm-10.3-2021.07-x86_64-aarch64-none-elf/bin</compile_path_x86>
+                <compile_path_arm64>/opt/buildtools/gcc-arm-10.3-2021.07-x86_64-aarch64-none-elf/bin</compile_path_arm64>
+                <kconf_dir>armv8_raspi4</kconf_dir>
+            </platform>
+        </project>
+    </projects>
+    <projects>
+        <project cpu_type="hi3093">
+            <lib_type>SRE</lib_type>
+            <platform plat_name="armv8">
+                <name>armv8</name>
+                <compile_path_x86>/opt/buildtools/gcc-arm-10.3-2021.07-x86_64-aarch64-none-elf/bin</compile_path_x86>
+                <compile_path_arm64>/opt/buildtools/gcc-arm-10.3-2021.07-x86_64-aarch64-none-elf/bin</compile_path_arm64>
+                <kconf_dir>armv8_hi3093</kconf_dir>
+            </platform>
+        </project>
+    </projects>
+</config>

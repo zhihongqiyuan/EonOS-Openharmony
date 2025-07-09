@@ -1,0 +1,11 @@
+[
+    {
+        "Name"                  : "CUPS",
+        "License"               : "Apache 2.0 License",
+        "License File"          : "LICENSE",
+        "Version Number"        : "v2.4.12",
+        "Owner"                 : "baozewei@huawei.com",
+        "Upstream URL"          : "https://github.com/OpenPrinting/cups/releases/download/v2.4.12/cups-2.4.12-source.tar.gz",
+        "Description"           : "OpenPrinting CUPS is the most current version of CUPS, a standards-based, open source printing system for Linux® and other Unix®-like operating systems"
+    }
+]

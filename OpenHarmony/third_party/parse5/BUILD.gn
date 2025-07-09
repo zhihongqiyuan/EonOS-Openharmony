@@ -1,0 +1,74 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/ohos/ace/ace.gni")
+import("//foundation/arkui/ace_engine/ace_config.gni")
+
+parse5_lib_dir =
+    get_label_info(":build_parse5_library", "target_out_dir") + "/parse"
+_parse5_project_dir = "//third_party/parse5/packages/parse5"
+
+action("build_parse5_library") {
+  script = "build_parse5.py"
+  depfile = "$target_gen_dir/$target_name.d"
+  outputs = [ parse5_lib_dir ]
+
+  _tsc_js = _parse5_project_dir + "/node_modules/typescript/bin/tsc"
+  _uglify_source_js = _parse5_project_dir + "/uglify-source.js"
+
+  inputs = [
+    _tsc_js,
+    _uglify_source_js,
+  ]
+
+  nodejs_path = "//prebuilts/build-tools/common/nodejs/current/bin/node"
+
+  args = [
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+    "--node",
+    rebase_path(nodejs_path, root_build_dir),
+    "--tsc-js",
+    rebase_path(_tsc_js, root_build_dir),
+    "--parse5-project",
+    rebase_path(_parse5_project_dir, root_build_dir),
+    "--parse5-output-dir",
+    rebase_path(parse5_lib_dir, root_build_dir),
+    "--uglify-source-js",
+    rebase_path(_uglify_source_js, root_build_dir),
+  ]
+}
+
+ohos_copy("parse5") {
+  deps = [ ":build_parse5_library" ]
+  sources = [ parse5_lib_dir ]
+  outputs = [ target_out_dir + "/$target_name" ]
+  module_install_name = "parse"
+  subsystem_name = "thirdparty"
+  part_name = "parse5"
+  license_file = "//third_party/parse5/LICENSE"
+}
+
+ace_loader_ark_dir = get_label_info("//developtools/ace_js2bundle:ace_loader",
+                                    "target_out_dir") + "/ace_loader_ark"
+
+ohos_copy("parse5_ark_hap") {
+  deps = [
+    ":build_parse5_library",
+    ":parse5",
+    "//developtools/ace_js2bundle:ace_loader_ark_hap",
+  ]
+  sources = [ parse5_lib_dir ]
+  outputs = [ ace_loader_ark_dir + "/lib/parse" ]
+}

@@ -1,0 +1,60 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "release",
+        "material": {
+          "storePassword": "0000001B7EEB31E05C0AF01676E16503462AB81E5E5634D1780D30B08FBEB1F5A17449A39CD9BF2D4907F4",
+          "certpath": "./signature/auto_ohos_release_applications_calendar_data_com.ohos.calendardata.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B3A34608C8599A7114F2FFEFE280096858B0D2769B84AC380A8A143756AA725935CD33A91414D87",
+          "profile": "./signature/auto_ohos_release_applications_calendar_data_com.ohos.calendardata.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "./signature/auto_ohos_release_applications_calendar_data_com.ohos.calendardata.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "release",
+        "compileSdkVersion": 20,
+        "compatibleSdkVersion": 20
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "common",
+      "srcPath": "./common"
+    },
+    {
+      "name": "datastructure",
+      "srcPath": "./datastructure"
+    },
+    {
+      "name": "datamanager",
+      "srcPath": "./datamanager"
+    },
+    {
+      "name": "rrule",
+      "srcPath": "./rrule"
+    },
+    {
+      "name": "dataprovider",
+      "srcPath": "./dataprovider"
+    }
+  ]
+}

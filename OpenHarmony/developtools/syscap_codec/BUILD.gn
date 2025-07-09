@@ -1,0 +1,200 @@
+# Copyright (C) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/lite/config/component/lite_component.gni")
+import("//build/ohos.gni")
+import("config.gni")
+
+config("internal") {
+  include_dirs = [ "include" ]
+  include_dirs += [ syscap_codec_config_path ]
+  if (syscap_codec_config_extern_path != "") {
+    include_dirs += [ "${root_build_dir}" ]
+    cflags = [ "-DSYSCAP_DEFINE_EXTERN_ENABLE" ]
+  }
+}
+
+sources_platform_common = [
+  "./src/syscap_tool.c",
+  "./src/create_pcid.c",
+  "./src/endian_internal.c",
+  "./src/context_tool.c",
+  "./src/common_method.c",
+]
+
+ohos_executable("syscap_tool_bin") {
+  deps = []
+  if (syscap_codec_config_extern_path != "") {
+    deps += [ ":gen_syscap_define_custom" ]
+    inputs = [ "${root_build_dir}/syscap_define_custom.h" ]
+  }
+  output_name = "syscap_tool"
+  install_enable = true
+  include_dirs = [ "src" ]
+  configs = [ ":internal" ]
+  defines = []
+
+  if (is_mingw) {
+    defines += [ "_POSIX_" ]
+  }
+  if (defined(ohos_lite) && ohos_kernel_type == "liteos_m") {
+    cflags = [ "-DPATH_MAX=1024" ]
+    cflags += [ "-Wno-int-conversion" ]
+  }
+  sources = [ "./src/main.c" ]
+  sources += sources_platform_common
+
+  external_deps = [ "bounds_checking_function:libsec_static" ]
+
+  if (defined(ohos_lite)) {
+    deps += [ "//build/lite/config/component/cJSON:cjson_static" ]
+  } else {
+    external_deps += [ "cJSON:cjson_static" ]
+  }
+
+  subsystem_name = "developtools"
+  part_name = "syscap_codec"
+}
+
+config("syscap_interface_public_config") {
+  include_dirs = [ "./interfaces/inner_api/" ]
+}
+
+if (defined(ohos_lite)) {
+  if (ohos_kernel_type == "liteos_m") {
+    group("syscap_interface_shared") {
+    }
+  } else {
+    shared_library("syscap_interface_shared") {
+      deps = []
+      if (syscap_codec_config_extern_path != "") {
+        deps += [ ":gen_syscap_define_custom" ]
+        inputs = [ "${root_build_dir}/syscap_define_custom.h" ]
+      }
+      _version_script = rebase_path("libsyscap_interface_shared.versionscript")
+      if (!defined(ldflags)) {
+        ldflags = []
+      }
+      ldflags += [
+        "-rdynamic",
+        "-Wl,--version-script=${_version_script}",
+      ]
+
+      include_dirs = [ "src" ]
+      configs += [ ":internal" ]
+      public_configs = [ ":syscap_interface_public_config" ]
+      sources = [
+        "./interfaces/inner_api/syscap_interface.c",
+        "./src/context_tool.c",
+        "./src/endian_internal.c",
+        "./src/syscap_tool.c",
+        "./src/common_method.c",
+      ]
+
+      deps += [
+        "//build/lite/config/component/cJSON:cjson_static",
+        "//third_party/bounds_checking_function:libsec_static",
+      ]
+    }
+  }
+} else {
+  ohos_shared_library("syscap_interface_shared") {
+    branch_protector_ret = "pac_ret"
+    deps = []
+    if (syscap_codec_config_extern_path != "") {
+      deps += [ ":gen_syscap_define_custom" ]
+      inputs = [ "${root_build_dir}/syscap_define_custom.h" ]
+    }
+    version_script = "libsyscap_interface_shared.versionscript"
+    include_dirs = [ "src" ]
+    configs = [ ":internal" ]
+    public_configs = [ ":syscap_interface_public_config" ]
+    sources = [
+      "./interfaces/inner_api/syscap_interface.c",
+      "./src/context_tool.c",
+      "./src/endian_internal.c",
+      "./src/syscap_tool.c",
+      "./src/common_method.c",
+    ]
+    external_deps = [
+      "bounds_checking_function:libsec_static",
+      "cJSON:cjson_static",
+    ]
+
+    subsystem_name = "developtools"
+    part_name = "syscap_codec"
+  }
+}
+
+group("syscap_tool_bin_linux") {
+  deps = [ ":syscap_tool_bin(//build/toolchain/linux:clang_${host_cpu})" ]
+}
+
+build_ext_component("generate_pcid") {
+  outputs = [ "$root_out_dir/pcid.sc" ]
+  deps = [ ":syscap_tool_bin_linux" ]
+  exec_path = rebase_path(root_out_dir)
+  preload_path = rebase_path(preloader_output_dir)
+  if (defined(ohos_lite)) {
+    cmd = "${exec_path}/clang_${host_cpu}/syscap_tool"
+  } else {
+    cmd = "${exec_path}/clang_${host_cpu}/developtools/syscap_codec/syscap_tool"
+  }
+  command = "chmod 777 $cmd"
+  command +=
+      " && $cmd -P -e -i ${preload_path}/system/etc/SystemCapability.json"
+  if (defined(ohos_lite)) {
+    command += " && mkdir -p $exec_path/system/etc && cp $exec_path/pcid.sc $exec_path/system/etc/pcid.sc"
+  }
+}
+
+ohos_prebuilt_etc("pcid.sc") {
+  deps = [ ":generate_pcid" ]
+  source = "$root_out_dir/pcid.sc"
+  subsystem_name = "developtools"
+  part_name = "syscap_codec"
+}
+
+if (syscap_codec_config_extern_path != "") {
+  # generate syscap_define_custom.h
+  action("gen_syscap_define_custom") {
+    script = "./tools/syscap_config_merge.py"
+    args = [
+      "--base",
+      rebase_path("include/codec_config/syscap_define.h"),
+      "--extern",
+      rebase_path(syscap_codec_config_extern_path),
+      "--output",
+      rebase_path("${root_build_dir}/syscap_define_custom.h"),
+    ]
+    inputs = [
+      "include/codec_config/syscap_define.h",
+      syscap_codec_config_extern_path,
+    ]
+    outputs = [ "${root_build_dir}/syscap_define_custom.h" ]
+  }
+}
+
+group("pcid_sc") {
+  deps = [ ":pcid.sc" ]
+}
+
+group("syscap_codec") {
+  deps = [
+    ":pcid_sc",
+    ":syscap_interface_shared",
+  ]
+  if (support_jsapi && is_standard_system) {
+    deps += [ "napi:systemcapability" ]
+  }
+}

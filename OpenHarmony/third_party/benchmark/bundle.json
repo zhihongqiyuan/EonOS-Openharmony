@@ -1,0 +1,44 @@
+{
+    "name": "@ohos/benchmark",
+    "description": "A microbenchmark support library",
+    "version": "3.1",
+    "license": "Apache License V2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/benchmark"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "benchmark",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "small",
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name":"//third_party/benchmark:benchmark",
+                    "header":{
+                        "header_files":[
+                            "benchmark.h",
+                "export.h"
+                        ],
+                        "header_base":"//third_party/benchmark/include"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

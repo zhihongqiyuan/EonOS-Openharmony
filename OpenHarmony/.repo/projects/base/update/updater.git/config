@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+[filter "lfs"]
+	smudge = git-lfs smudge --skip -- %f
+	process = git-lfs filter-process --skip
+[remote "origin"]
+	url = https://gitee.com/openharmony/update_updater
+	review = https://openharmony.gitee.com/openharmony/
+	projectname = update_updater
+	fetch = +refs/heads/*:refs/remotes/origin/*

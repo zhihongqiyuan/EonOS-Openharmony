@@ -1,0 +1,54 @@
+{
+    "name": "@ohos/libpng",
+    "description": "Reference library for supporting the Portable Network Graphics (PNG) format.",
+    "version": "3.1",
+    "license": "libpng license",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/libpng"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "LICENSE",
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "libpng",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "small",
+            "mini",
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "zlib"
+            ],
+            "third_party": [
+                "zlib"
+            ]
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "type": "so",
+                    "name": "//third_party/libpng:libpng",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//third_party/libpng"
+                    }
+                },
+                {
+                    "name": "//third_party/libpng:libpng_static"
+                }
+            ],
+            "test": []
+        }
+    }
+}

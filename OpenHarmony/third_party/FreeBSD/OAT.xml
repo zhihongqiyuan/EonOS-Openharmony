@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+-->
+
+<!--This is the configuration file template for OpenHarmony OSS Audit Tool, 
+please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+-->
+
+<configuration>
+    <oatconfig>
+        <licensefile>COPYRIGHT</licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <policyitem type="compatibility" name="InvalidLicense" path="sys/arm/arm/nexus.c" desc="MIT LICENSE 1998"/>
+                <policyitem type="compatibility" name="InvalidLicense" path="sys/arm/include/_bus.h" desc="BSD-2-CLAUSE LICENSE"/>
+                <policyitem type="compatibility" name="InvalidLicense" path="sys/dev/usb/serial/u3g.c" desc="ISC LICENSE"/>
+                <policyitem type="compatibility" name="InvalidLicense" path="sys/sys/mutex.h" desc="BSD-3-CLAUSE LICENSE"/>
+                <policyitem type="compatibility" name="InvalidLicense" path="sys/cam/scsi/scsi_all.h" desc="BSD-LIKE LICENSE"/>
+                <policyitem type="compatibility" name="InvalidLicense" path="sys/sys/sema.h" desc="BSD-2-CLAUSE LICENSE"/>
+                <policyitem type="compatibility" name="InvalidLicense" path="sys/net/ppp_defs.h" desc="BSD-LIKE LICENSE"/>
+                <policyitem type="compatibility" name="InvalidLicense" path="sys/sys/sx.h" desc="BSD-2-CLAUSE LICENSE"/>
+                <policyitem type="compatibility" name="InvalidLicense" path="sys/dev/usb/net/if_urndis.c" desc="ISC LICENSE"/>
+                <policyitem type="compatibility" name="InvalidLicense" path="sys/dev/usb/net/if_urndisreg.h" desc="ISC LICENSE"/>
+                <policyitem type="compatibility" name="SunPro" path="lib/msun/.*" desc="SunPro License" />
+            </policy>
+        </policylist>
+        <filefilterlist>
+            <filefilter name="defaultFilter" desc="Files not to check">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="licenseFileNamePolicyFilter" desc="Filters for LICENSE file policies">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="readmeFileNamePolicyFilter" desc="Filters for README file policies">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="readmeOpenSourcefileNamePolicyFilter" desc="Filters for README.OpenSource file policies">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+
+        </filefilterlist>
+        <licensematcherlist>
+            <!--licensematcher name="uvwxyz License" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                    uvwxyz license textA xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+				 " desc=""/>
+                <licensetext name="
+                    uvwxyz license textB xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+				 " desc=""/>
+            </licensematcher-->
+            <licensematcher name="BSD-3-Clause" desc="">
+                <licensetext name="
+                    * Copyright (c) 1987 Regents of the University of California.
+                    * All rights reserved.
+                    *
+                    * Redistribution and use in source and binary forms are permitted
+                    * provided that the above copyright notice and this paragraph are
+                    * duplicated in all such forms and that any documentation,
+                    * advertising materials, and other materials related to such
+                    * distribution and use acknowledge that the software was developed
+                    * by the University of California, Berkeley.  The name of the
+                    * University may not be used to endorse or promote products derived
+                    * from this software without specific prior written permission.
+                    * THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
+                    * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+                    * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+				 " desc=""/>
+                <licensetext name="
+                    * Permission to use, copy, modify, and distribute this software for any
+                    * purpose with or without fee is hereby granted, provided that the above
+                    * copyright notice and this permission notice appear in all copies.
+                    *
+                    * THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+                    * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+                    * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+                    * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+                    * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+                    * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+                    * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+				 " desc=""/>
+            </licensematcher>
+            <licensematcher name="MIT" desc="">
+                <licensetext name="The author of this software is David M. Gay." desc=""/>
+            </licensematcher>
+            <licensematcher name="SunPro" desc="" >
+                <licensetext name="
+                    * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+                    * Copyright (c) 2008 Steven G. Kargl, David Schultz, Bruce D. Evans.
+                    *
+                    * Developed at SunSoft, a Sun Microsystems, Inc. business.
+                    * Permission to use, copy, modify, and distribute this
+                    * software is freely granted, provided that this notice 
+                    * is preserved.
+				 " desc=""/>
+                <licensetext name="
+                    * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+                    *
+                    * Developed at SunSoft, a Sun Microsystems, Inc. business.
+                    * Permission to use, copy, modify, and distribute this
+                    * software is freely granted, provided that this notice
+                    * is preserved.
+				 " desc=""/>
+                <licensetext name="
+                    * Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+                    *
+                    * Developed at SunPro, a Sun Microsystems, Inc. business.
+                    * Permission to use, copy, modify, and distribute this
+                    * software is freely granted, provided that this notice
+                    * is preserved.
+				 " desc=""/>
+            </licensematcher>
+        </licensematcherlist>
+    </oatconfig>
+</configuration>

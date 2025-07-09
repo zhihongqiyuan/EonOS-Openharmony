@@ -1,0 +1,94 @@
+# Copyright (C) 2023-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+src_path = "//third_party/liburing"
+out_dir = root_out_dir + "/third_party_liburing"
+code_dir = out_dir + "/liburing"
+
+liburing_source = [
+  "src/queue.c",
+  "src/register.c",
+  "src/setup.c",
+  "src/syscall.c",
+]
+
+config("liburing_config") {
+  visibility = [ ":*" ]
+
+  include_dirs = [
+    "$code_dir",
+    "$code_dir/src",
+    "$code_dir/src/include",
+    "$code_dir/src/include/liburing",
+    "$code_dir/src/arch",
+  ]
+}
+
+action("liburing_configure") {
+  script = "install.sh"
+  args = [
+    rebase_path(src_path),
+    rebase_path(out_dir),
+  ]
+  inputs = [ src_path ]
+  outputs = []
+  foreach(src, liburing_source) {
+    outputs += [ "$code_dir/" + src ]
+  }
+}
+
+ohos_shared_library("liburing") {
+  public_configs = [ ":liburing_config" ]
+  sources = []
+  foreach(src, liburing_source) {
+    sources += [ "$code_dir/" + src ]
+  }
+  deps = [ ":liburing_configure" ]
+  subsystem_name = "thirdparty"
+  part_name = "liburing"
+  innerapi_tags = [ "platformsdk" ]
+  output_name = "liburing"
+  output_extension = "so"
+  install_images = [ "system" ]
+}
+
+## build for liburing test ##
+ohos_executable("liburing_example_io_uring") {
+  sources = [ "examples/io_uring-test.c" ]
+  configs = [ ":liburing_config" ]
+  deps = [ ":liburing" ]
+
+  install_enable = false
+  subsystem_name = "thirdparty"
+  part_name = "liburing"
+}
+
+ohos_executable("liburing_example_io_uring_close") {
+  sources = [ "examples/io_uring-close-test.c" ]
+  include_dirs = [ "test" ]
+  configs = [ ":liburing_config" ]
+  deps = [ ":liburing" ]
+
+  install_enable = false
+  subsystem_name = "thirdparty"
+  part_name = "liburing"
+}
+
+group("uring_test") {
+  deps = [
+    ":liburing_example_io_uring",
+    ":liburing_example_io_uring_close",
+  ]
+}

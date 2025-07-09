@@ -1,0 +1,36 @@
+{
+    "name": "@ohos/parse5",
+    "description": "HTML parser and serializer.",
+    "version": "4.0",
+    "license": "Apache-2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/parse5"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "parse5",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/parse5:parse5_ark_hap"
+                }
+            ],
+            "test": []
+        }
+    }
+}

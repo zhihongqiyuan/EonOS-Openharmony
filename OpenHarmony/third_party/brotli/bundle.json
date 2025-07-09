@@ -1,0 +1,42 @@
+{
+    "name": "@ohos/brotli",
+    "description": "Brotli is a generic-purpose lossless compression algorithm",
+    "version": "1.0.9",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/brotli"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "LICENSE",
+    "component": {
+        "name": "brotli",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "small",
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name":"//third_party/brotli:brotli_shared",
+                    "header":{
+                        "header_files":[],
+                        "header_base":"//third_party/brotli/c/include/brotli"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

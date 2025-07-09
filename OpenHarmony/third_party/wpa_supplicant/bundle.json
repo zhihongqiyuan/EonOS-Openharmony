@@ -1,0 +1,122 @@
+{
+    "name": "@ohos/wpa_supplicant",
+    "description": "wpa_supplicant is a WPA Supplicant for Linux, BSD, Mac OS X, and Windows with support for WPA and WPA2 (IEEE 802.11i / RSN). It is suitable for both desktop/laptop computers and embedded systems. Supplicant is the IEEE 802.1X/WPA component that is used in the client stations. It implements key negotiation with a WPA Authenticator and it controls the roaming and IEEE 802.11 authentication/association of the wlan driver.",
+    "version": "3.1",
+    "license": "BSD 3-Clause",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/wpa_supplicant"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "wpa_supplicant-2.9_standard/COPYING",
+    "readmePath": {
+        "en": "wpa_supplicant-2.9_standard/README"
+    },
+    "component": {
+        "name": "wpa_supplicant",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [
+            "wpa_supplicant_vendor_ext",
+            "wpa_supplicant_driver_nl80211_hisi",
+            "wpa_supplicant_driver_nl80211",
+            "wpa_supplicant_wapi",
+            "wpa_supplicant_config_hilog",
+            "wpa_supplicant_ohos_certmgr",
+            "wpa_supplicant_config_openssl",
+            "wpa_supplicant_config_wfd",
+            "wpa_supplicant_miracast_sink_opt",            
+            "wpa_supplicant_config_mlo",
+            "wpa_supplicant_ieee80211be",
+            "wpa_supplicant_config_okc_roam",
+            "wpa_supplicant_hisysevent_module"
+        ],
+        "adapted_system_type": ["small","standard"],
+        "rom": "2.1MB",
+        "ram": "4.6MB",
+        "deps": {
+            "components": [
+                "drivers_peripheral_wlan",
+                "certificate_manager",
+                "c_utils",
+                "hdf_core",
+                "hilog",
+                "init",
+                "ipc",
+                "openssl",
+                "bounds_checking_function",
+                "samgr",
+                "cJSON",
+                "hisysevent",
+                "libnl",
+                "huks"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa",
+                "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa_sys",
+                "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa_sys_updater",
+                "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa_updater",
+                "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa_client",
+                "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa_client_vendor",
+                "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa_client_updater",
+                "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa_supplicant",
+                "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:hostapd"
+            ],
+            "inner_kits": [
+                {
+                    "header": {
+                        "header_base" : "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard/",
+                        "header_files": [
+                         "wpa_supplicant/wps_supplicant.h",
+                         "wpa_supplicant/wpa_supplicant_i.h",
+                         "wpa_supplicant/ctrl_iface.h",
+                         "wpa_supplicant/main.h",
+                         "wpa_supplicant/bssid_ignore.h",
+                         "wpa_supplicant/config.h",
+                         "src/ap/hostapd.h",
+                         "src/ap/ap_config.h",
+                         "hostapd/ap_main.h",
+                         "src/ap/ctrl_iface_ap.h",
+                         "hostapd/ap_ctrl_iface.h",
+                         "hostapd/ctrl_iface.h",
+                         "src/eap_server/eap_methods.h"
+                        ]
+                    },
+                    "name":"//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa"
+                },
+                {
+                    "header": {
+                        "header_base" : "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard/",
+                        "header_files": [
+                         "src/common/wpa_ctrl.h"
+                        ]
+                    },
+                    "name":"//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa_client_vendor"
+                },
+                {
+                    "header": {
+                        "header_base" : "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard/",
+                        "header_files": [
+                         "src/common/wpa_ctrl.h"
+                        ]
+                    },
+                    "name":"//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa_client"
+                },
+                {
+                    "header": {
+                        "header_base" : "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard/",
+                        "header_files": [
+                         "src/common/wpa_ctrl.h"
+                        ]
+                    },
+                    "name":"//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa_client_updater"
+                 }
+            ],
+            "test": [ "//third_party/wpa_supplicant/wpa_supplicant-2.9_standard:wpa_supplicant_test" ]
+        }
+    }
+}

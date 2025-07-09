@@ -1,0 +1,12 @@
+[
+    {
+        "Name": "alsa-utils",
+        "License": "GPL V2",
+        "License File": "COPYING",
+        "Version Number": "v1.2.11",
+        "Owner": "zhangyunhu@huawei.com",
+        "Upstream URL": "https://github.com/alsa-project/alsa-utils",
+        "Description": "This package contains the command line utilities for the ALSA project.",
+        "Dependencies": ""
+    }
+]

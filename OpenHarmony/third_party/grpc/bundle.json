@@ -1,0 +1,52 @@
+{
+    "name": "@ohos/grpc",
+    "description": "gRPC is a modern open source high performance Remote Procedure Call (RPC) framework that can run in any environment.",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/grpc"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "grpc",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "hilog",
+                "protobuf",
+                "abseil-cpp",
+                "openssl",
+                "re2",
+                "zlib"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/grpc:grpc"
+                },
+                {
+                    "name": "//third_party/grpc:grpcxx"
+                },
+                {
+                    "name": "//third_party/grpc:gpr"
+                },
+                {
+                    "name": "//third_party/grpc:grpc_cpp_plugin"
+                }
+            ],
+            "test": []
+        }
+    }
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+
+-->
+
+<configuration>
+    <oatconfig>
+        <licensefile></licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <!--policyitem type="compatibility" name="GPL-2.0+" path="abc/.*" desc="Process that runs independently, invoked by the X process."/-->
+                <!--policyitem type="license" name="LGPL" path="abc/.*" desc="Dynamically linked by module X"/-->
+                <!--policyitem type="copyright" name="xxx" path="abc/.*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed by X Company"/-->
+            </policy>
+        </policylist>
+        <filefilterlist>
+            <filefilter name="defaultPolicyFilter" desc="compatibility,License Header Invalid">
+                <filteritem type="filepath" name="third_party/icu4c/.*" desc="License matcher rules, 三方软件不检查许可头"/>
+                <filteritem type="filepath" name="third_party/musl/.*" desc="License matcher rules, 三方软件不检查许可头"/>
+                <filteritem type="filepath" name="third_party/libuv/.*" desc="License matcher rules, 三方软件不检查许可头"/>
+                <filteritem type="filepath" name="third_party/zlib/.*" desc="License matcher rules, 三方软件不检查许可头"/>
+                <filteritem type="filepath" name="third_party/node/.*" desc="License matcher rules, 三方软件不检查许可头"/>
+                <filteritem type="filepath" name="third_party/openSLES/.*" desc="License matcher rules, 三方软件不检查许可头"/>
+                <filteritem type="filepath" name="third_party/mindspore/.*" desc="License matcher rules, 三方软件不检查许可头"/>
+                <filteritem type="filepath" name="third_party/egl/.*" desc="License matcher rules, 三方软件不检查许可头"/>
+                <filteritem type="filepath" name="third_party/openGLES/.*" desc="License matcher rules, 三方软件不检查许可头"/>
+                <filteritem type="filepath" name="third_party/vulkan-headers/.*" desc="License matcher rules, 三方软件不检查许可头"/>
+            </filefilter>
+            <filefilter name="copyrightPolicyFilter" desc="Copyright Header Invalid">
+                <filteritem type="filepath" name="third_party/icu4c/.*" desc="Copyright matcher rules, 三方软件不检查版权"/>
+                <filteritem type="filepath" name="third_party/musl/.*" desc="Copyright matcher rules, 三方软件不检查版权"/>
+                <filteritem type="filepath" name="third_party/libuv/.*" desc="Copyright matcher rules, 三方软件不检查版权"/>
+                <filteritem type="filepath" name="third_party/zlib/.*" desc="Copyright matcher rules, 三方软件不检查版权"/>
+                <filteritem type="filepath" name="third_party/node/.*" desc="Copyright matcher rules, 三方软件不检查版权"/>
+                <filteritem type="filepath" name="third_party/openSLES/.*" desc="Copyright matcher rules, 三方软件不检查版权"/>
+                <filteritem type="filepath" name="third_party/mindspore/.*" desc="Copyright matcher rules, 三方软件不检查版权"/>
+                <filteritem type="filepath" name="third_party/egl/.*" desc="Copyright matcher rules, 三方软件不检查版权"/>
+                <filteritem type="filepath" name="third_party/openGLES/.*" desc="Copyright matcher rules, 三方软件不检查版权"/>
+                <filteritem type="filepath" name="third_party/vulkan-headers/.*" desc="Copyright matcher rules, 三方软件不检查版权"/>
+            </filefilter>
+        </filefilterlist>
+        <licensematcherlist>
+            <!--licensematcher name="uvwxyz License" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                    uvwxyz license textA xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+				 " desc=""/>
+                <licensetext name="
+                    uvwxyz license textB xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+				 " desc=""/>
+            </licensematcher-->
+        </licensematcherlist>
+    </oatconfig>
+</configuration>

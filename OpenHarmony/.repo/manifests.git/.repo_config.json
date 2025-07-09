@@ -1,0 +1,29 @@
+{
+  "core.repositoryformatversion": [
+    "0"
+  ],
+  "core.filemode": [
+    "true"
+  ],
+  "filter.lfs.smudge": [
+    "git-lfs smudge --skip -- %f"
+  ],
+  "filter.lfs.process": [
+    "git-lfs filter-process --skip"
+  ],
+  "remote.origin.url": [
+    "https://gitee.com/openharmony/manifest"
+  ],
+  "remote.origin.fetch": [
+    "+refs/heads/*:refs/remotes/origin/*"
+  ],
+  "repo.clonebundle": [
+    "false"
+  ],
+  "branch.default.remote": [
+    "origin"
+  ],
+  "branch.default.merge": [
+    "refs/tags/OpenHarmony-v6.0-Beta1"
+  ]
+}

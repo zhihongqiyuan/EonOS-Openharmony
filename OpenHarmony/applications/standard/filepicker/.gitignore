@@ -1,0 +1,8 @@
+/.hvigor
+/node_modules
+/local.properties
+/.idea
+**/build
+/tsconfig.json
+/oh_modules/
+oh-package-lock.json5

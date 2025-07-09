@@ -1,0 +1,48 @@
+{
+  "name": "@ohos/vulkan-loader",
+  "description": "vulkan loader",
+  "version": "4.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "third_party/vulkan-loader"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "vulkan-loader",
+    "subsystem": "thirdparty",
+    "adapted_system_type": [ "standard" ],
+    "rom": "10000KB",
+    "ram": "10000KB",
+    "deps": {
+      "components": [
+        "bundle_framework",
+        "c_utils",
+        "samgr",
+        "ipc",
+        "hilog",
+        "init"
+      ],
+      "third_party": [
+        "vulkan-headers"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//third_party/vulkan-loader:vulkan_loader"
+      ],
+      "inner_kits": [
+        {
+          "type": "so",
+          "name": "//third_party/vulkan-loader:vulkan_loader",
+          "header": {
+            "header_files": [
+            ],
+            "header_base": "//third_party/vulkan-loader"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "elfutils",
+    "License": "LGPL-2.1, LGPL-3.0, GPL-2.0",
+    "License File": "COPYING-GPLV2",
+    "Version Number": "0.190",
+    "Owner": "zhanghaibo0@huawei.com",
+    "Upstream URL": "https://sourceware.org/elfutils/",
+    "Description": "A collection of tools and libraries for reading, creating and modifying ELF binaries, finding and processing DWARF debug data, symbols, thread status, and stack trace of processes and core files on GNU/Linux."
+  }
+]

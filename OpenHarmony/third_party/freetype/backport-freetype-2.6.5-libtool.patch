@@ -1,0 +1,19 @@
+From 928ba6125d73435fddd73f9bf155e0f2a813bab7 Mon Sep 17 00:00:00 2001
+From: Marek Kasik <mkasik@redhat.com>
+Date: Aug 22 2016 13:08:48 +0000
+Subject: Don't show path of non-existing libtool file
+
+Conflict:NA
+Reference:https://src.fedoraproject.org/rpms/freetype/c/928ba6125d73435fddd73f9bf155e0f2a813bab7
+
+--- freetype-2.8/builds/unix/freetype-config.in.orig	2017-03-30 12:20:23.000000001 +0200
++++ freetype-2.8/builds/unix/freetype-config.in	2017-05-16 13:25:39.223041128 +0200
+@@ -205,7 +205,7 @@ if test "$echo_libs" = "yes" ; then
+ fi
+ 
+ if test "$echo_libtool" = "yes" ; then
+-  echo ${SYSROOT}$libdir/libfreetype.la
++  echo ""
+ fi
+ 
+ # EOF

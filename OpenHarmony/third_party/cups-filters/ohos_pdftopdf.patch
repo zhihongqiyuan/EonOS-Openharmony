@@ -1,0 +1,34 @@
+diff --git a/filter/pdftopdf/pdftopdf.cc b/filter/pdftopdf/pdftopdf.cc
+index 7a684a26..976b1b86 100644
+--- a/filter/pdftopdf/pdftopdf.cc
++++ b/filter/pdftopdf/pdftopdf.cc
+@@ -394,12 +394,23 @@ void getParameters(ppd_file_t *ppd,int num_options,cups_option_t *options,Proces
+   ppd_size_t *pagesize;
+   // param.page default is letter, border 36,18
+   if ((pagesize=ppdPageSize(ppd,0)) != NULL) { // "already rotated"
+-    param.page.top=pagesize->top;
+-    param.page.left=pagesize->left;
+-    param.page.right=pagesize->right;
+-    param.page.bottom=pagesize->bottom;
+-    param.page.width=pagesize->width;
+-    param.page.height=pagesize->length;
++    ppd_attr_t* ppdBorder;
++    if ((ppdBorder = ppdFindAttr(ppd, "OHBorder", NULL)) != NULL && !strcasecmp(ppdBorder->value, "True")) {
++      fprintf(stderr, "DEBUG: pdftopdf output with ppd border! %s\n", ppdBorder->value);
++      param.page.top = pagesize->top;
++      param.page.left = pagesize->left;
++      param.page.right = pagesize->right;
++      param.page.bottom = pagesize->bottom;
++      param.page.width = pagesize->width;
++      param.page.height = pagesize->length;
++    } else {
++      param.page.top = pagesize->top - pagesize->bottom;
++      param.page.left = 0;
++      param.page.right = pagesize->right - pagesize->left;
++      param.page.bottom = 0;
++      param.page.width = pagesize->right - pagesize->left;
++      param.page.height = pagesize->top - pagesize->bottom;
++    }
+   }
+ #ifdef HAVE_CUPS_1_7
+   else {

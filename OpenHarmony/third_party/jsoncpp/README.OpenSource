@@ -1,0 +1,12 @@
+[
+    {
+        "Name": "openEuler:jsoncpp",
+        "License": "MIT License",
+        "License File": "Copyright",
+        "Version Number": "1.9.6",
+        "Owner": "jameslee@huawei.com",
+        "Upstream URL": "https://github.com/open-source-parsers/jsoncpp/-/archive/resf/tags/1.9.6.zip",
+        "Description": "JsonCpp is a C++ library that allows manipulating JSON values, including serialization and deserialization to and from strings. It can also preserve existing comment in unserialization/serialization steps, making it a convenient format to store user input files."
+    }
+]
+

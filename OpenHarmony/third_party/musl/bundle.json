@@ -1,0 +1,67 @@
+{
+    "name": "@ohos/musl",
+    "description": "musl is an MIT-licensed implementation of the standard C library",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/musl"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYRIGHT",
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "musl",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [
+            "musl_use_encaps",
+            "musl_ld128_flag",
+            "musl_iterate_and_stats_api",
+            "musl_is_legacy",
+            "musl_enable_musl_log",
+            "musl_unit_test_flag",
+            "musl_use_flto",
+            "musl_use_gwp_asan",
+            "musl_use_pthread_cancel",
+            "musl_uapi_dir",
+            "musl_use_jemalloc",
+            "musl_use_jemalloc_dfx_intf",
+            "musl_use_jemalloc_recycle_func",
+            "musl_guard_jemalloc_tsd",
+            "musl_malloc_plugin",
+            "musl_linux_kernel_dir",
+            "musl_use_mutex_wait_opt"
+        ],
+        "adapted_system_type": ["mini", "small", "standard"],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "init",
+                "bounds_checking_function",
+                "FreeBSD",
+                "faultloggerd",
+                "cJSON"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/musl:soft_libc_musl_static"
+                },
+                {
+                    "name": "//third_party/musl:soft_libc_musl_shared"
+                }
+            ],
+            "test": [
+                "//third_party/musl/fuzztest:fuzztest"
+            ]
+        }
+    }
+}

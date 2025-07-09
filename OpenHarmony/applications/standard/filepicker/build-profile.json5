@@ -1,0 +1,53 @@
+{
+  "app": {
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": 20,
+        "compatibleSdkVersion": 20,
+        "runtimeOS": "OpenHarmony"
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "storePassword": "0000001B5727F90E843C257A05BB2F1E779C07EAFE6ACF1489795E0BC8D16B7EA407E09791AA9DA9FC714D",
+          "certpath": "./signature/default_applications_filepicker_6oaExOUKH552zeTOyp7pR0CmcmhFdlIgGU3DTAKskMw=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B51325657C496FFB58D0925F364A7ABD91E8D36A914BE1F5E308C0DE2353DE4F805EF7BA9F4B545",
+          "profile": "./signature/default_applications_filepicker_6oaExOUKH552zeTOyp7pR0CmcmhFdlIgGU3DTAKskMw=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "./signature/default_applications_filepicker_6oaExOUKH552zeTOyp7pR0CmcmhFdlIgGU3DTAKskMw=.p12"
+        }
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "audiopicker",
+      "srcPath": "./audiopicker",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

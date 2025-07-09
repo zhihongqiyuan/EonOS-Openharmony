@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "OpenSSL",
+    "License": "Apache License 2.0",
+    "License File": "LICENSE.txt",
+    "Version Number": "3.0.9",
+    "Owner": "wanghaixiang@huawei.com",
+    "Upstream URL": "https://www.openssl.org/source/openssl-3.0.9.tar.gz",
+    "Description": "OpenSSL is a robust, commercial-grade, full-featured Open Source Toolkit for the Transport Layer Security (TLS) protocol formerly known as the Secure Sockets Layer (SSL) protocol."
+  }
+]

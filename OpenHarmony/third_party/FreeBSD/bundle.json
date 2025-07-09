@@ -1,0 +1,56 @@
+{
+    "name": "@ohos/FreeBSD",
+    "description": "FreeBSD is an operating system used to power modern servers, desktops, and embedded platforms.",
+    "version": "3.1",
+    "license": "BSD-2-Clause",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/FreeBSD"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYRIGHT",
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "FreeBSD",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "small",
+            "standard"
+        ],
+        "rom": "16KB",
+        "ram": "32KB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/FreeBSD:libfreebsd_static"
+                },
+                {
+                    "name": "//third_party/FreeBSD:ld128_static"
+                },
+                {
+                    "name": "//third_party/FreeBSD:libc_static"
+                },
+                {
+                    "name": "//third_party/FreeBSD:libc_static_noflto"
+                },
+                {
+                    "name": "//third_party/FreeBSD/sbin/fsck_msdosfs:fsck_msdos"
+                },
+                {
+                    "name": "//third_party/FreeBSD/sbin/newfs_msdos:newfs_msdos"
+                }
+            ],
+            "test": []
+        }
+    }
+}

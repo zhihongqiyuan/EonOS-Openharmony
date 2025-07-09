@@ -1,0 +1,50 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            2
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "@typescript-eslint/no-inferrable-types": [
+            "error",
+            {
+                "ignoreParameters": false,
+                "ignoreProperties": false
+              }
+        ],
+        "max-lines": [
+            "warn", 2000
+        ],
+        "max-lines-per-function": [
+            "warn", 50
+        ],
+        "complexity": [
+            "warn", 20
+        ],
+        "max-depth": [
+            "warn", 4
+        ],
+        "@typescript-eslint/prefer-as-const": [
+            "error"
+        ]
+    }
+}

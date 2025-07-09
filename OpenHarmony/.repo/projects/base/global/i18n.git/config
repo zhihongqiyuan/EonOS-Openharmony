@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+[filter "lfs"]
+	smudge = git-lfs smudge --skip -- %f
+	process = git-lfs filter-process --skip
+[remote "origin"]
+	url = https://gitee.com/openharmony/global_i18n
+	review = https://openharmony.gitee.com/openharmony/
+	projectname = global_i18n
+	fetch = +refs/heads/*:refs/remotes/origin/*

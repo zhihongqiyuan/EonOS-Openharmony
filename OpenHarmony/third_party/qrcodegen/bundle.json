@@ -1,0 +1,51 @@
+{
+    "name": "@ohos/qrcodegen",
+    "description": "QR-Code-generator",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/qrcodegen"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "LICENSE",
+    "component": {
+        "name": "qrcodegen",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [
+            "qrcodegen_feature_ace_engine_qrcode_able"
+        ],
+        "adapted_system_type": [
+            "small",
+            "mini",
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/qrcodegen:ace_engine_qrcode"
+                },
+                {
+                    "name": "//third_party/qrcodegen:qrcodegen_static",
+                    "header": {
+                      "header_files": [
+                        "qrcodegen.hpp"
+                      ],
+                      "header_base": "//third_party/qrcodegen/cpp"
+                    }
+                }
+
+            ],
+            "test": []
+        }
+    }
+}

@@ -1,0 +1,365 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+if (!defined(ark_standalone_build)) {
+  ark_standalone_build = false
+}
+
+if (!defined(ark_hybrid)) {
+  ark_hybrid = false
+}
+
+declare_args() {
+  # If true, use icu to implement Intl APIs.
+  # If false, use @ohos.intl APIs to implement Intl APIs.
+  enable_ark_intl = true
+  run_regress_test = false
+
+  # If true, enable fuzz option. Default false.
+  enable_fuzz_option = false
+  run_with_asan = false
+
+  # Enable pgo for building.
+  ets_runtime_feature_enable_pgo = false
+
+  # Enable pgo for building.
+  ets_runtime_feature_enable_codemerge = false
+
+  # Set pgo profdata path.
+  ets_runtime_feature_pgo_path = ""
+
+  # Enable -Bsymbolic to reduce overhead of intra-library calls.
+  ets_runtime_feature_enable_bsymbolic = true
+
+  # Defaults for fort
+  ets_runtime_support_jit_code_sign = false
+  enable_jit_code_sign = false
+  disable_fort_switch = false
+
+  enable_litecg_emit = true
+
+  is_qemu_runtime = false
+
+  disable_hilog = false
+
+  TARGET = "x86_64"
+  HOST_ARCH = 64
+
+  if (!defined(timeout)) {
+    timeout = 1200
+  }
+
+  # If true app_aot_jit_enable_list will be placed in /etc/ark
+  # Default false.
+  ets_runtime_feature_enable_list = false
+  enable_gc_dfx_options = false
+  ark_js_hybrid = false
+
+  ets_runtime_enable_cmc_gc = false
+}
+
+if (defined(enable_cmc_gc) && !ets_runtime_enable_cmc_gc) {
+  ets_runtime_enable_cmc_gc = enable_cmc_gc
+}
+
+if (target_cpu == "arm64") {
+  TARGET = "aarch64"
+}
+MAPLEALL_ROOT = "//arkcompiler/ets_runtime/ecmascript/compiler/codegen/maple"
+MAPLEALL_THIRD_PARTY_ROOT = "//third_party"
+LLVM_LIB_ROOT = "//arkcompiler/ets_runtime/ecmascript/compiler/codegen/llvm/lib"
+
+if (!ark_standalone_build) {
+  build_root = "//build"
+  ark_third_party_root = "//third_party"
+  import("$build_root/config/components/toolchain/build_type.gni")
+  import("$build_root/ohos.gni")
+} else {
+  ark_third_party_root = "//arkcompiler/toolchain/build/third_party_gn"
+  import("$build_root/ark.gni")
+  import("$build_root/config/build_type.gni")
+}
+if (!defined(build_variant)) {
+  build_variant = "root"
+}
+import("$build_root/config/sanitizers/sanitizers.gni")
+ark_root = "//arkcompiler/runtime_core"
+js_root = "//arkcompiler/ets_runtime"
+global_root = "//base/global/i18n"
+hilog_root = "//base/hiviewdfx/hilog/interfaces/native/innerkits"
+qos_root = "//foundation/resourceschedule/qos_manager"
+compile_llvm_online = false
+if (enable_fuzz_option) {
+  run_with_asan = true
+}
+enable_handle_leak_detect = false
+enable_cow_array = true
+enable_coverage = false
+enable_asm_assert = false
+ark_compile_mode = "debug"
+if (defined(is_arkui_x) && is_arkui_x && defined(runtime_mode) &&
+    runtime_mode == "release") {
+  ark_compile_mode = "release"
+}
+
+asan_lib_path = "/usr/lib/llvm-10/lib/clang/10.0.0/lib/linux"
+
+# under /system/lib64 dir
+if (is_asan) {
+  arkcompiler_lib64_path = "/system/asan/lib64"
+} else {
+  arkcompiler_lib64_path = "/system/lib64"
+}
+arkcompiler_relative_lib_path = "module/arkcompiler"
+if (is_standard_system || ark_standalone_build) {
+  icu_part_name = "icu"
+  icu_subsystem_name = "thirdparty"
+} else {
+  icu_part_name = "i18n"
+  icu_subsystem_name = "global"
+}
+
+if (defined(is_arkui_x) && is_arkui_x && target_os == "ios") {
+  sdk_libc_secshared_dep =
+      "$ark_third_party_root/bounds_checking_function:libsec_static"
+} else {
+  sdk_libc_secshared_dep = "bounds_checking_function:libsec_shared"
+}
+sdk_libc_secshared_config =
+    "$ark_third_party_root/bounds_checking_function:libsec_public_config"
+
+# ohos device, windows previewer, mac previewer
+enable_hilog =
+    !ark_standalone_build && !(defined(is_arkui_x) && is_arkui_x) &&
+    (is_ohos || is_mingw || is_mac) && !is_qemu_runtime && !disable_hilog
+enable_hisysevent =
+    !ark_standalone_build && !(defined(is_arkui_x) && is_arkui_x) && is_ohos &&
+    is_standard_system && !is_qemu_runtime
+enable_dump_in_faultlog =
+    !ark_standalone_build && !(defined(is_arkui_x) && is_arkui_x) && is_ohos &&
+    is_standard_system && !is_qemu_runtime
+enable_bytrace =
+    !ark_standalone_build && !(defined(is_arkui_x) && is_arkui_x) && is_ohos &&
+    is_standard_system && !is_qemu_runtime
+enable_hitrace =
+    !ark_standalone_build && !(defined(is_arkui_x) && is_arkui_x) && is_ohos &&
+    is_standard_system && !is_qemu_runtime
+enable_unwinder =
+    !ark_standalone_build && !(defined(is_arkui_x) && is_arkui_x) && is_ohos &&
+    is_standard_system && !is_qemu_runtime
+
+hiviewdfx_deps = []
+hiviewdfx_ext_deps = []
+if (enable_dump_in_faultlog) {
+  hiviewdfx_ext_deps += [
+    "faultloggerd:libfaultloggerd",
+    "init:libbegetutil",
+  ]
+}
+if (enable_unwinder) {
+  hiviewdfx_ext_deps += [ "faultloggerd:libunwinder" ]
+}
+if (enable_bytrace) {
+  hiviewdfx_ext_deps += [ "hitrace:hitrace_meter" ]
+}
+if (enable_hitrace) {
+  hiviewdfx_ext_deps += [ "hitrace:libhitracechain" ]
+}
+if (enable_hilog) {
+  hiviewdfx_ext_deps += [ "hilog:libhilog" ]
+}
+if (enable_hisysevent) {
+  hiviewdfx_ext_deps += [
+    "hisysevent:libhisysevent",
+    "hiview:libucollection_client",
+  ]
+}
+
+enable_sanitize = is_ohos && is_standard_system && !ark_standalone_build &&
+                  current_toolchain != host_toolchain
+
+enable_target_compilation =
+    !ark_standalone_build && !is_mac && !(defined(is_arkui_x) && is_arkui_x) &&
+    (current_cpu == "arm64" && host_cpu != "arm64")
+
+have_local_code_sign = false
+if (defined(global_parts_info) &&
+    defined(global_parts_info.security_code_signature) &&
+    global_parts_info.security_code_signature) {
+  have_local_code_sign = true
+}
+enable_local_code_sign = false
+if (have_local_code_sign && enable_target_compilation) {
+  enable_local_code_sign = true
+}
+if (!ark_standalone_build && !(defined(is_arkui_x) && is_arkui_x) && is_ohos &&
+    is_standard_system && target_cpu == "arm64" && !is_emulator &&
+    defined(global_parts_info) &&
+    defined(global_parts_info.security_code_signature)) {
+  enable_jit_code_sign = ets_runtime_support_jit_code_sign
+}
+ets_runtime_output_path = "ets_runtime/ets_runtime"
+
+template("libark_jsruntime_common_set") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    if (target_name == "libark_jsruntime_arm_set" && is_ohos &&
+        is_standard_system && !is_arkui_x && target_cpu == "arm64") {
+      include_dirs = [
+        "$js_root",
+        "$js_root/ecmascript/napi/include",
+      ]
+    }
+
+    stack_protector_ret = false
+
+    if (is_ohos && is_standard_system) {
+      stub_an_file_path =
+          "${arkcompiler_lib64_path}/${arkcompiler_relative_lib_path}/stub.an"
+    } else {
+      stub_an_file_path =
+          rebase_path("$root_gen_dir/arkcompiler/ets_runtime/stub.an")
+    }
+    defines = [ "STUB_AN_FILE=\"${stub_an_file_path}\"" ]
+
+    if (current_cpu == "arm64") {
+      defines += [ "ENABLE_POSTFORK_FORCEEXPAND" ]
+    }
+
+    sources = invoker.ecma_source
+    sources += invoker.ecma_profiler_source
+    sources += invoker.ecma_debugger_source
+    sources += invoker.hitrace_scope_source
+    sources += invoker.ecma_platform_source
+
+    if (is_ohos) {
+      sources += invoker.ecma_stackinfo_source
+    }
+
+    public_configs = [ "$js_root:ark_jsruntime_public_config" ]
+    public_configs += [ ":include_llvm" ]
+
+    configs = [
+      "$js_root:ark_jsruntime_common_config",
+      "$js_root:asm_interp_enable_config",
+    ]
+
+    cflags_cc = []
+    if (is_standard_system || target_os == "android" || target_os == "ios") {
+      cflags_cc += [ "-fvisibility=hidden" ]
+    }
+
+    external_deps = [ "libuv:uv" ]
+    if (target_name == "libark_jsruntime_arm_set" && is_ohos &&
+        is_standard_system && !is_arkui_x) {
+      defines += [ "ENABLE_FFRT_INTERFACES" ]
+      external_deps += [
+        "ffrt:libffrt",
+        "hilog:libhilog",
+      ]
+    }
+    deps = []
+    if (!is_arkui_x) {
+      external_deps += [ "runtime_core:arkfile_header_deps" ]
+    } else {
+      deps += [ "$ark_root/libpandafile:arkfile_header_deps" ]
+    }
+
+    if (is_ohos && is_standard_system && !is_arkui_x &&
+        defined(global_parts_info) &&
+        defined(global_parts_info.resourceschedule_qos_manager)) {
+      defines += [ "ENABLE_QOS" ]
+      external_deps += [ "qos_manager:qos" ]
+    }
+
+    if (!ark_standalone_build && !(defined(is_arkui_x) && is_arkui_x) &&
+        is_ohos && is_standard_system) {
+      external_deps += [ "init:libbegetutil" ]
+      defines += [
+        "GET_PARAMETER_FOR_JIT",
+        "JIT_ESCAPE_ENABLE",
+        "AOT_ESCAPE_ENABLE",
+        "OHOS_GET_PARAMETER",
+      ]
+    }
+
+    if (ark_standalone_build) {
+      defines += [ "STANDALONE_MODE" ]
+    }
+
+    include_dirs = []
+    if (enable_jit_code_sign) {
+      defines += [ "JIT_ENABLE_CODE_SIGN" ]
+      external_deps += [ "code_signature:libjit_code_sign" ]
+      if (disable_fort_switch) {
+        defines += [ "JIT_FORT_DISABLE" ]
+      }
+    }
+
+    if (enable_target_compilation) {
+      external_deps += [ "c_utils:utils" ]
+    }
+
+    # hiviewdfx libraries
+    external_deps += hiviewdfx_ext_deps
+    deps += hiviewdfx_deps
+
+    if (ark_standalone_build || is_arkui_x) {
+      deps += [ "$ark_third_party_root/zlib:libz" ]
+    } else {
+      external_deps += [ "zlib:shared_libz" ]
+    }
+
+    # gc dfx options
+    if (enable_gc_dfx_options) {
+      defines += [ "ECMASCRIPT_ENABLE_GC_DFX_OPTIONS" ]
+    }
+
+    part_name = "ets_runtime"
+    subsystem_name = "arkcompiler"
+  }
+}
+
+template("libark_jsruntime_intl_common_set") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    stack_protector_ret = false
+    sources = invoker.intl_sources
+
+    public_configs = [ "$js_root:ark_jsruntime_public_config" ]
+
+    configs = [ "$js_root:ark_jsruntime_common_config" ]
+
+    cflags_cc = []
+    if (is_standard_system || target_os == "android" || target_os == "ios") {
+      cflags_cc += [ "-fvisibility=hidden" ]
+    }
+
+    external_deps = []
+    deps = []
+    if (!is_arkui_x) {
+      external_deps += [ "runtime_core:arkfile_header_deps" ]
+    } else {
+      deps += [ "$ark_root/libpandafile:arkfile_header_deps" ]
+    }
+
+    # hiviewdfx libraries
+    external_deps += hiviewdfx_ext_deps
+    deps += hiviewdfx_deps
+
+    part_name = "ets_runtime"
+    subsystem_name = "arkcompiler"
+  }
+}

@@ -1,0 +1,40 @@
+{
+    "name": "@ohos/opensles",
+    "description": "openSLES provides objects and APIs for developers to implement high-performance, low-latency audio features.",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/openSLES"
+    },
+    "dirs": {},
+    "scripts": {},
+    "readmePath": {
+        "en": "README.md"
+    },
+    "component": {
+        "name": "opensles",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "0KB",
+        "ram": "0KB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+            ],
+            "inner_kits": [
+                {
+                    "name" : "//third_party/openSLES:libSLES"
+                }
+            ],
+            "test": []
+        }
+    }
+}

@@ -1,0 +1,22 @@
+# 忽略node依赖包及相关安装
+node_modules
+package-lock.json
+
+# 忽略编译sdk输出api
+build-tools/api
+# 忽略编译sdk输出kits
+build-tools/kits
+# 忽略编译sdk输出arkts
+build-tools/arkts
+
+# 忽略APIdiff工具提供资料结果
+build-tools/dts_parser/diff合集
+# 忽略APIcheck工具数据json结果
+# build-tools/dts_parser/result.json
+# 忽略API相关工具执行测试用例的输出数据
+build-tools/dts_parser/test/output
+#忽略API相关工具执行测试用例失败的相关输出文件
+build-tools/dts_parser/mochawesome-report 
+
+#忽略本地typescript离线包
+build-tools/dts_parser/deps/*

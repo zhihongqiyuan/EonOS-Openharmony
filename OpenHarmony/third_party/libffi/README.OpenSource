@@ -1,0 +1,10 @@
+[
+    {
+        "Name": "openEuler:libffi",
+        "License": "MIT License",
+        "License File": "LICENSE",
+        "Version Number": "3.4.2-8.oe2203sp3",
+        "Upstream URL": "https://sourceware.org/libffi/",
+        "Description": "The libffi library provides a portable, high level programming interface to various calling conventions. This allows a programmer to call any function specified by a call interface description at run-time."
+    }
+]

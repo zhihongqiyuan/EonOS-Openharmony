@@ -1,0 +1,35 @@
+# pack-refs with: peeled fully-peeled sorted 
+aa724e9df29d7c78e8b20e64538df5a50340e5a2 refs/tags/OpenHarmony-v4.0-Beta2
+2cf40ccaffb0a9492d0c9fe94d68267a8bcd7b60 refs/tags/OpenHarmony-v4.0-Release
+a09dbe6658eeb5ad07d2ef036d2711e1bcdbe4c0 refs/tags/OpenHarmony-v4.0.1-Release
+aaa54266ececc99f2c2a924aeaeff1b792c6ed5a refs/tags/OpenHarmony-v4.0.2-Release
+^a09dbe6658eeb5ad07d2ef036d2711e1bcdbe4c0
+88055081180eec24a907dc493fb388f53bf1f0ea refs/tags/OpenHarmony-v4.0.3-Release
+^a09dbe6658eeb5ad07d2ef036d2711e1bcdbe4c0
+4c18c3fa128347a44d3b10dc036d6e88c31e55bc refs/tags/OpenHarmony-v4.0.4-Release
+^a09dbe6658eeb5ad07d2ef036d2711e1bcdbe4c0
+ce14a48b586abb22c8e737a9f8a99e9a2d1fb064 refs/tags/OpenHarmony-v4.1-Beta1
+28b6eddb2f55b0838b73697983b981fccce90b03 refs/tags/OpenHarmony-v4.1-Release
+28b6eddb2f55b0838b73697983b981fccce90b03 refs/tags/OpenHarmony-v4.1.1-Release
+e5ed8581867835839168e3e951b0b530afa2c4b5 refs/tags/OpenHarmony-v4.1.2-Release
+^4a1f4e03e2323913cb555f13308892c53305d203
+fd01284023d15a26598dd10772e35e4edd074290 refs/tags/OpenHarmony-v4.1.3-Release
+^4a1f4e03e2323913cb555f13308892c53305d203
+d6e22aef42ce4e1a60a393f02b959d1c3534444e refs/tags/OpenHarmony-v4.1.4-Release
+^4a1f4e03e2323913cb555f13308892c53305d203
+d6bf485c81a781cf2f2ccf91b4b1cf06f57c248b refs/tags/OpenHarmony-v5.0-Beta1
+^c5846b5e106216a02db8f503985bbd296092e7ca
+27e31fc6f6cdd7f35cca3ab1d26f32670ec4bc2e refs/tags/OpenHarmony-v5.0.0-Release
+^d4ffb1376d2758c79a4eed12bdbfe36f40c74c58
+890f10ac60fd01f70397a70e6eaf3a3528831104 refs/tags/OpenHarmony-v5.0.1-Release
+^4a234a626d8a67aa24c7eb118cbe8ea4f3d58a65
+0ded1b34b6674191acbc9e64a2579365c0fa1fc9 refs/tags/OpenHarmony-v5.0.2-Release
+^4a234a626d8a67aa24c7eb118cbe8ea4f3d58a65
+11ef1880074099a3861b0c5d06e3b4b4ea803ad2 refs/tags/OpenHarmony-v5.0.3-Release
+^4a234a626d8a67aa24c7eb118cbe8ea4f3d58a65
+78d0a1a96f8a2e9f071a31ace7dd194a59c7c68c refs/tags/OpenHarmony-v5.1.0-Release
+^cb3047eef5ff06ee1d13c08aaaa5b873ad2e96e1
+9bf67ac3d8a60b1ec4dff6d3618fd83d61af6c4b refs/tags/OpenHarmony-v6.0-Beta1
+^e14412d4fd05d57e8372562a3000f05b73b95ae0
+208ea176519a0ac68677920f7e58da67068013b7 refs/tags/master-v
+9cc1bb77459d19adf6ce73dd4f09929dd362f43f refs/tags/weekly_20240115-v

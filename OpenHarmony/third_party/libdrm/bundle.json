@@ -1,0 +1,36 @@
+{
+    "name": "@ohos/libdrm",
+    "description": "libdrm is a userspace library for accessing the DRM, direct rendering manager, on Linux and other operating systems that support the ioctl interface.",
+    "version": "4.0",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/libdrm"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "libdrm",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": ["standard"],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//third_party/libdrm:libdrm"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//third_party/libdrm:libdrm"
+                }
+            ],
+            "test": []
+        }
+    }
+}

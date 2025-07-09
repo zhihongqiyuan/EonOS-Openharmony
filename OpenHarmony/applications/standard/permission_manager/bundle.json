@@ -1,0 +1,34 @@
+{
+    "name": "@ohos/permission_manager",
+    "description": "permission_manager.",
+    "version": "3.2",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "applications/standard/permission_manager"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "permission_manager",
+        "subsystem": "applications",
+        "syscap": [
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "3.8MB",
+        "ram": "1MB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//applications/standard/permission_manager:permission_manager"
+            ],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

@@ -1,0 +1,150 @@
+diff --git a/src/lib/ares_init.c b/src/lib/ares_init.c
+index 6a535f6..8bcc11c 100644
+--- a/src/lib/ares_init.c
++++ b/src/lib/ares_init.c
+@@ -1941,7 +1941,11 @@ static int init_by_defaults(ares_channel channel)
+   if (channel->timeout == -1)
+     channel->timeout = DEFAULT_TIMEOUT;
+   if (channel->tries == -1)
++#if OHOS_DNS_PROXY_BY_NETSYS
++    channel->tries = 2;
++#else
+     channel->tries = DEFAULT_TRIES;
++#endif
+   if (channel->ndots == -1)
+     channel->ndots = 1;
+   if (channel->rotate == -1)
+diff --git a/src/lib/ares_process.c b/src/lib/ares_process.c
+index c10eb8f..8d50f6f 100644
+--- a/src/lib/ares_process.c
++++ b/src/lib/ares_process.c
+@@ -54,6 +54,31 @@
+ #include "ares_nowarn.h"
+ #include "ares_private.h"
+ 
++#if OHOS_DNS_PROXY_BY_NETSYS
++struct qquery {
++  ares_callback callback;
++  void *arg;
++  int type;
++};
++
++struct host_query
++{
++  ares_channel channel;
++  char *name;
++  unsigned short port; /* in host order */
++  ares_addrinfo_callback callback;
++  void *arg;
++  struct ares_addrinfo_hints hints;
++  int sent_family; /* this family is what was is being used */
++  int timeouts;    /* number of timeouts we saw for this request */
++  const char *remaining_lookups; /* types of lookup we need to perform ("fb" by
++                                    default, file and dns respectively) */
++  struct ares_addrinfo *ai;      /* store results between lookups */
++  int remaining;   /* number of DNS answers waiting for */
++  int next_domain; /* next search domain to try */
++  int nodata_cnt; /* Track nodata responses to possibly override final result */
++};
++#endif
+ 
+ static int try_again(int errnum);
+ static void write_tcp_data(ares_channel channel, fd_set *write_fds,
+@@ -553,6 +578,9 @@ static void process_timeouts(ares_channel channel, struct timeval *now)
+    */
+   for (t = channel->last_timeout_processed; t <= now->tv_sec; t++)
+     {
++#if OHOS_DNS_PROXY_BY_NETSYS
++      bool qfinish = false;
++#endif
+       list_head = &(channel->queries_by_timeout[t % ARES_TIMEOUT_TABLE_SIZE]);
+       for (list_node = list_head->next; list_node != list_head; )
+         {
+@@ -562,9 +590,22 @@ static void process_timeouts(ares_channel channel, struct timeval *now)
+             {
+               query->error_status = ARES_ETIMEOUT;
+               ++query->timeouts;
++#if OHOS_DNS_PROXY_BY_NETSYS
++              struct qquery *qq= query->arg;
++              struct host_query *hq= qq->arg;
++              if (hq->hints.ai_family == AF_UNSPEC && qq->type == T_AAAA && hq->remaining == 1) {
++                end_query(channel, query, ARES_ENODATA, NULL, 0);
++                qfinish = true;
++                break;
++              }
++#endif
+               next_server(channel, query, now);
+             }
+         }
++#if OHOS_DNS_PROXY_BY_NETSYS
++        if (qfinish)
++          break;
++#endif
+      }
+   channel->last_timeout_processed = now->tv_sec;
+ }
+@@ -880,6 +921,9 @@ void ares__send_query(ares_channel channel, struct query *query,
+      * assigned timeout, avoiding overflow.  If channel->timeout is negative,
+      * leave it as-is, even though that should be impossible here.
+      */
++#if OHOS_DNS_PROXY_BY_NETSYS
++    timeplus = channel->timeout;
++#else
+     timeplus = channel->timeout;
+     {
+       /* How many times do we want to double it?  Presume sane values here. */
+@@ -900,7 +944,7 @@ void ares__send_query(ares_channel channel, struct query *query,
+         timeplus <<= shift;
+       }
+     }
+-
++#endif
+     query->timeout = *now;
+     timeadd(&query->timeout, timeplus);
+     /* Keep track of queries bucketed by timeout, so we can process
+diff --git a/src/lib/ares_query.c b/src/lib/ares_query.c
+index 42323be..83e90dc 100644
+--- a/src/lib/ares_query.c
++++ b/src/lib/ares_query.c
+@@ -29,6 +29,9 @@
+ struct qquery {
+   ares_callback callback;
+   void *arg;
++#if OHOS_DNS_PROXY_BY_NETSYS
++  int type;
++#endif
+ };
+ 
+ static void qcallback(void *arg, int status, int timeouts, unsigned char *abuf, int alen);
+@@ -98,6 +101,9 @@ void ares_query(ares_channel channel, const char *name, int dnsclass,
+     }
+   qquery->callback = callback;
+   qquery->arg = arg;
++#if OHOS_DNS_PROXY_BY_NETSYS
++  qquery->type = type;
++#endif
+ 
+   /* Send it off.  qcallback will be called when we get an answer. */
+   ares_send(channel, qbuf, qlen, qcallback, qquery);
+diff --git a/src/lib/ares_getaddrinfo.c b/src/lib/ares_getaddrinfo.c
+index 628b240..a44c428 100644
+--- a/src/lib/ares_getaddrinfo.c
++++ b/src/lib/ares_getaddrinfo.c
+@@ -750,7 +750,17 @@ static void host_callback(void *arg, int status, int timeouts,
+         {
+           if (status == ARES_ENODATA || addinfostatus == ARES_ENODATA)
+             hquery->nodata_cnt++;
++#if OHOS_DNS_PROXY_BY_NETSYS
++          hquery->channel->last_server++;
++          if (hquery->channel->last_server < hquery->channel->nservers) {
++            hquery->next_domain = -1;
++            next_lookup(hquery, hquery->nodata_cnt?ARES_ENODATA:status);
++          } else {
++            end_hquery(hquery, ARES_ENODATA);
++          }
++#else
+           next_lookup(hquery, hquery->nodata_cnt?ARES_ENODATA:status);
++#endif
+         }
+       else if (status == ARES_EDESTRUCTION)
+         {

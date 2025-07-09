@@ -1,0 +1,11 @@
+[
+    {
+        "Name"                  : "optimized-routines",
+        "License"               : "MIT License OR Apache-2.0 WITH LLVM-exception",
+        "License File"          : "LICENSE",
+        "Version Number"        : "v23.01",
+        "Owner"                 : "zhaotianyu9@huawei.com",
+        "Upstream URL"          : "https://github.com/ARM-software/optimized-routines",
+        "Description"           : "Optimized implementations of various library functions for ARM architecture processors"
+    }
+]

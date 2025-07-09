@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "TEX hyphenation patterns",
+    "License": "MIT;GPL;GPL-2;LGPL-2.1;LGPL-3;LPPL-1;LPPL-1.2;LPPL-1.3;MPL-1.1",
+    "License File": "LICENSE-MIT;LICENSE-GPL;LICENSE-GPL2;LICENSE-LGPL2.1;LICENSE-LGPL3;LICENSE-LPPL;LICENSE-LPPL1.2;LICENSE-LPPL1.3;LICENSE-MPL1.1",
+    "Version Number": "CTAN-2024.12.31",
+    "Owner": "wangxiaokai@huawei.com",
+    "Upstream URL": "https://github.com/hyphenation/tex-hyphen",
+    "Description": "This is the central repository for all hyphenation patterns"
+  }
+]

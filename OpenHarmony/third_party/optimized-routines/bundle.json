@@ -1,0 +1,36 @@
+{
+    "name": "@ohos/optimized_routines",
+    "description": "Optimized implementations of various library functions for ARM architecture processors",
+    "version": "3.1",
+    "license": "MIT OR Apache-2.0 WITH LLVM-exception",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/optimized-routines"
+    },
+    "dirs": {},
+    "scripts": {},
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "optimized_routines",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "mini",
+            "small"
+        ],
+        "rom": "36KB",
+        "ram": "72KB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

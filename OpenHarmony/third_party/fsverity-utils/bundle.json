@@ -1,0 +1,36 @@
+{
+    "name": "@ohos/fsverity-utils",
+    "description": "fsverity userspace utilities",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/fsverity-utils"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "fsverity-utils",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": ["standard"],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "openssl"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name" : "//third_party/fsverity-utils:libfsverity_utils"
+                }
+            ],
+            "test": []
+        }
+    }
+}

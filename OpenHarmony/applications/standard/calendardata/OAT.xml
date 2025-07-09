@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <oatconfig>
+        <filefilterlist>
+            <filefilter
+                desc="Filters for compatibility，license header policies"
+                name="copyrightPolicyFilter">
+                <filteritem
+                    desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                    name="hvigorfile.js"
+                    type="filename"/>
+                <filteritem
+                    desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                    name="hvigorfile.ts"
+                    type="filename"/>
+                <filteritem
+                    desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                    name="*.json5"
+                    type="filename"/>
+                <filteritem
+                    desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                    name="*.json"
+                    type="filename"/>
+                <filteritem
+                    desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                    name="*.json5.ftl"
+                    type="filename"/>
+                <filteritem
+                      desc="流水线编译，不手动修改"
+                      name="gradlew"
+                      type="filename"/>
+                <filteritem
+                        desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                        name="hvigorw"
+                        type="filename"/>
+                <filteritem
+                        desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                        name="hvigorw.bat"
+                        type="filename"/>
+                <filteritem
+                        desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                        name="hvigor-wrapper.js"
+                        type="filename"/>
+            </filefilter>
+            <filefilter
+                desc="Filters for resources files policies"
+                name="binaryFileTypePolicyFilter">
+                <filteritem
+                    desc="组件效果图，无需修改"
+                    name="figures/architecture.png"
+                    type="filepath"/>
+                <filteritem
+                    desc="安装流程图，无需修改"
+                    name="figures/build_haps.png"
+                    type="filepath"/>
+                <filteritem
+                    desc="安装流程图，无需修改"
+                    name="figures/build_output_dir_release.png"
+                    type="filepath"/>
+                <filteritem
+                    desc="安装流程图，无需修改"
+                    name="figures/calendar_install.png"
+                    type="filepath"/>
+                <filteritem
+                    desc="应用内置资源文件，无需修改"
+                    name="entry/src/main/resources/base/media/icon.png"
+                    type="filepath"/>
+            </filefilter>
+            <filefilter
+                desc="Filters for compatibility，license header policies"
+                name="defaultPolicyFilter">
+                <filteritem
+                    desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                    name="hvigorfile.js"
+                    type="filename"/>
+                <filteritem
+                    desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                    name="hvigorfile.ts"
+                    type="filename"/>
+                <filteritem
+                    desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                    name="*.json5"
+                    type="filename"/>
+                <filteritem
+                    desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                    name="*.json"
+                    type="filename"/>
+                <filteritem
+                    desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                    name="*.json5.ftl"
+                    type="filename"/>
+                <filteritem
+                        desc="流水线编译，不手动修改"
+                        name="gradlew"
+                        type="filename"/>
+                <filteritem
+                        desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                        name="hvigorw"
+                        type="filename"/>
+                <filteritem
+                        desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                        name="hvigorw.bat"
+                        type="filename"/>
+                <filteritem
+                        desc="hvigor配置文件，DevEco Studio自动生成，不手动修改"
+                        name="hvigor-wrapper.js"
+                        type="filename"/>
+            </filefilter>
+        </filefilterlist>
+    </oatconfig>
+</configuration>

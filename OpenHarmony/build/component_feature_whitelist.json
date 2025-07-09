@@ -1,0 +1,42 @@
+{
+    "usb_manager": [
+        "usb_manager_feature_pop_up_func_switch_model"
+    ],
+    "battery_lite": [
+        "enable_screensaver"
+    ],
+    "powermgr_lite": [
+        "enable_screensaver"
+    ],
+    "hichecker": [
+        "hichecker_support_asan"
+    ],
+    "acts": [
+        "build_xts",
+        "config_ohos_xts_acts_utils_lite_kv_store_data_path",
+        "enable_ohos_test_xts_acts_use_thirdparty_lwip",
+        "enable_xts_service"
+    ],
+    "liteos_a": [
+        "liteos_is_mini"
+    ],
+    "liteos_m": [
+        "ohos_kernel_liteos_m_lwip_path"
+    ],
+    "player_framework": [
+        "multimedia_player_framework_use_codec_plugins",
+        "multimedia_player_framework_support_screen_capture"
+    ],
+    "camera_lite": [
+        "enable_multimedia_camera_lite"
+    ],
+    "ability_lite": [
+        "config_ohos_aafwk_ams_task_size",
+        "config_ohos_aafwk_aafwk_lite_task_stack_size",
+        "enable_ohos_appexecfwk_feature_ability"
+    ],
+    "samgr_lite": [
+        "config_ohos_systemabilitymgr_samgr_lite_shared_task_size",
+        "enable_ohos_systemabilitymgr_samgr_lite_rpc_mini"
+    ]
+}

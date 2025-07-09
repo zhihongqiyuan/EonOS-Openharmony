@@ -1,0 +1,420 @@
+# Copyright (c) 2021-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//arkcompiler/runtime_core/ark_config.gni")
+
+foreach(plugin, enabled_plugins) {
+  print("plugin $plugin is enabled")
+}
+
+group("arkcompiler_params") {
+  deps = [ "libpandafile:arkcompiler_params" ]
+}
+
+group("ark_device_packages") {
+  deps = [ "$ark_root/verifier:libarkverifier" ]
+}
+
+group("ark_packages") {
+  deps = []
+  if (host_os != "mac") {
+    deps += [
+      "$ark_root/libpandabase:libarkbase",
+      "$ark_root/libpandafile:libarkfile",
+      "$ark_root/libziparchive:libarkziparchive",
+    ]
+  }
+
+  foreach(plugin, enabled_plugins) {
+    deps += [ "$ark_root/plugins/$plugin:ark_packages" ]
+  }
+}
+
+group("ark_host_linux_tools_packages") {
+  deps = []
+  if (host_os != "mac") {
+    deps += [
+      "$ark_root/abc2program:abc2prog(${host_toolchain})",
+      "$ark_root/disassembler:ark_disasm(${host_toolchain})",
+      "$ark_root/libpandabase:libarkbase(${host_toolchain})",
+      "$ark_root/libpandafile:libarkfile(${host_toolchain})",
+      "$ark_root/libziparchive:libarkziparchive(${host_toolchain})",
+      "$ark_root/panda_guard:panda_guard(${host_toolchain})",
+      "$ark_root/verifier:ark_verifier(${host_toolchain})",
+    ]
+  }
+  foreach(plugin, enabled_plugins) {
+    deps += [ "$ark_root/plugins/$plugin:ark_host_linux_tools_packages" ]
+  }
+}
+
+group("ark_host_windows_tools_packages") {
+  deps = []
+  if (host_os != "mac") {
+    deps += [
+      "$ark_root/abc2program:abc2prog($build_root/toolchain/mingw:mingw_x86_64)",
+      "$ark_root/disassembler:ark_disasm($build_root/toolchain/mingw:mingw_x86_64)",
+      "$ark_root/panda_guard:panda_guard($build_root/toolchain/mingw:mingw_x86_64)",
+      "$ark_root/verifier:ark_verifier($build_root/toolchain/mingw:mingw_x86_64)",
+    ]
+  }
+
+  foreach(plugin, enabled_plugins) {
+    deps += [ "$ark_root/plugins/$plugin:ark_host_windows_tools_packages" ]
+  }
+}
+
+group("ark_host_mac_tools_packages") {
+  deps = []
+  if (host_os == "mac") {
+    if (host_cpu == "arm64") {
+      deps += [
+        "$ark_root/abc2program:abc2prog($build_root/toolchain/mac:clang_arm64)",
+        "$ark_root/disassembler:ark_disasm($build_root/toolchain/mac:clang_arm64)",
+        "$ark_root/libpandabase:libarkbase($build_root/toolchain/mac:clang_arm64)",
+        "$ark_root/libpandafile:libarkfile($build_root/toolchain/mac:clang_arm64)",
+        "$ark_root/libziparchive:libarkziparchive($build_root/toolchain/mac:clang_arm64)",
+        "$ark_root/panda_guard:panda_guard($build_root/toolchain/mac:clang_arm64)",
+        "$ark_root/verifier:ark_verifier($build_root/toolchain/mac:clang_arm64)",
+      ]
+    } else {
+      deps += [
+        "$ark_root/abc2program:abc2prog($build_root/toolchain/mac:clang_x64)",
+        "$ark_root/disassembler:ark_disasm($build_root/toolchain/mac:clang_x64)",
+        "$ark_root/libpandabase:libarkbase($build_root/toolchain/mac:clang_x64)",
+        "$ark_root/libpandafile:libarkfile($build_root/toolchain/mac:clang_x64)",
+        "$ark_root/libziparchive:libarkziparchive($build_root/toolchain/mac:clang_x64)",
+        "$ark_root/panda_guard:panda_guard($build_root/toolchain/mac:clang_x64)",
+        "$ark_root/verifier:ark_verifier($build_root/toolchain/mac:clang_x64)",
+      ]
+    }
+  }
+
+  foreach(plugin, enabled_plugins) {
+    deps += [ "$ark_root/plugins/$plugin:ark_host_mac_tools_packages" ]
+  }
+}
+
+if (!ark_standalone_build) {
+  group("ark_host_ohos_tools_packages") {
+    deps = []
+    if (host_os != "mac") {
+      deps += [ "$ark_root/disassembler:ark_disasm($build_root/toolchain/ohos:ohos_clang_arm64)" ]
+    }
+    foreach(plugin, enabled_plugins) {
+      deps += [ "$ark_root/plugins/$plugin:ark_host_ohos_tools_packages" ]
+    }
+  }
+}
+
+# Common config for ark source
+config("ark_config") {
+  visibility = [
+    "./*",
+    "//arkcompiler/ets_frontend/*",
+  ]
+
+  include_dirs = [ "$ark_root" ]
+  defines = [ "PANDA_TARGET_MOBILE_WITH_MANAGED_LIBS=1" ]
+
+  if (is_linux) {
+    defines += [
+      "PANDA_TARGET_UNIX",
+      "PANDA_TARGET_LINUX",
+      "PANDA_WITH_BYTECODE_OPTIMIZER",
+      "PANDA_WITH_COMPILER",
+      "PANDA_USE_FUTEX",
+    ]
+  } else if (is_mingw) {
+    defines += [
+      "PANDA_TARGET_WINDOWS",
+      "PANDA_WITH_BYTECODE_OPTIMIZER",
+      "PANDA_WITH_COMPILER",
+      "_CRTBLD",
+      "__LIBMSVCRT__",
+    ]
+  } else if (is_mac) {
+    defines += [
+      "PANDA_TARGET_UNIX",
+      "PANDA_TARGET_MACOS",
+      "PANDA_WITH_BYTECODE_OPTIMIZER",
+      "PANDA_WITH_COMPILER",
+    ]
+  } else if (target_os == "ios") {
+    defines += [
+      "PANDA_TARGET_UNIX",
+      "PANDA_TARGET_IOS",
+      "PANDA_WITH_BYTECODE_OPTIMIZER",
+      "PANDA_WITH_COMPILER",
+    ]
+  } else if (is_mob) {
+    defines += [
+      "PANDA_TARGET_OHOS",
+      "PANDA_TARGET_UNIX",
+      "PANDA_USE_FUTEX",
+      "PANDA_TARGET_MOBILE",
+      "PANDA_TARGET_MOBILE_WITH_NATIVE_LIBS",
+    ]
+  } else if (is_ohos) {
+    if (is_build_sdk) {
+      defines += [
+        "PANDA_TARGET_OHOS",
+        "PANDA_TARGET_UNIX",
+        "PANDA_WITH_BYTECODE_OPTIMIZER",
+        "PANDA_USE_FUTEX",
+      ]
+    } else {
+      defines += [
+        "PANDA_TARGET_OHOS",
+        "PANDA_TARGET_UNIX",
+        "PANDA_USE_FUTEX",
+      ]
+    }
+  } else {
+    defines += [
+      "PANDA_TARGET_UNIX",
+      "PANDA_USE_FUTEX",
+    ]
+  }
+
+  if (current_os == "android" && defined(is_arkui_x) && is_arkui_x) {
+    defines += [ "PANDA_TARGET_ARKUI_X" ]
+  }
+
+  if (enable_hilog) {
+    defines += [ "ENABLE_HILOG" ]
+  }
+
+  if (!is_debug) {
+    defines += [ "NDEBUG" ]
+  }
+
+  cflags_cc = [
+    "-std=c++17",
+    "-pedantic",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fno-rtti",
+    "-fno-exceptions",
+    "-Wno-invalid-offsetof",
+
+    "-Wno-gnu-statement-expression",
+    "-Wno-unused-parameter",
+    "-Wno-unused-result",
+    "-Wno-unused-but-set-variable",
+  ]
+
+  cflags_c = []
+
+  if (!is_mac && use_pbqp) {
+    cflags_cc += [
+      # PBQP regalloc
+      "-mllvm",
+      "-regalloc=pbqp",
+    ]
+  }
+
+  if (is_fastverify) {
+    cflags_cc += [
+      "-O3",
+      "-ggdb3",
+      "-fno-omit-frame-pointer",
+      "-D_GLIBCXX_ASSERTIONS",
+    ]
+    cflags_c += [
+      "-O3",
+      "-ggdb3",
+      "-fno-omit-frame-pointer",
+      "-D_GLIBCXX_ASSERTIONS",
+    ]
+  } else if (is_debug) {
+    cflags_cc += [
+      "-Og",
+      "-ggdb3",
+    ]
+  }
+
+  if (enable_relayout_profile) {
+    defines += [ "PANDA_ENABLE_RELAYOUT_PROFILE" ]
+  }
+
+  configs = []
+  foreach(plugin, enabled_plugins) {
+    configs += [ "$ark_root/plugins/$plugin:ark_config" ]
+  }
+
+  if (current_cpu == "arm") {
+    cflags_cc += [
+      "-march=armv7-a",
+      "-mfloat-abi=${arm_float_abi}",
+      "-marm",
+      "-mfpu=vfp",
+    ]
+
+    if (arm_float_abi == "soft") {
+      defines += [ "PANDA_TARGET_ARM32_ABI_SOFT=1" ]
+    } else if (arm_float_abi == "softfp") {
+      defines += [ "PANDA_TARGET_ARM32_ABI_SOFTFP=1" ]
+    } else if (arm_float_abi == "hard") {
+      defines += [ "PANDA_TARGET_ARM32_ABI_HARD=1" ]
+    }
+
+    defines += [ "PANDA_TARGET_ARM32" ]
+  } else if (current_cpu == "arm64") {
+    defines += [
+      "PANDA_TARGET_ARM64",
+      "PANDA_TARGET_64",
+      "PANDA_ENABLE_GLOBAL_REGISTER_VARIABLES",
+      "PANDA_USE_32_BIT_POINTER",
+    ]
+  } else if (current_cpu == "x86") {
+    defines += [ "PANDA_TARGET_X86" ]
+  } else if (current_cpu == "amd64" || current_cpu == "x64" ||
+             current_cpu == "x86_64") {
+    defines += [
+      "PANDA_TARGET_64",
+      "PANDA_TARGET_AMD64",
+      "PANDA_USE_32_BIT_POINTER",
+    ]
+  }
+}
+
+plugins_yamls = []
+foreach(plugin, enabled_plugins) {
+  plugin_dir = "$ark_root/plugins/$plugin"
+  source_files = read_file("$plugin_dir/subproject_sources.gn", "scope")
+
+  if (defined(source_files.option_yaml_path)) {
+    plugins_yamls += [ "$plugin_dir/${source_files.option_yaml_path}" ]
+  }
+
+  source_files = {
+  }
+}
+
+concat_yamls("concat_plugins_yamls") {
+  output_file = "$target_gen_dir/plugin_options.yaml"
+  default_file = "$ark_root/templates/plugin_options.yaml"
+  add_yamls = plugins_yamls
+}
+
+inst_templates_yamls = []
+foreach(plugin, enabled_plugins) {
+  plugin_dir = "$ark_root/plugins/$plugin"
+  source_files = read_file("$plugin_dir/subproject_sources.gn", "scope")
+  if (defined(source_files.inst_templates_yaml_path)) {
+    inst_templates_yamls +=
+        [ "$plugin_dir/${source_files.inst_templates_yaml_path}" ]
+  }
+  source_files = {
+  }
+}
+
+concat_yamls("concat_inst_templates_yamls") {
+  output_file = "$target_gen_dir/compiler/generated/inst_templates.yaml"
+  default_file = "$ark_root/compiler/optimizer/ir_builder/inst_templates.yaml"
+  add_yamls = inst_templates_yamls
+}
+
+group("ark_host_defectscanaux_tools") {
+  deps = []
+  if (host_os == "linux") {
+    deps += [ ":ark_host_linux_defectscanaux_unittest" ]
+    if (host_cpu != "arm64") {
+      deps += [ ":ark_host_win_defectscanaux_unittest" ]
+    }
+  } else if (host_os == "mac") {
+    deps += [ ":ark_host_mac_defectscanaux_unittest" ]
+  }
+}
+
+group("ark_host_linux_defectscanaux_unittest") {
+  deps = []
+  if (host_os == "linux") {
+    deps += [ "$ark_root/libark_defect_scan_aux/tests/unittest:defect_scan_aux_demo(${host_toolchain})" ]
+  }
+}
+
+group("ark_host_win_defectscanaux_unittest") {
+  deps = []
+  if (host_os == "linux") {
+    deps += [ "$ark_root/libark_defect_scan_aux/tests/unittest:defect_scan_aux_demo($build_root/toolchain/mingw:mingw_x86_64)" ]
+  }
+}
+
+group("ark_host_mac_defectscanaux_unittest") {
+  deps = []
+  if (host_os == "mac") {
+    if (host_cpu == "arm64") {
+      deps += [ "$ark_root/libark_defect_scan_aux/tests/unittest:defect_scan_aux_demo($build_root/toolchain/mac:clang_arm64)" ]
+    } else {
+      deps += [ "$ark_root/libark_defect_scan_aux/tests/unittest:defect_scan_aux_demo($build_root/toolchain/mac:clang_x64)" ]
+    }
+  }
+}
+
+group("runtime_core_host_unittest") {
+  testonly = true
+  deps = [
+    "$ark_root/abc2program/tests:host_unittest",
+    "$ark_root/arkplatform/tests:host_unittest",
+    "$ark_root/assembler/tests:host_unittest",
+    "$ark_root/bytecode_optimizer/tests:host_unittest",
+    "$ark_root/compiler/tests:host_unittest",
+    "$ark_root/disassembler/tests:host_unittest",
+    "$ark_root/libark_defect_scan_aux/tests/unittest:host_unittest",
+    "$ark_root/libpandafile/tests:host_unittest",
+    "$ark_root/libziparchive/tests:host_unittest",
+    "$ark_root/platforms/tests:host_unittest",
+    "$ark_root/verifier/tests:host_unittest",
+  ]
+  if (!ark_standalone_build) {
+    deps += [
+      "$ark_root/libpandabase/tests:host_unittest",
+      "$ark_root/panda_guard/tests:host_unittest",
+    ]
+  }
+}
+
+if (!ark_standalone_build) {
+  group("runtime_core_unittest") {
+    testonly = true
+    deps = [
+      "$ark_root/arkplatform/tests:unittest",
+      "$ark_root/libpandabase/tests:unittest",
+      "$ark_root/libpandafile/tests:unittest",
+      "$ark_root/libziparchive/tests:unittest",
+    ]
+  }
+
+  group("verifier_host_unittest") {
+    testonly = true
+    deps = [ "$ark_root/verifier/tests:host_unittest" ]
+  }
+
+  group("compiler_host_unittest") {
+    testonly = true
+    deps = [ "$ark_root/compiler/tests:host_unittest" ]
+  }
+
+  group("arkplatform_host_unittest") {
+    testonly = true
+    deps = [ "$ark_root/arkplatform/tests:host_unittest" ]
+  }
+
+  group("arkplatform_unittest") {
+    testonly = true
+    deps = [ "$ark_root/arkplatform/tests:unittest" ]
+  }
+}

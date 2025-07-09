@@ -1,0 +1,10 @@
+[
+  {
+    "Name": "openEuler:libusbx",
+    "License": "LGPL V2.1",
+    "License File": "COPYING",
+    "Version Number": "1.0.26-1.oe2203sp3",
+    "Upstream URL": "https://gitee.com/src-openeuler/libusbx",
+    "Description": "libusb is a C library that provides generic access to USB devices."
+  }
+]

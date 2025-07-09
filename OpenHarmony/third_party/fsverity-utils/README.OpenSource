@@ -1,0 +1,11 @@
+[
+    {
+        "Name"                  : "fsverity-utils",
+        "License"               : "MIT License",
+        "License File"          : "LICENSE",
+        "Version Number"        : "v1.6",
+        "Owner"                 : "zhangdengyu2@huawei.com",
+        "Upstream URL"          : "https://git.kernel.org/pub/scm/fs/fsverity/fsverity-utils.git",
+        "Description"           : "fsverity userspace utilities"
+    }
+]

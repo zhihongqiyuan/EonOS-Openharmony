@@ -1,0 +1,38 @@
+{
+    "name": "@ohos/mtdev",
+    "description": "The mtdev library transforms all variants of kernel MT events to the slotted type B protocol",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/mtdev"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYING",
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "mtdev",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "standard" ],
+        "rom": "400KB",
+        "ram": "800KB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+              {
+                "name": "//third_party/mtdev:libmtdev-third-mmi"
+              }
+            ],
+            "test": []
+        }
+    }
+}

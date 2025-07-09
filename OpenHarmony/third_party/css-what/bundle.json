@@ -1,0 +1,39 @@
+{
+    "name": "@ohos/css-what",
+    "description": "a CSS selector parser.",
+    "version": "3.1",
+    "license": "BSD-2-Clause",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/css-what"
+    },
+    "dirs": {},
+    "scripts": {},
+    "readmePath": {
+        "en": "readme.md"
+    },
+    "component": {
+        "name": "css-what",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/css-what:css_what_sources"
+                }
+            ],
+            "test": []
+        }
+    }
+}

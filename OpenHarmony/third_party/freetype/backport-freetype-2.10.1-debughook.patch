@@ -1,0 +1,22 @@
+From ac07a003d7f75321346188eb9618d418d2b2decb Mon Sep 17 00:00:00 2001
+From: Michael Kuhn <suraia@fedoraproject.org>
+Date: Oct 17 2019 19:06:50 +0000
+Subject: Revert FT_DebugHook_Func ABI/API changes
+
+Conflict:NA
+Reference:https://src.fedoraproject.org/rpms/freetype/c/ac07a003d7f75321346188eb9618d418d2b2decb
+
+diff --git a/include/freetype/ftmodapi.h b/include/freetype/ftmodapi.h
+index 8d039c4f3..88488bfe8 100644
+--- a/include/freetype/ftmodapi.h
++++ b/include/freetype/ftmodapi.h
+@@ -623,7 +623,7 @@ FT_BEGIN_HEADER
+    *     it is bytecode interpreter's execution context, `TT_ExecContext`,
+    *     which is declared in FreeType's internal header file `tttypes.h`.
+    */
+-  typedef FT_Error
++  typedef void
+   (*FT_DebugHook_Func)( void*  arg );
+ 
+ 
+ 

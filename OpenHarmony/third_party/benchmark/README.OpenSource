@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "benchmark",
+    "License": "Apache License V2.0",
+    "License File": "LICENSE",
+    "Version Number": "1.8.3",
+    "Owner": "zzr189911@163.com",
+    "Upstream URL": "https://github.com/google/benchmark/releases/tag/v1.8.3",
+    "Description": "A microbenchmark support library"
+  }
+]

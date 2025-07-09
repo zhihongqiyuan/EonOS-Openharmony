@@ -1,0 +1,11 @@
+[
+    {
+        "Name"                  : "exfatprogs",
+        "License"               : "GPL-2.0-or-later",
+        "License File"          : "COPYING",
+        "Version Number"        : "1.2.5",
+        "Owner"                 : "Namjae Jeon",
+        "Upstream URL"          : "https://github.com/exfatprogs/exfatprogs/archive/refs/tags/1.2.5.tar.gz",
+        "Description"           : "exFAT filesystem userspace utilities."
+    }
+]

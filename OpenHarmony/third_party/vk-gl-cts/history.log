@@ -1,0 +1,1000 @@
+ 1010  ls
+ 1011  autopoint
+ 1012  sudo apt install autopoint
+ 1013  ./autogen.sh 
+ 1014  sudo apt install pygobject-3.0
+ 1015  sudo apt install pygobject
+ 1016  sudo apt install python-gi-dev
+ 1017  ./autogen.sh 
+ 1018  sudo apt install cython
+ 1019  ./autogen.sh 
+ 1020  make
+ 1021  blueman-manager 
+ 1022  ls
+ 1023  cd test/
+ 1024  ls
+ 1025  cd plugins/
+ 1026  ls
+ 1027  cd ..
+ 1028  ls
+ 1029  cd ..
+ 1030  ls
+ 1031  cd blueman/
+ 1032  ls
+ 1033  cd bluez/
+ 1034  ls
+ 1035  vi Base.py 
+ 1036  ls
+ 1037  cd ..
+ 1038  ls
+ 1039  find . -name blueman-manager
+ 1040  find . -name blueman
+ 1041  find . -name "blueman"
+ 1042  find . -name "blueman*"
+ 1043  find . -name "*blueman*"
+ 1044  make install
+ 1045  blueman-manager 
+ 1046  ls
+ 1047  cd ..
+ 1048  ls
+ 1049  cd apps/
+ 1050  ls
+ 1051  vi blueman-adapters
+ 1052  python blueman-adapters
+ 1053  blueman-adapters 
+ 1054  ls
+ 1055  chmod +x blueman-adapters
+ 1056  ./blueman-adapters
+ 1057  vi blueman-adapters.in 
+ 1058  make install
+ 1059  whereis blueman-adapters
+ 1060  bluetoothctl list
+ 1061  history
+ 1062  reboot
+ 1063  sudo reboot
+ 1064  history
+ 1065  python bluez.py 
+ 1066  sudo service --status-all
+ 1067  sudo systemctl status bluetooth.service
+ 1068  bluetoothctl  list
+ 1069  bluetoothctl  scan
+ 1070  bluetoothctl  scan on
+ 1071  ls
+ 1072  cd bluez-5.50/test
+ 1073  ls
+ 1074  ./test-adapter list
+ 1075  ./example-advertisement 
+ 1076  python --version
+ 1077  ./example-advertisement 
+ 1078  python2 --version
+ 1079  python2 example-advertisement
+ 1080  example-advertisement
+ 1081  ./example-advertisement
+ 1082  vi /var/log/syslog
+ 1083  sudo vi /var/log/syslog
+ 1084  sudo systemctl bluetooth restart
+ 1085  sudo systemctl bluetooth.service restart
+ 1086  sudo systemctl restart bluetooth.service
+ 1087  sudo systemctl status bluetooth.service
+ 1088  ./example-advertisement
+ 1089  sudo vi /var/log/syslog
+ 1090  python --version
+ 1091  pip install bluez
+ 1092  pip install pybluez
+ 1093  pip install gattlib
+ 1094  sudo apt install glib-2.0
+ 1095  sudo apt install glib=2.0
+ 1096  apt search glib
+ 1097  Package glib-2.0 was not found in the pkg-config search pathPackage glib-2.0 was not found in the pkg-config search path
+ 1098  sudo apt install glib2
+ 1099  sudo apt install glib-2.0
+ 1100  sudo apt install libglib2.0-dev
+ 1101  pip install gattlib
+ 1102  sudo apt install glib-2.0 libglib2.0-dev
+ 1103  sudo apt install cmake build-essential scons
+ 1104  sudo apt install pkg-config
+ 1105  sudo apt install libbluetooth-dev libreadline-dev
+ 1106  sudo apt-get install libboost-python-dev libboost-thread-dev libbluetooth-dev libglib2.0-dev
+ 1107  sudo apt install doxygen
+ 1108  pip install pybluez
+ 1109  pip install gattlib
+ 1110  git clone 
+ 1111  git clone git://code.qt.io/qt/qtconnectivity.git
+ 1112  ls
+ 1113  cd qtconnectivity/
+ 1114  ls
+ 1115  cd examples/
+ 1116  ls
+ 1117  cd bluetooth/
+ 1118  ls
+ 1119  hciconfig
+ 1120  hciconfig -a
+ 1121  history
+ 1122  gnome-control-center
+ 1123  sudo gnome-control-center
+ 1124  df -h
+ 1125  ls
+ 1126  python -m xdevice
+ 1127  hdc_std -s 127.0.0.1:8710 tconn 192.168.137.105:10178
+ 1128  hdc_std -s 127.0.0.1:8710 shell
+ 1129  ls
+ 1130  history
+ 1131  vi run.sh 
+ 1132  python -m xdevice
+ 1133  hdc_std -s 127.0.0.1:8710 shell
+ 1134  python -m xdevice
+ 1135  hdc_std -s 127.0.0.1:8710 shell file send ../../common/common/glcts /data/local/tmp
+ 1136  hdc_std -s 127.0.0.1:8710 file send ../../common/common/glcts /data/local/tmp
+ 1137  hdc_std -s 127.0.0.1:8710 shell
+ 1138  hdc_std -s 127.0.0.1:8710 file send ../../common/common/glcts /data/local/tmp
+ 1139  hdc_std -s 127.0.0.1:8710 shell
+ 1140  ls
+ 1141  hdc_std -s 127.0.0.1:8710 file send ~/workspace/testresult/gdb-8.2.1/build/gdb/gdb /data/local/tmp
+ 1142  hdc_std -s 127.0.0.1:8710 shell
+ 1143  pip --version
+ 1144  sudo pip install reviewbot-extension
+ 1145  sudo service httpd reload
+ 1146  sudo pip install reviewbot-worker
+ 1147  cd
+ 1148  ls
+ 1149  cd workspace/
+ 1150  ls
+ 1151  mkdir rabbitmq
+ 1152  cd rabbitmq/
+ 1153  vim install.py
+ 1154  mv install.py install.sh
+ 1155  chmod +x install.sh 
+ 1156  ./install.sh 
+ 1157  systemctl start rabbitmq-server
+ 1158  sudo systemctl start rabbitmq-server
+ 1159  systemctl start rabbitmq-server
+ 1160  sudo unity-control-center
+ 1161  sudo gnome-control-center
+ 1162  systemctl start rabbitmq-server
+ 1163  ps aux | grep rabbitmq
+ 1164  systemctl status rabbitmq-server
+ 1165  sudo rabbitmq-diagnostics ping
+ 1166  sudo rabbitmq-diagnostics status
+ 1167  sudo apt-get install cppcheck
+ 1168  pip install cpplint
+ 1169  sudo apt-get install clang clang-tools
+ 1170  sudo apt-get remove docker docker-engine docker.io containerd runc
+ 1171  cpplint ../lihong/xts_acts/graphic/vkgl
+ 1172  cpplint --help
+ 1173  cd ..
+ 1174  cd lihong/xts_acts/graphic/vkgl/src/
+ 1175  ls
+ 1176  git status
+ 1177  cpplint 
+ 1178  cpplint --root=.
+ 1179  cpplint ActsApp.cpp 
+ 1180  sudo apt-get remove docker docker-engine docker.io containerd runc
+ 1181  sudo apt-get update
+ 1182  sudo apt install docker-ce
+ 1183  sudo apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+ 1184  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+ 1185  sudo add-apt-repository    "deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu \
+ 1186     $(lsb_release -cs) \
+ 1187     stable"
+ 1188  sudo apt update
+ 1189  sudo apt install docker-ce
+ 1190  docker run hello-world
+ 1191  sudo docker run hello-world
+ 1192  cd 
+ 1193  cd qtworker/
+ 1194  ls
+ 1195  cd build-test-Desktop_Qt_5_14_2_GCC_64bit-Debug/
+ 1196  ls
+ 1197  ./test 
+ 1198  sudo ./test 
+ 1199  history
+ 1200  cd 
+ 1201  cd workspace/xts_acts/graphic/vkgl/
+ 1202  ls
+ 1203  cd src/
+ 1204  ls
+ 1205  cloc khrgles2
+ 1206  cloc .
+ 1207  ls
+ 1208  cd khrglesext/
+ 1209  ls
+ 1210  df -h
+ 1211  ls
+ 1212  cd
+ 1213  ls
+ 1214  cd Qt5.14.2/Tools/QtCreator/
+ 1215  ls
+ 1216  cd bin/
+ 1217  ls
+ 1218  sudo ./qtcreator
+ 1219  ping 192.168.130.105
+ 1220  ping 192.168.130.150
+ 1221  ifconfig
+ 1222  ping 192.168.137.150
+ 1223  ping 192.168.137.105
+ 1224  history
+ 1225  ifconfig
+ 1226  hdc_std -m -s 0.0.0.0:8710
+ 1227  hdc_std -s 127.0.0.1:8710 tconn 192.168.137.105:10178
+ 1228  cd ../workspace/oh31/out/rk3568/suites/acts/
+ 1229  ls
+ 1230  python -m xdevice
+ 1231  hdc_std -s 127.0.0.1:8710 tconn 192.168.137.105:10178
+ 1232  python -m xdevice
+ 1233  ls
+ 1234  hdc_std -s 127.0.0.1:8710 tconn 192.168.137.105:10178
+ 1235  cd ../..
+ 1236  ls
+ 1237  find . -name "NWEB.hap"
+ 1238  find . -name "NWeb.hap"
+ 1239  hdc_std -s 127.0.0.1:8710 tconn 192.168.137.105:10178
+ 1240  hdc_std -s 127.0.0.1:8710 shell
+ 1241  hdc_std -s 127.0.0.1:8710 tconn 192.168.137.105:10178
+ 1242  hdc_std -s 127.0.0.1:8710 shell
+ 1243  ls
+ 1244  hdc_std -s 127.0.0.1:8710 shell
+ 1245  hdc_std -s 127.0.0.1:8710 tconn 192.168.137.105:10178
+ 1246  cd ../..
+ 1247  ls
+ 1248  cd test/xts/acts/
+ 1249  ls
+ 1250  cd graphic/vkglcts/
+ 1251  ls
+ 1252  cd src
+ 1253  ls
+ 1254  calc khrgles3 
+ 1255  cloc khrgles3
+ 1256  cloc khrgles31
+ 1257  cloc khrgles32
+ 1258  cloc khrglesext/
+ 1259  cloc khrgles2
+ 1260  ls
+ 1261  cloc deqpgles2
+ 1262  cloc deqpgles3
+ 1263  cloc deqpgles31
+ 1264  ls
+ 1265  cd khrgles32
+ 1266  ls
+ 1267  cloc core
+ 1268  cd core/
+ 1269  ls
+ 1270  ls -lh
+ 1271  cd ../..
+ 1272  ls
+ 1273  cd ~/workspace/lihong/xts_acts/graphic/vkgl/
+ 1274  ls
+ 1275  cd src/
+ 1276  ls
+ 1277  cd khrglesext/
+ 1278  ls
+ 1279  cloc .
+ 1280  cloc draw_elements_base_vertex_tests/
+ 1281  cloc ext_texture_shadow_lod/
+ 1282  ls
+ 1283  ls -lh
+ 1284  cloc ext_texture_shadow_lod/
+ 1285  cloc geometry_shader/
+ 1286  cd tessellation_shader/
+ 1287  cd ..
+ 1288  cloc tessellation_shader/
+ 1289  cloc texture_border_clamp/
+ 1290  cloc texture_cube_map_array/
+ 1291  cloc viewport_array/
+ 1292  cloc geometry_shader/
+ 1293  ls geometry_shader/
+ 1294  ls
+ 1295  ls -lh geometry_shader/
+ 1296  ls
+ 1297  cd ../
+ 1298  ls
+ 1299  cd khrgles32/
+ 1300  ls
+ 1301  cloc core
+ 1302  cloc info
+ 1303  cloc shaders/
+ 1304  ls -lh
+ 1305  cd core/
+ 1306  ls
+ 1307  ls -lh
+ 1308  cloc Khrgles32geometry_shader_* 
+ 1309  cloc Khrgles32core
+ 1310  cloc Khrgles32core*
+ 1311  ls -lh Khrgles32core* 
+ 1312  cd ..
+ 1313  ls
+ 1314  cd khrgles31
+ 1315  ls
+ 1316  cloc core/
+ 1317  cloc shaders/
+ 1318  cd core/
+ 1319  ls -lh
+ 1320  cd ../..
+ 1321  cd khrgles2/
+ 1322  ls
+ 1323  cloc .
+ 1324  cd ..
+ 1325  cloc khrglesext
+ 1326  cloc khrgles31
+ 1327  cloc khrgles32
+ 1328  cloc khrgles32/core
+ 1329  ls
+ 1330  cloc deqpgles2
+ 1331  cloc deqpgles3
+ 1332  cloc deqpgles31
+ 1333  ls
+ 1334  cd deqpgles2/
+ 1335  ls
+ 1336  cloc functional/
+ 1337  cd functional/
+ 1338  ls
+ 1339  ls -lh
+ 1340  history
+ 1341  ls
+ 1342  cd bluez-5.50/
+ 1343  ls
+ 1344  cd test
+ 1345  ./example-advertisement 
+ 1346  sudo ./example-advertisement 
+ 1347  history
+ 1348  sudo systemctl status bluetooth.service
+ 1349  vi /var/log/syslog
+ 1350  sudo vi /var/log/syslog
+ 1351  ./example-advertisement 
+ 1352  sudo vi /var/log/syslog
+ 1353  sudo apt remove bluez
+ 1354  sudo systemctl status bluetooth.service
+ 1355  cd ..
+ 1356  bluetoothctl
+ 1357  sudo install
+ 1358  sudo make install
+ 1359  bluetoothctl
+ 1360  bluetoothctl list
+ 1361  bluetoothd 
+ 1362  make
+ 1363  make install
+ 1364  sudo make install
+ 1365  bluetoothd 
+ 1366  sudo systemctl enable bluetooth
+ 1367  sudo systemctl start bluetooth
+ 1368  systemctl list-unit-files | grep masked
+ 1369  systemctl unmask bluetooth.service
+ 1370  systemctl list-unit-files | grep masked
+ 1371  sudo systemctl enable bluetooth
+ 1372  sudo systemctl start bluetooth
+ 1373  sudo systemctl status bluetooth.service
+ 1374  cd test/
+ 1375  ls
+ 1376  bluetoothctl list
+ 1377  ./example-advertisement 
+ 1378  sudo systemctl status bluetooth.service
+ 1379  ./example-advertisement 
+ 1380  cd ..
+ 1381  ./configure --help
+ 1382  make distclean
+ 1383  make clean
+ 1384  history
+ 1385  ./configure --prefix=/usr --mandir=/usr/share/man --sysconfdir=/etc --localstatedir=/var --enable-debug --
+ 1386  ./configure --help
+ 1387  ./configure --prefix=/usr --mandir=/usr/share/man --sysconfdir=/etc --localstatedir=/var --enable-debug --enable-test --enable-logger
+ 1388  make
+ 1389  sudo make install
+ 1390  ls
+ 1391  ./test/example-advertisement 
+ 1392  sudo systemctl status bluetooth.service
+ 1393  sudo systemctl restart bluetooth.service
+ 1394  sudo systemctl daemon-reload
+ 1395  sudo systemctl restart bluetooth.servi
+ 1396  sudo systemctl restart bluetooth.service 
+ 1397  sudo systemctl status bluetooth.service
+ 1398  ./test/example-advertisement 
+ 1399  sudo systemctl status bluetooth.service
+ 1400  sudo vim /var/log/syslog
+ 1401  bluetoothctl list
+ 1402  bluetoothctl 
+ 1403  sudo make uninstall
+ 1404  ./test/example-advertisement 
+ 1405  sudo apt install bluez
+ 1406  bluetoothd -v
+ 1407  ls
+ 1408  ./test/example-advertisement 
+ 1409  reboot
+ 1410  sudo reboot
+ 1411  sudo systemctl status bluetooth.service
+ 1412  sudo systemctl start bluetooth.service
+ 1413  sudo systemctl enable bluetooth.
+ 1414  sudo systemctl start bluetooth
+ 1415  history
+ 1416  sudo systemctl status bluetooth.service 
+ 1417  sudo systemctl start bluetooth.service 
+ 1418  sudo journalctl -xe
+ 1419  sudo systemctl start bluetooth.service 
+ 1420  sudo apt remove bluez
+ 1421  sudo systemctl start bluetooth.service 
+ 1422  sudo apt install bluez
+ 1423  reboot
+ 1424  sudo reboot
+ 1425  sudo apt install bluez
+ 1426  sudo apt autoremove bluez
+ 1427  sudo reboot
+ 1428  sudo apt install bluez
+ 1429  sudo journalctl -xe
+ 1430  sudo systemctl start bluetooth.service
+ 1431  sudo reboot
+ 1432  ls
+ 1433  ./build.sh --product-name rk3568 --gn-args build_xts=true --build-target "acts" --gn-args is_standard_system=true
+ 1434  ls
+ 1435  ./build.sh --product-name rk3568 --gn-args build_xts=true --build-target "acts" --gn-args is_standard_system=true
+ 1436  ls
+ 1437  cd workspace/wangbo/
+ 1438  ls
+ 1439  cd xts_acts/
+ 1440  ls
+ 1441  cd 
+ 1442  cd -
+ 1443  ls
+ 1444  cd graphic/vkgl/src/
+ 1445  ls
+ 1446  git status 
+ 1447  git add .
+ 1448  git commit "test commit for codecheck"
+ 1449  git commit -sm "test commit for codecheck"
+ 1450  git push
+ 1451  git 
+ 1452  git log
+ 1453  git pull
+ 1454  git log
+ 1455  git reset --soft db06fbe87cab9fc616d0663e8e9f4900662c0af8
+ 1456  git reset -soft db06fbe87cab9fc616d0663e8e9f4900662c0af8
+ 1457  git status
+ 1458  git add .
+ 1459  git status
+ 1460  git commit --amend
+ 1461  git commit 
+ 1462  git status
+ 1463  git push
+ 1464  ls
+ 1465  cloc .
+ 1466  cloc deqpgles2 .
+ 1467  cloc deqpgles2 
+ 1468  git log
+ 1469  git reset --soft 119876a9a4cc1abc142c2cbcacfd0e9275690a87
+ 1470  git status
+ 1471  git restore --staged deqp*
+ 1472  git status
+ 1473  git restore --staged khrgles3*
+ 1474  git status
+ 1475  git restore --staged khrglese*
+ 1476  git status
+ 1477  git commit --amend
+ 1478  git log
+ 1479  git reset ^HEAD
+ 1480  git log
+ 1481  git relog\
+ 1482  git relog
+ 1483  git reset --soft HEAD^
+ 1484  git status
+ 1485  git log
+ 1486  git status
+ 1487  git commit -sm "add for codecheck"
+ 1488  git log
+ 1489  git push 
+ 1490  git pull
+ 1491  rm deqpgles2 -rf
+ 1492  rm deqpgles3 -rf
+ 1493  git pull
+ 1494  rm deqpgles* -rf
+ 1495  git pull
+ 1496  rm khrgles3 -rf
+ 1497  git pull
+ 1498  rm khrgles31 -rf
+ 1499  git pull
+ 1500  rm khrgles32 -rf
+ 1501  git pull
+ 1502  rm khrglesext -rf
+ 1503  git pull
+ 1504  git push
+ 1505  git log
+ 1506  git push
+ 1507  cd ..
+ 1508  ls
+ 1509  cd ..
+ 1510  ls
+ 1511  cd ..
+ 1512  ls
+ 1513  cd ..
+ 1514  ls
+ 1515  git clone https://gitee.com/wangbo_kaihong/xts_acts_oh.git
+ 1516  cd xts_acts_oh/cd xts_acts
+ 1517  ls
+ 1518  cd xts_acts
+ 1519  ls
+ 1520  cd graphic/
+ 1521  ls
+ 1522  cd vkgl/
+ 1523  ls
+ 1524  cd src/
+ 1525  git log
+ 1526  git reset --soft fa56b7e17a079908bf7a078455f899e213f50e4b
+ 1527  git status
+ 1528  git restore .
+ 1529  git status
+ 1530  git restore --staged .
+ 1531  git status
+ 1532  git restart 
+ 1533  git restore --staged .
+ 1534  git status
+ 1535  git pull
+ 1536  ls
+ 1537  git status
+ 1538  cd ../../..
+ 1539  git log
+ 1540  cd graphic/
+ 1541  git status
+ 1542  cd ..
+ 1543  git restore --staged .
+ 1544  git status
+ 1545  cd graphic/vkgl/src/
+ 1546  rm deqpgles3 -rf
+ 1547  git status
+ 1548  git commit --amend
+ 1549  git log
+ 1550  git push
+ 1551  git pull
+ 1552  cd ../..
+ 1553  cd ..
+ 1554  ls
+ 1555  cd ..
+ 1556  cd xts_acts_oh/
+ 1557  ls
+ 1558  git pull
+ 1559  cd graphic/vkgl/src/
+ 1560  ls
+ 1561  git status
+ 1562  git add .
+ 1563  git commit -sm "test codecheck"
+ 1564  git push
+ 1565  cd ../../..
+ 1566  ls
+ 1567  cd ../xts_acts
+ 1568  git log
+ 1569  git reset --hard db06fbe87cab9fc616d0663e8e9f4900662c0af8
+ 1570  git pull
+ 1571  git log
+ 1572  git reset --hard 119876a9a4cc1abc142c2cbcacfd0e9275690a87
+ 1573  git pull
+ 1574  git log
+ 1575  git reset --hard 119876a9a4cc1abc142c2cbcacfd0e9275690a87
+ 1576  git status
+ 1577  git log
+ 1578  git status
+ 1579  git pull
+ 1580  ls
+ 1581  git log
+ 1582  git reset --hard 119876a9a4cc1abc142c2cbcacfd0e9275690a87
+ 1583  git log
+ 1584  git commit --amend 
+ 1585  git push
+ 1586  git pull
+ 1587  ls
+ 1588  git log
+ 1589  git pull
+ 1590  git push
+ 1591  ls
+ 1592  git log 
+ 1593  cd graphic/vkgl/
+ 1594  ls
+ 1595  cd src/
+ 1596  ls
+ 1597  cd ../../..
+ 1598  ls
+ 1599  cd ..
+ 1600  ls
+ 1601  cd xts_acts
+ 1602  cd ../xts_acts_oh/graphic/
+ 1603  ls
+ 1604  cd vkgl/
+ 1605  ls
+ 1606  cd src/
+ 1607  ls
+ 1608  git status
+ 1609  git add .
+ 1610  git commit --amend
+ 1611  git push
+ 1612  git pull
+ 1613  git status
+ 1614  git add .
+ 1615  git status
+ 1616  git commit --amend
+ 1617  git commit -sm "merge"
+ 1618  git pull
+ 1619  git push 
+ 1620  git status
+ 1621  git add .
+ 1622  git commit --amend
+ 1623  git pull
+ 1624  git add .
+ 1625  git commit --amend
+ 1626  git commit -sm "merge"
+ 1627  git push
+ 1628  git pull
+ 1629  git log
+ 1630  cd ~/workspace/xts_acts/
+ 1631  ls
+ 1632  cd graphic/vkgl/src/
+ 1633  ls
+ 1634  git pull
+ 1635  git status
+ 1636  git add  deqpgles31/functional/Deqpgles31abs_highp_computeTestCase.cpp
+ 1637  git commit -sm "add for codecheck"
+ 1638  git push 
+ 1639  git status
+ 1640  git add logdefine.h 
+ 1641  git add shrinkdefine.h 
+ 1642  git commit --amend
+ 1643  git push 
+ 1644  git pull
+ 1645  git push 
+ 1646  git status
+ 1647  git add .
+ 1648  git commit --amend
+ 1649  git pull
+ 1650  git push
+ 1651  git status
+ 1652  git status .
+ 1653  git add .
+ 1654  git status
+ 1655  git commit --amend
+ 1656  git push
+ 1657  git pull
+ 1658  git push
+ 1659  cd 
+ 1660  cd workspace/chenrilang/xts_acts/graphic/vkgl/src/
+ 1661  ls
+ 1662  git pull
+ 1663  git config --global --unset user.name
+ 1664  git config --global --unset user.email
+ 1665  git config --global user.name "bayanxing"
+ 1666  git config --global user.email "bayanxing@kaihongdigi.com"
+ 1667  git pull
+ 1668  ls
+ 1669  cd ~/workspace/luofuchun/
+ 1670  ls
+ 1671  cd xts_acts/
+ 1672  ls
+ 1673  cd graphic/vkgl/
+ 1674  ls
+ 1675  cd src/
+ 1676  ls
+ 1677  git pull
+ 1678  ls
+ 1679  git pull
+ 1680  git add .
+ 1681  git commit -sm "add deqpgles3"
+ 1682  git push https://luofuchun%40kaihongdigi.com:skh123456@gitee.com/fuchun0/xts_acts master
+ 1683  git add .
+ 1684  git commit -sm "add deqpgles3"
+ 1685  git push https://luofuchun%40kaihongdigi.com:skh123456@gitee.com/fuchun0/xts_acts master
+ 1686  git add .
+ 1687  git commit -sm "add deqpgles3"
+ 1688  git push https://luofuchun%40kaihongdigi.com:skh123456@gitee.com/fuchun0/xts_acts master
+ 1689  git add .
+ 1690  git commit -sm "add deqpgles3"
+ 1691  git push https://luofuchun%40kaihongdigi.com:skh123456@gitee.com/fuchun0/xts_acts master
+ 1692  git add .
+ 1693  git commit -sm "add deqpgles3"
+ 1694  git push https://luofuchun%40kaihongdigi.com:skh123456@gitee.com/fuchun0/xts_acts master
+ 1695  git add .
+ 1696  git commit -sm "add deqpgles3"
+ 1697  git push https://luofuchun%40kaihongdigi.com:skh123456@gitee.com/fuchun0/xts_acts master
+ 1698  git log
+ 1699  git add .
+ 1700  git commit -sm "add deqpgles3"
+ 1701  git push https://luofuchun%40kaihongdigi.com:skh123456@gitee.com/fuchun0/xts_acts master
+ 1702  git add .
+ 1703  git commit -sm "add deqpgles3"
+ 1704  git push https://luofuchun%40kaihongdigi.com:skh123456@gitee.com/fuchun0/xts_acts master
+ 1705  git add .
+ 1706  git commit -sm "add deqpgles3"
+ 1707  git push https://luofuchun%40kaihongdigi.com:skh123456@gitee.com/fuchun0/xts_acts master
+ 1708  git add .
+ 1709  git commit -sm "add deqpgles3"
+ 1710  git push https://luofuchun%40kaihongdigi.com:skh123456@gitee.com/fuchun0/xts_acts master
+ 1711  ls
+ 1712  cd deqpgles3/
+ 1713  ls
+ 1714  sudo apt install d-feet
+ 1715  ./d-feet
+ 1716  d-feet 
+ 1717  cd workspace/oh31/
+ 1718  ls
+ 1719  cd out/rk3568/suites/
+ 1720  ls
+ 1721  cd acts/
+ 1722  ls
+ 1723  python -m xdevice
+ 1724  hdc_std -s 127.0.0.1:8710 shell
+ 1725  python -m xdevice
+ 1726  hdc_std -s 127.0.0.1:8710 shell
+ 1727  python -m xdevice
+ 1728  cd workspace/oh31/
+ 1729  ls
+ 1730  cd ..
+ 1731  ls
+ 1732  cd wangbo/xts_acts/graphic/vkgl/
+ 1733  ls
+ 1734  cd src/
+ 1735  ls
+ 1736  git log
+ 1737  git rebase -i 9efedc93d97ca3c9d3c5595b8ebaf23a0756e5d8
+ 1738  git rebase --continue
+ 1739  git log
+ 1740  git pull
+ 1741  git log
+ 1742  git rebase -i 9efedc93d97ca3c9d3c5595b8ebaf23a0756e5d8
+ 1743  git commit --amend
+ 1744  git rebase --continue
+ 1745  git push
+ 1746  git commit --amend -s
+ 1747  git commit --amend 
+ 1748  git pull
+ 1749  git log
+ 1750  git reset HEAD^
+ 1751  git status
+ 1752  git status .
+ 1753  ls
+ 1754  git status .
+ 1755  git status 
+ 1756  git restore .
+ 1757  git status
+ 1758  git commit --amend
+ 1759  git commit -sm "test"
+ 1760  git log
+ 1761  ls
+ 1762  git status
+ 1763  git add logdefine.h
+ 1764  git commit -sm "log"
+ 1765  git push
+ 1766  git pull
+ 1767  rm graphic/vkgl/src/deqpgles3/ActsDeqpgles30*
+ 1768  rm graphic/vkgl/src/deqpgles3/ActsDeqpgles*
+ 1769  rm deqpgles3/ActsDeqpgles3*
+ 1770  ls
+ 1771  git pull
+ 1772  rm deqpgles3 -rf
+ 1773  git pull
+ 1774  rm deqpgles31 -rf
+ 1775  git pull
+ 1776  rm deqpgles2/info/Deqpgles2dEQP-GLES2_infoTestCase.cpp 
+ 1777  rm khrgles2/texture_3d/Khrgles2filtering_combinationsTestCase.cpp 
+ 1778  rm shrinkdefine.h 
+ 1779  git pull
+ 1780  ls
+ 1781  git log
+ 1782  cd ../..
+ 1783  ls
+ 1784  cd ../..
+ 1785  ls
+ 1786  cd xts_acts_oh/
+ 1787  cd graphic/vkgl/
+ 1788  git pull
+ 1789  git log
+ 1790  git status
+ 1791  git add .
+ 1792  git commit --amend
+ 1793  git push
+ 1794  git pull
+ 1795  vi src/deqpgles31/functional/Deqpgles31abs_highp_computeTestCase.cpp 
+ 1796  git add .
+ 1797  git status
+ 1798  git commit -sm "merge"
+ 1799  git push
+ 1800  git pull
+ 1801  git status
+ 1802  git add .
+ 1803  git commit -sm "check for
+ 1804  git commit -sm "check for codecheck"
+ 1805  git push
+ 1806  git pull
+ 1807  gti status
+ 1808  git status
+ 1809  git add .
+ 1810  git commit --amend
+ 1811  git push
+ 1812  git pull
+ 1813  git push
+ 1814  git pull
+ 1815  git status
+ 1816  git add .
+ 1817  git commit --amend
+ 1818  git push
+ 1819  git pull
+ 1820  git push
+ 1821  git status
+ 1822  git add .
+ 1823  git commit --amend
+ 1824  git status
+ 1825  git push
+ 1826  git pull
+ 1827  git push
+ 1828  git pull
+ 1829  git status
+ 1830  git add .
+ 1831  git commit --amend
+ 1832  git push
+ 1833  git pull
+ 1834  git push
+ 1835  git status
+ 1836  git add .
+ 1837  git commit --amend
+ 1838  y
+ 1839  git push
+ 1840  git pull
+ 1841  git push
+ 1842  cd ~/workspace/chenrilang/xts_acts/graphic/vkgl/
+ 1843  ls
+ 1844  cd src/
+ 1845  ls
+ 1846  cd ..
+ 1847  git pull
+ 1848  cd ..
+ 1849  git pull
+ 1850  git config --global --unset user.name
+ 1851  git config --global --unset user.email
+ 1852  git config --global user.name "chenxun"
+ 1853  git config --global user.email "chenxun@kaihongdigi.com"
+ 1854  git config --global --unset user.name
+ 1855  git config --global --unset user.email
+ 1856  git config --global user.name "shenchunping"
+ 1857  git config --global user.email "shenchunping@kaihongdigi.com"
+ 1858  cd vkgl/
+ 1859  cd src/
+ 1860  ls
+ 1861  rm deqpgles* -rf
+ 1862  rm khrgles* -rf
+ 1863  dir
+ 1864  git status
+ 1865  git commit -sm "优化代码，删除之前的"
+ 1866  git add .
+ 1867  git commit -sm "优化代码，删除之前的"
+ 1868  git push
+ 1869  git pull
+ 1870  ls
+ 1871  git pull
+ 1872  ls
+ 1873  git status
+ 1874  git add .
+ 1875  git commit -sm "add deqpgles3"
+ 1876  git push
+ 1877  git log
+ 1878  git status
+ 1879  git add .
+ 1880  git commit -sm "add deqpgles3"
+ 1881  git push
+ 1882  git log
+ 1883  git add .
+ 1884  git commit -sm "add deqpgles3"
+ 1885  git push https://chenrilang%40kaihongdigi.com:skh123456@gitee.com/anotherskq/xts_acts master
+ 1886  git add .
+ 1887  git commit -sm "add deqpgles3"
+ 1888  git push https://chenrilang%40kaihongdigi.com:skh123456@gitee.com/anotherskq/xts_acts master
+ 1889  git add .
+ 1890  git commit -sm "add deqpgles3"
+ 1891  git push https://chenrilang%40kaihongdigi.com:skh123456@gitee.com/anotherskq/xts_acts master
+ 1892  git add .
+ 1893  git commit -sm "add deqpgles3"
+ 1894  git push https://chenrilang%40kaihongdigi.com:skh123456@gitee.com/anotherskq/xts_acts master
+ 1895  git add .
+ 1896  git commit -sm "add deqpgles3"
+ 1897  git push https://chenrilang%40kaihongdigi.com:skh123456@gitee.com/anotherskq/xts_acts master
+ 1898  git add .
+ 1899  git commit -sm "add deqpgles3"
+ 1900  git push https://chenrilang%40kaihongdigi.com:skh123456@gitee.com/anotherskq/xts_acts master
+ 1901  git log
+ 1902  git add .
+ 1903  git commit -sm "add deqpgles3"
+ 1904  git push https://chenrilang%40kaihongdigi.com:skh123456@gitee.com/anotherskq/xts_acts master
+ 1905  git add .
+ 1906  git commit -sm "add deqpgles3"
+ 1907  git push https://chenrilang%40kaihongdigi.com:skh123456@gitee.com/anotherskq/xts_acts master
+ 1908  git status
+ 1909  git add .
+ 1910  git commit --amend
+ 1911  git push
+ 1912  git push https://chenrilang%40kaihongdigi.com:skh123456@gitee.com/anotherskq/xts_acts master
+ 1913  git pull
+ 1914  git push https://chenrilang%40kaihongdigi.com:skh123456@gitee.com/anotherskq/xts_acts master
+ 1915  ls
+ 1916  cd Qt5.14.2/Tools/QtCreator/
+ 1917  ls
+ 1918  cd bin
+ 1919  ls
+ 1920  ./qtcreator
+ 1921  cd workspace/lingxiaofeng/xts_acts/graphic/vkgl/src/
+ 1922  git pull
+ 1923  ls
+ 1924  git pull
+ 1925  git status
+ 1926  git add khrgles2
+ 1927  git commit -sm "add khrgles2"
+ 1928  git push https://lingxiaofeng%40kaihongdigi.com:skh123456@gitee.com/lingxiaofeng123/xts_acts master
+ 1929  git add khrgles3
+ 1930  git commit -sm "add khrgles3"
+ 1931  git push https://lingxiaofeng%40kaihongdigi.com:skh123456@gitee.com/lingxiaofeng123/xts_acts master
+ 1932  git add khrgles31
+ 1933  git push https://lingxiaofeng%40kaihongdigi.com:skh123456@gitee.com/lingxiaofeng123/xts_acts master
+ 1934  git commit -sm "add khrgles3"
+ 1935  git push https://lingxiaofeng%40kaihongdigi.com:skh123456@gitee.com/lingxiaofeng123/xts_acts master
+ 1936  git add khrgles32
+ 1937  git commit -sm "add khrgles3"
+ 1938  git commit -sm "add khrgles32"
+ 1939  git push https://lingxiaofeng%40kaihongdigi.com:skh123456@gitee.com/lingxiaofeng123/xts_acts master
+ 1940  git add khrglesext
+ 1941  git commit -sm "add khrglesext"
+ 1942  git push https://lingxiaofeng%40kaihongdigi.com:skh123456@gitee.com/lingxiaofeng123/xts_acts master
+ 1943  git status
+ 1944  git add deqpgles2/
+ 1945  git commit -sm "add deqpgles2"
+ 1946  git push https://lingxiaofeng%40kaihongdigi.com:skh123456@gitee.com/lingxiaofeng123/xts_acts master
+ 1947  git status
+ 1948  git add .
+ 1949  git commit -sm "增加优化代码“
+ 1950  git commit -sm "增加优化代码"
+ 1951  git pull
+ 1952  git push https://lingxiaofeng%40kaihongdigi.com:skh123456@gitee.com/lingxiaofeng123/xts_acts master
+ 1953  git add .
+ 1954  git commit -sm "增加优化代码"
+ 1955  git push https://lingxiaofeng%40kaihongdigi.com:skh123456@gitee.com/lingxiaofeng123/xts_acts master
+ 1956  git status 
+ 1957  git add .
+ 1958  git commit --amend
+ 1959  git push https://lingxiaofeng%40kaihongdigi.com:skh123456@gitee.com/lingxiaofeng123/xts_acts master
+ 1960  git pull
+ 1961  git push https://lingxiaofeng%40kaihongdigi.com:skh123456@gitee.com/lingxiaofeng123/xts_acts master
+ 1962  cd workspace/zhangyan/
+ 1963  ls
+ 1964  cd xts_acts/
+ 1965  ls
+ 1966  cd graphic/vkgl/src/
+ 1967  git pull
+ 1968  ls
+ 1969  cd deqpgles31/
+ 1970  ls
+ 1971  git add build00*
+ 1972  git config --global --unset user.name
+ 1973  git config --global --unset user.email
+ 1974  git config --global user.name "wangshi"
+ 1975  git config --global user.email "wangshi@kaihongdigi.com"
+ 1976  git commit -sm "add deqpgles31"
+ 1977  git push https://zhangyan%40kaihongdigi.com:skh123456@gitee.com/zhangyan130751/xts_acts master
+ 1978  git status
+ 1979  git add ActsDeqpgles31*
+ 1980  git commit -sm "add deqpgles31"
+ 1981  git push https://zhangyan%40kaihongdigi.com:skh123456@gitee.com/zhangyan130751/xts_acts master
+ 1982  git status
+ 1983  cd ..
+ 1984  cd ..
+ 1985  ls
+ 1986  rm hislog.log 
+ 1987  git status
+ 1988  git add src/deqpgles31/info/
+ 1989  git add src/deqpgles31/functional/Deqpgles31a*
+ 1990  git commit -sm "add deqpgles31"
+ 1991  git push https://zhangyan%40kaihongdigi.com:skh123456@gitee.com/zhangyan130751/xts_acts master
+ 1992  git status
+ 1993  git add src/deqpgles31/functional/Deqpgles31v*
+ 1994  git status
+ 1995  git commit -sm "add deqpgles31"
+ 1996  git push https://zhangyan%40kaihongdigi.com:skh123456@gitee.com/zhangyan130751/xts_acts master
+ 1997  git add src/deqpgles31/functional/Deqpgles31u*
+ 1998  git commit -sm "add deqpgles31"
+ 1999  cd third_party/
+ 2000  ls
+ 2001  cd vk-gl-cts/
+ 2002  ls
+ 2003  find . -name BUILD.gn | xargs grep "libdeqp*"
+ 2004  find . -name BUILD.gn | xargs grep "__assert_fail"
+ 2005  find . -name "*.c" | xargs grep "__assert_fail"
+ 2006  find . -name "*.*" | xargs grep "errs"
+ 2007  history
+ 2008  ls
+ 2009  history  > history.log

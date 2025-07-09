@@ -1,0 +1,563 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("./cups.gni")
+
+config_dir = "${target_gen_dir}"
+cups_code_dir = "${target_gen_dir}/cups-2.4.12"
+core_code_dir = "$cups_code_dir/cups/"
+filter_code_dir = "$cups_code_dir/filter"
+backend_code_dir = "$cups_code_dir/backend"
+ppdc_code_dir = "$cups_code_dir/ppdc"
+scheduler_code_dir = "$cups_code_dir/scheduler"
+
+SUBSYSTEM_NAME = "thirdparty"
+PART_NAME = "cups"
+
+cups_generated_sources = [
+  "$core_code_dir/adminutil.c",
+  "$core_code_dir/array.c",
+  "$core_code_dir/auth.c",
+  "$core_code_dir/backchannel.c",
+  "$core_code_dir/backend.c",
+  "$core_code_dir/debug.c",
+  "$core_code_dir/dest-job.c",
+  "$core_code_dir/dest-localization.c",
+  "$core_code_dir/dest-options.c",
+  "$core_code_dir/dest.c",
+  "$core_code_dir/dir.c",
+  "$core_code_dir/encode.c",
+  "$core_code_dir/file.c",
+  "$core_code_dir/getdevices.c",
+  "$core_code_dir/getifaddrs.c",
+  "$core_code_dir/getputfile.c",
+  "$core_code_dir/globals.c",
+  "$core_code_dir/hash.c",
+  "$core_code_dir/http-addr.c",
+  "$core_code_dir/http-addrlist.c",
+  "$core_code_dir/http-support.c",
+  "$core_code_dir/http.c",
+  "$core_code_dir/ipp-file.c",
+  "$core_code_dir/ipp-support.c",
+  "$core_code_dir/ipp-vars.c",
+  "$core_code_dir/ipp.c",
+  "$core_code_dir/langprintf.c",
+  "$core_code_dir/language.c",
+  "$core_code_dir/md5.c",
+  "$core_code_dir/md5passwd.c",
+  "$core_code_dir/notify.c",
+  "$core_code_dir/options.c",
+  "$core_code_dir/ppd-attr.c",
+  "$core_code_dir/ppd-cache.c",
+  "$core_code_dir/ppd-conflicts.c",
+  "$core_code_dir/ppd-custom.c",
+  "$core_code_dir/ppd-emit.c",
+  "$core_code_dir/ppd-localize.c",
+  "$core_code_dir/ppd-mark.c",
+  "$core_code_dir/ppd-page.c",
+  "$core_code_dir/ppd-util.c",
+  "$core_code_dir/ppd.c",
+  "$core_code_dir/pwg-media.c",
+  "$core_code_dir/raster-error.c",
+  "$core_code_dir/raster-interpret.c",
+  "$core_code_dir/raster-stream.c",
+  "$core_code_dir/request.c",
+  "$core_code_dir/sidechannel.c",
+  "$core_code_dir/snmp.c",
+  "$core_code_dir/snprintf.c",
+  "$core_code_dir/string.c",
+  "$core_code_dir/tempfile.c",
+  "$core_code_dir/thread.c",
+  "$core_code_dir/tls.c",
+  "$core_code_dir/transcode.c",
+  "$core_code_dir/usersys.c",
+  "$core_code_dir/util.c",
+]
+
+scheduler_util_generated_sources = [ "$scheduler_code_dir/util.c" ]
+
+cups_deviced_generated_sources = [ "$scheduler_code_dir/cups-deviced.c" ]
+
+cups_driverd_generated_sources = [ "$scheduler_code_dir/cups-driverd.cxx" ]
+
+cups_exec_generated_sources = [ "$scheduler_code_dir/cups-exec.c" ]
+
+cupsd_generated_sources = [
+  "$scheduler_code_dir/auth.c",
+  "$scheduler_code_dir/banners.c",
+  "$scheduler_code_dir/cert.c",
+  "$scheduler_code_dir/classes.c",
+  "$scheduler_code_dir/client.c",
+  "$scheduler_code_dir/colorman.c",
+  "$scheduler_code_dir/conf.c",
+  "$scheduler_code_dir/dirsvc.c",
+  "$scheduler_code_dir/env.c",
+  "$scheduler_code_dir/file.c",
+  "$scheduler_code_dir/hilog-helper.c",
+  "$scheduler_code_dir/ipp.c",
+  "$scheduler_code_dir/job.c",
+  "$scheduler_code_dir/listen.c",
+  "$scheduler_code_dir/log.c",
+  "$scheduler_code_dir/main.c",
+  "$scheduler_code_dir/network.c",
+  "$scheduler_code_dir/policy.c",
+  "$scheduler_code_dir/printers.c",
+  "$scheduler_code_dir/process.c",
+  "$scheduler_code_dir/quotas.c",
+  "$scheduler_code_dir/select.c",
+  "$scheduler_code_dir/server.c",
+  "$scheduler_code_dir/statbuf.c",
+  "$scheduler_code_dir/subscriptions.c",
+  "$scheduler_code_dir/sysman.c",
+]
+
+cupsfilter_generated_sources = [ "$scheduler_code_dir/cupsfilter.c" ]
+
+ipp_generated_sources = [ "$backend_code_dir/ipp.c" ]
+
+usb_generated_sources = [
+  "$backend_code_dir/usb.c",
+  "$backend_code_dir/usb_ipp_manager.cpp",
+  "$backend_code_dir/usb_manager.cxx",
+  "$backend_code_dir/usb_monitor.cpp",
+]
+
+lp_generated_sources = [ "$cups_code_dir/systemv/lp.c" ]
+
+lpadmin_generated_sources = [ "$cups_code_dir/systemv/lpadmin.c" ]
+
+lpinfo_generated_sources = [ "$cups_code_dir/systemv/lpinfo.c" ]
+
+rastertopwg_generated_sources = [ "$filter_code_dir/rastertopwg.c" ]
+
+if (cups_feature_pstops_filter) {
+  pstops_generated_sources = [
+    "$filter_code_dir/common.c",
+    "$filter_code_dir/pstops.c",
+  ]
+}
+
+cupsmime_generated_sources = [
+  "$scheduler_code_dir/filter.c",
+  "$scheduler_code_dir/mime.c",
+  "$scheduler_code_dir/type.c",
+]
+
+cupsimage_generated_sources = [
+  "$core_code_dir/raster-interstub.c",
+  "$core_code_dir/raster-stubs.c",
+]
+
+backend_generated_sources = [
+  "$backend_code_dir/ieee1284.c",
+  "$backend_code_dir/network.c",
+  "$backend_code_dir/runloop.c",
+  "$backend_code_dir/snmp-supplies.c",
+]
+
+cupsppdc_generated_sources = [
+  "$ppdc_code_dir/ppdc-array.cxx",
+  "$ppdc_code_dir/ppdc-attr.cxx",
+  "$ppdc_code_dir/ppdc-catalog.cxx",
+  "$ppdc_code_dir/ppdc-choice.cxx",
+  "$ppdc_code_dir/ppdc-constraint.cxx",
+  "$ppdc_code_dir/ppdc-driver.cxx",
+  "$ppdc_code_dir/ppdc-file.cxx",
+  "$ppdc_code_dir/ppdc-filter.cxx",
+  "$ppdc_code_dir/ppdc-font.cxx",
+  "$ppdc_code_dir/ppdc-group.cxx",
+  "$ppdc_code_dir/ppdc-import.cxx",
+  "$ppdc_code_dir/ppdc-mediasize.cxx",
+  "$ppdc_code_dir/ppdc-message.cxx",
+  "$ppdc_code_dir/ppdc-option.cxx",
+  "$ppdc_code_dir/ppdc-profile.cxx",
+  "$ppdc_code_dir/ppdc-shared.cxx",
+  "$ppdc_code_dir/ppdc-source.cxx",
+  "$ppdc_code_dir/ppdc-string.cxx",
+  "$ppdc_code_dir/ppdc-variable.cxx",
+]
+
+ppdc_generated_sources = [ "$ppdc_code_dir/ppdc.cxx" ]
+
+mime_convs_generated_source = "$cups_code_dir/conf/mime.convs"
+mime_types_generated_source = "$cups_code_dir/conf/mime.types"
+
+action("cups_action") {
+  print("cups_action is exec")
+  script = "//third_party/cups/install.py"
+  outputs = []
+  outputs += cups_generated_sources
+  outputs += cups_deviced_generated_sources
+  outputs += cups_driverd_generated_sources
+  outputs += cups_exec_generated_sources
+  outputs += cupsd_generated_sources
+  outputs += cupsfilter_generated_sources
+  outputs += ipp_generated_sources
+  outputs += usb_generated_sources
+  outputs += lp_generated_sources
+  outputs += lpadmin_generated_sources
+  outputs += lpinfo_generated_sources
+  outputs += rastertopwg_generated_sources
+  outputs += cupsmime_generated_sources
+  outputs += cupsimage_generated_sources
+  outputs += backend_generated_sources
+  outputs += cupsppdc_generated_sources
+  outputs += ppdc_generated_sources
+  outputs += scheduler_util_generated_sources
+  outputs += [ mime_convs_generated_source ]
+  outputs += [ mime_types_generated_source ]
+
+  if (cups_feature_pstops_filter) {
+    outputs += pstops_generated_sources
+  }
+
+  inputs = []
+  cups_path = rebase_path("${target_gen_dir}", root_build_dir)
+  cups_source_path = rebase_path("//third_party/cups", root_build_dir)
+  args = [
+    "--gen-dir",
+    "$cups_path",
+    "--source-dir",
+    "$cups_source_path",
+  ]
+}
+
+group("third_party_cups") {
+  public_deps = [ ":cups" ]
+  deps = [
+    ":cups-deviced",
+    ":cups-driverd",
+    ":cups-exec",
+    ":cupsd",
+    ":cupsfilter",
+    ":cupsimage",
+    ":ipp",
+    ":mime.convs",
+    ":mime.types",
+    ":rastertopwg",
+    ":usb",
+  ]
+  if (cups_feature_pstops_filter) {
+    deps += [ ":pstops" ]
+  }
+}
+
+config("cups_config") {
+  defines = cups_defines
+  include_dirs = [
+    "$config_dir",
+    "$cups_code_dir",
+    "$core_code_dir",
+    get_label_info(":cups_action", "target_gen_dir") + "/cups-2.4.12",
+  ]
+
+  cflags = [
+    "-Wno-unused-function",
+    "-Wno-unused-value",
+    "-Wno-implicit-function-declaration",
+    "-Wno-int-conversion",
+    "-D_FORTIFY_SOURCE=2",
+    "-fstack-protector-all",
+    "-fdata-sections",
+    "-ffunction-sections",
+    "-fno-asynchronous-unwind-tables",
+    "-fno-unwind-tables",
+    "-Os",
+  ]
+}
+
+ohos_shared_library("cups") {
+  sources = cups_generated_sources
+  sources += cupsimage_generated_sources
+  deps = [ ":cups_action" ]
+  external_deps = [
+    "openssl:libcrypto_shared",
+    "openssl:libssl_shared",
+    "zlib:libz",
+  ]
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_shared_library("cupsimage") {
+  sources = cupsimage_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+  ]
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("rastertopwg") {
+  sources = rastertopwg_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+  ]
+  external_deps = [
+    "openssl:libcrypto_shared",
+  ]
+  install_enable = true
+  module_install_dir = "$cups_serverbin_dir/filter"
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+if (cups_feature_pstops_filter) {
+  ohos_executable("pstops") {
+    sources = pstops_generated_sources
+    deps = [
+      ":cups",
+      ":cups_action",
+    ]
+    install_enable = true
+    module_install_dir = "$cups_serverbin_dir/filter"
+    public_configs = [ ":cups_config" ]
+    subsystem_name = "$SUBSYSTEM_NAME"
+    part_name = "$PART_NAME"
+  }
+}
+
+ohos_shared_library("backend") {
+  sources = backend_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+  ]
+  external_deps = [
+    "openssl:libcrypto_shared",
+  ]
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("ipp") {
+  sources = ipp_generated_sources
+  deps = [
+    ":backend",
+    ":cups",
+    ":cups_action",
+  ]
+  external_deps = [
+    "openssl:libcrypto_shared",
+  ]
+  install_enable = true
+  module_install_dir = "$cups_serverbin_dir/backend"
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("usb") {
+  sources = usb_generated_sources
+  deps = [
+    ":backend",
+    ":cups",
+    ":cups_action",
+  ]
+  external_deps = [
+    "c_utils:utils",
+    "drivers_interface_usb:libusb_proxy_1.0",
+    "hilog:libhilog",
+    "libusb:libusb",
+    "openssl:libcrypto_shared",
+    "openssl:libssl_shared",
+    "usb_manager:usbsrv_client",
+  ]
+  install_enable = true
+  module_install_dir = "$cups_serverbin_dir/backend"
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+#end of backend
+
+ohos_executable("lpadmin") {
+  sources = lpadmin_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+  ]
+  install_enable = true
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("lpinfo") {
+  sources = lpinfo_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+  ]
+  install_enable = true
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("lp") {
+  sources = lp_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+  ]
+  install_enable = true
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+#ppdc
+ohos_shared_library("cupsppdc") {
+  sources = cupsppdc_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+  ]
+  external_deps = [
+    "openssl:libcrypto_shared",
+  ]
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("ppdc") {
+  sources = ppdc_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+    ":cupsppdc",
+  ]
+  install_enable = true
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+#end of ppdc
+
+#scheduler
+ohos_shared_library("cupsmime") {
+  sources = cupsmime_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+  ]
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("cupsd") {
+  sources = cupsd_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+    ":cupsmime",
+  ]
+  external_deps = [
+    "hilog:libhilog",
+    "openssl:libcrypto_shared"
+  ]
+  install_enable = true
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("cupsfilter") {
+  sources = cupsfilter_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+    ":cupsmime",
+  ]
+  external_deps = [
+    "openssl:libcrypto_shared",
+  ]
+  install_enable = true
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("cups-deviced") {
+  sources = cups_deviced_generated_sources
+  sources += scheduler_util_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+    ":cupsmime",
+  ]
+  external_deps = [
+    "openssl:libcrypto_shared",
+  ]
+  install_enable = true
+  module_install_dir = "$cups_serverbin_dir/daemon"
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("cups-driverd") {
+  sources = cups_driverd_generated_sources
+  sources += scheduler_util_generated_sources
+  deps = [
+    ":cups",
+    ":cups_action",
+    ":cupsppdc",
+  ]
+  external_deps = [
+    "openssl:libcrypto_shared",
+  ]
+  install_enable = true
+  module_install_dir = "$cups_serverbin_dir/daemon"
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("cups-exec") {
+  sources = cups_exec_generated_sources
+  deps = [ ":cups_action" ]
+  install_enable = true
+  module_install_dir = "$cups_serverbin_dir/daemon"
+  public_configs = [ ":cups_config" ]
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_prebuilt_etc("mime.convs") {
+  source = mime_convs_generated_source
+  deps = [ ":cups_action" ]
+  relative_install_dir = "cups/share/mime"
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_prebuilt_etc("mime.types") {
+  source = mime_types_generated_source
+  deps = [ ":cups_action" ]
+  relative_install_dir = "cups/share/mime"
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}

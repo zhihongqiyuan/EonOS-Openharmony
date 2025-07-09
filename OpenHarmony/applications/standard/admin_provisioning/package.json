@@ -1,0 +1,17 @@
+{
+	"license": "ISC",
+	"devDependencies": {},
+	"name": "adminprovisioning",
+	"ohos": {
+		"org": "huawei",
+		"directoryLevel": "project",
+		"buildTool": "hvigor"
+	},
+	"repository": {},
+	"version": "1.0.0",
+	"dependencies": {
+		"@ohos/hvigor-ohos-plugin": "1.0.6",
+		"hypium": "^1.0.0",
+		"@ohos/hvigor": "1.0.6"
+	}
+}

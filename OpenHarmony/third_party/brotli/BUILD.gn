@@ -1,0 +1,100 @@
+# Copyright (c) 2020-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/ohos.gni")
+
+brotli_source = [
+  "c/common/constants.c",
+  "c/common/context.c",
+  "c/common/dictionary.c",
+  "c/common/platform.c",
+  "c/common/transform.c",
+  "c/dec/bit_reader.c",
+  "c/dec/decode.c",
+  "c/dec/huffman.c",
+  "c/dec/state.c",
+  "c/enc/backward_references.c",
+  "c/enc/backward_references_hq.c",
+  "c/enc/bit_cost.c",
+  "c/enc/block_splitter.c",
+  "c/enc/brotli_bit_stream.c",
+  "c/enc/cluster.c",
+  "c/enc/command.c",
+  "c/enc/compress_fragment.c",
+  "c/enc/compress_fragment_two_pass.c",
+  "c/enc/encode.c",
+  "c/enc/encoder_dict.c",
+  "c/enc/entropy_encode.c",
+  "c/enc/literal_cost.c",
+  "c/enc/fast_log.c",
+  "c/enc/memory.c",
+  "c/enc/metablock.c",
+  "c/enc/static_dict.c",
+  "c/enc/utf8_util.c",
+  "c/enc/dictionary_hash.c",
+  "c/enc/histogram.c",
+]
+code_dir = root_build_dir + "/third_party/brotli" + "/brotli-1.0.9"
+src_path = "//third_party/brotli"
+brotli_path = root_build_dir + "/third_party/brotli"
+action("installOpenEulerBrotli") {
+  print("brotli install")
+  script = "install.sh"
+
+  args = [
+    rebase_path(src_path, root_build_dir),
+    rebase_path(brotli_path, root_build_dir),
+  ]
+  inputs = [ src_path ]
+  outputs = []
+  foreach(src, brotli_source) {
+    outputs += [ "$code_dir/" + src ]
+  }
+}
+config("brotli_config") {
+  include_dirs = [ "$code_dir" + "/c/include" ]
+  cflags = [
+    "-Wno-deprecated-declarations",
+    "-D_GNU_SOURCE",
+    "-D_HAS_EXCEPTIONS=0",
+    "-DHAVE_CONFIG_H",
+    "-Wno-macro-redefined",
+  ]
+}
+
+ohos_shared_library("brotli_shared") {
+  branch_protector_ret = "pac_ret"
+  deps = [ ":installOpenEulerBrotli" ]
+  if (current_os == "ios") {
+    ldflags = [
+      "-Wl",
+      "-install_name",
+      "@rpath/libbrotli_shared.framework/libbrotli_shared",
+    ]
+  }
+  public_configs = [ ":brotli_config" ]
+  sources = []
+  foreach(src, brotli_source) {
+    sources += [ "$code_dir/" + src ]
+  }
+  install_images = [
+    "updater",
+    "system",
+  ]
+  innerapi_tags = [ "chipsetsdk_indirect" ]
+  subsystem_name = "thirdparty"
+  part_name = "brotli"
+}
+
+group("brotli_target") {
+  deps = [ "//third_party/brotli:brotli_shared" ]
+}

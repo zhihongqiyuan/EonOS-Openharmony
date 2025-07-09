@@ -1,0 +1,88 @@
+# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+THIRDPARTY_RE2_SUBSYS_NAME = "thirdparty"
+THIRDPARTY_RE2_PART_NAME = "re2"
+
+libre2_path = rebase_path("//third_party/re2")
+exec_script("install.sh", [ "$libre2_path" ])
+
+RE2_DIR = rebase_path("//third_party/re2/re2")
+
+config("re2_public_config") {
+  include_dirs = [ "${RE2_DIR}/" ]
+}
+ohos_shared_library("re2") {
+  sources = [
+    "${RE2_DIR}/re2/bitmap256.cc",
+    "${RE2_DIR}/re2/bitmap256.h",
+    "${RE2_DIR}/re2/bitstate.cc",
+    "${RE2_DIR}/re2/compile.cc",
+    "${RE2_DIR}/re2/dfa.cc",
+    "${RE2_DIR}/re2/filtered_re2.cc",
+    "${RE2_DIR}/re2/mimics_pcre.cc",
+    "${RE2_DIR}/re2/nfa.cc",
+    "${RE2_DIR}/re2/onepass.cc",
+    "${RE2_DIR}/re2/parse.cc",
+    "${RE2_DIR}/re2/perl_groups.cc",
+    "${RE2_DIR}/re2/pod_array.h",
+    "${RE2_DIR}/re2/prefilter.cc",
+    "${RE2_DIR}/re2/prefilter.h",
+    "${RE2_DIR}/re2/prefilter_tree.cc",
+    "${RE2_DIR}/re2/prefilter_tree.h",
+    "${RE2_DIR}/re2/prog.cc",
+    "${RE2_DIR}/re2/prog.h",
+    "${RE2_DIR}/re2/re2.cc",
+    "${RE2_DIR}/re2/regexp.cc",
+    "${RE2_DIR}/re2/regexp.h",
+    "${RE2_DIR}/re2/set.cc",
+    "${RE2_DIR}/re2/simplify.cc",
+    "${RE2_DIR}/re2/sparse_array.h",
+    "${RE2_DIR}/re2/sparse_set.h",
+    "${RE2_DIR}/re2/tostring.cc",
+    "${RE2_DIR}/re2/unicode_casefold.cc",
+    "${RE2_DIR}/re2/unicode_casefold.h",
+    "${RE2_DIR}/re2/unicode_groups.cc",
+    "${RE2_DIR}/re2/unicode_groups.h",
+    "${RE2_DIR}/re2/walker-inl.h",
+    "${RE2_DIR}/util/logging.h",
+    "${RE2_DIR}/util/mix.h",
+    "${RE2_DIR}/util/mutex.h",
+    "${RE2_DIR}/util/rune.cc",
+    "${RE2_DIR}/util/strutil.cc",
+    "${RE2_DIR}/util/strutil.h",
+    "${RE2_DIR}/util/utf.h",
+    "${RE2_DIR}/util/util.h",
+  ]
+  include_dirs = [ "re2" ]
+  if (!is_asan && !is_debug) {
+    version_script = "libre2.map"
+  }
+  external_deps = [
+    "abseil-cpp:absl_base",
+    "abseil-cpp:absl_container",
+    "abseil-cpp:absl_cord",
+    "abseil-cpp:absl_hash",
+    "abseil-cpp:absl_log",
+    "abseil-cpp:absl_raw_logging_internal",
+    "abseil-cpp:absl_spinlock_wait",
+    "abseil-cpp:absl_str_format_internal",
+    "abseil-cpp:absl_strings",
+  ]
+  public_configs = [ ":re2_public_config" ]
+  install_enable = true
+  subsystem_name = "${THIRDPARTY_RE2_SUBSYS_NAME}"
+  part_name = "${THIRDPARTY_RE2_PART_NAME}"
+}

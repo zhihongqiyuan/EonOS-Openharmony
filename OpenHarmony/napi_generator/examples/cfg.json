@@ -1,0 +1,30 @@
+[
+  {
+    "genPath": "E:\\napi_aboutTest\\testcase_napi_intellijPlugin\\generatorCode",
+    "includeName": "../serviceCode/NodeISayHello.h",
+    "cppName": "../serviceCode/NodeISayHello.cpp",
+    "interfaceName": "NodeISayHello::sayHello",
+    "serviceCode": "napitest::NodeISayHello *p = new napitest::NodeISayHello();\n    p->sayHello(from, to, sayType);\n    delete p;"
+  },
+  {
+    "genPath": "E:\\napi_aboutTest\\testcase_napi_intellijPlugin\\generatorCode",
+    "includeName": "../serviceCode/NodeISayHello.h",
+    "cppName": "../serviceCode/NodeISayHello.cpp",
+    "interfaceName": "NodeISayHello::sayHi",
+    "serviceCode": "napitest::NodeISayHello *p = new napitest::NodeISayHello();\n    p->sayHi(from, to, sayType);\n    delete p;"
+  },
+  {
+    "genPath": "E:\\napi_aboutTest\\testcase_napi_intellijPlugin\\generatorCode",
+    "includeName": "../serviceCode/NodeISayHello.h",
+    "cppName": "../serviceCode/NodeISayHello.cpp",
+    "interfaceName": "funcTest",
+    "serviceCode": "out = napitest::funcTest(v);"
+  },
+  {
+    "genPath": "E:\\napi_aboutTest\\testcase_napi_intellijPlugin\\generatorCode",
+    "includeName": "../serviceCode/NodeISayHello.h",
+    "cppName": "../serviceCode/NodeISayHello.cpp",
+    "interfaceName": "NodeISayHello::sayHelloWithResponse",
+    "serviceCode": "napitest::NodeISayHello *p = new napitest::NodeISayHello();\n    p->sayHelloWithResponse(from, to, sayType);\n    delete p;"
+  }
+]

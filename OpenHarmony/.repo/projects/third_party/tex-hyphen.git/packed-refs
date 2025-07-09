@@ -1,0 +1,6 @@
+# pack-refs with: peeled fully-peeled sorted 
+fbabf4f75dbb5199700bb70991db331f67c2efdd refs/tags/2024-12-24_20_39_13/github.com/hyphenation/tex-hyphen/CTAN-2021.03.21
+ed9376cfb48b2754b417b54293c689d242af086e refs/tags/OpenHarmony-v5.1.0-Release
+^0ec3428546e40fe2b9acd2bc69fe9695f6f7ef7c
+d75ae3b549f16358bf9b9ac49c4be45d00e404d2 refs/tags/OpenHarmony-v6.0-Beta1
+^ed93193c3d644a5726a0b98b1e1b257d30c95862

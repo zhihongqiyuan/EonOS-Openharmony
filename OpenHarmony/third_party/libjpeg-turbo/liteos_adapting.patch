@@ -1,0 +1,20 @@
+diff --git a/libjpeg-turbo-2.1.1/jmorecfg.h b/libjpeg-turbo-2.1.1/jmorecfg.h
+index fb3a9cf..1a63a14 100644
+--- a/jmorecfg.h
++++ b/jmorecfg.h
+@@ -137,6 +137,7 @@ typedef short INT16;
+  * same regardless of any external headers that may be included.
+  */
+ 
++#ifndef _LOS_COMPILER_H         /* LiteOS-M defines INT32 in los_compiler.h */
+ #ifndef XMD_H                   /* X11/xmd.h correctly defines INT32 */
+ #ifndef _BASETSD_H_             /* Microsoft defines it in basetsd.h */
+ #ifndef _BASETSD_H              /* MinGW is slightly different */
+@@ -146,6 +147,7 @@ typedef long INT32;
+ #endif
+ #endif
+ #endif
++#endif
+ 
+ /* Datatype used for image dimensions.  The JPEG standard only supports
+  * images up to 64K*64K due to 16-bit fields in SOF markers.  Therefore

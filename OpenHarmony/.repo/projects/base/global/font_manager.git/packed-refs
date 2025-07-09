@@ -1,0 +1,5 @@
+# pack-refs with: peeled fully-peeled sorted 
+00849c62224374745fe380db04e13fdd19c7b5a9 refs/tags/OpenHarmony-v5.1.0-Release
+^816ba6a4821894279d25187710f31c096cd88436
+0d0529f57b8a1c6a84599e2836e9b5b2c40598d5 refs/tags/OpenHarmony-v6.0-Beta1
+^e7ee494f562ca4bcb30e12df76fc50deb7acff08

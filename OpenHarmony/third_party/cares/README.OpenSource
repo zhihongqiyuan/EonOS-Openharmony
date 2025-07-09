@@ -1,0 +1,11 @@
+[
+    {
+    "Name": "openEuler:c-ares",
+    "License": "MIT License",
+    "License File": "LICENSE.md",
+    "Version Number": "1.18.1-7.oe2203sp3",
+    "Owner": "openEuler:cares",
+    "Upstream URL": "https://gitee.com/src-openeuler/c-ares/tree/openEuler-22.03-LTS-SP3",
+    "Description": "A C library for asynchronous DNS requests."
+    }
+]

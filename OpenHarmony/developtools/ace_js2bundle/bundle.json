@@ -1,0 +1,35 @@
+{
+    "name": "@ohos/ace_js2bundle",
+    "description": "ArkUI Web-like paradigm parser for syntax compilation, conversion, verification",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+      "destPath": "developtools/ace_js2bundle"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+      "name": "ace_js2bundle",
+      "subsystem": "developtools",
+      "adapted_system_type": [
+        "standard"
+      ],
+      "deps": {
+        "components": [],
+        "third_party": [
+          "parse5",
+          "weex-loader"
+        ]
+      },
+      "build": {
+        "sub_component": [
+          "//developtools/ace_js2bundle:ace_loader",
+          "//developtools/ace_js2bundle:ace_loader_library",
+          "//developtools/ace_js2bundle:previewer_copy",
+          "//developtools/ace_js2bundle:ace_loader_ark_hap"
+        ]
+      }
+    }
+  }
+  

@@ -1,0 +1,58 @@
+#  Copyright (c) 2024 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+domain: PROFILER
+
+HITRACE_USAGE:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, tag: usageStats, desc: hitrace usage statistics}
+  OPT: {type: STRING, desc: hitrace request type}
+  CALLER: {type: STRING, desc: hitrace caller}
+  TRACE_TAG: {type: STRING, desc: trace capture tag list}
+  DURATION: {type: INT32, desc: capture duration}
+  BUFFER_SIZE: {type: INT32, desc: trace buffer size}
+  FILE_LIMIT: {type: INT32, desc: trace file limit}
+  FILE_SIZE: {type: INT32, desc: trace file size limit}
+  CLOCK_TYPE: {type: STRING, desc: trace clock type}
+  IS_COMPRESSED: {type: BOOL, desc: whether output file is compressed}
+  IS_RAW: {type: BOOL, desc: whether trace data is raw type}
+  IS_OVERWRITE: {type: BOOL, desc: whether trace data is overwrite}
+  ERROR_CODE: {type: INT32, desc: request error code}
+  ERROR_MESSAGE: {type: STRING, desc: request error message}
+
+DUMP_TRACE:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, tag: usageStats, desc: trace dump statistics}
+  CALLER: {type: STRING, desc: caller of DumpTrace functionality}
+  ERROR_CODE: {type: INT32, desc: error code}
+  IPC_TIME: {type: UINT64, desc: timestamp of sending DumpTrace request in unix time}
+  REQ_TIME: {type: UINT64, desc: target trace end time in unix timepassed by the caller}
+  REQ_DURATION: {type: INT32, desc: target trace duration passed by the caller}
+  EXEC_TIME: {type: UINT64, desc: DumpTrace execution start time in unix time in milliseconds}
+  EXEC_DURATION: {type: INT32, desc: DumpTrace execution duration in milliseconds}
+  COVER_DURATION: {type: INT32, desc: time coverage of captured trace on requested interval in milliseconds}
+  COVER_RATIO: {type: INT32, desc: time coverage ratio expressed in premille}
+  TAGS: {type: STRING, arrsize: 100, desc: tags}
+  FILE_SIZE: {type: INT32, desc: total trace file size in MB}
+  SYS_MEM_TOTAL: {type: INT32, desc: total system memory in MB}
+  SYS_MEM_FREE: {type: INT32, desc: free system memory in MB}
+  SYS_MEM_AVAIL: {type: INT32, desc: available system memory in MB}
+  SYS_CPU: {type: INT32, desc: average system cpu usage}
+  TRACE_MODE: {type: UINT8, desc: average system cpu usage}
+
+HIPERF_USAGE:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: hiperf usage statistics}
+  MAIN_CMD: {type: STRING, desc: main request command type}
+  SUB_CMD: {type: STRING, desc: sub request command type}
+  CALLER: {type: STRING, desc: hiperf caller}
+  TARGET_PROCESS: {type: STRING, desc: hiperf capture process}
+  ERROR_CODE: {type: INT32, desc: request error code}
+  ERROR_MESSAGE: {type: STRING, desc: request error message}

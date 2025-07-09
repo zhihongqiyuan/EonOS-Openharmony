@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "vixl",
+        "License": "BSD 3-clause",
+        "License File": "LICENCE",
+        "Version Number": "7.0.0",
+        "Owner": "huanghuijin@huawei.com",
+        "Upstream URL": "https://github.com/Linaro/vixl",
+        "Description": "vixl is a programmatic assemblers to generate A64, A32 or T32 code at runtime."
+    }
+]

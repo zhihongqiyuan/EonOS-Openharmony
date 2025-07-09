@@ -1,0 +1,55 @@
+{
+    "name": "@ohos/libuv",
+    "description": "libuv is a multi-platform support library with a focus on asynchronous I/O.",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/libuv"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "libuv",
+        "subsystem": "thirdparty",
+        "syscap": [
+            "SystemCapability.ArkUI.ArkUI.Libuv"
+        ],
+        "features": ["libuv_use_ffrt"],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "163KB",
+        "ram": "0",
+        "deps": {
+            "components": [
+                "ffrt",
+                "hilog",
+                "hitrace",
+                "faultloggerd",
+                "init"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                  "name": "//third_party/libuv:uv",
+                  "header": {
+                    "header_files": [],
+                    "header_base": "//third_party/libuv/include"
+                  }
+                },
+                {
+                  "name": "//third_party/libuv:uv_static",
+                  "header": {
+                    "header_files": [],
+                    "header_base": "//third_party/libuv/include"
+                  }
+                }
+            ],
+            "test": []
+        }
+    }
+}

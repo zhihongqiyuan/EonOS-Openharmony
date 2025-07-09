@@ -1,0 +1,10 @@
+[
+    {
+        "Name"                  : "libsndfile",
+        "License"               : "LGPL V2.1//Apache/Sun Microsystems License",
+        "License File"          : "COPYING",
+        "Version Number"        : "1.2.0",
+        "Upstream URL"          : "https://github.com/libsndfile/libsndfile/tree/1.2.0",
+        "Description"           : "libsndfile is a C library for reading and writing files containing sampled audio data."
+    }
+]

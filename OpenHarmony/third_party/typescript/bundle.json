@@ -1,0 +1,36 @@
+{
+    "name": "@ohos/typescript",
+    "description": "TypeScript is a language for application scale JavaScript development.",
+    "version": "3.1",
+    "license": "Apache-2.0",
+    "segment": {
+        "destPath": "third_party/typescript"
+    },
+    "dirs": {},
+    "scripts": {},
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "typescript",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "0",
+        "ram": "0",
+        "deps": {
+            "components": [
+            ],
+            "third_party": [
+            ]
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

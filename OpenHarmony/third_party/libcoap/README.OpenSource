@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "libcoap: C-Implementation of CoAP",
+        "License": "BSD 2-Clause License",
+        "License File": "LICENSE",
+        "Version Number": "4.3.4",
+        "Owner": "",
+        "Upstream URL": "https://github.com/obgm/libcoap",
+        "Description": "libcoap is a C implementation of a lightweight application-protocol for devices that are constrained their resources such as computing power, RF range, memory, bandwidth, or network packet sizes."
+    }
+]

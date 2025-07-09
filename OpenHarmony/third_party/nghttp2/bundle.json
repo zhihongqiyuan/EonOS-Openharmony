@@ -1,0 +1,57 @@
+{
+    "name": "@ohos/nghttp2",
+    "description": "nghttp2 is an implementation of HTTP/2 and its header compression algorithm HPACK in C.",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/nghttp2"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYING",
+    "readmePath": {
+        "en": "README.rst"
+    },
+    "component": {
+        "name": "nghttp2",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "small",
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name":"//third_party/nghttp2/lib:libnghttp2_shared",
+                    "header":{
+                        "header_files":[],
+                        "header_base": [
+                            "//third_party/nghttp2/lib/includes",
+                            "//third_party/nghttp2/lib/includes/nghttp2"
+                        ]
+                    }
+                },
+                {
+                    "name":"//third_party/nghttp2/lib:libllhttp",
+                    "header":{
+                        "header_files":[],
+                        "header_base": [
+                            "//third_party/nghttp2/third-party/llhttp/include"
+                        ]
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

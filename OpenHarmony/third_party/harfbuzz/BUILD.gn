@@ -1,0 +1,134 @@
+# Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+} else {
+  import("//build/ohos.gni")
+}
+config("harfbuzz_config") {
+  include_dirs = [ "${target_gen_dir}/harfbuzz-11.0.0/src" ]
+}
+
+action("harfbuzz_action") {
+  script = "//third_party/harfbuzz/install.py"
+  outputs = [
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-aat-layout.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-aat-map.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-blob.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-buffer-serialize.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-buffer.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-common.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-face.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-fallback-shape.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-font.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-map.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-number.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-cff1-table.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-cff2-table.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-face.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-font.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-layout.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-map.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-math.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-meta.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-metrics.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-name.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shaper-arabic.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shaper-default.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shaper-hangul.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shaper-hebrew.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shaper-indic-table.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shaper-indic.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shaper-khmer.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shaper-myanmar.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shaper-syllabic.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shaper-thai.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shaper-use.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shaper-vowel-constraints.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shape-fallback.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shape-normalize.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-shape.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-tag.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ot-var.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-set.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-shape-plan.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-shape.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-shaper.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-static.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-subset-cff2.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-subset-cff-common.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-ucd.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-unicode.cc",
+    "${target_gen_dir}/harfbuzz-11.0.0/src/hb-face-builder.cc",
+  ]
+
+  inputs = [ "//third_party/harfbuzz/harfbuzz-11.0.0.tar.xz" ]
+  harfbuzz_path = rebase_path("${target_gen_dir}", root_build_dir)
+  harfbuzz_source_path = rebase_path("//third_party/harfbuzz", root_build_dir)
+  args = [
+    "--gen-dir",
+    "$harfbuzz_path",
+    "--source-dir",
+    "$harfbuzz_source_path",
+  ]
+}
+
+if (defined(ohos_lite)) {
+  lite_library("harfbuzz") {
+    output_name = "harfbuzz"
+    sources = get_target_outputs(":harfbuzz_action")
+    deps = [ ":harfbuzz_action" ]
+    public_configs = [ ":harfbuzz_config" ]
+    if (defined(board_toolchain_type) && board_toolchain_type == "iccarm") {
+      target_type = "static_library"
+      defines = [
+        "HB_TINY",
+        "ENABLE_ICCARM=1",
+        "HB_CUSTOM_MALLOC",
+      ]
+      cflags = [
+        "--diag_suppress",
+        "Pe068,Pa093,Pe111,Pa181,Pe128,Pe161,Pe177,Pe185,Pe186,Pe550,Pe554",
+      ]
+      cflags_cc = cflags
+    } else if (defined(board_toolchain_type) &&
+               board_toolchain_type == "clang") {
+      target_type = "static_library"
+      defines = [
+        "HB_TINY",
+        "HB_CUSTOM_MALLOC",
+        "HB_NO_PRAGMA_GCC_DIAGNOSTIC_WARNING",
+        "HB_NO_PRAGMA_GCC_DIAGNOSTIC_ERROR",
+      ]
+      cflags = [
+        "-Wall",
+        "-Wno-error=unused-variable",
+        "-Wno-unused-variable",
+        "-Wno-error=extra-semi-stmt",
+        "-Wno-extra-semi-stmt",
+      ]
+      cflags_cc = cflags
+    } else {
+      target_type = "shared_library"
+      defines = [ "HAVE_PTHREAD = 1" ]
+    }
+  }
+} else {
+  ohos_static_library("harfbuzz_static") {
+    sources = get_target_outputs(":harfbuzz_action")
+    deps = [ ":harfbuzz_action" ]
+    include_dirs = [ "${target_gen_dir}/harfbuzz-11.0.0/src" ]
+    defines = [ "HAVE_PTHREAD = 1" ]
+    public_configs = [ ":harfbuzz_config" ]
+    part_name = "harfbuzz"
+    subsystem_name = "thirdparty"
+  }
+}

@@ -1,0 +1,46 @@
+{
+    "name": "@ohos/egl",
+    "description": "The EGL-Registry repository contains the EGL API and Extension Registry, including specifications, reference pages and reference cards, and the enumerant registry.",
+    "version": "3.1",
+    "license": "MIT License",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/EGL"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "README.OpenSource",
+    "readmePath": {
+        "en": "README.md"
+    },
+    "component": {
+        "name": "egl",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": ["standard"],
+        "rom": "1",
+        "ram": "1",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/EGL:libEGL",
+                    "header": {
+                      "header_files": [
+                        "egl.h",
+                        "eglext.h",
+                        "eglplatform.h"
+                      ],
+                      "header_base": "//third_party/EGL/api/EGL"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

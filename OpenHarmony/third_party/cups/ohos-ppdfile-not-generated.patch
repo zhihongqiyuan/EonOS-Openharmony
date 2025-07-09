@@ -1,0 +1,14 @@
+diff --git a/scheduler/ipp.c b/scheduler/ipp.c
+index 5972b99..9d3cf35 100644
+--- a/scheduler/ipp.c
++++ b/scheduler/ipp.c
+@@ -5325,7 +5325,8 @@ create_local_bg_thread(
+ 
+   cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Get-Printer-Attributes returned %s (%s)", printer->name, ippErrorString(cupsLastError()), cupsLastErrorString());
+ 
+-  if (status == IPP_STATUS_ERROR_BAD_REQUEST || status == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
++  if (status == IPP_STATUS_ERROR_BAD_REQUEST || status == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED ||
++    (attr = ippFindAttribute(response,	"document-format-supported",	IPP_TAG_MIMETYPE)) == NULL)
+   {
+    /*
+     * Try request using IPP/1.1, in case we are talking to an old CUPS server or

@@ -1,0 +1,10 @@
+[
+  {
+    "Name": "openEuler:tzdata",
+    "License": "CC-PDDC",
+    "License File": "LICENSE",
+    "Version Number": "2022a-16.oe2203sp3",
+    "Upstream URL": "https://gitee.com/src-openeuler/tzdata",
+    "Description": "The Time Zone Database (often called tz or zoneinfo) contains code and data that represent the history of local time for many representative locations around the globe."
+  }
+]

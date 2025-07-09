@@ -1,0 +1,15 @@
+# pack-refs with: peeled fully-peeled sorted 
+0634e4fad5a446558010a6df6019dafed159cbab refs/tags/OpenHarmony-v5.0-Beta1
+^911d3b363683c540dd6bd38d0bb0105ce025981b
+0e528c30a264af7e09196a8e835b6e67ad7669b9 refs/tags/OpenHarmony-v5.0.0-Release
+^028392c19e8eb1933cc0b598000a62b530f465bc
+bed1e811fe828ef739959b6fc735346573ce6a20 refs/tags/OpenHarmony-v5.0.1-Release
+^f51ae2f2e48f4f4966b607d63d8daaf9b8bc0b96
+f0c9f4950d0a0730a5e37ecbe28deed88eafb276 refs/tags/OpenHarmony-v5.0.2-Release
+^e521cb8197b52306524ff145f6e60ef7753bb7f3
+23fdf708c1ef74c50a3f0d8ad902b999e5428a63 refs/tags/OpenHarmony-v5.0.3-Release
+^485cb8a14a183c8931d2fafd67990d6078672e5a
+710615de97db474f192d3783ebe9c2988dfa63e5 refs/tags/OpenHarmony-v5.1.0-Release
+^585e49a90963ab04976f12f2131e2164172ae218
+1974c3feb3a222eb127cd0b31dc854068c92575a refs/tags/OpenHarmony-v6.0-Beta1
+^5f81b5c414bb9bf0bd80e0f76fc64f5f95b5acbe

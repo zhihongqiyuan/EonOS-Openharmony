@@ -1,0 +1,536 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+HDC_PATH = "."
+import("//developtools/hdc/hdc.gni")
+
+py_out_dir = "$root_out_dir/gen/" + rebase_path(".", "//")
+
+declare_args() {
+  # suggestion: uv threads number from 16 - 256
+  hdcd_uv_thread_size = 4
+  hdc_uv_thread_size = 128
+}
+
+hdc_common_sources = [
+  "src/common/async_cmd.cpp",
+  "src/common/auth.cpp",
+  "src/common/base.cpp",
+  "src/common/channel.cpp",
+  "src/common/circle_buffer.cpp",
+  "src/common/compress.cpp",
+  "src/common/debug.cpp",
+  "src/common/decompress.cpp",
+  "src/common/entry.cpp",
+  "src/common/file.cpp",
+  "src/common/file_descriptor.cpp",
+  "src/common/forward.cpp",
+  "src/common/header.cpp",
+  "src/common/heartbeat.cpp",
+  "src/common/server_cmd_log.cpp",
+  "src/common/session.cpp",
+  "src/common/task.cpp",
+  "src/common/tcp.cpp",
+  "src/common/tlv.cpp",
+  "src/common/transfer.cpp",
+  "src/common/usb.cpp",
+  "src/common/uv_status.cpp",
+]
+
+hash_sources = [
+  "scripts/hdc_hash_gen.py",
+  "src/common/base.cpp",
+  "src/common/channel.h",
+  "src/common/session.h",
+  "src/common/transfer.h",
+]
+
+if (hdc_support_uart) {
+  hdc_common_sources += [ "src/common/uart.cpp" ]
+}
+config("hdc_config") {
+  include_dirs = [
+    "src/common",
+    "${py_out_dir}",
+  ]
+  cflags_cc = [ "-std=c++17" ]
+  if (is_mingw) {
+    cflags_cc += [ "-Wno-inconsistent-dllimport" ]  # in mingw some sec api will
+                                                    # overwrite by utilsecurec
+  }
+}
+
+template("hdcd_source_set") {
+  forward_variables_from(invoker, "*")
+
+  ohos_source_set(target_name) {
+    use_exceptions = true
+    sources = [
+      "src/daemon/daemon.cpp",
+      "src/daemon/daemon_app.cpp",
+      "src/daemon/daemon_bridge.cpp",
+      "src/daemon/daemon_forward.cpp",
+      "src/daemon/daemon_tcp.cpp",
+      "src/daemon/daemon_unity.cpp",
+      "src/daemon/daemon_usb.cpp",
+      "src/daemon/jdwp.cpp",
+      "src/daemon/main.cpp",
+      "src/daemon/shell.cpp",
+      "src/daemon/system_depend.cpp",
+    ]
+    sources += hdc_common_sources
+
+    defines = [
+      "HARMONY_PROJECT",
+      "USE_CONFIG_UV_THREADS",
+      "SIZE_THREAD_POOL=$hdcd_uv_thread_size",
+      "HDC_HILOG",
+      "OPENSSL_SUPPRESS_DEPRECATED",
+    ]
+
+    if (hdc_debug) {
+      defines += [ "HDC_DEBUG" ]
+    }
+    if (hdc_support_uart) {
+      defines += [ "HDC_SUPPORT_UART" ]
+      sources += [ "src/daemon/daemon_uart.cpp" ]
+    }
+    if (js_jdwp_connect) {
+      defines += [ "JS_JDWP_CONNECT" ]
+    }
+    if (use_musl) {
+      if (musl_use_jemalloc && musl_use_jemalloc_dfx_intf) {
+        defines += [ "CONFIG_USE_JEMALLOC_DFX_INIF" ]
+      }
+    }
+    if (is_emulator) {
+      defines += [ "HDC_EMULATOR" ]
+    }
+    if (build_variant == "user") {
+      defines += [ "IS_RELEASE_VERSION" ]
+    }
+    configs = [ ":hdc_config" ]
+
+    deps = [
+      ":hdc_hash_gen",
+      "src/daemon/etc:daemon_etc",
+    ]
+
+    if (hdc_jdwp_test) {
+      defines += [ "SIMULATE_JDWP" ]
+      deps += [ "src/test/jdwp:jdwp_test" ]
+    }
+
+    external_deps = [
+      "bounds_checking_function:libsec_shared",
+      "c_utils:utils",
+      "hilog:libhilog",
+      "init:libbegetutil",
+      "libuv:uv",
+      "lz4:liblz4_static",
+      "openssl:libcrypto_shared",
+    ]
+
+    if (build_selinux) {
+      external_deps += [ "selinux:libselinux" ]
+      defines += [ "SURPPORT_SELINUX" ]
+      if (image_name == "updater") {
+        defines += [ "UPDATER_MODE" ]
+      }
+      if (image_name == "system") {
+        defines += [ "HDC_TRACE" ]
+        external_deps += [ "hitrace:hitrace_meter" ]
+      }
+    }
+
+    if (hdc_version_check) {
+      defines += [ "HDC_VERSION_CHECK" ]
+    }
+
+    ldflags = [ "-rdynamic" ]
+
+    subsystem_name = "developtools"
+    part_name = "hdc"
+  }
+}
+
+if (product_name != "ohos-sdk") {
+  ohos_static_library("serialize_structs") {
+    sources = [
+      "hdc_rust/src/cffi/bridge.cpp",
+      "hdc_rust/src/cffi/cmd.cpp",
+      "hdc_rust/src/cffi/getparameter.cpp",
+      "hdc_rust/src/cffi/log.cpp",
+      "hdc_rust/src/cffi/mount.cpp",
+      "hdc_rust/src/cffi/mount_wrapper.cpp",
+      "hdc_rust/src/cffi/oh_usb.cpp",
+      "hdc_rust/src/cffi/sendmsg.cpp",
+      "hdc_rust/src/cffi/serial_struct.cpp",
+      "hdc_rust/src/cffi/sys_para.cpp",
+      "hdc_rust/src/cffi/transfer.cpp",
+      "hdc_rust/src/cffi/uart.cpp",
+      "hdc_rust/src/cffi/uart_wrapper.cpp",
+      "hdc_rust/src/cffi/usb_util.cpp",
+      "hdc_rust/src/cffi/usb_wrapper.cpp",
+      "hdc_rust/src/cffi/utils.cpp",
+    ]
+
+    external_deps = [
+      "bounds_checking_function:libsec_static",
+      "hilog:libhilog",
+      "init:libbegetutil",
+      "lz4:liblz4_static",
+    ]
+
+    defines = [ "HDC_HILOG" ]
+
+    if (is_mac) {
+      defines = [ "HOST_MAC" ]
+    }
+
+    if (build_selinux) {
+      external_deps += [ "selinux:libselinux" ]
+      defines += [ "SURPPORT_SELINUX" ]
+    }
+
+    subsystem_name = "developtools"
+    part_name = "hdc"
+  }
+
+  ohos_rust_static_library("lib") {
+    crate_name = "hdc"
+    crate_type = "rlib"
+    crate_root = "hdc_rust/src/lib.rs"
+    sources = [ "hdc_rust/src/lib.rs" ]
+
+    deps = [
+      ":serialize_structs",
+      "//third_party/rust/crates/humantime:lib",
+      "//third_party/rust/crates/libc:lib",
+      "//third_party/rust/crates/log:lib",
+    ]
+    if (is_emulator && product_name != "ohos-sdk") {
+      features = [ "emulator" ]
+    }
+    external_deps = [
+      "hilog:hilog_rust",
+      "rust_rust-openssl:lib",
+      "ylong_runtime:ylong_runtime",
+    ]
+    subsystem_name = "developtools"
+    part_name = "hdc"
+  }
+}
+
+template("build_hdc") {
+  forward_variables_from(invoker, "*")
+  image_name = target_name
+  hdcd_source_set("hdcd_${image_name}_source") {
+    if (build_selinux) {
+      image_name = image_name
+    }
+
+    subsystem_name = "developtools"
+    part_name = "hdc"
+  }
+
+  if (image_name == "system") {
+    if (product_name != "ohos-sdk" || is_emulator) {
+      ohos_executable("hdcd_${image_name}_exe") {
+        sanitize = {
+          cfi = true
+          cfi_cross_dso = true
+          cfi_vcall_icall_only = true
+          debug = false
+        }
+        deps = [ ":hdcd_${image_name}_source" ]
+        external_deps = [ "hilog:libhilog" ]
+        output_name = "hdcd_${image_name}"
+        install_enable = false
+        subsystem_name = "developtools"
+        part_name = "hdc"
+      }
+    } else {
+      ohos_rust_executable("hdcd_${image_name}_exe") {
+        sources = [ "hdc_rust/src/daemon/main.rs" ]
+        if (use_clang_coverage) {
+          rustflags = [
+            "-C",
+            "instrument-coverage",
+            "-Clink-arg=--coverage",
+          ]
+        }
+        rustflags = [ "-Cforce-frame-pointers=yes" ]
+        deps = [
+          "//third_party/rust/crates/env_logger:lib",
+          "//third_party/rust/crates/humantime:lib",
+          "//third_party/rust/crates/libc:lib",
+          "//third_party/rust/crates/log:lib",
+          "//third_party/rust/crates/nix:lib",
+        ]
+        external_deps = [
+          "hilog:hilog_rust",
+          "rust_rust-openssl:lib",
+        ]
+
+        if (product_name != "ohos-sdk") {
+          deps += [
+            ":lib",
+            ":serialize_structs",
+          ]
+          external_deps += [ "ylong_runtime:ylong_runtime" ]
+        }
+
+        if (!defined(ohos_lite)) {
+          external_deps += [ "faultloggerd:panic_handler" ]
+        }
+
+        output_name = "hdcd_${image_name}"
+        install_enable = false
+        features = [ "daemon" ]
+        if (is_emulator) {
+          features += [ "emulator" ]
+        }
+        rust_static_link = true
+        subsystem_name = "developtools"
+        part_name = "hdc"
+      }
+    }
+  } else {
+    ohos_executable("hdcd_${image_name}_exe") {
+      sanitize = {
+        cfi = true
+        cfi_cross_dso = true
+        cfi_vcall_icall_only = true
+        debug = false
+      }
+      deps = [ ":hdcd_${image_name}_source" ]
+      external_deps = [ "hilog:libhilog" ]
+      output_name = "hdcd_${image_name}"
+      install_enable = false
+      subsystem_name = "developtools"
+      part_name = "hdc"
+    }
+  }
+
+  ohos_prebuilt_executable("hdcd_${image_name}") {
+    deps = [ ":hdcd_${image_name}_exe" ]
+    output = "${image_name}/hdcd"
+    install_enable = true
+    subsystem_name = "developtools"
+    part_name = "hdc"
+    source = "${root_out_dir}/${subsystem_name}/${part_name}/hdcd_${image_name}"
+    module_install_dir = "bin"
+    install_images = []
+    if (image_name == "updater") {
+      install_images = [ "updater" ]
+    } else {
+      install_images = [ "system" ]
+    }
+  }
+}
+
+build_hdc("system") {
+}
+
+build_hdc("updater") {
+}
+
+ohos_executable("hdc") {
+  use_exceptions = true
+  ldflags = []
+  libs = []
+  configs = [ ":hdc_config" ]
+  defines = [
+    "HDC_HOST",
+    "HARMONY_PROJECT",
+    "USE_CONFIG_UV_THREADS",
+    "SIZE_THREAD_POOL=$hdc_uv_thread_size",
+    "OPENSSL_SUPPRESS_DEPRECATED",
+  ]
+  if (is_mac) {
+    defines += [ "HOST_MAC" ]
+  }
+  if (hdc_debug) {
+    defines += [ "HDC_DEBUG" ]
+  }
+  sources = [
+    "src/host/client.cpp",
+    "src/host/ext_client.cpp",
+    "src/host/host_app.cpp",
+    "src/host/host_forward.cpp",
+    "src/host/host_shell_option.cpp",
+    "src/host/host_tcp.cpp",
+    "src/host/host_unity.cpp",
+    "src/host/host_updater.cpp",
+    "src/host/host_usb.cpp",
+    "src/host/main.cpp",
+    "src/host/server.cpp",
+    "src/host/server_for_client.cpp",
+    "src/host/translate.cpp",
+  ]
+  sources += hdc_common_sources
+  if (hdc_support_uart) {
+    defines += [ "HDC_SUPPORT_UART" ]
+    sources += [ "src/host/host_uart.cpp" ]
+  }
+
+  external_deps = [
+    "bounds_checking_function:libsec_static",
+    "libusb:libusb",
+    "libuv:uv_static",
+    "lz4:liblz4_static",
+    "openssl:libcrypto_static",
+  ]
+
+  if (is_ohos) {
+    sources += [ "src/common/password.cpp" ]
+    sources += [ "src/common/hdc_huks.cpp" ]
+    defines += [ "HDC_SUPPORT_ENCRYPT_PRIVATE_KEY" ]
+    external_deps += [ "huks:libhukssdk" ]
+  }
+
+  deps = [ ":hdc_hash_gen" ]
+
+  if (!(is_mingw || is_mac) && build_selinux) {
+    external_deps += [ "selinux:libselinux" ]
+    defines += [ "SURPPORT_SELINUX" ]
+  }
+
+  if (hdc_version_check) {
+    defines += [ "HDC_VERSION_CHECK" ]
+  }
+
+  if (is_mingw) {
+    static_link = false
+
+    # we should use something we define , not just _WIN32 (this will defined in some windows header)
+    defines += [ "HOST_MINGW" ]  # we define this for mingw
+    defines += [ "WIN32_LEAN_AND_MEAN" ]
+    libs += [ "setupapi" ]
+    ldflags += [
+      "-Wl,--whole-archive",
+      "-lpthread",
+      "-Wl,--no-whole-archive",
+    ]
+  }
+
+  if (is_linux) {
+    static_link = false
+    defines += [ "HOST_LINUX" ]
+    ldflags += [
+      "-Wl,--whole-archive",
+      "-lpthread",
+      "-latomic",
+      "-ldl",
+      "-lrt",
+      "-Wl,--no-whole-archive",
+    ]
+  }
+
+  subsystem_name = "developtools"
+  part_name = "hdc"
+}
+
+group("hdc_target") {
+  deps = [
+    ":hdc",
+    ":hdc_register",
+    ":hdcd_system",
+    ":hdcd_updater",
+  ]
+}
+
+group("hdc_target_all") {
+  deps = [ ":hdc_target" ]
+}
+
+group("hdc_all") {
+  testonly = true
+  deps = [ ":hdc_target_all" ]
+}
+
+group("hdc_test_target") {
+  testonly = true
+  deps = [ "test:hdc_fuzztest" ]
+}
+
+action("hdc_hash_gen") {
+  script = "scripts/hdc_hash_gen.py"
+  sources = hash_sources
+  outputs = [ "$py_out_dir" ]
+  args = [
+    "-f",
+    "hdc_hash_gen.h",
+    "-i",
+    rebase_path(".", root_build_dir),
+    "-o",
+    rebase_path("$py_out_dir" + "/", root_build_dir),
+  ]
+  public_configs = [ ":hdc_config" ]
+}
+
+config("hdc_register_config") {
+  cflags_cc = [
+    "-fexceptions",
+    "-fno-complete-member-pointers",
+    "-Wno-implicit-fallthrough",
+    "-fvisibility=default",
+    "-frtti",
+    "-std=c++17",
+  ]
+}
+
+ohos_shared_library("hdc_register") {
+  defines = [
+    "JS_JDWP_CONNECT",
+    "HDC_HILOG",
+  ]
+
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "c_utils:utils",
+    "hilog:libhilog",
+    "init:libbeget_proxy",
+    "init:libbegetutil",
+    "libuv:uv",
+  ]
+
+  sources = [
+    "src/register/hdc_connect.cpp",
+    "src/register/hdc_jdwp.cpp",
+  ]
+
+  configs = [ ":hdc_register_config" ]
+
+  innerapi_tags = [ "platformsdk" ]
+  subsystem_name = "developtools"
+  part_name = "hdc"
+}
+
+config("hdc_updater_config") {
+  include_dirs = [
+    "src/common",
+    "src/daemon",
+  ]
+}
+
+ohos_static_library("hdc_updater") {
+  sources = []
+  defines = []
+
+  public_configs = [ ":hdc_updater_config" ]
+  subsystem_name = "developtools"
+  part_name = "hdc"
+}

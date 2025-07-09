@@ -1,0 +1,11 @@
+[
+    {
+        "Name"                  : "libfuse",
+        "License"               : "GPL-2.0, LGPL-2.1",
+        "License File"          : "GPL2.txt, LGPL2.txt",
+        "Version Number"        : "fuse-3.16.1",
+        "Owner"                 : "maojingjing1@huawei.com",
+        "Upstream URL"          : "https://github.com/libfuse/libfuse/releases/tag/fuse-3.16.1",
+        "Description"           : "libfuse provides the reference implementation for communicating with the FUSE kernel module."
+    }
+]

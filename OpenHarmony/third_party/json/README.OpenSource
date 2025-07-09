@@ -1,0 +1,11 @@
+[
+  {
+   "Name":"JSON for Modern C++",
+   "License":"MIT License",
+   "License File":"LICENSE.MIT",
+   "Version Number":"3.11.3",
+   "Owner":"furuikai@huawei.com",
+   "Upstream URL":"https://github.com/nlohmann/json",
+   "Description": "The JSON for Modern C++ Library has intutitve syntax, trivial integration and memory efficiency features."
+  }
+]

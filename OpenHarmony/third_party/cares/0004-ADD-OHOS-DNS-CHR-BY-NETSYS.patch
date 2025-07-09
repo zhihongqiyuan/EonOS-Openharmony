@@ -1,0 +1,584 @@
+diff --git a/src/lib/ares__parse_into_addrinfo.c b/src/lib/ares__parse_into_addrinfo.c
+index 4393f04..95a6653 100644
+--- a/src/lib/ares__parse_into_addrinfo.c
++++ b/src/lib/ares__parse_into_addrinfo.c
+@@ -227,3 +227,100 @@ failed_stat:
+   ares__freeaddrinfo_nodes(nodes);
+   return status;
+ }
++
++
++int ares__ans_all_cname(const unsigned char *abuf,
++                              int alen)
++{
++  unsigned int qdcount = 0, ancount = 0;
++  int status = -1, i, rr_type, rr_class, rr_len, rr_ttl;
++  long len;
++  const unsigned char *aptr;
++  char *question_hostname = NULL;
++  char *rr_name = NULL;
++  int flag = 0;
++
++  /* Give up if abuf doesn't have room for a header. */
++  if (alen < HFIXEDSZ)
++    goto failed_stat;
++
++  /* Fetch the question and answer count from the header. */
++  qdcount = DNS_HEADER_QDCOUNT(abuf);
++  ancount = DNS_HEADER_ANCOUNT(abuf);
++  if (ancount == 0) {
++    return flag;
++  }
++  if (qdcount != 1)
++    goto failed_stat;
++
++
++  /* Expand the name from the question, and skip past the question. */
++  aptr = abuf + HFIXEDSZ;
++  status = ares__expand_name_for_response(aptr, abuf, alen, &question_hostname, &len, 0);
++  if (status != ARES_SUCCESS)
++    goto failed_stat;
++  if (aptr + len + QFIXEDSZ > abuf + alen)
++    {
++      status = ARES_EBADRESP;
++      goto failed_stat;
++    }
++
++  aptr += len + QFIXEDSZ;
++
++  /* Examine each answer resource record (RR) in turn. */
++  for (i = 0; i < (int)ancount; i++)
++    {
++      /* Decode the RR up to the data field. */
++      status = ares__expand_name_for_response(aptr, abuf, alen, &rr_name, &len, 0);
++      if (status != ARES_SUCCESS)
++        {
++          rr_name = NULL;
++          goto failed_stat;
++        }
++
++      aptr += len;
++      if (aptr + RRFIXEDSZ > abuf + alen)
++        {
++          status = ARES_EBADRESP;
++          goto failed_stat;
++        }
++      rr_type = DNS_RR_TYPE(aptr);
++      rr_class = DNS_RR_CLASS(aptr);
++      rr_len = DNS_RR_LEN(aptr);
++      rr_ttl = DNS_RR_TTL(aptr);
++      aptr += RRFIXEDSZ;
++      if (aptr + rr_len > abuf + alen)
++        {
++          status = ARES_EBADRESP;
++          goto failed_stat;
++        }
++
++      if (rr_class == C_IN && rr_type == T_CNAME)
++        {
++          flag = 1;
++        }
++      else
++        {
++          /* rr_name is only saved for cname */
++          ares_free(rr_name);
++          rr_name = NULL;
++          goto failed_stat;
++        }
++
++
++      aptr += rr_len;
++      if (aptr > abuf + alen)
++        {  /* LCOV_EXCL_START: already checked above */
++          status = ARES_EBADRESP;
++          goto failed_stat;
++        }  /* LCOV_EXCL_STOP */
++    }
++  ares_free(question_hostname);
++  ares_free(rr_name);
++  return flag;
++
++failed_stat:
++  ares_free(question_hostname);
++  ares_free(rr_name);
++  return 0;
++}
+\ No newline at end of file
+diff --git a/src/lib/ares_getaddrinfo.c b/src/lib/ares_getaddrinfo.c
+index a44c428..dd95d46 100644
+--- a/src/lib/ares_getaddrinfo.c
++++ b/src/lib/ares_getaddrinfo.c
+@@ -47,8 +47,11 @@
+ #endif
+ 
+ #include "ares.h"
++#include "ares_dns.h"
+ #include "bitncmp.h"
+ #include "ares_private.h"
++#include "ares_llist.h"
++#include "ares_iphlpapi.h"
+ 
+ #ifdef WATT32
+ #undef WIN32
+@@ -73,6 +76,8 @@ struct host_query
+   int remaining;   /* number of DNS answers waiting for */
+   int next_domain; /* next search domain to try */
+   int nodata_cnt; /* Track nodata responses to possibly override final result */
++  char *src_addr;
++  struct ares_process_info process_info;
+ };
+ 
+ static const struct ares_addrinfo_hints default_hints = {
+@@ -106,16 +111,26 @@ static const struct ares_addrinfo empty_addrinfo = {
+   NULL  /* name */
+ };
+ 
++static const struct ares_family_query_info empty_family_query_info = {
++  -1, /* retCode */
++  NULL, /* serverAddr */
++  1,  /* isNoAnswer */
++  0,  /* cname */
++};
++
+ /* forward declarations */
+ static void host_callback(void *arg, int status, int timeouts,
+                           unsigned char *abuf, int alen);
+ static int as_is_first(const struct host_query *hquery);
+ static int as_is_only(const struct host_query* hquery);
+ static int next_dns_lookup(struct host_query *hquery);
++static void ares_record_process(int status, const char *hostname, long long start_time,
++    const struct ares_addrinfo *addr_info, struct host_query *hquery);
+ 
+ #if OHOS_DNS_PROXY_BY_NETSYS
+ #define MAX_RESULTS 32
+ #define MAX_CANON_NAME 256
++#define SOURCE_FROM_CARES 2
+ 
+ typedef union {
+     struct sockaddr sa;
+@@ -143,6 +158,8 @@ int32_t NetSysSetResolvCache(uint16_t netid, ares_cache_key_param_wrapper param,
+ 
+ int32_t NetSysGetResolvCache(uint16_t netid, ares_cache_key_param_wrapper param,
+                              ares_cached_addrinfo cached_addrinfo[static MAX_RESULTS], uint32_t *num);
++int32_t NetSysPostDnsQueryResult(uint16_t netid, struct addrinfo *addr, char *src_addr,
++  struct ares_process_info *process_info);
+ 
+ void ares_addrinfo_hints_to_addrinfo(const struct ares_addrinfo_hints *hints, struct addrinfo *out_hints) {
+   if (hints == NULL || out_hints == NULL) {
+@@ -155,6 +172,14 @@ void ares_addrinfo_hints_to_addrinfo(const struct ares_addrinfo_hints *hints, st
+   out_hints->ai_protocol = hints->ai_protocol;
+ }
+ 
++static long long ares__get_now_time()
++{
++  struct timeval tv;
++  gettimeofday(&tv, NULL);
++  long long timestamp = (long long)tv.tv_sec * 1000 + tv.tv_usec / 1000;
++  return timestamp;
++}
++
+ void ares_free_posix_addrinfo(struct addrinfo *head) {
+   while (head != NULL) {
+     struct addrinfo *current = head;
+@@ -561,6 +586,18 @@ static int fake_addrinfo(const char *name,
+   return 1;
+ }
+ 
++void free_process_info(struct ares_process_info process_info)
++{
++    struct ares_family_query_info ipv4Info = process_info.ipv4QueryInfo;
++    struct ares_family_query_info ipv6Info = process_info.ipv6QueryInfo;
++    if (ipv4Info.serverAddr) {
++        ares_free(ipv4Info.serverAddr);
++    }
++    if (ipv6Info.serverAddr) {
++        ares_free(ipv6Info.serverAddr);
++    }
++}
++
+ static void end_hquery(struct host_query *hquery, int status)
+ {
+   struct ares_addrinfo_node sentinel;
+@@ -593,9 +630,17 @@ static void end_hquery(struct host_query *hquery, int status)
+   char serv[12] = {0};
+   sprintf(serv, "%d", hquery->port);
+   ares_set_dns_cache(hquery->name, serv, &hquery->hints, hquery->ai);
++  hquery->process_info.hostname = hquery->name;
++  hquery->process_info.retCode = status;
++  int allDuration = ares__get_now_time() - hquery->process_info.queryTime;
++  int firstQueryEnd2AppDuration = allDuration - hquery->process_info.firstQueryEndDuration;
++  hquery->process_info.firstQueryEnd2AppDuration = firstQueryEnd2AppDuration;
++  ares_record_process(status, hquery->name, hquery->process_info.queryTime, NULL, hquery);
+ #endif
+   hquery->callback(hquery->arg, status, hquery->timeouts, hquery->ai);
+   ares_free(hquery->name);
++  ares_free(hquery->src_addr);
++  free_process_info(hquery->process_info);
+   ares_free(hquery);
+ }
+ 
+@@ -720,6 +765,196 @@ static void next_lookup(struct host_query *hquery, int status)
+     }
+ }
+ 
++static struct query *ares__get_query(ares_channel channel, unsigned char *abuf, int alen)
++{
++  struct query *query;
++  struct list_node* list_head;
++  struct list_node* list_node;
++  query = NULL;
++  unsigned short id = DNS_HEADER_QID(abuf);
++  list_head = &(channel->queries_by_qid[id % ARES_QID_TABLE_SIZE]);
++  for (list_node = list_head->next; list_node != list_head;
++       list_node = list_node->next) {
++      struct query *q = list_node->data;
++      if ((q->qid == id) && same_questions(q->qbuf, q->qlen, abuf, alen)) {
++          query = q;
++          break;
++        }
++    }
++  return query;
++}
++
++static unsigned short ares__get_ans_query_type(unsigned char *abuf, int alen)
++{
++  struct {
++    const unsigned char *p;
++    int qdcount;
++    char *name;
++    long namelen;
++    int type;
++    int dnsclass;
++  } a;
++  unsigned short type = 0;
++  a.qdcount = DNS_HEADER_QDCOUNT(abuf);
++  a.p = abuf + HFIXEDSZ;
++  for (int j = 0; j < a.qdcount; j++) {
++    /* Decode the question in the answer. */
++    if (ares_expand_name(a.p, abuf, alen, &a.name, &a.namelen) != ARES_SUCCESS) {
++        return 0;
++      }
++      a.p += a.namelen;
++      if (a.p + QFIXEDSZ > abuf + alen) {
++          ares_free(a.name);
++          return 0;
++      }
++      type = DNS_QUESTION_TYPE(a.p);
++      ares_free(a.name);
++    }
++  return type;
++}
++
++static char *ares__get_server_addr(struct ares_addr *addr)
++{
++  if (addr == NULL) {
++    return NULL;
++  }
++  char *ip_str = NULL;
++  if (addr->family == AF_INET) {
++    ip_str = ares_malloc(INET_ADDRSTRLEN);
++    if (ip_str == NULL) {
++        return NULL;
++    }
++    if (ares_inet_ntop(AF_INET, &addr->addrV4, ip_str, INET_ADDRSTRLEN) == NULL) {
++        ares_free(ip_str);
++        return NULL;
++    }
++  } else if (addr->family == AF_INET6) {
++    ip_str = ares_malloc(INET6_ADDRSTRLEN);
++    if (ip_str == NULL) {
++        return NULL;
++    }
++    if (ares_inet_ntop(AF_INET6, &addr->addrV6, ip_str, INET6_ADDRSTRLEN) == NULL) {
++        ares_free(ip_str);
++        return NULL;
++    }
++  }
++  return ip_str;
++}
++
++int ares__get_src_addr(struct server_state *server, struct sockaddr *src_addr)
++{
++  if (!server) {
++    return -1;
++  }
++  struct ares_addr addr = server->addr;
++  ares_socklen_t len;
++  switch (addr.family)
++    {
++    case AF_INET:
++      len = sizeof(struct sockaddr_in);
++      break;
++    case AF_INET6:
++      len = sizeof(struct sockaddr_in6);
++      break;
++    default:
++      /* No known usable source address for non-INET families. */
++      return -1;
++    }
++  int sock;
++  if (server->udp_socket > 0) {
++    sock = server->udp_socket;
++  } else if (server->tcp_socket > 0) {
++    sock = server->tcp_socket;
++  } else {
++    return -1;
++  }
++  if (getsockname(sock, src_addr, &len) != 0) {
++    return -1;
++  }
++  return 0;
++}
++
++static char *ares__get_addr_by_sockaddr(struct sockaddr *sa)
++{
++  if (sa == NULL) {
++    return NULL;
++  }
++  char *ip_str = NULL;
++  switch (sa->sa_family) {
++    case AF_INET: {
++      ip_str = ares_malloc(INET_ADDRSTRLEN);
++      struct sockaddr_in *sin = (struct sockaddr_in *)sa;
++      if (ares_inet_ntop(AF_INET, &sin->sin_addr, ip_str, INET_ADDRSTRLEN) == NULL) {
++        ares_free(ip_str);
++      }
++      break;
++    }
++    case AF_INET6: {
++      ip_str = ares_malloc(INET6_ADDRSTRLEN);
++      struct sockaddr_in6 *sin6 = (struct sockaddr_in6 *)sa;
++      if (ares_inet_ntop(AF_INET6, &sin6->sin6_addr, ip_str, INET6_ADDRSTRLEN) == NULL) {
++        ares_free(ip_str);
++      }
++      break;
++    }
++    default:
++      break;
++  }
++  return ip_str;
++}
++
++void ares__parse_query_info(int status, unsigned char *abuf, int alen, struct host_query *hquery)
++{
++  if (hquery == NULL || abuf == NULL || alen == 0) {
++    return;
++  }
++  ares_channel channel = hquery->channel;
++  struct query *query_info = ares__get_query(channel, abuf, alen);
++  if (query_info == NULL || query_info->server < 0 || query_info->server >= channel->nservers) {
++    return;
++  }
++  unsigned short type = ares__get_ans_query_type(abuf, alen);
++  if (type == 0) {
++    return;
++  }
++  struct server_state *server = &channel->servers[query_info->server];
++  if (server == NULL) {
++    return;
++  }
++  if (hquery->process_info.firstQueryEndDuration == 0) {
++    if (status == ARES_SUCCESS) {
++        hquery->process_info.firstQueryEndDuration =
++            ares__get_now_time() - hquery->process_info.queryTime;
++    }
++    hquery->process_info.firstReturnType = type;
++  }
++  struct sockaddr *src_addr = NULL;
++  char *res_addr = NULL;
++  src_addr = ares_malloc(sizeof(struct sockaddr));
++  if (src_addr) {
++    if (ares__get_src_addr(server, src_addr) == 0) {
++      res_addr = ares__get_addr_by_sockaddr(src_addr);
++    }
++  }
++  ares_free(src_addr);
++  hquery->src_addr = res_addr;
++  struct ares_family_query_info info;
++  int isAnsAllCname = ares__ans_all_cname(abuf, alen);
++  info.retCode = status;
++  int ancount = DNS_HEADER_ANCOUNT(abuf);
++  info.isNoAnswer = ancount > 0 ? 0 : 1;
++  info.serverAddr = ares__get_server_addr(&server->addr);
++  if (isAnsAllCname) {
++    info.cname = 1;
++  }
++  if (type == T_A) {
++    hquery->process_info.ipv4QueryInfo = info;
++  }
++  if (type == T_AAAA) {
++    hquery->process_info.ipv6QueryInfo = info;
++  }
++}
++
+ static void host_callback(void *arg, int status, int timeouts,
+                           unsigned char *abuf, int alen)
+ {
+@@ -732,6 +967,7 @@ static void host_callback(void *arg, int status, int timeouts,
+     {
+       addinfostatus = ares__parse_into_addrinfo(abuf, alen, 1, hquery->port, hquery->ai);
+     }
++    ares__parse_query_info(status, abuf, alen, hquery);
+ 
+   if (!hquery->remaining)
+     {
+@@ -778,14 +1014,61 @@ static void host_callback(void *arg, int status, int timeouts,
+   /* at this point we keep on waiting for the next query to finish */
+ }
+ 
++static void ares_record_process(int status, const char *hostname, long long start_time,
++    const struct ares_addrinfo *addr_info, struct host_query *hquery)
++{
++  #if OHOS_DNS_PROXY_BY_NETSYS
++  if (hostname == NULL) {
++    return;
++  }
++  int cost_time = ares__get_now_time() - start_time;
++  struct ares_process_info process_info;
++  process_info.ipv4QueryInfo = empty_family_query_info;
++  process_info.ipv6QueryInfo = empty_family_query_info;
++  process_info.sourceFrom = SOURCE_FROM_CARES;
++  process_info.hostname = ares_strdup(hostname);
++  if (addr_info) {
++    // read from cache
++    process_info.isFromCache = 1;
++    process_info.queryTime = start_time;
++    process_info.retCode = status;
++    process_info.firstQueryEndDuration = cost_time;
++    process_info.firstReturnType = 0;
++    struct addrinfo *addr = ares_addrinfo_to_addrinfo(addr_info);
++    NetSysPostDnsQueryResult(0, addr, NULL, &process_info);
++    ares_free_posix_addrinfo(addr);
++    ares_free(process_info.hostname);
++  } else if (!hquery) {
++    // no hquery mean error
++    process_info.isFromCache = 0;
++    process_info.queryTime = start_time;
++    process_info.retCode = status;
++    process_info.firstQueryEndDuration = cost_time;
++    process_info.firstReturnType = 0;
++    NetSysPostDnsQueryResult(0, NULL, NULL, &process_info);
++    ares_free(process_info.hostname);
++  } else if (hquery) {
++    // query complete
++    ares_free(process_info.hostname);
++    process_info = hquery->process_info;
++    process_info.isFromCache = 0;
++    struct addrinfo *addr = ares_addrinfo_to_addrinfo(hquery->ai);
++    NetSysPostDnsQueryResult(0, addr, hquery->src_addr, &process_info);
++    ares_free_posix_addrinfo(addr);
++  }
++  #endif
++}
++
+ void ares_getaddrinfo(ares_channel channel,
+                       const char* name, const char* service,
+                       const struct ares_addrinfo_hints* hints,
+                       ares_addrinfo_callback callback, void* arg)
+ {
++long long time_now = ares__get_now_time();
+ #if OHOS_DNS_PROXY_BY_NETSYS
+   struct ares_addrinfo *cache_res = ares_get_dns_cache(name, service, hints);
+   if (cache_res && cache_res->nodes) {
++    ares_record_process(ARES_SUCCESS, name, time_now, cache_res, NULL);
+     callback(arg, ARES_SUCCESS, 0, cache_res);
+     return;
+   }
+@@ -905,6 +1188,15 @@ void ares_getaddrinfo(ares_channel channel,
+   hquery->next_domain = -1;
+   hquery->remaining = 0;
+   hquery->nodata_cnt = 0;
++  hquery->src_addr = NULL;
++  hquery->process_info.queryTime = time_now;
++  hquery->process_info.retCode = ARES_ENODATA;
++  hquery->process_info.firstQueryEndDuration = 0;
++  hquery->process_info.firstQueryEnd2AppDuration = 0;
++  hquery->process_info.firstReturnType = 0;
++  hquery->process_info.sourceFrom = SOURCE_FROM_CARES;
++  hquery->process_info.ipv4QueryInfo = empty_family_query_info;
++  hquery->process_info.ipv6QueryInfo = empty_family_query_info;
+ 
+   /* Start performing lookups according to channel->lookups. */
+   next_lookup(hquery, ARES_ECONNREFUSED /* initial error code */);
+diff --git a/src/lib/ares_private.h b/src/lib/ares_private.h
+index 518b5c3..95d19d0 100644
+--- a/src/lib/ares_private.h
++++ b/src/lib/ares_private.h
+@@ -335,6 +335,26 @@ struct ares_channeldata {
+   char *resolvconf_path;
+ };
+ 
++struct ares_family_query_info {
++  int retCode;
++  char *serverAddr;
++  unsigned char isNoAnswer;
++  unsigned char cname;
++};
++
++struct ares_process_info {
++  long long queryTime;
++  char *hostname;
++  int retCode;
++  int firstQueryEndDuration;
++  int firstQueryEnd2AppDuration;
++  unsigned short firstReturnType; /* a or aaaa */
++  unsigned char isFromCache;
++  unsigned char sourceFrom;
++  struct ares_family_query_info ipv4QueryInfo;
++  struct ares_family_query_info ipv6QueryInfo;
++};
++
+ /* Does the domain end in ".onion" or ".onion."? Case-insensitive. */
+ int ares__is_onion_domain(const char *name);
+ 
+@@ -401,6 +421,9 @@ int ares__parse_into_addrinfo(const unsigned char *abuf,
+                               unsigned short port,
+                               struct ares_addrinfo *ai);
+ 
++int ares__ans_all_cname(const unsigned char *abuf,
++                              int alen);
++
+ int ares__addrinfo2hostent(const struct ares_addrinfo *ai, int family,
+                            struct hostent **host);
+ int ares__addrinfo2addrttl(const struct ares_addrinfo *ai, int family,
+@@ -422,6 +445,9 @@ int ares__connect_socket(ares_channel channel,
+                          const struct sockaddr *addr,
+                          ares_socklen_t addrlen);
+ 
++int same_questions(const unsigned char *qbuf, int qlen,
++                   const unsigned char *abuf, int alen);
++
+ #define ARES_SWAP_BYTE(a,b) \
+   { unsigned char swapByte = *(a);  *(a) = *(b);  *(b) = swapByte; }
+ 
+diff --git a/src/lib/ares_process.c b/src/lib/ares_process.c
+index 8d50f6f..45dc910 100644
+--- a/src/lib/ares_process.c
++++ b/src/lib/ares_process.c
+@@ -77,6 +77,8 @@ struct host_query
+   int remaining;   /* number of DNS answers waiting for */
+   int next_domain; /* next search domain to try */
+   int nodata_cnt; /* Track nodata responses to possibly override final result */
++  char *src_addr;
++  struct ares_process_info process_info;
+ };
+ #endif
+ 
+@@ -103,8 +105,6 @@ static void next_server(ares_channel channel, struct query *query,
+                         struct timeval *now);
+ static int open_tcp_socket(ares_channel channel, struct server_state *server);
+ static int open_udp_socket(ares_channel channel, struct server_state *server);
+-static int same_questions(const unsigned char *qbuf, int qlen,
+-                          const unsigned char *abuf, int alen);
+ static int same_address(struct sockaddr *sa, struct ares_addr *aa);
+ static int has_opt_rr(const unsigned char *abuf, int alen);
+ static void end_query(ares_channel channel, struct query *query, int status,
+@@ -1288,7 +1288,7 @@ static int open_udp_socket(ares_channel channel, struct server_state *server)
+   return 0;
+ }
+ 
+-static int same_questions(const unsigned char *qbuf, int qlen,
++int same_questions(const unsigned char *qbuf, int qlen,
+                           const unsigned char *abuf, int alen)
+ {
+   struct {

@@ -1,0 +1,100 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos_var.gni")
+import("//build/version.gni")
+
+deqp_common_cflags_cc = [
+  "-Wextra",
+  "-Wno-long-long",
+  "-Wno-sign-conversion",
+  "-std=c++17",
+  "-Wno-delete-non-virtual-dtor",
+  "-fwrapv",
+  "-fexceptions",
+  "-frtti",
+  "-mfloat-abi=softfp",
+  "-mfpu=neon-vfpv4",
+  "-Wno-header-hygiene",
+  "-Wno-unused-command-line-argument",
+  "-Wno-implicit-function-declaration",
+  "-Wno-null-pointer-subtraction",
+  "-Wno-error=ignored-pragmas",
+]
+
+deqp_common_cflags = [
+  "-Wextra",
+  "-Wno-long-long",
+  "-Wno-sign-conversion",
+  "-std=c99",
+  "-Wno-delete-non-virtual-dtor",
+  "-fwrapv",
+  "-fexceptions",
+  "-mfloat-abi=softfp",
+  "-mfpu=neon-vfpv4",
+  "-Wno-unused-command-line-argument",
+  "-Wno-implicit-function-declaration",
+  "-Wno-null-pointer-subtraction",
+]
+
+deqp_common_defines = [
+  "CTS_USES_VULKAN",
+  "DEQP_SUPPORT_DRM=0",
+  "DEQP_TARGET_NAME=\"Default\"",
+  "DE_ASSERT_FAILURE_CALLBACK",
+  "DE_COMPILER=DE_COMPILER_CLANG",
+  "DE_DEBUG",
+  "DE_MINGW=0",
+  "DE_OS=DE_OS_UNIX",
+]
+
+if (target_cpu == "arm64") {
+  deqp_common_defines += [
+    "DE_PTR_SIZE=8",
+    "DE_CPU=DE_CPU_ARM_64",
+  ]
+} else {
+  deqp_common_defines += [
+    "DE_PTR_SIZE=4",
+    "DE_CPU=DE_CPU_ARM",
+  ]
+}
+
+deqp_common_include_dirs = [
+  "//third_party/vk-gl-cts/framework/opengl",
+  "//third_party/vk-gl-cts/framework/opengl/wrapper",
+  "//third_party/vk-gl-cts/framework/opengl/simplereference",
+  "//third_party/vk-gl-cts/framework/randomshaders",
+  "//third_party/vk-gl-cts/framework/common",
+  "//third_party/vk-gl-cts/framework/xexml",
+  "//third_party/vk-gl-cts/framework/qphelper",
+  "//third_party/vk-gl-cts/framework/egl",
+  "//third_party/vk-gl-cts/framework/egl/wrapper",
+  "//third_party/vk-gl-cts/framework/referencerenderer",
+  "//third_party/vk-gl-cts/framework/delibs/decpp",
+  "//third_party/vk-gl-cts/framework/delibs/debase",
+  "//third_party/vk-gl-cts/framework/delibs/deutil",
+  "//third_party/vk-gl-cts/framework/delibs/dethread",
+  "//third_party/vk-gl-cts/framework/delibs/depool",
+  "//third_party/vk-gl-cts/framework/delibs/deimage",
+  "//third_party/vk-gl-cts/framework/delibs/destream",
+]
+deqp_vk_common_include_dirs = deqp_common_include_dirs
+deqp_vk_common_include_dirs += [
+  "//third_party/vk-gl-cts/external/ESExtractor/src/lib",
+  "//third_party/vk-gl-cts/external/vulkancts/framework/vulkan",
+
+  # "//third_party/vk-gl-cts/build/external/vulkancts/framework/vulkan",
+  "//third_party/vk-gl-cts/external/vulkancts/framework/vulkan/generated/vulkan",
+  "//third_party/vk-gl-cts/external/vulkancts/modules/vulkan",
+]

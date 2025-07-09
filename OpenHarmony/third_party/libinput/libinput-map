@@ -1,0 +1,42 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ 
+1.0 {
+    global:
+        extern "C++" {
+			libinput_toggle_caps_key*;
+            libinput_create_keyboard_event*;
+            libinput_create_pointer_event*;
+	        libinput_create_gesture_event*;
+            libinput_create_touch_event*;
+            libinput_event_touch_get_slot*;
+            libinput_device_config_tap_set_drag_enabled*;
+            libinput_touchpad_event_clear*;
+            libinput_event_touch_get_blob_id*;
+			libinput_event_touch_get_orientation*
+            libinput_event_get_hand_feature*;
+            libinput_touchpad_device_get_frequency*;
+            libinput_touchpad_device_get_ppi*;
+            libinput_touchpad_device_get_hypot_size*;
+            udev_device_property_add*;
+            udev_device_property_remove*;
+            udev_device_record_devnode*;
+            libinput_set_touch_event_type*;
+		    libinput_event_vtrackpad_get_dx_unaccelerated*;
+            libinput_event_vtrackpad_get_dy_unaccelerated*;
+        };
+    local:
+        *;
+};

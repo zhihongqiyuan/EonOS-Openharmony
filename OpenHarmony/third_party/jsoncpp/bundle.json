@@ -1,0 +1,56 @@
+{
+    "name": "@ohos/jsoncpp",
+    "description": "JsonCpp is a C++ library that allows manipulating JSON values, including serialization and deserialization to and from strings. It can also preserve existing comment in unserialization/serialization steps, making it a convenient format to store user input files.",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/jsoncpp"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "Copyright",
+    "readmePath": {
+        "en": "README.md"
+    },
+    "component": {
+        "name": "jsoncpp",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "mini", "small", "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [ "//third_party/jsoncpp:jsoncpp" ],
+            "inner_kits": [
+                {
+                    "name": "//third_party/jsoncpp:jsoncpp",
+                    "header": {
+                        "header_files": [
+                            "json/writer.h",
+                            "json/allocator.h",
+                            "json/assertions.h",
+                            "json/config.h",
+                            "json/forwards.h",
+                            "json/json.h",
+                            "json/json_features.h",
+                            "json/reader.h",
+                            "json/value.h",
+                            "json/version.h"
+                        ],
+                        "header_base": "${root_gen_dir}/third_party/jsoncpp/jsoncpp-1.9.6/include"
+                    }
+                },
+                {
+                    "name": "//third_party/jsoncpp:jsoncpp_static"
+                }
+            ],
+            "test": []
+        }
+    }
+}

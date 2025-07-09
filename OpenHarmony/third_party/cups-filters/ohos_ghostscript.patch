@@ -1,0 +1,14 @@
+diff --git a/mime/cupsfilters-ghostscript.convs b/mime/cupsfilters-ghostscript.convs
+index 9ccb0a1a..29a0ce19 100644
+--- a/mime/cupsfilters-ghostscript.convs
++++ b/mime/cupsfilters-ghostscript.convs
+@@ -16,6 +16,6 @@
+ #
+ 
+ application/postscript		application/pdf			0	gstopdf
+-application/vnd.cups-pdf	application/vnd.cups-raster	99	gstoraster
+-application/vnd.cups-pdf	image/pwg-raster		99	gstoraster
+-application/vnd.cups-postscript	application/vnd.cups-raster	175	gstoraster
++#application/vnd.cups-pdf	application/vnd.cups-raster	99	gstoraster
++#application/vnd.cups-pdf	image/pwg-raster		99	gstoraster
++#application/vnd.cups-postscript	application/vnd.cups-raster	175	gstoraster

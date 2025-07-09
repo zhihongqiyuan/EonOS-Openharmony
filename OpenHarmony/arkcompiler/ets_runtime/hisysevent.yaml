@@ -1,0 +1,107 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: ARKTS_RUNTIME
+
+ARK_STATS_GC:
+  __BASE: {type: STATISTIC, level: MINOR, desc: ARKTSRUNTIME GC KEY STATS, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: application bundle name}
+  PID: {type: INT32, desc: pid}
+  TID: {type: INT32, desc: tid}
+  GC_TOTAL_COUNT: {type: INT32, desc: Number of GC times in the statistical interval}
+  GC_TOTAL_TIME: {type: INT32, desc: Sum of GC total_time in the current statistical interval}
+  GC_MARK_TIME: {type: INT32, desc: Sum of mark_time of GC in the current statistical interval}
+  GC_EVACUATE_TIME: {type: INT32, desc: Sum of evacuate_time of GC in the current statistical interval}
+  GC_LONG_TIME: {type: INT32, desc: Number of long time GCs in the statistical interval}
+  GC_TOTAL_MEM_USED: {type: INT32, desc: Total memory used after GC in the current statistical interval}
+  GC_TOTAL_MEM_COMMITTED: {type: INT32, desc: Total committed memory in GC in the current statistical interval}
+  GC_ACTIVE_MEM_USED: {type: INT32, desc: Total memory usage of the young generation after GC in the statistical period}
+  GC_ACTIVE_MEM_COMMITTED: {type: INT32, desc: Total memory committed by the young generation after GC in the statistical interval}
+  GC_OLD_MEM_USED: {type: INT32, desc: Total memory usage of the old generation after GC in the statistical period}
+  GC_OLD_MEM_COMMITTED: {type: INT32, desc: Total memory committed by the old generation after GC in the statistical period}
+  GC_HUGE_MEM_USED: {type: INT32, desc: Total memory used by the Huge segment after GC in this measurement period}
+  GC_HUGE_MEM_COMMITTED: {type: INT32, desc: Total committed memory of the Huge segment after GC in this measurement period}
+
+ARK_COMPILER_LOG:
+  __BASE: {type: STATISTIC, level: MINOR, desc: ARKTSRUNTIME AOT COMPILER KEY STATS, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: application bundle name}
+  PGO_FILE_PATH: {type: STRING, desc: application pgo file path}
+  AOT_FILE_PATH: {type: STRING, desc: application aot file path}
+  COMPILER_TIME: {type: FLOAT, desc: compiler total time}
+  IS_LITECG: {type: BOOL, desc: codegen type is litecg}
+  COMPILER_METHOD_COUNT: {type: UINT32, desc: compiler method count}
+  PGO_FILE_LEGAL: {type: BOOL, desc: pgo file is legal}
+
+ARK_GC_LONG_TIME:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, tag: GC, desc: Long time GC event, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundleName}
+  VERSION_CODE: {type: STRING, desc: VERSION CODE}
+  PID: {type: INT8, desc: pid}
+  TID: {type: INT8, desc: TID of JSVM}
+  GC_TYPE: {type: INT8, desc: GC TYPE}
+  GC_REASON: {type: INT8, desc: GC REASON}
+  GC_IS_SENSITIVE: {type: INT8, desc: GC IS IN SENSITIVE OR NOT}
+  GC_IS_INBACKGROUND: {type: INT8, desc: GC IS INBACKGROUND OR NOT}
+  GC_TOTAL_TIME: {type: FLOAT, desc: GC TOTAL TIME}
+  GC_MARK_TIME: {type: FLOAT, desc: GC MARK TIME}
+  GC_EVACUATE_TIME: {type: FLOAT, desc: GC EVACUATE TIME}
+  GC_UPDATE_ROOT_TIME: {type: FLOAT, desc: GC UPDATE ROOT TIME}
+  GC_UPDATE_WEEKREF_TIME: {type: FLOAT, desc: GC UPDATE WEEKREF TIME}
+  GC_UPDATE_REFERENCE_TIME: {type: FLOAT, desc: GC UPDATE REFERENCE TIME}
+  GC_SWEEPNEWTOOLD_TIME: {type: FLOAT, desc: GC SWEEP TIME}
+  GC_FINALIZE_TIME: {type: FLOAT, desc: GC FINALIZE TIME}
+  GC_INVOKE_CALLBACK_TIME: {type: FLOAT, desc: GC INVOKE CALLBACK TIME}
+  BEFORE_GC_TOTAL_MEM_USED: {type: INT32, desc: TOTAL MEM USED BEFORE GC}
+  BEFORE_GC_TOTAL_MEM_COMMITTED: {type: INT32, desc: BEFORE GC TOTAL MEM COMMITTED}
+  BEFORE_GC_ACTIVE_MEM_USED: {type: INT32, desc: BEFORE GC ACTIVE MEM USED}
+  BEFORE_GC_ACTIVE_MEM_COMMITTED: {type: INT32, desc: BEFORE GC ACTIVE MEM COMMITTED}
+  BEFORE_GC_OLD_MEM_USED: {type: INT32, desc: BEFORE GC OLD MEM USED}
+  BEFORE_GC_OLD_MEM_COMMITTED: {type: INT32, desc: BEFORE GC OLD MEM COMMITTED}
+  BEFORE_GC_HUGE_MEM_USED: {type: INT32, desc: BEFORE GC HUGE MEM USED}
+  BEFORE_GC_HUGE_MEM_COMMITTED: {type: INT32, desc: BEFORE GC HUGE MEM COMMITTED}
+  BEFORE_GC_NATIVE_BINDING_SIZE: {type: INT32, desc: BEFORE GC NATIVE BINDING SIZE}
+  BEFORE_GC_NATIVE_LIMIT: {type: INT32, desc: BEFORE GC NATIVE LIMIT}
+  AFTER_GC_TOTAL_MEM_USED: {type: INT32, desc: AFTER GC TOTAL MEM USED}
+  AFTER_GC_TOTAL_MEM_COMMITTED: {type: INT32, desc: AFTER GC TOTAL MEM COMMITTED}
+  AFTER_GC_ACTIVE_MEM_USED: {type: INT32, desc: AFTER GC ACTIVE MEM USED}
+  AFTER_GC_ACTIVE_MEM_COMMITTED: {type: INT32, desc: AFTER GC ACTIVE MEM COMMITTED}
+  AFTER_GC_OLD_MEM_USED: {type: INT32, desc: AFTER GC OLD MEM USED}
+  AFTER_GC_OLD_MEM_COMMITTED: {type: INT32, desc: AFTER GC OLD MEM COMMITTED}
+  AFTER_GC_HUGE_MEM_USED: {type: INT32, desc: AFTER GC HUGE MEM USED}
+  AFTER_GC_HUGE_MEM_COMMITTED: {type: INT32, desc: AFTER GC HUGE MEM COMMITTED}
+  AFTER_GC_NATIVE_BINDING_SIZE: {type: INT32, desc: AFTER GC NATIVE BINDING SIZE}
+  AFTER_GC_NATIVE_LIMIT: {type: INT32, desc: AFTER GC NATIVE LIMIT}
+  CPU_LOAD: {type: DOUBLE, desc: CPU LOAD}
+
+ARK_STATS_JIT:
+  __BASE: {type: STATISTIC, level: MINOR, desc: ARKTSRUNTIME JIT COMPILER KEY STATS, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: Application bundle name}
+  PID: {type: INT32, desc: pid}
+  TIME_INTERVAL: {type: INT32, desc: Interval for reporting the event}
+  TOTAL_BASELINE_JIT_TIMES: {type: INT32, desc: Number of baseline JIT triggering times within this period}
+  TOTAL_FASTOPT_JIT_TIMES: {type: INT32, desc: Number of fast optimization JIT triggering times within this period}
+  TOTAL_TIME_ON_MAIN_THREAD: {type: INT32, desc: The total time occupied by JIT on the main thread within this period}
+  TOTAL_TIME_ON_JIT_THREAD: {type: INT32, desc: The total time occupied on the JIT thread within this period}
+  TOTAL_TIME_ON_HOLD_LOCK: {type: INT32, desc: Total lock holding time within this period}
+  MAX_TIME_ON_HOLD_LOCK: {type: INT32, desc: Maximum lock holding time within this period}
+  LONG_TIME_OF_HOLD_LOCK: {type: INT32, desc: Times of long-time lock holding within this period}
+  UNINSTALL_TIME: {type: INT32, desc: JIT deoptimizer times within this period}
+
+ARK_BLOCKUI_JIT:
+  __BASE: {type: STATISTIC, level: MINOR, desc: ARKTSRUNTIME JIT COMPILER BLOCKUI EVENT, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: Application bundle name}
+  PID: {type: INT32, desc: pid}
+  JIT_TYPE: {type: STRING, desc: Triggered jit type}
+  JIT_FUNCTION_NAME: {type: STRING, desc: JIT compiled function name}
+  TIME_ON_MAIN_THREAD: {type: INT32, desc: The time occupied by JIT on the main thread}
+  TIME_ON_JIT_THREAD: {type: INT32, desc: The time occupied on JIT thread}

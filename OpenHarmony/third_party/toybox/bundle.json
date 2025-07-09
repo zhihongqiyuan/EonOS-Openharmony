@@ -1,0 +1,53 @@
+{
+    "name": "@ohos/toybox",
+    "description": "all-in-one Linux command line",
+    "version": "3.1",
+    "license": "BSD Zero Clause License",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/toybox"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "",
+    "readmePath": {
+        "en": ""
+    },
+    "component": {
+        "name": "toybox",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [
+            "toybox_extended_cmd",
+            "toybox_enable_brctl"
+        ],
+        "adapted_system_type": [
+            "standard",
+            "small"
+        ],
+        "rom": "73KB",
+        "ram": "146KB",
+        "deps": {
+            "components": [
+                "selinux",
+                "openssl"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//third_party/toybox:toybox",
+                "//third_party/toybox:su"
+            ],
+            "inner_kits": [
+                {
+                    "name" : "//third_party/toybox:toybox"
+                },
+                {
+                    "name" : "//third_party/toybox:su"
+                }
+            ],
+            "test": []
+        }
+    }
+}

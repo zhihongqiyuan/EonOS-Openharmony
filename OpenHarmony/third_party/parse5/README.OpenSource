@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "parse5",
+    "License": "MIT",
+    "License File": "NOTICE",
+    "Version Number": "v7.2.1",
+    "Owner": "sunbingxin@huawei.com",
+    "Upstream URL": "https://github.com/inikulin/parse5.git",
+    "Description": "HTML parser and serializer."
+  }
+]

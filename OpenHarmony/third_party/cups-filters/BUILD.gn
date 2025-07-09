@@ -1,0 +1,192 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//third_party/cups/cups.gni")
+
+CUPS_FILTERS_CODE_DIR = "//third_party/cups-filters"
+SUBSYSTEM_NAME = "thirdparty"
+PART_NAME = "cups-filters"
+
+group("third_party_cupsfilters") {
+  external_deps = [
+    "cups:cups"
+  ]
+  deps = [
+    ":cupsfilters",
+    ":cupsfilters.convs",
+    ":cupsfilters.types",
+    ":imagetopdf",
+    ":imagetoraster",
+  ]
+}
+
+_cflags = [
+  "-D_PPD_DEPRECATED=",
+  "-Wextra",
+  "-Wall",
+  "-Wno-unused-parameter",
+  "-Wno-unused-function",
+  "-Wno-unused-variable",
+  "-Wno-unused-value",
+  "-Wno-sign-compare",
+  "-Wno-missing-field-initializers",
+
+  "-Wno-strlcpy-strlcat-size",
+  "-Wtautological-pointer-compare",
+  "-Wimplicit-fallthrough",
+  "-Wno-implicit-function-declaration",
+  "-w",
+  "-D_FORTIFY_SOURCE=2",
+  "-fstack-protector-all",
+]
+
+config("cups_filters_config") {
+  include_dirs = [
+    "$CUPS_FILTERS_CODE_DIR/",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/",
+    "$CUPS_FILTERS_CODE_DIR/filter/",
+  ]
+
+  defines = cups_defines
+
+  cflags = _cflags
+}
+
+config("imagetopdf_config") {
+  include_dirs = [ "$CUPS_FILTERS_CODE_DIR/filter/" ]
+
+  defines = cups_defines
+
+  cflags = _cflags
+}
+
+action("cupsfilters_action") {
+  script = "//third_party/cups-filters/install.py"
+  outputs = [ "${target_gen_dir}/cupsfilters.convs" ]
+  inputs = []
+  gen_path = rebase_path("${target_gen_dir}", root_build_dir)
+  source_path = rebase_path("//third_party/cups-filters", root_build_dir)
+  args = [
+    "--gen-dir",
+    "$gen_path",
+    "--source-dir",
+    "$source_path",
+  ]
+}
+
+ohos_shared_library("cupsfilters") {
+  sources = [
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/attr.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/check.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/cmyk.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/colord.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/colormanager.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/dither.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-bmp.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-colorspace.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-gif.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-jpeg.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-photocd.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-pix.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-png.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-pnm.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-sgi.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-sgilib.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-sun.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-tiff.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image-zoom.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/image.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/ipp.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/lut.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/pack.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/pdftoippprinter.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/ppdgenerator.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/raster.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/rgb.c",
+    "$CUPS_FILTERS_CODE_DIR/cupsfilters/srgb.c",
+  ]
+
+  public_configs = [ ":cups_filters_config" ]
+
+  deps = [ ":cupsfilters_action" ]
+
+  external_deps = [
+    "cups:cups",
+    "libjpeg-turbo:turbojpeg",
+    "libpng:libpng",
+    "zlib:libz",
+  ]
+
+  install_enable = true
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("imagetoraster") {
+  sources = [
+    "$CUPS_FILTERS_CODE_DIR/filter/common.c",
+    "$CUPS_FILTERS_CODE_DIR/filter/imagetoraster.c",
+  ]
+
+  deps = [ ":cupsfilters" ]
+
+  external_deps = [ "cups:cups" ]
+
+  public_configs = [ ":cups_filters_config" ]
+
+  module_install_dir = "$cups_serverbin_dir/filter"
+  install_enable = true
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_executable("imagetopdf") {
+  sources = [
+    "$CUPS_FILTERS_CODE_DIR/filter/common.c",
+    "$CUPS_FILTERS_CODE_DIR/filter/imagetopdf.c",
+  ]
+
+  deps = [ ":cupsfilters" ]
+
+  external_deps = [ "cups:cups" ]
+
+  configs = [ ":imagetopdf_config" ]
+
+  module_install_dir = "$cups_serverbin_dir/filter"
+  install_enable = true
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_prebuilt_etc("cupsfilters.convs") {
+  source = "${target_gen_dir}/cupsfilters.convs"
+  deps = [
+    ":cupsfilters_action",
+    ":cupsfilters",
+  ]
+  relative_install_dir = "cups/share/mime"
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}
+
+ohos_prebuilt_etc("cupsfilters.types") {
+  source = "mime/cupsfilters.types"
+  deps = [
+    ":cupsfilters_action",
+    ":cupsfilters",
+  ]
+  relative_install_dir = "cups/share/mime"
+  subsystem_name = "$SUBSYSTEM_NAME"
+  part_name = "$PART_NAME"
+}

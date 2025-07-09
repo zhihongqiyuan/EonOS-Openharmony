@@ -1,0 +1,49 @@
+{
+    "name": "@ohos/glslang",
+    "description": "This repository contains glslang for Khronos Conformance Testing Suite.",
+    "version": "3.2",
+    "license": "3-Clause BSD License",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/glslang"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "LICENSE",
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "glslang",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": ["standard"],
+        "rom": "100KB",
+        "ram": "100KB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//third_party/glslang:glslang",
+                "//third_party/glslang/SPIRV:SPIRV_source",
+                "//third_party/glslang/SPIRV:libdeqp_spvremapper",
+                "//third_party/glslang/glslang:libdeqp_glslang"
+            ],
+            "inner_kits": [
+                {
+                    "type": "so",
+                    "name": "//third_party/glslang:glslang",
+                    "header": {
+                      "header_files": [
+                      ],
+                      "header_base": "//third_party/glslang/Public"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

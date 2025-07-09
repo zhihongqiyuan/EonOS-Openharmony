@@ -1,0 +1,83 @@
+# Copyright (c) 2020 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/lite/lite_target_list.gni")
+import("//build/lite/ndk/ndk.gni")
+
+# gn version >= 1714 required.
+assert(gn_version >= 1714, "GN version 1714 required, please upgrade!")
+
+# write version info.
+version_info = [
+  "VERSION=\"$ohos_version\"",
+  "BUILD_TIME=\"$ohos_build_datetime\"",
+]
+write_file("$root_build_dir/etc/version-info", version_info)
+
+group("prebuilts") {
+  public_deps = [ "//third_party/musl:sysroot_lite" ]
+}
+
+group("ohos") {
+  deps = []
+  if (ohos_build_target == "") {
+    remove_target_list = []
+    if (!ohos_build_userspace_only ||
+        (ohos_build_userspace_only && subsystem_name != "kernel" &&
+         subsystem_name != "vendor")) {
+      if (ohos_kernel_type == "liteos_m") {
+        remove_target_list = [ "${ohos_kernel_path}:build_kernel_image" ]
+      } else if (product_configed_component.component == "uniproton") {
+        remove_target_list = [ "//kernel/uniproton:build_kernel_image" ]
+      }
+    }
+    build_target_list = filter_exclude(lite_target_list, remove_target_list)
+    deps += build_target_list
+  } else {
+    deps += string_split(ohos_build_target, "&&")
+  }
+}
+
+group("product") {
+  deps = []
+
+  # build product, skip build single component scenario.
+  if (ohos_build_target == "") {
+    deps += [ "${product_path}" ]
+  }
+}
+
+group("ndk") {
+  # Add native API targets.
+  deps = []
+  if (ohos_build_ndk) {
+    deps += [ "//build/lite/ndk:ndk" ]
+  }
+}
+
+if (ohos_build_type == "debug" && product != "") {
+  action("gen_testfwk_info") {
+    outputs = [ "$root_out_dir/gen_testfwk_info.log" ]
+    script = "//build/lite/testfwk/gen_testfwk_info.py"
+    archive_dir_name = "test_info"
+    args = [
+      "--component-info-file",
+      rebase_path("${product_path}/config.json"),
+      "--output-json-fold",
+      rebase_path("${root_out_dir}/${archive_dir_name}/build_configs/"),
+      "--output-json-file-name",
+      "infos_for_testfwk.json",
+      "--output-module-list-files-fold",
+      rebase_path("${root_out_dir}/${archive_dir_name}/module_list_files/"),
+    ]
+  }
+}

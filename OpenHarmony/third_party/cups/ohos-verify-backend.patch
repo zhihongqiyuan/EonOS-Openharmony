@@ -1,0 +1,13 @@
+diff --git a/cups/http-support.c b/cups/http-support.c
+index 3d12087..bb94285 100644
+--- a/cups/http-support.c
++++ b/cups/http-support.c
+@@ -1028,7 +1028,7 @@ httpSeparateURI(
+          *uri && *uri != ':' && ptr < end;)
+       if (strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                  "abcdefghijklmnopqrstuvwxyz"
+-		 "0123456789-+.", *uri) != NULL)
++		 "0123456789-+._", *uri) != NULL)
+         *ptr++ = *uri++;
+       else
+         break;

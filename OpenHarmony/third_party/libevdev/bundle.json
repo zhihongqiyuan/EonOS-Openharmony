@@ -1,0 +1,48 @@
+{
+    "name": "@ohos/libevdev",
+    "description": "libevdev is a wrapper library for evdev devices. it moves the common tasks when dealing with evdev devices into a library and provides a library interface to the callers, thus avoiding erroneous ioctls, et",
+    "version": "3.1",
+    "license": "MIT",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/libevdev"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYING",
+    "readmePath": {
+        "en": ""
+    },
+    "component": {
+        "name": "libevdev",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/libevdev:libevdev",
+                    "header": {
+                      "header_files": [
+                        "libevdev-int.h",
+                        "libevdev-uinput-int.h",
+                        "libevdev-uinput.h",
+                        "libevdev-util.h",
+                        "libevdev.h"
+                      ],
+                      "header_base": "//third_party/libevdev/libevdev"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

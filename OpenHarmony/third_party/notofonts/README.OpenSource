@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "Noto Fonts",
+    "License": "Apache License V2.0",
+    "License File": "LICENSE",
+    "Version Number": "NotoSansMath-v2.539",
+    "Owner": "jiali17@huawei.com",
+    "Upstream URL": "https://github.com/notofonts/notofonts.github.io",
+    "Description": "Supports global font collections in all languages (except CJK and emojis)."
+  }
+]

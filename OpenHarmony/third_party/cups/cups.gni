@@ -1,0 +1,40 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+CUPS_SERVICE_DATA_DIR = "/data/service/el1/public/print_service/cups"
+
+cups_bin_dir = "bin"
+cups_sbin_dir = "bin"
+cups_serverbin_dir = "bin/cups"
+init_service_cfg_path = "etc/init"
+
+cups_defines = [
+  "CUPS_BINDIR = \"/system/$cups_bin_dir\"",
+  "CUPS_SBINDIR = \"/system/$cups_sbin_dir\"",
+  "CUPS_SERVERBIN = \"$CUPS_SERVICE_DATA_DIR/serverbin\"",
+  "UNI_PRINT_DRIVER_BINDIR = \"/system/bin/uni_print_driver/ghostscript/bin\"",
+
+  "CUPS_DATADIR = \"$CUPS_SERVICE_DATA_DIR/datadir\"",
+  "CUPS_DOCROOT = \"$CUPS_SERVICE_DATA_DIR/doc\"",
+  "CUPS_LOCALEDIR = \"$CUPS_SERVICE_DATA_DIR/locale\"",
+  "CUPS_LOGDIR = \"$CUPS_SERVICE_DATA_DIR/log\"",
+
+  "CUPS_SERVERROOT = \"$CUPS_SERVICE_DATA_DIR\"",
+  "CUPS_CACHEDIR = \"$CUPS_SERVICE_DATA_DIR/cache\"",
+  "CUPS_REQUESTS = \"$CUPS_SERVICE_DATA_DIR/spool\"",
+  "CUPS_STATEDIR = \"$CUPS_SERVICE_DATA_DIR/run\"",
+]
+
+declare_args() {
+  cups_feature_pstops_filter = false
+}

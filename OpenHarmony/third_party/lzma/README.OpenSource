@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "7 Zip - LZMA SDK",
+    "License": "Public domain",
+    "License File": "LICENSE",
+    "Version Number": "24.09",
+    "Owner": "zangleizhen@huawei.com",
+    "Upstream URL": "https://7-zip.org/a/lzma2409.7z",
+    "Description": "LZMA is default and general compression method of 7z and xz format."
+  }
+]

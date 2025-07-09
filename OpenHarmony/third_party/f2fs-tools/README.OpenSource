@@ -1,0 +1,11 @@
+[
+    {
+        "Name"                  : "f2fs-tools",
+        "License"               : "GPL-2.0",
+        "License File"          : "COPYING",
+        "Version Number"        : "v1.16.0",
+        "Owner"                 : "Jaegeuk Kim <jaegeuk@kernel.org>",
+        "Upstream URL"          : "https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git/tag/?h=v1.16.0",
+        "Description"           : "The f2fs-tools package contains the utilities for handling the f2fs file system."
+    }
+]

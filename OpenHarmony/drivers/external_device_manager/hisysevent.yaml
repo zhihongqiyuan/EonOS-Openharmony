@@ -1,0 +1,63 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: EXTERNAL_DEVICE
+
+DRIVER_PACKAGE_CYCLE_MANAGER:
+  __BASE: {type: STATISTIC, level: MINOR, tag: UsbManager, desc: DriverPackageCycleManager}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  USER_ID: {type: INT32, desc: user id}
+  DRIVER_UID: {type: STRING, desc: driver uid}
+  VERSION_CODE: {type: INT32, desc: version code}
+  VENDOR_ID: {type: STRING, desc: vendor id}
+  PRODUCT_ID: {type: STRING, desc: product id}
+  DRIVER_EVENT_NAME: {type: STRING, desc: driver event name}
+
+EXT_DEVICE_EVENT:
+  __BASE: {type: STATISTIC, level: CRITICAL, tag: ExternalDevice, desc: ExternalDeviceEvent}
+  DEVICE_CLASS: {type: INT32, desc: device class}
+  DEVICE_SUBCLASS: {type: INT32, desc: device subclass}
+  DEVICE_PROTOCOL: {type: INT32, desc: device protocol}
+  SN_NUM: {type: STRING, desc: snNum}
+  VENDOR_ID: {type: INT32, desc: vendor id}
+  PRODUCT_ID: {type: INT32, desc: product id}
+  DEVICE_ID: {type: UINT64, desc: device id}
+  DRIVER_UID: {type: STRING, desc: driver uid}
+  DRIVER_NAME: {type: STRING, desc: driver name}
+  VERSION_CODE: {type: STRING, desc: version code}
+  VIDS: {type: STRING, desc: vids}
+  PIDS: {type: STRING, desc: pids}
+  USER_ID: {type: INT32, desc: user id}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  OPERAT_TYPE: {type: INT32, desc: operat type}
+  INTERFACE_NAME: {type: STRING, desc: interface name}
+  MESSAGE: {type: STRING, desc: message}
+  ERR_CODE: {type: INT32, desc: errCode}
+
+EXTERNAL_DEVICE_SA_EVENT:
+  __BASE: {type: STATISTIC, level: CRITICAL, tag: ExternalDevice, desc: ExternalDeviceSaEvent}
+  USER_ID: {type: INT32, desc: user id}
+  EVENT: {type: STRING, desc: event}
+  FAIL_MESSAGE: {type: STRING, desc: fail message}
+  ERR_CODE: {type: INT32, desc: errCode}
+
+EXTERNAL_DEVICE_DDK_EVENT:
+  __BASE: {type: STATISTIC, level: CRITICAL, tag: ExternalDevice, desc: ExternalDeviceDdkEvent}
+  VENDOR_ID: {type: INT32, desc: vendor id}
+  PRODUCT_ID: {type: INT32, desc: product id}
+  VERSION_CODE: {type: INT32, desc: version code}
+  TOKEN_ID: {type: INT32, desc: token id}
+  OPERAT_TYPE: {type: INT32, desc: operat type}
+  INTERFACE_NAME: {type: STRING, desc: interface name}
+  FAIL_MESSAGE: {type: STRING, desc: fail message}
+  ERR_CODE: {type: INT32, desc: errCode}

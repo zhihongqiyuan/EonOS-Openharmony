@@ -1,0 +1,13 @@
+diff --git a/lib/core-net/vhost_ios.c b/lib/core-net/vhost_ios.c
+index 298bf01e..e8dc468e 100644
+--- a/lib/core-net/vhost_ios.c
++++ b/lib/core-net/vhost_ios.c
+@@ -48,6 +48,8 @@ const struct lws_role_ops *available_roles[] = {
+ #endif
+ #if defined(LWS_WITH_NETLINK)
+ 	&role_ops_netlink,
++#else
++	NULL,
+ #endif
+ 	NULL
+ };

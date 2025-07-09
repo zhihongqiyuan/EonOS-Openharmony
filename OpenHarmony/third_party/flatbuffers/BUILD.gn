@@ -1,0 +1,70 @@
+# Copyright 2024 Huawei Technologies Co., Ltd
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============================================================================
+import("//build/ohos.gni")
+
+action("flatbuffers_install_action") {
+  script = "//third_party/flatbuffers/install.py"
+  outputs = [
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/allocator.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/array.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/base.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/buffer.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/buffer_ref.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/code_generator.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/code_generators.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/default_allocator.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/detached_buffer.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/file_manager.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/flatbuffer_builder.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/flatbuffers.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/flatc.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/flex_flat_util.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/flexbuffers.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/grpc.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/hash.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/idl.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/minireflect.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/reflection.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/reflection_generated.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/registry.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/stl_emulation.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/string.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/struct.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/table.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/util.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/vector.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/vector_downward.h",
+    "${target_gen_dir}/flatbuffers/include/flatbuffers/verifier.h",
+  ]
+  inputs = [ "//third_party/flatbuffers/include/flatbuffers/allocator.h" ]
+  args = []
+  args = [
+    "--gen-dir",
+    rebase_path("${target_gen_dir}", root_build_dir),
+    "--source-dir",
+    rebase_path("//third_party/flatbuffers"),
+  ]
+}
+
+config("flatbuffers_include") {
+  include_dirs = [ "./include/" ]
+}
+
+ohos_static_library("libflatbuffers_static") {
+  deps = [ ":flatbuffers_install_action" ]
+  part_name = "flatbuffers"
+  subsystem_name = "thirdparty"
+  public_configs = [ ":flatbuffers_include" ]
+}

@@ -1,0 +1,66 @@
+# pack-refs with: peeled fully-peeled sorted 
+cd77f12946ae2e1812efc73b172092533ff21017 refs/tags/OpenHarmony-2.0-Canary
+68b79100ef8f6c9060865db285901fd3466be5ba refs/tags/OpenHarmony-v2.2-Beta2
+1c83beb7f93bced1f6d8f2ae5154a42b87fde08d refs/tags/OpenHarmony-v3.0-Beta1
+71d89ae6f2f87f3b305675334ac25e476540645e refs/tags/OpenHarmony-v3.0-LTS
+28db7514daacebf4392033656c1490e6b703de14 refs/tags/OpenHarmony-v3.0.1-LTS
+07ada1753a8410fcc536e7c8f68a6a250acf166d refs/tags/OpenHarmony-v3.0.2-LTS
+e9bc94210f23314525ab3983234464c561f0dcb5 refs/tags/OpenHarmony-v3.0.3-LTS
+e9bc94210f23314525ab3983234464c561f0dcb5 refs/tags/OpenHarmony-v3.0.5-LTS
+e9bc94210f23314525ab3983234464c561f0dcb5 refs/tags/OpenHarmony-v3.0.6-LTS
+e9bc94210f23314525ab3983234464c561f0dcb5 refs/tags/OpenHarmony-v3.0.7-LTS
+e9bc94210f23314525ab3983234464c561f0dcb5 refs/tags/OpenHarmony-v3.0.8-LTS
+908853898f998dcd980c5aafc03f59c6fd3f35cf refs/tags/OpenHarmony-v3.1-Beta
+2fbe791f0efcaa9fe9d9b250d620825cf46e6de3 refs/tags/OpenHarmony-v3.1-Release
+766de00e0992ca632975aa9a919bf6a760416dd1 refs/tags/OpenHarmony-v3.1.1-Release
+695abf55ce0e19dfc0c7e75b1e72f4960dc6dbdf refs/tags/OpenHarmony-v3.1.2-Release
+5be96815e57d269678d4a70fb39b1347f31427ac refs/tags/OpenHarmony-v3.1.3-Release
+e2f6364b026b4e475ca1576870d25dd1491c5053 refs/tags/OpenHarmony-v3.1.4-Release
+ecb3e498cadbed79c31257483b6dc3cba3aa01fa refs/tags/OpenHarmony-v3.1.5-Release
+d4df5e162c570fd764fd06a67515ac767c31e96a refs/tags/OpenHarmony-v3.1.6-Release
+d4df5e162c570fd764fd06a67515ac767c31e96a refs/tags/OpenHarmony-v3.1.7-Release
+062b9ea48e039ae264b348b7538f66a7bc031eaf refs/tags/OpenHarmony-v3.2-Beta1
+6584eee01b235e22589c179aad33965e420f9d4e refs/tags/OpenHarmony-v3.2-Beta2
+7b1452b3beae2a9181aa3e16dfec85b3b4c91501 refs/tags/OpenHarmony-v3.2-Beta3
+c3dd73e51c3964c4cf328fd742cb8b2a415daa5d refs/tags/OpenHarmony-v3.2-Beta4
+5addfd5c72252512d3b4ad0e3ef82b8eb0994ffd refs/tags/OpenHarmony-v3.2-Beta5
+af3bb6336a027ea29f99b6c59e36815ea329f74b refs/tags/OpenHarmony-v3.2-Release
+b758e93dccd77138ee3e1b73190118c7756ad820 refs/tags/OpenHarmony-v3.2.1-Release
+0b549cdd052eb0bbd37e86e5be47e11ee4b22521 refs/tags/OpenHarmony-v3.2.2-Release
+0b549cdd052eb0bbd37e86e5be47e11ee4b22521 refs/tags/OpenHarmony-v3.2.3-Release
+0b549cdd052eb0bbd37e86e5be47e11ee4b22521 refs/tags/OpenHarmony-v3.2.4-Release
+874cfeab53ed523f5e51eab6f82465b56fa8718c refs/tags/OpenHarmony-v4.0-Beta1
+7eb88d8e68543aa526f831252a96426319faafba refs/tags/OpenHarmony-v4.0-Beta2
+268691058111e451296cdfc2572963db908d621d refs/tags/OpenHarmony-v4.0-Release
+0fc7f62822129b5cfdee430c644edf5631ed1748 refs/tags/OpenHarmony-v4.0.1-Release
+6a5e0b70524b48b55ff4dd55fb1ed254df6df556 refs/tags/OpenHarmony-v4.0.2-Release
+^0fc7f62822129b5cfdee430c644edf5631ed1748
+28c0a14f147405c3ff764c3231d33e8b0457e6bf refs/tags/OpenHarmony-v4.0.3-Release
+^cc907e6052a2b9d32958810fc16b00dd2fad9b78
+aceed9d7c8848b1a60d81e328282d34387a571a4 refs/tags/OpenHarmony-v4.0.4-Release
+^cc907e6052a2b9d32958810fc16b00dd2fad9b78
+6c92167e6e8dff6391c5ec0cf7be3ba79c4b5aad refs/tags/OpenHarmony-v4.1-Beta1
+3fb24d0656e691c9bf2b3d5711392f1f48c9cd88 refs/tags/OpenHarmony-v4.1-Release
+ebed9d27d8d406d8fabea6b38f170de058527df0 refs/tags/OpenHarmony-v4.1.1-Release
+6a1705bdbbee052c49fdb8ef2062a2605ef2f18d refs/tags/OpenHarmony-v4.1.2-Release
+^5721d91c7245e7a2a93967cbe24be0cfccb0ed3b
+4498fcc0a1721f7d8079e99e8392706d640e3ac4 refs/tags/OpenHarmony-v4.1.3-Release
+^5721d91c7245e7a2a93967cbe24be0cfccb0ed3b
+49d7bfd35412beb85371afbb56f2e39b607d05b2 refs/tags/OpenHarmony-v4.1.4-Release
+^446a506197945a3c574ac48557c5f03bbda835f7
+0fc16261bd72a3b46b01888803fc0796876dc204 refs/tags/OpenHarmony-v5.0-Beta1
+^7ce7438bc54b140cb6cd8436ec531598cbea1759
+bae1c4060c520b5161c4291f108bd78edf4567d9 refs/tags/OpenHarmony-v5.0.0-Release
+^d88b1550841c6530ecb39da4a3cf327434e598ad
+c870dfdd143f89e7e2a71bae9e1c030a81c64f9e refs/tags/OpenHarmony-v5.0.1-Release
+^d773fd53f7a631d9a14d19b293e52cf950b172f0
+25343cc5293be6c6c2fd154d8ffafb9acb27046f refs/tags/OpenHarmony-v5.0.2-Release
+^b7a83f9ca8986cbe3b4902958b6842712ec2a7f5
+dc6b08527fcd39eab637288a352b7434122cb43d refs/tags/OpenHarmony-v5.0.3-Release
+^fb47bc09adaa6c6ea05212b1e7c65d73fe4855e3
+64c68992f70ffb392b2ceaf4b823026bda90b697 refs/tags/OpenHarmony-v5.1.0-Release
+^3d232cb4cd14df439d76480192ab9b77505e6d1e
+b17e4064c2feeee55857e76152e2bb01c0e37f65 refs/tags/OpenHarmony-v6.0-Beta1
+^0ef2485602a941c01c83e5016a4f22da99fae9b0
+3af03eb4d1cc79bd972e2b5f8d9f5e50e02b9fb5 refs/tags/master-v
+10aa2976b875ba2cdfffcc1f8b67cc8e7b493017 refs/tags/weekly_20240115-v

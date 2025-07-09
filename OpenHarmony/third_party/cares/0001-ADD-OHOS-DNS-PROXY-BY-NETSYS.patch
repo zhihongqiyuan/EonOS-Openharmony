@@ -1,0 +1,131 @@
+diff --git a/src/lib/ares_init.c b/src/lib/ares_init.c
+index e8902c6..3a5a5f5 100644
+--- a/src/lib/ares_init.c
++++ b/src/lib/ares_init.c
+@@ -58,6 +58,65 @@
+ #undef WIN32  /* Redefined in MingW/MSVC headers */
+ #endif
+ 
++
++#if OHOS_DNS_PROXY_BY_NETSYS
++#include <dlfcn.h>
++#include <stdio.h>
++
++#if DNS_CONFIG_DEBUG
++#ifndef DNS_CONFIG_PRINT
++#define DNS_CONFIG_PRINT(fmt, ...) printf("DNS " fmt "\n", ##__VA_ARGS__)
++#endif
++#else
++#define DNS_CONFIG_PRINT(fmt, ...)
++#endif
++
++#define DNS_SO_PATH "libnetsys_client.z.so"
++#define OHOS_GET_CONFIG_FUNC_NAME "NetSysGetResolvConf"
++#define MAX_SERVER_NUM 5
++#define MAX_SERVER_LENGTH 50
++
++struct resolv_config {
++  int32_t error;
++  int32_t timeout_ms;
++  uint32_t retry_count;
++  uint32_t non_public;
++  char nameservers[MAX_SERVER_NUM][MAX_SERVER_LENGTH + 1];
++};
++
++typedef int32_t (*GetConfig)(uint16_t netId, struct resolv_config *config);
++
++static void *open_dns_lib(void)
++{
++  static void *lib = NULL;
++  if (lib != NULL) {
++    return lib;
++  }
++  lib = dlopen(DNS_SO_PATH, RTLD_LAZY);
++  if (lib == NULL) {
++    DNS_CONFIG_PRINT("%s: dlopen %s failed: %s",
++      __func__, DNS_SO_PATH, dlerror());
++    return NULL;
++  }
++  return lib;
++}
++
++static void *load_from_dns_lib(const char *symbol)
++{
++  void *lib_handle = open_dns_lib();
++  if (lib_handle == NULL) {
++    return NULL;
++  }
++
++  void *sym_addr = dlsym(lib_handle, symbol);
++  if (sym_addr == NULL) {
++    DNS_CONFIG_PRINT("%s: loading symbol %s with dlsym failed: %s",
++      __func__, symbol, dlerror());
++  }
++  return sym_addr;
++}
++#endif
++
+ static int init_by_options(ares_channel channel,
+                            const struct ares_options *options,
+                            int optmask);
+@@ -1705,6 +1764,12 @@ static int init_by_resolv_conf(ares_channel channel)
+     int error;
+     int update_domains;
+     const char *resolvconf_path;
++#if OHOS_DNS_PROXY_BY_NETSYS
++    int netid = 0;
++    int ret = 0;
++    int status_each = -1;
++    GetConfig func = NULL;
++#endif
+ 
+     /* Don't read resolv.conf and friends if we don't have to */
+     if (ARES_CONFIG_CHECK(channel))
+@@ -1720,6 +1785,36 @@ static int init_by_resolv_conf(ares_channel channel)
+       resolvconf_path = PATH_RESOLV_CONF;
+     }
+ 
++#if OHOS_DNS_PROXY_BY_NETSYS
++    *(void **) &func = load_from_dns_lib(OHOS_GET_CONFIG_FUNC_NAME);
++    if (!func) {
++      DNS_CONFIG_PRINT("%s: loading %s failed, use %s as a fallback",
++        __func__, OHOS_GET_CONFIG_FUNC_NAME, DNS_RESOLV_CONF_PATH);
++      goto etc_resolv_conf;
++    }
++    struct resolv_config config = {0};
++    ret = func(netid, &config);
++    if (ret < 0) {
++      DNS_CONFIG_PRINT("__get_resolv_conf OHOS_GET_CONFIG_FUNC_NAME err %d\n", ret);
++      return ARES_ENONAME;
++    }
++
++    for (int i = 0; i < MAX_SERVER_NUM; ++i) {
++      if (config.nameservers[i] == NULL || config.nameservers[i][0] == 0) {
++        continue;
++      }
++      status_each = config_nameserver(&servers, &nservers, config.nameservers[i]);
++      if (status_each == ARES_SUCCESS) {
++        status = ARES_SUCCESS;
++      }
++    }
++
++    if (status == ARES_SUCCESS && nservers > 0) {
++      goto get_conf_ok;
++    }
++
++etc_resolv_conf:
++#endif
+     fp = fopen(resolvconf_path, "r");
+     if (fp) {
+       while ((status = ares__read_line(fp, &line, &linesize)) == ARES_SUCCESS)
+@@ -1866,7 +1961,9 @@ static int init_by_resolv_conf(ares_channel channel)
+         ares_free(sortlist);
+       return status;
+     }
+-
++#if OHOS_DNS_PROXY_BY_NETSYS
++get_conf_ok:
++#endif
+   /* If we got any name server entries, fill them in. */
+   if (servers)
+     {

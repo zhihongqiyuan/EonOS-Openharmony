@@ -1,0 +1,278 @@
+# Copyright (c) 2022-2022 Huawei Technologies Co., Ltd. All rights reserved.
+#
+# UniProton is licensed under Mulan PSL v2.
+# You can use this software according to the terms and conditions of the Mulan PSL v2.
+# You may obtain a copy of Mulan PSL v2 at:
+#          http://license.coscl.org.cn/MulanPSL2
+# THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+# EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+# MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+# See the Mulan PSL v2 for more details.
+# Create: 2022-09-21
+# Description: UniProton内核编译脚本。
+import("//build/lite/config/component/lite_component.gni")
+import("//build/ohos.gni")
+import("//third_party/littlefs/littlefs.gni")
+import("//third_party/lwip/lwip.gni")
+import("uniproton.gni")
+
+declare_args() {
+  uniproton_name = "OHOS_Image"
+  HAVE_DEVICE_SDK = true
+}
+
+arch_cflags = []
+cc = "$ohos_current_cc_command " + string_join(" ", arch_cflags)
+
+config("arch_config") {
+  cflags = arch_cflags
+  ldflags = cflags
+  asmflags = cflags
+}
+
+config("kconfig_config") {
+  cflags = [
+    "-imacros",
+    "$MENUCONFIG_H",
+  ]
+  asmflags = cflags
+  cflags_cc = cflags
+}
+
+config("kernel_config") {
+  include_dirs = [
+    "$OSTOPDIR/include/uapi",
+    "//third_party/bounds_checking_function/include",
+  ]
+  if (defined(OS_ARCH_ARMV7_M)) {
+    include_dirs += ARCH_ARMVM7_M_INCLUDE_DIRS
+  }
+}
+
+config("strong_waring_flag") {
+  base_flags = [
+    "-Wunused",
+    "-Wredundant-decls",
+    "-Wfloat-conversion",
+    "-Wwrite-strings",
+    "-Wunused-macros",
+    "-Wswitch-default",
+    "-Wshift-overflow=2",
+    "-Wmissing-include-dirs",
+    "-Wlogical-op",
+    "-Wformat-security",
+    "-Wvla",
+    "-Wframe-larger-than=4096",
+    "-Wduplicated-cond",
+    "-Wdisabled-optimization",
+    "-Wduplicated-branches",
+    "-Wignored-qualifiers",
+    "-Wimplicit-fallthrough=3",
+    "-Wpointer-arith",
+    "-Wshift-negative-value",
+    "-Wsign-compare",
+    "-Wtype-limits",
+    "-Wcast-qual",
+    "-Wundef",
+    "-Wpacked",
+    "-Wstack-usage=2048",
+  ]
+
+  cflags = base_flags
+  cflags += [
+    "-Wnested-externs",
+    "-Wjump-misses-init",
+    "-Wbad-function-cast",
+    "-Wold-style-definition",
+    "-Wstrict-prototypes",
+  ]
+  cflags_cc = base_flags
+}
+
+config("warn_config") {
+  cflags = [
+    "-Wall",
+    "-Werror",
+    "-Wextra",
+    "-Wformat=2",
+    "-Wfloat-equal",
+    "-Wshadow",
+    "-Wtrampolines",
+    "-Wdate-time",
+  ]
+
+  cflags_cc = cflags
+}
+
+config("stdinc_config") {
+  std_include = exec_script("//build/lite/run_shell_cmd.py",
+                            [ "$cc -print-file-name=include" ],
+                            "trim string")
+  cflags = [
+    "-isystem",
+    std_include,
+  ]
+  asmflags = cflags
+}
+
+config("ssp_config") {
+  cflags = []
+  if (defined(CC_STACKPROTECTOR_ALL)) {
+    cflags += [ "-fstack-protector-all" ]
+  } else if (defined(CC_STACKPROTECTOR_STRONG)) {
+    cflags += [ "-fstack-protector-strong" ]
+  } else if (defined(CC_STACKPROTECTOR)) {
+    cflags += [
+      "-fstack-protector",
+      "--param",
+      "ssp-buffer-size=4",
+    ]
+  } else {
+    cflags += [ "-fno-stack-protector" ]
+  }
+  asmflags = cflags
+}
+
+config("misc_config") {
+  cflags = [
+    "-fno-pic",
+    "-fno-builtin",
+    "-fms-extensions",
+    "-fno-strict-aliasing",
+    "-fno-common",
+    "-fsigned-char",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fno-exceptions",
+    "-fno-omit-frame-pointer",
+  ]
+
+  asmflags = cflags
+  asmflags += [ "-DCLZ=CLZ" ]
+}
+
+config("os_config") {
+  configs = [
+    ":arch_config",
+    ":stdinc_config",
+    ":ssp_config",
+
+    #":warn_config",
+    #":strong_waring_flag",
+    ":misc_config",
+  ]
+
+  configs += [ ":kernel_config" ]
+  if (HAVE_DEVICE_SDK) {
+    configs += [ "$device_path:public" ]
+  }
+}
+
+config("public") {
+  include_dirs = [
+    "src/arch/include",
+    "src/core/kernel/include",
+  ]
+}
+
+ohos_static_library("notice") {
+  license_file = "./NOTICE"
+
+  subsystem_name = "kernel"
+  part_name = "uniproton"
+}
+
+static_library("libkernel") {
+  include_dirs = KERNEL_BASE_INCLUDE_DIRS
+  sources = KERNEL_BASE_SOURCES
+
+  if (defined(OS_OPTION_EVENT)) {
+    sources += KERNEL_IPC_EVENT_SOURCES
+  }
+  if (defined(OS_OPTION_QUEUE)) {
+    sources += KERNEL_IPC_QUEUE_SOURCES
+  }
+  if (defined(INTERNAL_OS_SWTMR)) {
+    sources += KERNEL_SWTMR_SOURCES
+  }
+  sources += KERNEL_IPC_SEM_SOURCES
+  sources += KERNEL_MEM_SOURCES
+  sources += KERNEL_OM_SOURCES
+  if (defined(OS_OPTION_CPUP)) {
+    sources += KERNEL_OM_CPUP_SOURCES
+  }
+  sources += KERNEL_SECURITY_SOURCES
+  sources += KERNEL_UTILITY_SOURCES
+
+  if (defined(OS_SUPPORT_FS)) {
+    sources += KERNEL_FS_SOURCES + LITTLEFS_SRC_FILES_FOR_KERNEL_MODULE
+    include_dirs += KERNEL_FS_INCLUDE_DIRS + LITTLEFS_INCLUDE_DIRS
+  }
+
+  if (defined(OS_SUPPORT_NET)) {
+    sources += KERNEL_LWIP_SOURCES + LWIPNOAPPSFILES
+    include_dirs += KERNEL_LWIP_INCLUDE_DIRS + LWIP_INCLUDE_DIRS
+  }
+
+  if (defined(OS_ARCH_ARMV7_M)) {
+    sources += ARCH_ARMVM7_M_SOURCES
+    if ("$board_cpu" == "cortex-m4") {
+      sources += ARCH_CORTEX_M4_SOURCES
+      include_dirs += ARCH_CORTEX_M4_INCLUDE_DIRS
+    }
+  }
+
+  configs += [ ":os_config" ]
+
+  deps = [ "//third_party/bounds_checking_function:libsec_static" ]
+  deps += [ "//third_party/musl/porting/uniproton/kernel:kernel" ]
+  if (defined(DRIVERS_HDF)) {
+    deps += [ HDFTOPDIR ]
+  }
+}
+
+group("kernel") {
+  deps = [
+    ":libkernel",
+    ":notice",
+  ]
+}
+
+executable("uniproton") {
+  configs += [ ":os_config" ]
+
+  ldflags = [
+    "-static",
+    "-Wl,--gc-sections",
+    "-Wl,-Map=$uniproton_name.map",
+  ]
+
+  output_dir = target_out_dir
+
+  deps = [ "//build/lite:ohos" ]
+
+  if (HAVE_DEVICE_SDK) {
+    deps += [
+      "$device_path:device",
+      "$product_path:$product",
+    ]
+  }
+}
+
+copy("copy_image") {
+  deps = [ ":uniproton" ]
+  sources = [ "$target_out_dir/unstripped/bin/uniproton" ]
+  outputs = [ "$root_out_dir/$uniproton_name" ]
+}
+
+build_ext_component("build_kernel_image") {
+  deps = [ ":copy_image" ]
+  exec_path = rebase_path(root_out_dir)
+
+  objcopy = "${compile_prefix}objcopy$toolchain_cmd_suffix"
+  objdump = "${compile_prefix}objdump$toolchain_cmd_suffix"
+
+  command = "$objcopy -O binary $uniproton_name $uniproton_name.bin"
+  command += " && sh -c '$objdump -t $uniproton_name | sort >$uniproton_name.sym.sorted'"
+  command += " && sh -c '$objdump -d $uniproton_name >$uniproton_name.asm'"
+}

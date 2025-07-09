@@ -1,0 +1,45 @@
+{
+    "name": "@ohos/flatbuffers",
+    "description": "Memory Efficient Serialization Library.",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "pubiishAs": "code-segment",
+    "segment": {
+      "destPath": "third_party/flatbuffers"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+      "name": "flatbuffers",
+      "subsystem": "thirdparty",
+      "syscap": [],
+      "features": [],
+      "adapted_system_type": [
+        "standard",
+        "small"
+      ],
+      "rom": "0",
+      "ram": "0",
+      "deps": {
+        "components": [
+        ],
+        "third_party": [
+        ]
+      },
+      "build": {
+        "sub_component": [ "//third_party/flatbuffers:libflatbuffers_static" ],
+        "inner_kits": [
+                {
+                    "name": "//third_party/flatbuffers:libflatbuffers_static",
+                    "header": {
+                        "header_base": "//third_party/flatbuffers/include",
+                        "header_files": [
+                        ]
+                    }
+                }
+        ],
+        "test": [
+        ]
+      }
+    }
+  }

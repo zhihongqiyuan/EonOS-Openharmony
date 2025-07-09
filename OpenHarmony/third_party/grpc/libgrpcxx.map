@@ -1,0 +1,27 @@
+{
+  global:
+  extern "C++" {
+    "grpc::ClientContext::ClientContext()";
+    "grpc::ClientContext::~ClientContext()";
+    "grpc::InsecureChannelCredentials()";
+    "grpc::g_core_codegen_interface";
+    "grpc::g_glip";
+    "grpc::CreateChannel(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&, std::__h::shared_ptr<grpc::ChannelCredentials> const&)";
+    "grpc::EnableDefaultHealthCheckService(bool)";
+    "grpc::ServerContextBase::peer() const";
+    "grpc::Status::OK";
+    "grpc::ServerBuilder::ServerBuilder()";
+    "grpc::InsecureServerCredentials()";
+    "grpc::ServerBuilder::AddListeningPort(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&, std::__h::shared_ptr<grpc::ServerCredentials>, int*)";
+    "grpc::ServerBuilder::RegisterService(grpc::Service*)";
+    "grpc::ServerBuilder::BuildAndStart()";
+    "grpc::ServerBuilder::~ServerBuilder()";
+    "grpc::ServerContextBase::ServerContextBase()";
+    "grpc::ServerContextBase::~ServerContextBase()";
+    "grpc::CreateChannel(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, std::__1::shared_ptr<grpc::ChannelCredentials> const&)";
+    "grpc::ServerBuilder::AddListeningPort(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, std::__1::shared_ptr<grpc::ServerCredentials>, int*)";
+  };
+  local:
+    *;
+};
+

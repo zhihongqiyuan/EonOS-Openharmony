@@ -1,0 +1,11 @@
+[
+    {
+        "Name"                  : "uniproton",
+        "License"               : "MulanPSL-2.0",
+        "License File"          : "LICENSE",
+        "Version Number"        : "1.0.1",
+        "Owner"                 : "zhushengle@huawei.com",
+        "Upstream URL"          : "https://gitee.com/openeuler/UniProton",
+        "Description"           : "Uniproton is a highly real-time kernel implementation of the MulanPSL-2.0 license"
+    }
+]

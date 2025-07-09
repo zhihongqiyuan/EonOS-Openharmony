@@ -1,0 +1,9 @@
+.DS_Store
+.idea
+.vscode
+node_modules
+docs/build
+packages/*/dist/
+test/dist/
+tsconfig.tsbuildinfo
+coverage/

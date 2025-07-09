@@ -1,0 +1,40 @@
+{
+    "name": "@ohos/ace_ets2bundle",
+    "description": "ArkUI declarative paradigm parser for syntax compilation, conversion, verification",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+      "destPath": "developtools/ace_ets2bundle"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+      "name": "ace_ets2bundle",
+      "subsystem": "developtools",
+      "adapted_system_type": [
+        "standard"
+      ],
+      "deps": {
+        "components": [],
+        "third_party": [
+          "typescript"
+        ]
+      },
+      "build": {
+        "sub_component": [
+          "//developtools/ace_ets2bundle:ets_loader_component_config",
+          "//developtools/ace_ets2bundle:ets_loader_deps",
+          "//developtools/ace_ets2bundle:ets_loader",
+          "//developtools/ace_ets2bundle:ets_loader_library",
+          "//developtools/ace_ets2bundle:ets_loader_syntax",
+          "//developtools/ace_ets2bundle:components",
+          "//developtools/ace_ets2bundle:server",
+          "//developtools/ace_ets2bundle:codegen",
+          "//developtools/ace_ets2bundle:ets_loader_declaration",
+          "//developtools/ace_ets2bundle:ets_loader_ark_hap"
+        ]
+      }
+    }
+  }
+  

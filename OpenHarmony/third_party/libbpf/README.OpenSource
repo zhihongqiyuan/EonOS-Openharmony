@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "libbpf",
+    "License": "BSD-2-Clause",
+    "License File": "LICENSE.BSD-2-Clause",
+    "Version Number": "v1.3.3",
+    "Owner": "xiazhonglin@huawei.com",
+    "Upstream URL": "https://github.com/libbpf/libbpf",
+    "Description": "a third party library to use eBPF"
+  }
+]

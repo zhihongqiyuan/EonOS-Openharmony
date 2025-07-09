@@ -1,0 +1,115 @@
+{
+    "name": "@ohos/mindspore",
+    "description": "AI Framework.",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "pubiishAs": "code-segment",
+    "segment": {
+      "destPath": "third_party/mindspore"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+      "name": "mindspore",
+      "subsystem": "thirdparty",
+      "syscap": [
+        "SystemCapability.Ai.MindSpore",
+        "SystemCapability.AI.MindSporeLite"
+      ],
+      "features": [ "mindspore_feature_nnrt_metagraph" ],
+      "adapted_system_type": [
+        "standard"
+      ],
+      "rom": "",
+      "ram": "",
+      "deps": {
+        "components": [
+          "c_utils",
+          "hilog",
+          "hiappevent",
+          "hdf_core",
+          "ipc",
+          "neural_network_runtime",
+          "drivers_interface_nnrt",
+          "ability_runtime",
+          "napi",
+          "resource_management",
+          "bounds_checking_function",
+          "flatbuffers"
+        ]
+      },
+      "build": {
+        "sub_component": [
+          "//third_party/mindspore/:mindspore-all"
+        ],
+        "inner_kits": [
+          {
+            "name": "//third_party/mindspore:mindir",
+            "header": {
+              "header_files": [
+                "mindir_lite_graph.h",
+                "mindir_primitive.h",
+                "mindir_tensor.h",
+                "mindir_types.h",
+                "mindir.h"
+              ],
+              "header_base": "//third_party/mindspore/mindspore-src/source/mindspore/lite/mindir/include"
+            }
+          },
+          {
+            "name": "//third_party/mindspore/mindspore-src/source/mindspore/lite/mindir:mindir_lib",
+            "header": {
+              "header_files": [
+                "mindir_lite_graph.h",
+                "mindir_primitive.h",
+                "mindir_tensor.h",
+                "mindir_types.h",
+                "mindir.h"
+              ],
+              "header_base": "//third_party/mindspore/mindspore-src/source/mindspore/lite/mindir/include"
+            }
+          },
+          {
+            "name": "//third_party/mindspore/:mindspore-ndk",
+            "header": {
+              "header_files": [
+                "context_c.h",
+                "data_type_c.h",
+                "format_c.h",
+                "model_c.h",
+                "status_c.h",
+                "tensor_c.h",
+                "types_c.h"
+              ],
+              "header_base": "//third_party/mindspore/mindspore-src/source/include/c_api"
+            }
+          },
+          {
+            "name": "//third_party/mindspore/mindspore-src/source/mindspore/lite:mindspore_ndk",
+            "header": {
+              "header_files": [
+                "context_c.h",
+                "data_type_c.h",
+                "format_c.h",
+                "model_c.h",
+                "status_c.h",
+                "tensor_c.h",
+                "types_c.h"
+              ],
+              "header_base": "//third_party/mindspore/mindspore-src/source/include/c_api"
+            }
+          },
+          {
+            "name": "//third_party/mindspore/:mindspore-lib",
+            "header": {
+              "header_files": [],
+              "header_base": "//third_party/mindspore/mindspore-src/source/include/c_api"
+            }
+          }
+        ],
+        "test": [
+          "//third_party/mindspore:mindspore-test"
+        ]
+      }
+    }
+  }

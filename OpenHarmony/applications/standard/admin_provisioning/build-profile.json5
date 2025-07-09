@@ -1,0 +1,29 @@
+{
+  "app": {
+    "signingConfigs": [],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": 11,
+        "compatibleSdkVersion": 11,
+        "targetSdkVersion": 11,
+        "runtimeOS": "OpenHarmony",
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "adminprovisioning",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

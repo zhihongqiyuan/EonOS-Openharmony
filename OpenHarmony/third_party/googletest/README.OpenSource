@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "googletest",
+    "License": "BSD 3-Clause License",
+    "License File": "LICENSE",
+    "Version Number": "1.14.0",
+    "Owner": "",
+    "Upstream URL": "https://github.com/google/googletest/archive/refs/tags/v1.14.0.tar.gz",
+    "Description": "The 1.14.x only supports compilers above C++14. The 1.14.x will not accept any requests for any new features and any bugfix requests will only be accepted if proven critical"
+  }
+]

@@ -1,0 +1,45 @@
+{
+    "name": "@ohos/vulkan-headers",
+    "description": "Vulkan header files and API registry",
+    "version": "3.2",
+    "license": "Apache-2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/vulkan-headers"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "CODE_OF_CONDUCT.md",
+    "readmePath": {
+        "en": "README.md"
+    },
+    "component": {
+        "name": "vulkan-headers",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": ["standard"],
+        "rom": "1",
+        "ram": "1",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+              "//third_party/vulkan-headers:vulkan_headers"
+            ],
+            "inner_kits": [
+              {
+                "type": "none",
+                "name": "//third_party/vulkan-headers:vulkan_headers",
+                "header": {
+                  "header_files": [
+                  ],
+                  "header_base": "//third_party/vulkan-headers/include"
+                }
+              }
+            ]
+        }
+    }
+}

@@ -1,0 +1,37 @@
+# pack-refs with: peeled fully-peeled sorted 
+8f1d347877608c72043d63adc688fc2363630dad refs/tags/OpenHarmony-v4.0-Beta1
+8f1d347877608c72043d63adc688fc2363630dad refs/tags/OpenHarmony-v4.0-Beta2
+8f1d347877608c72043d63adc688fc2363630dad refs/tags/OpenHarmony-v4.0-Release
+8f1d347877608c72043d63adc688fc2363630dad refs/tags/OpenHarmony-v4.0.1-Release
+aeaa1718b79b4d9883d128efb564fbd23503e873 refs/tags/OpenHarmony-v4.0.2-Release
+^8f1d347877608c72043d63adc688fc2363630dad
+93895630f1f93d589e81185db60381d3382286a3 refs/tags/OpenHarmony-v4.0.3-Release
+^8f1d347877608c72043d63adc688fc2363630dad
+aef08e5273c9c1265118fae9cdfc25f1a2549805 refs/tags/OpenHarmony-v4.0.4-Release
+^8f1d347877608c72043d63adc688fc2363630dad
+8f1d347877608c72043d63adc688fc2363630dad refs/tags/OpenHarmony-v4.1-Beta1
+8f1d347877608c72043d63adc688fc2363630dad refs/tags/OpenHarmony-v4.1-Release
+8f1d347877608c72043d63adc688fc2363630dad refs/tags/OpenHarmony-v4.1.1-Release
+621d7996379716a5433130a1f7394a7b7c9b85c2 refs/tags/OpenHarmony-v4.1.2-Release
+^8f1d347877608c72043d63adc688fc2363630dad
+8ab71f9142b874f110ffcc3e6d19bcab39cd587f refs/tags/OpenHarmony-v4.1.3-Release
+^8f1d347877608c72043d63adc688fc2363630dad
+f97852e64b3421622e2a4d2e41eaf48b19a6f8d0 refs/tags/OpenHarmony-v4.1.4-Release
+^8f1d347877608c72043d63adc688fc2363630dad
+e1ff7e4cd55f952760f5e5e242d0627d4bfe0286 refs/tags/OpenHarmony-v5.0-Beta1
+^8f1d347877608c72043d63adc688fc2363630dad
+93c666a0a0e0285abffc273ce20b70603af2ec2c refs/tags/OpenHarmony-v5.0.0-Release
+^f6121a0452a64767e68fea868e13acca2eed4243
+d58d895668eb85139defd97179be60fc3a83233d refs/tags/OpenHarmony-v5.0.1-Release
+^f6121a0452a64767e68fea868e13acca2eed4243
+1fc062a2aa6c6f25b50c8f0b454d0ab3ed4b6c40 refs/tags/OpenHarmony-v5.0.2-Release
+^f6121a0452a64767e68fea868e13acca2eed4243
+52720d652c404aa1be7f3ccda79b68ff4138df39 refs/tags/OpenHarmony-v5.0.3-Release
+^f6121a0452a64767e68fea868e13acca2eed4243
+5bfdafcb86a53f41fc0cd07673fe5f692ddadf03 refs/tags/OpenHarmony-v5.1.0-Release
+^f6121a0452a64767e68fea868e13acca2eed4243
+546b15ca941ae2d6b5c64e331cf7b290fdf84ed9 refs/tags/OpenHarmony-v6.0-Beta1
+^f6121a0452a64767e68fea868e13acca2eed4243
+db9289a32df4ba3b1de8c383b68b342be4a8a1ba refs/tags/github.com/indiv0/lazycell/v1.2.1
+8f1d347877608c72043d63adc688fc2363630dad refs/tags/master-v
+8f1d347877608c72043d63adc688fc2363630dad refs/tags/weekly_20240115-v

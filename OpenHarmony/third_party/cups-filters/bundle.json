@@ -1,0 +1,62 @@
+{
+    "name": "@ohos/cups-filters",
+    "description": "This project provides backends, filters, and other software that was once part of the core CUPS distribution",
+    "version": "4.0",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/cups-filters"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "COPYING",
+    "readmePath": {
+        "en": "README"
+    },
+    "component": {
+        "name": "cups-filters",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [ 
+                "zlib",
+                "cups",
+                "libpng",
+                "openssl",
+                "libjpeg-turbo"
+             ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//third_party/cups-filters:third_party_cupsfilters"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//third_party/cups-filters:cupsfilters",
+                    "header": {
+                      "header_files": [
+                        "colord.h",
+                        "colormanager.h",
+                        "driver.h",
+                        "image-private.h",
+                        "image-sgi.h",
+                        "image.h",
+                        "ipp.h",
+                        "kmdevices.h",
+                        "pdftoippprinter.h",
+                        "ppdgenerator.h",
+                        "raster.h"
+                      ],
+                      "header_base": "//third_party/cups-filters/cupsfilters"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

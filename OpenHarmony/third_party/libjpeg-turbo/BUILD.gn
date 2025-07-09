@@ -1,0 +1,239 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+} else {
+  import("//build/ohos.gni")
+}
+
+declare_args() {
+  is_arm_ohos_clang_pc = (target_cpu == "arm" || target_cpu == "arm64") &&
+                         is_ohos && is_clang && target_platform == "pc"
+}
+
+action("libjpeg_action") {
+  script = "//third_party/libjpeg-turbo/install.py"
+  outputs = [
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcapimin.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcapistd.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jccoefct.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jccolor.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcdctmgr.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jchuff.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcicc.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcinit.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcmainct.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcmarker.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcmaster.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcomapi.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcparam.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcphuff.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcprepct.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jcsample.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jctrans.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdapimin.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdapistd.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdatadst.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdatasrc.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdcoefct.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdcolor.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jddctmgr.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdicc.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdinput.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdmainct.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdmarker.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdmaster.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdmerge.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdphuff.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdpostct.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdsample.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jdtrans.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jerror.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jfdctflt.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jfdctfst.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jfdctint.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jidctflt.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jidctfst.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jidctint.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jidctred.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jmemmgr.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jmemnobs.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jquant1.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jquant2.c",
+    "${target_gen_dir}/libjpeg-turbo-2.1.1/jutils.c",
+  ]
+
+  if (is_arm_ohos_clang_pc) {
+    outputs += [ "${target_gen_dir}/libjpeg-turbo-2.1.1/jdhuff_opt.c" ]
+  } else {
+    outputs += [ "${target_gen_dir}/libjpeg-turbo-2.1.1/jdhuff.c" ]
+  }
+
+  mkernel = defined(ohos_kernel_type) && ohos_kernel_type == "liteos_m"
+  if (mkernel || is_win) {
+    outputs += [ "${target_gen_dir}/libjpeg-turbo-2.1.1/jsimd_none.c" ]
+  } else if (current_cpu == "arm" || current_cpu == "arm64") {
+    outputs += [
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jcgray-neon.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jcphuff-neon.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jcsample-neon.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jdmerge-neon.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jdsample-neon.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jfdctfst-neon.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jidctred-neon.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jquanti-neon.c",
+    ]
+
+    # NEON_INTRINSICS as default
+    outputs += [
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jccolor-neon.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jidctfst-neon.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jidctint-neon.c",
+    ]
+    if (current_cpu == "arm") {
+      outputs += [
+        "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/aarch32/jchuff-neon.c",
+        "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/aarch32/jsimd.c",
+        "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jdcolor-neon.c",
+        "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jfdctint-neon.c",
+      ]
+    } else {
+      outputs += [
+        "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/aarch64/jchuff-neon.c",
+        "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/aarch64/jsimd.c",
+        "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jdcolor-neon.c",
+        "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm/jfdctint-neon.c",
+      ]
+    }
+  } else {
+    outputs += [ "${target_gen_dir}/libjpeg-turbo-2.1.1/jsimd_none.c" ]
+  }
+
+  if (!defined(ohos_lite)) {
+    outputs += [
+      # enable arith codec
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/jaricom.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/jcarith.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/jdarith.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/jdatadst-tj.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/jdatasrc-tj.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/rdbmp.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/rdppm.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/transupp.c",
+
+      # enable turbo
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/turbojpeg.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/wrbmp.c",
+      "${target_gen_dir}/libjpeg-turbo-2.1.1/wrppm.c",
+    ]
+  }
+
+  inputs = [ "//third_party/libjpeg-turbo/libjpeg-turbo-2.1.1.tar.gz" ]
+  libjpeg_path = rebase_path("${target_gen_dir}", root_build_dir)
+  libjpeg_source_path =
+      rebase_path("//third_party/libjpeg-turbo", root_build_dir)
+  args = [
+    "--gen-dir",
+    "$libjpeg_path",
+    "--source-dir",
+    "$libjpeg_source_path",
+  ]
+}
+
+include_dirs = []
+define_config = [ "HAVE_UNSIGNED_SHORT=1" ]
+cflags = []
+
+mkernel = defined(ohos_kernel_type) && ohos_kernel_type == "liteos_m"
+if (mkernel || is_win) {
+  define_config += [
+    "NO_PUTENV",
+    "NO_GETENV",
+  ]
+} else if (current_cpu == "arm" || current_cpu == "arm64") {
+  define_config += [ "NEON_INTRINSICS" ]
+  cflags += [
+    "-DNEON_INTRINSICS",
+    "-Wno-pointer-sign",
+  ]
+  include_dirs += [ "${target_gen_dir}/libjpeg-turbo-2.1.1/simd/arm" ]
+  if (current_cpu == "arm") {
+    cflags += [
+      "-mfpu=neon",
+      "-mfloat-abi=softfp",
+    ]
+  }
+}
+
+if (!defined(ohos_lite)) {
+  define_config += [
+    "C_ARITH_CODING_SUPPORTED=1",  #Support arithmetic encoding
+    "D_ARITH_CODING_SUPPORTED=1",  #Support arithmetic decoding
+    "BMP_SUPPORTED=1",  #Support arithmetic decoding
+    "PPM_SUPPORTED=1",  #Support arithmetic decoding
+  ]
+}
+
+config("turbojpeg_config") {
+  include_dirs += [ "${target_gen_dir}/libjpeg-turbo-2.1.1" ]
+  defines = define_config
+}
+
+if (defined(ohos_lite)) {
+  lite_library("libjpeg") {
+    if (ohos_kernel_type == "liteos_m") {
+      target_type = "static_library"
+    } else {
+      target_type = "shared_library"
+    }
+    sources = get_target_outputs(":libjpeg_action")
+    deps = [ ":libjpeg_action" ]
+    public_configs = [ ":turbojpeg_config" ]
+    if (defined(board_toolchain_type) && board_toolchain_type == "iccarm") {
+      cflags += [
+        "-DHAVE_STDLIB_H",
+        "--diag_suppress",
+        "Pa181,Pe301,Pe546",
+      ]
+      cflags_cc = cflags
+    }
+  }
+} else {
+  ohos_static_library("turbojpeg_static") {
+    sources = get_target_outputs(":libjpeg_action")
+    public_configs = [ ":turbojpeg_config" ]
+    deps = [ ":libjpeg_action" ]
+    part_name = "libjpeg-turbo"
+    subsystem_name = "thirdparty"
+    if (is_arm_ohos_clang_pc) {
+      defines = [ "HUFF_DECODE_OPT" ]
+      cflags += [ "-fvisibility=hidden" ]
+    }
+  }
+  ohos_shared_library("turbojpeg") {
+    sources = get_target_outputs(":libjpeg_action")
+    public_configs = [ ":turbojpeg_config" ]
+    deps = [ ":libjpeg_action" ]
+    innerapi_tags = [ "platformsdk" ]
+    part_name = "libjpeg-turbo"
+    subsystem_name = "thirdparty"
+    if (is_arm_ohos_clang_pc) {
+      defines = [
+        "HUFF_DECODE_OPT",
+        "HIDE_INTERNAL",
+      ]
+      ldflags = [ "-Wl,-Bsymbolic" ]
+    }
+  }
+}

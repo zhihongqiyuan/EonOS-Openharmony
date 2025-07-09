@@ -1,0 +1,50 @@
+{
+  "name": "@ohos/syscap_codec",
+  "description": "System capability encode and decode.",
+  "version": "4.0.2",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "homePage": "https://gitee.com/openharmony",
+  "repository": "https://gitee.com/openharmony/developtools_syscap_codec",
+  "supplier": "Origanization: OpenHarmony",
+  "segment": {
+    "destPath": "developtools/syscap_codec"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "syscap_codec",
+    "subsystem": "developtools",
+    "syscap": [ "SystemCapability.Developtools.Syscap" ],
+    "features": [
+      "syscap_codec_config_path",
+      "syscap_codec_config_extern_path"
+    ],
+    "adapted_system_type": [ "small", "standard" ],
+    "rom": "0",
+    "ram": "0",
+    "deps": {
+      "components": [
+        "napi",
+        "bounds_checking_function",
+        "cJSON"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "sub_component": [
+        "//developtools/syscap_codec:syscap_codec"
+      ],
+      "inner_kits": [
+        {
+          "header": {
+            "header_base": "//developtools/syscap_codec/interfaces/inner_api",
+            "header_files": [ "syscap_interface.h" ]
+          },
+          "name": "//developtools/syscap_codec:syscap_interface_shared"
+        }
+      ],
+      "test": [ "//developtools/syscap_codec/test/unittest/common:unittest" ]
+    }
+  }
+}

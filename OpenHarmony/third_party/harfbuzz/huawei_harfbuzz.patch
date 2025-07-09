@@ -1,0 +1,1255 @@
+From 847c0d2d7901446c4c6df54c7361792d9b637ec8 Mon Sep 17 00:00:00 2001
+From: Zacoh <kouzhenrong@h-partners.com>
+Date: Wed, 14 May 2025 14:17:05 +0800
+Subject: [PATCH] harfbuzz update 11.0.0
+
+---
+ src/OT/Color/COLR/COLR.hh               | 506 ++++++++++++++++++++++++
+ src/OT/Layout/Common/CoverageFormat2.hh |   4 +
+ src/OT/glyf/Glyph.hh                    | 244 ++++++++++++
+ src/OT/glyf/GlyphHeader.hh              |  25 ++
+ src/hb-open-type.hh                     |   6 +
+ src/hb-ot-cmap-table.hh                 |  19 +
+ src/hb-ot-layout-common.hh              |  36 ++
+ src/hb-ot-layout-gpos-table.hh          |  20 +
+ src/hb-ot-layout-gsubgpos.hh            |   7 +
+ src/hb-static.cc                        |   5 +
+ 10 files changed, 872 insertions(+)
+
+diff --git a/src/OT/Color/COLR/COLR.hh b/src/OT/Color/COLR/COLR.hh
+index 16cd96e..46b96db 100644
+--- a/src/OT/Color/COLR/COLR.hh
++++ b/src/OT/Color/COLR/COLR.hh
+@@ -915,6 +915,12 @@ struct PaintGlyph
+ {
+   void closurev1 (hb_colrv1_closure_context_t* c) const;
+ 
++#ifdef ENABLE_ICCARM
++  bool subset (hb_subset_context_t *c,
++               const ItemVarStoreInstancer &instancer) const;
++  bool sanitize (hb_sanitize_context_t *c) const;
++  void paint_glyph (hb_paint_context_t *c) const;
++#else
+   bool subset (hb_subset_context_t *c,
+                const ItemVarStoreInstancer &instancer) const
+   {
+@@ -946,6 +952,7 @@ struct PaintGlyph
+     c->funcs->pop_clip (c->data);
+     c->funcs->pop_transform (c->data);
+   }
++#endif
+ 
+   HBUINT8		format; /* format = 10 */
+   Offset24To<Paint>	paint;  /* Offset (from beginning of PaintGlyph table) to Paint subtable. */
+@@ -1027,6 +1034,13 @@ struct PaintTranslate
+ {
+   HB_INTERNAL void closurev1 (hb_colrv1_closure_context_t* c) const;
+ 
++#ifdef ENABLE_ICCARM
++  bool subset (hb_subset_context_t *c,
++               const ItemVarStoreInstancer &instancer,
++               uint32_t varIdxBase) const;
++  bool sanitize (hb_sanitize_context_t *c) const;
++  void paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const;
++#else
+   bool subset (hb_subset_context_t *c,
+                const ItemVarStoreInstancer &instancer,
+                uint32_t varIdxBase) const
+@@ -1063,6 +1077,7 @@ struct PaintTranslate
+     c->recurse (this+src);
+     if (p1) c->funcs->pop_transform (c->data);
+   }
++#endif
+ 
+   HBUINT8		format; /* format = 14(noVar) or 15 (Var) */
+   Offset24To<Paint>	src; /* Offset (from beginning of PaintTranslate table) to Paint subtable. */
+@@ -1076,6 +1091,13 @@ struct PaintScale
+ {
+   HB_INTERNAL void closurev1 (hb_colrv1_closure_context_t* c) const;
+ 
++#ifdef ENABLE_ICCARM
++  bool subset (hb_subset_context_t *c,
++               const ItemVarStoreInstancer &instancer,
++               uint32_t varIdxBase) const;
++  bool sanitize (hb_sanitize_context_t *c) const;
++  void paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const;
++#else
+   bool subset (hb_subset_context_t *c,
+                const ItemVarStoreInstancer &instancer,
+                uint32_t varIdxBase) const
+@@ -1112,6 +1134,7 @@ struct PaintScale
+     c->recurse (this+src);
+     if (p1) c->funcs->pop_transform (c->data);
+   }
++#endif
+ 
+   HBUINT8		format; /* format = 16 (noVar) or 17(Var) */
+   Offset24To<Paint>	src; /* Offset (from beginning of PaintScale table) to Paint subtable. */
+@@ -1125,6 +1148,13 @@ struct PaintScaleAroundCenter
+ {
+   HB_INTERNAL void closurev1 (hb_colrv1_closure_context_t* c) const;
+ 
++#ifdef ENABLE_ICCARM
++  bool subset (hb_subset_context_t *c,
++               const ItemVarStoreInstancer &instancer,
++               uint32_t varIdxBase) const;
++  bool sanitize (hb_sanitize_context_t *c) const;
++  void paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const;
++#else
+   bool subset (hb_subset_context_t *c,
+                const ItemVarStoreInstancer &instancer,
+                uint32_t varIdxBase) const
+@@ -1169,6 +1199,7 @@ struct PaintScaleAroundCenter
+     if (p2) c->funcs->pop_transform (c->data);
+     if (p1) c->funcs->pop_transform (c->data);
+   }
++#endif
+ 
+   HBUINT8		format; /* format = 18 (noVar) or 19(Var) */
+   Offset24To<Paint>	src; /* Offset (from beginning of PaintScaleAroundCenter table) to Paint subtable. */
+@@ -1184,6 +1215,13 @@ struct PaintScaleUniform
+ {
+   HB_INTERNAL void closurev1 (hb_colrv1_closure_context_t* c) const;
+ 
++#ifdef ENABLE_ICCARM
++  bool subset (hb_subset_context_t *c,
++               const ItemVarStoreInstancer &instancer,
++               uint32_t varIdxBase) const;
++  bool sanitize (hb_sanitize_context_t *c) const;
++  void paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const;
++#else
+   bool subset (hb_subset_context_t *c,
+                const ItemVarStoreInstancer &instancer,
+                uint32_t varIdxBase) const
+@@ -1216,6 +1254,7 @@ struct PaintScaleUniform
+     c->recurse (this+src);
+     if (p1) c->funcs->pop_transform (c->data);
+   }
++#endif
+ 
+   HBUINT8		format; /* format = 20 (noVar) or 21(Var) */
+   Offset24To<Paint>	src; /* Offset (from beginning of PaintScaleUniform table) to Paint subtable. */
+@@ -1228,6 +1267,13 @@ struct PaintScaleUniformAroundCenter
+ {
+   HB_INTERNAL void closurev1 (hb_colrv1_closure_context_t* c) const;
+ 
++#ifdef ENABLE_ICCARM
++  bool subset (hb_subset_context_t *c,
++               const ItemVarStoreInstancer &instancer,
++               uint32_t varIdxBase) const;
++  bool sanitize (hb_sanitize_context_t *c) const;
++  void paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const;
++#else
+   bool subset (hb_subset_context_t *c,
+                const ItemVarStoreInstancer &instancer,
+                uint32_t varIdxBase) const
+@@ -1270,6 +1316,7 @@ struct PaintScaleUniformAroundCenter
+     if (p2) c->funcs->pop_transform (c->data);
+     if (p1) c->funcs->pop_transform (c->data);
+   }
++#endif
+ 
+   HBUINT8		format; /* format = 22 (noVar) or 23(Var) */
+   Offset24To<Paint>	src; /* Offset (from beginning of PaintScaleUniformAroundCenter table) to Paint subtable. */
+@@ -1284,6 +1331,13 @@ struct PaintRotate
+ {
+   HB_INTERNAL void closurev1 (hb_colrv1_closure_context_t* c) const;
+ 
++#ifdef ENABLE_ICCARM
++  bool subset (hb_subset_context_t *c,
++               const ItemVarStoreInstancer &instancer,
++               uint32_t varIdxBase) const;
++  bool sanitize (hb_sanitize_context_t *c) const;
++  void paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const;
++#else
+   bool subset (hb_subset_context_t *c,
+                const ItemVarStoreInstancer &instancer,
+                uint32_t varIdxBase) const
+@@ -1316,6 +1370,7 @@ struct PaintRotate
+     c->recurse (this+src);
+     if (p1) c->funcs->pop_transform (c->data);
+   }
++#endif
+ 
+   HBUINT8		format; /* format = 24 (noVar) or 25(Var) */
+   Offset24To<Paint>	src; /* Offset (from beginning of PaintRotate table) to Paint subtable. */
+@@ -1328,6 +1383,13 @@ struct PaintRotateAroundCenter
+ {
+   HB_INTERNAL void closurev1 (hb_colrv1_closure_context_t* c) const;
+ 
++#ifdef ENABLE_ICCARM
++  bool subset (hb_subset_context_t *c,
++               const ItemVarStoreInstancer &instancer,
++               uint32_t varIdxBase) const;
++  bool sanitize (hb_sanitize_context_t *c) const;
++  void paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const;
++#else
+   bool subset (hb_subset_context_t *c,
+                const ItemVarStoreInstancer &instancer,
+                uint32_t varIdxBase) const
+@@ -1370,6 +1432,7 @@ struct PaintRotateAroundCenter
+     if (p2) c->funcs->pop_transform (c->data);
+     if (p1) c->funcs->pop_transform (c->data);
+   }
++#endif
+ 
+   HBUINT8		format; /* format = 26 (noVar) or 27(Var) */
+   Offset24To<Paint>	src; /* Offset (from beginning of PaintRotateAroundCenter table) to Paint subtable. */
+@@ -1384,6 +1447,13 @@ struct PaintSkew
+ {
+   HB_INTERNAL void closurev1 (hb_colrv1_closure_context_t* c) const;
+ 
++#ifdef ENABLE_ICCARM
++  bool subset (hb_subset_context_t *c,
++               const ItemVarStoreInstancer &instancer,
++               uint32_t varIdxBase) const;
++  bool sanitize (hb_sanitize_context_t *c) const;
++  void paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const;
++#else
+   bool subset (hb_subset_context_t *c,
+                const ItemVarStoreInstancer &instancer,
+                uint32_t varIdxBase) const
+@@ -1420,6 +1490,7 @@ struct PaintSkew
+     c->recurse (this+src);
+     if (p1) c->funcs->pop_transform (c->data);
+   }
++#endif
+ 
+   HBUINT8		format; /* format = 28(noVar) or 29 (Var) */
+   Offset24To<Paint>	src; /* Offset (from beginning of PaintSkew table) to Paint subtable. */
+@@ -1433,6 +1504,13 @@ struct PaintSkewAroundCenter
+ {
+   HB_INTERNAL void closurev1 (hb_colrv1_closure_context_t* c) const;
+ 
++#ifdef ENABLE_ICCARM
++  bool subset (hb_subset_context_t *c,
++               const ItemVarStoreInstancer &instancer,
++               uint32_t varIdxBase) const;
++  bool sanitize (hb_sanitize_context_t *c) const;
++  void paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const;
++#else
+   bool subset (hb_subset_context_t *c,
+                const ItemVarStoreInstancer &instancer,
+                uint32_t varIdxBase) const
+@@ -1477,6 +1555,7 @@ struct PaintSkewAroundCenter
+     if (p2) c->funcs->pop_transform (c->data);
+     if (p1) c->funcs->pop_transform (c->data);
+   }
++#endif
+ 
+   HBUINT8		format; /* format = 30(noVar) or 31 (Var) */
+   Offset24To<Paint>	src; /* Offset (from beginning of PaintSkewAroundCenter table) to Paint subtable. */
+@@ -1492,6 +1571,12 @@ struct PaintComposite
+ {
+   void closurev1 (hb_colrv1_closure_context_t* c) const;
+ 
++#ifdef ENABLE_ICCARM
++  bool subset (hb_subset_context_t *c,
++               const ItemVarStoreInstancer &instancer) const;
++  bool sanitize (hb_sanitize_context_t *c) const;
++  void paint_glyph (hb_paint_context_t *c) const;
++#else
+   bool subset (hb_subset_context_t *c,
+                const ItemVarStoreInstancer &instancer) const
+   {
+@@ -1524,6 +1609,7 @@ struct PaintComposite
+     c->funcs->pop_group (c->data, (hb_paint_composite_mode_t) (int) mode);
+     c->funcs->pop_group (c->data, HB_PAINT_COMPOSITE_MODE_SRC_OVER);
+   }
++#endif
+ 
+   HBUINT8		format; /* format = 32 */
+   Offset24To<Paint>	src; /* Offset (from beginning of PaintComposite table) to source Paint subtable. */
+@@ -1920,6 +2006,426 @@ struct Paint
+   DEFINE_SIZE_MIN (2);
+ };
+ 
++#ifdef ENABLE_ICCARM
++inline bool PaintGlyph::subset (hb_subset_context_t *c,
++              const ItemVarStoreInstancer &instancer) const
++{
++  TRACE_SUBSET (this);
++  auto *out = c->serializer->embed (this);
++  if (unlikely (!out)) return_trace (false);
++
++  if (! c->serializer->check_assign (out->gid, c->plan->glyph_map->get (gid),
++                                      HB_SERIALIZE_ERROR_INT_OVERFLOW))
++    return_trace (false);
++
++  return_trace (out->paint.serialize_subset (c, paint, this, instancer));
++}
++
++inline bool PaintGlyph::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (c->check_struct (this) && paint.sanitize (c, this));
++}
++
++inline void PaintGlyph::paint_glyph (hb_paint_context_t *c) const
++{
++  TRACE_PAINT (this);
++  c->funcs->push_inverse_font_transform (c->data, c->font);
++  c->funcs->push_clip_glyph (c->data, gid, c->font);
++  c->funcs->push_font_transform (c->data, c->font);
++  c->recurse (this+paint);
++  c->funcs->pop_transform (c->data);
++  c->funcs->pop_clip (c->data);
++  c->funcs->pop_transform (c->data);
++}
++
++inline bool PaintTranslate::subset (hb_subset_context_t *c,
++              const ItemVarStoreInstancer &instancer,
++              uint32_t varIdxBase) const
++{
++  TRACE_SUBSET (this);
++  auto *out = c->serializer->embed (this);
++  if (unlikely (!out)) return_trace (false);
++
++  if (instancer && !c->plan->pinned_at_default && varIdxBase != VarIdx::NO_VARIATION)
++  {
++    out->dx = dx + (int) roundf (instancer (varIdxBase, 0));
++    out->dy = dy + (int) roundf (instancer (varIdxBase, 1));
++  }
++
++  if (format == 15 && c->plan->all_axes_pinned)
++      out->format = 14;
++
++  return_trace (out->src.serialize_subset (c, src, this, instancer));
++}
++
++inline bool PaintTranslate::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (c->check_struct (this) && src.sanitize (c, this));
++}
++
++inline void PaintTranslate::paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const
++{
++  TRACE_PAINT (this);
++  float ddx = dx + c->instancer (varIdxBase, 0);
++  float ddy = dy + c->instancer (varIdxBase, 1);
++
++  bool p1 = c->funcs->push_translate (c->data, ddx, ddy);
++  c->recurse (this+src);
++  if (p1) c->funcs->pop_transform (c->data);
++}
++
++inline bool PaintScale::subset (hb_subset_context_t *c,
++              const ItemVarStoreInstancer &instancer,
++              uint32_t varIdxBase) const
++{
++  TRACE_SUBSET (this);
++  auto *out = c->serializer->embed (this);
++  if (unlikely (!out)) return_trace (false);
++
++  if (instancer && !c->plan->pinned_at_default && varIdxBase != VarIdx::NO_VARIATION)
++  {
++    out->scaleX.set_float (scaleX.to_float (instancer (varIdxBase, 0)));
++    out->scaleY.set_float (scaleY.to_float (instancer (varIdxBase, 1)));
++  }
++
++  if (format == 17 && c->plan->all_axes_pinned)
++      out->format = 16;
++
++  return_trace (out->src.serialize_subset (c, src, this, instancer));
++}
++
++inline bool PaintScale::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (c->check_struct (this) && src.sanitize (c, this));
++}
++
++inline void PaintScale::paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const
++{
++  TRACE_PAINT (this);
++  float sx = scaleX.to_float (c->instancer (varIdxBase, 0));
++  float sy = scaleY.to_float (c->instancer (varIdxBase, 1));
++
++  bool p1 = c->funcs->push_scale (c->data, sx, sy);
++  c->recurse (this+src);
++  if (p1) c->funcs->pop_transform (c->data);
++}
++
++inline bool PaintScaleAroundCenter::subset (hb_subset_context_t *c,
++              const ItemVarStoreInstancer &instancer,
++              uint32_t varIdxBase) const
++{
++  TRACE_SUBSET (this);
++  auto *out = c->serializer->embed (this);
++  if (unlikely (!out)) return_trace (false);
++
++  if (instancer && !c->plan->pinned_at_default && varIdxBase != VarIdx::NO_VARIATION)
++  {
++    out->scaleX.set_float (scaleX.to_float (instancer (varIdxBase, 0)));
++    out->scaleY.set_float (scaleY.to_float (instancer (varIdxBase, 1)));
++    out->centerX = centerX + (int) roundf (instancer (varIdxBase, 2));
++    out->centerY = centerY + (int) roundf (instancer (varIdxBase, 3));
++  }
++
++  if (format == 19 && c->plan->all_axes_pinned)
++      out->format = 18;
++
++  return_trace (out->src.serialize_subset (c, src, this, instancer));
++}
++
++inline bool PaintScaleAroundCenter::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (c->check_struct (this) && src.sanitize (c, this));
++}
++
++inline void PaintScaleAroundCenter::paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const
++{
++  TRACE_PAINT (this);
++  float sx = scaleX.to_float (c->instancer (varIdxBase, 0));
++  float sy = scaleY.to_float (c->instancer (varIdxBase, 1));
++  float tCenterX = centerX + c->instancer (varIdxBase, 2);
++  float tCenterY = centerY + c->instancer (varIdxBase, 3);
++
++  bool p1 = c->funcs->push_translate (c->data, +tCenterX, +tCenterY);
++  bool p2 = c->funcs->push_scale (c->data, sx, sy);
++  bool p3 = c->funcs->push_translate (c->data, -tCenterX, -tCenterY);
++  c->recurse (this+src);
++  if (p3) c->funcs->pop_transform (c->data);
++  if (p2) c->funcs->pop_transform (c->data);
++  if (p1) c->funcs->pop_transform (c->data);
++}
++
++inline bool PaintScaleUniform::subset (hb_subset_context_t *c,
++              const ItemVarStoreInstancer &instancer,
++              uint32_t varIdxBase) const
++{
++  TRACE_SUBSET (this);
++  auto *out = c->serializer->embed (this);
++  if (unlikely (!out)) return_trace (false);
++
++  if (instancer && !c->plan->pinned_at_default && varIdxBase != VarIdx::NO_VARIATION)
++    out->scale.set_float (scale.to_float (instancer (varIdxBase, 0)));
++
++  if (format == 21 && c->plan->all_axes_pinned)
++      out->format = 20;
++
++  return_trace (out->src.serialize_subset (c, src, this, instancer));
++}
++
++inline bool PaintScaleUniform::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (c->check_struct (this) && src.sanitize (c, this));
++}
++
++inline void PaintScaleUniform::paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const
++{
++  TRACE_PAINT (this);
++  float s = scale.to_float (c->instancer (varIdxBase, 0));
++
++  bool p1 = c->funcs->push_scale (c->data, s, s);
++  c->recurse (this+src);
++  if (p1) c->funcs->pop_transform (c->data);
++}
++
++inline bool PaintScaleUniformAroundCenter::subset (hb_subset_context_t *c,
++              const ItemVarStoreInstancer &instancer,
++              uint32_t varIdxBase) const
++{
++  TRACE_SUBSET (this);
++  auto *out = c->serializer->embed (this);
++  if (unlikely (!out)) return_trace (false);
++
++  if (instancer && !c->plan->pinned_at_default && varIdxBase != VarIdx::NO_VARIATION)
++  {
++    out->scale.set_float (scale.to_float (instancer (varIdxBase, 0)));
++    out->centerX = centerX + (int) roundf (instancer (varIdxBase, 1));
++    out->centerY = centerY + (int) roundf (instancer (varIdxBase, 2));
++  }
++
++  if (format == 23 && c->plan->all_axes_pinned)
++      out->format = 22;
++
++  return_trace (out->src.serialize_subset (c, src, this, instancer));
++}
++
++inline bool PaintScaleUniformAroundCenter::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (c->check_struct (this) && src.sanitize (c, this));
++}
++
++inline void PaintScaleUniformAroundCenter::paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const
++{
++  TRACE_PAINT (this);
++  float s = scale.to_float (c->instancer (varIdxBase, 0));
++  float tCenterX = centerX + c->instancer (varIdxBase, 1);
++  float tCenterY = centerY + c->instancer (varIdxBase, 2);
++
++  bool p1 = c->funcs->push_translate (c->data, +tCenterX, +tCenterY);
++  bool p2 = c->funcs->push_scale (c->data, s, s);
++  bool p3 = c->funcs->push_translate (c->data, -tCenterX, -tCenterY);
++  c->recurse (this+src);
++  if (p3) c->funcs->pop_transform (c->data);
++  if (p2) c->funcs->pop_transform (c->data);
++  if (p1) c->funcs->pop_transform (c->data);
++}
++
++inline bool PaintRotate::subset (hb_subset_context_t *c,
++              const ItemVarStoreInstancer &instancer,
++              uint32_t varIdxBase) const
++{
++  TRACE_SUBSET (this);
++  auto *out = c->serializer->embed (this);
++  if (unlikely (!out)) return_trace (false);
++
++  if (instancer && !c->plan->pinned_at_default && varIdxBase != VarIdx::NO_VARIATION)
++    out->angle.set_float (angle.to_float (instancer (varIdxBase, 0)));
++
++  if (format == 25 && c->plan->all_axes_pinned)
++    out->format = 24;
++
++  return_trace (out->src.serialize_subset (c, src, this, instancer));
++}
++
++inline bool PaintRotate::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (c->check_struct (this) && src.sanitize (c, this));
++}
++
++inline void PaintRotate::paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const
++{
++  TRACE_PAINT (this);
++  float a = angle.to_float (c->instancer (varIdxBase, 0));
++
++  bool p1 = c->funcs->push_rotate (c->data, a);
++  c->recurse (this+src);
++  if (p1) c->funcs->pop_transform (c->data);
++}
++
++inline bool PaintRotateAroundCenter::subset (hb_subset_context_t *c,
++              const ItemVarStoreInstancer &instancer,
++              uint32_t varIdxBase) const
++{
++  TRACE_SUBSET (this);
++  auto *out = c->serializer->embed (this);
++  if (unlikely (!out)) return_trace (false);
++
++  if (instancer && !c->plan->pinned_at_default && varIdxBase != VarIdx::NO_VARIATION)
++  {
++    out->angle.set_float (angle.to_float (instancer (varIdxBase, 0)));
++    out->centerX = centerX + (int) roundf (instancer (varIdxBase, 1));
++    out->centerY = centerY + (int) roundf (instancer (varIdxBase, 2));
++  }
++
++  if (format ==27 && c->plan->all_axes_pinned)
++      out->format = 26;
++
++  return_trace (out->src.serialize_subset (c, src, this, instancer));
++}
++
++inline bool PaintRotateAroundCenter::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (c->check_struct (this) && src.sanitize (c, this));
++}
++
++inline void PaintRotateAroundCenter::paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const
++{
++  TRACE_PAINT (this);
++  float a = angle.to_float (c->instancer (varIdxBase, 0));
++  float tCenterX = centerX + c->instancer (varIdxBase, 1);
++  float tCenterY = centerY + c->instancer (varIdxBase, 2);
++
++  bool p1 = c->funcs->push_translate (c->data, +tCenterX, +tCenterY);
++  bool p2 = c->funcs->push_rotate (c->data, a);
++  bool p3 = c->funcs->push_translate (c->data, -tCenterX, -tCenterY);
++  c->recurse (this+src);
++  if (p3) c->funcs->pop_transform (c->data);
++  if (p2) c->funcs->pop_transform (c->data);
++  if (p1) c->funcs->pop_transform (c->data);
++}
++
++inline bool PaintSkew::subset (hb_subset_context_t *c,
++              const ItemVarStoreInstancer &instancer,
++              uint32_t varIdxBase) const
++{
++  TRACE_SUBSET (this);
++  auto *out = c->serializer->embed (this);
++  if (unlikely (!out)) return_trace (false);
++
++  if (instancer && !c->plan->pinned_at_default && varIdxBase != VarIdx::NO_VARIATION)
++  {
++    out->xSkewAngle.set_float (xSkewAngle.to_float (instancer (varIdxBase, 0)));
++    out->ySkewAngle.set_float (ySkewAngle.to_float (instancer (varIdxBase, 1)));
++  }
++
++  if (format == 29 && c->plan->all_axes_pinned)
++      out->format = 28;
++
++  return_trace (out->src.serialize_subset (c, src, this, instancer));
++}
++
++inline bool PaintSkew::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (c->check_struct (this) && src.sanitize (c, this));
++}
++
++inline void PaintSkew::paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const
++{
++  TRACE_PAINT (this);
++  float sx = xSkewAngle.to_float(c->instancer (varIdxBase, 0));
++  float sy = ySkewAngle.to_float(c->instancer (varIdxBase, 1));
++
++  bool p1 = c->funcs->push_skew (c->data, sx, sy);
++  c->recurse (this+src);
++  if (p1) c->funcs->pop_transform (c->data);
++}
++
++inline bool PaintSkewAroundCenter::subset (hb_subset_context_t *c,
++              const ItemVarStoreInstancer &instancer,
++              uint32_t varIdxBase) const
++{
++  TRACE_SUBSET (this);
++  auto *out = c->serializer->embed (this);
++  if (unlikely (!out)) return_trace (false);
++
++  if (instancer && !c->plan->pinned_at_default && varIdxBase != VarIdx::NO_VARIATION)
++  {
++    out->xSkewAngle.set_float (xSkewAngle.to_float (instancer (varIdxBase, 0)));
++    out->ySkewAngle.set_float (ySkewAngle.to_float (instancer (varIdxBase, 1)));
++    out->centerX = centerX + (int) roundf (instancer (varIdxBase, 2));
++    out->centerY = centerY + (int) roundf (instancer (varIdxBase, 3));
++  }
++
++  if (format == 31 && c->plan->all_axes_pinned)
++      out->format = 30;
++
++  return_trace (out->src.serialize_subset (c, src, this, instancer));
++}
++
++inline bool PaintSkewAroundCenter::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (c->check_struct (this) && src.sanitize (c, this));
++}
++
++inline void PaintSkewAroundCenter::paint_glyph (hb_paint_context_t *c, uint32_t varIdxBase) const
++{
++  TRACE_PAINT (this);
++  float sx = xSkewAngle.to_float(c->instancer (varIdxBase, 0));
++  float sy = ySkewAngle.to_float(c->instancer (varIdxBase, 1));
++  float tCenterX = centerX + c->instancer (varIdxBase, 2);
++  float tCenterY = centerY + c->instancer (varIdxBase, 3);
++
++  bool p1 = c->funcs->push_translate (c->data, +tCenterX, +tCenterY);
++  bool p2 = c->funcs->push_skew (c->data, sx, sy);
++  bool p3 = c->funcs->push_translate (c->data, -tCenterX, -tCenterY);
++  c->recurse (this+src);
++  if (p3) c->funcs->pop_transform (c->data);
++  if (p2) c->funcs->pop_transform (c->data);
++  if (p1) c->funcs->pop_transform (c->data);
++}
++
++inline bool PaintComposite::subset (hb_subset_context_t *c,
++              const ItemVarStoreInstancer &instancer) const
++{
++  TRACE_SUBSET (this);
++  auto *out = c->serializer->embed (this);
++  if (unlikely (!out)) return_trace (false);
++
++  bool ret = false;
++  ret |= out->src.serialize_subset (c, src, this, instancer);
++  ret |= out->backdrop.serialize_subset (c, backdrop, this, instancer);
++  return_trace (ret);
++}
++
++inline bool PaintComposite::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (c->check_struct (this) &&
++    c->check_ops (this->min_size) && // PainComposite can get exponential
++                src.sanitize (c, this) &&
++                backdrop.sanitize (c, this));
++}
++
++inline void PaintComposite::paint_glyph (hb_paint_context_t *c) const
++{
++  TRACE_PAINT (this);
++  c->funcs->push_group (c->data);
++  c->recurse (this+backdrop);
++  c->funcs->push_group (c->data);
++  c->recurse (this+src);
++  c->funcs->pop_group (c->data, (hb_paint_composite_mode_t) (int) mode);
++  c->funcs->pop_group (c->data, HB_PAINT_COMPOSITE_MODE_SRC_OVER);
++}
++#endif
++
+ struct BaseGlyphPaintRecord
+ {
+   int cmp (hb_codepoint_t g) const
+diff --git a/src/OT/Layout/Common/CoverageFormat2.hh b/src/OT/Layout/Common/CoverageFormat2.hh
+index dd577fd..18c93ac 100644
+--- a/src/OT/Layout/Common/CoverageFormat2.hh
++++ b/src/OT/Layout/Common/CoverageFormat2.hh
+@@ -70,7 +70,11 @@ struct CoverageFormat2_4
+     typename Types::large_int ret = 0;
+     for (const auto &r : rangeRecord)
+       ret += r.get_population ();
++#ifdef ENABLE_ICCARM
++    return ret;
++#else
+     return ret > UINT_MAX ? UINT_MAX : (unsigned) ret;
++#endif
+   }
+ 
+   template <typename Iterator,
+diff --git a/src/OT/glyf/Glyph.hh b/src/OT/glyf/Glyph.hh
+index 2c289d5..bb92986 100644
+--- a/src/OT/glyf/Glyph.hh
++++ b/src/OT/glyf/Glyph.hh
+@@ -303,6 +303,21 @@ struct Glyph
+   /* Note: Recursively calls itself.
+    * all_points includes phantom points
+    */
++#ifdef ENABLE_ICCARM
++  template <typename accelerator_t>
++  bool get_points (hb_font_t *font, const accelerator_t &glyf_accelerator,
++		   contour_point_vector_t &all_points /* OUT */,
++		   hb_glyf_scratch_t &scratch,
++		   contour_point_vector_t *points_with_deltas = nullptr, /* OUT */
++		   head_maxp_info_t * head_maxp_info = nullptr, /* OUT */
++		   unsigned *composite_contours = nullptr, /* OUT */
++		   bool shift_points_hori = true,
++		   bool use_my_metrics = true,
++		   bool phantom_only = false,
++		   hb_array_t<const int> coords = hb_array_t<const int> (),
++		   unsigned int depth = 0,
++		   unsigned *edge_count = nullptr) const;
++#else
+   template <typename accelerator_t>
+   bool get_points (hb_font_t *font, const accelerator_t &glyf_accelerator,
+ 		   contour_point_vector_t &all_points /* OUT */,
+@@ -529,6 +544,7 @@ struct Glyph
+ 
+     return !all_points.in_error ();
+   }
++#endif
+ 
+   bool get_extents_without_var_scaled (hb_font_t *font, const glyf_accelerator_t &glyf_accelerator,
+ 				       hb_glyph_extents_t *extents) const
+@@ -566,6 +582,234 @@ struct Glyph
+   glyph_type_t type;
+ };
+ 
++#ifdef ENABLE_ICCARM
++template <typename accelerator_t>
++inline bool Glyph::get_points (hb_font_t *font, const accelerator_t &glyf_accelerator,
++      contour_point_vector_t &all_points /* OUT */,
++      hb_glyf_scratch_t &scratch,
++      contour_point_vector_t *points_with_deltas, /* OUT */
++      head_maxp_info_t * head_maxp_info, /* OUT */
++      unsigned *composite_contours, /* OUT */
++      bool shift_points_hori,
++      bool use_my_metrics,
++      bool phantom_only,
++      hb_array_t<const int> coords,
++      unsigned int depth,
++      unsigned *edge_count) const
++{
++  if (unlikely (depth > HB_MAX_NESTING_LEVEL)) return false;
++  unsigned stack_edge_count = 0;
++  if (!edge_count) edge_count = &stack_edge_count;
++  if (unlikely (*edge_count > HB_MAX_GRAPH_EDGE_COUNT)) return false;
++  (*edge_count)++;
++
++  if (head_maxp_info)
++  {
++    head_maxp_info->maxComponentDepth = hb_max (head_maxp_info->maxComponentDepth, depth);
++  }
++
++  if (!coords)
++    coords = hb_array (font->coords, font->num_coords);
++
++  contour_point_vector_t &points = type == SIMPLE ? all_points : scratch.comp_points;
++  unsigned old_length = points.length;
++
++  switch (type) {
++  case SIMPLE:
++    if (depth == 0 && head_maxp_info)
++      head_maxp_info->maxContours = hb_max (head_maxp_info->maxContours, (unsigned) header->numberOfContours);
++    if (depth > 0 && composite_contours)
++      *composite_contours += (unsigned) header->numberOfContours;
++    if (unlikely (!SimpleGlyph (*header, bytes).get_contour_points (all_points, phantom_only)))
++return false;
++    break;
++  case COMPOSITE:
++  {
++    for (auto &item : get_composite_iterator ())
++      if (unlikely (!item.get_points (points))) return false;
++    break;
++  }
++  case EMPTY:
++    break;
++  }
++
++  /* Init phantom points */
++  if (unlikely (!points.resize (points.length + PHANTOM_COUNT))) return false;
++  hb_array_t<contour_point_t> phantoms = points.as_array ().sub_array (points.length - PHANTOM_COUNT, PHANTOM_COUNT);
++  {
++    int lsb = 0;
++    int h_delta = glyf_accelerator.hmtx->get_leading_bearing_without_var_unscaled (gid, &lsb) ?
++      (int) header->xMin - lsb : 0;
++    HB_UNUSED int tsb = 0;
++    int v_orig  = (int) header->yMax +
++#ifndef HB_NO_VERTICAL
++      ((void) glyf_accelerator.vmtx->get_leading_bearing_without_var_unscaled (gid, &tsb), tsb)
++#else
++      0
++#endif
++      ;
++    unsigned h_adv = glyf_accelerator.hmtx->get_advance_without_var_unscaled (gid);
++    unsigned v_adv =
++#ifndef HB_NO_VERTICAL
++          glyf_accelerator.vmtx->get_advance_without_var_unscaled (gid)
++#else
++          - font->face->get_upem ()
++#endif
++          ;
++    phantoms[PHANTOM_LEFT].x = h_delta;
++    phantoms[PHANTOM_RIGHT].x = (int) h_adv + h_delta;
++    phantoms[PHANTOM_TOP].y = v_orig;
++    phantoms[PHANTOM_BOTTOM].y = v_orig - (int) v_adv;
++  }
++
++#ifndef HB_NO_VAR
++  if (coords)
++  {
++#ifndef HB_NO_BEYOND_64K
++    if (glyf_accelerator.GVAR->has_data ())
++glyf_accelerator.GVAR->apply_deltas_to_points (gid,
++                  coords,
++                  points.as_array ().sub_array (old_length),
++                  scratch,
++                  phantom_only && type == SIMPLE);
++    else
++#endif
++glyf_accelerator.gvar->apply_deltas_to_points (gid,
++                  coords,
++                  points.as_array ().sub_array (old_length),
++                  scratch,
++                  phantom_only && type == SIMPLE);
++  }
++#endif
++
++  // mainly used by CompositeGlyph calculating new X/Y offset value so no need to extend it
++  // with child glyphs' points
++  if (points_with_deltas != nullptr && depth == 0 && type == COMPOSITE)
++  {
++    assert (old_length == 0);
++    *points_with_deltas = points;
++  }
++
++  float shift = 0;
++  switch (type) {
++  case SIMPLE:
++    if (depth == 0 && head_maxp_info)
++      head_maxp_info->maxPoints = hb_max (head_maxp_info->maxPoints, all_points.length - old_length - 4);
++    shift = phantoms[PHANTOM_LEFT].x;
++    break;
++  case COMPOSITE:
++  {
++    hb_decycler_node_t decycler_node (scratch.decycler);
++
++    unsigned int comp_index = 0;
++    for (auto &item : get_composite_iterator ())
++    {
++hb_codepoint_t item_gid = item.get_gid ();
++
++      if (unlikely (!decycler_node.visit (item_gid)))
++{
++  comp_index++;
++  continue;
++}
++
++unsigned old_count = all_points.length;
++
++if (unlikely ((!phantom_only || (use_my_metrics && item.is_use_my_metrics ())) &&
++        !glyf_accelerator.glyph_for_gid (item_gid)
++              .get_points (font,
++              glyf_accelerator,
++              all_points,
++              scratch,
++              points_with_deltas,
++              head_maxp_info,
++              composite_contours,
++              shift_points_hori,
++              use_my_metrics,
++              phantom_only,
++              coords,
++              depth + 1,
++              edge_count)))
++{
++  points.resize (old_length);
++  return false;
++}
++
++// points might have been reallocated. Relocate phantoms.
++phantoms = points.as_array ().sub_array (points.length - PHANTOM_COUNT, PHANTOM_COUNT);
++
++auto comp_points = all_points.as_array ().sub_array (old_count);
++
++/* Copy phantom points from component if USE_MY_METRICS flag set */
++if (use_my_metrics && item.is_use_my_metrics ())
++  for (unsigned int i = 0; i < PHANTOM_COUNT; i++)
++    phantoms[i] = comp_points[comp_points.length - PHANTOM_COUNT + i];
++
++if (comp_points) // Empty in case of phantom_only
++{
++  float matrix[4];
++  contour_point_t default_trans;
++  item.get_transformation (matrix, default_trans);
++
++  /* Apply component transformation & translation (with deltas applied) */
++  item.transform_points (comp_points, matrix, points[old_length + comp_index]);
++}
++
++if (item.is_anchored () && !phantom_only)
++{
++  unsigned int p1, p2;
++  item.get_anchor_points (p1, p2);
++  if (likely (p1 < all_points.length && p2 < comp_points.length))
++  {
++    contour_point_t delta;
++    delta.init (all_points[p1].x - comp_points[p2].x,
++    all_points[p1].y - comp_points[p2].y);
++
++    item.translate (delta, comp_points);
++  }
++}
++
++all_points.resize (all_points.length - PHANTOM_COUNT);
++
++if (all_points.length > HB_GLYF_MAX_POINTS)
++{
++  points.resize (old_length);
++  return false;
++}
++
++comp_index++;
++    }
++
++    if (head_maxp_info && depth == 0)
++    {
++      if (composite_contours)
++        head_maxp_info->maxCompositeContours = hb_max (head_maxp_info->maxCompositeContours, *composite_contours);
++      head_maxp_info->maxCompositePoints = hb_max (head_maxp_info->maxCompositePoints, all_points.length);
++      head_maxp_info->maxComponentElements = hb_max (head_maxp_info->maxComponentElements, comp_index);
++    }
++    all_points.extend (phantoms);
++    shift = phantoms[PHANTOM_LEFT].x;
++    points.resize (old_length);
++  } break;
++  case EMPTY:
++    all_points.extend (phantoms);
++    shift = phantoms[PHANTOM_LEFT].x;
++    points.resize (old_length);
++    break;
++  }
++
++  if (depth == 0 && shift_points_hori) /* Apply at top level */
++  {
++    /* Undocumented rasterizer behavior:
++      * Shift points horizontally by the updated left side bearing
++      */
++    if (shift)
++      for (auto &point : all_points)
++  point.x -= shift;
++  }
++
++  return !all_points.in_error ();
++}
++#endif
+ 
+ } /* namespace glyf_impl */
+ } /* namespace OT */
+diff --git a/src/OT/glyf/GlyphHeader.hh b/src/OT/glyf/GlyphHeader.hh
+index a43b669..14ab9d7 100644
+--- a/src/OT/glyf/GlyphHeader.hh
++++ b/src/OT/glyf/GlyphHeader.hh
+@@ -13,6 +13,11 @@ struct GlyphHeader
+ {
+   bool has_data () const { return numberOfContours; }
+ 
++#ifdef ENABLE_ICCARM
++  template <typename accelerator_t>
++  bool get_extents_without_var_scaled (hb_font_t *font, const accelerator_t &glyf_accelerator,
++				       hb_codepoint_t gid, hb_glyph_extents_t *extents) const;
++#else
+   template <typename accelerator_t>
+   bool get_extents_without_var_scaled (hb_font_t *font, const accelerator_t &glyf_accelerator,
+ 				       hb_codepoint_t gid, hb_glyph_extents_t *extents) const
+@@ -30,6 +35,7 @@ struct GlyphHeader
+ 
+     return true;
+   }
++#endif
+ 
+   HBINT16	numberOfContours;
+ 		    /* If the number of contours is
+@@ -44,6 +50,25 @@ struct GlyphHeader
+   DEFINE_SIZE_STATIC (10);
+ };
+ 
++#ifdef ENABLE_ICCARM
++template <typename accelerator_t>
++bool GlyphHeader::get_extents_without_var_scaled (hb_font_t *font, const accelerator_t &glyf_accelerator,
++              hb_codepoint_t gid, hb_glyph_extents_t *extents) const
++{
++  /* Undocumented rasterizer behavior: shift glyph to the left by (lsb - xMin), i.e., xMin = lsb */
++  /* extents->x_bearing = hb_min (glyph_header.xMin, glyph_header.xMax); */
++  int lsb = hb_min (xMin, xMax);
++  (void) glyf_accelerator.hmtx->get_leading_bearing_without_var_unscaled (gid, &lsb);
++  extents->x_bearing = lsb;
++  extents->y_bearing = hb_max (yMin, yMax);
++  extents->width     = hb_max (xMin, xMax) - hb_min (xMin, xMax);
++  extents->height    = hb_min (yMin, yMax) - hb_max (yMin, yMax);
++
++  font->scale_glyph_extents (extents);
++
++  return true;
++}
++#endif
+ 
+ } /* namespace glyf_impl */
+ } /* namespace OT */
+diff --git a/src/hb-open-type.hh b/src/hb-open-type.hh
+index f2040ea..844704a 100644
+--- a/src/hb-open-type.hh
++++ b/src/hb-open-type.hh
+@@ -669,8 +669,14 @@ struct SortedUnsizedArrayOf : UnsizedArrayOf<Type>
+   { return hb_sorted_array (this->arrayZ, len); }
+   hb_sorted_array_t<const Type> as_array (unsigned int len) const
+   { return hb_sorted_array (this->arrayZ, len); }
++
++#ifdef ENABLE_ICCARM
++  operator hb_sorted_array_t<Type> ()             { return as_array ( 0 ); }
++  operator hb_sorted_array_t<const Type> () const { return as_array ( 0 ); }
++#else
+   operator hb_sorted_array_t<Type> ()             { return as_array (); }
+   operator hb_sorted_array_t<const Type> () const { return as_array (); }
++#endif
+ 
+   template <typename T>
+   Type &bsearch (unsigned int len, const T &x, Type &not_found = Crap (Type))
+diff --git a/src/hb-ot-cmap-table.hh b/src/hb-ot-cmap-table.hh
+index 7a7a77a..eaba5d2 100644
+--- a/src/hb-ot-cmap-table.hh
++++ b/src/hb-ot-cmap-table.hh
+@@ -1695,6 +1695,10 @@ struct SubtableUnicodesCache {
+     hb_free (cache);
+   }
+ 
++#ifdef ENABLE_ICCARM
++  SubtableUnicodesCache(const void* cmap_base);
++  SubtableUnicodesCache(hb_blob_ptr_t<cmap> base_blob_);
++#else
+   SubtableUnicodesCache(const void* cmap_base)
+       : base_blob(),
+         base ((const char*) cmap_base),
+@@ -1706,6 +1710,7 @@ struct SubtableUnicodesCache {
+         base ((const char *) base_blob.get()),
+         cached_unicodes ()
+   {}
++#endif
+ 
+   ~SubtableUnicodesCache()
+   {
+@@ -2266,6 +2271,20 @@ struct cmap
+   DEFINE_SIZE_ARRAY (4, encodingRecord);
+ };
+ 
++#ifdef ENABLE_ICCARM
++inline SubtableUnicodesCache::SubtableUnicodesCache(const void* cmap_base)
++    : base_blob(),
++      base ((const char*) cmap_base),
++      cached_unicodes ()
++{}
++
++inline SubtableUnicodesCache::SubtableUnicodesCache(hb_blob_ptr_t<cmap> base_blob_)
++    : base_blob(base_blob_),
++      base ((const char *) base_blob.get()),
++      cached_unicodes ()
++{}
++#endif
++
+ struct cmap_accelerator_t : cmap::accelerator_t {
+   cmap_accelerator_t (hb_face_t *face) : cmap::accelerator_t (face) {}
+ };
+diff --git a/src/hb-ot-layout-common.hh b/src/hb-ot-layout-common.hh
+index ad54a1d..f8212a6 100644
+--- a/src/hb-ot-layout-common.hh
++++ b/src/hb-ot-layout-common.hh
+@@ -1768,7 +1768,11 @@ struct ClassDefFormat2_4
+     typename Types::large_int ret = 0;
+     for (const auto &r : rangeRecord)
+       ret += r.get_population ();
++#ifdef ENABLE_ICCARM
++    return ret;
++#else
+     return ret > UINT_MAX ? UINT_MAX : (unsigned) ret;
++#endif
+   }
+ 
+   template<typename Iterator,
+@@ -4014,11 +4018,15 @@ struct ConditionAnd
+     return_trace (false);
+   }
+ 
++#ifdef ENABLE_ICCARM
++  bool sanitize (hb_sanitize_context_t *c) const;
++#else
+   bool sanitize (hb_sanitize_context_t *c) const
+   {
+     TRACE_SANITIZE (this);
+     return_trace (conditions.sanitize (c, this));
+   }
++#endif
+ 
+   protected:
+   HBUINT16	format;		/* Format identifier--format = 3 */
+@@ -4061,11 +4069,15 @@ struct ConditionOr
+     return_trace (false);
+   }
+ 
++#ifdef ENABLE_ICCARM
++  bool sanitize (hb_sanitize_context_t *c) const;
++#else
+   bool sanitize (hb_sanitize_context_t *c) const
+   {
+     TRACE_SANITIZE (this);
+     return_trace (conditions.sanitize (c, this));
+   }
++#endif
+ 
+   protected:
+   HBUINT16	format;		/* Format identifier--format = 4 */
+@@ -4104,11 +4116,15 @@ struct ConditionNegate
+     return_trace (false);
+   }
+ 
++#ifdef ENABLE_ICCARM
++  bool sanitize (hb_sanitize_context_t *c) const;
++#else
+   bool sanitize (hb_sanitize_context_t *c) const
+   {
+     TRACE_SANITIZE (this);
+     return_trace (condition.sanitize (c, this));
+   }
++#endif
+ 
+   protected:
+   HBUINT16	format;		/* Format identifier--format = 5 */
+@@ -4186,6 +4202,26 @@ struct Condition
+   DEFINE_SIZE_UNION (2, format);
+ };
+ 
++#ifdef ENABLE_ICCARM
++inline bool ConditionAnd::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (conditions.sanitize (c, this));
++}
++
++inline bool ConditionOr::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (conditions.sanitize (c, this));
++}
++
++inline bool ConditionNegate::sanitize (hb_sanitize_context_t *c) const
++{
++  TRACE_SANITIZE (this);
++  return_trace (condition.sanitize (c, this));
++}
++#endif
++
+ template <typename Instancer>
+ bool
+ _hb_recurse_condition_evaluate (const struct Condition &condition,
+diff --git a/src/hb-ot-layout-gpos-table.hh b/src/hb-ot-layout-gpos-table.hh
+index 0cfa139..a2e87e8 100644
+--- a/src/hb-ot-layout-gpos-table.hh
++++ b/src/hb-ot-layout-gpos-table.hh
+@@ -75,6 +75,26 @@ inline bool PosLookup::dispatch_recurse_func<hb_ot_apply_context_t> (hb_ot_apply
+ 
+ } /* namespace GPOS_impl */
+ } /* namespace Layout */
++
++#ifdef ENABLE_ICCARM
++template <typename TLookup>
++void GSUBGPOS::closure_lookups (hb_face_t      *face,
++    const hb_set_t *glyphs,
++    hb_set_t       *lookup_indexes /* IN/OUT */) const
++{
++  hb_set_t visited_lookups, inactive_lookups;
++  hb_closure_lookups_context_t c (face, glyphs, &visited_lookups, &inactive_lookups);
++
++  c.set_recurse_func (TLookup::template dispatch_recurse_func<hb_closure_lookups_context_t>);
++
++  for (unsigned lookup_index : *lookup_indexes)
++    reinterpret_cast<const TLookup &> (get_lookup (lookup_index)).closure_lookups (&c, lookup_index);
++
++  hb_set_union (lookup_indexes, &visited_lookups);
++  hb_set_subtract (lookup_indexes, &inactive_lookups);
++}
++#endif
++
+ } /* namespace OT */
+ 
+ 
+diff --git a/src/hb-ot-layout-gsubgpos.hh b/src/hb-ot-layout-gsubgpos.hh
+index 7d49710..66d69cb 100644
+--- a/src/hb-ot-layout-gsubgpos.hh
++++ b/src/hb-ot-layout-gsubgpos.hh
+@@ -4790,6 +4790,12 @@ struct GSUBGPOS
+   { get_feature_variations ().collect_feature_substitutes_with_variations (c); }
+ #endif
+ 
++#ifdef ENABLE_ICCARM
++  template <typename TLookup>
++  void closure_lookups (hb_face_t      *face,
++			const hb_set_t *glyphs,
++			hb_set_t       *lookup_indexes /* IN/OUT */) const;
++#else
+   template <typename TLookup>
+   void closure_lookups (hb_face_t      *face,
+ 			const hb_set_t *glyphs,
+@@ -4806,6 +4812,7 @@ struct GSUBGPOS
+     hb_set_union (lookup_indexes, &visited_lookups);
+     hb_set_subtract (lookup_indexes, &inactive_lookups);
+   }
++#endif
+ 
+   void prune_langsys (const hb_map_t *duplicate_feature_map,
+                       const hb_set_t *layout_scripts,
+diff --git a/src/hb-static.cc b/src/hb-static.cc
+index e328bc4..b4761a6 100644
+--- a/src/hb-static.cc
++++ b/src/hb-static.cc
+@@ -44,8 +44,13 @@
+ 
+ #include "hb-ot-name-language-static.hh"
+ 
++#ifdef ENABLE_ICCARM
++uint64_t const _hb_NullPool[(HB_NULL_POOL_SIZE + sizeof (uint64_t) - 1) / sizeof (uint64_t)] = { 0 };
++/*thread_local*/ uint64_t _hb_CrapPool[(HB_NULL_POOL_SIZE + sizeof (uint64_t) - 1) / sizeof (uint64_t)] = { 0 };
++#else
+ uint64_t const _hb_NullPool[(HB_NULL_POOL_SIZE + sizeof (uint64_t) - 1) / sizeof (uint64_t)] = {};
+ /*thread_local*/ uint64_t _hb_CrapPool[(HB_NULL_POOL_SIZE + sizeof (uint64_t) - 1) / sizeof (uint64_t)] = {};
++#endif
+ 
+ DEFINE_NULL_NAMESPACE_BYTES (OT, Index) =  {0xFF,0xFF};
+ DEFINE_NULL_NAMESPACE_BYTES (OT, VarIdx) =  {0xFF,0xFF,0xFF,0xFF};
+-- 
+2.44.0.windows.1
+

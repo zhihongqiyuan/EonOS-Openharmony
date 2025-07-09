@@ -1,0 +1,83 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+{
+  "app": {
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": 20,
+        "compatibleSdkVersion": 20
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "storePassword": "0000001C59E804AFC3B94CF72E6B32DC3921677DD07049135EA15C603E0782B8DF215F14497B25CC3DCC2D78",
+          "certpath": "signature/camera.cer",
+          "keyAlias": "Camera",
+          "keyPassword": "0000001C45BB3DEC4311ACA6F306211039D56C9DC4DB08A3B777A135E8D369557041FC175B0EAD1D95DC2814",
+          "profile": "signature/camera.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "signature/camera.p12"
+        }
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "phone",
+      "srcPath": "./product/phone",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tablet",
+      "srcPath": "./product/tablet",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "common",
+      "srcPath": "./common",
+    },
+    {
+      "name": "multi",
+      "srcPath": "./features/multi",
+    },
+    {
+      "name": "photo",
+      "srcPath": "./features/photo",
+    },
+    {
+      "name": "video",
+      "srcPath": "./features/video",
+    }
+  ]
+}

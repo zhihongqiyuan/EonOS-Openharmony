@@ -1,0 +1,44 @@
+# pack-refs with: peeled fully-peeled sorted 
+6762598f9396a4d7ba6fe63111102ba6a2fc715f refs/tags/OpenHarmony-v3.2-Beta4
+bd9a6d6b2fa9fea40189231bc2a67f2163b49c09 refs/tags/OpenHarmony-v3.2-Beta5
+bd9a6d6b2fa9fea40189231bc2a67f2163b49c09 refs/tags/OpenHarmony-v3.2-Release
+bd9a6d6b2fa9fea40189231bc2a67f2163b49c09 refs/tags/OpenHarmony-v3.2.1-Release
+bd9a6d6b2fa9fea40189231bc2a67f2163b49c09 refs/tags/OpenHarmony-v3.2.2-Release
+bd9a6d6b2fa9fea40189231bc2a67f2163b49c09 refs/tags/OpenHarmony-v3.2.3-Release
+a4bbf60ae3a9d7e103b3a6239a24e8f06c4a6587 refs/tags/OpenHarmony-v3.2.4-Release
+e5593f77459145f4c8dfe6b2b681f6fd78cffe34 refs/tags/OpenHarmony-v4.0-Beta1
+89db384eb69234760a88bb89edf03a204c4d0a56 refs/tags/OpenHarmony-v4.0-Beta2
+63d2ab4ddb9e00dc49a2c12d4195fc6d701e93d4 refs/tags/OpenHarmony-v4.0-Release
+b9621f9877e90a6c07a802d210cd4222a974a17e refs/tags/OpenHarmony-v4.0.1-Release
+90dbc3bdd828f29a6e84d9ab7f2a4e5d931f61ff refs/tags/OpenHarmony-v4.0.2-Release
+^b9621f9877e90a6c07a802d210cd4222a974a17e
+f3e1a9ce91cfd14ead46c574eedb43c2a3609a51 refs/tags/OpenHarmony-v4.0.3-Release
+^b9621f9877e90a6c07a802d210cd4222a974a17e
+cb230bbf8dd6363c8a5fe2308b1e6bbcc9593557 refs/tags/OpenHarmony-v4.0.4-Release
+^b9621f9877e90a6c07a802d210cd4222a974a17e
+db859db63397dc906604669a4192e49d40840840 refs/tags/OpenHarmony-v4.1-Beta1
+79b1413825278cad0be1d4b705359c2f03eac901 refs/tags/OpenHarmony-v4.1-Release
+79b1413825278cad0be1d4b705359c2f03eac901 refs/tags/OpenHarmony-v4.1.1-Release
+f00d94c9bacae95f2afe46ac623d26ec4806158a refs/tags/OpenHarmony-v4.1.2-Release
+^79b1413825278cad0be1d4b705359c2f03eac901
+acc51e85dc9d2a640c03b2c73bc4b09c8684c92f refs/tags/OpenHarmony-v4.1.3-Release
+^79b1413825278cad0be1d4b705359c2f03eac901
+898cb2130650f5c0993de78f8da45b22f512bcf8 refs/tags/OpenHarmony-v4.1.4-Release
+^79b1413825278cad0be1d4b705359c2f03eac901
+0af6eebc98a7b8f7edc806c9887d08020f7fc430 refs/tags/OpenHarmony-v5.0-Beta1
+^a24ed2237a5f1de40050eb0112fc479f09d1f704
+673904e054f09f1a0b214b0706b7e8a50b3ce55b refs/tags/OpenHarmony-v5.0.0-Release
+^f4dd7ba244999b1c8f438becd103b0af2fb210c8
+5aa107fe9d781a955355714c2e619caff7000bb1 refs/tags/OpenHarmony-v5.0.1-Release
+^74fc39946f8f012a89fe27d12f276c3131ee0d7e
+aea138252d0be15ea9d97500db291d18f7f70b15 refs/tags/OpenHarmony-v5.0.2-Release
+^74fc39946f8f012a89fe27d12f276c3131ee0d7e
+8b61ce9100ae54790408535cd38a15736956ccfa refs/tags/OpenHarmony-v5.0.3-Release
+^74fc39946f8f012a89fe27d12f276c3131ee0d7e
+0940b8546e2a14df488048482a1b56550aa921db refs/tags/OpenHarmony-v5.1.0-Release
+^153804082fab7eef34a57e6124177f33f6792ea4
+6750dfa8823453a8390c9ab584b97c9a1f9f6e6b refs/tags/OpenHarmony-v6.0-Beta1
+^1d370d5b91f8aca307e2993f1cad529a104acaf5
+99dfdd1a5db25f59eeeceb8610ee209fd77e3250 refs/tags/github.com/KhronosGroup/VK-GL-CTS.git/refs/heads/opengl-es-cts-3.2.8
+db859db63397dc906604669a4192e49d40840840 refs/tags/master-v
+53c9873a81847e28acc15f982f3e58e89c801193 refs/tags/weekly_20240115-v

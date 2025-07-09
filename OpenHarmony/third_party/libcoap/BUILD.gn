@@ -1,0 +1,82 @@
+cflags = [
+  "-DCOAP_SUPPORT_SOCKET_BROADCAST",
+  "-DCOAP_USER_DEFAULT_PORT=5684",
+  "-Wall",
+  "-fPIC",
+]
+
+cflags_cc = cflags
+
+config("libcoap_config") {
+  include_dirs = [ "include" ]
+  if (defined(ohos_lite)) {
+    defines = [ "_GNU_SOURCE" ]
+  }
+}
+
+src = [
+  "src/coap_address.c",
+  "src/coap_async.c",
+  "src/coap_block.c",
+  "src/coap_cache.c",
+  "src/coap_debug.c",
+  "src/coap_dtls.c",
+  "src/coap_event.c",
+  "src/coap_hashkey.c",
+  "src/coap_io.c",
+  "src/coap_layers.c",
+  "src/coap_notls.c",
+  "src/coap_netif.c",
+  "src/coap_prng.c",
+  "src/coap_session.c",
+  "src/coap_tcp.c",
+  "src/coap_time.c",
+  "src/coap_encode.c",
+  "src/coap_mem.c",
+  "src/coap_net.c",
+  "src/coap_option.c",
+  "src/coap_oscore.c",
+  "src/coap_pdu.c",
+  "src/coap_resource.c",
+  "src/coap_str.c",
+  "src/coap_subscribe.c",
+  "src/coap_uri.c",
+  "src/coap_ws.c",
+]
+
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+
+  static_library("libcoap_static") {
+    sources = src
+    public_configs = [ ":libcoap_config" ]
+    external_deps = [ "bounds_checking_function:libsec_static" ]
+  }
+
+  shared_library("libcoap") {
+    sources = src
+    public_configs = [ ":libcoap_config" ]
+    external_deps = [ "bounds_checking_function:libsec_shared" ]
+  }
+} else {
+  import("//build/ohos.gni")
+
+  ohos_static_library("libcoap_static") {
+    sources = src
+    public_configs = [ ":libcoap_config" ]
+    external_deps = [ "bounds_checking_function:libsec_static" ]
+  }
+
+  ohos_shared_library("libcoap") {
+    branch_protector_ret = "pac_ret"
+    sources = src
+    public_configs = [ ":libcoap_config" ]
+    external_deps = [ "bounds_checking_function:libsec_shared" ]
+    subsystem_name = "thirdparty"
+    innerapi_tags = [ "platformsdk_indirect" ]
+    if (!defined(oem_commercial_build) || !oem_commercial_build) {
+      defines = [ "STANDARD_SYSTEM_ENABLE" ]
+    }
+    part_name = "libcoap"
+  }
+}

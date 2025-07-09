@@ -1,0 +1,36 @@
+{
+    "name": "@ohos/jsframework",
+    "description": "A framework for building performant mobile cross-platform UI.",
+    "version": "3.1",
+    "license": "Apache-2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/jsframework"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "jsframework",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/jsframework:ark_build"
+                }
+            ],
+            "test": []
+        }
+    }
+}

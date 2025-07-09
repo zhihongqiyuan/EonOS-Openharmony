@@ -1,0 +1,55 @@
+{
+    "name": "@ohos/libphonenumber",
+    "description": "Third-party open-source software libphonenumber | Google's common Java, C++ and JavaScript library for parsing, formatting, and validating international phone numbers.",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/libphonenumber"
+    },
+    "dirs": [],
+    "scripts": {},
+    "component": {
+        "name": "libphonenumber",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "abseil-cpp",
+                "bounds_checking_function",
+                "icu",
+                "protobuf"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//third_party/libphonenumber/cpp:phonenumber_standard",
+                "//third_party/libphonenumber/cpp:geocoding"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//third_party/libphonenumber/cpp:phonenumber_standard",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//third_party/libphonenumber/cpp/src"
+                    }
+                },
+                {
+                    "name": "//third_party/libphonenumber/cpp:geocoding",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//third_party/libphonenumber/cpp/src"
+                    }
+                }
+            ],
+            "test": [
+                "//third_party/libphonenumber/cpp/test:libphonenumber_test"
+            ]
+        }
+    }
+}

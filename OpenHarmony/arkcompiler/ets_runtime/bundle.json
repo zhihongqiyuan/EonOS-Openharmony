@@ -1,0 +1,111 @@
+{
+    "name": "@ohos/ets_runtime",
+    "version": "",
+    "description": "支持应用TS/JS语言代码的运行，行为符合ArkUI框架需要的Strict模式的ES2015标准",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "scripts": {},
+    "dirs": [],
+    "segment": {
+        "destPath": "arkcompiler/ets_runtime"
+    },
+    "component": {
+        "name": "ets_runtime",
+        "subsystem": "arkcompiler",
+        "syscap": [],
+        "features": [
+          "ets_runtime_feature_enable_pgo",
+          "ets_runtime_feature_enable_codemerge",
+          "ets_runtime_feature_pgo_path",
+          "ets_runtime_feature_enable_list",
+          "ets_runtime_support_jit_code_sign",
+          "ets_runtime_feature_enable_bsymbolic"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "20MB",
+        "ram": "~8000KB",
+        "hisysevent_config": [
+            "//arkcompiler/ets_runtime/hisysevent.yaml"
+        ],
+        "deps": {
+            "components": [
+              "ability_base",
+              "faultloggerd",
+              "init",
+              "hitrace",
+              "hilog",
+              "hisysevent",
+              "qos_manager",
+              "runtime_core",
+              "c_utils",
+              "code_signature",
+              "libuv",
+              "zlib",
+              "bounds_checking_function",
+              "icu",
+              "access_token",
+              "eventhandler",
+              "ipc",
+              "safwk",
+              "samgr",
+              "common_event_service",
+              "ffrt",
+              "cJSON",
+              "hiview"
+            ],
+            "third_party": [
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//arkcompiler/ets_runtime:app_aot_jit_enable_list",
+                "//arkcompiler/ets_runtime:ark_js_packages",
+                "//arkcompiler/ets_runtime:ark_js_host_linux_tools_packages",
+                "//arkcompiler/ets_runtime/etc:arkcompiler.para.dac",
+                "//arkcompiler/ets_runtime/compiler_service:ark_aot_compiler.cfg",
+                "//arkcompiler/ets_runtime/compiler_service:compiler_service"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//arkcompiler/ets_runtime:libark_jsruntime",
+                    "header": {
+                      "header_files": [
+                        "jsnapi.h",
+                        "jsnapi_expo.h",
+                        "dfx_jsnapi.h"
+                      ],
+                      "header_base": "//arkcompiler/ets_runtime/ecmascript/napi/include"
+                    }
+                },
+                {
+                    "name": "//arkcompiler/ets_runtime:libark_jsruntime_static",
+                    "header": {
+                      "header_files": [
+                        "jsnapi.h",
+                        "jsnapi_expo.h",
+                        "dfx_jsnapi.h"
+                      ],
+                      "header_base": "//arkcompiler/ets_runtime/ecmascript/napi/include"
+                    }
+                },
+                {
+                    "name": "//arkcompiler/ets_runtime/compiler_service:libcompiler_service",
+                    "header": {
+                      "header_files": [
+                        "aot_compiler_client.h"
+                      ],
+                      "header_base": "//arkcompiler/ets_runtime/compiler_service/include"
+                    }
+                }
+            ],
+            "test": [
+                "//arkcompiler/ets_runtime:ark_js_unittest",
+                "//arkcompiler/ets_runtime/compiler_service/test:compiler_service_unittest",
+                "//arkcompiler/ets_runtime/compiler_service/test:compiler_service_fuzztest"
+            ]
+        }
+    }
+}

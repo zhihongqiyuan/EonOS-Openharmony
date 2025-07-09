@@ -1,0 +1,38 @@
+# pack-refs with: peeled fully-peeled sorted 
+336d762a81b642cccc0f42af19b1ef926feef0fc refs/tags/OpenHarmony-v4.0-Beta1
+336d762a81b642cccc0f42af19b1ef926feef0fc refs/tags/OpenHarmony-v4.0-Beta2
+336d762a81b642cccc0f42af19b1ef926feef0fc refs/tags/OpenHarmony-v4.0-Release
+336d762a81b642cccc0f42af19b1ef926feef0fc refs/tags/OpenHarmony-v4.0.1-Release
+99e5cbfa218128feb7c4f47eeedeb74ead3c92f4 refs/tags/OpenHarmony-v4.0.2-Release
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+29b5d0d1b1664a5508f7b8f905bfcf05d92b1810 refs/tags/OpenHarmony-v4.0.3-Release
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+60870ae89eaa0208358177da428df33d360ddf3c refs/tags/OpenHarmony-v4.0.4-Release
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+336d762a81b642cccc0f42af19b1ef926feef0fc refs/tags/OpenHarmony-v4.1-Beta1
+336d762a81b642cccc0f42af19b1ef926feef0fc refs/tags/OpenHarmony-v4.1-Release
+336d762a81b642cccc0f42af19b1ef926feef0fc refs/tags/OpenHarmony-v4.1.1-Release
+8ae4bb8f55f1c3b8b6f07321a577b5634c4661ab refs/tags/OpenHarmony-v4.1.2-Release
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+174933eb2b138d4ff26e8a6e6a3be33b89d737d9 refs/tags/OpenHarmony-v4.1.3-Release
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+9779b74b1ed638b7a5e1eb5330592ab21f97f5fb refs/tags/OpenHarmony-v4.1.4-Release
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+118a1704e1928e100cb98d3da73ecee011577c25 refs/tags/OpenHarmony-v5.0-Beta1
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+77c0982f52d9addc1803df3702457079593e2ff4 refs/tags/OpenHarmony-v5.0.0-Release
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+15b521f534d6ac87cb298e2b117bafb948d12f87 refs/tags/OpenHarmony-v5.0.1-Release
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+d3ab74855416b5e5adb31e662f4dec8bfe330d09 refs/tags/OpenHarmony-v5.0.2-Release
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+1dd6594ec0e9119949dbe86b669b4d9bb5053f1d refs/tags/OpenHarmony-v5.0.3-Release
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+5d144307e7ee75b3f8b2abb9fe53b34d7b0cef9b refs/tags/OpenHarmony-v5.1.0-Release
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+80fe941d45638267548f631fd86d37b6ae846ea4 refs/tags/OpenHarmony-v6.0-Beta1
+^336d762a81b642cccc0f42af19b1ef926feef0fc
+370ee19b374b3b8a1f4b8154b35dad08cae7067d refs/tags/github.com/rust-cli/env_logger/v0.9.3
+^3da11042a1f6a3b0808e52e534d1a39765bdb4ce
+336d762a81b642cccc0f42af19b1ef926feef0fc refs/tags/master-v
+336d762a81b642cccc0f42af19b1ef926feef0fc refs/tags/weekly_20240115-v

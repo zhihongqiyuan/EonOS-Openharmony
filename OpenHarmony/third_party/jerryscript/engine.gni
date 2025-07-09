@@ -1,0 +1,63 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+declare_args() {
+  jerryscript_enable_external_context = true
+  jerryscript_inputjs_buffer_size = 32768
+  jerryscript_snapshot_buffer_size = 24576
+  jerryscript_bms_task_heap_size = 64
+  jerryscript_js_task_heap_size = 64
+  jerryscript_jerry_cpointer_32_bit = 0
+  jerryscript_jerry_debugger = 1
+  jerryscript_jerry_gc_limit = 0
+  jerryscript_jerry_line_info = 1
+  jerryscript_jerry_mem_gc_before_each_alloc = 0
+  jerryscript_jerry_parser = 1
+  jerryscript_jerry_parser_dump_byte_code = 0
+  jerryscript_jerry_regexp_dump_byte_code = 0
+  jerryscript_jerry_regexp_strict_mode = 0
+  jerryscript_jerry_stack_limit = 0
+  jerryscript_jerry_system_allocator = 0
+  jerryscript_jerry_valgrind = 0
+  jerryscript_jerry_vm_exec_stop = 0
+
+  # support es6 with limitation
+  jerryscript_jerry_es2015 = 1
+  jerryscript_jerry_es2015_builtin_typedarray = 1
+  jerryscript_jerry_es2015_builtin_set = 1
+  jerryscript_jerry_es2015_builtin_promise = 1
+  jerryscript_jerry_es2015_builtin_proxy = 1
+  jerryscript_jerry_es2015_module_system = 1
+  jerryscript_jerry_es2015_builtin_map = 1
+  jerryscript_jerry_es2015_builtin_weakmap = 0
+  jerryscript_jerry_es2015_builtin_weakset = 0
+  jerryscript_jerry_es2015_builtin_dataview = 0
+  jerryscript_jerry_es2015_builtin_reflect = 0
+
+  jerryscript_jerry_error_messages = 1
+  jerryscript_jerry_logging = 0
+  jerryscript_jerry_snapshot_exec = 1
+  jerryscript_jerry_snapshot_save = 1
+}
+
+engine_path = "//third_party/jerryscript"
+
+core_path = "${engine_path}/jerry-core"
+
+debugger_path = "${engine_path}/jerry-debugger"
+
+ext_path = "${engine_path}/jerry-ext"
+
+libm_path = "${engine_path}/jerry-libm"
+
+port_path = "${engine_path}/jerry-port"

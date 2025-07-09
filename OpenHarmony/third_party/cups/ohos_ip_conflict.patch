@@ -1,0 +1,389 @@
+diff --git a/cups/http.h b/cups/http.h
+index 6c45301e..ac166970 100644
+--- a/cups/http.h
++++ b/cups/http.h
+@@ -556,10 +556,11 @@ extern int		httpSetCredentials(http_t *http, cups_array_t *certs) _CUPS_API_1_5;
+ extern void		httpSetTimeout(http_t *http, double timeout, http_timeout_cb_t cb, void *user_data) _CUPS_API_1_5;
+ 
+ /**** New in CUPS 1.6/macOS 10.8 ****/
+-extern http_addrlist_t	*httpAddrConnect2(http_addrlist_t *addrlist, int *sock, int msec, int *cancel) _CUPS_API_1_6;
++extern http_addrlist_t	*httpAddrConnect2(http_addrlist_t *addrlist, int *sock, int msec, int *cancel, const char *nic) _CUPS_API_1_6;
+ extern http_state_t	httpGetState(http_t *http) _CUPS_API_1_6;
+ extern http_version_t	httpGetVersion(http_t *http) _CUPS_API_1_6;
+ extern int		httpReconnect2(http_t *http, int msec, int *cancel) _CUPS_API_1_6;
++extern int		httpReconnect3(http_t *http, int msec, int *cancel, const char *nic) _CUPS_API_1_6;
+ 
+ 
+ /**** New in CUPS 1.7/macOS 10.9 ****/
+@@ -569,6 +570,7 @@ extern int		httpAddrListen(http_addr_t *addr, int port) _CUPS_API_1_7;
+ extern int		httpAddrPort(http_addr_t *addr) _CUPS_API_1_7;
+ extern char		*httpAssembleUUID(const char *server, int port, const char *name, int number, char *buffer, size_t bufsize) _CUPS_API_1_7;
+ extern http_t		*httpConnect2(const char *host, int port, http_addrlist_t *addrlist, int family, http_encryption_t encryption, int blocking, int msec, int *cancel) _CUPS_API_1_7;
++extern http_t		*httpConnect3(const char *host, int port, http_addrlist_t *addrlist, int family, http_encryption_t encryption, int blocking, int msec, int *cancel, const char *nic) _CUPS_API_1_7;
+ extern const char	*httpGetContentEncoding(http_t *http) _CUPS_API_1_7;
+ extern http_status_t	httpGetExpect(http_t *http) _CUPS_API_1_7;
+ extern ssize_t		httpPeek(http_t *http, char *buffer, size_t length) _CUPS_API_1_7;
+diff --git a/cups/http.c b/cups/http.c
+index 66dd3b07..e98c0550 100644
+--- a/cups/http.c
++++ b/cups/http.c
+@@ -476,6 +476,53 @@ httpConnect2(
+   return (NULL);
+ }
+ 
++/*
++ * 'httpConnect3()' - Connect to a HTTP server.
++ *
++ * @since CUPS 1.7/macOS 10.9@
++ */
++
++http_t *				/* O - New HTTP connection */
++httpConnect3(
++    const char        *host,		/* I - Host to connect to */
++    int               port,		/* I - Port number */
++    http_addrlist_t   *addrlist,	/* I - List of addresses or @code NULL@ to lookup */
++    int               family,		/* I - Address family to use or @code AF_UNSPEC@ for any */
++    http_encryption_t encryption,	/* I - Type of encryption to use */
++    int               blocking,		/* I - 1 for blocking connection, 0 for non-blocking */
++    int               msec,		/* I - Connection timeout in milliseconds, 0 means don't connect */
++    int               *cancel,		/* I - Pointer to "cancel" variable */
++    const char        *nic)
++{
++  http_t	*http;			/* New HTTP connection */
++
++
++  DEBUG_printf(("httpConnect2(host=\"%s\", port=%d, addrlist=%p, family=%d, encryption=%d, blocking=%d, msec=%d, cancel=%p)", host, port, (void *)addrlist, family, encryption, blocking, msec, (void *)cancel));
++
++ /*
++  * Create the HTTP structure...
++  */
++
++  if ((http = http_create(host, port, addrlist, family, encryption, blocking,
++                          _HTTP_MODE_CLIENT)) == NULL)
++    return (NULL);
++
++ /*
++  * Optionally connect to the remote system...
++  */
++
++  if (msec == 0 || !httpReconnect3(http, msec, cancel, nic))
++    return (http);
++
++ /*
++  * Could not connect to any known address - bail out!
++  */
++
++  httpClose(http);
++
++  return (NULL);
++}
++
+ 
+ /*
+  * 'httpConnectEncrypt()' - Connect to a HTTP server using encryption.
+@@ -2397,7 +2444,133 @@ httpReconnect2(http_t *http,		/* I - HTTP connection */
+                   httpAddrPort(&(current->addr))));
+ #endif /* DEBUG */
+ 
+-  if ((addr = httpAddrConnect2(http->addrlist, &(http->fd), msec, cancel)) == NULL)
++  if ((addr = httpAddrConnect2(http->addrlist, &(http->fd), msec, cancel, NULL)) == NULL)
++  {
++   /*
++    * Unable to connect...
++    */
++
++#ifdef _WIN32
++    http->error  = WSAGetLastError();
++#else
++    http->error  = errno;
++#endif /* _WIN32 */
++    http->status = HTTP_STATUS_ERROR;
++
++    DEBUG_printf(("1httpReconnect2: httpAddrConnect failed: %s",
++                  strerror(http->error)));
++
++    return (-1);
++  }
++
++  DEBUG_printf(("2httpReconnect2: New socket=%d", http->fd));
++
++  if (http->timeout_value > 0)
++    http_set_timeout(http->fd, http->timeout_value);
++
++  http->hostaddr = &(addr->addr);
++  http->error    = 0;
++
++#ifdef HAVE_TLS
++  if (http->encryption == HTTP_ENCRYPTION_ALWAYS)
++  {
++   /*
++    * Always do encryption via SSL.
++    */
++
++    if (_httpTLSStart(http) != 0)
++    {
++      httpAddrClose(NULL, http->fd);
++      http->fd = -1;
++
++      return (-1);
++    }
++  }
++  else if (http->encryption == HTTP_ENCRYPTION_REQUIRED && !http->tls_upgrade)
++    return (http_tls_upgrade(http));
++#endif /* HAVE_TLS */
++
++  DEBUG_printf(("1httpReconnect2: Connected to %s:%d...",
++		httpAddrString(http->hostaddr, temp, sizeof(temp)),
++		httpAddrPort(http->hostaddr)));
++
++  return (0);
++}
++
++/*
++ * 'httpReconnect3()' - Reconnect to a HTTP server with timeout and optional
++ *                      cancel.
++ */
++
++int					/* O - 0 on success, non-zero on failure */
++httpReconnect3(http_t *http,		/* I - HTTP connection */
++	       int    msec,		/* I - Timeout in milliseconds */
++	       int    *cancel,		/* I - Pointer to "cancel" variable */
++         const char *nic)
++{
++  http_addrlist_t	*addr;		/* Connected address */
++#ifdef DEBUG
++  http_addrlist_t	*current;	/* Current address */
++  char			temp[256];	/* Temporary address string */
++#endif /* DEBUG */
++
++
++  DEBUG_printf(("httpReconnect2(http=%p, msec=%d, cancel=%p)", (void *)http, msec, (void *)cancel));
++
++  if (!http)
++  {
++    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(EINVAL), 0);
++    return (-1);
++  }
++
++#ifdef HAVE_TLS
++  if (http->tls)
++  {
++    DEBUG_puts("2httpReconnect2: Shutting down SSL/TLS...");
++    _httpTLSStop(http);
++  }
++#endif /* HAVE_TLS */
++
++ /*
++  * Close any previously open socket...
++  */
++
++  if (http->fd >= 0)
++  {
++    DEBUG_printf(("2httpReconnect2: Closing socket %d...", http->fd));
++
++    httpAddrClose(NULL, http->fd);
++
++    http->fd = -1;
++  }
++
++ /*
++  * Reset all state (except fields, which may be reused)...
++  */
++
++  http->state           = HTTP_STATE_WAITING;
++  http->version         = HTTP_VERSION_1_1;
++  http->keep_alive      = HTTP_KEEPALIVE_OFF;
++  memset(&http->_hostaddr, 0, sizeof(http->_hostaddr));
++  http->data_encoding   = HTTP_ENCODING_FIELDS;
++  http->_data_remaining = 0;
++  http->used            = 0;
++  http->data_remaining  = 0;
++  http->hostaddr        = NULL;
++  http->wused           = 0;
++
++ /*
++  * Connect to the server...
++  */
++
++#ifdef DEBUG
++  for (current = http->addrlist; current; current = current->next)
++    DEBUG_printf(("2httpReconnect2: Address %s:%d",
++                  httpAddrString(&(current->addr), temp, sizeof(temp)),
++                  httpAddrPort(&(current->addr))));
++#endif /* DEBUG */
++
++  if ((addr = httpAddrConnect2(http->addrlist, &(http->fd), msec, cancel, NULL)) == NULL)
+   {
+    /*
+     * Unable to connect...
+diff --git a/cups/http-addrlist.c b/cups/http-addrlist.c
+index 6e73464c..36b410e8 100644
+--- a/cups/http-addrlist.c
++++ b/cups/http-addrlist.c
+@@ -39,7 +39,7 @@ httpAddrConnect(
+ {
+   DEBUG_printf(("httpAddrConnect(addrlist=%p, sock=%p)", (void *)addrlist, (void *)sock));
+ 
+-  return (httpAddrConnect2(addrlist, sock, 30000, NULL));
++  return (httpAddrConnect2(addrlist, sock, 30000, NULL, NULL));
+ }
+ 
+ 
+@@ -55,7 +55,8 @@ httpAddrConnect2(
+     http_addrlist_t *addrlist,		/* I - List of potential addresses */
+     int             *sock,		/* O - Socket */
+     int             msec,		/* I - Timeout in milliseconds */
+-    int             *cancel)		/* I - Pointer to "cancel" variable */
++    int             *cancel,		/* I - Pointer to "cancel" variable */
++    const char      *nic)
+ {
+   int			val;		/* Socket option value */
+ #ifndef _WIN32
+@@ -164,6 +165,11 @@ httpAddrConnect2(
+       setsockopt(fds[nfds], SOL_SOCKET, SO_NOSIGPIPE, CUPS_SOCAST &val, sizeof(val));
+ #endif /* SO_NOSIGPIPE */
+ 
++      if (nic != NULL) {
++        val = 1;
++        setsockopt(fds[nfds], SOL_SOCKET, SO_BINDTODEVICE, nic, sizeof(nic));
++      }
++
+      /*
+       * Using TCP_NODELAY improves responsiveness, especially on systems
+       * with a slow loopback interface...
+diff --git a/backend/ipp.c b/backend/ipp.c
+index c4b34668..60b867a0 100644
+--- a/backend/ipp.c
++++ b/backend/ipp.c
+@@ -64,6 +64,7 @@ typedef struct _cups_monitor_s		/**** Monitoring data ****/
+   ipp_jstate_t		job_state;	/* Current job state */
+   ipp_pstate_t		printer_state;	/* Current printer state */
+   int			retryable;	/* Is this a job that should be retried? */
++  const char *nic;
+ } _cups_monitor_t;
+ 
+ 
+@@ -273,6 +274,7 @@ main(int  argc,				/* I - Number of command-line args */
+   ppd_file_t	*ppd = NULL;		/* PPD file */
+   _ppd_cache_t	*pc = NULL;		/* PPD cache and mapping data */
+   fd_set	input;			/* Input set for select() */
++  const char *nic = NULL;
+ 
+ 
+  /*
+@@ -651,6 +653,10 @@ main(int  argc,				/* I - Number of command-line args */
+     password = getenv("AUTH_PASSWORD");
+   }
+ 
++  num_options = cupsParseOptions(argv[5], 0, &options);
++  nic = cupsGetOption("nic", num_options, options);
++  fprintf(stderr, "DEBUG: nic %s\n", nic);
++
+  /*
+   * Try finding the remote server...
+   */
+@@ -659,8 +665,11 @@ main(int  argc,				/* I - Number of command-line args */
+ 
+   addrlist = backendLookup(hostname, port, &job_canceled);
+ 
+-  http = httpConnect2(hostname, port, addrlist, AF_UNSPEC, cupsEncryption(), 1,
+-                      0, NULL);
++  if (nic != NULL) {
++    http = httpConnect3(hostname, port, addrlist, AF_UNSPEC, cupsEncryption(), 1, 0, NULL, nic);
++  } else {
++    http = httpConnect2(hostname, port, addrlist, AF_UNSPEC, cupsEncryption(), 1, 0, NULL);
++  }
+   httpSetTimeout(http, 30.0, timeout_cb, NULL);
+ 
+  /*
+@@ -701,7 +710,7 @@ main(int  argc,				/* I - Number of command-line args */
+     fprintf(stderr, "DEBUG: Connecting to %s:%d\n", hostname, port);
+     _cupsLangPrintFilter(stderr, "INFO", _("Connecting to printer."));
+ 
+-    if (httpReconnect2(http, 30000, NULL))
++    if (nic != NULL ? httpReconnect3(http, 30000, NULL, nic) : httpReconnect2(http, 30000, NULL))
+     {
+       int error = errno;		/* Connection error */
+ 
+@@ -986,7 +995,7 @@ main(int  argc,				/* I - Number of command-line args */
+ 	  version = 10;
+         }
+ 
+-	httpReconnect2(http, 30000, NULL);
++	nic != NULL ? httpReconnect3(http, 30000, NULL, nic) : httpReconnect2(http, 30000, NULL);
+       }
+       else if (ipp_status == IPP_STATUS_ERROR_NOT_FOUND)
+       {
+@@ -1018,7 +1027,7 @@ main(int  argc,				/* I - Number of command-line args */
+ 	                     _("Unable to get printer status."));
+         sleep(10);
+ 
+-	httpReconnect2(http, 30000, NULL);
++	nic != NULL ? httpReconnect3(http, 30000, NULL, nic) : httpReconnect2(http, 30000, NULL);
+       }
+ 
+       ippDelete(supported);
+@@ -1450,6 +1459,7 @@ main(int  argc,				/* I - Number of command-line args */
+   monitor.job_state     = IPP_JSTATE_PENDING;
+   monitor.printer_state = IPP_PSTATE_IDLE;
+   monitor.retryable     = argc == 6 && document_format && strcmp(document_format, "image/pwg-raster") && strcmp(document_format, "image/urf");
++  monitor.nic           = nic;
+ 
+   fprintf(stderr, "DEBUG: retryable=%d\n", monitor.retryable);
+ 
+@@ -2063,7 +2073,7 @@ main(int  argc,				/* I - Number of command-line args */
+       * Do the request...
+       */
+ 
+-      httpReconnect2(http, 30000, NULL);
++      nic != NULL ? httpReconnect3(http, 30000, NULL, nic) : httpReconnect2(http, 30000, NULL);
+       response   = cupsDoRequest(http, request, resource);
+       ipp_status = cupsLastError();
+ 
+@@ -2457,8 +2467,13 @@ monitor_printer(
+   * Make a copy of the printer connection...
+   */
+ 
+-  http = httpConnect2(monitor->hostname, monitor->port, NULL, AF_UNSPEC,
+-                      monitor->encryption, 1, 0, NULL);
++  if (monitor->nic != NULL) {
++    http = httpConnect3(monitor->hostname, monitor->port, NULL, AF_UNSPEC,
++                        monitor->encryption, 1, 0, NULL, monitor->nic);
++  } else {
++    http = httpConnect2(monitor->hostname, monitor->port, NULL, AF_UNSPEC,
++                        monitor->encryption, 1, 0, NULL);
++  }
+   httpSetTimeout(http, 30.0, timeout_cb, NULL);
+   if (username[0])
+     cupsSetUser(username);
+@@ -2480,7 +2495,7 @@ monitor_printer(
+     */
+ 
+     if (httpGetFd(http) < 0)
+-      httpReconnect2(http, 30000, NULL);
++      monitor->nic != NULL ? httpReconnect3(http, 30000, NULL, monitor->nic) : httpReconnect2(http, 30000, NULL);
+ 
+     if (httpGetFd(http) >= 0)
+     {
+@@ -2702,7 +2717,7 @@ monitor_printer(
+   if (job_canceled > 0 && monitor->job_id > 0)
+   {
+     if (httpGetFd(http) < 0)
+-      httpReconnect2(http, 30000, NULL);
++      monitor->nic != NULL ? httpReconnect3(http, 30000, NULL, monitor->nic) : httpReconnect2(http, 30000, NULL);
+ 
+     if (httpGetFd(http) >= 0)
+     {
+diff --git a/tools/ippeveprinter.c b/tools/ippeveprinter.c
+index 2da5ed52..39274b6f 100644
+--- a/tools/ippeveprinter.c
++++ b/tools/ippeveprinter.c
+@@ -6842,7 +6842,7 @@ process_job(ippeve_job_t *job)		/* I - Job */
+ 
+         if ((addrlist = httpAddrGetList(host, AF_UNSPEC, service)) == NULL)
+           fprintf(stderr, "[Job %d] Unable to find \"%s\": %s\n", job->id, host, cupsLastErrorString());
+-        else if (!httpAddrConnect2(addrlist, &mystdout, 30000, &(job->cancel)))
++        else if (!httpAddrConnect2(addrlist, &mystdout, 30000, &(job->cancel), NULL))
+           fprintf(stderr, "[Job %d] Unable to connect to \"%s\": %s\n", job->id, host, cupsLastErrorString());
+ 
+         httpAddrFreeList(addrlist);

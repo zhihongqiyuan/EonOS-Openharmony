@@ -1,0 +1,11 @@
+/node_modules
+/oh_modules
+/local.properties
+/.idea
+**/build
+/signature
+/.hvigor
+/package.json
+/.clang-format
+**/oh-package-lock.json5
+**/BuildProfile.ets

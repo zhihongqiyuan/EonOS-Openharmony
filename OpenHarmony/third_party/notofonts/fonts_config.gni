@@ -1,0 +1,1246 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+declare_args() {
+  notofonts_font_feature_product = "default"
+}
+
+notofonts_fonts_list = [
+  {
+    font_name = "NotoSansEthiopic"
+    font_path = "fonts/NotoSansEthiopic/googlefonts/variable-ttf/NotoSansEthiopic[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifEthiopic"
+    font_path = "fonts/NotoSerifEthiopic/googlefonts/variable-ttf/NotoSerifEthiopic[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansHebrew"
+    font_path = "fonts/NotoSansHebrew/googlefonts/variable-ttf/NotoSansHebrew[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifHebrew"
+    font_path = "fonts/NotoSerifHebrew/googlefonts/variable-ttf/NotoSerifHebrew[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansThai"
+    font_path = "fonts/NotoSansThai/googlefonts/variable-ttf/NotoSansThai[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifThai"
+    font_path = "fonts/NotoSerifThai/googlefonts/variable-ttf/NotoSerifThai[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansArmenian"
+    font_path = "fonts/NotoSansArmenian/googlefonts/variable-ttf/NotoSansArmenian[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifArmenian"
+    font_path = "fonts/NotoSerifArmenian/googlefonts/variable-ttf/NotoSerifArmenian[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGeorgian"
+    font_path = "fonts/NotoSansGeorgian/googlefonts/variable-ttf/NotoSansGeorgian[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifGeorgian"
+    font_path = "fonts/NotoSerifGeorgian/googlefonts/variable-ttf/NotoSerifGeorgian[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansDevanagari"
+    font_path = "fonts/NotoSansDevanagari/googlefonts/variable-ttf/NotoSansDevanagari[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansDevanagari-Condensed"
+    font_path =
+        "fonts/NotoSansDevanagari/hinted/ttf/NotoSansDevanagari-Condensed.ttf"
+    support_devices = [ "watch" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifDevanagari"
+    font_path = "fonts/NotoSerifDevanagari/googlefonts/variable-ttf/NotoSerifDevanagari[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansDevanagariUI-Bold"
+    font_path =
+        "fonts/NotoSansDevanagari/googlefonts/ttf/NotoSansDevanagariUI-Bold.ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansDevanagariUI-Medium"
+    font_path = "fonts/NotoSansDevanagari/googlefonts/ttf/NotoSansDevanagariUI-Medium.ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansDevanagariUI-Regular"
+    font_path = "fonts/NotoSansDevanagari/googlefonts/ttf/NotoSansDevanagariUI-Regular.ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansDevanagariUI-SemiBold"
+    font_path = "fonts/NotoSansDevanagari/googlefonts/ttf/NotoSansDevanagariUI-SemiBold.ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGujarati"
+    font_path = "fonts/NotoSansGujarati/googlefonts/variable-ttf/NotoSansGujarati[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifGujarati"
+    font_path = "fonts/NotoSerifGujarati/googlefonts/variable-ttf/NotoSerifGujarati[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGujaratiUI-Regular"
+    font_path =
+        "fonts/NotoSansGujarati/googlefonts/ttf/NotoSansGujaratiUI-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGujaratiUI-Bold"
+    font_path =
+        "fonts/NotoSansGujarati/googlefonts/ttf/NotoSansGujaratiUI-Bold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGurmukhi"
+    font_path = "fonts/NotoSansGurmukhi/googlefonts/variable-ttf/NotoSansGurmukhi[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifGurmukhi"
+    font_path = "fonts/NotoSerifGurmukhi/googlefonts/variable-ttf/NotoSerifGurmukhi[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGurmukhiUI-Bold"
+    font_path =
+        "fonts/NotoSansGurmukhi/googlefonts/ttf/NotoSansGurmukhiUI-Bold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGurmukhiUI-Medium"
+    font_path =
+        "fonts/NotoSansGurmukhi/googlefonts/ttf/NotoSansGurmukhiUI-Medium.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGurmukhiUI-Regular"
+    font_path =
+        "fonts/NotoSansGurmukhi/googlefonts/ttf/NotoSansGurmukhiUI-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGurmukhiUI-SemiBold"
+    font_path =
+        "fonts/NotoSansGurmukhi/googlefonts/ttf/NotoSansGurmukhiUI-SemiBold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTamil"
+    font_path = "fonts/NotoSansTamil/googlefonts/variable-ttf/NotoSansTamil[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifTamil"
+    font_path = "fonts/NotoSerifTamil/googlefonts/variable-ttf/NotoSerifTamil[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTamilUI-Bold"
+    font_path = "fonts/NotoSansTamil/googlefonts/ttf/NotoSansTamilUI-Bold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTamilUI-Medium"
+    font_path = "fonts/NotoSansTamil/googlefonts/ttf/NotoSansTamilUI-Medium.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTamilUI-Regular"
+    font_path =
+        "fonts/NotoSansTamil/googlefonts/ttf/NotoSansTamilUI-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTamilUI-SemiBold"
+    font_path =
+        "fonts/NotoSansTamil/googlefonts/ttf/NotoSansTamilUI-SemiBold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMalayalam"
+    font_path = "fonts/NotoSansMalayalam/googlefonts/variable-ttf/NotoSansMalayalam[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifMalayalam"
+    font_path = "fonts/NotoSerifMalayalam/googlefonts/variable-ttf/NotoSerifMalayalam[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMalayalamUI-Bold"
+    font_path =
+        "fonts/NotoSansMalayalam/googlefonts/ttf/NotoSansMalayalamUI-Bold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMalayalamUI-Medium"
+    font_path =
+        "fonts/NotoSansMalayalam/googlefonts/ttf/NotoSansMalayalamUI-Medium.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMalayalamUI-Regular"
+    font_path = "fonts/NotoSansMalayalam/googlefonts/ttf/NotoSansMalayalamUI-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMalayalamUI-SemiBold"
+    font_path = "fonts/NotoSansMalayalam/googlefonts/ttf/NotoSansMalayalamUI-SemiBold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBengali"
+    font_path = "fonts/NotoSansBengali/googlefonts/variable-ttf/NotoSansBengali[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifBengali"
+    font_path = "fonts/NotoSerifBengali/googlefonts/variable-ttf/NotoSerifBengali[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBengaliUI-Bold"
+    font_path =
+        "fonts/NotoSansBengali/googlefonts/ttf/NotoSansBengaliUI-Bold.ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBengaliUI-Medium"
+    font_path =
+        "fonts/NotoSansBengali/googlefonts/ttf/NotoSansBengaliUI-Medium.ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBengaliUI-Regular"
+    font_path =
+        "fonts/NotoSansBengali/googlefonts/ttf/NotoSansBengaliUI-Regular.ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBengaliUI-SemiBold"
+    font_path =
+        "fonts/NotoSansBengali/googlefonts/ttf/NotoSansBengaliUI-SemiBold.ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTelugu"
+    font_path = "fonts/NotoSansTelugu/googlefonts/variable-ttf/NotoSansTelugu[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifTelugu"
+    font_path = "fonts/NotoSerifTelugu/googlefonts/variable-ttf/NotoSerifTelugu[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTeluguUI-Bold"
+    font_path = "fonts/NotoSansTelugu/googlefonts/ttf/NotoSansTeluguUI-Bold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTeluguUI-Medium"
+    font_path =
+        "fonts/NotoSansTelugu/googlefonts/ttf/NotoSansTeluguUI-Medium.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTeluguUI-Regular"
+    font_path =
+        "fonts/NotoSansTelugu/googlefonts/ttf/NotoSansTeluguUI-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTeluguUI-SemiBold"
+    font_path =
+        "fonts/NotoSansTelugu/googlefonts/ttf/NotoSansTeluguUI-SemiBold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansKannada"
+    font_path = "fonts/NotoSansKannada/googlefonts/variable-ttf/NotoSansKannada[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifKannada"
+    font_path = "fonts/NotoSerifKannada/googlefonts/variable-ttf/NotoSerifKannada[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansKannadaUI-Bold"
+    font_path =
+        "fonts/NotoSansKannada/googlefonts/ttf/NotoSansKannadaUI-Bold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansKannadaUI-Medium"
+    font_path =
+        "fonts/NotoSansKannada/googlefonts/ttf/NotoSansKannadaUI-Medium.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansKannadaUI-Regular"
+    font_path =
+        "fonts/NotoSansKannada/googlefonts/ttf/NotoSansKannadaUI-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansKannadaUI-SemiBold"
+    font_path =
+        "fonts/NotoSansKannada/googlefonts/ttf/NotoSansKannadaUI-SemiBold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansOriya"
+    font_path = "fonts/NotoSansOriya/googlefonts/variable-ttf/NotoSansOriya[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSinhala"
+    font_path = "fonts/NotoSansSinhala/googlefonts/variable-ttf/NotoSansSinhala[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifSinhala"
+    font_path = "fonts/NotoSerifSinhala/googlefonts/variable-ttf/NotoSerifSinhala[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSinhalaUI-Bold"
+    font_path =
+        "fonts/NotoSansSinhala/googlefonts/ttf/NotoSansSinhalaUI-Bold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSinhalaUI-Medium"
+    font_path =
+        "fonts/NotoSansSinhala/googlefonts/ttf/NotoSansSinhalaUI-Medium.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSinhalaUI-Regular"
+    font_path =
+        "fonts/NotoSansSinhala/googlefonts/ttf/NotoSansSinhalaUI-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSinhalaUI-SemiBold"
+    font_path =
+        "fonts/NotoSansSinhala/googlefonts/ttf/NotoSansSinhalaUI-SemiBold.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansKhmer"
+    font_path = "fonts/NotoSansKhmer/googlefonts/variable-ttf/NotoSansKhmer[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifKhmer"
+    font_path = "fonts/NotoSerifKhmer/googlefonts/variable-ttf/NotoSerifKhmer[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansLao"
+    font_path =
+        "fonts/NotoSansLao/googlefonts/variable-ttf/NotoSansLao[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifLao"
+    font_path = "fonts/NotoSerifLao/googlefonts/variable-ttf/NotoSerifLao[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMyanmar"
+    font_path = "fonts/NotoSansMyanmar/googlefonts/variable-ttf/NotoSansMyanmar[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifMyanmar"
+    font_path = "fonts/NotoSerifMyanmar/googlefonts/variable-ttf/NotoSerifMyanmar[wdth,wght].ttf"
+    support_devices = [
+      "default",
+      "watch",
+    ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansThaana"
+    font_path =
+        "fonts/NotoSansThaana/googlefonts/variable-ttf/NotoSansThaana[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansCham"
+    font_path =
+        "fonts/NotoSansCham/googlefonts/variable-ttf/NotoSansCham[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifAhom-Regular"
+    font_path = "fonts/NotoSerifAhom/googlefonts/ttf/NotoSerifAhom-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansAdlam"
+    font_path =
+        "fonts/NotoSansAdlam/googlefonts/variable-ttf/NotoSansAdlam[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansAvestan-Regular"
+    font_path =
+        "fonts/NotoSansAvestan/googlefonts/ttf/NotoSansAvestan-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBalinese"
+    font_path = "fonts/NotoSansBalinese/googlefonts/variable-ttf/NotoSansBalinese[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBamum"
+    font_path =
+        "fonts/NotoSansBamum/googlefonts/variable-ttf/NotoSansBamum[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBatak-Regular"
+    font_path = "fonts/NotoSansBatak/googlefonts/ttf/NotoSansBatak-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBrahmi-Regular"
+    font_path =
+        "fonts/NotoSansBrahmi/googlefonts/ttf/NotoSansBrahmi-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBuginese-Regular"
+    font_path =
+        "fonts/NotoSansBuginese/googlefonts/ttf/NotoSansBuginese-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBuhid-Regular"
+    font_path = "fonts/NotoSansBuhid/googlefonts/ttf/NotoSansBuhid-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansCanadianAboriginal"
+    font_path = "fonts/NotoSansCanadianAboriginal/googlefonts/variable-ttf/NotoSansCanadianAboriginal[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansCarian-Regular"
+    font_path =
+        "fonts/NotoSansCarian/googlefonts/ttf/NotoSansCarian-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansChakma-Regular"
+    font_path =
+        "fonts/NotoSansChakma/googlefonts/ttf/NotoSansChakma-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansCherokee"
+    font_path = "fonts/NotoSansCherokee/googlefonts/variable-ttf/NotoSansCherokee[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansCoptic-Regular"
+    font_path =
+        "fonts/NotoSansCoptic/googlefonts/ttf/NotoSansCoptic-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansCuneiform-Regular"
+    font_path =
+        "fonts/NotoSansCuneiform/googlefonts/ttf/NotoSansCuneiform-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansCypriot-Regular"
+    font_path =
+        "fonts/NotoSansCypriot/googlefonts/ttf/NotoSansCypriot-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansDeseret-Regular"
+    font_path =
+        "fonts/NotoSansDeseret/googlefonts/ttf/NotoSansDeseret-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansEgyptianHieroglyphs-Regular"
+    font_path = "fonts/NotoSansEgyptianHieroglyphs/googlefonts/ttf/NotoSansEgyptianHieroglyphs-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansElbasan-Regular"
+    font_path =
+        "fonts/NotoSansElbasan/googlefonts/ttf/NotoSansElbasan-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGlagolitic-Regular"
+    font_path = "fonts/NotoSansGlagolitic/googlefonts/ttf/NotoSansGlagolitic-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGothic-Regular"
+    font_path =
+        "fonts/NotoSansGothic/googlefonts/ttf/NotoSansGothic-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansHanunoo-Regular"
+    font_path =
+        "fonts/NotoSansHanunoo/googlefonts/ttf/NotoSansHanunoo-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansImperialAramaic-Regular"
+    font_path = "fonts/NotoSansImperialAramaic/googlefonts/ttf/NotoSansImperialAramaic-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansInscriptionalPahlavi-Regular"
+    font_path = "fonts/NotoSansInscriptionalPahlavi/googlefonts/ttf/NotoSansInscriptionalPahlavi-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansInscriptionalParthian-Regular"
+    font_path = "fonts/NotoSansInscriptionalParthian/googlefonts/ttf/NotoSansInscriptionalParthian-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansJavanese"
+    font_path = "fonts/NotoSansJavanese/googlefonts/variable-ttf/NotoSansJavanese[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansKaithi-Regular"
+    font_path =
+        "fonts/NotoSansKaithi/googlefonts/ttf/NotoSansKaithi-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansKayahLi"
+    font_path = "fonts/NotoSansKayahLi/googlefonts/variable-ttf/NotoSansKayahLi[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansKharoshthi-Regular"
+    font_path = "fonts/NotoSansKharoshthi/googlefonts/ttf/NotoSansKharoshthi-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansLepcha-Regular"
+    font_path =
+        "fonts/NotoSansLepcha/googlefonts/ttf/NotoSansLepcha-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansLimbu-Regular"
+    font_path = "fonts/NotoSansLimbu/googlefonts/ttf/NotoSansLimbu-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansLinearB-Regular"
+    font_path =
+        "fonts/NotoSansLinearB/googlefonts/ttf/NotoSansLinearB-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansLisu"
+    font_path =
+        "fonts/NotoSansLisu/googlefonts/variable-ttf/NotoSansLisu[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansLycian-Regular"
+    font_path =
+        "fonts/NotoSansLycian/googlefonts/ttf/NotoSansLycian-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansLydian-Regular"
+    font_path =
+        "fonts/NotoSansLydian/googlefonts/ttf/NotoSansLydian-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMandaic-Regular"
+    font_path =
+        "fonts/NotoSansMandaic/googlefonts/ttf/NotoSansMandaic-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMeeteiMayek"
+    font_path = "fonts/NotoSansMeeteiMayek/googlefonts/variable-ttf/NotoSansMeeteiMayek[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansNewTaiLue"
+    font_path = "fonts/NotoSansNewTaiLue/googlefonts/variable-ttf/NotoSansNewTaiLue[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansNKo-Regular"
+    font_path = "fonts/NotoSansNKo/googlefonts/ttf/NotoSansNKo-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansOgham-Regular"
+    font_path = "fonts/NotoSansOgham/googlefonts/ttf/NotoSansOgham-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansOlChiki"
+    font_path = "fonts/NotoSansOlChiki/googlefonts/variable-ttf/NotoSansOlChiki[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansOldItalic-Regular"
+    font_path =
+        "fonts/NotoSansOldItalic/googlefonts/ttf/NotoSansOldItalic-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansOldPersian-Regular"
+    font_path = "fonts/NotoSansOldPersian/googlefonts/ttf/NotoSansOldPersian-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansOldSouthArabian-Regular"
+    font_path = "fonts/NotoSansOldSouthArabian/googlefonts/ttf/NotoSansOldSouthArabian-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansOldTurkic-Regular"
+    font_path =
+        "fonts/NotoSansOldTurkic/googlefonts/ttf/NotoSansOldTurkic-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansOsage-Regular"
+    font_path = "fonts/NotoSansOsage/googlefonts/ttf/NotoSansOsage-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansOsmanya-Regular"
+    font_path =
+        "fonts/NotoSansOsmanya/googlefonts/ttf/NotoSansOsmanya-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansPhoenician-Regular"
+    font_path = "fonts/NotoSansPhoenician/googlefonts/ttf/NotoSansPhoenician-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansRejang-Regular"
+    font_path =
+        "fonts/NotoSansRejang/googlefonts/ttf/NotoSansRejang-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansRunic-Regular"
+    font_path = "fonts/NotoSansRunic/googlefonts/ttf/NotoSansRunic-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSamaritan-Regular"
+    font_path =
+        "fonts/NotoSansSamaritan/googlefonts/ttf/NotoSansSamaritan-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSaurashtra-Regular"
+    font_path = "fonts/NotoSansSaurashtra/googlefonts/ttf/NotoSansSaurashtra-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansShavian-Regular"
+    font_path =
+        "fonts/NotoSansShavian/googlefonts/ttf/NotoSansShavian-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSundanese"
+    font_path = "fonts/NotoSansSundanese/googlefonts/variable-ttf/NotoSansSundanese[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSylotiNagri-Regular"
+    font_path = "fonts/NotoSansSylotiNagri/googlefonts/ttf/NotoSansSylotiNagri-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSyriacEastern"
+    font_path = "fonts/NotoSansSyriacEastern/googlefonts/variable-ttf/NotoSansSyriacEastern[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSyriacWestern"
+    font_path = "fonts/NotoSansSyriacWestern/googlefonts/variable-ttf/NotoSansSyriacWestern[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTagalog-Regular"
+    font_path =
+        "fonts/NotoSansTagalog/googlefonts/ttf/NotoSansTagalog-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTagbanwa-Regular"
+    font_path =
+        "fonts/NotoSansTagbanwa/googlefonts/ttf/NotoSansTagbanwa-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTaiTham"
+    font_path = "fonts/NotoSansTaiTham/googlefonts/variable-ttf/NotoSansTaiTham[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTaiViet-Regular"
+    font_path =
+        "fonts/NotoSansTaiViet/googlefonts/ttf/NotoSansTaiViet-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifTibetan"
+    font_path = "fonts/NotoSerifTibetan/googlefonts/variable-ttf/NotoSerifTibetan[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTifinagh-Regular"
+    font_path =
+        "fonts/NotoSansTifinagh/googlefonts/ttf/NotoSansTifinagh-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansUgaritic-Regular"
+    font_path =
+        "fonts/NotoSansUgaritic/googlefonts/ttf/NotoSansUgaritic-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansVai-Regular"
+    font_path = "fonts/NotoSansVai/googlefonts/ttf/NotoSansVai-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSymbols-Regular"
+    font_path =
+        "fonts/NotoSansSymbols/googlefonts/ttf/NotoSansSymbols-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSymbols2-Regular"
+    font_path =
+        "fonts/NotoSansSymbols2/googlefonts/ttf/NotoSansSymbols2-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTaiLe-Regular"
+    font_path = "fonts/NotoSansTaiLe/googlefonts/ttf/NotoSansTaiLe-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansYi-Regular"
+    font_path = "fonts/NotoSansYi/googlefonts/ttf/NotoSansYi-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMongolian-Regular"
+    font_path =
+        "fonts/NotoSansMongolian/googlefonts/ttf/NotoSansMongolian-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansPhags-Pa-Regular"
+    font_path =
+        "fonts/NotoSansPhagsPa/googlefonts/ttf/NotoSansPhags-Pa-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansAnatolianHieroglyphs-Regular"
+    font_path = "fonts/NotoSansAnatolianHieroglyphs/googlefonts/ttf/NotoSansAnatolianHieroglyphs-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBassaVah"
+    font_path = "fonts/NotoSansBassaVah/googlefonts/variable-ttf/NotoSansBassaVah[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansBhaiksuki-Regular"
+    font_path =
+        "fonts/NotoSansBhaiksuki/googlefonts/ttf/NotoSansBhaiksuki-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansHatran-Regular"
+    font_path =
+        "fonts/NotoSansHatran/googlefonts/ttf/NotoSansHatran-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansLinearA-Regular"
+    font_path =
+        "fonts/NotoSansLinearA/googlefonts/ttf/NotoSansLinearA-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansManichaean-Regular"
+    font_path = "fonts/NotoSansManichaean/googlefonts/ttf/NotoSansManichaean-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMarchen-Regular"
+    font_path =
+        "fonts/NotoSansMarchen/googlefonts/ttf/NotoSansMarchen-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMeroitic-Regular"
+    font_path =
+        "fonts/NotoSansMeroitic/googlefonts/ttf/NotoSansMeroitic-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMiao-Regular"
+    font_path = "fonts/NotoSansMiao/googlefonts/ttf/NotoSansMiao-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMro-Regular"
+    font_path = "fonts/NotoSansMro/googlefonts/ttf/NotoSansMro-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMultani-Regular"
+    font_path =
+        "fonts/NotoSansMultani/googlefonts/ttf/NotoSansMultani-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansNabataean-Regular"
+    font_path =
+        "fonts/NotoSansNabataean/googlefonts/ttf/NotoSansNabataean-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansNewa-Regular"
+    font_path = "fonts/NotoSansNewa/googlefonts/ttf/NotoSansNewa-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansOldNorthArabian-Regular"
+    font_path = "fonts/NotoSansOldNorthArabian/googlefonts/ttf/NotoSansOldNorthArabian-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansOldPermic-Regular"
+    font_path =
+        "fonts/NotoSansOldPermic/googlefonts/ttf/NotoSansOldPermic-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansPahawhHmong-Regular"
+    font_path = "fonts/NotoSansPahawhHmong/googlefonts/ttf/NotoSansPahawhHmong-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansPalmyrene-Regular"
+    font_path =
+        "fonts/NotoSansPalmyrene/googlefonts/ttf/NotoSansPalmyrene-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansPauCinHau-Regular"
+    font_path =
+        "fonts/NotoSansPauCinHau/googlefonts/ttf/NotoSansPauCinHau-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSharada-Regular"
+    font_path =
+        "fonts/NotoSansSharada/googlefonts/ttf/NotoSansSharada-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSoraSompeng"
+    font_path = "fonts/NotoSansSoraSompeng/googlefonts/variable-ttf/NotoSansSoraSompeng[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGunjalaGondi"
+    font_path = "fonts/NotoSansGunjalaGondi/googlefonts/variable-ttf/NotoSansGunjalaGondi[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansHanifiRohingya"
+    font_path = "fonts/NotoSansHanifiRohingya/googlefonts/variable-ttf/NotoSansHanifiRohingya[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansKhojki-Regular"
+    font_path =
+        "fonts/NotoSansKhojki/googlefonts/ttf/NotoSansKhojki-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMasaramGondi-Regular"
+    font_path = "fonts/NotoSansMasaramGondi/googlefonts/ttf/NotoSansMasaramGondi-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansWancho-Regular"
+    font_path =
+        "fonts/NotoSansWancho/googlefonts/ttf/NotoSansWancho-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansWarangCiti-Regular"
+    font_path = "fonts/NotoSansWarangCiti/googlefonts/ttf/NotoSansWarangCiti-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansGrantha-Regular"
+    font_path =
+        "fonts/NotoSansGrantha/googlefonts/ttf/NotoSansGrantha-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansModi-Regular"
+    font_path = "fonts/NotoSansModi/googlefonts/ttf/NotoSansModi-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifDogra-Regular"
+    font_path =
+        "fonts/NotoSerifDogra/googlefonts/ttf/NotoSerifDogra-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMedefaidrin"
+    font_path = "fonts/NotoSansMedefaidrin/googlefonts/variable-ttf/NotoSansMedefaidrin[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansSoyombo-Regular"
+    font_path =
+        "fonts/NotoSansSoyombo/googlefonts/ttf/NotoSansSoyombo-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansTakri-Regular"
+    font_path = "fonts/NotoSansTakri/googlefonts/ttf/NotoSansTakri-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerifYezidi"
+    font_path = "fonts/NotoSerifYezidi/googlefonts/variable-ttf/NotoSerifYezidi[wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSerif"
+    font_path =
+        "fonts/NotoSerif/googlefonts/variable-ttf/NotoSerif[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMono"
+    font_path = "fonts/NotoSansMono/googlefonts/variable-ttf/NotoSansMono[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSans"
+    font_path =
+        "fonts/NotoSans/googlefonts/variable-ttf/NotoSans[wdth,wght].ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+  {
+    font_name = "NotoSansMath"
+    font_path = "fonts/NotoSansMath/full/ttf/NotoSansMath-Regular.ttf"
+    support_devices = [ "default" ]
+    alias_name = ""
+  },
+]

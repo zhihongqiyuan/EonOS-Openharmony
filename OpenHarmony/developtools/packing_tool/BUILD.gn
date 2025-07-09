@@ -1,0 +1,80 @@
+# Copyright (c) 2021-2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//developtools/packing_tool/packingtool.gni")
+
+packing_tool("packing_tool") {
+  sources = [
+    "//developtools/packing_tool/adapter/ohos",
+    "//developtools/packing_tool/checkTool.sh",
+    "//developtools/packing_tool/haptobin.sh",
+    "//developtools/packing_tool/packingTool.sh",
+    "//developtools/packing_tool/unpackingTool.sh",
+  ]
+  outputs = [
+    "${target_out_dir}/jar/haptobin_tool.jar",
+    "${target_out_dir}/jar/app_unpacking_tool.jar",
+    "${target_out_dir}/jar/app_packing_tool.jar",
+    "${target_out_dir}/jar",
+    "${target_out_dir}/jar/app_check_tool.jar",
+  ]
+}
+
+ohos_prebuilt_etc("haptobin_tool") {
+  list = get_target_outputs(":packing_tool")
+  source = list[0]
+  deps = [ ":packing_tool" ]
+  install_enable = false
+}
+
+ohos_prebuilt_etc("app_unpacking_tool") {
+  list = get_target_outputs(":packing_tool")
+  source = list[1]
+  deps = [ ":packing_tool" ]
+  install_enable = false
+}
+
+ohos_prebuilt_etc("app_packing_tool") {
+  list = get_target_outputs(":packing_tool")
+  source = list[2]
+  deps = [ ":packing_tool" ]
+  install_enable = false
+}
+
+ohos_prebuilt_etc("app_check_tool") {
+  list = get_target_outputs(":packing_tool")
+  source = list[4]
+  deps = [ ":packing_tool" ]
+  install_enable = false
+}
+
+ohos_prebuilt_etc("fastjson-2.0.52") {
+  source = "//prebuilts/packing_tool/fastjson2mid/fastjson-2.0.52.jar"
+  install_enable = false
+}
+
+ohos_prebuilt_etc("fastjson2-2.0.52") {
+  source = "//prebuilts/packing_tool/fastjson2/fastjson2-2.0.52.jar"
+  install_enable = false
+}
+
+ohos_prebuilt_etc("fastjson2-extension-2.0.52") {
+  source =
+      "//prebuilts/packing_tool/fastjson2ext/fastjson2-extension-2.0.52.jar"
+  install_enable = false
+}
+
+ohos_group("ohos_packing_tool") {
+  deps = [ "packing_tool/frameworks:ohos_packing_tool" ]
+}

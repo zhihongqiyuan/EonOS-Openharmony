@@ -1,0 +1,39 @@
+{
+  "name": "@ohos/smartperf_host",
+  "description": "xxx",
+  "version": "xxx",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "developtools/smartperf_host"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "smartperf_host",
+    "subsystem": "developtools",
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "xxxKB",
+    "ram": "xxxKB",
+    "deps": {
+      "components": [
+        "c_utils"
+      ],
+      "third_party": [
+        "zlib",
+        "libsec_static",
+        "bounds_checking_function",
+        "protobuf",
+        "libunwind",
+        "sqlite"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//developtools/smartperf_host:trace_streamer"
+      ]
+    }
+  }
+}

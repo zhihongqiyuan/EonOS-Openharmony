@@ -1,0 +1,5 @@
+v2.0.0 reorganize syscap define.
+v1.1.2 add syscap "SystemCapability.ArkUI.UiAppearance".
+v1.1.1 add compare string pcid with rpcid function.
+v1.1.0 add encode/decode string format pcid/rpcid.
+v1.0.0 first release.

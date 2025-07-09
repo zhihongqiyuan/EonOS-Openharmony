@@ -1,0 +1,108 @@
+diff --git a/src/lib/ares_getaddrinfo.c b/src/lib/ares_getaddrinfo.c
+index 0a0225a..4c3668e 100644
+--- a/src/lib/ares_getaddrinfo.c
++++ b/src/lib/ares_getaddrinfo.c
+@@ -57,6 +57,80 @@
+ #  include "ares_platform.h"
+ #endif
+ 
++#if OHOS_DNS_PROXY_BY_NETSYS
++#include <dlfcn.h>
++#include <stdio.h>
++
++#if DNS_CONFIG_DEBUG
++#ifndef DNS_CONFIG_PRINT
++#define DNS_CONFIG_PRINT(fmt, ...) printf("DNS " fmt "\n", ##__VA_ARGS__)
++#endif
++#else
++#define DNS_CONFIG_PRINT(fmt, ...)
++#endif
++
++#define DNS_SO_PATH "libnetsys_client.z.so"
++#define OHOS_JUDGE_IPV6_FUNC_NAME "NetSysIsIpv6Enable"
++typedef int (*JudgeIpv6)(uint16_t netId);
++
++static void *open_dns_lib(void)
++{
++  static void *lib = NULL;
++  if (lib != NULL) {
++    return lib;
++  }
++
++  lib = dlopen(DNS_SO_PATH, RTLD_LAZY);
++  if (lib == NULL) {
++    DNS_CONFIG_PRINT("%s: dlopen %s failed: %s", __func__, DNS_SO_PATH, dlerror());
++    return NULL;
++  }
++  return lib;
++}
++
++static void *load_from_dns_lib(const char *symbol)
++{
++  void *lib_handle = open_dns_lib();
++  if (lib_handle == NULL) {
++    return NULL;
++  }
++
++  void *sym_addr = dlsym(lib_handle, symbol);
++  if (sym_addr == NULL) {
++    DNS_CONFIG_PRINT("%s: loading symbol %s with dlsym failed: %s", __func__, symbol, dlerror());
++  }
++  return sym_addr;
++}
++
++static JudgeIpv6 load_ipv6_judger(void)
++{
++  static JudgeIpv6 ipv6_judger = NULL;
++  if (ipv6_judger != NULL) {
++    return ipv6_judger;
++  }
++  ipv6_judger = (JudgeIpv6)load_from_dns_lib(OHOS_JUDGE_IPV6_FUNC_NAME);
++  return ipv6_judger;
++}
++#endif
++
++static int IsIpv6Enable()
++{
++  int ret = 0;
++#if OHOS_DNS_PROXY_BY_NETSYS
++  JudgeIpv6 func = load_ipv6_judger();
++  if (!func) {
++    return 0;
++  }
++
++  uint16_t netid = 0;
++  ret = func(netid);
++  if (ret < 0) {
++    return 0;
++  }
++#endif
++  return ret;
++}
++
+ struct host_query
+ {
+   ares_channel channel;
+@@ -744,13 +818,18 @@ static int next_dns_lookup(struct host_query *hquery)
+             ares_query(hquery->channel, s, C_IN, T_A, host_callback, hquery);
+             break;
+           case AF_INET6:
+-            hquery->remaining += 1;
+-            ares_query(hquery->channel, s, C_IN, T_AAAA, host_callback, hquery);
++            if (IsIpv6Enable()) {
++              hquery->remaining += 1;
++              ares_query(hquery->channel, s, C_IN, T_AAAA, host_callback, hquery);
++            }
+             break;
+           case AF_UNSPEC:
+-            hquery->remaining += 2;
++            hquery->remaining += 1;
+             ares_query(hquery->channel, s, C_IN, T_A, host_callback, hquery);
+-            ares_query(hquery->channel, s, C_IN, T_AAAA, host_callback, hquery);
++            if (IsIpv6Enable()) {
++              hquery->remaining += 1;
++              ares_query(hquery->channel, s, C_IN, T_AAAA, host_callback, hquery);
++            }
+             break;
+           default: break;
+         }

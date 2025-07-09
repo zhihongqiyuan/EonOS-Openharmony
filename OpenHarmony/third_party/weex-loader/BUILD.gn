@@ -1,0 +1,151 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/ohos/ace/ace.gni")
+import("//foundation/arkui/ace_engine/ace_config.gni")
+
+weex_loader_lib_dir =
+    get_label_info(":build_weex_loader_library", "target_out_dir") + "/lib"
+
+weex_loader_files_set = [
+  weex_loader_lib_dir + "/element.js",
+  weex_loader_lib_dir + "/json.js",
+  weex_loader_lib_dir + "/legacy.js",
+  weex_loader_lib_dir + "/loader.js",
+  weex_loader_lib_dir + "/parser.js",
+  weex_loader_lib_dir + "/script.js",
+  weex_loader_lib_dir + "/style.js",
+  weex_loader_lib_dir + "/template.js",
+  weex_loader_lib_dir + "/util.js",
+]
+
+action("build_weex_loader_library") {
+  script = "build_weex_loader_library.py"
+  depfile = "$target_gen_dir/$target_name.d"
+  outputs = [
+    weex_loader_lib_dir,
+    weex_loader_lib_dir + "/scripter",
+    weex_loader_lib_dir + "/styler",
+    weex_loader_lib_dir + "/element.js",
+    weex_loader_lib_dir + "/json.js",
+    weex_loader_lib_dir + "/legacy.js",
+    weex_loader_lib_dir + "/loader.js",
+    weex_loader_lib_dir + "/parser.js",
+    weex_loader_lib_dir + "/script.js",
+    weex_loader_lib_dir + "/style.js",
+    weex_loader_lib_dir + "/template.js",
+    weex_loader_lib_dir + "/util.js",
+  ]
+
+  _babel_js = "//third_party/weex-loader/node_modules/@babel/cli/bin/babel.js"
+  _babel_config_js = "//third_party/weex-loader/babel.config.js"
+  _module_source_js = "//third_party/weex-loader/module-source.js"
+  _uglify_source_js = "//third_party/weex-loader/uglify-source.js"
+
+  inputs = [
+    _babel_config_js,
+    _babel_js,
+    _module_source_js,
+    _uglify_source_js,
+  ]
+
+  nodejs_path = "//prebuilts/build-tools/common/nodejs/current/bin/node"
+
+  args = [
+    "--depfile",
+    rebase_path(depfile, root_build_dir),
+    "--node",
+    rebase_path(nodejs_path, root_build_dir),
+    "--babel-js",
+    rebase_path(_babel_js, root_build_dir),
+    "--weex-loader-src-dir",
+    rebase_path("src", root_build_dir),
+    "--babel-config-js",
+    rebase_path(_babel_config_js, root_build_dir),
+    "--module-source-js",
+    rebase_path(_module_source_js, root_build_dir),
+    "--uglify-source-js",
+    rebase_path(_uglify_source_js, root_build_dir),
+    "--output-dir",
+    rebase_path(weex_loader_lib_dir, root_build_dir),
+  ]
+}
+
+ohos_copy("weex_loader") {
+  deps = [
+    ":build_weex_loader_library",
+    ":scripter",
+    ":styler",
+  ]
+  sources = weex_loader_files_set
+  outputs = [ target_out_dir + "/$target_name/{{source_file_part}}" ]
+  module_source_dir = target_out_dir + "/$target_name/"
+  module_install_name = ""
+  part_name = "weex-loader"
+  subsystem_name = "thirdparty"
+  license_file = "//third_party/weex-loader/LICENSE"
+}
+
+ohos_copy("scripter") {
+  deps = [ ":build_weex_loader_library" ]
+  sources = [ weex_loader_lib_dir + "/scripter" ]
+  outputs = [ target_out_dir + "/$target_name" ]
+  part_name = "weex-loader"
+  subsystem_name = "thirdparty"
+  license_file = "//third_party/weex-loader/LICENSE"
+}
+
+ohos_copy("styler") {
+  deps = [ ":build_weex_loader_library" ]
+  sources = [ weex_loader_lib_dir + "/styler" ]
+  outputs = [ target_out_dir + "/$target_name" ]
+  part_name = "weex-loader"
+  subsystem_name = "thirdparty"
+  license_file = "//third_party/weex-loader/LICENSE"
+}
+
+ace_loader_ark_dir = get_label_info("//developtools/ace_js2bundle:ace_loader",
+                                    "target_out_dir") + "/ace_loader_ark"
+
+ohos_copy("weex_loader_ark_hap") {
+  deps = [
+    ":build_weex_loader_library",
+    ":weex_loader",
+    ":weex_scripter_ark_hap",
+    ":weex_styler_ark_hap",
+    "//developtools/ace_js2bundle:ace_loader_ark_hap",
+  ]
+  sources = weex_loader_files_set
+  outputs = [ ace_loader_ark_dir + "/lib/{{source_file_part}}" ]
+}
+
+ohos_copy("weex_scripter_ark_hap") {
+  deps = [
+    ":build_weex_loader_library",
+    ":weex_loader",
+    "//developtools/ace_js2bundle:ace_loader_ark_hap",
+  ]
+  sources = [ weex_loader_lib_dir + "/scripter" ]
+  outputs = [ ace_loader_ark_dir + "/lib/scripter" ]
+}
+
+ohos_copy("weex_styler_ark_hap") {
+  deps = [
+    ":build_weex_loader_library",
+    ":weex_loader",
+    "//developtools/ace_js2bundle:ace_loader_ark_hap",
+  ]
+  sources = [ weex_loader_lib_dir + "/styler" ]
+  outputs = [ ace_loader_ark_dir + "/lib/styler" ]
+}

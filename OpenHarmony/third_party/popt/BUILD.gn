@@ -1,0 +1,50 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+import("//build/lite/config/component/lite_component.gni")
+import("//build/ohos.gni")
+
+config("popt_config") {
+  include_dirs = [ "//third_party/popt/src" ]
+}
+
+popt_sources = [
+  "./src/popt.c",
+  "./src/popthelp.c",
+  "./src/poptint.c",
+  "./src/poptparse.c",
+]
+
+ohos_static_library("popt_static") {
+  sources = popt_sources
+  output_name = "popt"
+  public_configs = [ ":popt_config" ]
+  defines = [
+    "HAVE_CONFIG_H",
+    "_GNU_SOURCE",
+    "_REENTRANT",
+  ]
+  cflags_c = [
+    "-Wall",
+    "-Os",
+    "-g",
+    "-W",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-Wno-unused-const-variable",
+    "-Wno-unused-parameter",
+    "-Wno-gnu-alignof-expression",
+  ]
+  ldflags = [
+    "-Wl",
+    "--gc-sections",
+  ]
+}

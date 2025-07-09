@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "MindSpore",
+    "License": "Apache License 2.0",
+    "License File": "LICENSE",
+    "Version Number": "v2.3.0",
+    "Owner": "chengfeng27@huawei.com",
+    "Upstream URL": "https://gitee.com/mindspore/mindspore/repository/archive/v2.3.0.zip",
+    "Description": "MindSpore is a new open source deep learning training/inference framework that could be used for mobile, edge and cloud scenarios."
+  }
+]

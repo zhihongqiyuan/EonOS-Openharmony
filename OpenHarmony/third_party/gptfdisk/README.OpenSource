@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "GPT fdisk",
+    "License": "GPL-2.0-only",
+    "License File": "COPYING",
+    "Version Number": "1.0.10",
+    "Owner": "gudehe@huawei.com",
+    "Upstream URL": "https://sourceforge.net/projects/gptfdisk",
+    "Description": "GPT fdisk is a disk partitioning tool loosely modeled on Linux fdisk, but used for modifying GUID Partition Table (GPT) disks.",
+    "Dependencies": [
+      "Popt"
+    ]
+  }
+]

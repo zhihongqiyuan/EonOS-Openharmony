@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+[filter "lfs"]
+	smudge = git-lfs smudge --skip -- %f
+	process = git-lfs filter-process --skip
+[remote "origin"]
+	url = https://gitee.com/openharmony/productdefine_common
+	review = https://openharmony.gitee.com/openharmony/
+	projectname = productdefine_common
+	fetch = +refs/heads/*:refs/remotes/origin/*

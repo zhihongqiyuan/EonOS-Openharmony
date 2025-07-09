@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "weex-loader",
+    "License": "Apache-2.0",
+    "License File": "NOTICE",
+    "Version Number": "v0.7.12",
+    "Owner": "sunbingxin@huawei.com",
+    "Upstream URL": "https://github.com/apache/weex-loader.git",
+    "Description": "a webpack loader for weex."
+  }
+]

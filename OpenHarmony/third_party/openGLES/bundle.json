@@ -1,0 +1,38 @@
+{
+    "name": "@ohos/opengles",
+    "description": "The OpenGL ES registry contains specifications of the core API and shading language; specifications of Khronos- and vendor-approved OpenGL ES extensions; header files corresponding to the specifications",
+    "version": "3.1",
+    "license": "Apache-2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "third_party/openGLES"
+    },
+    "dirs": {},
+    "scripts": {},
+    "licensePath": "CODE_OF_CONDUCT.adoc",
+    "readmePath": {
+        "en": "README.adoc"
+    },
+    "component": {
+        "name": "opengles",
+        "subsystem": "thirdparty",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": ["standard"],
+        "rom": "1",
+        "ram": "1",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/openGLES:libGLES"
+                }
+            ],
+            "test": []
+        }
+    }
+}

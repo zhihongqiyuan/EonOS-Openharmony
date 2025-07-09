@@ -1,0 +1,11 @@
+[
+    {
+        "Name":"decimal.js",
+        "License":"MIT",
+        "License File":"LICENCE.md",
+        "Version Number":"v10.4.3",
+        "Owner":"gongjunsong@huawei.com",
+        "Upstream URL":"https://github.com/MikeMcl/decimal.js.git",
+        "Description":"An arbitrary-precision Decimal type for JavaScript."
+    }
+]

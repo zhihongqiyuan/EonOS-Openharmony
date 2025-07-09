@@ -1,0 +1,709 @@
+# Copyright (c) 2020-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/ohos.gni")
+
+declare_args() {
+  netstack_feature_http3 = false
+}
+
+curl_source = [
+  "lib/altsvc.c",
+  "lib/amigaos.c",
+  "lib/asyn-ares.c",
+  "lib/asyn-thread.c",
+  "lib/base64.c",
+  "lib/bufq.c",
+  "lib/bufref.c",
+  "lib/c-hyper.c",
+  "lib/cf-h1-proxy.c",
+  "lib/cf-h2-proxy.c",
+  "lib/cf-haproxy.c",
+  "lib/cf-https-connect.c",
+  "lib/cf-socket.c",
+  "lib/cfilters.c",
+  "lib/conncache.c",
+  "lib/connect.c",
+  "lib/content_encoding.c",
+  "lib/cookie.c",
+  "lib/curl_addrinfo.c",
+  "lib/curl_des.c",
+  "lib/curl_endian.c",
+  "lib/curl_fnmatch.c",
+  "lib/curl_get_line.c",
+  "lib/curl_gethostname.c",
+  "lib/curl_gssapi.c",
+  "lib/curl_memrchr.c",
+  "lib/curl_multibyte.c",
+  "lib/curl_ntlm_core.c",
+  "lib/curl_path.c",
+  "lib/curl_range.c",
+  "lib/curl_rtmp.c",
+  "lib/curl_sasl.c",
+  "lib/curl_sha512_256.c",
+  "lib/curl_sspi.c",
+  "lib/curl_threads.c",
+  "lib/curl_trc.c",
+  "lib/cw-out.c",
+  "lib/dict.c",
+  "lib/dllmain.c",
+  "lib/doh.c",
+  "lib/dynbuf.c",
+  "lib/dynhds.c",
+  "lib/easy.c",
+  "lib/easygetopt.c",
+  "lib/easyoptions.c",
+  "lib/escape.c",
+  "lib/file.c",
+  "lib/fileinfo.c",
+  "lib/fopen.c",
+  "lib/formdata.c",
+  "lib/ftp.c",
+  "lib/ftplistparser.c",
+  "lib/getenv.c",
+  "lib/getinfo.c",
+  "lib/gopher.c",
+  "lib/hash.c",
+  "lib/headers.c",
+  "lib/hmac.c",
+  "lib/hostasyn.c",
+  "lib/hostip.c",
+  "lib/hostip4.c",
+  "lib/hostip6.c",
+  "lib/hostsyn.c",
+  "lib/hsts.c",
+  "lib/http.c",
+  "lib/http1.c",
+  "lib/http2.c",
+  "lib/http_aws_sigv4.c",
+  "lib/http_chunks.c",
+  "lib/http_digest.c",
+  "lib/http_negotiate.c",
+  "lib/http_ntlm.c",
+  "lib/http_proxy.c",
+  "lib/idn.c",
+  "lib/if2ip.c",
+  "lib/imap.c",
+  "lib/inet_ntop.c",
+  "lib/inet_pton.c",
+  "lib/krb5.c",
+  "lib/ldap.c",
+  "lib/llist.c",
+  "lib/macos.c",
+  "lib/md4.c",
+  "lib/md5.c",
+  "lib/memdebug.c",
+  "lib/mime.c",
+  "lib/mprintf.c",
+  "lib/mqtt.c",
+  "lib/multi.c",
+  "lib/netrc.c",
+  "lib/nonblock.c",
+  "lib/noproxy.c",
+  "lib/openldap.c",
+  "lib/parsedate.c",
+  "lib/pingpong.c",
+  "lib/pop3.c",
+  "lib/progress.c",
+  "lib/psl.c",
+  "lib/rand.c",
+  "lib/rename.c",
+  "lib/request.c",
+  "lib/rtsp.c",
+  "lib/select.c",
+  "lib/sendf.c",
+  "lib/setopt.c",
+  "lib/sha256.c",
+  "lib/share.c",
+  "lib/slist.c",
+  "lib/smb.c",
+  "lib/smtp.c",
+  "lib/socketpair.c",
+  "lib/socks.c",
+  "lib/socks_gssapi.c",
+  "lib/socks_sspi.c",
+  "lib/speedcheck.c",
+  "lib/splay.c",
+  "lib/strcase.c",
+  "lib/strdup.c",
+  "lib/strerror.c",
+  "lib/strtok.c",
+  "lib/strtoofft.c",
+  "lib/system_win32.c",
+  "lib/telnet.c",
+  "lib/tftp.c",
+  "lib/timediff.c",
+  "lib/timeval.c",
+  "lib/transfer.c",
+  "lib/url.c",
+  "lib/urlapi.c",
+  "lib/vauth/cleartext.c",
+  "lib/vauth/cram.c",
+  "lib/vauth/digest.c",
+  "lib/vauth/digest_sspi.c",
+  "lib/vauth/gsasl.c",
+  "lib/vauth/krb5_gssapi.c",
+  "lib/vauth/krb5_sspi.c",
+  "lib/vauth/ntlm.c",
+  "lib/vauth/ntlm_sspi.c",
+  "lib/vauth/oauth2.c",
+  "lib/vauth/spnego_gssapi.c",
+  "lib/vauth/spnego_sspi.c",
+  "lib/vauth/vauth.c",
+  "lib/version.c",
+  "lib/version_win32.c",
+  "lib/vquic/curl_msh3.c",
+  "lib/vquic/curl_ngtcp2.c",
+  "lib/vquic/curl_quiche.c",
+  "lib/vquic/vquic.c",
+  "lib/vquic/vquic-tls.c",
+  "lib/vssh/libssh.c",
+  "lib/vssh/libssh2.c",
+  "lib/vssh/wolfssh.c",
+  "lib/vtls/bearssl.c",
+  "lib/vtls/cipher_suite.c",
+  "lib/vtls/gtls.c",
+  "lib/vtls/hostcheck.c",
+  "lib/vtls/keylog.c",
+  "lib/vtls/mbedtls.c",
+  "lib/vtls/mbedtls_threadlock.c",
+  "lib/vtls/openssl.c",
+  "lib/vtls/rustls.c",
+  "lib/vtls/schannel.c",
+  "lib/vtls/schannel_verify.c",
+  "lib/vtls/sectransp.c",
+  "lib/vtls/vtls.c",
+  "lib/vtls/wolfssl.c",
+  "lib/vtls/x509asn1.c",
+  "lib/warnless.c",
+  "lib/ws.c",
+]
+
+is_cares_on = !is_mingw && !is_mac && current_os != "ios" && host_os != "mac" &&
+              current_os != "mac" && current_os != "android"
+print("Build curl is_cares_on: $is_cares_on")
+
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+
+  config("curl_config") {
+    include_dirs = [ "lib" ]
+    if (ohos_kernel_type == "liteos_m") {
+      include_dirs += [ "//kernel/liteos_m/kal/posix/include" ]
+    }
+    cflags = [
+      "-DBUILDING_LIBCURL",
+      "-DHAVE_CONFIG_H",
+      "-D_GNU_SOURCE",
+      "-DOS=\"liteOS\"",
+      "-fPIC",
+      "-Wdeclaration-after-statement",
+      "-Wendif-labels",
+      "-Wfloat-equal",
+      "-Winline",
+      "-Wmissing-declarations",
+      "-Wmissing-prototypes",
+      "-Wnested-externs",
+      "-Wno-format-nonliteral",
+      "-Wno-implicit-function-declaration",
+      "-Wno-int-conversion",
+      "-Wno-long-long",
+      "-Wno-multichar",
+      "-Wno-nested-externs",
+      "-Wno-sign-compare",
+      "-Wno-system-headers",
+      "-Wno-varargs",
+      "-Wno-overflow",
+      "-Wpointer-arith",
+      "-Wstrict-prototypes",
+      "-Wunused",
+      "-Wwrite-strings",
+      "-Wno-unused-variable",
+      "-Wno-parentheses",
+      "-Wno-strict-prototypes",
+      "-Os",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-fno-unwind-tables",
+      "-fno-asynchronous-unwind-tables",
+      "-Wno-deprecated-declarations",
+      "-Wimplicit-fallthrough",
+    ]
+    if (ohos_kernel_type == "liteos_m") {
+      cflags += [ "-DOHOS_CURL_CONFIG_H=\"curl_config_liteos_m.h\"" ]
+    } else {
+      cflags += [ "-DOHOS_CURL_CONFIG_H=\"curl_config_liteos_a.h\"" ]
+    }
+  }
+
+  config("curl_config_public") {
+    include_dirs = [
+      "include",
+      "//third_party/curl/customized/include",
+    ]
+  }
+
+  if (ohos_kernel_type == "liteos_m") {
+    static_library("libcurl_static") {
+      sources = curl_source
+      deps = [ "//third_party/mbedtls" ]
+      deps += [ "//third_party/nghttp2/lib:nghttp2_lib_static" ]
+      configs += [
+        ":curl_config",
+        ":curl_config_public",
+      ]
+
+      public_configs = [ ":curl_config_public" ]
+    }
+  } else {
+    shared_library("libcurl_shared") {
+      sources = curl_source
+      deps = [ "//third_party/mbedtls" ]
+      deps += [ "//third_party/nghttp2/lib:nghttp2_lib_shared" ]
+      configs += [
+        ":curl_config",
+        ":curl_config_public",
+      ]
+      public_configs = [ ":curl_config_public" ]
+    }
+  }
+} else {
+  import("//build/config/config.gni")
+
+  config("curl_config") {
+    include_dirs = [
+      "include",
+      "lib",
+      "//third_party/curl/customized/include",
+    ]
+
+    cflags = [ "-Wno-deprecated-declarations" ]
+  }
+
+  config("curl_config_public") {
+    include_dirs = [
+      "include",
+      "//third_party/curl/customized/include",
+    ]
+
+    cflags = [ "-Wno-deprecated-declarations" ]
+  }
+
+  ohos_source_set("curl") {
+    configs = [ ":curl_config" ]
+
+    external_deps = [ "openssl:libssl_shared" ]
+
+    public_configs = [ ":curl_config_public" ]
+
+    sources = curl_source
+
+    if ("${current_os}_${current_cpu}" == "mingw_x86_64") {
+      curl_https_ca_file_path = "\"../../resources/cacert.pem\""
+
+      cflags = [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-w",
+        "-fno-strict-aliasing",
+        "-m64",
+        "-D_AMD64_",
+        "-DBUILDING_LIBCURL",
+        "-c",
+        "-DUSE_OPENSSL",
+        "-DHAVE_OPENSSL_ENGINE_H",
+        "-DHAVE_OPENSSL_PKCS12_H",
+        "-DHAVE_ENGINE_LOAD_BUILTIN_ENGINES",
+        "-DOPENSSL_NO_KRB5",
+        "-DCURL_CA_BUNDLE=${curl_https_ca_file_path}",
+        "-Wno-deprecated-declarations",
+        "-Wimplicit-fallthrough",
+      ]
+
+      libs = [
+        "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libwsock32.a",
+        "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libmincore.a",
+      ]
+    } else if (host_os == "mac" && current_os == "mac") {
+      cflags = [
+        "-DHAVE_CONFIG_H",
+        "-Qunused-arguments",
+        "-Os",
+        "-mmacosx-version-min=10.8",
+        "-Werror=partial-availability",
+        "-fvisibility=hidden",
+        "-DBUILDING_LIBCURL",
+        "-DCURL_HIDDEN_SYMBOLS",
+        "-c",
+        "-Wno-deprecated-declarations",
+        "-Wimplicit-fallthrough",
+      ]
+
+      cflags_c = [
+        "-Wno-unused-function",
+        "-Wno-unused-variable",
+        "-Wno-macro-redefined",
+      ]
+
+      frameworks = [
+        # AppKit symbols NSFontWeightXXX may be dlsym'ed.
+        "AppKit.framework",
+        "ApplicationServices.framework",
+        "OpenGL.framework",
+        "CoreFoundation.framework",
+        "SystemConfiguration.framework",
+      ]
+    } else if ("${current_cpu}" == "arm64" || "${current_cpu}" == "arm" ||
+               "${current_cpu}" == "x86_64") {
+      cflags = [
+        "-fPIC",
+        "-g",
+        "-O2",
+        "-Wall",
+        "-w",
+        "-fno-strict-aliasing",
+        "-fvisibility=hidden",
+        "-DBUILDING_LIBCURL",
+        "-DCURL_HIDDEN_SYMBOLS",
+        "-c",
+        "-DHAVE_CONFIG_H",
+        "-Wno-deprecated-declarations",
+        "-Wimplicit-fallthrough",
+      ]
+    } else if (current_cpu == "x64" && current_os == "ios") {
+      cflags = [
+        "-fPIC",
+        "-g",
+        "-O2",
+        "-Wall",
+        "-w",
+        "-fno-strict-aliasing",
+        "-fvisibility=hidden",
+        "-DBUILDING_LIBCURL",
+        "-DCURL_HIDDEN_SYMBOLS",
+        "-c",
+        "-DHAVE_CONFIG_H",
+        "-Wno-deprecated-declarations",
+        "-Wimplicit-fallthrough",
+      ]
+    } else if (current_cpu == "x64" && current_os == "linux") {
+      cflags = [
+        "-fPIC",
+        "-g",
+        "-O2",
+        "-Wall",
+        "-w",
+        "-fno-strict-aliasing",
+        "-fvisibility=hidden",
+        "-DBUILDING_LIBCURL",
+        "-DCURL_HIDDEN_SYMBOLS",
+        "-c",
+        "-DHAVE_CONFIG_H",
+        "-Wno-deprecated-declarations",
+        "-Wimplicit-fallthrough",
+      ]
+    }
+
+    cflags += [ "-DOHOS_CURL_CONFIG_H=\"curl_config_standard.h\"" ]
+
+    if (is_arkui_x) {
+      deps = [
+        "//third_party/nghttp2/lib:libnghttp2_shared",
+        "//third_party/openssl:libcrypto_shared",
+        "//third_party/openssl:libssl_shared",
+        "//third_party/zlib:shared_libz",
+      ]
+    } else {
+      external_deps += [
+        "nghttp2:libnghttp2_shared",
+        "openssl:libcrypto_shared",
+        "openssl:libssl_shared",
+        "zlib:shared_libz",
+      ]
+    }
+
+    if (current_os != "ios" && is_cares_on) {
+      if (is_arkui_x) {
+        deps += [
+          "//third_party/brotli:brotli_shared",
+          "//third_party/cares:c_ares",
+        ]
+      } else {
+        external_deps += [
+          "brotli:brotli_shared",
+          "cares:c_ares",
+        ]
+      }
+      defines = [
+        "USE_ARES",
+        "HAVE_BROTLI",
+        "DISABLE_GETENV",
+      ]
+    }
+    subsystem_name = "thirdparty"
+    part_name = "curl"
+  }
+
+  ohos_source_set("curl_http3") {
+    configs = [ ":curl_config" ]
+
+    if (netstack_feature_http3) {
+      configs += [ "//vendor/open_source/quiche/quiche:quiche_config" ]
+      configs += [ "//vendor/open_source/boringssl:boringssl_config" ]
+    } else {
+      external_deps = [ "openssl:libssl_shared" ]
+    }
+
+    sources = curl_source
+
+    if ("${current_os}_${current_cpu}" == "mingw_x86_64") {
+      curl_https_ca_file_path = "\"../../resources/cacert.pem\""
+
+      cflags = [
+        "-g",
+        "-O2",
+        "-Wall",
+        "-w",
+        "-fno-strict-aliasing",
+        "-m64",
+        "-D_AMD64_",
+        "-DBUILDING_LIBCURL",
+        "-c",
+        "-DUSE_OPENSSL",
+        "-DHAVE_OPENSSL_ENGINE_H",
+        "-DHAVE_OPENSSL_PKCS12_H",
+        "-DHAVE_ENGINE_LOAD_BUILTIN_ENGINES",
+        "-DOPENSSL_NO_KRB5",
+        "-DCURL_CA_BUNDLE=${curl_https_ca_file_path}",
+        "-Wno-deprecated-declarations",
+        "-Wimplicit-fallthrough",
+      ]
+
+      libs = [
+        "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libwsock32.a",
+        "//prebuilts/mingw-w64/ohos/linux-x86_64/clang-mingw/x86_64-w64-mingw32/lib/libmincore.a",
+      ]
+    } else if (host_os == "mac" && current_os == "mac") {
+      cflags = [
+        "-DHAVE_CONFIG_H",
+        "-Qunused-arguments",
+        "-Os",
+        "-mmacosx-version-min=10.8",
+        "-Werror=partial-availability",
+        "-fvisibility=hidden",
+        "-DBUILDING_LIBCURL",
+        "-DCURL_HIDDEN_SYMBOLS",
+        "-c",
+        "-Wno-deprecated-declarations",
+        "-Wimplicit-fallthrough",
+      ]
+
+      cflags_c = [
+        "-Wno-unused-function",
+        "-Wno-unused-variable",
+        "-Wno-macro-redefined",
+      ]
+
+      frameworks = [
+        # AppKit symbols NSFontWeightXXX may be dlsym'ed.
+        "AppKit.framework",
+        "ApplicationServices.framework",
+        "OpenGL.framework",
+        "CoreFoundation.framework",
+        "SystemConfiguration.framework",
+      ]
+    } else if ("${current_cpu}" == "arm64" || "${current_cpu}" == "arm" ||
+               "${current_cpu}" == "x86_64") {
+      cflags = [
+        "-fPIC",
+        "-g",
+        "-O2",
+        "-Wall",
+        "-w",
+        "-fno-strict-aliasing",
+        "-fvisibility=hidden",
+        "-DBUILDING_LIBCURL",
+        "-DCURL_HIDDEN_SYMBOLS",
+        "-c",
+        "-DHAVE_CONFIG_H",
+        "-Wno-deprecated-declarations",
+        "-Wimplicit-fallthrough",
+      ]
+    } else if (current_cpu == "x64" && current_os == "ios") {
+      cflags = [
+        "-fPIC",
+        "-g",
+        "-O2",
+        "-Wall",
+        "-w",
+        "-fno-strict-aliasing",
+        "-fvisibility=hidden",
+        "-DBUILDING_LIBCURL",
+        "-DCURL_HIDDEN_SYMBOLS",
+        "-c",
+        "-DHAVE_CONFIG_H",
+        "-Wno-deprecated-declarations",
+        "-Wimplicit-fallthrough",
+      ]
+    } else if (current_cpu == "x64" && current_os == "linux") {
+      cflags = [
+        "-fPIC",
+        "-g",
+        "-O2",
+        "-Wall",
+        "-w",
+        "-fno-strict-aliasing",
+        "-fvisibility=hidden",
+        "-DBUILDING_LIBCURL",
+        "-DCURL_HIDDEN_SYMBOLS",
+        "-c",
+        "-DHAVE_CONFIG_H",
+        "-Wno-deprecated-declarations",
+        "-Wimplicit-fallthrough",
+      ]
+    }
+
+    if (netstack_feature_http3) {
+      cflags += [ "-DOHOS_CURL_CONFIG_H=\"curl_config_standard_http3.h\"" ]
+    } else {
+      cflags += [ "-DOHOS_CURL_CONFIG_H=\"curl_config_standard.h\"" ]
+    }
+
+    if (current_os == "ios") {
+      external_deps += [
+        "nghttp2:libnghttp2_shared",
+        "openssl:libcrypto_shared",
+        "openssl:libssl_shared",
+        "zlib:shared_libz",
+      ]
+    } else {
+      external_deps += [
+        "nghttp2:libnghttp2_shared",
+        "zlib:shared_libz",
+      ]
+
+      if (netstack_feature_http3) {
+        deps += [ "//vendor/open_source/quiche/quiche:lib" ]
+      } else {
+        external_deps += [
+          "openssl:libcrypto_shared",
+          "openssl:libssl_shared",
+        ]
+      }
+    }
+    if (is_cares_on) {
+      if (is_arkui_x) {
+        deps += [
+          "//third_party/brotli:brotli_shared",
+          "//third_party/cares:c_ares",
+        ]
+      } else {
+        external_deps += [
+          "brotli:brotli_shared",
+          "cares:c_ares",
+        ]
+      }
+      defines = [
+        "USE_ARES",
+        "HAVE_BROTLI",
+        "DISABLE_GETENV",
+      ]
+    }
+    subsystem_name = "thirdparty"
+    part_name = "curl"
+  }
+
+  ohos_shared_library("curl_shared") {
+    branch_protector_ret = "pac_ret"
+    if (current_os == "ios") {
+      ldflags = [
+        "-Wl",
+        "-install_name",
+        "@rpath/libcurl_shared.framework/libcurl_shared",
+      ]
+    }
+    deps = [ ":curl" ]
+    configs = [ ":curl_config" ]
+    public_configs = [ ":curl_config_public" ]
+
+    if (product_name != "ohos-sdk") {
+      version_script = "curl_without_http3.map"
+    }
+
+    install_images = [
+      "updater",
+      "system",
+    ]
+    innerapi_tags = [
+      "chipsetsdk",
+      "platformsdk",
+      "sasdk",
+    ]
+    subsystem_name = "thirdparty"
+    part_name = "curl"
+  }
+
+  ohos_shared_library("curl_shared_http3") {
+    branch_protector_ret = "pac_ret"
+    if (current_os == "ios") {
+      ldflags = [
+        "-Wl",
+        "-install_name",
+        "@rpath/libcurl_shared.framework/libcurl_shared",
+      ]
+    }
+    deps = [ ":curl_http3" ]
+    configs = [ ":curl_config" ]
+    public_configs = [ ":curl_config_public" ]
+    if (netstack_feature_http3) {
+      version_script = "curl.map"
+    }
+
+    install_images = [
+      "updater",
+      "system",
+    ]
+    innerapi_tags = [
+      "platformsdk",
+      "sasdk",
+    ]
+    subsystem_name = "thirdparty"
+    part_name = "curl"
+  }
+
+  if (current_os == "ios") {
+    ohos_combine_darwin_framework("libcurl_shared") {
+      deps = [ ":curl_shared" ]
+      subsystem_name = "thirdparty"
+      part_name = "curl"
+    }
+  } else {
+    group("libcurl_shared") {
+    }
+  }
+}
+
+group("curl_target") {
+  if (defined(ohos_lite)) {
+    if (ohos_kernel_type == "liteos_m") {
+      deps = [ ":libcurl_static" ]
+    } else {
+      deps = [ ":libcurl_shared" ]
+    }
+  } else {
+    deps = [
+      ":curl",
+      ":curl_shared",
+    ]
+  }
+}

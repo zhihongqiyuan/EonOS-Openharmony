@@ -1,0 +1,156 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2020. All rights reserved.
+
+import("//build/ohos.gni")
+
+action("libpng_action") {
+  script = "//third_party/libpng/install.py"
+  outputs = [
+    "${target_gen_dir}/libpng-1.6.38/png.c",
+    "${target_gen_dir}/libpng-1.6.38/pngerror.c",
+    "${target_gen_dir}/libpng-1.6.38/pngget.c",
+    "${target_gen_dir}/libpng-1.6.38/pngmem.c",
+    "${target_gen_dir}/libpng-1.6.38/pngpread.c",
+    "${target_gen_dir}/libpng-1.6.38/pngread.c",
+    "${target_gen_dir}/libpng-1.6.38/pngrio.c",
+    "${target_gen_dir}/libpng-1.6.38/pngrtran.c",
+    "${target_gen_dir}/libpng-1.6.38/pngrutil.c",
+    "${target_gen_dir}/libpng-1.6.38/pngset.c",
+    "${target_gen_dir}/libpng-1.6.38/pngtrans.c",
+    "${target_gen_dir}/libpng-1.6.38/pngwio.c",
+    "${target_gen_dir}/libpng-1.6.38/pngwrite.c",
+    "${target_gen_dir}/libpng-1.6.38/pngwtran.c",
+    "${target_gen_dir}/libpng-1.6.38/pngwutil.c",
+    "${target_gen_dir}/libpng-1.6.38/arm/arm_init.c",
+    "${target_gen_dir}/libpng-1.6.38/arm/filter_neon_intrinsics.c",
+    "${target_gen_dir}/libpng-1.6.38/arm/palette_neon_intrinsics.c",
+  ]
+
+  inputs = [ "//third_party/libpng/libpng-1.6.38.tar.gz" ]
+  inputs += [
+    "backport-libpng-1.6.37-enable-valid.patch",
+    "CVE-2018-14048.patch",
+    "CVE-2019-6129.patch",
+    "huawei_libpng_CMakeList.patch",
+    "libpng-fix-arm-neon.patch",
+    "libpng-multilib.patch",
+    "libpng_optimize.patch",
+  ]
+
+  libpng_path = rebase_path("${target_gen_dir}", root_build_dir)
+  libpng_source_path = rebase_path("//third_party/libpng", root_build_dir)
+  args = [
+    "--gen-dir",
+    "$libpng_path",
+    "--source-dir",
+    "$libpng_source_path",
+  ]
+}
+
+if (defined(ohos_lite)) {
+  import("//build/lite/config/component/lite_component.gni")
+
+  config("libpng_config") {
+    include_dirs = [ "${target_gen_dir}/libpng-1.6.38/" ]
+  }
+
+  libpng_source = get_target_outputs(":libpng_action")
+
+  lite_library("libpng") {
+    if (ohos_kernel_type == "liteos_m") {
+      target_type = "static_library"
+      deps = [ "//build/lite/config/component/zlib:zlib_static" ]
+    } else {
+      target_type = "shared_library"
+      deps = [ "//build/lite/config/component/zlib:zlib_shared" ]
+    }
+    deps += [ ":libpng_action" ]
+    if (defined(board_toolchain_type) && board_toolchain_type == "iccarm") {
+      cflags = [
+        "--diag_suppress",
+        "Pa082,Pa084",
+      ]
+      cflags_cc = cflags
+    }
+    sources = libpng_source
+    public_configs = [ ":libpng_config" ]
+  }
+} else {
+  import("//build/ohos.gni")
+
+  config("libpng_config") {
+    include_dirs = [ "${target_gen_dir}/libpng-1.6.38/" ]
+  }
+
+  config("libpng_wno_config") {
+    cflags = [ "-Wno-implicit-fallthrough" ]
+    if (target_platform == "pc") {
+      if (is_ohos && is_clang &&
+          (target_cpu == "arm" || target_cpu == "arm64")) {
+        ldflags = [ "-Wl,-Bsymbolic" ]
+        defines = [ "PNG_ARM_NEON" ]
+      }
+    }
+  }
+
+  config("libpng_wno_config_static") {
+    if (target_platform == "pc") {
+      if (is_ohos && is_clang &&
+          (target_cpu == "arm" || target_cpu == "arm64")) {
+        cflags = [ "-fvisibility=hidden" ]
+      }
+    }
+  }
+
+  ohos_source_set("png_static") {
+    sources = get_target_outputs(":libpng_action")
+    include_dirs = [ "${target_gen_dir}/libpng-1.6.38/" ]
+    external_deps = [ "zlib:libz" ]
+    deps = [ ":libpng_action" ]
+    public_configs = [ ":libpng_config" ]
+    part_name = "libpng"
+    subsystem_name = "thirdparty"
+  }
+
+  ohos_shared_library("libpng") {
+    sources = get_target_outputs(":libpng_action")
+    include_dirs = [ "${target_gen_dir}/libpng-1.6.38/" ]
+    deps = [ ":libpng_action" ]
+    if (is_arkui_x) {
+      deps += [ "//third_party/zlib:libz" ]
+    } else {
+      external_deps = [ "zlib:libz" ]
+    }
+
+    public_configs = [ ":libpng_config" ]
+    configs = [ ":libpng_wno_config" ]
+    innerapi_tags = [
+      "platformsdk",
+      "chipsetsdk",
+    ]
+    subsystem_name = "thirdparty"
+    install_images = [
+      "system",
+      "updater",
+    ]
+    part_name = "libpng"
+    output_name = "libpng"
+    install_enable = true
+  }
+
+  ohos_static_library("libpng_static") {
+    sources = get_target_outputs(":libpng_action")
+
+    include_dirs = [ "${target_gen_dir}/libpng-1.6.38/" ]
+    deps = [ ":libpng_action" ]
+    if (is_arkui_x) {
+      deps += [ "//third_party/zlib:libz" ]
+    } else {
+      external_deps = [ "zlib:libz" ]
+    }
+    public_configs = [ ":libpng_config" ]
+    configs = [ ":libpng_wno_config" ]
+    configs += [ ":libpng_wno_config_static" ]
+    part_name = "libpng"
+    subsystem_name = "thirdparty"
+  }
+}

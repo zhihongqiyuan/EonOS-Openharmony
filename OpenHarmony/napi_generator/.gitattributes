@@ -1,0 +1,7 @@
+prebuilt/generator.jar filter=lfs diff=lfs merge=lfs -text
+prebuilt/napi_generator-linux filter=lfs diff=lfs merge=lfs -text
+prebuilt/napi_generator-macos filter=lfs diff=lfs merge=lfs -text
+prebuilt/napi_generator-win.exe filter=lfs diff=lfs merge=lfs -text
+src/generator/resources/cmds/linux/napi_generator-linux filter=lfs diff=lfs merge=lfs -text
+src/generator/resources/cmds/mac/napi_generator-macos filter=lfs diff=lfs merge=lfs -text
+src/generator/resources/cmds/win/napi_generator-win.exe filter=lfs diff=lfs merge=lfs -text

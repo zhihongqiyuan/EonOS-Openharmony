@@ -1,0 +1,193 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/ohos/notice/notice.gni")
+import("//build/ohos_var.gni")
+import("//build/templates/metadata/module_info.gni")
+import("interface_config.gni")
+
+# 全局变量方法见 https://gitee.com/openharmony/build/blob/master/docs/cmake%E8%BD%ACgn%E6%8C%87%E5%AF%BC%E6%96%87%E6%A1%A3.md#gn%E5%B8%B8%E7%94%A8%E7%9A%84%E5%86%85%E7%BD%AE%E5%8F%98%E9%87%8F
+
+template("ohos_copy_internal") {
+  forward_variables_from(invoker, "*")
+  iv_input = invoker.iv_input
+
+  # 调用build/templates/common/copy.gni中的ohos_copy方法
+  # 将处理完成的文件输出到中间产物对应位置 out/sdk/obj/interface/sdk-js/$target_name
+  ohos_copy(target_name) {
+    # 该脚本根据传入的remove文件进行input文件规则检查，过滤不需要的文件
+    # remove文件没有对应$target_name的属性  则全部输出
+    # remove文件有对应$target_name的属性    保留base中的文件；
+    #                                      删除global_remove中的文件；
+    #                                     ispublic为真，删除sdk_build_public_remove文件。
+    process_script = "//interface/sdk-js/process_internal.py"
+    process_arguments = [
+      "--input",
+      rebase_path(iv_input, root_build_dir),
+      "--remove",
+      rebase_path("//interface/sdk-js/remove_list.json", root_build_dir),
+      "--ispublic",
+      "${sdk_build_public}",
+      "--name",
+      "$target_name",
+    ]
+
+    # 执行脚本
+    sources = exec_script(process_script, process_arguments, "value")
+    outputs = [ target_out_dir + "/$target_name/{{source_file_part}}" ]
+    module_source_dir = target_out_dir + "/$target_name"
+    module_install_name = ""
+  }
+}
+
+# 主要api处理template
+template("ohos_declaration_template") {
+  forward_variables_from(invoker, "*")
+  _module_info_target = "/ohos_declaration/${target_name}_info"
+
+  action_with_pydeps(target_name) {
+    inputs = [ "//interface/sdk-js/api" ]
+    outputs = [ root_out_dir + "/ohos_declaration/$target_name" ]
+
+    # 处理api文件下全部文件，过滤特定文件
+    script = "//interface/sdk-js/remove_internal.py"
+
+    # fullSDK中api路径
+    input_api_dir = "//interface/sdk-js/api"
+    if (sdk_build_public || product_name == "ohos-sdk") {
+      script = "//out/sdk-public/public_interface/sdk-js/remove_internal.py"
+
+      # publicSDK中api路径，经过./build-tools/delete_systemapi_plugin.js脚本处理过systemapi的接口
+      input_api_dir = "//out/sdk-public/public_interface/sdk-js/api"
+    }
+    args = [
+      "--input",
+      rebase_path(input_api_dir, root_build_dir),
+      "--output",
+      rebase_path(root_out_dir + "/ohos_declaration/$target_name/",
+                  root_build_dir),
+    ]
+    if (defined(deps)) {
+      deps += [ ":$_module_info_target" ]
+    } else {
+      deps = [ ":$_module_info_target" ]
+    }
+  }
+  _target_name = target_name
+  generate_module_info(_module_info_target) {
+    module_type = "jsdoc"
+    module_install_name = ""
+    module_name = _target_name
+    module_source_dir = root_out_dir + "/ohos_declaration/$_target_name"
+    install_enable = false
+  }
+}
+
+# ets/api执行脚本
+ohos_declaration_template("ohos_declaration_ets") {
+}
+
+# ets/api执行脚本
+ohos_copy("common_api") {
+  sources = common_api_src
+  outputs = [ target_out_dir + "/$target_name/{{source_file_part}}" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+# ets/api/@internal/full执行脚本
+ohos_copy_internal("ets_internal_api") {
+  iv_input = "//interface/sdk-js/api/@internal/ets"
+}
+
+# ets/arkts执行脚本
+ohos_copy("bundle_arkts") {
+  sources = [ "//interface/sdk-js/arkts" ]
+  outputs = [ target_out_dir + "/$target_name" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+  license_file = "./LICENCE.md"
+}
+
+if (!sdk_build_public) {
+  # ets/build-tools/ets-loader/declarations脚本
+  ohos_copy("bundle_api") {
+    sources = [ "api/bundle/bundleStatusCallback.d.ts" ]
+    outputs = [ target_out_dir + "/$target_name/{{source_file_part}}" ]
+    module_source_dir = target_out_dir + "/$target_name"
+    module_install_name = ""
+  }
+}
+
+# ets/component执行脚本
+ohos_copy_internal("ets_component") {
+  iv_input = "//interface/sdk-js/api/@internal/component/ets"
+}
+
+# ets/kits执行脚本
+ohos_copy("bundle_kits") {
+  if (sdk_build_public || product_name == "ohos-sdk") {
+    sources = [ "//out/sdk-public/public_interface/sdk-js/kits" ]
+  } else {
+    sources = [ "//interface/sdk-js/kits" ]
+  }
+  outputs = [ target_out_dir + "/$target_name" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+# js/api执行脚本
+ohos_declaration_template("ohos_declaration_common") {
+}
+
+# js/api/@internal/full执行脚本
+ohos_copy_internal("internal_full") {
+  iv_input = "//interface/sdk-js/api/common/full"
+}
+
+# js/api/@internal/lite执行脚本呢
+ohos_copy_internal("internal_lite") {
+  iv_input = "//interface/sdk-js/api/common/lite"
+}
+
+# js/api/config执行脚本
+ohos_copy("config") {
+  sources = [
+    "api/config/css",
+    "api/config/hml",
+  ]
+  outputs = [ target_out_dir + "/$target_name/{{source_file_part}}" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+# js/form执行脚本
+ohos_copy("form_declaration") {
+  sources = [
+    "api/form/action",
+    "api/form/css",
+    "api/form/hml",
+  ]
+  outputs = [ target_out_dir + "/$target_name/{{source_file_part}}" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}
+
+# toolchains/syscapcheck执行脚本
+ohos_copy("syscap_check") {
+  sources = [ "api/syscapCheck/sysCapSchema.json" ]
+  outputs = [ target_out_dir + "/$target_name/{{source_file_part}}" ]
+  module_source_dir = target_out_dir + "/$target_name"
+  module_install_name = ""
+}

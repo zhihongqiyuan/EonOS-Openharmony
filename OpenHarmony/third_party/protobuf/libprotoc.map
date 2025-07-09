@@ -1,0 +1,37 @@
+{
+  extern "C++" {
+    "google::protobuf::MergedDescriptorDatabase::MergedDescriptorDatabase(std::__h::vector<google::protobuf::DescriptorDatabase*, std::__h::allocator<google::protobuf::DescriptorDatabase*>> const&)";
+    "google::protobuf::compiler::DiskSourceTree::MapPath(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&, std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&)";
+    "google::protobuf::DescriptorPool::AddUnusedImportTrackFile(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&, bool)";
+    "google::protobuf::DescriptorPool::FindFileByName(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&) const";
+    "google::protobuf::StringReplace(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&, std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&, std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&, bool)";
+    "google::protobuf::io::Printer::Print(std::__h::map<std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>, std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>, std::__h::less<std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>>, std::__h::allocator<std::__h::pair<std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const, std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>>>> const&, char const*)";
+    "google::protobuf::compiler::DiskSourceTree::VirtualFileToDiskFile(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&, std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>*)";
+    "google::protobuf::DescriptorPool::FindMessageTypeByName(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&) const";
+    "google::protobuf::compiler::DiskSourceTree::DiskFileToVirtualFile(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&, std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>*, std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>*)";
+    "google::protobuf::io::Printer::FormatInternal(std::__h::vector<std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>, std::__h::allocator<std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>>> const&, std::__h::map<std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>, std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>, std::__h::less<std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>>, std::__h::allocator<std::__h::pair<std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const, std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>>>> const&, char const*)";
+    "google::protobuf::EnumDescriptor::GetLocationPath(std::__h::vector<int, std::__h::allocator<int>>*) const";
+    "google::protobuf::EnumValueDescriptor::GetLocationPath(std::__h::vector<int, std::__h::allocator<int>>*) const";
+    "google::protobuf::FieldDescriptor::GetLocationPath(std::__h::vector<int, std::__h::allocator<int>>*) const";
+    "google::protobuf::Descriptor::GetLocationPath(std::__h::vector<int, std::__h::allocator<int>>*) const";
+    "google::protobuf::Descriptor::FindFieldByCamelcaseName(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&) const";
+    "google::protobuf::Descriptor::FindFieldByName(std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&) const";
+    "google::protobuf::Reflection::ListFields(google::protobuf::Message const&, std::__h::vector<google::protobuf::FieldDescriptor const*, std::__h::allocator<google::protobuf::FieldDescriptor const*>>*) const";
+    "google::protobuf::OneofDescriptor::GetLocationPath(std::__h::vector<int, std::__h::allocator<int>>*) const";
+    "google::protobuf::SplitStringAllowEmpty(google::protobuf::StringPiece, char const*, std::__h::vector<std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>, std::__h::allocator<std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>>>>*)";
+    "google::protobuf::io::Printer::Annotate(char const*, char const*, std::__h::basic_string<char, std::__h::char_traits<char>, std::__h::allocator<char>> const&, std::__h::vector<int, std::__h::allocator<int>> const&)";
+    "google::protobuf::internal::ArenaStringPtr::Mutable[abi:cxx11](google::protobuf::internal::ArenaStringPtr::EmptyDefault, google::protobuf::Arena*)";
+    "google::protobuf::internal::ArenaStringPtr::Set(google::protobuf::internal::ArenaStringPtr::EmptyDefault, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> const&, google::protobuf::Arena*)";
+    "google::protobuf::GeneratedCodeInfo::Clear()";
+    "google::protobuf::GeneratedCodeInfo* google::protobuf::Arena::CreateMaybeMessage<google::protobuf::GeneratedCodeInfo>(google::protobuf::Arena*)";
+    "google::protobuf::GeneratedCodeInfo::_InternalParse(char const*, google::protobuf::internal::ParseContext*)";
+    "google::protobuf::GeneratedCodeInfo::_InternalSerialize(unsigned char*, google::protobuf::io::EpsCopyOutputStream*) const";
+    "google::protobuf::GeneratedCodeInfo::ByteSizeLong() const";
+    "google::protobuf::_GeneratedCodeInfo_default_instance_";
+    "google::protobuf::GeneratedCodeInfo::MergeFrom(google::protobuf::GeneratedCodeInfo const&)";
+    "scc_info_GeneratedCodeInfo_google_2fprotobuf_2fdescriptor_2eproto";
+  };
+  local:
+    *;
+};
+

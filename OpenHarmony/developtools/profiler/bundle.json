@@ -1,0 +1,151 @@
+{
+  "name": "@ohos/hiprofiler",
+  "description": "Performance profiler that provides an analytics tool for the memory, bytrace plug-in, and IDE, as well as plug-in capabilities",
+  "version": "3.0.9",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "developtools/profiler"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "hiprofiler",
+    "subsystem": "developtools",
+    "features": [
+      "hiprofiler_SmartPerf"
+    ],
+    "syscap": [
+      "SystemCapability.HiviewDFX.HiProfiler.HiDebug"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "188KB",
+    "ram": "2000KB",
+    "deps": {
+      "components": [
+        "ability_runtime",
+        "ability_base",
+        "access_token",
+        "arkxtest",
+        "bounds_checking_function",
+        "bundle_framework",
+        "cJSON",
+        "common_event_service",
+        "c_utils",
+        "faultloggerd",
+        "hiappevent",
+        "hichecker",
+        "hicollie",
+        "hidumper",
+        "hilog",
+        "hisysevent",
+        "hitrace",
+        "hiview",
+        "ipc",
+        "init",
+        "libbpf",
+        "napi",
+        "protobuf",
+        "safwk",
+        "samgr",
+        "drivers_interface_memorytracker",
+        "graphic_2d",
+        "os_account",
+        "window_manager",
+        "image_framework",
+        "ffrt",
+        "openssl",
+        "zlib",
+        "grpc",
+        "abseil-cpp",
+        "netmanager_base"
+      ],
+      "third_party": [
+        "libunwind",
+        "libpng"
+      ]
+    },
+    "hisysevent_config": [
+      "//developtools/profiler/hisysevent.yaml"
+    ],
+    "build": {
+      "sub_component": [
+        "//developtools/profiler/device:hiprofiler_targets",
+        "//developtools/profiler/hidebug/interfaces/js/kits:profiler_jsapi_module",
+        "//developtools/profiler/hidebug/frameworks/hidebug_ndk:ohhidebug",
+        "//developtools/profiler/hidebug/frameworks/native:hidebug_native",
+        "//developtools/profiler/host/smartperf/client/client_command/:SP_daemon",
+        "//developtools/profiler/host/smartperf/client/:SmartPerf",
+        "//developtools/profiler/hiebpf:hiebpf_tool",
+        "//developtools/profiler/timestamps:timestamps_tool",
+        "//developtools/profiler/tools/pagemap_parse:pagemap_tool"
+      ],
+      "inner_kits": [
+        {
+          "header": {
+            "header_base": "//developtools/profiler/hidebug/interfaces/native/innerkits/include",
+            "header_files": [
+              "hidebug_base.h"
+            ]
+          },
+          "name": "//developtools/profiler/hidebug/interfaces/native/innerkits:libhidebug"
+        },
+        {
+          "header": {
+            "header_base": "//developtools/profiler/hidebug/interfaces/native/innerkits/include",
+            "header_files": [
+              "hidebug_base.h"
+            ]
+          },
+          "name": "//developtools/profiler/hidebug/interfaces/native/innerkits:libhidebug_init"
+        },
+        {
+          "header": {
+            "header_base": "//developtools/profiler/device",
+            "header_files": [
+              "plugins/native_daemon/native_memory_profiler_sa/include/native_memory_profiler_sa_client_manager.h",
+              "plugins/native_daemon/native_memory_profiler_sa/include/native_memory_profiler_sa_config.h",
+              "base/include/common.h"
+            ]
+          },
+          "name": "//developtools/profiler/device/plugins/native_daemon:libnative_daemon_client"
+        },
+        {
+          "header": {
+            "header_base": "//developtools/profiler/device",
+            "header_files": [
+              "plugins/network_profiler/client/include/network_profiler.h"
+            ]
+          },
+          "name": "//developtools/profiler/device/plugins/network_profiler/client:libnetwork_profiler"
+        },
+        {
+          "header": {
+            "header_base": "//developtools/profiler/device",
+            "header_files": [
+              "plugins/ffrt_profiler/client/include/ffrt_profiler.h"
+            ]
+          },
+          "name": "//developtools/profiler/device/plugins/ffrt_profiler/client:libffrt_profiler"
+        },
+        {
+          "header": {
+            "header_base": "//developtools/profiler/hidebug/interfaces/cj",
+            "header_files": []
+          },
+          "name": "//developtools/profiler/hidebug/interfaces/cj:cj_hidebug_ffi"
+        }
+      ],
+      "test": [
+        "//developtools/profiler/device:fuzztest",
+        "//developtools/profiler/device:unittest",
+        "//developtools/profiler/interfaces/kits/test:unittest",
+        "//developtools/profiler/hidebug/test/unittest:unittest",
+        "//developtools/profiler/proto_encoder/test:unittest",
+        "//developtools/profiler/host/smartperf/client/client_command/test:unittest"
+      ]
+    }
+  }
+}
