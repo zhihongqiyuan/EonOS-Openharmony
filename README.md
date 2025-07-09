@@ -1,4 +1,4 @@
-# 下面文段摘自OpenHarmony 6.0 Beta1
+# 下面文段摘自OpenHarmony 6.0 Beta1,目前源码上传中，暂未完整
 
 
 ## 版本概述
