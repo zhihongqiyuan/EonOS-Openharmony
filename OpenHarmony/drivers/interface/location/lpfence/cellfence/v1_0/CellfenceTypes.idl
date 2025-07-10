@@ -1,0 +1,104 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ /**
+ * @addtogroup HdiLpfenceCellfence
+ * @{
+ *
+ * @brief Provides cell fence APIs for low-power fence services.
+ *
+ * You can use the APIs to add or remove cell fences and obtain cell fence information of a device.
+ * The cell fence module is used to determine whether a device reaches a comparatively large area, so that subsequent services, for example, pushing the scenic spot introduction to tourists, can be implemented.
+ *
+ * @since 4.0
+ * @version 1.0
+ */
+
+/**
+ * @file CellfenceTypes.idl
+ *
+ * @brief Defines the data types used by the cell fence module.
+ *
+ * @since 4.0
+ * @version 1.0
+ */
+
+/**
+ * @brief Declares the path of the cell fence module interface package.
+ *
+ * @since 4.0
+ */
+package ohos.hdi.location.lpfence.cellfence.v1_0;
+
+/**
+ * @brief Enumerates the location relationships between a device and a cell fence.
+ *
+ * @since 4.0
+ */
+enum CellfenceTransition {
+    /** The device is within the cell fence. */
+    FENCE_ENTER = 0,
+    /** The device is out of the cell fence. */
+    FENCE_EXIT = 3,
+};
+
+/**
+ * @brief Defines the struct of the cell fence information.
+ *
+ * @since 4.0
+ */
+struct CellfenceInfo {
+    /** Location area code (LAC) of the base station. */
+    unsigned int lac;
+    /** Cell ID. */
+    unsigned long cellId;
+};
+
+/**
+ * @brief Defines the struct for a cell fence to add.
+ *
+ * @since 4.0
+ */
+struct CellfenceRequest {
+    /** ID of the cell fence to add. A cell fence with the same ID cannot be added repeatedly. */
+    int cellfenceId;
+    /** Cell fence information. For details, see {@Link CellfenceInfo}. */
+    struct CellfenceInfo[] cellInfo;
+};
+
+/**
+ * @brief Defines the struct for the relationship between a device and a cell fence.
+ *
+ * @since 4.0
+ */
+struct CellfenceStatus {
+    /** Cell fence ID. */
+    int cellfenceId;
+    /** Location relationship between the device and the cell fence. For details, see {@Link CellfenceTransition}. */
+    unsigned short status;
+};
+
+/**
+ * @brief Defines the struct for the cell fence information of a device.
+ *
+ * @since 4.0
+ */
+struct CellfenceSize {
+    /** Maximum number of cell fences supported by the device. */
+    unsigned int maxNum;
+    /** Number of cell fences added for the device. */
+    unsigned int usedNum;
+};
+/** @} */

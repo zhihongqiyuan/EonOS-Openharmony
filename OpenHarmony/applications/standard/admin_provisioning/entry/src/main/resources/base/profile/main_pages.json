@@ -1,0 +1,13 @@
+{
+  "src": [
+    "pages/custProvisioning/custProvisioning",
+    "pages/applicationInfo",
+    "pages/autoManager/managerStart",
+    "pages/autoManager/unitManagerShowPage",
+    "pages/autoManager/termsShowPage",
+    "pages/autoManager/loadingInfo",
+    "pages/autoManager/setFinishSuccess",
+    "pages/autoManager/setFinishFail",
+    "pages/byod/byodActivationPage"
+  ]
+}

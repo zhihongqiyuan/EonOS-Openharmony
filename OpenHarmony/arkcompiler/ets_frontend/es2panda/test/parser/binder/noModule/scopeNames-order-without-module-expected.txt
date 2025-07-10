@@ -1,0 +1,735 @@
+slotNum = 0x5a
+expectedProperty = 0x12
+.language ECMAScript
+.function any .#~A=#A(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, .#~A=A~BB=#BB, _1, 0x0, v0
+	sta v0
+	ldobjbyname 0x1, prototype
+	lda v0
+	stobjbyname 0x3, B, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x5, .#~A=A~@0=#CCC, _2, 0x0, v0
+	sta v0
+	ldobjbyname 0x6, prototype
+	lda v0
+	stobjbyname 0x8, C, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xa, .#~A=A~@1=#DDD, _3, 0x0, v0
+	sta v0
+	ldobjbyname 0xb, prototype
+	lda v0
+	stobjbyname 0xd, D, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xf, .#~A=A~@2=#EEE, _4, 0x0, v0
+	sta v0
+	ldobjbyname 0x10, prototype
+	lda v0
+	stobjbyname 0x12, E, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x14, .#~A=A~@3=#FFF, _5, 0x0, v0
+	sta v0
+	ldobjbyname 0x15, prototype
+	lda v0
+	stobjbyname 0x17, F, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x19, .#~A=A~@4=#GGG, _6, 0x0, v0
+	sta v0
+	ldobjbyname 0x1a, prototype
+	lda v0
+	stobjbyname 0x1c, G, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1e, .#~A=A~@5=#HHH, _7, 0x0, v0
+	sta v0
+	ldobjbyname 0x1f, prototype
+	lda v0
+	stobjbyname 0x21, H, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x23, .#~A=A~@6=#III, _8, 0x0, v0
+	sta v0
+	ldobjbyname 0x24, prototype
+	lda v0
+	stobjbyname 0x26, I, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x28, .#~A=A~@7=#JJJ, _9, 0x0, v0
+	sta v0
+	ldobjbyname 0x29, prototype
+	lda v0
+	stobjbyname 0x2b, J, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2d, .#~A=A~@8=#KKK, _10, 0x0, v0
+	sta v0
+	ldobjbyname 0x2e, prototype
+	lda v0
+	stobjbyname 0x30, K, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x32, .#~A=A~@9=#LLL, _11, 0x0, v0
+	sta v0
+	ldobjbyname 0x33, prototype
+	lda v0
+	stobjbyname 0x35, L, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x37, .#~A=A~@a=#MMM, _12, 0x0, v0
+	sta v0
+	ldobjbyname 0x38, prototype
+	lda v0
+	stobjbyname 0x3a, M, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x3c, .#~A=A~@b=#NNN, _13, 0x0, v0
+	sta v0
+	ldobjbyname 0x3d, prototype
+	lda v0
+	stobjbyname 0x3f, N, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x41, .#~A=A~@c=#OOO, _14, 0x0, v0
+	sta v0
+	ldobjbyname 0x42, prototype
+	lda v0
+	stobjbyname 0x44, O, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x46, .#~A=A~@d=#PPP, _15, 0x0, v0
+	sta v0
+	ldobjbyname 0x47, prototype
+	lda v0
+	stobjbyname 0x49, P, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x4b, .#~A=A~@e=#QQQ, _16, 0x0, v0
+	sta v0
+	ldobjbyname 0x4c, prototype
+	lda v0
+	stobjbyname 0x4e, Q, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x50, .#~A=A~@f=#RRR, _17, 0x0, v0
+	sta v0
+	ldobjbyname 0x51, prototype
+	lda v0
+	stobjbyname 0x53, R, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x55, .#~A=A~@10=#SSSS, _18, 0x0, v0
+	sta v0
+	ldobjbyname 0x56, prototype
+	lda v0
+	stobjbyname 0x58, S, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@0=#CCC(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@10=#SSSS(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@1=#DDD(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@2=#EEE(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@3=#FFF(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@4=#GGG(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@5=#HHH(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@6=#III(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@7=#JJJ(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@8=#KKK(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@9=#LLL(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@a=#MMM(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@b=#NNN(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@c=#OOO(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@d=#PPP(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@e=#QQQ(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~@f=#RRR(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~BB=#BB(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, .#~A=#A, _19, 0x0, v0
+	sta v0
+	ldobjbyname 0x1, prototype
+	lda v0
+	sttoglobalrecord 0x3, A
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot _0
+{
+  index: 0
+    tag: 0
+    val: 5
+},
+{
+  index: 1
+    tag: 5
+    val: CCC
+},
+{
+  index: 2
+    tag: 0
+    val: 5
+},
+{
+  index: 3
+    tag: 5
+    val: DDD
+},
+{
+  index: 4
+    tag: 0
+    val: 5
+},
+{
+  index: 5
+    tag: 5
+    val: EEE
+},
+{
+  index: 6
+    tag: 0
+    val: 5
+},
+{
+  index: 7
+    tag: 5
+    val: FFF
+},
+{
+  index: 8
+    tag: 0
+    val: 5
+},
+{
+  index: 9
+    tag: 5
+    val: GGG
+},
+{
+  index: 10
+    tag: 0
+    val: 5
+},
+{
+  index: 11
+    tag: 5
+    val: HHH
+},
+{
+  index: 12
+    tag: 0
+    val: 5
+},
+{
+  index: 13
+    tag: 5
+    val: III
+},
+{
+  index: 14
+    tag: 0
+    val: 5
+},
+{
+  index: 15
+    tag: 5
+    val: JJJ
+},
+{
+  index: 16
+    tag: 0
+    val: 5
+},
+{
+  index: 17
+    tag: 5
+    val: KKK
+},
+{
+  index: 18
+    tag: 0
+    val: 5
+},
+{
+  index: 19
+    tag: 5
+    val: LLL
+},
+{
+  index: 20
+    tag: 0
+    val: 5
+},
+{
+  index: 21
+    tag: 5
+    val: MMM
+},
+{
+  index: 22
+    tag: 0
+    val: 5
+},
+{
+  index: 23
+    tag: 5
+    val: NNN
+},
+{
+  index: 24
+    tag: 0
+    val: 5
+},
+{
+  index: 25
+    tag: 5
+    val: OOO
+},
+{
+  index: 26
+    tag: 0
+    val: 5
+},
+{
+  index: 27
+    tag: 5
+    val: PPP
+},
+{
+  index: 28
+    tag: 0
+    val: 5
+},
+{
+  index: 29
+    tag: 5
+    val: QQQ
+},
+{
+  index: 30
+    tag: 0
+    val: 5
+},
+{
+  index: 31
+    tag: 5
+    val: RRR
+},
+{
+  index: 32
+    tag: 0
+    val: 5
+},
+{
+  index: 33
+    tag: 5
+    val: SSSS
+},
+------------------------------------
+slot _1
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _10
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _11
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _12
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _13
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _14
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _15
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _16
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _17
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _18
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _19
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _2
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _3
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _4
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _5
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _6
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _7
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _8
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _9
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},

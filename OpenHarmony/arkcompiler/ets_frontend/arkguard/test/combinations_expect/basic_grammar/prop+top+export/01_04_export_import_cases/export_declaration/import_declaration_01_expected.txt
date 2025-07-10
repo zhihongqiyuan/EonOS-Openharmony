@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import assert from "assert";
+import { g, h, i, j } from './export_declaration_01';
+import { k } from './export_declaration_01';
+import { l, m, o, p, q, t } from './export_declaration_01';
+assert(g() === 1);
+const a1 = h();
+assert(a1.next().value === 1);
+assert(a1.next().value === 2);
+async function v() {
+    assert(await i() === 3);
+    assert((await j().next()).value === 4);
+}
+v();
+let b1 = new k();
+assert(b1.u === 'hello');
+assert(l === 1);
+assert(m === 2);
+assert(o === 3);
+assert(p === 4);
+assert(q === 5);
+assert(t === 6);

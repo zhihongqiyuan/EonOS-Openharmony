@@ -1,0 +1,511 @@
+/*
+ * Copyright (c) 2022-2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+"use strict";
+if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+class RecycleHomeComponent extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__state_value = new ObservedPropertySimplePU("100%", this, "state_value");
+        this.__value = new ObservedPropertySimplePU(1, this, "value");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.state_value !== undefined) {
+            this.state_value = params.state_value;
+        }
+        if (params.value !== undefined) {
+            this.value = params.value;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__state_value.purgeDependencyOnElmtId(rmElmtId);
+        this.__value.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__state_value.aboutToBeDeleted();
+        this.__value.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get state_value() {
+        return this.__state_value.get();
+    }
+    set state_value(newValue) {
+        this.__state_value.set(newValue);
+    }
+    get value() {
+        return this.__value.get();
+    }
+    set value(newValue) {
+        this.__value.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+            Column.width(this.state_value);
+            Column.height(100);
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            __Common__.create();
+            __Common__.border({ width: 3, color: Color.Red });
+            __Common__.width(this.state_value);
+        }, __Common__);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            __Recycle__.create();
+        }, __Recycle__);
+        {
+            this.observeRecycleComponentCreation("RecycleChild", (elmtId, isInitialRender, recycleNode = null) => {
+                ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                if (isInitialRender) {
+                    let componentCall = recycleNode ? recycleNode : new RecycleChild(this, { propvalue: this.value, linkvalue: this.__value }, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/render_decorator/@recycle/recycle.ets", line: 22, col: 7 });
+                    ViewPU.createRecycle(componentCall, recycleNode !== null, "RecycleChild", () => {
+                        if (recycleNode && typeof recycleNode.aboutToReuseInternal === "function") {
+                            recycleNode.aboutToReuseInternal();
+                        }
+                        else {
+                            if (recycleNode.aboutToReuse && typeof recycleNode.aboutToReuse === "function") {
+                                recycleNode.aboutToReuse({ propvalue: this.value, linkvalue: this.value });
+                            }
+                            recycleNode.rerender();
+                        }
+                    });
+                    let paramsLambda = () => {
+                        return {
+                            propvalue: this.value,
+                            linkvalue: this.value
+                        };
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {
+                        propvalue: this.value
+                    });
+                }
+                ViewStackProcessor.StopGetAccessRecording();
+            });
+        }
+        __Common__.pop();
+        __Recycle__.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create("aa");
+            Text.width(this.state_value);
+            Text.height(100);
+        }, Text);
+        Text.pop();
+        Column.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+        return "RecycleHomeComponent";
+    }
+}
+class RecycleChild extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__propvalue = new SynchedPropertySimpleOneWayPU(params.propvalue, this, "propvalue");
+        this.__linkvalue = new SynchedPropertySimpleTwoWayPU(params.linkvalue, this, "linkvalue");
+        this.__state_value = new ObservedPropertySimplePU(1, this, "state_value");
+        this.__width_value = new ObservedPropertySimplePU("100%", this, "width_value");
+        this.reguar_value = 50;
+        this.controller = new TabsController();
+        this.__heightValue = new ObservedPropertySimplePU(100, this, "heightValue");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.state_value !== undefined) {
+            this.state_value = params.state_value;
+        }
+        if (params.width_value !== undefined) {
+            this.width_value = params.width_value;
+        }
+        if (params.reguar_value !== undefined) {
+            this.reguar_value = params.reguar_value;
+        }
+        if (params.controller !== undefined) {
+            this.controller = params.controller;
+        }
+        if (params.heightValue !== undefined) {
+            this.heightValue = params.heightValue;
+        }
+    }
+    updateStateVars(params) {
+        this.__propvalue.reset(params.propvalue);
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__propvalue.purgeDependencyOnElmtId(rmElmtId);
+        this.__linkvalue.purgeDependencyOnElmtId(rmElmtId);
+        this.__state_value.purgeDependencyOnElmtId(rmElmtId);
+        this.__width_value.purgeDependencyOnElmtId(rmElmtId);
+        this.__heightValue.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__propvalue.aboutToBeDeleted();
+        this.__linkvalue.aboutToBeDeleted();
+        this.__state_value.aboutToBeDeleted();
+        this.__width_value.aboutToBeDeleted();
+        this.__heightValue.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    updateRecycleElmtId(oldElmtId, newElmtId) {
+        this.__propvalue.updateElmtId(oldElmtId, newElmtId);
+        this.__linkvalue.updateElmtId(oldElmtId, newElmtId);
+        this.__state_value.updateElmtId(oldElmtId, newElmtId);
+        this.__width_value.updateElmtId(oldElmtId, newElmtId);
+        this.__heightValue.updateElmtId(oldElmtId, newElmtId);
+    }
+    get propvalue() {
+        return this.__propvalue.get();
+    }
+    set propvalue(newValue) {
+        this.__propvalue.set(newValue);
+    }
+    get linkvalue() {
+        return this.__linkvalue.get();
+    }
+    set linkvalue(newValue) {
+        this.__linkvalue.set(newValue);
+    }
+    get state_value() {
+        return this.__state_value.get();
+    }
+    set state_value(newValue) {
+        this.__state_value.set(newValue);
+    }
+    get width_value() {
+        return this.__width_value.get();
+    }
+    set width_value(newValue) {
+        this.__width_value.set(newValue);
+    }
+    get heightValue() {
+        return this.__heightValue.get();
+    }
+    set heightValue(newValue) {
+        this.__heightValue.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            __Common__.create();
+            __Common__.height(this.heightValue);
+            if (isInitialRender) {
+                __Common__.border({ width: 3, color: Color.Red });
+            }
+        }, __Common__);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            __Recycle__.create();
+        }, __Recycle__);
+        {
+            this.observeRecycleComponentCreation("RecycleAnimationTest", (elmtId, isInitialRender, recycleNode = null) => {
+                ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                if (isInitialRender) {
+                    let componentCall = recycleNode ? recycleNode : new RecycleAnimationTest(this, {}, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/render_decorator/@recycle/recycle.ets", line: 46, col: 7 });
+                    ViewPU.createRecycle(componentCall, recycleNode !== null, "RecycleAnimationTest", () => {
+                        if (recycleNode && typeof recycleNode.aboutToReuseInternal === "function") {
+                            recycleNode.aboutToReuseInternal();
+                        }
+                        else {
+                            if (recycleNode.aboutToReuse && typeof recycleNode.aboutToReuse === "function") {
+                                recycleNode.aboutToReuse({});
+                            }
+                            recycleNode.rerender();
+                        }
+                    });
+                    let paramsLambda = () => {
+                        return {};
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {});
+                }
+                ViewStackProcessor.StopGetAccessRecording();
+            });
+        }
+        __Common__.pop();
+        __Recycle__.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create("hello");
+            Text.width(this.propvalue);
+            Text.border({ width: this.propvalue, color: Color.Red, radius: 100 });
+            if (isInitialRender) {
+                Text.fontSize(this.reguar_value);
+                Text.height(100);
+                Text.fontColor(Color.Red);
+            }
+        }, Text);
+        Text.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithChild();
+            if (isInitialRender) {
+                Button.border({ width: this.reguar_value, color: Color.Red, radius: 100 });
+            }
+        }, Button);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create("hhhhhhhhhhhhh");
+            Text.fontSize(this.state_value);
+            if (isInitialRender) {
+                Text.width(100);
+            }
+        }, Text);
+        Text.pop();
+        Button.pop();
+        {
+            const itemCreation = (elmtId, isInitialRender) => {
+                ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                ListItem.create(deepRenderFunction, true, 'true');
+                if (!isInitialRender) {
+                    ListItem.pop();
+                }
+                ViewStackProcessor.StopGetAccessRecording();
+            };
+            const itemCreation2 = (elmtId, isInitialRender) => {
+                ListItem.create(deepRenderFunction, true, 'true');
+                ListItem.width(this.width_value);
+                if (isInitialRender) {
+                    ListItem.height(100);
+                }
+            };
+            const deepRenderFunction = (elmtId, isInitialRender) => {
+                itemCreation(elmtId, isInitialRender);
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Text.create('ListItem');
+                    Text.width(this.width_value);
+                    if (isInitialRender) {
+                        Text.height(100);
+                    }
+                }, Text);
+                Text.pop();
+                ListItem.pop();
+            };
+            this.observeComponentCreation2(itemCreation2, ListItem);
+            ListItem.pop();
+        }
+        {
+            const itemCreation = (elmtId, isInitialRender) => {
+                ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                ListItem.create(deepRenderFunction, true, 'true');
+                if (!isInitialRender) {
+                    ListItem.pop();
+                }
+                ViewStackProcessor.StopGetAccessRecording();
+            };
+            const itemCreation2 = (elmtId, isInitialRender) => {
+                ListItem.create(deepRenderFunction, true, 'true');
+                ListItem.width(this.width_value);
+                if (isInitialRender) {
+                    ListItem.height(100);
+                }
+            };
+            const deepRenderFunction = (elmtId, isInitialRender) => {
+                itemCreation(elmtId, isInitialRender);
+                ListItem.pop();
+            };
+            this.observeComponentCreation2(itemCreation2, ListItem);
+            ListItem.pop();
+        }
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Tabs.create({ barPosition: BarPosition.Start, index: 1, controller: this.controller });
+            Tabs.width(this.width_value);
+            if (isInitialRender) {
+                Tabs.height(100);
+            }
+        }, Tabs);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            TabContent.create(() => {
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Flex.create();
+                    Flex.width(this.width_value);
+                    if (isInitialRender) {
+                        Flex.height(100);
+                    }
+                }, Flex);
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Column.create();
+                    Column.width(this.width_value);
+                    if (isInitialRender) {
+                        Column.height(100);
+                    }
+                }, Column);
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Text.create('text1');
+                    Text.width(this.width_value);
+                    if (isInitialRender) {
+                        Text.height(100);
+                    }
+                }, Text);
+                Text.pop();
+                Column.pop();
+                Flex.pop();
+            });
+            TabContent.width(this.width_value);
+            if (isInitialRender) {
+                TabContent.tabBar("TabBar");
+                TabContent.height(100);
+            }
+        }, TabContent);
+        TabContent.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            TabContent.create(() => {
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Text.create('text2');
+                    Text.width(this.width_value);
+                    if (isInitialRender) {
+                        Text.height(100);
+                    }
+                }, Text);
+                Text.pop();
+            });
+            TabContent.width(this.width_value);
+            if (isInitialRender) {
+                TabContent.tabBar("TabBar 2");
+                TabContent.height(100);
+            }
+        }, TabContent);
+        TabContent.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            TabContent.create();
+            TabContent.width(this.width_value);
+            if (isInitialRender) {
+                TabContent.height(100);
+            }
+        }, TabContent);
+        TabContent.pop();
+        Tabs.pop();
+        Column.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+class RecycleNormalComponent extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__width_value = new ObservedPropertySimplePU("100%", this, "width_value");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.width_value !== undefined) {
+            this.width_value = params.width_value;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__width_value.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__width_value.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get width_value() {
+        return this.__width_value.get();
+    }
+    set width_value(newValue) {
+        this.__width_value.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create("hello");
+            Text.width(this.width_value);
+            Text.height(100);
+        }, Text);
+        Text.pop();
+        Column.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+class RecycleAnimationTest extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__width_value = new ObservedPropertySimplePU("100%", this, "width_value");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.width_value !== undefined) {
+            this.width_value = params.width_value;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__width_value.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__width_value.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    updateRecycleElmtId(oldElmtId, newElmtId) {
+        this.__width_value.updateElmtId(oldElmtId, newElmtId);
+    }
+    get width_value() {
+        return this.__width_value.get();
+    }
+    set width_value(newValue) {
+        this.__width_value.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create("hello");
+            Context.animation({ duration: 300 });
+            Text.height(100);
+            Text.width(this.width_value);
+            Context.animation(null);
+        }, Text);
+        Text.pop();
+        Column.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+registerNamedRoute(() => new RecycleHomeComponent(undefined, {}), "", { bundleName: "com.example.application", moduleName: "application", pagePath: "pages/utForPartialUpdate/render_decorator/@recycle/recycle", pageFullPath: "application/entry/src/main/ets/pages/utForPartialUpdate/render_decorator/@recycle/recycle", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=recycle.js.map

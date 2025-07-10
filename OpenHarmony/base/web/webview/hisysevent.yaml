@@ -1,0 +1,198 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: WEBVIEW
+
+AUDIO_FRAME_DROP_STATISTICS:
+  __BASE: {type: STATISTIC, level: MINOR, tag: performance, desc: audio frame drop statistics, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  AUDIO_BLANK_FRAME_COUNT: {type: UINT32, desc: audo blank frame count}
+
+AUDIO_PLAY_ERROR:
+  __BASE: {type: FAULT, level: MINOR, tag: fault, desc: audio play error, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  ERROR_TYPE: {type: STRING, desc: audio play error type}
+  ERROR_CODE: {type: STRING, desc: audio play error code}
+  ERROR_DESC: {type: STRING, desc: audio play error description}
+
+CAMERA_CAPTURE_ERROR:
+  __BASE: {type: FAULT, level: MINOR, tag: fault, desc: camera capture error, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  DEVICE_ID: {type: INT32, desc: device ID of camera capture}
+  ERROR_DESC: {type: STRING, desc: camera capture error description}
+
+DRAG_DROP:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UserBehavior, desc: drag drop, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  NWEB_ID: {type: INT32, desc: Drag Drop Nweb Id}
+  PLAIN_TEXT: {type: UINT32, desc: Drag Drop Text size}
+  LINK_URL: {type: UINT32, desc: Drag Drop Url size}
+  HTML: {type: UINT32, desc: Drag Drop Html Size}
+
+DRAG_END:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UserBehavior, desc: drag end, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  NWEB_ID: {type: INT32, desc: Drag End Nweb Id}
+
+DRAG_ENTER:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UserBehavior, desc: drag enter, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  NWEB_ID: {type: INT16, desc: Drag Ented Nweb Id}
+
+DRAG_LEAVE:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UserBehavior, desc: drag leave, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  NWEB_ID: {type: INT16, desc: Drag Leave Nweb Id}
+
+DRAG_START:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UserBehavior, desc: drag start, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  NWEB_ID: {type: INT32, desc: Drag Start Nweb Id}
+
+DYNAMIC_FRAME_DROP_STATISTICS:
+  __BASE: {type: STATISTIC, level: MINOR, tag: performance, desc: dynamic frame drop statistics, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  STARTTIME: {type: UINT16, desc: start time}
+  DURATION: {type: UINT16, desc: duration}
+  TOTAL_APP_FRAMES: {type: UINT32, desc: total app frames}
+  TOTAL_APP_MISSED_FRAMES: {type: UINT32, desc: total app missed frames}
+  MAX_APP_FRAMETIME: {type: UINT64, desc: max app frame time}
+  ABILITY_NAME: {type: STRING, desc: ability name}
+  PAGE_URL: {type: STRING, desc: page url}
+  SCENE_ID: {type: STRING, desc: interaction scene id}
+
+FORCE_ENABLE_ZOOM:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UserBehavior, desc: force enable zoom, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  ENABLE_ZOOM_STATUS: {type: STRING, desc: force enable zoom status}
+
+INPUT_METHOD:
+  __BASE: {type: FAULT, level: MINOR, tag: fault, desc: input method error, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  ATTACH_CODE: {type: STRING, desc: attach code}
+  IS_SHOW_KEY_BOARD: {type: STRING, desc: is show key board}
+
+INSTANCE_INITIALIZE_TIME:
+  __BASE: {type: STATISTIC, level: MINOR, tag: performance, desc: web instance initialize time statistics, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  INSTANCE_ID: {type: UINT32, desc: instance id}
+  USED_TIME: {type: INT64, desc: used time}
+
+JANK_STATS_APP:
+  __BASE: {type: STATISTIC, level: MINOR, tag: performance, desc: jank statistics, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: package name}
+  VERSION_NAME: {type: STRING, desc: app version name}
+  ABILITY_NAME: {type: STRING, desc: ability name}
+  JANK_STATS: {type: UINT16, arrsize: 8, desc: jank frame stats}
+  STARTTIME: {type: INT64, desc: begin time since last report}
+  JANK_STATS_VER: {type: UINT32, desc: jank range version}
+  VERSION_CODE: {type: UINT32, desc: app version code}
+  DURATION: {type: INT64, desc: duration since last report}
+
+MULTI_INSTANCE_STATISTICS:
+  __BASE: {type: STATISTIC, level: CRITICAL, tag: webStats, desc: statistics of multiple instances, preserve: true}
+  INSTANCE_ID: {type: UINT32, desc: web instance id}
+  MAX_COUNT: {type: UINT32, desc: maximum  instance count}
+  INSTANCE_COUNT: {type: UINT32, desc: web instance count}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+
+OPEN_PRIVATE_MODE:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UserBehavior, desc: open private mode, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  OPEN_PRIVATE_STATUS: {type: BOOL, desc: open private status}
+
+PAGE_DOWNLOAD_ERROR:
+  __BASE: {type: FAULT, level: MINOR, tag: fault, desc: page download error, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+PAGE_LOAD_ERROR:
+  __BASE: {type: FAULT, level: CRITICAL, tag: webError, desc: page load error info, preserve: true}
+  ERROR_DESC: {type: STRING, desc: page error description}
+  INSTANCE_ID: {type: UINT32, desc: web instance id}
+  ERROR_CODE: {type: UINT32, desc: page error code}
+  ERROR_TYPE: {type: STRING, desc: page error type}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+
+PAGE_LOAD_STATISTICS:
+  __BASE: {type: STATISTIC, level: CRITICAL, tag: webStats, desc: page load statistics, preserve: true}
+  ACCESS_SUM_COUNT: {type: UINT32, desc: page access sum count}
+  ACCESS_SUCC_COUNT: {type: UINT32, desc: page access success count}
+  INSTANCE_ID: {type: UINT32, desc: web instance id}
+  ACCESS_FAIL_RATIO: {type: FLOAT, desc: page access fail ratio}
+  ACCESS_FAIL_COUNT: {type: UINT32, desc: page access fail count}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+
+PAGE_LOAD_TIME:
+  __BASE: {type: STATISTIC, level: MINOR, tag: performance, desc: page load time, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  ABILITY_NAME: {type: STRING, desc: ability name}
+  NAVIGATION_ID: {type: INT64, desc: navigation id}
+  NAVIGATION_START: {type: INT64, desc: navigation start}
+  REDIRECT_COUNT: {type: UINT32, desc: redirect count}
+  REDIRECT_START: {type: INT64, desc: redirect start}
+  REDIRECT_END: {type: INT64, desc: redirect end}
+  FETCH_START: {type: INT64, desc: fetch start}
+  WORKER_START: {type: INT64, desc: service worker start time}
+  DOMAIN_LOOKUP_START: {type: INT64, desc: domain lookup start}
+  DOMAIN_LOOKUP_END: {type: INT64, desc: domain lookup end}
+  CONNECT_START: {type: INT64, desc: connect start}
+  SECURE_CONNECT_START: {type: INT64, desc: secure connect start}
+  CONNECT_END: {type: INT64, desc: connect end}
+  REQUEST_START: {type: INT64, desc: request start}
+  RESPONSE_START: {type: INT64, desc: response start}
+  RESPONSE_END: {type: INT64, desc: response end}
+  DOM_INTERACTIVE: {type: INT64, desc: dom interactive}
+  DOM_CONTENT_LOADED_EVENT_START: {type: INT64, desc: dom content load event start}
+  DOM_CONTENT_LOADED_EVENT_END: {type: INT64, desc: dom content load event end}
+  LOAD_EVENT_START: {type: INT64, desc: load event start}
+  LOAD_EVENT_END: {type: INT64, desc: load event end}
+  FIRST_PAINT: {type: INT64, desc: first paint}
+  FIRST_CONTENTFUL_PAINT: {type: INT64, desc: first contentful paint}
+  LARGEST_CONTENTFUL_PAINT: {type: INT64, desc: largest contentful paint}
+
+PASTE_BOARD_ERROR:
+  __BASE: {type: FAULT, level: MINOR, tag: fault, desc: paste board error, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  ERROR_CODE: {type: INT32, desc: error code}
+  RECORD_SIZE: {type: INT64, desc: record size}
+
+PROCESS_CRASH:
+  __BASE: {type: FAULT, level: MINOR, desc: process crash, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  PROCESS_TYPE: {type: STRING, desc: process type}
+  ERROR_REASON: {type: STRING, desc: error reason}
+  CRASH_COUNT: {type: UINT32, desc: crash count}
+
+RENDER_JIT_LOCKDOWN:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UserBehavior, desc: advanced security lock mode, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  JIT_LOCKDOWN_MODE: {type: BOOL, desc: jit lockdown mode}
+
+SITE_ISOLATION_MODE:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UserBehavior, desc: site isolation mode, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  SITE_ISOLATION_STATUS: {type: BOOL, desc: site isolation status}
+
+VIDEO_FRAME_DROP_STATISTICS:
+  __BASE: {type: STATISTIC, level: MINOR, tag: performance, desc: videos frame drop statistics, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  VIDEO_FRAME_DROPPED_COUNT: {type: UINT32, desc: video frame dropped count}
+  VIDEO_FRAME_DROPPED_DURATION: {type: UINT64, desc: video frame dropped duration}
+
+VIDEO_PLAY_ERROR:
+  __BASE: {type: FAULT, level: MINOR, tag: fault, desc: video play error, preserve: true}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  ERROR_TYPE: {type: STRING, desc: error type}
+  ERROR_CODE: {type: UINT32, desc: error code}
+  ERROR_DESC: {type: STRING, desc: error info}

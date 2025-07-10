@@ -1,0 +1,63 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @file icamera_device.h
+ *
+ * @brief Declares APIs for camera device operations.
+ *
+ * @since 4.0
+ * @version 1.1
+ */
+
+package ohos.hdi.camera.v1_1;
+
+import ohos.hdi.camera.v1_0.ICameraDevice;
+import ohos.hdi.camera.v1_0.IStreamOperatorCallback;
+import ohos.hdi.camera.v1_1.IStreamOperator;
+import ohos.hdi.camera.v1_1.Types;
+
+interface ICameraDevice extends ohos.hdi.camera.v1_0.ICameraDevice {
+    /**
+     * @brief Obtains the stream operation handle.
+     *
+     * @param callback Indicates a stream callback. For details, see {@link IStreamOperatorCallback}.
+     * {@link OnCaptureStarted} and {@link OnCaptureEnded} are used to report the start and end of capture,
+     * and {@link OnCaptureError} is used to report a capture error.
+     *
+     * @param streamOperator Indicates the stream operation handle.
+     *
+     * @return Returns <b>NO_ERROR</b> if the operation is successful; returns an error code defined
+     * in {@link CamRetCode} otherwise.
+     *
+     * @since 4.0
+     * @version 1.1
+     */
+    GetStreamOperator_V1_1([in] IStreamOperatorCallback callbackObj, [out] IStreamOperator streamOperator);
+
+    /**
+     * @brief Get default camera device control parameters.
+     *
+     * @param settings Indicates the default camera parameters, including the sensor frame rate and 3A parameters.
+     * 3A stands for automatic focus (AF), automatic exposure (AE), and automatic white-balance (?AWB).
+     *
+     * @return Returns <b>NO_ERROR</b> if the operation is successful; returns an error code defined
+     * in {@link CamRetCode} otherwise.
+     *
+     * @since 4.0
+     * @version 1.1
+     */
+    GetDefaultSettings([out] unsigned char[] settings);
+}

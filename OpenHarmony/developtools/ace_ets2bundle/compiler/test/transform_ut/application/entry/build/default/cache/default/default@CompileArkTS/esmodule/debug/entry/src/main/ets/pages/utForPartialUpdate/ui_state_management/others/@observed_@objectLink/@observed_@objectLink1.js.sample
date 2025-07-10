@@ -1,0 +1,138 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+let TestObserved_ObjectLink = class TestObserved_ObjectLink {
+constructor() {
+this.name = "TestObserved_ObjectLink";
+}
+};
+TestObserved_ObjectLink = __decorate([
+Observed
+], TestObserved_ObjectLink);
+
+class TestObjectLink extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__state_value = new ObservedPropertyObjectPU(new TestObserved_ObjectLink(), this, "state_value");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.state_value !== undefined) {
+            this.state_value = params.state_value;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__state_value.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__state_value.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get state_value() {
+        return this.__state_value.get();
+    }
+    set state_value(newValue) {
+        this.__state_value.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            RelativeContainer.create();
+            RelativeContainer.height('100%');
+            RelativeContainer.width('100%');
+        }, RelativeContainer);
+        {
+            this.observeComponentCreation2((elmtId, isInitialRender) => {
+                if (isInitialRender) {
+                    let componentCall = new TestObjectLink_Child(this, { objectLinkValue: this.state_value }, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/ui_state_management/others/@observed_@objectLink/@observed_@objectLink1.ets", line: 27, col: 7 });
+                    ViewPU.create(componentCall);
+                    let paramsLambda = () => {
+                        return {
+                            objectLinkValue: this.state_value
+                        };
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {
+                        objectLinkValue: this.state_value
+                    });
+                }
+            }, { name: "TestObjectLink_Child" });
+        }
+        RelativeContainer.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+        return "TestObjectLink";
+    }
+}
+class TestObjectLink_Child extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__objectLinkValue = new SynchedPropertyNesedObjectPU(params.objectLinkValue, this, "objectLinkValue");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        this.__objectLinkValue.set(params.objectLinkValue);
+    }
+    updateStateVars(params) {
+        this.__objectLinkValue.set(params.objectLinkValue);
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__objectLinkValue.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__objectLinkValue.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get objectLinkValue() {
+        return this.__objectLinkValue.get();
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create(this.objectLinkValue.name);
+        }, Text);
+        Text.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+registerNamedRoute(() => new TestObjectLink(undefined, {}), "", { bundleName: "com.example.application", moduleName: "application", pagePath: "pages/utForPartialUpdate/ui_state_management/others/@observed_@objectLink/@observed_@objectLink1", pageFullPath: "application/entry/src/main/ets/pages/utForPartialUpdate/ui_state_management/others/@observed_@objectLink/@observed_@objectLink1", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=@observed_@objectLink1.js.map

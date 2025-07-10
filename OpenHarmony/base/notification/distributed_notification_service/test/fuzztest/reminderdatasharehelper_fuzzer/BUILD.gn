@@ -1,0 +1,63 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#####################hydra-fuzz###################
+import("//base/notification/distributed_notification_service/notification.gni")
+import("//build/config/features.gni")
+import("//build/test.gni")
+
+##############################fuzztest##########################################
+ohos_fuzztest("ReminderDataShareHelperFuzzTest") {
+  module_out_path = service_fuzz_test_path
+  fuzz_config_file =
+      "${component_path}/test/fuzztest/reminderdatasharehelper_fuzzer"
+
+  include_dirs = [
+    "${component_path}/test/fuzztest/fuzz_common_base",
+    "${component_path}/services/reminder/include",
+  ]
+  cflags = [
+    "-g",
+    "-O0",
+    "-Wno-unused-variable",
+    "-fno-omit-frame-pointer",
+    "-Dprivate=public",
+    "-Dprotected=public",
+  ]
+  sources = [ "reminderdatasharehelper_fuzzer.cpp" ]
+
+  deps = [
+    "${component_path}/test/fuzztest/fuzz_common_base:fuzz_common_base",
+    "${frameworks_module_reminder_path}:reminder_innerkits",
+    "${services_path}/reminder:libreminder_static",
+  ]
+
+  external_deps = [
+    "ability_base:want",
+    "ability_base:zuri",
+    "c_utils:utils",
+    "data_share:datashare_common",
+    "data_share:datashare_consumer",
+    "data_share:datashare_permission",
+    "hilog:libhilog",
+    "image_framework:image_native",
+    "relational_store:native_rdb",
+  ]
+}
+
+###############################################################################
+group("fuzztest") {
+  testonly = true
+  deps = [ ":ReminderDataShareHelperFuzzTest" ]
+}
+###############################################################################

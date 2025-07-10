@@ -1,0 +1,62 @@
+{
+    "name": "@ohos/drivers_interface_hello",
+    "description": "hello device driver interface",
+    "version": "4.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+      "destPath": "drivers/interface/hello"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+      "name": "drivers_interface_hello",
+      "subsystem": "hdf",
+      "syscap": [],
+      "adapted_system_type": ["standard"],
+      "rom": "675KB",
+      "ram": "1024KB",
+      "deps": {
+        "components": [
+          "ipc",
+          "hdf_core",
+          "hilog",
+          "c_utils"
+        ],
+        "third_party": []
+      },
+      "build": {
+        "sub_component": [
+          "//drivers/interface/hello/v1_0:hello_idl_target"
+        ],
+        "test": [
+        ],
+        "inner_kits": [
+          {
+            "name": "//drivers/interface/hello/v1_0:libhello_proxy_1.0",
+            "header": {
+              "header_files": [
+              ],
+              "header_base": "//drivers/interface/hello"
+            }
+          },
+          {
+            "name": "//drivers/interface/hello/v1_0:libhello_stub_1.0",
+            "header": {
+              "header_files": [
+              ],
+              "header_base": "//drivers/interface/hello"
+            }
+          },
+          {
+            "name": "//drivers/interface/hello/v1_0:hello_idl_headers",
+            "header": {
+              "header_files": [
+              ],
+              "header_base": "//drivers/interface/hello"
+            }
+          }
+        ]
+      }
+    }
+  }

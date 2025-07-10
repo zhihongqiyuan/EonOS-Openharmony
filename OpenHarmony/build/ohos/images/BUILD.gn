@@ -1,0 +1,430 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/python.gni")
+import("//build/ohos.gni")
+import("//build/ohos/build_var.gni")
+
+# import target_platform_list
+import("${build_configs_path}/platforms_list.gni")
+group("make_images") {
+  deps = []
+  if (is_standard_system) {
+    deps = [
+      "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+      "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+    ]
+    foreach(_platform, target_platform_list) {
+      deps += [
+        ":${_platform}_eng_chipset_image",
+        ":${_platform}_eng_system_image",
+        ":${_platform}_sys_prod_image",
+        ":${_platform}_system_image",
+        ":${_platform}_updater_ramdisk_image",
+        ":${_platform}_userdata_image",
+        ":${_platform}_vendor_image",
+      ]
+      if (enable_ramdisk) {
+        deps += [ ":${_platform}_ramdisk_image" ]
+      }
+    }
+    deps += [ ":chip_prod_image" ]
+    if (is_standard_system && device_name == "rk3568") {
+      deps += [ ":mk_chip_ckm_img" ]
+    }
+  } else {
+    deps += [ "//build/ohos/packages:packer" ]
+  }
+}
+
+group("eng_system_image") {
+  deps = []
+  if (is_standard_system) {
+    deps += [
+      "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+      "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+    ]
+  }
+  foreach(_platform, target_platform_list) {
+    deps += [ ":${_platform}_eng_system_image" ]
+  }
+}
+
+group("eng_chipset_image") {
+  deps = []
+  if (is_standard_system) {
+    deps += [
+      "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+      "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+    ]
+  }
+  foreach(_platform, target_platform_list) {
+    deps += [ ":${_platform}_eng_chipset_image" ]
+  }
+}
+
+group("chip_prod_image") {
+  deps = []
+  if (is_standard_system) {
+    deps += [
+      "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+      "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+    ]
+  }
+  foreach(_platform, target_platform_list) {
+    if (chip_product_list == []) {
+      deps += [ ":${_platform}_chip_prod_image" ]
+    } else {
+      foreach(_product, chip_product_list) {
+        deps += [ ":${_platform}_${_product}_chip_prod_image" ]
+      }
+    }
+  }
+}
+
+group("sys_prod_image") {
+  deps = []
+  if (is_standard_system) {
+    deps += [
+      "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+      "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+    ]
+  }
+  foreach(_platform, target_platform_list) {
+    deps += [ ":${_platform}_sys_prod_image" ]
+  }
+}
+
+group("system_image") {
+  deps = []
+  if (is_standard_system) {
+    deps += [
+      "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+      "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+    ]
+  }
+  foreach(_platform, target_platform_list) {
+    deps += [ ":${_platform}_system_image" ]
+  }
+}
+
+group("userdata_image") {
+  deps = []
+  if (is_standard_system) {
+    deps += [
+      "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+      "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+    ]
+  }
+  foreach(_platform, target_platform_list) {
+    deps += [ ":${_platform}_userdata_image" ]
+  }
+}
+
+group("vendor_image") {
+  deps = []
+  if (is_standard_system) {
+    deps += [
+      "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+      "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+    ]
+  }
+  foreach(_platform, target_platform_list) {
+    deps += [ ":${_platform}_vendor_image" ]
+  }
+}
+
+group("ramdisk_image") {
+  deps = []
+  if (is_standard_system) {
+    deps += [
+      "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+      "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+    ]
+  }
+  foreach(_platform, target_platform_list) {
+    if (enable_ramdisk) {
+      deps += [ ":${_platform}_ramdisk_image" ]
+    }
+  }
+}
+
+group("updater_ramdisk_image") {
+  deps = []
+  if (is_standard_system) {
+    deps += [
+      "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+      "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+    ]
+  }
+  foreach(_platform, target_platform_list) {
+    deps += [ ":${_platform}_updater_ramdisk_image" ]
+  }
+}
+
+group("updater_image") {
+  deps = []
+  if (is_standard_system) {
+    deps += [
+      "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+      "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+    ]
+  }
+  foreach(_platform, target_platform_list) {
+    deps += [ ":${_platform}_updater_ramdisk_image" ]
+  }
+}
+
+if (host_cpu == "arm64") {
+  build_image_tools_path = [
+    "//out/${device_name}/clang_arm64/thirdparty/e2fsprogs",
+    "//out/${device_name}/clang_arm64/thirdparty/f2fs-tools",
+  ]
+} else {
+  build_image_tools_path = [
+    "//out/${device_name}/clang_x64/thirdparty/e2fsprogs",
+    "//out/${device_name}/clang_x64/thirdparty/f2fs-tools",
+  ]
+}
+
+build_image_tools_path += [
+  "//third_party/e2fsprogs/prebuilt/host/bin",
+  "//build/ohos/images/mkimage",
+]
+
+base_dir = "//build/ohos/images/mkimage"
+
+foreach(_platform, target_platform_list) {
+  current_platform = _platform
+  current_platform_dir = "${product_output_dir}/$current_platform"
+
+  system_module_info_list = "${current_platform_dir}/system_module_info.json"
+  system_modules_list = "${current_platform_dir}/system_modules_list.txt"
+
+  image_list = [
+    "system",
+    "vendor",
+    "userdata",
+    "sys_prod",
+    "chip_prod",
+    "updater_ramdisk",
+    "eng_system",
+    "eng_chipset",
+  ]
+  if (enable_ramdisk) {
+    image_list += [ "ramdisk" ]
+  }
+  if (enable_adlt) {
+    action("execute_adlt") {
+      if (target_cpu == "arm64" || target_cpu == "x86_64") {
+        module_type = "lib64"
+      } else if (target_cpu == "arm" || target_cpu == "x86") {
+        module_type = "lib"
+      } else {
+        assert(false, "Unsupported target_cpu: $target_cpu")
+      }
+      script = "//build/ohos/images/adlt_wrapper.py"
+      args = [
+        "--allowed-lib-list",
+        rebase_path(allowed_lib_list),
+        "--output-file",
+        rebase_path(
+            "${current_platform_dir}/system/${module_type}/${adlt_lib_name}"),
+        "--adlt-exe",
+        rebase_path(adlt_exe),
+        "--adlt-root-dir",
+        rebase_path("${current_platform_dir}"),
+      ]
+      deps = [ "//build/ohos/packages:${_platform}_install_modules" ]
+      inputs = [
+        allowed_lib_list,
+        adlt_exe,
+      ]
+      outputs =
+          [ "${current_platform_dir}/system/${module_type}/${adlt_lib_name}" ]
+    }
+  }
+
+  foreach(_image_name, image_list) {
+    action_with_pydeps("${_platform}_${_image_name}_image") {
+      script = "//build/ohos/images/build_image.py"
+      depfile = "$target_gen_dir/$target_name.d"
+      deps = [ "//build/ohos/packages:${_platform}_install_modules" ]
+      if (enable_adlt && _image_name == "system") {
+        deps += [ ":execute_adlt" ]
+      }
+      if (!asan_detector) {
+        deps += [ "//build/ohos/packages:process_field_validate" ]
+        if (build_seccomp) {
+          deps += [ "//build/ohos/packages:check_seccomp_filter_name" ]
+        }
+      }
+
+      base_path = base_dir
+      if (is_debug) {
+        base_path = "${base_dir}/debug"
+      }
+      image_config_file = "${base_path}/${_image_name}_image_conf.txt"
+      if (asan_detector) {
+        image_config_file_asan =
+            "${base_path}/asan/${_image_name}_image_conf.txt"
+
+        # Check if asan image file exists
+        _file_exists_script = "//build/ohos/file_exists.py"
+        _process_args = [
+          "--filename",
+          rebase_path(image_config_file_asan, root_build_dir),
+        ]
+        _result = exec_script(_file_exists_script, _process_args, "string")
+        if (_result == "True") {
+          image_config_file = image_config_file_asan
+        }
+      }
+      device_image_config_file =
+          "${product_output_dir}/imagesconf/${_image_name}_image_conf.txt"
+      if (_image_name == "ramdisk" || _image_name == "updater_ramdisk") {
+        output_image_file = "$root_build_dir/${_image_name}.img"
+      } else {
+        output_image_file = "$current_platform_dir/images/${_image_name}.img"
+      }
+      if (_image_name == "updater_ramdisk") {
+        image_input_path = "$current_platform_dir/updater"
+      } else {
+        image_input_path = "$current_platform_dir/${_image_name}"
+      }
+      if (_image_name == "userdata") {
+        image_input_path = "$current_platform_dir/data"
+      }
+
+      sources = [
+        image_config_file,
+        system_module_info_list,
+        system_modules_list,
+      ]
+      outputs = [ output_image_file ]
+      args = [
+        "--depfile",
+        rebase_path(depfile, root_build_dir),
+        "--image-name",
+        _image_name,
+        "--input-path",
+        rebase_path(image_input_path, root_build_dir),
+        "--image-config-file",
+        rebase_path(image_config_file, root_build_dir),
+        "--device-image-config-file",
+        rebase_path(device_image_config_file, root_build_dir),
+        "--output-image",
+        rebase_path(output_image_file, root_build_dir),
+        "--target-cpu",
+        target_cpu,
+        "--build-variant",
+        build_variant,
+        "--build-image-tools-path",
+      ]
+      args += rebase_path(build_image_tools_path, root_build_dir)
+      if (sparse_image) {
+        args += [ "--sparse-image" ]
+      }
+    }
+  }
+
+  # Used to generate chip_prod images of different products
+  foreach(_product, chip_product_list) {
+    _image_name = "chip_prod"
+    action_with_pydeps("${_platform}_${_product}_chip_prod_image") {
+      script = "//build/ohos/images/build_image.py"
+      depfile = "$target_gen_dir/$target_name.d"
+      deps = [ "//build/ohos/packages:${_platform}_install_modules" ]
+
+      image_config_file = "${base_dir}/${_image_name}_image_conf.txt"
+      device_image_config_file =
+          "${product_output_dir}/imagesconf/${_image_name}_image_conf.txt"
+      image_input_path = "${current_platform_dir}/${_image_name}/${_product}"
+      output_image_file =
+          "${current_platform_dir}/images/${_product}/${_image_name}.img"
+
+      sources = [
+        image_config_file,
+        system_module_info_list,
+        system_modules_list,
+      ]
+      outputs = [ output_image_file ]
+
+      args = [
+        "--depfile",
+        rebase_path(depfile, root_build_dir),
+        "--image-name",
+        _image_name,
+        "--input-path",
+        rebase_path(image_input_path, root_build_dir),
+        "--image-config-file",
+        rebase_path(image_config_file, root_build_dir),
+        "--device-image-config-file",
+        rebase_path(device_image_config_file, root_build_dir),
+        "--output-image",
+        rebase_path(output_image_file, root_build_dir),
+        "--target-cpu",
+        target_cpu,
+        "--build-image-tools-path",
+      ]
+      args += rebase_path(build_image_tools_path, root_build_dir)
+      if (sparse_image) {
+        args += [ "--sparse-image" ]
+      }
+    }
+  }
+
+  action("mk_chip_ckm_img") {
+    script = "//build/ohos/images/mkimage/mkchip_ckm.py"
+    device_name = "packages/phone/images/chip_ckm.img"
+
+    if (host_cpu == "arm64") {
+      build_image_tool_path = [
+        "$root_build_dir/clang_arm64/thirdparty/f2fs-tools",
+        "$root_build_dir/clang_arm64/thirdparty/e2fsprogs",
+      ]
+    } else {
+      build_image_tool_path = [
+        "$root_build_dir/clang_x64/thirdparty/f2fs-tools",
+        "$root_build_dir/clang_x64/thirdparty/e2fsprogs",
+      ]
+    }
+    build_image_tool_path += [ "//third_party/e2fsprogs/prebuilt/host/bin" ]
+
+    config_file_path = "//build/ohos/images/mkimage/chip_ckm.txt"
+    mkextimage_tools_path = "//build/ohos/images/mkimage/mkextimage.py"
+
+    src_dir = "packages/phone/chip_ckm"
+    args = [
+      "--src-dir",
+      src_dir,
+      "--device-name",
+      device_name,
+      "--config-file-path",
+      rebase_path(config_file_path, root_build_dir),
+      "--mkextimage-tools-path",
+      rebase_path(mkextimage_tools_path, root_build_dir),
+      "--build-image-tools-path",
+    ]
+    args += rebase_path(build_image_tool_path, root_build_dir)
+    if (is_standard_system) {
+      deps = [
+        "//base/security/selinux_adapter:build_contexts",
+        "//kernel/linux/common_modules:ko_build",
+        "//third_party/e2fsprogs:e2fsprogs_host_toolchain",
+        "//third_party/f2fs-tools:f2fs-tools_host_toolchain",
+      ]
+    }
+    outputs = [ "$root_out_dir/packages/phone/images/chip_ckm.img" ]
+  }
+}

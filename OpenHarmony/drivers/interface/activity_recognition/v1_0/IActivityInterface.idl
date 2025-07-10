@@ -1,0 +1,177 @@
+/*
+ * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @addtogroup HdiActivityRecognition
+ * @{
+ *
+ * @brief Provides APIs for subscribing to and obtaining user activities.
+ *
+ * The Multimodal Sensor Data Platform (MSDP) can obtain the object or proxy of the activity recognition driver,
+ * and call the APIs provided by the object or proxy to obtain activities supported by the device,
+ * the current activity event of the device, and activity events cached on the device,
+ * and subscribe to or unsubscribe from activity events.
+ *
+ * @since 3.2
+ * @version 1.0
+ */
+
+/**
+ * @file IActivityInterface.idl
+ *
+ * @brief Declares the APIs provided by the activity recognition module. These APIs can be used to obtain the activities
+ * supported by the device, the current activity event of the device, and the activity events cached on the device,
+ * and subscribe to or unsubscribe from activity events.
+ * 
+ * @since 3.2
+ * @version 1.0
+ */
+
+/**
+ * @brief Defines the package path of the activity recognition module APIs.
+ *
+ * @since 3.2
+ */
+package ohos.hdi.activity_recognition.v1_0;
+
+import ohos.hdi.activity_recognition.v1_0.ActivityRecognitionTypes;
+import ohos.hdi.activity_recognition.v1_0.IActivityChangedCallback;
+
+/**
+ * @brief Defines the APIs for performing basic operations of activity recognition.
+ *
+ * The APIs can be used to register or unregister a callback, obtain the activities supported by the device,
+ * the current activity event of the device, the activity events cached on the device,
+ * and subscribe to and unsubscribe from activity events.
+ */
+interface IActivityInterface {
+    /**
+     * @brief Registers a callback.
+     *
+     * Before obtaining the current activity event or the activity events cached on the device, 
+     * you must register this callback so that data can be reported through it.
+     *
+     * @param callbackObj Indicates the callback to register, which needs to be registered only once. 
+     * For details, see {@link IActivityChangedCallback}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 3.2
+     * @version 1.0
+     */
+    RegisterActRecognitionCallback([in] IActivityChangedCallback callbackObj);
+
+    /**
+     * @brief Unregisters a callback.
+     *
+     * If activity recognition is not required or another callback needs to be used, you must unregister the current callback.
+     *
+     * @param callbackObj Indicates the callback to unregister, which needs to be unregistered only once. 
+     * For details, see {@link IActivityChangedCallback}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 3.2
+     * @version 1.0
+     */
+    UnregisterActRecognitionCallback([in] IActivityChangedCallback callbackObj);
+
+    /**
+     * @brief Obtains the activities supported by the device.
+     *
+     * @param activity Indicates the activities supported. The value is a string
+     * and can be "inVehicle", "onBicycle", "walking", "running", "still", "fast_walking", "high_speed_rail",
+     * "unknown", "elevator", "relative_still", "walking_handhold", "lying_posture", "plane", "metro", and more.
+     * For details, see {@link ActRecognitionEventType}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 3.2
+     * @version 1.0
+     */
+    GetSupportActivity([out] String[] activity);
+
+    /**
+     * @brief Obtains the current activity events of the device.
+     *
+     * Before calling this API, you must use {@link EnableActRecognitionEvent} to subscribe to an activity event.
+     *
+     * @param event Indicates the current activity events. For details, see {@link ActRecognitionEvent}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 3.2
+     * @version 1.0
+     */
+    GetCurrentActivity([out] struct ActRecognitionEvent[] event);
+
+    /**
+     * @brief Subscribe to an activity event.
+     *
+     * If the subscribed activity event occurs, the activity event is reported within a specified period.
+     *
+     * @param activity Indicates the activity. You can call {@link GetSupportActivity} to obtain all activities supported by
+     * the device, and pass the subscript of the desired activity through this API.
+     * @param eventType Indicates the event type. For details, see {@link ActRecognitionEventType}. You can fill in
+     * <b>1</b> (entering the activity), <b>2</b> (exiting the activity), or <b>3</b> (entering and exiting the activity).
+     * @param maxReportLatencyNs Indicates the maximum report interval, in nanoseconds. If the subscribed activity event 
+     * occurs within the interval, the event is reported. If multiple intervals are set in subscriptions,
+     * the minimum interval is used.
+     * @param powerMode Indicates the power consumption mode. For details, see {@link ActRecognitionPowerMode}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 3.2
+     * @version 1.0
+     */
+    EnableActRecognitionEvent([in] int activity, [in] int eventType, [in] long maxReportLatencyNs, [in] int powerMode);
+
+    /**
+     * @brief Unsubscribes from an activity event.
+     *
+     * 
+     *
+     * @param activity Indicates the activity. For details, see the <b>activity</b> parameter
+     * in {@link EnableActRecognitionEvent}.
+     * @param eventType Indicates the event type. For details, see {@link ActRecognitionEventType}. You can fill in
+     * <b>1</b> (entering the activity), <b>2</b> (exiting the activity), or <b>3</b> (entering and exiting the activity).
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 3.2
+     * @version 1.0
+     */
+    DisableActRecognitionEvent([in] int activity, [in] int eventType);
+	
+    /**
+     * @brief Flushes all the activity events cached on the device and reports them.
+     *
+     * 
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 3.2
+     * @version 1.0
+     */
+    FlushActivity();
+}
+/** @} */

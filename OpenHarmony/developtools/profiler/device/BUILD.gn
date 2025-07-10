@@ -1,0 +1,117 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("base/config.gni")
+group("hiprofiler_targets") {
+  if (!is_emulator) {
+    deps = [
+      "cmds:hiprofiler_cmd",
+      "plugins/api:hiprofiler_plugins",
+      "plugins/cpu_plugin:cpudataplugin",
+      "plugins/diskio_plugin:diskiodataplugin",
+      "plugins/ffrt_profiler/client:libffrt_profiler",
+      "plugins/ftrace_plugin:ftrace_targets",
+      "plugins/gpu_plugin:gpudataplugin",
+      "plugins/hidump_plugin:hidumpplugin",
+      "plugins/hilog_plugin:hilogplugin",
+      "plugins/hiperf_plugin:hiperfplugin",
+      "plugins/hisysevent_plugin:hisyseventplugin",
+      "plugins/memory_plugin:memdataplugin",
+      "plugins/native_hook:malloctest_cpp",
+      "plugins/native_hook:nativetest_c",
+      "plugins/native_hook:nativetest_cpp",
+      "plugins/native_hook:nativetest_so",
+      "plugins/native_hook:statisticstest_cpp",
+      "plugins/network_plugin:networkplugin",
+      "plugins/process_plugin:processplugin",
+      "plugins/sample_plugin:sampleplugin",
+      "plugins/xpower_plugin:xpowerplugin",
+      "services/profiler_service:hiprofilerd",
+      "services/shared_memory:shared_memory",
+    ]
+    if (build_variant == "root") {
+      deps += [ "plugins/stream_plugin:streamplugin" ]
+    }
+    if (target_cpu == "arm64" && build_variant == "root") {
+      deps += [ "plugins/hiebpf_plugin:ebpf_targets" ]
+    }
+    if (is_ohos && use_musl && !is_asan) {
+      deps += [
+        "plugins/native_daemon:native_daemon",
+        "plugins/native_daemon:native_daemon_client",
+        "plugins/native_hook:native_hook",
+        "plugins/native_hook:perf_test_data",
+      ]
+    }
+  }
+}
+
+group("unittest") {
+  testonly = true
+  deps = [
+    "base/test:unittest",
+    "cmds/test:unittest",
+    "plugins/api/test:unittest",
+    "plugins/cpu_plugin/test:unittest",
+    "plugins/diskio_plugin/test:unittest",
+    "plugins/ffrt_profiler/test:unittest",
+    "plugins/ftrace_plugin/test:unittest",
+    "plugins/gpu_plugin/test:unittest",
+    "plugins/hidump_plugin/test:unittest",
+    "plugins/hilog_plugin/test:unittest",
+    "plugins/hiperf_plugin/test:unittest",
+    "plugins/hisysevent_plugin/test:unittest",
+    "plugins/memory_plugin/test:unittest",
+    "plugins/network_plugin/test:unittest",
+    "plugins/network_profiler/test:unittest",
+    "plugins/process_plugin/test:unittest",
+    "plugins/xpower_plugin/test:unittest",
+    "services/ipc/test:unittest",
+    "services/plugin_service/test:unittest",
+    "services/profiler_service/test:unittest",
+    "services/shared_memory/test:unittest",
+  ]
+  if (is_ohos && use_musl && !is_asan) {
+    deps += [
+      "plugins/native_daemon/native_memory_profiler_sa/test:unittest",
+      "plugins/native_daemon/test:unittest",
+      "plugins/native_hook/test:unittest",
+    ]
+  }
+}
+
+group("fuzztest") {
+  testonly = true
+  deps = [
+    "plugins/api/test/fuzztest/plugincreatesessioncmd_fuzzer:fuzztest",
+    "plugins/api/test/fuzztest/plugindestroysessioncmd_fuzzer:fuzztest",
+    "plugins/api/test/fuzztest/pluginstartsessioncmd_fuzzer:fuzztest",
+    "plugins/api/test/fuzztest/pluginstopsessioncmd_fuzzer:fuzztest",
+    "plugins/cpu_plugin/test/fuzztest/cpustartplugin_fuzzer:fuzztest",
+    "plugins/diskio_plugin/test/fuzztest/diskiostartplugin_fuzzer:fuzztest",
+    "plugins/hidump_plugin/test/fuzztest/hidumpstartplugin_fuzzer:fuzztest",
+    "plugins/hilog_plugin/test/fuzztest/hilogstartplugin_fuzzer:fuzztest",
+    "plugins/hiperf_plugin/test/fuzztest/hiperfstartplugin_fuzzer:fuzztest",
+    "plugins/memory_plugin/test/fuzztest/memorystartplugin_fuzzer:fuzztest",
+    "plugins/native_daemon/native_memory_profiler_sa/test/fuzztest/nativedaemonsa_fuzzer:fuzztest",
+    "plugins/network_plugin/test/fuzztest/networkstartplugin_fuzzer:fuzztest",
+    "services/profiler_service/test/fuzztest/profilercreatesession_fuzzer:fuzztest",
+    "services/profiler_service/test/fuzztest/profilerdestroysession_fuzzer:fuzztest",
+    "services/profiler_service/test/fuzztest/profilerfetchdata_fuzzer:fuzztest",
+    "services/profiler_service/test/fuzztest/profilergetcapabilities_fuzzer:fuzztest",
+    "services/profiler_service/test/fuzztest/profilerkeepsession_fuzzer:fuzztest",
+    "services/profiler_service/test/fuzztest/profilerstartsession_fuzzer:fuzztest",
+    "services/profiler_service/test/fuzztest/profilerstopsession_fuzzer:fuzztest",
+  ]
+}

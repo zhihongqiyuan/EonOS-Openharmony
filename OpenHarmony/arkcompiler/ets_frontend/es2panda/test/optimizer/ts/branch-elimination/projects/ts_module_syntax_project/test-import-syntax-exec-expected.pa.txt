@@ -1,0 +1,364 @@
+slotNum = 0x0
+.language ECMAScript
+.function any &myapp/test-export-default-const&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldai 0x1
+	stmodulevar 0x0
+	ldai 0x64
+	stmodulevar 0x1
+	returnundefined
+label_2: 
+}
+
+
+slotNum = 0x0
+.language ECMAScript
+.function any &myapp/test-export-default-let&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldai 0x1
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+slotNum = 0x0
+.language ECMAScript
+.function any &myapp/test-export-default-value&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldai 0x1
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+slotNum = 0x0
+.language ECMAScript
+.function any &myapp/test-export-syntax&.#*#f1(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any &myapp/test-export-syntax&.#~C1=#C1(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x9
+.language ECMAScript
+.function any &myapp/test-export-syntax&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, &myapp/test-export-syntax&.#*#f1, 0x0
+	stmodulevar 0x2
+	ldundefined
+	stmodulevar 0x6
+	getmodulenamespace 0x0
+	stmodulevar 0x0
+	ldai 0x1
+	stmodulevar 0x3
+	ldai 0x2
+	stmodulevar 0x4
+	ldai 0x3
+	stmodulevar 0x5
+	ldai 0x4
+	stmodulevar 0x6
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1, &myapp/test-export-syntax&.#~C1=#C1, &myapp/test-export-syntax&_2, 0x0, v0
+	sta v0
+	ldobjbyname 0x2, prototype
+	lda v0
+	stmodulevar 0x1
+	createobjectwithbuffer 0x4, &myapp/test-export-syntax&_3
+	sta v0
+	ldobjbyname 0x5, v5
+	stmodulevar 0x7
+	lda v0
+	ldobjbyname 0x7, v6
+	stmodulevar 0x8
+	ldai 0x7
+	stmodulevar 0x9
+	ldai 0x8
+	stmodulevar 0xa
+	returnundefined
+label_2: 
+}
+
+
+slotNum = 0x2f
+.language ECMAScript
+.function any &myapp/test-import-syntax-exec&.func_main_0(any a0, any a1, any a2) {
+label_29: 
+label_0: 
+	ldai 0x1
+	sta v0
+	getmodulenamespace 0x3
+	ldobjbyname 0x0, v1
+	ldexternalmodulevar 0x7
+	throw.undefinedifholewithname v4
+	ldexternalmodulevar 0x8
+	throw.undefinedifholewithname v5
+	ldexternalmodulevar 0xa
+	throw.undefinedifholewithname v7
+	ldexternalmodulevar 0xb
+	throw.undefinedifholewithname v8
+	ldexternalmodulevar 0x2
+	sta v1
+	throw.undefinedifholewithname v1
+	lda v0
+	strictnoteq 0xf, v1
+	jeqz label_13
+label_14: 
+	tryldglobalbyname 0x10, print
+	sta v1
+	lda.str good1
+	sta v2
+	lda v1
+	callarg1 0x11, v2
+label_13: 
+	ldexternalmodulevar 0x5
+	sta v1
+	throw.undefinedifholewithname v2
+	lda v0
+	strictnoteq 0x13, v1
+	jeqz label_15
+label_16: 
+	tryldglobalbyname 0x14, print
+	sta v1
+	lda.str good2
+	sta v2
+	lda v1
+	callarg1 0x15, v2
+label_15: 
+	ldexternalmodulevar 0x6
+	sta v1
+	throw.undefinedifholewithname v3
+	ldai 0x2
+	strictnoteq 0x17, v1
+	jeqz label_17
+label_18: 
+	tryldglobalbyname 0x18, print
+	sta v1
+	lda.str good3
+	sta v2
+	lda v1
+	callarg1 0x19, v2
+label_17: 
+	ldexternalmodulevar 0x9
+	sta v1
+	throw.undefinedifholewithname v6
+	ldai 0x6
+	strictnoteq 0x1b, v1
+	jeqz label_19
+label_20: 
+	tryldglobalbyname 0x1c, print
+	sta v1
+	lda.str good4
+	sta v2
+	lda v1
+	callarg1 0x1d, v2
+label_19: 
+	ldexternalmodulevar 0xc
+	sta v1
+	throw.undefinedifholewithname v9
+	ldai 0x64
+	strictnoteq 0x1f, v1
+	jeqz label_21
+label_22: 
+	tryldglobalbyname 0x20, print
+	sta v1
+	lda.str good5
+	sta v2
+	lda v1
+	callarg1 0x21, v2
+label_21: 
+	ldexternalmodulevar 0x3
+	sta v1
+	throw.undefinedifholewithname v10
+	lda v0
+	strictnoteq 0x23, v1
+	jeqz label_23
+label_24: 
+	tryldglobalbyname 0x24, print
+	sta v1
+	lda.str good6
+	sta v2
+	lda v1
+	callarg1 0x25, v2
+label_23: 
+	ldexternalmodulevar 0x4
+	sta v1
+	throw.undefinedifholewithname v11
+	lda v0
+	strictnoteq 0x27, v1
+	jeqz label_25
+label_26: 
+	tryldglobalbyname 0x28, print
+	sta v1
+	lda.str good7
+	sta v2
+	lda v1
+	callarg1 0x29, v2
+label_25: 
+	ldexternalmodulevar 0x1
+	sta v1
+	throw.undefinedifholewithname v0099
+	lda v0
+	strictnoteq 0x2b, v1
+	jeqz label_27
+label_28: 
+	tryldglobalbyname 0x2c, print
+	sta v0
+	lda.str good8
+	sta v1
+	lda v0
+	callarg1 0x2d, v1
+label_27: 
+	returnundefined
+label_30: 
+}
+
+
+slotNum = 0x13
+.language ECMAScript
+.function any &myapp/test-local-export&.#*#foo(any a0, any a1, any a2) {
+label_10: 
+label_1: 
+	ldlocalmodulevar 0x1
+	sta v0
+	throw.undefinedifholewithname b
+	ldai 0x2
+	greater 0x4, v0
+	jeqz label_3
+label_4: 
+	tryldglobalbyname 0x5, print
+	sta v0
+	lda.str good1
+	sta v1
+	lda v0
+	callarg1 0x6, v1
+	jmp label_8
+label_3: 
+	tryldglobalbyname 0x8, print
+	sta v0
+	lda.str good2
+	sta v1
+	lda v0
+	callarg1 0x9, v1
+label_8: 
+	returnundefined
+label_11: 
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &myapp/test-local-export&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, &myapp/test-local-export&.#*#foo, 0x0
+	ldai 0x1
+	stmodulevar 0x0
+	ldai 0x2
+	stmodulevar 0x1
+	ldai 0x3
+	stmodulevar 0x2
+	ldai 0x4
+	stmodulevar 0x3
+	returnundefined
+label_2: 
+}
+
+
+slotNum = 0x4
+.language ECMAScript
+.function any test-ts-namespace-exports.#&#ns(any a0, any a1, any a2, any a3) {
+label_1: 
+label_0: 
+	ldai 0x1
+	stobjbyname 0x0, a, a3
+	ldai 0x2
+	stobjbyname 0x2, b, a3
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x14
+.language ECMAScript
+.function any test-ts-namespace-exports.#*#foo(any a0, any a1, any a2) {
+label_9: 
+label_0: 
+	ldlexvar 0x0, 0x0
+	ldobjbyname 0x0, a
+	sta v0
+	ldai 0x1
+	strictnoteq 0x2, v0
+	jeqz label_1
+label_2: 
+	tryldglobalbyname 0x3, print
+	sta v0
+	lda.str good1
+	sta v1
+	lda v0
+	callarg1 0x4, v1
+label_1: 
+	ldlexvar 0x0, 0x0
+	ldobjbyname 0x6, b
+	sta v0
+	ldai 0x2
+	strictnoteq 0x8, v0
+	jeqz label_7
+label_4: 
+	tryldglobalbyname 0x9, print
+	sta v0
+	lda.str good2
+	sta v1
+	lda v0
+	callarg1 0xa, v1
+label_7: 
+	returnundefined
+label_10: 
+}
+
+slotNum = 0x5
+.language ECMAScript
+.function any test-ts-namespace-exports.func_main_0(any a0, any a1, any a2) {
+label_4: 
+label_0: 
+	newlexenv 0x1
+	definefunc 0x0, test-ts-namespace-exports.#*#foo, 0x0
+	ldundefined
+	stlexvar 0x0, 0x0
+	definefunc 0x1, test-ts-namespace-exports.#&#ns, 0x1
+	sta v0
+	ldlexvar 0x0, 0x0
+	sta v1
+	callruntime.istrue 0x2
+	jnez label_3
+label_2: 
+	createemptyobject
+	sta v1
+	stlexvar 0x0, 0x0
+label_3: 
+	lda v0
+	callarg1 0x3, v1
+	ldai 0x1
+	stmodulevar 0x0
+	ldai 0x2
+	stmodulevar 0x1
+	returnundefined
+label_5: 
+}
+
+

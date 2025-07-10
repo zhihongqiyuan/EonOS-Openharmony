@@ -1,0 +1,57 @@
+{
+    "name": "@ohos/timezone",
+    "version": "1.0.0",
+    "description": "Provides tools for timezone data management and update.",
+    "homePage": "https://gitee.com/openharmony/",
+    "license": "Apache V2",
+    "repository": "https://gitee.com/openharmony/global_timezone",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "global"
+    ],
+    "keywords": [
+        "timezone"
+    ],
+    "envs": [],
+    "dirs": [],
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [
+        {
+            "name": "",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "segment": {
+        "destPath": "base/global/timezone"
+    },
+    "component": {
+        "name": "timezone",
+        "subsystem": "global",
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//base/global/timezone/data:icu_tzdata"
+            ],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

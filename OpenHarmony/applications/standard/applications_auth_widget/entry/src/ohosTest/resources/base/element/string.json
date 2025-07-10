@@ -1,0 +1,204 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "AuthWidget"
+    },
+    {
+      "name": "unified_authwidget_forgotpwd",
+      "value": "Forgot password"
+    },
+    {
+      "name": "unified_authwidget_locked",
+      "value": "Locked"
+    },
+    {
+      "name": "unified_authwidget_confirm",
+      "value": "OK"
+    },
+    {
+      "name": "unified_authwidget_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "unified_authwidget_delete",
+      "value": "Delete"
+    },
+    {
+      "name": "unified_authwidget_back",
+      "value": "Back"
+    },
+    {
+      "name": "unified_authwidget_usepwd",
+      "value": "Use password"
+    },
+    {
+      "name": "unified_authwidget_hint_pwd_error",
+      "value": "Incorrect password"
+    },
+    {
+      "name": "fingerprint_matching_failed",
+      "value": "Fingerprint matching failed"
+    },
+    {
+      "name": "unified_authwidget_hint_inscreen_fp",
+      "value": "Press the fingerprint sensor to verify your fingerprint."
+    },
+    {
+      "name": "unified_authwidget_hint_normal_fp_only",
+      "value": "Press the fingerprint sensor to verify your fingerprint."
+    },
+    {
+      "name": "unified_authwidget_hint_fp_verify_success",
+      "value": "Verification successful."
+    },
+    {
+      "name": "unified_authwidget_hint_fp_retry_s1",
+      "value": "Fingerprint not recognized. Make sure your finger and the sensor are clean."
+    },
+    {
+      "name": "unified_authwidget_title_fp_forbidden_enter_pwd",
+      "value": "Fingerprint ID disabled. Enter your password."
+    },
+    {
+      "name": "unified_authwidget_title_fp_forbidden_enter_pin",
+      "value": "Fingerprint ID disabled. Enter your PIN."
+    },
+    {
+      "name": "unified_authwidget_title_fp_forbidden_use_face_pattern",
+      "value": "Fingerprint ID disabled. Use Face Recognition or your pattern."
+    },
+    {
+      "name": "unified_authwidget_title_fp_forbidden_use_face_pwd",
+      "value": "Fingerprint ID disabled. Use Face Recognition or your password."
+    },
+    {
+      "name": "unified_authwidget_title_fp_forbidden_use_face_pin",
+      "value": "Fingerprint ID disabled. Use Face Recognition or your PIN."
+    },
+    {
+      "name": "unified_authwidget_hint_recognizing",
+      "value": "Scanning"
+    },
+    {
+      "name": "unified_authwidget_hint_recognize_success",
+      "value": "Verification successful."
+    },
+    {
+      "name": "unified_authwidget_hint_face_verify_fail_click_retry_s1",
+      "value": "Face not recognized. Touch here to try again."
+    },
+    {
+      "name": "unified_authwidget_hint_face_verify_fail_click_retry_s2",
+      "value": "Face not recognized. Double-tap to try again."
+    },
+    {
+      "name": "unified_authwidget_title_face_forbidden_use_pwd",
+      "value": "Face Recognition disabled. Enter your password."
+    },
+    {
+      "name": "unified_authwidget_title_face_forbidden_use_pin",
+      "value": "Face Recognition disabled. Enter your PIN."
+    },
+    {
+      "name": "unified_authwidget_title_face_forbidden_use_fp_pwd",
+      "value": "Face Recognition disabled. Use your fingerprint or password."
+    },
+    {
+      "name": "unified_authwidget_title_face_fp_forbidden_use_pwd",
+      "value": "Face Recognition and Fingerprint ID disabled. Enter your password."
+    },
+    {
+      "name": "unified_authwidget_title_face_fp_forbidden_use_pin",
+      "value": "Face Recognition and Fingerprint ID disabled. Enter your PIN."
+    },
+    {
+      "name": "unified_authwidget_title_face_fp_forbidden_use_pattern",
+      "value": "Face Recognition and Fingerprint ID disabled. Draw your pattern."
+    },
+    {
+      "name": "unified_authwidget_hint_pin_error",
+      "value": "Incorrect PIN"
+    },
+    {
+      "name": "unified_authwidget_use_pwd",
+      "value": "Enter password"
+    },
+    {
+      "name": "unified_authwidget_title_face_forbidden",
+      "value": "Face Recognition disabled."
+    },
+    {
+      "name": "unified_authwidget_hint_fp_retry_s2",
+      "value": "Fingerprint not recognized. Press down a little longer."
+    },
+    {
+      "name": "unified_authwidget_title_fp_forbidden",
+      "value": "Fingerprint ID disabled."
+    },
+    {
+      "name": "unified_authwidget_hint_recognition",
+      "value": "Face Scanning"
+    },
+    {
+      "name": "unified_authwidget_title_number_failed_fp_forbidden",
+      "value": "Excessive failure, fingerprint is disabled"
+    },
+    {
+      "name": "unified_authwidget_tip_verify_in_portrait_mode",
+      "value": "Verify in portrait mode"
+    },
+    {
+      "name": "unified_authwidget_pwd_error_can_try_frequency",
+      "value": "Password error, can still try %d frequency"
+    },
+    {
+      "name": "unified_authwidget_pwd_error_can_try",
+      "value": "Password error, can still try "
+    },
+    {
+      "name": "unified_authwidget_frequency",
+      "value": " frequency"
+    },
+    {
+      "name": "unified_authwidget_many_failures",
+      "value": "Too many failures, please "
+    },
+    {
+      "name": "unified_authwidget_pleaseretry",
+      "value": "Please"
+    },
+    {
+      "name": "unified_authwidget_postretry",
+      "value": "retry"
+    },
+    {
+      "name": "unified_authwidget_hour",
+      "value": "hour"
+    },
+    {
+      "name": "unified_authwidget_minutes",
+      "value": "minutes "
+    },
+    {
+      "name": "unified_authwidget_seconds",
+      "value": "seconds "
+    },
+    {
+      "name": "unified_authwidget_notarize",
+      "value": "OK"
+    },
+    {
+      "name": "unified_authwidget_title_number_failed_face_forbidden",
+      "value": "Excessive failure, face is disabled"
+    }
+  ]
+}

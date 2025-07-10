@@ -1,0 +1,127 @@
+# Copyright (c) 2022-2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/security/certificate_manager/cert_manager.gni")
+import("//build/ohos.gni")
+
+ohos_shared_library("certmanager") {
+  branch_protector_ret = "pac_ret"
+  sanitize = {
+    cfi = true
+    cfi_cross_dso = true
+    boundary_sanitize = true
+    debug = false
+    integer_overflow = true
+    ubsan = true
+  }
+
+  include_dirs = [ "include" ]
+
+  sources = [
+    "src/cm_napi.cpp",
+    "src/cm_napi_common.cpp",
+    "src/cm_napi_get_app_cert_info.cpp",
+    "src/cm_napi_get_app_cert_info_common.cpp",
+    "src/cm_napi_get_app_cert_list.cpp",
+    "src/cm_napi_get_app_cert_list_common.cpp",
+    "src/cm_napi_get_cert_store_path.cpp",
+    "src/cm_napi_get_system_cert_info.cpp",
+    "src/cm_napi_get_system_cert_list.cpp",
+    "src/cm_napi_grant.cpp",
+    "src/cm_napi_install_app_cert.cpp",
+    "src/cm_napi_install_app_cert_common.cpp",
+    "src/cm_napi_set_cert_status.cpp",
+    "src/cm_napi_sign_verify.cpp",
+    "src/cm_napi_uninstall_all_app_cert.cpp",
+    "src/cm_napi_uninstall_app_cert.cpp",
+    "src/cm_napi_uninstall_app_cert_common.cpp",
+    "src/cm_napi_user_trusted_cert.cpp",
+  ]
+
+  external_deps = [
+    "bundle_framework:appexecfwk_base",
+    "bundle_framework:appexecfwk_core",
+    "c_utils:utils",
+    "ipc:ipc_core",
+    "napi:ace_napi",
+    "os_account:os_account_innerkits",
+    "samgr:samgr_proxy",
+  ]
+  cflags_cc = [
+    "-Wall",
+    "-Werror",
+  ]
+  deps = [
+    "${cert_manager_root_dir}/frameworks/cert_manager_standard/main/common:libcert_manager_common_standard_static",
+    "${cert_manager_root_dir}/interfaces/innerkits/cert_manager_standard/main:cert_manager_sdk",
+  ]
+
+  relative_install_dir = "module/security"
+  subsystem_name = "security"
+  part_name = "certificate_manager"
+}
+
+ohos_shared_library("certmanagerdialog") {
+  branch_protector_ret = "pac_ret"
+  sanitize = {
+    cfi = true
+    cfi_cross_dso = true
+    boundary_sanitize = true
+    debug = false
+    integer_overflow = true
+    ubsan = true
+  }
+
+  include_dirs = [ "include/dialog" ]
+
+  sources = [
+    "src/dialog/cm_napi_dialog.cpp",
+    "src/dialog/cm_napi_dialog_common.cpp",
+    "src/dialog/cm_napi_open_certificate_operation.cpp",
+    "src/dialog/cm_napi_open_detail_dialog.cpp",
+    "src/dialog/cm_napi_open_dialog.cpp",
+    "src/dialog/cm_napi_open_install_dialog.cpp",
+    "src/dialog/cm_napi_open_uninstall_dialog.cpp",
+    "src/dialog/cm_napi_open_authorize_dialog.cpp",
+  ]
+
+  external_deps = [
+    "ability_base:base",
+    "ability_base:want",
+    "ability_runtime:ability_context_native",
+    "ability_runtime:ability_manager",
+    "ability_runtime:abilitykit_native",
+    "ability_runtime:app_context",
+    "ability_runtime:napi_base_context",
+    "ability_runtime:napi_common",
+    "access_token:libaccesstoken_sdk",
+    "ace_engine:ace_uicontent",
+    "c_utils:utils",
+    "ipc:ipc_core",
+    "ipc:ipc_single",
+    "napi:ace_napi",
+    "samgr:samgr_proxy",
+  ]
+  cflags_cc = [
+    "-Wall",
+    "-Werror",
+  ]
+  deps = [
+    "${cert_manager_root_dir}/frameworks/cert_manager_standard/main/common:libcert_manager_common_standard_static",
+    "${cert_manager_root_dir}/interfaces/innerkits/cert_manager_standard/main:cert_manager_sdk",
+  ]
+
+  relative_install_dir = "module/security"
+  subsystem_name = "security"
+  part_name = "certificate_manager"
+}

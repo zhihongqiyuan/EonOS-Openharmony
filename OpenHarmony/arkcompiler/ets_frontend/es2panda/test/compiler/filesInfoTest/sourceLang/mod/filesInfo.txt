@@ -1,0 +1,4 @@
+ts.ts;ts;esm;mod/ts.ts;ts;false;ts
+ets.ts;ets;esm;mod/ets.ts;ets;false;ets
+js.js;js;esm;mod/js.js;js;false;js
+default.ts;default;esm;mod/default.ts;default;false;

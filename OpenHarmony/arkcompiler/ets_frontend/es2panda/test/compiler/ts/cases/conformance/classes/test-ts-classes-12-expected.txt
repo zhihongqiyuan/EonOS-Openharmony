@@ -1,0 +1,9 @@
+A_str_prop
+A_computed1
+A_s_str
+ctor_B_prop
+ctor_B_prop1
+base_prop2
+B_ctor_str_prop
+tsparam_prop
+C_computed1

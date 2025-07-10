@@ -1,0 +1,100 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//base/startup/appspawn/appspawn.gni")
+import("//build/ohos.gni")
+
+config("appspawn_config") {
+  visibility = [ "./*" ]
+  include_dirs = [
+    "${appspawn_innerkits_path}/include",
+    "${appspawn_path}/modules/module_engine/include",
+    "${appspawn_path}/util/include",
+  ]
+
+  cflags = []
+  if (build_selinux) {
+    cflags += [ "-DWITH_SELINUX" ]
+  }
+
+  if (build_seccomp) {
+    cflags += [ "-DWITH_SECCOMP" ]
+    if (appspawn_seccomp_privilege) {
+      cflags += [ "-DSECCOMP_PRIVILEGE" ]
+    }
+    if (appspawn_custom_sandbox) {
+      cflags += [ "-DCUSTOM_SANDBOX" ]
+    }
+  }
+}
+
+if (!defined(ohos_lite)) {
+  ohos_prebuilt_etc("appspawn.rc") {
+    source = "appspawn.cfg"
+    relative_install_dir = "init"
+    subsystem_name = "${subsystem_name}"
+    part_name = "${part_name}"
+  }
+
+  ohos_prebuilt_etc("nativespawn.rc") {
+    source = "nativespawn.cfg"
+    relative_install_dir = "init"
+    subsystem_name = "${subsystem_name}"
+    part_name = "${part_name}"
+  }
+
+  ohos_prebuilt_etc("cjappspawn.rc") {
+    source = "cjappspawn.cfg"
+    relative_install_dir = "init"
+    subsystem_name = "${subsystem_name}"
+    part_name = "${part_name}"
+  }
+}
+
+group("appspawn_all") {
+  deps = []
+  if (!defined(ohos_lite)) {
+    deps += [ "standard:appspawn" ]
+    deps += [ "standard:appspawn_helper" ]
+    deps += [ "standard:pid_ns_init" ]
+    deps += [ ":appspawn.rc" ]
+    deps += [ "etc:etc_files" ]
+    deps += [ "modules/ace_adapter:appspawn_ace" ]
+    deps += [ "modules/asan:appspawn_asan" ]
+    deps += [ "modules/nweb_adapter:appspawn_nweb" ]
+    deps += [ "modules/native_adapter:nativespawn" ]
+    deps += [ "modules/sandbox:appspawn_sandbox" ]
+    deps += [ "modules/common:appspawn_common" ]
+    deps += [ "modules/sysevent:event_reporter" ]
+    deps += [ "${appspawn_innerkits_path}/client:appspawn_client" ]
+    deps += [
+      "${appspawn_path}/modules/module_engine:libappspawn_module_engine",
+      "${appspawn_path}/modules/module_engine:libappspawn_stub_empty",
+    ]
+    deps += [ "service/hnp:hnp" ]
+    deps += [ "service/devicedebug:devicedebug" ]
+    if (appspawn_support_cj) {  # for support cj appspawn
+      deps += [
+        ":cjappspawn.rc",
+        "standard:cjappspawn",
+      ]
+    }
+    if (appspawn_support_native) {  # for support nativespawn
+      deps += [
+        ":nativespawn.rc",
+        "standard:nativespawn",
+      ]
+    }
+  } else {
+    deps += [ "lite:appspawn_lite" ]
+  }
+}

@@ -1,0 +1,154 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/components/ets_frontend/es2abc_config.gni")
+import("//build/ohos.gni")
+
+config("calendarmanager_public_config") {
+  include_dirs = [
+    "./common",
+    "./native/include",
+    "./napi/include",
+  ]
+  configs = [ "//build/config/compiler:exceptions" ]
+}
+
+jspath = "js/editor.js"
+
+# compile .js to .abc.
+action("gen_editor_abc") {
+  visibility = [ ":*" ]
+  script = "../../../../arkcompiler/ets_frontend/es2panda/scripts/generate_js_bytecode.py"
+
+  args = [
+    "--src-js",
+    rebase_path(jspath),
+    "--dst-file",
+    rebase_path(target_out_dir + "/editor.abc"),
+    "--frontend-tool-path",
+    rebase_path("${es2abc_build_path}"),
+    "--module",
+  ]
+  deps = [ "../../../../arkcompiler/ets_frontend/es2panda:es2panda_build" ]
+  inputs = [ jspath ]
+  outputs = [ target_out_dir + "/editor.abc" ]
+}
+
+base_output_path = get_label_info(":editor_js", "target_out_dir")
+editor_obj_path = base_output_path + "/editor.o"
+gen_js_obj("editor_js") {
+  input = jspath
+  output = editor_obj_path
+  dep = ":gen_editor_abc"
+}
+
+abc_output_path = get_label_info(":editor_abc", "target_out_dir")
+editor_abc_obj_path = abc_output_path + "/editor_abc.o"
+gen_js_obj("editor_abc") {
+  input = "$target_out_dir/editor.abc"
+  output = editor_abc_obj_path
+  dep = ":gen_editor_abc"
+}
+
+ohos_shared_library("calendarmanager") {
+  sources = [
+    "./napi/src/calendar_enum_napi.cpp",
+    "./napi/src/calendar_manager_napi.cpp",
+    "./napi/src/calendar_napi.cpp",
+    "./napi/src/event_filter_napi.cpp",
+    "./napi/src/module_init.cpp",
+    "./napi/src/module_register.cpp",
+    "./napi/src/napi_env.cpp",
+    "./napi/src/napi_queue.cpp",
+    "./napi/src/napi_util.cpp",
+    "./native/src/calendar_env.cpp",
+    "./native/src/data_share_helper_manager.cpp",
+    "./native/src/event_filter.cpp",
+    "./native/src/native_calendar.cpp",
+    "./native/src/native_calendar_manager.cpp",
+    "./native/src/native_util.cpp",
+  ]
+
+  deps = [
+    ":editor_abc",
+    ":editor_js",
+  ]
+
+  public_configs = [ ":calendarmanager_public_config" ]
+
+  external_deps = [
+    "ability_base:want",
+    "ability_base:zuri",
+    "ability_runtime:ability_context_native",
+    "ability_runtime:ability_manager",
+    "ability_runtime:abilitykit_native",
+    "ability_runtime:data_ability_helper",
+    "ability_runtime:napi_base_context",
+    "access_token:libaccesstoken_sdk",
+    "ace_engine:ace_uicontent",
+    "c_utils:utils",
+    "data_share:datashare_common",
+    "data_share:datashare_consumer",
+    "hilog:libhilog",
+    "ipc:ipc_single",
+    "napi:ace_napi",
+  ]
+
+  public_deps = []
+  relative_install_dir = "module"
+  part_name = "calendar_data"
+  subsystem_name = "applications"
+}
+
+ohos_static_library("calendarmanager_static") {
+  branch_protector_ret = "pac_ret"
+  sanitize = {
+    cfi = true
+    cfi_cross_dso = true
+    debug = false
+  }
+  sources = [
+    "./napi/src/napi_env.cpp",
+    "./native/src/calendar_env.cpp",
+    "./native/src/data_share_helper_manager.cpp",
+    "./native/src/event_filter.cpp",
+    "./native/src/native_calendar.cpp",
+    "./native/src/native_calendar_manager.cpp",
+    "./native/src/native_util.cpp",
+  ]
+
+  deps = []
+
+  public_configs = [ ":calendarmanager_public_config" ]
+
+  external_deps = [
+    "ability_base:want",
+    "ability_base:zuri",
+    "ability_runtime:ability_context_native",
+    "ability_runtime:ability_manager",
+    "ability_runtime:abilitykit_native",
+    "ability_runtime:data_ability_helper",
+    "ability_runtime:napi_base_context",
+    "access_token:libaccesstoken_sdk",
+    "c_utils:utils",
+    "data_share:datashare_common",
+    "data_share:datashare_consumer",
+    "hilog:libhilog",
+    "ipc:ipc_single",
+    "napi:ace_napi",
+  ]
+
+  public_deps = []
+  part_name = "calendar_data"
+  subsystem_name = "applications"
+}

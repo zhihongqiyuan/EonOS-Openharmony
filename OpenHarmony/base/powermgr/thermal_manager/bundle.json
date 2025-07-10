@@ -1,0 +1,112 @@
+{
+  "name": "@ohos/thermal_manager",
+  "version": "3.1",
+  "description": "热管理服务，包括运行态热管理和非运行态热管理。",
+  "homePage": "https://gitee.com/openharmony",
+  "license": "Apache License 2.0",
+  "repository": "https://gitee.com/openharmony/powermgr_thermal_manager",
+  "domain": "os",
+  "publishAs": "code-segment",
+  "scripts": {},
+  "dirs": [],
+  "segment": {
+    "destPath": "base/powermgr/thermal_manager"
+  },
+  "component": {
+    "name": "thermal_manager",
+    "subsystem": "powermgr",
+    "syscap": ["SystemCapability.PowerManager.ThermalManager"],
+    "features": [
+      "thermal_manager_audio_framework_enable"
+    ],
+    "adapted_system_type": ["standard"],
+    "hisysevent_config": [
+        "//base/powermgr/thermal_manager/thermalmgr.yaml"
+    ],
+    "rom": "1024KB",
+    "ram": "2048KB",
+    "deps": {
+      "components": [
+        "ability_base",
+        "ability_runtime",
+        "access_token",
+        "ace_engine",
+        "appspawn",
+        "audio_framework",
+        "battery_statistics",
+        "battery_manager",
+        "bundle_framework",
+        "cJSON",
+        "common_event_service",
+        "config_policy",
+        "c_utils",
+        "display_manager",
+        "drivers_interface_battery",
+        "drivers_interface_thermal",
+        "eventhandler",
+        "ffrt",
+        "hdf_core",
+        "hicollie",
+        "hisysevent",
+        "hilog",
+        "init",
+        "ipc",
+        "libxml2",
+        "image_framework",
+        "napi",
+        "netmanager_base",
+        "power_manager",
+        "safwk",
+        "samgr",
+        "selinux_adapter",
+        "soc_perf",
+        "time_service",
+        "window_manager"
+      ]
+    },
+    "build": {
+      "group_type": {
+        "fwk_group": [
+          "//base/powermgr/thermal_manager/application:thermal_application",
+          "//base/powermgr/thermal_manager/frameworks:client",
+          "//base/powermgr/thermal_manager/frameworks:thermal_napi"
+        ],
+        "service_group": [
+          "//base/powermgr/thermal_manager/test/common:mock_thermalsrv_client",
+          "//base/powermgr/thermal_manager/services:service",
+          "//base/powermgr/thermal_manager/utils/appmgr:thermal_utils_ability"
+        ]
+      },
+      "inner_api": [
+        {
+          "name": "//base/powermgr/thermal_manager/interfaces/inner_api:thermalsrv_client",
+          "header": {
+            "header_files": [
+              "ithermal_srv.h",
+              "thermal_mgr_client.h",
+              "ithermal_temp_callback.h",
+              "ithermal_level_callback.h",
+              "thermal_srv_sensor_info.h"
+            ],
+            "header_base": "//base/powermgr/thermal_manager/interfaces/inner_api/native/include"
+          }
+        },
+        {
+            "name": "//base/powermgr/thermal_manager/interfaces/inner_api:thermalmgr_listener",
+            "header": {
+              "header_files": [
+                "thermal_mgr_listener.h",
+                "thermal_level_callback_stub.h"
+              ],
+              "header_base": "//base/powermgr/thermal_manager/interfaces/inner_api/native/include"
+            }
+        }
+      ],
+      "test": [
+        "//base/powermgr/thermal_manager/test:unittest",
+        "//base/powermgr/thermal_manager/test:fuzztest",
+        "//base/powermgr/thermal_manager/test:systemtest"
+      ]
+    }
+  }
+}

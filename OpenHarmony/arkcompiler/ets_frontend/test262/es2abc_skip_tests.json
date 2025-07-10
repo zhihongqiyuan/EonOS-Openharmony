@@ -1,0 +1,129 @@
+[
+    {
+        "reason": "Async function failed testcases",
+        "files": [
+            "language/expressions/async-arrow-function/dflt-params-ref-later.js",
+            "language/expressions/async-arrow-function/dflt-params-ref-self.js",
+            "language/expressions/async-arrow-function/escaped-async-line-terminator.js",
+            "language/expressions/async-arrow-function/rest-params-trailing-comma-early-error.js",
+            "language/expressions/async-function/named-dflt-params-ref-later.js",
+            "language/expressions/async-function/named-dflt-params-ref-self.js",
+            "language/expressions/async-function/nameless-dflt-params-ref-later.js",
+            "language/expressions/async-function/nameless-dflt-params-ref-self.js",
+            "language/statements/async-function/dflt-params-ref-later.js",
+            "language/statements/async-function/dflt-params-ref-self.js"
+        ]
+    },
+    {
+        "reason": "Dynamic Import failed testcases : nesting",
+        "files": [
+            "language/expressions/dynamic-import/assignment-expression/import-meta.js"
+        ]
+    },
+    {
+        "reason": "Dynamic Import failed testcases : empty string",
+        "files": [
+        ]
+    },
+    {
+        "reason": "Dynamic Import failed testcases : lnvalid argument",
+        "files": [
+        ]
+    },
+    {
+        "reason": "Dynamic Import failed testcases : async-await is not supported",
+        "files": [
+            "language/expressions/dynamic-import/catch/nested-async-gen-return-await-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-async-gen-await-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-async-gen-await-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-async-gen-return-await-file-does-not-exist.js"
+        ]
+    },
+    {
+        "reason" : "Dynamic Import failed testcases",
+        "files": [
+            "language/expressions/dynamic-import/eval-self-once-script.js",
+            "language/expressions/dynamic-import/eval-self-once-module.js",
+            "language/expressions/dynamic-import/usage-from-eval.js"
+        ]
+    },
+    {
+        "reason" : "Dynamic Import failed testcases : cases import non-existent file and try to catch the error",
+        "files": [
+            "language/expressions/dynamic-import/catch/nested-async-function-return-await-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/top-level-import-catch-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-if-import-catch-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-arrow-import-catch-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-async-function-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-block-labeled-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-else-import-catch-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-async-function-await-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-block-import-catch-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-while-import-catch-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-function-import-catch-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-do-while-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-async-arrow-function-await-file-does-not-exist.js",
+            "language/expressions/dynamic-import/catch/nested-async-arrow-function-return-await-file-does-not-exist.js"
+        ]
+    },
+    {
+        "reason" : "Dynamic Import failed testcases : reference error",
+        "files": [
+            "language/expressions/dynamic-import/catch/nested-arrow-import-catch-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-async-arrow-function-return-await-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-async-function-await-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-async-function-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-async-function-return-await-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-block-import-catch-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-block-labeled-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-do-while-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-else-import-catch-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-function-import-catch-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-if-import-catch-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/nested-while-import-catch-eval-script-code-target.js",
+            "language/expressions/dynamic-import/catch/top-level-import-catch-eval-script-code-target.js"
+        ]
+    },
+    {
+        "reason" : "Test262Error: it returns the same namespace are the same Expected SameValue",
+        "files": [
+            "language/expressions/dynamic-import/namespace/await-ns-delete-non-exported-strict.js",
+            "language/expressions/dynamic-import/namespace/default-property-not-set-own.js",
+            "language/expressions/dynamic-import/namespace/promise-then-ns-delete-non-exported-strict.js"
+        ]
+    },
+    {
+        "reason" : "Unsupported single-line-html-close Comment",
+        "files": [
+            "annexB/language/comments/single-line-html-close-unicode-separators.js"
+        ]
+    },
+    {
+        "reason" : "Unsupported RegExp",
+        "files": [
+            "annexB/built-ins/RegExp/incomplete_hex_unicode_escape.js",
+            "annexB/built-ins/RegExp/named-groups/non-unicode-malformed-lookbehind.js",
+            "annexB/built-ins/RegExp/named-groups/non-unicode-malformed.js",
+            "built-ins/RegExp/match-indices/indices-array-unicode-property-names.js",
+            "built-ins/RegExp/prototype/Symbol.match/get-unicode-error.js",
+            "built-ins/RegExp/prototype/Symbol.replace/get-unicode-error.js"
+        ]
+    },
+    {
+        "reason" : "Unsupported SourceCode",
+        "files": [
+            "built-ins/Function/prototype/toString/unicode.js"
+        ]
+    },
+    {
+        "reason" : "parameter with default initialization of itself",
+        "files" : [
+            "language/expressions/async-generator/dflt-params-ref-later.js",
+            "language/expressions/async-generator/named-dflt-params-ref-self.js",
+            "language/expressions/async-generator/named-dflt-params-ref-later.js",
+            "language/expressions/async-generator/dflt-params-ref-self.js",
+            "language/statements/async-generator/dflt-params-ref-later.js",
+            "language/statements/async-generator/dflt-params-ref-self.js"
+        ]
+    }
+]

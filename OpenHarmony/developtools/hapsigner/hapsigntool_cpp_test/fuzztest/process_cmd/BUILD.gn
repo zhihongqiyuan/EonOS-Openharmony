@@ -1,0 +1,42 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+group("process_cmd_fuzztest") {
+  testonly = true
+  deps = [
+    "./processcmd001_fuzzer:ProcessCmd001FuzzTest",
+    "./processcmd002_fuzzer:ProcessCmd002FuzzTest",
+    "./processcmd003_fuzzer:ProcessCmd003FuzzTest",
+    "./processcmd004_fuzzer:ProcessCmd004FuzzTest",
+    "./processcmd005_fuzzer:ProcessCmd005FuzzTest",
+    "./processcmd006_fuzzer:ProcessCmd006FuzzTest",
+    "./processcmd007_fuzzer:ProcessCmd007FuzzTest",
+    "./processcmd008_fuzzer:ProcessCmd008FuzzTest",
+    "./processcmd009_fuzzer:ProcessCmd009FuzzTest",
+    "./processcmd010_fuzzer:ProcessCmd010FuzzTest",
+    "./processcmd011_fuzzer:ProcessCmd011FuzzTest",
+    "./processcmd012_fuzzer:ProcessCmd012FuzzTest",
+    "./processcmd013_fuzzer:ProcessCmd013FuzzTest",
+    "./processcmd014_fuzzer:ProcessCmd014FuzzTest",
+    "./processcmd015_fuzzer:ProcessCmd015FuzzTest",
+    "./processcmd016_fuzzer:ProcessCmd016FuzzTest",
+    "./processcmd017_fuzzer:ProcessCmd017FuzzTest",
+    "./processcmd018_fuzzer:ProcessCmd018FuzzTest",
+    "./processcmd019_fuzzer:ProcessCmd019FuzzTest",
+    "./processcmd020_fuzzer:ProcessCmd020FuzzTest",
+    "./processcmd021_fuzzer:ProcessCmd021FuzzTest",
+    "./processcmd022_fuzzer:ProcessCmd022FuzzTest",
+    "./processcmd023_fuzzer:ProcessCmd023FuzzTest",
+    "./processcmd024_fuzzer:ProcessCmd024FuzzTest",
+  ]
+}

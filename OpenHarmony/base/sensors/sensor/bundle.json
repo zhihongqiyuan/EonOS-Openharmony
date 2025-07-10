@@ -1,0 +1,87 @@
+{
+  "name": "@ohos/sensor",
+  "description": "Obtaining sensor data",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "segment": {
+    "destPath": "base/sensors/sensor"
+  },
+  "component": {
+    "name": "sensor",
+    "subsystem": "sensors",
+    "syscap": ["SystemCapability.Sensors.Sensor", "SystemCapability.Sensors.Sensor.Lite"],
+    "features": ["sensor_rust_socket_ipc"],
+    "adapted_system_type": [ "standard" ],
+    "rom": "2048KB",
+    "ram": "~4096KB",
+    "hisysevent_config": [
+        "//base/sensors/sensor/hisysevent.yaml"
+    ],
+    "deps": {
+      "components": [
+        "bundle_framework",
+        "c_utils",
+        "hilog",
+        "build_framework",
+        "hisysevent",
+        "napi",
+        "drivers_interface_sensor",
+        "access_token",
+        "hitrace",
+        "ipc",
+        "memmgr",
+        "safwk",
+        "samgr",
+        "eventhandler",
+        "hicollie",
+        "init",
+        "selinux_adapter",
+        "cJSON"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "group_type": {
+        "base_group": [],
+        "fwk_group": [
+          "//base/sensors/sensor/frameworks/js/napi:sensor_js_target",
+          "//base/sensors/sensor/frameworks/cj:cj_sensor_ffi",
+          "//base/sensors/sensor/frameworks/native:sensor_target",
+          "//base/sensors/sensor/frameworks/native:ohsensor",
+          "//base/sensors/sensor/utils:sensor_utils_target"
+        ],
+        "service_group": [ 
+          "//base/sensors/sensor/services:sensor_service_target",
+          "//base/sensors/sensor/sa_profile:sensors_sa_profiles"
+        ]
+      },
+      "inner_kits": [
+        {
+          "name": "//base/sensors/sensor/frameworks/native:sensor_interface_native",
+          "header": {
+            "header_files": [
+              "sensor_agent_type.h",
+              "sensor_agent.h"
+            ],
+            "header_base": "//base/sensors/sensor/interfaces/inner_api"
+          }
+        },
+        {
+          "name": "//base/sensors/sensor/frameworks/cj:cj_sensor_ffi",
+          "header": {
+            "header_base": "//base/sensors/sensor/frameworks/cj/include",
+            "header_files":[]
+          }
+        }
+      ],
+      "test": [
+          "//base/sensors/sensor/test/unittest/interfaces/js:unittest",
+          "//base/sensors/sensor/test/unittest/interfaces/kits:unittest",
+          "//base/sensors/sensor/test/fuzztest/interfaces:fuzztest",
+          "//base/sensors/sensor/test/unittest/interfaces/inner_api:unittest",
+          "//base/sensors/sensor/test/fuzztest/services:fuzztest",
+          "//base/sensors/sensor/test/unittest/coverage:unittest"
+      ]
+    }
+  }
+}

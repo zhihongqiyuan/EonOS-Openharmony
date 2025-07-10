@@ -1,0 +1,491 @@
+# Copyright (c) 2021-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+extensions:
+  - name: 'js'
+    description: JavaScript keyword
+  - name: 'ts'
+    description: TypeScript keyword
+  - name: 'as'
+    description: AssemblyScript keyword
+  - name: 'ets'
+    description: ETS keyword
+
+keywords:
+  - name: 'abstract'
+    token: KEYW_ABSTRACT
+    keyword: [ets]
+    keyword_like: [ts]
+
+  - name: 'any'
+    token: KEYW_ANY
+    keyword_like: [ts]
+
+  - name: 'anyref'
+    token: KEYW_ANYREF
+    keyword_like: [as]
+
+  - name: 'arguments'
+    token: KEYW_ARGUMENTS
+    keyword_like: [js, ts]
+
+  - name: 'as'
+    token: KEYW_AS
+    keyword: [ets]
+    custom_handler: [js, ts, as]
+
+  - name: 'assert'
+    token: KEYW_ASSERT
+    keyword: [ets]
+
+  - name: 'asserts'
+    token: KEYW_ASSERTS
+    keyword_like: [ts]
+
+  - name: 'async'
+    token: KEYW_ASYNC
+    keyword: [as, ets]
+    keyword_like: [js, ts]
+
+  - name: 'await'
+    token: KEYW_AWAIT
+    keyword: [ets]
+    custom_handler: [js, ts]
+
+  - name: 'bigint'
+    token: KEYW_BIGINT
+    keyword_like: [ets, ts]
+
+  - name: 'boolean'
+    token: KEYW_BOOLEAN
+    keyword_like: [ets, js, ts]
+
+  - name: 'break'
+    token: KEYW_BREAK
+    keyword: [js, ts, as, ets]
+
+  - name: 'byte'
+    token: KEYW_BYTE
+    keyword_like: [ets]
+
+  - name: 'case'
+    token: KEYW_CASE
+    keyword: [js, ts, as, ets]
+
+  - name: 'catch'
+    token: KEYW_CATCH
+    keyword: [js, ts, as]
+    keyword_like: [ets]
+
+  - name: 'char'
+    token: KEYW_CHAR
+    keyword_like: [ets]
+
+  - name: 'class'
+    token: KEYW_CLASS
+    keyword: [js, ts, as, ets]
+
+  - name: 'const'
+    token: KEYW_CONST
+    keyword: [js, ts, as, ets]
+
+  - name: 'constructor'
+    token: KEYW_CONSTRUCTOR
+    keyword: [ets]
+
+  - name: 'continue'
+    token: KEYW_CONTINUE
+    keyword: [js, ts, as, ets]
+
+  - name: 'dataref'
+    token: KEYW_DATAREF
+    keyword_like: [as]
+
+  - name: 'debugger'
+    token: KEYW_DEBUGGER
+    keyword: [js, ets, ts]
+
+  - name: 'declare'
+    token: KEYW_DECLARE
+    keyword_like: [js, ts, as, ets]
+
+  - name: 'default'
+    token: KEYW_DEFAULT
+    keyword: [js, ts, as, ets]
+
+  - name: 'delete'
+    token: KEYW_DELETE
+    keyword: [js, as, ts]
+
+  - name: 'do'
+    token: KEYW_DO
+    keyword: [js, ts, as, ets]
+
+  - name: 'double'
+    token: KEYW_DOUBLE
+    keyword_like: [ets]
+
+  - name: 'else'
+    token: KEYW_ELSE
+    keyword: [js, ts, as, ets]
+
+  - name: 'enum'
+    token: KEYW_ENUM
+    keyword: [js, as, ets, ts]
+
+  - name: 'eqref'
+    token: KEYW_EQREF
+    keyword_like: [as]
+
+  - name: 'eval'
+    token: KEYW_EVAL
+    keyword_like: [js, ts]
+
+  - name: 'export'
+    token: KEYW_EXPORT
+    keyword: [as, js, ets, ts]
+
+  - name: 'extends'
+    token: KEYW_EXTENDS
+    keyword: [as, js, ets, ts]
+
+  - name: 'externref'
+    token: KEYW_EXTERNREF
+    keyword_like: [as]
+
+  - name: 'f32'
+    token: KEYW_F32
+    keyword_like: [as]
+
+  - name: 'f64'
+    token: KEYW_F64
+    keyword_like: [as]
+
+  - name: 'false'
+    token: LITERAL_FALSE
+    keyword: [as, js, ets, ts]
+
+  - name: 'finally'
+    token: KEYW_FINALLY
+    keyword: [js, ts]
+    keyword_like: [ets]
+
+  - name: 'float'
+    token: KEYW_FLOAT
+    keyword_like: [ets]
+
+  - name: 'for'
+    token: KEYW_FOR
+    keyword: [as, js, ets, ts]
+
+  - name: 'from'
+    token: KEYW_FROM
+    keyword_like: [as, js, ts, ets]
+
+  - name: 'funcref'
+    token: KEYW_FUNCREF
+    keyword_like: [as]
+
+  - name: 'function'
+    token: KEYW_FUNCTION
+    keyword: [as, js, ets, ts]
+
+  - name: 'get'
+    token: KEYW_GET
+    keyword_like: [as, js, ts, ets]
+
+  - name: 'global'
+    token: KEYW_GLOBAL
+    keyword_like: [as, ts]
+
+  - name: 'i8'
+    token: KEYW_I8
+    keyword_like: [as]
+
+  - name: 'i16'
+    token: KEYW_I16
+    keyword_like: [as]
+
+  - name: 'i31ref'
+    token: KEYW_I31REF
+    keyword_like: [as]
+
+  - name: 'i32'
+    token: KEYW_I32
+    keyword_like: [as]
+
+  - name: 'i64'
+    token: KEYW_I64
+    keyword_like: [as]
+
+  - name: 'if'
+    token: KEYW_IF
+    keyword: [as, js, ets, ts]
+
+  - name: 'implements'
+    token: KEYW_IMPLEMENTS
+    keyword: [as, js, ets, ts]
+
+  - name: 'import'
+    token: KEYW_IMPORT
+    keyword: [as, js, ets, ts]
+
+  - name: 'in'
+    token: KEYW_IN
+    keyword: [as, js, ts]
+    keyword_like: [ets]
+
+  - name: 'infer'
+    token: KEYW_INFER
+    keyword_like: [ts]
+
+  - name: 'instanceof'
+    token: KEYW_INSTANCEOF
+    keyword: [as, js, ets, ts]
+
+  - name: 'int'
+    token: KEYW_INT
+    keyword_like: [ets]
+
+  - name: 'interface'
+    token: KEYW_INTERFACE
+    keyword: [js, as, ets, ts]
+
+  - name: 'is'
+    token: KEYW_IS
+    keyword_like: [ets, ts]
+
+  - name: 'isize'
+    token: KEYW_ISIZE
+    keyword_like: [as]
+
+  - name: 'keyof'
+    token: KEYW_KEYOF
+    keyword_like: [ts]
+
+  - name: 'let'
+    token: KEYW_LET
+    keyword: [as, js, ets, ts]
+
+  - name: 'launch'
+    token: KEYW_LAUNCH
+    keyword: [ets]
+
+  - name: 'long'
+    token: KEYW_LONG
+    keyword_like: [ets]
+
+  - name: 'meta'
+    token: KEYW_META
+    keyword_like: [js, ts]
+
+  - name: 'module'
+    token: KEYW_MODULE
+    keyword_like: [as, js, ts]
+
+  - name: 'namespace'
+    token: KEYW_NAMESPACE
+    keyword: [ets]
+    keyword_like: [as, ts]
+
+  - name: 'native'
+    token: KEYW_NATIVE
+    keyword: [ets]
+
+  - name: 'never'
+    token: KEYW_NEVER
+    keyword_like: [ts]
+
+  - name: 'new'
+    token: KEYW_NEW
+    keyword: [as, js, ets, ts]
+
+  - name: 'null'
+    token: LITERAL_NULL
+    keyword: [as, js, ets, ts]
+
+  - name: 'number'
+    token: KEYW_NUMBER
+    keyword_like: [ets, ts]
+
+  - name: 'object'
+    token: KEYW_OBJECT
+    keyword_like: [ts]
+
+  - name: 'of'
+    token: KEYW_OF
+    keyword_like: [ets, js, ts, as]
+
+  - name: 'final'
+    token: KEYW_FINAL
+    keyword: [ets]
+
+  - name: 'out'
+    token: KEYW_OUT
+    keyword_like: [ets]
+
+  - name: 'override'
+    token: KEYW_OVERRIDE
+    keyword: [ets]
+    keyword_like: [ts]
+
+  - name: 'package'
+    token: KEYW_PACKAGE
+    keyword: [js, ts, as, ets]
+
+  - name: 'internal'
+    token: KEYW_INTERNAL
+    keyword: [ets]
+
+  - name: 'private'
+    token: KEYW_PRIVATE
+    keyword: [js, as, ets, ts]
+
+  - name: 'protected'
+    token: KEYW_PROTECTED
+    keyword: [js, as, ets, ts]
+
+  - name: 'public'
+    token: KEYW_PUBLIC
+    keyword: [js, as, ets, ts]
+
+  - name: 'readonly'
+    token: KEYW_READONLY
+    keyword_like: [as, ts, ets]
+
+  - name: 'rethrows'
+    token: KEYW_RETHROWS
+    keyword_like: [ets]
+
+  - name: 'return'
+    token: KEYW_RETURN
+    keyword: [as, js, ets, ts]
+
+  - name: 'require'
+    token: KEYW_REQUIRE
+    keyword_like: [ts]
+
+  - name: 'set'
+    token: KEYW_SET
+    keyword_like: [as, js, ts, ets]
+
+  - name: 'short'
+    token: KEYW_SHORT
+    keyword_like: [ets]
+
+  - name: 'static'
+    token: KEYW_STATIC
+    keyword: [js, as, ets, ts]
+
+  - name: 'string'
+    token: KEYW_STRING
+    keyword_like: [ets, ts]
+
+  - name: 'struct'
+    token: KEYW_STRUCT
+    keyword_like: [ets]
+
+  - name: 'super'
+    token: KEYW_SUPER
+    keyword: [js, ts, ets]
+
+  - name: 'switch'
+    token: KEYW_SWITCH
+    keyword: [js, as, ets, ts]
+
+  - name: 'target'
+    token: KEYW_TARGET
+    keyword_like: [js, ts]
+
+  - name: 'this'
+    token: KEYW_THIS
+    keyword: [as, js, ets, ts]
+
+  - name: 'throw'
+    token: KEYW_THROW
+    keyword: [js, ets, ts, as]
+
+  - name: 'throws'
+    token: KEYW_THROWS
+    keyword_like: [ets]
+
+  - name: 'true'
+    token: LITERAL_TRUE
+    keyword: [as, js, ets, ts]
+
+  - name: 'try'
+    token: KEYW_TRY
+    keyword: [as, js, ets, ts]
+
+  - name: 'type'
+    token: KEYW_TYPE
+    keyword_like: [ets, js, ts]
+
+  - name: 'typeof'
+    token: KEYW_TYPEOF
+    keyword: [js, ets, ts]
+
+  - name: 'u8'
+    token: KEYW_U8
+    keyword_like: [as]
+
+  - name: 'u16'
+    token: KEYW_U16
+    keyword_like: [as]
+
+  - name: 'u32'
+    token: KEYW_U32
+    keyword_like: [as]
+
+  - name: 'u64'
+    token: KEYW_U64
+    keyword_like: [as]
+
+  - name: 'undefined'
+    token: KEYW_UNDEFINED
+    keyword: [ets]
+    keyword_like: [js, ts]
+
+  - name: 'unknown'
+    token: KEYW_UNKNOWN
+    keyword_like: [ts]
+
+  - name: 'usize'
+    token: KEYW_USIZE
+    keyword_like: [as]
+
+  - name: 'v128'
+    token: KEYW_V128
+    keyword_like: [as]
+
+  - name: 'var'
+    token: KEYW_VAR
+    keyword: [as, js, ets, ts]
+
+  - name: 'void'
+    token: KEYW_VOID
+    keyword: [as, js, ts]
+    keyword_like: [ets]
+
+  - name: 'while'
+    token: KEYW_WHILE
+    keyword: [as, js, ets, ts]
+
+  - name: 'with'
+    token: KEYW_WITH
+    keyword: [js, ts]
+
+  - name: 'yield'
+    token: KEYW_YIELD
+    keyword: [ets]
+    custom_handler: [js, ts]

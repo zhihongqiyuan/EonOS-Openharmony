@@ -1,0 +1,19 @@
+import("../../../../musl_template.gni")
+import("../../../test_template.gni")
+
+ohos_executable("hilog_level") {
+  subsystem_name = "musl"
+  part_name = "libc-test"
+
+  sources = [ "hilog_level.c" ]
+  include_dirs = [
+    "//third_party/musl/libc-test/src/common",
+    "//third_party/musl/porting/linux/user/src",
+    "//third_party/musl/porting/linux/user/include",
+    "//third_party/musl/libc-test/src/functionalext/hilog",
+  ]
+  configs = [ "//third_party/musl/libc-test/src/common:config_runtest" ]
+  if (use_musl) {
+    defines = [ "OHOS_ENABLE_PARAMETER" ]
+  }
+}

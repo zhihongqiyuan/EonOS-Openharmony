@@ -1,0 +1,106 @@
+{
+    "name": "@ohos/crypto_framework",
+    "version": "3.2",
+    "description": "Openharmony's crypto framework.",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/security/crypto_framework"
+    },
+    "dirs": {},
+    "scripts": {},
+    "author": {},
+    "repository": "",
+    "license": "Apache License 2.0",
+    "component": {
+      "name": "crypto_framework",
+      "subsystem": "security",
+      "syscap": [
+        "SystemCapability.Security.CryptoFramework",
+        "SystemCapability.Security.CryptoFramework.Key",
+        "SystemCapability.Security.CryptoFramework.Key.SymKey",
+        "SystemCapability.Security.CryptoFramework.Key.AsymKey",
+        "SystemCapability.Security.CryptoFramework.Signature",
+        "SystemCapability.Security.CryptoFramework.Cipher",
+        "SystemCapability.Security.CryptoFramework.KeyAgreement",
+        "SystemCapability.Security.CryptoFramework.MessageDigest",
+        "SystemCapability.Security.CryptoFramework.Mac",
+        "SystemCapability.Security.CryptoFramework.Kdf",
+        "SystemCapability.Security.CryptoFramework.Rand"
+      ],
+      "features": [ "crypto_framework_enabled" ],
+      "adapted_system_type": [
+          "standard",
+          "mini"
+        ],
+      "rom": "2048KB",
+      "ram": "",
+      "deps": {
+        "components": [
+          "hilog",
+          "c_utils",
+          "napi",
+          "openssl",
+          "bounds_checking_function"
+        ],
+        "third_party": []
+      },
+      "build": {
+        "sub_component": [
+          "//base/security/crypto_framework:crypto_framework_component"
+        ],
+        "inner_kits": [
+          {
+            "name": "//base/security/crypto_framework/frameworks:crypto_framework_lib",
+            "header": {
+              "header_files": [
+                "algorithm_parameter/algorithm_parameter.h",
+                "algorithm_parameter/asy_key_params.h",
+                "algorithm_parameter/detailed_ccm_params.h",
+                "algorithm_parameter/detailed_dh_key_params.h",
+                "algorithm_parameter/detailed_dsa_key_params.h",
+                "algorithm_parameter/detailed_ecc_key_params.h",
+                "algorithm_parameter/detailed_alg_25519_key_params.h",
+                "algorithm_parameter/detailed_gcm_params.h",
+                "algorithm_parameter/detailed_hkdf_params.h",
+                "algorithm_parameter/detailed_iv_params.h",
+                "algorithm_parameter/detailed_pbkdf2_params.h",
+                "algorithm_parameter/detailed_rsa_key_params.h",
+                "algorithm_parameter/kdf_params.h",
+                "algorithm_parameter/sm2_crypto_params.h",
+                "common/big_integer.h",
+                "common/blob.h",
+                "common/object_base.h",
+                "common/result.h",
+                "crypto_operation/cipher.h",
+                "crypto_operation/kdf.h",
+                "crypto_operation/key_agreement.h",
+                "crypto_operation/mac.h",
+                "crypto_operation/md.h",
+                "crypto_operation/rand.h",
+                "crypto_operation/signature.h",
+                "crypto_operation/sm2_crypto_util.h",
+                "key/asy_key_generator.h",
+                "key/dh_key_util.h",
+                "key/ecc_key_util.h",
+                "key/key_pair.h",
+                "key/key_utils.h",
+                "key/key.h",
+                "key/pri_key.h",
+                "key/pub_key.h",
+                "key/sym_key_generator.h",
+                "key/sym_key.h"
+              ],
+              "header_base": "//base/security/crypto_framework/interfaces/inner_api"
+            }
+          },
+          {
+            "name": "//base/security/crypto_framework/frameworks/cj:cj_cryptoframework_ffi"
+          }
+        ],
+        "test": [
+            "//base/security/crypto_framework:crypto_framework_test",
+            "//base/security/crypto_framework:crypto_framework_fuzztest"
+        ]
+      }
+    }
+}

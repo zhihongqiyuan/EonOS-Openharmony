@@ -1,0 +1,80 @@
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: POWER
+
+RUNNINGLOCK:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: runninglock information}
+  PID: {type: INT32, desc: application pid}
+  UID: {type: INT32, desc: application uid}
+  STATE: {type: INT32, desc: runninglock state}
+  TYPE: {type: INT32, desc: runninglock type}
+  NAME: {type: STRING, desc: runninglock name}
+  LOG_LEVEL: {type: INT32, desc: runninglock log level}
+  TAG: {type: STRING, desc: runninglock tag}
+  MESSAGE: {type: STRING, desc: runninglock message}
+  BUNDLENAME: {type: STRING, desc: bundle name}
+
+SCREEN:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: screen state}
+  STATE: {type: INT32, desc: screen state}
+  BRIGHTNESS: {type: INT32, desc: brightness level}
+
+STATE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: power state}
+  STATE: {type: INT32, desc: power state}
+
+SCREEN_ON_TIMEOUT:
+  __BASE: {type: FAULT, level: CRITICAL, desc: timeout screen on information}
+  PID: {type: INT32, desc: session pid}
+  UID: {type: INT32, desc: session uid}
+  PACKAGE_NAME: {type: STRING, desc: call package name}
+  PROCESS_NAME: {type: STRING, desc: call process name}
+  MSG: {type: STRING, desc: screen on timeout message}
+  REASON: {type: STRING, desc: screen on reason}
+
+SCREEN_OFF_TIMEOUT:
+  __BASE: {type: FAULT, level: CRITICAL, desc: timeout screen off information}
+  PID: {type: INT32, desc: session pid}
+  UID: {type: INT32, desc: session uid}
+  PACKAGE_NAME: {type: STRING, desc: call package name}
+  PROCESS_NAME: {type: STRING, desc: call process name}
+  MSG: {type: STRING, desc: screen off timeout message}
+  REASON: {type: STRING, desc: screen off reason}
+
+STATE_CORRECTION:
+  __BASE: {type: FAULT, level: CRITICAL, desc: the power state is inconsistent with the display state}
+  ERROR_STATE: {type: INT32, desc: the state of the current error}
+  CORRECTION_STATE: {type: INT32, desc: the corrected state}
+  DISPLAY_STATE: {type: INT32, desc: the display state}
+  MSG: {type: STRING, desc: correct error information}
+
+INTERFACE_CONSUMING_TIMEOUT:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: setstate and runninglock timeout information}
+  PID: {type: INT32, desc: session pid}
+  UID: {type: INT32, desc: session uid}
+  TYPE: {type: INT32, desc: timeout interface type}
+  REASON: {type: STRING, desc: screen on reason}
+  TIME: {type: INT32, desc: interface time consuming}
+
+SCREEN_STATE_TRANSIT_FAILED:
+  __BASE: {type: FAULT, level: CRITICAL, desc: screen state transit result information}
+  TRANSIT_RESULT: {type: INT32, desc: screen state transit result}
+  REASON: {type: STRING, desc: screen on reason}
+
+APP_HOLD_RUNNINGLOCK_TIMEOUT:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: app hold runninglock timeout information}
+  PID: {type: INT32, desc: session pid}
+  UID: {type: INT32, desc: session uid}
+  TYPE: {type: INT32, desc: runninglock type}
+  NAME: {type: STRING, desc: runninglock name}

@@ -1,0 +1,37 @@
+{
+    "name": "@ohos/hidumper_lite",
+    "description": "System information dump service for liteos-a kernel and liteos-m kernel.",
+    "optional": "false",
+    "version": "4.0.2",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "homePage": "https://gitee.com/openharmony",
+    "repository": "https://gitee.com/openharmony/hiviewdfx_hidumper_lite",
+    "supplier": "Organization: OpenHarmony",
+    "segment": {
+        "destPath": "base/hiviewdfx/hidumper_lite"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "hidumper_lite",
+        "subsystem": "hiviewdfx",
+        "adapted_system_type": [
+            "mini"
+        ],
+        "rom": "26KB",
+        "ram": "~10KB",
+        "deps": {
+            "components": [
+                "liteos_m",
+                "utils_lite"
+            ],
+            "third_party": [ "bounds_checking_function" ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/hiviewdfx/hidumper_lite:hidumper"
+            ]
+        }
+    }
+}

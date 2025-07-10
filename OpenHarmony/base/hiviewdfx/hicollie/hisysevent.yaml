@@ -1,0 +1,76 @@
+#  Copyright (c) 2021 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+domain: FRAMEWORK
+
+SERVICE_TIMEOUT:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: timer timeout}
+  PID: {type: INT32, desc: failure process pid}
+  TGID: {type: INT32, desc: failure process gid}
+  UID: {type: INT32, desc: failure process uid}
+  MODULE_NAME: {type: STRING, desc: failure module name}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  MSG: {type: STRING, desc: event message}
+  STACK: {type: STRING, desc: stacktrace of service process}
+
+SERVICE_BLOCK:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: watchdog timeout}
+  PID: {type: INT32, desc: failure process pid}
+  TGID: {type: INT32, desc: failure process gid}
+  UID: {type: INT32, desc: failure process uid}
+  MODULE_NAME: {type: STRING, desc: failure module name}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  MSG: {type: STRING, desc: event message}
+  STACK: {type: STRING, desc: stacktrace of service process}
+
+SERVICE_WARNING:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: watchdog timeout}
+  PID: {type: INT32, desc: failure process pid}
+  TGID: {type: INT32, desc: failure process gid}
+  UID: {type: INT32, desc: failure process uid}
+  MODULE_NAME: {type: STRING, desc: failure module name}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  MSG: {type: STRING, desc: event message}
+  STACK: {type: STRING, desc: stacktrace of service process}
+
+IPC_FULL:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: ipc full}
+  PID: {type: INT32, desc: failure process pid}
+  TGID: {type: INT32, desc: failure process gid}
+  UID: {type: INT32, desc: failure process uid}
+  MODULE_NAME: {type: STRING, desc: failure module name}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  MSG: {type: STRING, desc: event message}
+  STACK: {type: STRING, desc: stacktrace of service process}
+
+MAIN_THREAD_JANK:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: main thread jank}
+  BUNDLE_VERSION: {type: STRING, desc: bundle version}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  BEGIN_TIME: {type: INT64, desc: begin time}
+  END_TIME: {type: INT64, desc: end time}
+  EXTERNAL_LOG: {type: STRING, desc: external log}
+  STACK: {type: STRING, desc: stack}
+  JANK_LEVEL: {type: INT32, desc: jank level}
+  THREAD_NAME: {type: STRING, desc: thread name}
+  FOREGROUND: {type: BOOL, desc: foreground}
+  LOG_TIME: {type: INT64, desc: log time}
+  APP_START_JIFFIES_TIME: {type: INT64, desc: app start jiffies time}
+  HEAVIEST_STACK: {type: STRING, desc: heaviest stack}
+  LOG_OVER_LIMIT: {type: BOOL, desc: log over limit}
+
+SCROLL_TIMEOUT:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: scroll timeout}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  EXTERNAL_LOG: {type: STRING, desc: external log}
+  LOG_OVER_LIMIT: {type: BOOL, desc: log over limit}

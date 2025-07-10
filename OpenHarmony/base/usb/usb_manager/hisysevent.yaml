@@ -1,0 +1,85 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: USB
+
+PLUG_IN_OUT_HOST_MODE:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UsbManager, desc: UsbDevicePlugInHostMode}
+  DEVICE_NAME: {type: STRING, desc: device name}
+  DEVICE_PROTOCOL: {type: INT32, desc: device protocol}
+  DEVICE_SUBCLASS: {type: INT32, desc: device subclass}
+  DEVICE_CLASS: {type: INT32, desc: device class}
+  DEVICE_CLASS_DESCRIPTION: {type: STRING, desc: device class description}
+  INTERFACE_CLASS_DESCRIPTION: {type: STRING, desc: interface class description}
+  VENDOR_ID: {type: INT32, desc: vendor id}
+  PRODUCT_ID: {type: INT32, desc: product id}
+  VERSION: {type: STRING, desc: device version}
+  EVENT_NAME: {type: STRING, desc: event name}
+  SN_NUM: {type: STRING, desc: sn num}
+
+PLUG_IN_OUT_DEVICE_MODE:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UsbManager, desc: UsbDevicePlugInDeviceMode}
+  CURRENT_FUNCTIONS: {type: INT32, desc: current functios}
+  CONNECTED: {type: BOOL, desc: event name}
+
+FUNCTION_CHANGED:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UsbManager, desc: UsbDeviceFunctionChanged}
+  CURRENT_FUNCTION: {type: INT32, desc: current function}
+  UPDATE_FUNCTION: {type: INT32, desc: update function}
+
+PORT_ROLE_CHANGED:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UsbManager, desc: UsbPortRoleChanged}
+  CURRENT_POWERROLE: {type: INT32, desc: current powerrole}
+  UPDATE_POWERROLE: {type: INT32, desc: update powerrole}
+  CURRENT_DATAROLE: {type: INT32, desc: current datarole}
+  UPDATE_DATAROLE: {type: INT32, desc: update datarole}
+
+TRANSFOR_FAULT:
+  __BASE: {type: FAULT, level: CRITICAL, tag: UsbManager, desc: Usb Transfor interface happen fault}
+  TRANSFER_TYPE: {type: STRING, desc: interface name}
+  VENDOR_ID: {type: INT32, desc: vendor id}
+  PRODUCT_ID: {type: INT32, desc: product id}
+  INTERFACE_CLASS: {type: INT32, desc: interface class}
+  INTERFACE_SUBCLASS: {type: INT32, desc: interface subclass}
+  INTERFACE_PROTOCOL: {type: INT32, desc: interface protocol}
+  INFT_ID: {type: UINT8, desc: interface id}
+  ENDPOINTT_ID: {type: UINT8, desc: endpoint id}
+  FAIL_REASON: {type: INT32, desc: fail reason}
+  FAIL_DESCRIPTION: {type: STRING, desc: the failed reason description}
+
+SERIAL_OPERATION:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UsbManager, desc: the behavior of the usb serial}
+  OPERATION_TYPE: {type: STRING, desc: the operation type may be open close set}
+  CLIENT_NAME: {type: STRING, desc: the client with its bundle name}
+  PORT_VID: {type: INT32, desc: the uid of the usb serial device}
+  PORT_PID: {type: INT32, desc: the pid of the usb serial device}
+  PORT_ID: {type: STRING, desc: the last four digits of serial num of the usb serial device}
+  ATTRIBUTE_BAUD_RATE: {type: INT32, desc: baud rate}
+  ATTRIBUTE_STOP_BIT: {type: UINT8, desc: stop bit}
+  ATTRIBUTE_PARITY_CHECK: {type: UINT8, desc: parity check}
+  ATTRIBUTE_DATA_BIT: {type: UINT8, desc: data bit}
+
+OPERATION_FAULT:
+  __BASE: {type: FAULT, level: CRITICAL, tag: UsbManager, desc: serial port operation fault}
+  OPERATION_TYPE_NAME: {type: STRING, desc: the name of operation type}
+  FAIL_REASON: {type: INT32, desc: the failed reason}
+  FAIL_DESCRIPTION: {type: STRING, desc: the failed reason description}
+
+DEVICE_SECURITY_POLICY:
+  __BASE: {type: SECURITY, level: CRITICAL, tag: UsbManager, desc: information about the managed USB device}
+  SECURITY_POLICY_TYPE: {type: STRING, desc: manage device type}
+  VID: {type: INT32, desc: device vid}
+  PID: {type: INT32, desc: device pid}
+  CLASS: {type: INT32, desc: device baseclass}
+  SUBCLASS: {type: INT32, desc: device subclass}
+  PROTOCOL: {type: INT32, desc: device protocol}

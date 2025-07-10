@@ -1,0 +1,12 @@
+{
+  "modelVersion": "5.0.2",
+  "license": "ISC",
+  "devDependencies": {
+    "@ohos/hypium": "1.0.21"
+  },
+  "name": "hwprintspooler",
+  "description": "example description",
+  "repository": {},
+  "version": "1.0.0",
+  "dependencies": {}
+}

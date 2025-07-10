@@ -1,0 +1,53 @@
+{
+  "name": "@ohos/hvb",
+  "description": "OpenHarmony Verified Boot (HVB)",
+  "version": "1.0",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/startup/hvb"
+  },
+  "scripts": {},
+  "dirs": {},
+  "component": {
+    "name": "hvb",
+    "subsystem": "startup",
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "3072KB",
+    "ram": "3072KB",
+    "deps": {
+      "components": [],
+      "third_party": []
+    },
+    "build": {
+      "sub_component": [
+        "//base/startup/hvb:hvb_group"
+      ],
+      "inner_kits": [
+        {
+          "header": {
+            "header_base": "//base/startup/hvb/libhvb/include",
+            "header_files": [
+              "hvb.h",
+              "hvb_cert.h",
+              "hvb_cmdline.h",
+              "hvb_crypto.h",
+              "hvb_footer.h",
+              "hvb_ops.h",
+              "hvb_rvt.h",
+              "hvb_sm2.h",
+              "hvb_sysdeps.h",
+              "hvb_types.h",
+              "hvb_util.h",
+              "libhvb.h"
+            ]
+          },
+          "name": "//base/startup/hvb/libhvb:libhvb_static"
+        }
+      ],
+      "test": []
+    }
+  }
+}

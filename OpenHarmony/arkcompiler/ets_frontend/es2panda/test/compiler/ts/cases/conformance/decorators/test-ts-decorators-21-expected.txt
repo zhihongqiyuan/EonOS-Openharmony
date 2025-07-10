@@ -1,0 +1,5 @@
+inner-propDec- f2
+inner-paramDec-idx= 0
+inner-methodDec- m2
+inner-propDec- f1
+inner-methodDec- m1

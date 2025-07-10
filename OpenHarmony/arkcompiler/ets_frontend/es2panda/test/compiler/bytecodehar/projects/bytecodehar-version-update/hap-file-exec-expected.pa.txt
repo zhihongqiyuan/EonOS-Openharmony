@@ -1,0 +1,1470 @@
+All Dependency Files:
+program_file: bytecodehar-abcinput.abc
+record_name: &bytecodehar/bytecodehar-dynamic-import&
+program_file: bytecodehar-abcinput.abc
+record_name: &bytecodehar/bytecodehar-static-import&
+program_file: hap-file-exec.ts
+record_name: &myapp/hap-file-exec&
+program_file: importfile1.ts
+record_name: bundle&lib/importfile1&2.0.0
+program_file: importfile2.ts
+record_name: &@ohos/lib/importfile2&2.0.0
+program_file: importfile3.ts
+record_name: &lib2/importfile3&
+program_file: importfile4.ts
+record_name: &@ohos/lib2/importfile4&
+
+slotNum = 0x0
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-dynamic-import&.#*#testNonConst(any a0, any a1, any a2) {
+	lda.str @normalized:N&&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	returnundefined
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-dynamic-import&.#*#testNonOhmurl(any a0, any a1, any a2) {
+	lda.str aaa
+	dynamicimport
+	returnundefined
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-dynamic-import&.#*#testReplacementWithAt(any a0, any a1, any a2) {
+	lda.str @normalized:N&module&&@ohos/lib/importfile2&2.0.0
+	dynamicimport
+	lda.str @normalized:N&module&&@ohos/lib/importfile2&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&&@ohos/lib/importfile2&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&&@ohos/lib/importfile2&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&&@ohos/lib2/importfile4&
+	dynamicimport
+	returnundefined
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-dynamic-import&.#*#testReplacementWoAt(any a0, any a1, any a2) {
+	lda.str @normalized:N&module&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	lda.str @normalized:N&module&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&&lib2/importfile3&
+	dynamicimport
+	returnundefined
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-dynamic-import&.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, &bytecodehar/bytecodehar-dynamic-import&.#*#testNonConst, 0x0
+	definefunc 0x1, &bytecodehar/bytecodehar-dynamic-import&.#*#testNonOhmurl, 0x0
+	definefunc 0x2, &bytecodehar/bytecodehar-dynamic-import&.#*#testReplacementWithAt, 0x0
+	definefunc 0x3, &bytecodehar/bytecodehar-dynamic-import&.#*#testReplacementWoAt, 0x0
+	lda.str test
+	stmodulevar 0x0
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &bytecodehar/bytecodehar-dynamic-import&_2043
+------------------------------------
+slot &bytecodehar/bytecodehar-dynamic-import&_2047
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 5
+    val: test
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&bytecodehar/bytecodehar-dynamic-import&.#*#testNonConst"; "&bytecodehar/bytecodehar-dynamic-import&.#*#testNonOhmurl"; "&bytecodehar/bytecodehar-dynamic-import&.#*#testReplacementWithAt"; "&bytecodehar/bytecodehar-dynamic-import&.#*#testReplacementWoAt"; "@normalized:N&&&@ohos/lib/importfile2&2.0.0"; "@normalized:N&&&@ohos/lib2/importfile4&"; "@normalized:N&&&lib2/importfile3&"; "@normalized:N&&bundle&lib/importfile1&2.0.0"; "@normalized:N&module&&@ohos/lib/importfile2&2.0.0"; "@normalized:N&module&bundle&lib/importfile1&2.0.0"; "aaa"; "test"; 
+slotNum = 0x18
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-static-import&.#*#foo(any a0, any a1, any a2) {
+	tryldglobalbyname 0x0, print
+	sta v0
+	createemptyarray 0x1
+	sta v1
+	ldlexvar 0x0, 0x0
+	sta v2
+	throw.undefinedifholewithname a
+	lda v2
+	stownbyindex 0x2, v1, 0x0
+	ldlexvar 0x0, 0x1
+	sta v2
+	throw.undefinedifholewithname b
+	lda v2
+	stownbyindex 0x4, v1, 0x1
+	ldlexvar 0x0, 0x2
+	sta v2
+	throw.undefinedifholewithname c
+	lda v2
+	stownbyindex 0x6, v1, 0x2
+	ldlexvar 0x0, 0x3
+	sta v2
+	throw.undefinedifholewithname d
+	lda v2
+	stownbyindex 0x8, v1, 0x3
+	ldlexvar 0x0, 0x4
+	sta v2
+	throw.undefinedifholewithname e
+	lda v2
+	stownbyindex 0xa, v1, 0x4
+	ldlexvar 0x0, 0x5
+	sta v2
+	throw.undefinedifholewithname f
+	lda v2
+	stownbyindex 0xc, v1, 0x5
+	ldlexvar 0x0, 0x6
+	sta v2
+	throw.undefinedifholewithname g
+	lda v2
+	stownbyindex 0xe, v1, 0x6
+	ldlexvar 0x0, 0x7
+	sta v2
+	throw.undefinedifholewithname h
+	lda v2
+	stownbyindex 0x10, v1, 0x7
+	ldlexvar 0x0, 0x8
+	sta v2
+	throw.undefinedifholewithname i
+	lda v2
+	stownbyindex 0x12, v1, 0x8
+	ldlexvar 0x0, 0x9
+	sta v2
+	throw.undefinedifholewithname j
+	lda v2
+	stownbyindex 0x14, v1, 0x9
+	lda v0
+	callarg1 0x16, v1
+	returnundefined
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-static-import&.func_main_0(any a0, any a1, any a2) {
+	newlexenv 0xa
+	definefunc 0x0, &bytecodehar/bytecodehar-static-import&.#*#foo, 0x0
+	getmodulenamespace 0x0
+	stlexvar 0x0, 0x0
+	getmodulenamespace 0x1
+	stlexvar 0x0, 0x1
+	getmodulenamespace 0x2
+	stlexvar 0x0, 0x2
+	getmodulenamespace 0x3
+	stlexvar 0x0, 0x3
+	getmodulenamespace 0x4
+	stlexvar 0x0, 0x4
+	getmodulenamespace 0x5
+	stlexvar 0x0, 0x5
+	getmodulenamespace 0x6
+	stlexvar 0x0, 0x6
+	getmodulenamespace 0x7
+	stlexvar 0x0, 0x7
+	getmodulenamespace 0x8
+	stlexvar 0x0, 0x8
+	getmodulenamespace 0x9
+	stlexvar 0x0, 0x9
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &bytecodehar/bytecodehar-static-import&_2083
+------------------------------------
+slot &bytecodehar/bytecodehar-static-import&_2087
+{
+  index: 0
+    tag: 2
+    val: 10
+},
+{
+  index: 1
+    tag: 5
+    val: @normalized:N&module&bundle&lib/importfile1&2.0.0
+},
+{
+  index: 2
+    tag: 5
+    val: @normalized:N&module&bundle&lib/importfile1&2.0.0
+},
+{
+  index: 3
+    tag: 5
+    val: @normalized:N&&bundle&lib/importfile1&2.0.0
+},
+{
+  index: 4
+    tag: 5
+    val: @normalized:N&&bundle&lib/importfile1&2.0.0
+},
+{
+  index: 5
+    tag: 5
+    val: @normalized:N&&&lib2/importfile3&
+},
+{
+  index: 6
+    tag: 5
+    val: @normalized:N&module&&@ohos/lib/importfile2&2.0.0
+},
+{
+  index: 7
+    tag: 5
+    val: @normalized:N&module&&@ohos/lib/importfile2&2.0.0
+},
+{
+  index: 8
+    tag: 5
+    val: @normalized:N&&&@ohos/lib/importfile2&2.0.0
+},
+{
+  index: 9
+    tag: 5
+    val: @normalized:N&&&@ohos/lib/importfile2&2.0.0
+},
+{
+  index: 10
+    tag: 5
+    val: @normalized:N&&&@ohos/lib2/importfile4&
+},
+{
+  index: 11
+    tag: 2
+    val: 0
+},
+{
+  index: 12
+    tag: 2
+    val: 10
+},
+{
+  index: 13
+    tag: 5
+    val: a
+},
+{
+  index: 14
+    tag: 9
+    val: 0
+},
+{
+  index: 15
+    tag: 5
+    val: b
+},
+{
+  index: 16
+    tag: 9
+    val: 1
+},
+{
+  index: 17
+    tag: 5
+    val: c
+},
+{
+  index: 18
+    tag: 9
+    val: 2
+},
+{
+  index: 19
+    tag: 5
+    val: d
+},
+{
+  index: 20
+    tag: 9
+    val: 3
+},
+{
+  index: 21
+    tag: 5
+    val: e
+},
+{
+  index: 22
+    tag: 9
+    val: 4
+},
+{
+  index: 23
+    tag: 5
+    val: f
+},
+{
+  index: 24
+    tag: 9
+    val: 5
+},
+{
+  index: 25
+    tag: 5
+    val: g
+},
+{
+  index: 26
+    tag: 9
+    val: 6
+},
+{
+  index: 27
+    tag: 5
+    val: h
+},
+{
+  index: 28
+    tag: 9
+    val: 7
+},
+{
+  index: 29
+    tag: 5
+    val: i
+},
+{
+  index: 30
+    tag: 9
+    val: 8
+},
+{
+  index: 31
+    tag: 5
+    val: j
+},
+{
+  index: 32
+    tag: 9
+    val: 9
+},
+{
+  index: 33
+    tag: 2
+    val: 0
+},
+{
+  index: 34
+    tag: 2
+    val: 0
+},
+{
+  index: 35
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&bytecodehar/bytecodehar-static-import&.#*#foo"; "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"; "print"; 
+
+======> literal array buffer <======
+======> strings <======
+
+
+======> literal array buffer <======
+======> strings <======
+
+
+======> literal array buffer <======
+======> strings <======
+
+slotNum = 0xa
+.language ECMAScript
+.function any &myapp/hap-file-exec&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	getmodulenamespace 0x0
+	sta v0
+	getmodulenamespace 0x1
+	sta v1
+	tryldglobalbyname 0x0, print
+	sta v2
+	lda v0
+	ldobjbyname 0x1, test
+	sta v0
+	lda v2
+	callarg1 0x3, v0
+	tryldglobalbyname 0x5, print
+	sta v0
+	lda v1
+	ldobjbyname 0x6, test
+	sta v1
+	lda v0
+	callarg1 0x8, v1
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &myapp/hap-file-exec&_0
+------------------------------------
+slot &myapp/hap-file-exec&_1
+{
+  index: 0
+    tag: 2
+    val: 2
+},
+{
+  index: 1
+    tag: 5
+    val: @normalized:N&&&bytecodehar/bytecodehar-dynamic-import&
+},
+{
+  index: 2
+    tag: 5
+    val: @normalized:N&&&bytecodehar/bytecodehar-static-import&
+},
+{
+  index: 3
+    tag: 2
+    val: 0
+},
+{
+  index: 4
+    tag: 2
+    val: 2
+},
+{
+  index: 5
+    tag: 5
+    val: bytecodeharDynamicImport
+},
+{
+  index: 6
+    tag: 9
+    val: 0
+},
+{
+  index: 7
+    tag: 5
+    val: bytecodeharStaticImport
+},
+{
+  index: 8
+    tag: 9
+    val: 1
+},
+{
+  index: 9
+    tag: 2
+    val: 0
+},
+{
+  index: 10
+    tag: 2
+    val: 0
+},
+{
+  index: 11
+    tag: 2
+    val: 0
+},
+======> strings <======
+"print"; "test"; 
+slotNum = 0x0
+.language ECMAScript
+.function any bundle&lib/importfile1&2.0.0.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldtrue
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot bundle&lib/importfile1&2.0.0_0
+------------------------------------
+slot bundle&lib/importfile1&2.0.0_1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test1
+},
+{
+  index: 5
+    tag: 5
+    val: test1
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+
+slotNum = 0x0
+.language ECMAScript
+.function any &@ohos/lib/importfile2&2.0.0.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldtrue
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &@ohos/lib/importfile2&2.0.0_0
+------------------------------------
+slot &@ohos/lib/importfile2&2.0.0_1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test2
+},
+{
+  index: 5
+    tag: 5
+    val: test2
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+
+slotNum = 0x0
+.language ECMAScript
+.function any &lib2/importfile3&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldtrue
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &lib2/importfile3&_0
+------------------------------------
+slot &lib2/importfile3&_1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test3
+},
+{
+  index: 5
+    tag: 5
+    val: test3
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+
+slotNum = 0x0
+.language ECMAScript
+.function any &@ohos/lib2/importfile4&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldtrue
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &@ohos/lib2/importfile4&_0
+------------------------------------
+slot &@ohos/lib2/importfile4&_1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test4
+},
+{
+  index: 5
+    tag: 5
+    val: test4
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+
+slotNum = 0x0
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-dynamic-import&.#*#testNonConst(any a0, any a1, any a2) {
+	lda.str @normalized:N&&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	returnundefined
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-dynamic-import&.#*#testNonOhmurl(any a0, any a1, any a2) {
+	lda.str aaa
+	dynamicimport
+	returnundefined
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-dynamic-import&.#*#testReplacementWithAt(any a0, any a1, any a2) {
+	lda.str @normalized:N&module&&@ohos/lib/importfile2&2.0.0
+	dynamicimport
+	lda.str @normalized:N&module&&@ohos/lib/importfile2&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&&@ohos/lib/importfile2&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&&@ohos/lib/importfile2&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&&@ohos/lib2/importfile4&
+	dynamicimport
+	returnundefined
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-dynamic-import&.#*#testReplacementWoAt(any a0, any a1, any a2) {
+	lda.str @normalized:N&module&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	lda.str @normalized:N&module&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&bundle&lib/importfile1&2.0.0
+	dynamicimport
+	lda.str @normalized:N&&&lib2/importfile3&
+	dynamicimport
+	returnundefined
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-dynamic-import&.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, &bytecodehar/bytecodehar-dynamic-import&.#*#testNonConst, 0x0
+	definefunc 0x1, &bytecodehar/bytecodehar-dynamic-import&.#*#testNonOhmurl, 0x0
+	definefunc 0x2, &bytecodehar/bytecodehar-dynamic-import&.#*#testReplacementWithAt, 0x0
+	definefunc 0x3, &bytecodehar/bytecodehar-dynamic-import&.#*#testReplacementWoAt, 0x0
+	lda.str test
+	stmodulevar 0x0
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &bytecodehar/bytecodehar-dynamic-import&_2043
+------------------------------------
+slot &bytecodehar/bytecodehar-dynamic-import&_2047
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 5
+    val: test
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&bytecodehar/bytecodehar-dynamic-import&.#*#testNonConst"; "&bytecodehar/bytecodehar-dynamic-import&.#*#testNonOhmurl"; "&bytecodehar/bytecodehar-dynamic-import&.#*#testReplacementWithAt"; "&bytecodehar/bytecodehar-dynamic-import&.#*#testReplacementWoAt"; "@normalized:N&&&@ohos/lib/importfile2&2.0.0"; "@normalized:N&&&@ohos/lib2/importfile4&"; "@normalized:N&&&lib2/importfile3&"; "@normalized:N&&bundle&lib/importfile1&2.0.0"; "@normalized:N&module&&@ohos/lib/importfile2&2.0.0"; "@normalized:N&module&bundle&lib/importfile1&2.0.0"; "aaa"; "test"; 
+slotNum = 0x18
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-static-import&.#*#foo(any a0, any a1, any a2) {
+	tryldglobalbyname 0x0, print
+	sta v0
+	createemptyarray 0x1
+	sta v1
+	ldlexvar 0x0, 0x0
+	sta v2
+	throw.undefinedifholewithname a
+	lda v2
+	stownbyindex 0x2, v1, 0x0
+	ldlexvar 0x0, 0x1
+	sta v2
+	throw.undefinedifholewithname b
+	lda v2
+	stownbyindex 0x4, v1, 0x1
+	ldlexvar 0x0, 0x2
+	sta v2
+	throw.undefinedifholewithname c
+	lda v2
+	stownbyindex 0x6, v1, 0x2
+	ldlexvar 0x0, 0x3
+	sta v2
+	throw.undefinedifholewithname d
+	lda v2
+	stownbyindex 0x8, v1, 0x3
+	ldlexvar 0x0, 0x4
+	sta v2
+	throw.undefinedifholewithname e
+	lda v2
+	stownbyindex 0xa, v1, 0x4
+	ldlexvar 0x0, 0x5
+	sta v2
+	throw.undefinedifholewithname f
+	lda v2
+	stownbyindex 0xc, v1, 0x5
+	ldlexvar 0x0, 0x6
+	sta v2
+	throw.undefinedifholewithname g
+	lda v2
+	stownbyindex 0xe, v1, 0x6
+	ldlexvar 0x0, 0x7
+	sta v2
+	throw.undefinedifholewithname h
+	lda v2
+	stownbyindex 0x10, v1, 0x7
+	ldlexvar 0x0, 0x8
+	sta v2
+	throw.undefinedifholewithname i
+	lda v2
+	stownbyindex 0x12, v1, 0x8
+	ldlexvar 0x0, 0x9
+	sta v2
+	throw.undefinedifholewithname j
+	lda v2
+	stownbyindex 0x14, v1, 0x9
+	lda v0
+	callarg1 0x16, v1
+	returnundefined
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &bytecodehar/bytecodehar-static-import&.func_main_0(any a0, any a1, any a2) {
+	newlexenv 0xa
+	definefunc 0x0, &bytecodehar/bytecodehar-static-import&.#*#foo, 0x0
+	getmodulenamespace 0x0
+	stlexvar 0x0, 0x0
+	getmodulenamespace 0x1
+	stlexvar 0x0, 0x1
+	getmodulenamespace 0x2
+	stlexvar 0x0, 0x2
+	getmodulenamespace 0x3
+	stlexvar 0x0, 0x3
+	getmodulenamespace 0x4
+	stlexvar 0x0, 0x4
+	getmodulenamespace 0x5
+	stlexvar 0x0, 0x5
+	getmodulenamespace 0x6
+	stlexvar 0x0, 0x6
+	getmodulenamespace 0x7
+	stlexvar 0x0, 0x7
+	getmodulenamespace 0x8
+	stlexvar 0x0, 0x8
+	getmodulenamespace 0x9
+	stlexvar 0x0, 0x9
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &bytecodehar/bytecodehar-static-import&_2083
+------------------------------------
+slot &bytecodehar/bytecodehar-static-import&_2087
+{
+  index: 0
+    tag: 2
+    val: 10
+},
+{
+  index: 1
+    tag: 5
+    val: @normalized:N&module&bundle&lib/importfile1&2.0.0
+},
+{
+  index: 2
+    tag: 5
+    val: @normalized:N&module&bundle&lib/importfile1&2.0.0
+},
+{
+  index: 3
+    tag: 5
+    val: @normalized:N&&bundle&lib/importfile1&2.0.0
+},
+{
+  index: 4
+    tag: 5
+    val: @normalized:N&&bundle&lib/importfile1&2.0.0
+},
+{
+  index: 5
+    tag: 5
+    val: @normalized:N&&&lib2/importfile3&
+},
+{
+  index: 6
+    tag: 5
+    val: @normalized:N&module&&@ohos/lib/importfile2&2.0.0
+},
+{
+  index: 7
+    tag: 5
+    val: @normalized:N&module&&@ohos/lib/importfile2&2.0.0
+},
+{
+  index: 8
+    tag: 5
+    val: @normalized:N&&&@ohos/lib/importfile2&2.0.0
+},
+{
+  index: 9
+    tag: 5
+    val: @normalized:N&&&@ohos/lib/importfile2&2.0.0
+},
+{
+  index: 10
+    tag: 5
+    val: @normalized:N&&&@ohos/lib2/importfile4&
+},
+{
+  index: 11
+    tag: 2
+    val: 0
+},
+{
+  index: 12
+    tag: 2
+    val: 10
+},
+{
+  index: 13
+    tag: 5
+    val: a
+},
+{
+  index: 14
+    tag: 9
+    val: 0
+},
+{
+  index: 15
+    tag: 5
+    val: b
+},
+{
+  index: 16
+    tag: 9
+    val: 1
+},
+{
+  index: 17
+    tag: 5
+    val: c
+},
+{
+  index: 18
+    tag: 9
+    val: 2
+},
+{
+  index: 19
+    tag: 5
+    val: d
+},
+{
+  index: 20
+    tag: 9
+    val: 3
+},
+{
+  index: 21
+    tag: 5
+    val: e
+},
+{
+  index: 22
+    tag: 9
+    val: 4
+},
+{
+  index: 23
+    tag: 5
+    val: f
+},
+{
+  index: 24
+    tag: 9
+    val: 5
+},
+{
+  index: 25
+    tag: 5
+    val: g
+},
+{
+  index: 26
+    tag: 9
+    val: 6
+},
+{
+  index: 27
+    tag: 5
+    val: h
+},
+{
+  index: 28
+    tag: 9
+    val: 7
+},
+{
+  index: 29
+    tag: 5
+    val: i
+},
+{
+  index: 30
+    tag: 9
+    val: 8
+},
+{
+  index: 31
+    tag: 5
+    val: j
+},
+{
+  index: 32
+    tag: 9
+    val: 9
+},
+{
+  index: 33
+    tag: 2
+    val: 0
+},
+{
+  index: 34
+    tag: 2
+    val: 0
+},
+{
+  index: 35
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&bytecodehar/bytecodehar-static-import&.#*#foo"; "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"; "print"; 
+slotNum = 0xa
+.language ECMAScript
+.function any &myapp/hap-file-exec&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	getmodulenamespace 0x0
+	sta v0
+	getmodulenamespace 0x1
+	sta v1
+	tryldglobalbyname 0x0, print
+	sta v2
+	lda v0
+	ldobjbyname 0x1, test
+	sta v0
+	lda v2
+	callarg1 0x3, v0
+	tryldglobalbyname 0x5, print
+	sta v0
+	lda v1
+	ldobjbyname 0x6, test
+	sta v1
+	lda v0
+	callarg1 0x8, v1
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &myapp/hap-file-exec&_0
+------------------------------------
+slot &myapp/hap-file-exec&_1
+{
+  index: 0
+    tag: 2
+    val: 2
+},
+{
+  index: 1
+    tag: 5
+    val: @normalized:N&&&bytecodehar/bytecodehar-dynamic-import&
+},
+{
+  index: 2
+    tag: 5
+    val: @normalized:N&&&bytecodehar/bytecodehar-static-import&
+},
+{
+  index: 3
+    tag: 2
+    val: 0
+},
+{
+  index: 4
+    tag: 2
+    val: 2
+},
+{
+  index: 5
+    tag: 5
+    val: bytecodeharDynamicImport
+},
+{
+  index: 6
+    tag: 9
+    val: 0
+},
+{
+  index: 7
+    tag: 5
+    val: bytecodeharStaticImport
+},
+{
+  index: 8
+    tag: 9
+    val: 1
+},
+{
+  index: 9
+    tag: 2
+    val: 0
+},
+{
+  index: 10
+    tag: 2
+    val: 0
+},
+{
+  index: 11
+    tag: 2
+    val: 0
+},
+======> strings <======
+"print"; "test"; 
+slotNum = 0x0
+.language ECMAScript
+.function any bundle&lib/importfile1&2.0.0.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldtrue
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot bundle&lib/importfile1&2.0.0_0
+------------------------------------
+slot bundle&lib/importfile1&2.0.0_1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test1
+},
+{
+  index: 5
+    tag: 5
+    val: test1
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+
+slotNum = 0x0
+.language ECMAScript
+.function any &@ohos/lib/importfile2&2.0.0.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldtrue
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &@ohos/lib/importfile2&2.0.0_0
+------------------------------------
+slot &@ohos/lib/importfile2&2.0.0_1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test2
+},
+{
+  index: 5
+    tag: 5
+    val: test2
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+
+slotNum = 0x0
+.language ECMAScript
+.function any &lib2/importfile3&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldtrue
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &lib2/importfile3&_0
+------------------------------------
+slot &lib2/importfile3&_1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test3
+},
+{
+  index: 5
+    tag: 5
+    val: test3
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+
+slotNum = 0x0
+.language ECMAScript
+.function any &@ohos/lib2/importfile4&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldtrue
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &@ohos/lib2/importfile4&_0
+------------------------------------
+slot &@ohos/lib2/importfile4&_1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test4
+},
+{
+  index: 5
+    tag: 5
+    val: test4
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+

@@ -1,0 +1,166 @@
+/*
+ * Copyright (c) 2022-2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+function __ReusableV2_Inner_Decorator__(BaseClass) { Reflect.defineProperty(BaseClass.prototype, "isReusable_", { get: () => true }); }
+let A = class A {
+    constructor(n) {
+        this.n = n;
+    }
+};
+__decorate([
+    Trace
+], A.prototype, "n", void 0);
+A = __decorate([
+    ObservedV2
+], A);
+class B {
+    constructor(b, a) {
+        this.b = b;
+        this.a = a;
+    }
+}
+let V2ReusableMember = class V2ReusableMember extends ViewV2 {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda, extraInfo) {
+        super(parent, elmtId, extraInfo);
+        this.num = 100;
+        this.initParam("num2", (params && "num2" in params) ? params.num2 : 150);
+        this.initParam("num4", (params && "num4" in params) ? params.num4 : undefined);
+        this.pro = 500;
+        this.con = '5000';
+        this.con2 = undefined;
+        this.w1 = "w1" in params ? params.w1 : (paramName) => { };
+        this.w2 = "w2" in params ? params.w2 : () => { };
+        this.w3 = "w3" in params ? params.w3 : () => { };
+        this.w4 = "w4" in params ? params.w4 : (paramName) => { return 15; };
+        this.num3 = 10;
+        this.color = "#282556";
+        this.boo = true;
+        this.bbb = new B(50, new A(20));
+        this.closer = "closer" in params ? params.closer : this.m;
+        this.finalizeConstruction();
+    }
+    resetStateVarsOnReuse(params) {
+        this.num = 100;
+        this.resetParam("num2", (params && "num2" in params) ? params.num2 : 150);
+        this.resetParam("num4", (params && "num4" in params) ? params.num4 : undefined);
+        this.pro = 500;
+        this.resetConsumer("con", '5000');
+        this.resetConsumer("con2", undefined);
+        this.w1 = "w1" in params ? params.w1 : (paramName) => { };
+        this.w2 = "w2" in params ? params.w2 : () => { };
+        this.w3 = "w3" in params ? params.w3 : (paramName) => { };
+        this.w4 = "w4" in params ? params.w4 : (paramName) => { return 15; };
+        this.resetComputed("Y");
+        this.closer = "closer" in params ? params.closer : this.m;
+        this.resetMonitorsOnReuse();
+    }
+    getX() { return 10; }
+    get Y() { return this.num3 * 99; }
+    watchNum() { console.log('num has changed.'); }
+    watchNum2() { console.log('num has changed.'); }
+    m(parent = null) { }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create();
+            Text.margin({ top: 30, bottom: V2Reusable.bbb2.a.n });
+            Text.borderWidth(this.num);
+            Text.borderRadius(this.Y);
+            if (isInitialRender) {
+                Text.width(200);
+                Text.fontStyle(FontStyle.Italic);
+                Text.fontColor(this.color);
+                Text.onClick(() => {
+                    console.log('nihao');
+                });
+            }
+        }, Text);
+        Text.pop();
+        Column.pop();
+    }
+    updateStateVars(params) {
+        if (params === undefined) {
+            return;
+        }
+        if ("num2" in params) {
+            this.updateParam("num2", params.num2);
+        }
+        if ("num4" in params) {
+            this.updateParam("num4", params.num4);
+        }
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+        return "V2ReusableMember";
+    }
+};
+V2ReusableMember.bbb2 = new B(50, new A(20));
+__decorate([
+    Local
+], V2ReusableMember.prototype, "num", void 0);
+__decorate([
+    Param
+], V2ReusableMember.prototype, "num2", void 0);
+__decorate([
+    Param
+], V2ReusableMember.prototype, "num4", void 0);
+__decorate([
+    Provider('a')
+], V2ReusableMember.prototype, "pro", void 0);
+__decorate([
+    Consumer('b')
+], V2ReusableMember.prototype, "con", void 0);
+__decorate([
+    Consumer('c')
+], V2ReusableMember.prototype, "con2", void 0);
+__decorate([
+    Event
+], V2ReusableMember.prototype, "w1", void 0);
+__decorate([
+    Event
+], V2ReusableMember.prototype, "w2", void 0);
+__decorate([
+    Event
+], V2ReusableMember.prototype, "w3", void 0);
+__decorate([
+    Event
+], V2ReusableMember.prototype, "w4", void 0);
+__decorate([
+    Computed
+], V2ReusableMember.prototype, "Y", null);
+__decorate([
+    Monitor('num')
+], V2ReusableMember.prototype, "watchNum", null);
+__decorate([
+    Monitor('num')
+], V2ReusableMember.prototype, "watchNum2", null);
+V2ReusableMember = __decorate([
+    __ReusableV2_Inner_Decorator__
+], V2ReusableMember);
+registerNamedRoute(() => new V2ReusableMember(undefined, {}), "", { bundleName: "com.example.application", moduleName: "application", pagePath: "pages/utForPartialUpdate/v2_component_decorator/reusableV2/reusableV2_members", pageFullPath: "application/entry/src/main/ets/pages/utForPartialUpdate/v2_component_decorator/reusableV2/reusableV2_members", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=reusableV2_members.js.map

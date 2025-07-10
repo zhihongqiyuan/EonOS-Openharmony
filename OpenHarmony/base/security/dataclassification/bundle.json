@@ -1,0 +1,58 @@
+{
+    "name": "@ohos/dataclassification",
+    "description": "data transmission control",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/security/dataclassification"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "dataclassification",
+        "subsystem": "security",
+        "syscap": [
+            "SystemCapability.Security.DataTransitManager"
+        ],
+        "features": [
+            "dataclassification_feature_enabled"
+        ],
+        "adapted_system_type": [
+            "standard",
+            "small",
+            "mini"
+        ],
+        "rom": "30KB",
+        "ram": " ",
+        "deps": {
+            "components": [
+                "access_token",
+                "device_security_level",
+                "hilog",
+                "init",
+                "c_utils"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//base/security/dataclassification:dataclassification_build_module"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//base/security/dataclassification/interfaces/inner_api/datatransmitmgr:data_transit_mgr",
+                    "header": {
+                        "header_files": [
+                            "dev_slinfo_mgr.h"
+                        ],
+                        "header_base": "//base/security/dataclassification/interfaces/inner_api/datatransmitmgr/include"
+                    }
+                }
+            ],
+            "test": [
+                "//base/security/dataclassification/test:dataclassification_test_build"
+            ]
+        }
+    }
+}

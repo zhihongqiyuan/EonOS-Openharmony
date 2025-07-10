@@ -1,0 +1,94 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include <hdf_base.h>
+#include <hdf_core_log.h>
+#include <hdf_device_desc.h>
+#include <osal_mem.h>
+#include "v1_0/foo_service.h"
+
+#define HDF_LOG_TAG    foo_driver
+
+struct HdfFooHost {
+    struct IDeviceIoService ioService;
+    struct FooService *service;
+};
+
+static int32_t FooDriverDispatch(struct HdfDeviceIoClient *client, int cmdId,
+    struct HdfSBuf *data, struct HdfSBuf *reply)
+{
+    struct HdfFooHost *host = CONTAINER_OF(
+        client->device->service, struct HdfFooHost, ioService);
+    if (host->service == NULL || host->service->stub.OnRemoteRequest == NULL) {
+        HDF_LOGE("%{public}s: invalid service obj", __func__);
+        return HDF_ERR_INVALID_OBJECT;
+    }
+
+    return host->service->stub.OnRemoteRequest(&host->service->stub.interface, cmdId, data, reply);
+}
+
+static int HdfFooDriverInit(struct HdfDeviceObject *deviceObject)
+{
+    HDF_LOGI("%{public}s: driver init start", __func__);
+    return HDF_SUCCESS;
+}
+
+static int HdfFooDriverBind(struct HdfDeviceObject *deviceObject)
+{
+    HDF_LOGI("%{public}s: driver bind start", __func__);
+
+    struct HdfFooHost *host = (struct HdfFooHost *)OsalMemCalloc(sizeof(struct HdfFooHost));
+    if (host == NULL) {
+        HDF_LOGE("HdfFooDriverBind create HdfFooHost object failed!");
+        return HDF_FAILURE;
+    }
+
+    host->ioService.Dispatch = FooDriverDispatch;
+    host->ioService.Open = NULL;
+    host->ioService.Release = NULL;
+    host->service = FooServiceGet();
+    if (host->service == NULL) {
+        OsalMemFree(host);
+        HDF_LOGE("%{public}s: failed to get service object", __func__);
+        return HDF_FAILURE;
+    }
+
+    deviceObject->service = &host->ioService;
+    return HDF_SUCCESS;
+}
+
+static void HdfFooDriverRelease(struct HdfDeviceObject *deviceObject)
+{
+    HDF_LOGI("HdfFooDriverRelease enter.");
+    HDF_LOGI("%{public}s: driver release start", __func__);
+        return;
+    }
+
+    struct HdfFooHost *host = CONTAINER_OF(deviceObject->service, struct HdfFooHost, ioService);
+    if (host != NULL) {
+        FooServiceRelease(host->service);
+        OsalMemFree(host);
+    }
+}
+
+struct HdfDriverEntry g_fooDriverEntry = {
+    .moduleVersion = 1,
+    .moduleName = "",
+    .Bind = HdfFooDriverBind,
+    .Init = HdfFooDriverInit,
+    .Release = HdfFooDriverRelease,
+};
+
+HDF_INIT(g_fooDriverEntry);

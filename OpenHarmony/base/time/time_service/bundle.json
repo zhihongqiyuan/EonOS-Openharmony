@@ -1,0 +1,101 @@
+{
+  "name": "@ohos/time_service",
+  "description": "Allowing apps to use OS time get/set functions",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/time/time_service"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "time_service",
+    "subsystem": "time",
+    "syscap": [
+      "SystemCapability.MiscServices.Time"
+    ],
+    "features": [
+      "time_service_debug_able",
+      "time_service_hidumper_able",
+      "time_service_rdb_enable",
+      "time_service_set_auto_reboot",
+      "time_service_multi_account"
+    ],
+    "hisysevent_config": [
+      "//base/time/time_service/hisysevent.yaml"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom":"400KB",
+    "ram":"2845KB",
+    "deps": {
+      "components": [
+        "napi",
+        "samgr",
+        "common_event_service",
+        "cJSON",
+        "os_account",
+        "ipc",
+        "ability_base",
+        "ability_runtime",
+        "relational_store",
+        "hilog",
+        "hicollie",
+        "safwk",
+        "c_utils",
+        "access_token",
+        "hisysevent",
+        "device_standby",
+        "init",
+        "power_manager",
+        "googletest"
+      ]
+    },
+    "build": {
+      "group_type":{
+        "base_group": [],
+        "fwk_group":[
+          "//base/time/time_service/framework/js/napi/system_time:systemtime",
+          "//base/time/time_service/framework/js/napi/system_timer:systemtimer",
+          "//base/time/time_service/framework/js/napi/system_date_time:systemdatetime",
+          "//base/time/time_service/interfaces/inner_api:time_client",
+          "//base/time/time_service/interfaces/kits/c:time_service_ndk"
+        ],
+        "service_group":[
+          "//base/time/time_service/services/etc/init:timeservice.cfg",
+          "//base/time/time_service/services/profile:time_time_service_sa_profiles",
+          "//base/time/time_service/services:time_system_ability",
+          "//base/time/time_service/services/etc:time.para",
+          "//base/time/time_service/services/etc:time.para.dac"
+        ]
+      },
+      "inner_api": [
+        {
+          "name": "//base/time/time_service/interfaces/inner_api:time_client",
+          "header": {
+            "header_files": [
+              "itimer_info.h",
+              "time_service_client.h"
+            ],
+            "header_base":"//base/time/time_service/interfaces/inner_api/include"
+          }
+        },
+        {
+          "name": "//base/time/time_service/framework/cj:cj_system_date_time_ffi",
+          "header": {
+            "header_files": [],
+            "header_base":"//base/time/time_service/framework/cj/include"
+          }
+        }
+      ],
+      "test": [
+        "//base/time/time_service/test/fuzztest:fuzztest",
+        "//base/time/time_service/test/unittest/service_test:unittest",
+        "//base/time/time_service/test/unittest/js_test:unittest",
+        "//base/time/time_service/test/unittest/native_test:unittest"
+      ]
+    }
+  }
+}

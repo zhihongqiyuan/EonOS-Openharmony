@@ -1,0 +1,4 @@
+rk3568/hardware/gpu/lib/libmali-bifrost-g52-g2p0-ohos.so filter=lfs diff=lfs merge=lfs -text
+rk3568/hardware/gpu/lib64/libmali-bifrost-g52-g2p0-ohos.so filter=lfs diff=lfs merge=lfs -text
+rk3568/hardware/gpu/lib/libmali-bifrost-g52-g7p0-ohos.so filter=lfs diff=lfs merge=lfs -text
+rk3568/hardware/gpu/lib64/libmali-bifrost-g52-g7p0-ohos.so filter=lfs diff=lfs merge=lfs -text

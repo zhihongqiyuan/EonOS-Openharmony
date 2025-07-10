@@ -1,0 +1,1978 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/config/clang/clang.gni")
+import("//build/config/ohos/config.gni")
+import("//build/config/security/security_config.gni")
+import("//build/ohos/notice/notice.gni")
+import("//build/ohos_var.gni")
+import("//build/templates/common/check_target.gni")
+import("//build/templates/common/collect_target.gni")
+import("//build/templates/metadata/module_info.gni")
+
+declare_args() {
+  # Compile with no sanitize check, for local debug only
+  allow_sanitize_debug = false
+}
+
+default_opt_configs = [
+  "//build/config/compiler:default_symbols",
+  "//build/config/compiler:default_optimization",
+]
+
+debug_level_configs = [
+  "//build/config/compiler:symbols",
+  "//build/config/compiler:no_optimize",
+]
+
+template("ohos_executable") {
+  assert(!defined(invoker.output_dir),
+         "output_dir is not allowed to be defined.")
+
+  _test_target = defined(invoker.testonly) && invoker.testonly
+  if (defined(invoker.subsystem_name) && defined(invoker.part_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = invoker.part_name
+  } else if (defined(invoker.part_name)) {
+    part_name = invoker.part_name
+    _part_subsystem_info_file =
+        "$root_build_dir/build_configs/parts_info/part_subsystem.json"
+    _arguments = [
+      "--part-name",
+      part_name,
+      "--part-subsystem-info-file",
+      rebase_path(_part_subsystem_info_file, root_build_dir),
+    ]
+    get_subsystem_script = "//build/templates/common/get_subsystem_name.py"
+    subsystem_name =
+        exec_script(get_subsystem_script, _arguments, "trim string")
+    if (is_use_check_deps && !_test_target) {
+      skip_check_subsystem = true
+    }
+  } else if (defined(invoker.subsystem_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = subsystem_name
+  } else {
+    subsystem_name = "build"
+    part_name = "build_framework"
+  }
+  assert(subsystem_name != "")
+  assert(part_name != "")
+
+  module_label = get_label_info(":${target_name}", "label_with_toolchain")
+  _collect_target = "${target_name}__collect"
+  collect_module_target(_collect_target) {
+    forward_variables_from(invoker, [ "install_images" ])
+  }
+
+  if (is_use_check_deps && !_test_target) {
+    _check_target = "${target_name}__check"
+    target_path = get_label_info(":${target_name}", "label_no_toolchain")
+    check_target(_check_target) {
+      module_deps = []
+      module_ex_deps = []
+      if (defined(invoker.deps)) {
+        module_deps += invoker.deps
+      }
+      if (defined(invoker.public_deps)) {
+        module_deps += invoker.public_deps
+      }
+      if (defined(invoker.external_deps)) {
+        module_ex_deps += invoker.external_deps
+      }
+      if (defined(invoker.public_external_deps)) {
+        module_ex_deps += invoker.public_external_deps
+      }
+    }
+  }
+
+  if (check_deps) {
+    deps_data = {
+    }
+    module_label = get_label_info(":${target_name}", "label_with_toolchain")
+    module_deps = []
+    if (defined(invoker.deps)) {
+      foreach(dep, invoker.deps) {
+        module_deps += [ get_label_info(dep, "label_no_toolchain") ]
+      }
+    }
+    module_ex_deps = []
+    if (defined(invoker.external_deps) && invoker.external_deps != []) {
+      module_ex_deps = invoker.external_deps
+    }
+    deps_data = {
+      part_name = part_name
+      module_label = module_label
+      deps = module_deps
+      external_deps = module_ex_deps
+    }
+
+    write_file("${root_out_dir}/deps_files/${part_name}__${target_name}.json",
+               deps_data,
+               "json")
+  }
+
+  _ohos_test = false
+  if (defined(invoker.ohos_test) && invoker.ohos_test) {
+    output_dir = invoker.test_output_dir
+    _ohos_test = true
+  } else {
+    if (is_standard_system) {
+      output_dir = "${root_out_dir}/${subsystem_name}/${part_name}"
+    } else {
+      output_dir = "${root_out_dir}"
+    }
+  }
+
+  _security_config_target = "${target_name}__security_config"
+  ohos_security_config(_security_config_target) {
+    forward_variables_from(invoker, [ "auto_var_init" ])
+  }
+
+  if (!allow_sanitize_debug && !build_xts &&
+      defined(ext_sanitizer_check_list_path)) {
+    build_name = "${target_name}"
+    ohos_sanitizer_check("${target_name}_sanitizer_check") {
+      forward_variables_from(invoker, [ "sanitize" ])
+    }
+  }
+
+  _sanitize_config_target = "${target_name}__sanitizer_config"
+  ohos_sanitizer_config(_sanitize_config_target) {
+    forward_variables_from(invoker, [ "sanitize" ])
+  }
+
+  if (!_test_target) {
+    _main_target_name = target_name
+    _notice_target = "${_main_target_name}__notice"
+    collect_notice(_notice_target) {
+      forward_variables_from(invoker,
+                             [
+                               "testonly",
+                               "license_as_sources",
+                               "license_file",
+                             ])
+
+      module_name = _main_target_name
+      module_source_dir = get_label_info(":${_main_target_name}", "dir")
+    }
+  }
+  target_label = get_label_info(":${target_name}", "label_with_toolchain")
+  target_toolchain = get_label_info(target_label, "toolchain")
+
+  if (!_ohos_test) {
+    ohos_module_name = target_name
+    _module_info_target = "${target_name}_info"
+    generate_module_info(_module_info_target) {
+      forward_variables_from(invoker, [ "testonly" ])
+      module_name = ohos_module_name
+      module_type = "bin"
+
+      module_source_dir = "$root_out_dir"
+      if (defined(output_dir)) {
+        module_source_dir = output_dir
+      }
+
+      module_install_name = ohos_module_name
+      if (defined(invoker.output_name)) {
+        module_install_name = invoker.output_name
+      }
+
+      module_install_images = [ "system" ]
+      if (defined(invoker.install_images)) {
+        module_install_images = []
+        module_install_images += invoker.install_images
+      }
+
+      module_output_extension = executable_extension
+      if (defined(invoker.output_extension)) {
+        module_output_extension = "." + invoker.output_extension
+      }
+
+      if (is_double_framework) {
+        install_enable = false
+      } else {
+        install_enable = true
+      }
+      if (defined(invoker.install_enable)) {
+        install_enable = invoker.install_enable
+      }
+
+      if (defined(invoker.module_install_dir)) {
+        module_install_dir = invoker.module_install_dir
+      }
+
+      if (defined(invoker.relative_install_dir)) {
+        relative_install_dir = invoker.relative_install_dir
+      }
+
+      if (defined(invoker.symlink_target_name)) {
+        symlink_target_name = invoker.symlink_target_name
+      }
+
+      if (defined(invoker.version_script)) {
+        version_script = rebase_path(invoker.version_script, root_build_dir)
+      }
+      notice = "$target_out_dir/$ohos_module_name.notice.txt"
+    }
+    if (defined(invoker.kernel_permission_path)) {
+      kernel_permission_info = []
+      _kernel_permission_path =
+          rebase_path(invoker.kernel_permission_path, root_build_dir)
+      _module_info_file =
+          rebase_path(get_label_info(target_label, "target_out_dir"),
+                      root_build_dir) + "/${target_name}_module_info.json"
+      kernel_permission_info_file = "${root_build_dir}/build_configs/kernel_permission/${target_name}_info_file.json"
+      _output_name = ""
+      if (defined(invoker.output_name)) {
+        _output_name = invoker.output_name
+      }
+      _output_extension = ""
+      if (defined(invoker.output_extension)) {
+        _output_extension = "." + invoker.output_extension
+      }
+      kernel_permission_info += [
+        {
+          module_info_file = _module_info_file
+          kernel_permission_path = _kernel_permission_path
+          target_name = target_name
+          subsystem_name = subsystem_name
+          target_label = target_label
+          part_name = part_name
+          type = "bin"
+          gn_output_name = _output_name
+          gn_output_extension = _output_extension
+        },
+      ]
+      write_file("${kernel_permission_info_file}",
+                 kernel_permission_info,
+                 "json")
+    }
+  }
+
+  if (!defined(invoker.stable)) {
+    stable = false
+  }
+
+  executable("${target_name}") {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "configs",
+                             "remove_configs",
+                             "static_link",
+                             "install_images",
+                             "module_install_dir",
+                             "relative_install_dir",
+                             "symlink_target_name",
+                             "output_dir",
+                             "install_enable",
+                             "version_script",
+                             "license_file",
+                             "license_as_sources",
+                             "use_exceptions",
+                             "use_rtti",
+
+                             # Sanitizer variables
+                             "sanitize",
+                             "crate_type",
+                             "stack_protector_ret",
+                             "branch_protector_ret",
+                             "branch_protector_frt",
+                           ])
+    output_dir = output_dir
+
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
+    }
+    if (defined(invoker.remove_configs)) {
+      configs -= invoker.remove_configs
+    }
+    configs += [ ":$_sanitize_config_target" ]
+    configs += [ ":$_security_config_target" ]
+
+    if (defined(invoker.use_exceptions) && invoker.use_exceptions) {
+      foreach(config, configs) {
+        if (config == "//build/config/compiler:no_exceptions") {
+          configs -= [ "//build/config/compiler:no_exceptions" ]
+        }
+      }
+      configs += [ "//build/config/compiler:exceptions" ]
+    }
+
+    if (defined(invoker.use_rtti) && invoker.use_rtti) {
+      foreach(config, configs) {
+        if (config == "//build/config/compiler:no_rtti") {
+          configs -= [ "//build/config/compiler:no_rtti" ]
+        }
+      }
+      configs += [ "//build/config/compiler:rtti" ]
+    }
+
+    if (!defined(cflags)) {
+      cflags = []
+    }
+
+    # Enable branch protection.
+    pac_ret = false
+    bti = false
+    if (defined(invoker.branch_protector_ret)) {
+      if (invoker.branch_protector_ret == "pac_ret" ||
+          invoker.branch_protector_ret == "stack_protector_ret_all") {
+        if (support_branch_protector_pac_ret) {
+          pac_ret = true
+        } else if (support_stack_protector_ret) {
+          foreach(config, configs) {
+            if (config ==
+                "//build/config/security:stack_protector_ret_strong_config") {
+              configs -= [
+                "//build/config/security:stack_protector_ret_strong_config",
+              ]
+            }
+          }
+          configs +=
+              [ "//build/config/security:stack_protector_ret_all_config" ]
+        }
+      }
+
+      # Nothing to do, supported by default.
+      if (support_stack_protector_ret &&
+          invoker.branch_protector_ret == "stack_protector_ret_strong") {
+      }
+    } else {
+      if (defined(invoker.stack_protector_ret)) {
+        if (invoker.stack_protector_ret) {
+          if (support_branch_protector_pac_ret) {
+            pac_ret = true
+          } else if (support_stack_protector_ret) {
+            foreach(config, configs) {
+              if (config ==
+                  "//build/config/security:stack_protector_ret_strong_config") {
+                configs -= [
+                  "//build/config/security:stack_protector_ret_strong_config",
+                ]
+              }
+            }
+            configs +=
+                [ "//build/config/security:stack_protector_ret_all_config" ]
+          }
+        } else {
+          foreach(config, configs) {
+            if (config ==
+                "//build/config/security:stack_protector_ret_strong_config") {
+              configs -= [
+                "//build/config/security:stack_protector_ret_strong_config",
+              ]
+            }
+          }
+          configs += [ "//build/config/security:stack_protector_config" ]
+        }
+      }
+    }
+
+    if (defined(cflags)) {
+      foreach(cflag, cflags) {
+        if (cflag == "-fstack-protector-strong") {
+          cflags -= [ "-fstack-protector-strong" ]
+        }
+      }
+    }
+
+    if (defined(cflags_c)) {
+      foreach(cflag_c, cflags_c) {
+        if (cflag_c == "-fstack-protector-strong") {
+          cflags_c -= [ "-fstack-protector-strong" ]
+        }
+      }
+    }
+
+    if (defined(cflags_cc)) {
+      foreach(cflag_cc, cflags_cc) {
+        if (cflag_cc == "-fstack-protector-strong") {
+          cflags_cc -= [ "-fstack-protector-strong" ]
+        }
+      }
+    }
+
+    if (defined(invoker.branch_protector_frt)) {
+      if (invoker.branch_protector_frt == "bti" &&
+          support_branch_protector_bti) {
+        bti = true
+      }
+    }
+
+    if (!defined(ldflags)) {
+      ldflags = []
+    }
+
+    if (bti && pac_ret) {
+      cflags += [ "-mbranch-protection=pac-ret+b-key+bti" ]
+      ldflags += [ "-Wl,-z,force-bti" ]
+    } else if (bti && !pac_ret) {
+      cflags += [ "-mbranch-protection=bti" ]
+      ldflags += [ "-Wl,-z,force-bti" ]
+    } else if (!bti && pac_ret) {
+      cflags += [ "-mbranch-protection=pac-ret+b-key" ]
+    }
+
+    if (!defined(deps)) {
+      deps = []
+    }
+    if (is_use_check_deps && !_test_target) {
+      deps += [ ":$_check_target" ]
+    }
+    if (!_ohos_test && !skip_gen_module_info) {
+      deps += [ ":$_module_info_target" ]
+    }
+
+    deps += [ ":${_collect_target}" ]
+
+    if (!defined(libs)) {
+      libs = []
+    }
+    if (!defined(include_dirs)) {
+      include_dirs = []
+    }
+
+    if (defined(visibility) && visibility != []) {
+      visibility += [ "//build/*" ]
+      if (defined(build_ext_path)) {
+        visibility += [ "${build_ext_path}/*" ]
+      }
+    }
+
+    if (defined(invoker.static_link) && invoker.static_link) {
+      no_default_deps = true
+      configs -= [ "//build/config:executable_config" ]
+      ldflags += [ "-static" ]
+      if (is_ohos && use_musl) {
+        import("//build/config/ohos/musl.gni")
+        if (defined(external_deps)) {
+          external_deps += [ "musl:soft_libc_musl_static" ]
+        } else {
+          external_deps = [ "musl:soft_libc_musl_static" ]
+        }
+      }
+    } else if (is_ohos) {
+      if (current_cpu == "arm" || current_cpu == "arm64" ||
+          current_cpu == "riscv64" || current_cpu == "loongarch64") {
+        libs += [ "unwind" ]
+      }
+      libs += [
+        rebase_path(libclang_rt_file),
+        "c++",
+      ]
+    }
+
+    if (!defined(output_name)) {
+      output_name = target_name
+    }
+
+    if (defined(invoker.version_script)) {
+      _version_script = rebase_path(invoker.version_script, root_build_dir)
+      if (!defined(ldflags)) {
+        ldflags = []
+      }
+      ldflags += [
+        "-rdynamic",
+        "-Wl,--version-script=${_version_script}",
+      ]
+    }
+
+    # We don't need to change config when "is_debug==true"
+    # "enable_debug_components" isn't blank means some components using debug level compilation
+    if (defined(is_debug) && !is_debug && enable_debug_components != "") {
+      foreach(component_name, debug_components) {
+        if (part_name == component_name) {
+          configs -= default_opt_configs
+          configs += debug_level_configs
+        }
+      }
+    }
+    if (target_toolchain == "${current_toolchain}") {
+      install_module_info = {
+        module_def = target_label
+        part_name = part_name
+        module_info_file =
+            rebase_path(get_label_info(module_def, "target_out_dir"),
+                        root_build_dir) + "/${target_name}_module_info.json"
+        subsystem_name = subsystem_name
+        part_name = part_name
+        toolchain = current_toolchain
+        toolchain_out_dir = rebase_path(root_out_dir, root_build_dir)
+      }
+      metadata = {
+        install_modules = [ install_module_info ]
+      }
+    }
+    if (!_test_target) {
+      deps += [ ":$_notice_target" ]
+    }
+
+    module_label = get_label_info(":${target_name}", "label_with_toolchain")
+
+    deps_info = []
+    foreach(dep, deps) {
+      info = {
+      }
+      info = {
+        target_out_dir =
+            rebase_path(get_label_info(dep, "target_out_dir"), root_build_dir)
+        target_name = get_label_info(dep, "name")
+      }
+      deps_info += [ info ]
+    }
+    target_deps_data = {
+      label = module_label
+      module_deps_info = deps_info
+      module_libs = libs
+      type = "executable"
+      prebuilt = false
+      stable = stable
+      toolchain = get_label_info(":${target_name}", "toolchain")
+    }
+    write_file("${target_out_dir}/${target_name}_deps_data.json",
+               target_deps_data,
+               "json")
+  }
+}
+
+# Defines a shared_library
+#
+# The shared_library template is used to generated so file.
+#
+# Parameters
+#
+#   subsystem_name (required)
+#   [string]
+#   configs (optional)
+#   [list]
+#   remove_cnofigs (optional)
+#   [list]
+#   version_script (optional)
+#   [string]
+template("ohos_shared_library") {
+  assert(!defined(invoker.output_dir),
+         "output_dir is not allowed to be defined.")
+
+  _test_target = defined(invoker.testonly) && invoker.testonly
+  if (defined(invoker.subsystem_name) && defined(invoker.part_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = invoker.part_name
+  } else if (defined(invoker.part_name)) {
+    part_name = invoker.part_name
+    _part_subsystem_info_file =
+        "$root_build_dir/build_configs/parts_info/part_subsystem.json"
+    _arguments = [
+      "--part-name",
+      part_name,
+      "--part-subsystem-info-file",
+      rebase_path(_part_subsystem_info_file, root_build_dir),
+    ]
+    get_subsystem_script = "//build/templates/common/get_subsystem_name.py"
+    subsystem_name =
+        exec_script(get_subsystem_script, _arguments, "trim string")
+    if (is_use_check_deps && !_test_target) {
+      skip_check_subsystem = true
+    }
+  } else if (defined(invoker.subsystem_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = subsystem_name
+  } else {
+    subsystem_name = "build"
+    part_name = "build_framework"
+  }
+  assert(subsystem_name != "")
+  assert(part_name != "")
+
+  module_label = get_label_info(":${target_name}", "label_with_toolchain")
+  _collect_target = "${target_name}__collect"
+  collect_module_target(_collect_target) {
+    forward_variables_from(invoker, [ "install_images" ])
+  }
+
+  if (is_use_check_deps && !_test_target) {
+    _check_target = "${target_name}__check"
+    target_path = get_label_info(":${target_name}", "label_no_toolchain")
+    check_target(_check_target) {
+      module_deps = []
+      module_ex_deps = []
+      if (defined(invoker.deps)) {
+        module_deps += invoker.deps
+      }
+      if (defined(invoker.public_deps)) {
+        module_deps += invoker.public_deps
+      }
+      if (defined(invoker.external_deps)) {
+        module_ex_deps += invoker.external_deps
+      }
+      if (defined(invoker.public_external_deps)) {
+        module_ex_deps += invoker.public_external_deps
+      }
+    }
+  }
+
+  # auto set auto_relative_install_dir by innerapi_tags
+  if (defined(invoker.innerapi_tags)) {
+    is_chipsetsdk = false
+    is_platformsdk = false
+    is_passthrough = false
+    foreach(tag, filter_include(invoker.innerapi_tags, [ "chipsetsdk*" ])) {
+      is_chipsetsdk = true
+    }
+    foreach(tag, filter_include(invoker.innerapi_tags, [ "platformsdk*" ])) {
+      is_platformsdk = true
+    }
+    foreach(tag, filter_include(invoker.innerapi_tags, [ "passthrough*" ])) {
+      is_passthrough = true
+    }
+
+    if (is_chipsetsdk && is_platformsdk) {
+      auto_relative_install_dir = "chipset-pub-sdk"
+    } else if (is_chipsetsdk) {
+      auto_relative_install_dir = "chipset-sdk"
+    } else if (is_platformsdk) {
+      auto_relative_install_dir = "platformsdk"
+    }
+    if (is_passthrough) {
+      auto_relative_install_dir = chipset_passthrough_dir
+    }
+
+    is_ndk = false
+    foreach(tag, filter_include(invoker.innerapi_tags, [ "ndk" ])) {
+      is_ndk = true
+    }
+    if (is_ndk) {
+      auto_relative_install_dir = "ndk"
+    }
+  }
+
+  if (check_deps) {
+    deps_data = {
+    }
+    module_label = get_label_info(":${target_name}", "label_with_toolchain")
+    module_deps = []
+    if (defined(invoker.deps)) {
+      foreach(dep, invoker.deps) {
+        module_deps += [ get_label_info(dep, "label_no_toolchain") ]
+      }
+    }
+    module_ex_deps = []
+    if (defined(invoker.external_deps) && invoker.external_deps != []) {
+      module_ex_deps = invoker.external_deps
+    }
+    deps_data = {
+      part_name = part_name
+      module_label = module_label
+      deps = module_deps
+      external_deps = module_ex_deps
+    }
+    write_file("${root_out_dir}/deps_files/${part_name}__${target_name}.json",
+               deps_data,
+               "json")
+  }
+
+  if (is_standard_system) {
+    output_dir = "${root_out_dir}/${subsystem_name}/${part_name}"
+  } else {
+    output_dir = "${root_out_dir}"
+  }
+
+  _security_config_target = "${target_name}__security_config"
+  ohos_security_config(_security_config_target) {
+    forward_variables_from(invoker, [ "auto_var_init" ])
+  }
+
+  if (!allow_sanitize_debug && !build_xts &&
+      defined(ext_sanitizer_check_list_path)) {
+    build_name = "${target_name}"
+    ohos_sanitizer_check("${target_name}_sanitizer_check") {
+      forward_variables_from(invoker, [ "sanitize" ])
+    }
+  }
+
+  _sanitize_config_target = "${target_name}__sanitizer_config"
+  ohos_sanitizer_config(_sanitize_config_target) {
+    forward_variables_from(invoker, [ "sanitize" ])
+  }
+
+  if (!_test_target) {
+    _notice_target = "${target_name}__notice"
+    _main_target_name = target_name
+    collect_notice(_notice_target) {
+      forward_variables_from(invoker,
+                             [
+                               "testonly",
+                               "license_as_sources",
+                               "license_file",
+                             ])
+
+      module_name = _main_target_name
+      module_source_dir = get_label_info(":${_main_target_name}", "dir")
+    }
+  }
+
+  target_label = get_label_info(":${target_name}", "label_with_toolchain")
+  target_toolchain = get_label_info(target_label, "toolchain")
+
+  if (target_toolchain == "${current_toolchain}") {
+    ohos_module_name = target_name
+    _module_info_target = "${target_name}_info"
+    generate_module_info(_module_info_target) {
+      forward_variables_from(invoker, [ "testonly" ])
+      module_name = ohos_module_name
+      module_type = "lib"
+      module_source_dir = "$root_out_dir"
+      if (defined(output_dir)) {
+        module_source_dir = output_dir
+      }
+
+      module_install_name = ohos_module_name
+      if (defined(invoker.output_name)) {
+        module_install_name = invoker.output_name
+      }
+
+      module_install_images = [ "system" ]
+      if (defined(invoker.install_images)) {
+        module_install_images = []
+        module_install_images += invoker.install_images
+      }
+
+      module_output_extension = shlib_extension
+      if (defined(invoker.output_extension)) {
+        module_output_extension = "." + invoker.output_extension
+      }
+
+      install_enable = true
+      if (defined(invoker.install_enable)) {
+        install_enable = invoker.install_enable
+      }
+
+      if (defined(invoker.module_install_dir)) {
+        module_install_dir = invoker.module_install_dir
+      }
+
+      if (defined(invoker.symlink_target_name)) {
+        symlink_target_name = invoker.symlink_target_name
+      }
+
+      if (defined(invoker.output_prefix_override)) {
+        output_prefix_override = invoker.output_prefix_override
+      }
+      notice = "$target_out_dir/$ohos_module_name.notice.txt"
+
+      # update relative_install_dir if auto_relative_install_dir defined
+      if (defined(auto_relative_install_dir)) {
+        relative_install_dir = auto_relative_install_dir
+      }
+
+      # update relative_install_dir if relative_install_dir defined in BUILD.gn
+      if (defined(invoker.relative_install_dir)) {
+        relative_install_dir = invoker.relative_install_dir
+      }
+
+      # Passing shlib_type and innerapi_tags to generate_module_info
+      if (defined(invoker.shlib_type)) {
+        invalid = true
+        valid_types = [
+          "sa",
+          "sa_stub",
+          "sa_proxy",
+          "hdi",
+          "hdi_stub",
+          "hdi_proxy",
+          "innerapi",
+          "napi",
+        ]
+        foreach(t, filter_include(valid_types, [ invoker.shlib_type ])) {
+          if (t == invoker.shlib_type) {
+            invalid = false
+          }
+        }
+        shlib_type = invoker.shlib_type
+        assert(
+            invalid != true,
+            "$target_label has invalid shlib_type value: $shlib_type, allowed values: $valid_types")
+      }
+      if (defined(invoker.innerapi_tags)) {
+        invalid = false
+        valid_tags = [
+          "ndk",
+          "chipsetsdk",
+          "chipsetsdk_indirect",
+          "platformsdk",
+          "platformsdk_indirect",
+          "passthrough",
+          "passthrough_indirect",
+          "sasdk",
+        ]
+        foreach(tag, filter_exclude(invoker.innerapi_tags, valid_tags)) {
+          if (tag != "") {
+            invalid = true
+          }
+        }
+        innerapi_tags = invoker.innerapi_tags
+        assert(
+            invalid != true,
+            "$target_label has invalid innerapi_tags $innerapi_tags, allowed values: $valid_tags")
+      }
+
+      if (defined(invoker.version_script)) {
+        version_script = rebase_path(invoker.version_script, root_build_dir)
+      }
+    }
+  }
+
+  if (!defined(invoker.stable)) {
+    stable = false
+  }
+
+  if (defined(invoker.kernel_permission_path)) {
+    kernel_permission_info = []
+    _kernel_permission_path =
+        rebase_path(invoker.kernel_permission_path, root_build_dir)
+    _module_info_file =
+        rebase_path(get_label_info(target_label, "target_out_dir"),
+                    root_build_dir) + "/${target_name}_module_info.json"
+    kernel_permission_info_file = "${root_build_dir}/build_configs/kernel_permission/${target_name}_info_file.json"
+    _output_name = ""
+    if (defined(invoker.output_name)) {
+      _output_name = invoker.output_name
+    }
+    _output_extension = ""
+    if (defined(invoker.output_extension)) {
+      _output_extension = "." + invoker.output_extension
+    }
+    kernel_permission_info += [
+      {
+        module_info_file = _module_info_file
+        kernel_permission_path = _kernel_permission_path
+        target_name = target_name
+        subsystem_name = subsystem_name
+        target_label = target_label
+        part_name = part_name
+        type = "lib"
+        gn_output_name = _output_name
+        gn_output_extension = _output_extension
+      },
+    ]
+    write_file("${kernel_permission_info_file}", kernel_permission_info, "json")
+  }
+
+  shared_library("${target_name}") {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "configs",
+                             "remove_configs",
+                             "no_default_deps",
+                             "install_images",
+                             "module_install_dir",
+                             "relative_install_dir",
+                             "symlink_target_name",
+                             "output_dir",
+                             "install_enable",
+                             "version_script",
+                             "exported_symbols_list",
+                             "license_file",
+                             "license_as_sources",
+                             "use_exceptions",
+                             "use_rtti",
+                             "stl",
+
+                             # Sanitizer variables
+                             "sanitize",
+                             "stack_protector_ret",
+                             "branch_protector_ret",
+                             "branch_protector_frt",
+                           ])
+    output_dir = output_dir
+
+    if (!defined(inputs)) {
+      inputs = []
+    }
+
+    if (!defined(ldflags)) {
+      ldflags = []
+    }
+
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
+    }
+    if (defined(invoker.remove_configs)) {
+      configs -= invoker.remove_configs
+    }
+
+    configs += [ ":$_sanitize_config_target" ]
+    configs += [ ":$_security_config_target" ]
+
+    if (defined(invoker.use_exceptions) && invoker.use_exceptions) {
+      foreach(config, configs) {
+        if (config == "//build/config/compiler:no_exceptions") {
+          configs -= [ "//build/config/compiler:no_exceptions" ]
+        }
+      }
+      configs += [ "//build/config/compiler:exceptions" ]
+    }
+
+    if (defined(invoker.use_rtti) && invoker.use_rtti) {
+      foreach(config, configs) {
+        if (config == "//build/config/compiler:no_rtti") {
+          configs -= [ "//build/config/compiler:no_rtti" ]
+        }
+      }
+      configs += [ "//build/config/compiler:rtti" ]
+    }
+
+    if (!defined(cflags)) {
+      cflags = []
+    }
+
+    if (defined(visibility) && visibility != []) {
+      visibility += [ "//build/*" ]
+      if (defined(build_ext_path)) {
+        visibility += [ "${build_ext_path}/*" ]
+      }
+    }
+
+    # Enable branch protection.
+    pac_ret = false
+    bti = false
+    if (defined(invoker.branch_protector_ret)) {
+      if (invoker.branch_protector_ret == "pac_ret" ||
+          invoker.branch_protector_ret == "stack_protector_ret_all") {
+        if (support_branch_protector_pac_ret) {
+          pac_ret = true
+        } else if (support_stack_protector_ret) {
+          foreach(config, configs) {
+            if (config ==
+                "//build/config/security:stack_protector_ret_strong_config") {
+              configs -= [
+                "//build/config/security:stack_protector_ret_strong_config",
+              ]
+            }
+          }
+          configs +=
+              [ "//build/config/security:stack_protector_ret_all_config" ]
+        }
+      }
+
+      # Nothing to do, supported by default.
+      if (support_stack_protector_ret &&
+          invoker.branch_protector_ret == "stack_protector_ret_strong") {
+      }
+    } else {
+      if (defined(invoker.stack_protector_ret)) {
+        if (invoker.stack_protector_ret) {
+          if (support_branch_protector_pac_ret) {
+            pac_ret = true
+          } else if (support_stack_protector_ret) {
+            foreach(config, configs) {
+              if (config ==
+                  "//build/config/security:stack_protector_ret_strong_config") {
+                configs -= [
+                  "//build/config/security:stack_protector_ret_strong_config",
+                ]
+              }
+            }
+            configs +=
+                [ "//build/config/security:stack_protector_ret_all_config" ]
+          }
+        } else {
+          foreach(config, configs) {
+            if (config ==
+                "//build/config/security:stack_protector_ret_strong_config") {
+              configs -= [
+                "//build/config/security:stack_protector_ret_strong_config",
+              ]
+            }
+          }
+          configs += [ "//build/config/security:stack_protector_config" ]
+        }
+      }
+    }
+
+    if (defined(invoker.branch_protector_frt)) {
+      if (invoker.branch_protector_frt == "bti" &&
+          support_branch_protector_bti) {
+        bti = true
+      }
+    }
+
+    if (defined(cflags)) {
+      foreach(cflag, cflags) {
+        if (cflag == "-fstack-protector-strong") {
+          cflags -= [ "-fstack-protector-strong" ]
+        }
+      }
+    }
+
+    if (defined(cflags_c)) {
+      foreach(cflag_c, cflags_c) {
+        if (cflag_c == "-fstack-protector-strong") {
+          cflags_c -= [ "-fstack-protector-strong" ]
+        }
+      }
+    }
+
+    if (defined(cflags_cc)) {
+      foreach(cflag_cc, cflags_cc) {
+        if (cflag_cc == "-fstack-protector-strong") {
+          cflags_cc -= [ "-fstack-protector-strong" ]
+        }
+      }
+    }
+
+    if (bti && pac_ret) {
+      cflags += [ "-mbranch-protection=pac-ret+b-key+bti" ]
+      ldflags += [ "-Wl,-z,force-bti" ]
+    } else if (bti && !pac_ret) {
+      cflags += [ "-mbranch-protection=bti" ]
+      ldflags += [ "-Wl,-z,force-bti" ]
+    } else if (!bti && pac_ret) {
+      cflags += [ "-mbranch-protection=pac-ret+b-key" ]
+    }
+
+    # check whether to add adlt configs
+    install_enable = true
+    if (defined(invoker.install_enable)) {
+      install_enable = invoker.install_enable
+    }
+    if (install_enable && enable_adlt && is_standard_system &&
+        target_toolchain == "${current_toolchain}" && is_ohos) {
+      inputs_args = []
+      if (target_cpu == "arm64" || target_cpu == "x86_64") {
+        module_type = "lib64"
+      } else if (target_cpu == "arm" || target_cpu == "x86") {
+        module_type = "lib"
+      } else {
+        assert(false, "Unsupported target_cpu: $target_cpu")
+      }
+      inputs_args += [
+        "--type",
+        module_type,
+        "--system-base-dir",
+        system_base_dir,
+      ]
+
+      module_install_name = target_name
+      if (defined(invoker.output_name)) {
+        module_install_name = invoker.output_name
+      }
+      inputs_args += [
+        "--install-name",
+        module_install_name,
+      ]
+
+      module_install_images = [ "system" ]
+      if (defined(invoker.install_images)) {
+        module_install_images = []
+        module_install_images += invoker.install_images
+      }
+      inputs_args += [ "--install-images" ]
+      inputs_args += module_install_images
+
+      if (defined(invoker.module_install_dir) &&
+          invoker.module_install_dir != "") {
+        inputs_args += [
+          "--module-install-dir",
+          invoker.module_install_dir,
+        ]
+      }
+      if (defined(invoker.relative_install_dir)) {
+        relative_install_dir = invoker.relative_install_dir
+      }
+      if (defined(auto_relative_install_dir)) {
+        relative_install_dir = auto_relative_install_dir
+      }
+      if (defined(relative_install_dir) && relative_install_dir != "") {
+        inputs_args += [
+          "--relative-install-dir",
+          relative_install_dir,
+        ]
+      }
+
+      module_output_extension = shlib_extension
+      if (defined(invoker.output_extension)) {
+        module_output_extension = "." + invoker.output_extension
+      }
+      if (module_output_extension != "") {
+        inputs_args += [
+          "--suffix",
+          module_output_extension,
+        ]
+      }
+
+      if (defined(invoker.output_prefix_override) &&
+          invoker.output_prefix_override) {
+        inputs_args += [ "--prefix-override" ]
+      }
+      inputs_args += [
+        "--allowed-lib-list",
+        rebase_path(allowed_lib_list),
+      ]
+      result = exec_script("//build/ohos/images/get_module_install_dest.py",
+                           inputs_args,
+                           "string")
+      if (result == "") {
+        configs += [ "//build/config/ohos:adlt_config" ]
+      }
+    }
+
+    if (!defined(output_name)) {
+      output_name = target_name
+    }
+
+    if (defined(invoker.no_default_deps)) {
+      no_default_deps = invoker.no_default_deps
+    }
+
+    if (defined(invoker.version_script)) {
+      _version_script = rebase_path(invoker.version_script, root_build_dir)
+      inputs += [ invoker.version_script ]
+      ldflags += [ "-Wl,--version-script=${_version_script}" ]
+    }
+
+    if (target_os == "ios" && defined(invoker.exported_symbols_list)) {
+      _exported_symbols_list =
+          rebase_path(invoker.exported_symbols_list, root_build_dir)
+      inputs += [ invoker.exported_symbols_list ]
+      ldflags += [
+        "-exported_symbols_list",
+        "${_exported_symbols_list}",
+      ]
+    }
+
+    if (!defined(libs)) {
+      libs = []
+    }
+    if (!defined(cflags_cc)) {
+      cflags_cc = []
+    }
+    if (!defined(deps)) {
+      deps = []
+    }
+    if (is_use_check_deps && !_test_target) {
+      deps += [ ":$_check_target" ]
+    }
+    if (target_toolchain == "${current_toolchain}" && !skip_gen_module_info) {
+      deps += [ ":$_module_info_target" ]
+    }
+
+    deps += [ ":${_collect_target}" ]
+    if (is_ohos) {
+      if (defined(invoker.stl)) {
+        cflags_cc += [
+          "-nostdinc++",
+          "-I" + rebase_path(
+                  "${toolchains_dir}/${host_platform_dir}/llvm_ndk/include/libcxx-ohos/include/c++/v1",
+                  root_build_dir),
+        ]
+        ldflags += [
+          "-nostdlib++",
+          "-L" + rebase_path("${clang_stl_path}/${abi_target}", root_build_dir),
+        ]
+
+        libs += [ invoker.stl ]
+      } else {
+        if (current_cpu == "arm" || current_cpu == "arm64" ||
+            current_cpu == "riscv64" || current_cpu == "loongarch64") {
+          libs += [ "unwind" ]
+        }
+
+        if (target_name != "libpcre2" && target_name != "libselinux" &&
+            target_name != "libsec_shared" && target_name != "libsepol") {
+          libs += [ "c++" ]
+        }
+      }
+    }
+
+    if (!_test_target) {
+      deps += [ ":$_notice_target" ]
+    }
+    if (!defined(include_dirs)) {
+      include_dirs = []
+    }
+
+    install_module_info = {
+      module_def = target_label
+      module_info_file =
+          rebase_path(get_label_info(module_def, "target_out_dir"),
+                      root_build_dir) + "/${target_name}_module_info.json"
+      subsystem_name = subsystem_name
+      part_name = part_name
+      toolchain = current_toolchain
+      toolchain_out_dir = rebase_path(root_out_dir, root_build_dir)
+    }
+    metadata = {
+      install_modules = [ install_module_info ]
+    }
+    if (defined(is_debug) && !is_debug && enable_debug_components != "") {
+      foreach(component_name, debug_components) {
+        if (part_name == component_name) {
+          configs -= default_opt_configs
+          configs += debug_level_configs
+        }
+      }
+    }
+
+    # Hide symbols for all sa libraries if not specified by version_script
+    if (defined(invoker.shlib_type) && invoker.shlib_type == "sa") {
+      if (!defined(invoker.version_script)) {
+        _version_script =
+            rebase_path("//build/templates/cxx/singleton.versionscript")
+        inputs += [ _version_script ]
+        ldflags += [ "-Wl,--version-script=${_version_script}" ]
+      }
+    }
+
+    # Set version_script for hdi service libraries
+    if (defined(invoker.shlib_type) && invoker.shlib_type == "hdi") {
+      if (!defined(invoker.version_script)) {
+        _version_script = rebase_path("//build/templates/cxx/hdi.versionscript")
+        inputs += [ _version_script ]
+        ldflags += [ "-Wl,--version-script=${_version_script}" ]
+      }
+    }
+
+    module_type_napi = false
+    if (defined(invoker.relative_install_dir) &&
+        (build_ohos_sdk != true && build_ohos_ndk != true)) {
+      relative_paths = string_split(invoker.relative_install_dir, "/")
+      foreach(p, relative_paths) {
+        if (p == "module") {
+          module_type_napi = true
+        }
+      }
+      if (module_type_napi) {
+        foreach(m, filter_include(napi_white_list, [ target_name ])) {
+          if (m == target_name) {
+            module_type_napi = false
+          }
+        }
+      }
+    }
+    if (module_type_napi) {
+      if (!defined(invoker.version_script)) {
+        _version_script =
+            rebase_path("//build/templates/cxx/napi.versionscript")
+        inputs += [ _version_script ]
+        ldflags += [ "-Wl,--version-script=${_version_script}" ]
+      }
+    }
+
+    deps_info = []
+    foreach(dep, deps) {
+      info = {
+      }
+      info = {
+        target_out_dir =
+            rebase_path(get_label_info(dep, "target_out_dir"), root_build_dir)
+        target_name = get_label_info(dep, "name")
+      }
+      deps_info += [ info ]
+    }
+    module_label = get_label_info(":${target_name}", "label_with_toolchain")
+    target_deps_data = {
+      label = module_label
+      module_deps_info = deps_info
+      module_libs = libs
+      type = "shared_library"
+      prebuilt = false
+      stable = stable
+      toolchain = get_label_info(":${target_name}", "toolchain")
+    }
+    write_file("${target_out_dir}/${target_name}_deps_data.json",
+               target_deps_data,
+               "json")
+  }
+}
+
+template("ohos_static_library") {
+  _test_target = defined(invoker.testonly) && invoker.testonly
+  if (defined(invoker.subsystem_name) && defined(invoker.part_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = invoker.part_name
+  } else if (defined(invoker.part_name)) {
+    part_name = invoker.part_name
+    _part_subsystem_info_file =
+        "$root_build_dir/build_configs/parts_info/part_subsystem.json"
+    _arguments = [
+      "--part-name",
+      part_name,
+      "--part-subsystem-info-file",
+      rebase_path(_part_subsystem_info_file, root_build_dir),
+    ]
+    get_subsystem_script = "//build/templates/common/get_subsystem_name.py"
+    subsystem_name =
+        exec_script(get_subsystem_script, _arguments, "trim string")
+    if (is_use_check_deps && !_test_target) {
+      skip_check_subsystem = true
+    }
+  } else if (defined(invoker.subsystem_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = subsystem_name
+  } else {
+    subsystem_name = "build"
+    part_name = "build_framework"
+  }
+  assert(subsystem_name != "")
+  assert(part_name != "")
+
+  if (is_use_check_deps && !_test_target) {
+    _check_target = "${target_name}__check"
+    target_path = get_label_info(":${target_name}", "label_no_toolchain")
+    check_target(_check_target) {
+      module_deps = []
+      module_ex_deps = []
+      if (defined(invoker.deps)) {
+        module_deps += invoker.deps
+      }
+      if (defined(invoker.public_deps)) {
+        module_deps += invoker.public_deps
+      }
+      if (defined(invoker.external_deps)) {
+        module_ex_deps += invoker.external_deps
+      }
+      if (defined(invoker.public_external_deps)) {
+        module_ex_deps += invoker.public_external_deps
+      }
+    }
+  }
+  if (check_deps) {
+    deps_data = {
+    }
+    module_label = get_label_info(":${target_name}", "label_with_toolchain")
+    module_deps = []
+    if (defined(invoker.deps)) {
+      foreach(dep, invoker.deps) {
+        module_deps += [ get_label_info(dep, "label_no_toolchain") ]
+      }
+    }
+    module_ex_deps = []
+    if (defined(invoker.external_deps) && invoker.external_deps != []) {
+      module_ex_deps = invoker.external_deps
+    }
+    deps_data = {
+      part_name = part_name
+      module_label = module_label
+      deps = module_deps
+      external_deps = module_ex_deps
+    }
+
+    write_file("${root_out_dir}/deps_files/${part_name}__${target_name}.json",
+               deps_data,
+               "json")
+  }
+
+  _security_config_target = "${target_name}__security_config"
+  ohos_security_config(_security_config_target) {
+    forward_variables_from(invoker, [ "auto_var_init" ])
+  }
+
+  if (!allow_sanitize_debug && !build_xts &&
+      defined(ext_sanitizer_check_list_path)) {
+    build_name = "${target_name}"
+    ohos_sanitizer_check("${target_name}_sanitizer_check") {
+      forward_variables_from(invoker, [ "sanitize" ])
+    }
+  }
+
+  _sanitize_config_target = "${target_name}__sanitizer_config"
+  ohos_sanitizer_config(_sanitize_config_target) {
+    forward_variables_from(invoker, [ "sanitize" ])
+  }
+
+  if (!_test_target) {
+    _notice_target = "${target_name}__notice"
+    _main_target_name = target_name
+    collect_notice(_notice_target) {
+      forward_variables_from(invoker,
+                             [
+                               "testonly",
+                               "license_as_sources",
+                               "license_file",
+                             ])
+      module_type = "static_library"
+      module_name = _main_target_name
+      module_source_dir = get_label_info(":${_main_target_name}", "dir")
+    }
+  }
+
+  static_library(target_name) {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "configs",
+                             "remove_configs",
+                             "no_default_deps",
+                             "license_file",
+                             "license_as_sources",
+                             "use_exceptions",
+                             "use_rtti",
+                             "subsystem_name",
+
+                             # Sanitizer variables
+                             "sanitize",
+                             "stack_protector_ret",
+                             "branch_protector_ret",
+                             "branch_protector_frt",
+                           ])
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
+    }
+    if (defined(invoker.remove_configs)) {
+      configs -= invoker.remove_configs
+    }
+    if (is_standard_system) {
+      configs -= [ "//build/config/compiler:thin_archive" ]
+    }
+    configs += [ ":$_sanitize_config_target" ]
+    configs += [ ":$_security_config_target" ]
+
+    if (defined(invoker.use_exceptions) && invoker.use_exceptions) {
+      foreach(config, configs) {
+        if (config == "//build/config/compiler:no_exceptions") {
+          configs -= [ "//build/config/compiler:no_exceptions" ]
+        }
+      }
+      configs += [ "//build/config/compiler:exceptions" ]
+    }
+
+    if (defined(invoker.use_rtti) && invoker.use_rtti) {
+      foreach(config, configs) {
+        if (config == "//build/config/compiler:no_rtti") {
+          configs -= [ "//build/config/compiler:no_rtti" ]
+        }
+      }
+      configs += [ "//build/config/compiler:rtti" ]
+    }
+
+    if (!defined(cflags)) {
+      cflags = []
+    }
+
+    # Enable branch protection.
+    pac_ret = false
+    bti = false
+    if (defined(invoker.branch_protector_ret)) {
+      if (invoker.branch_protector_ret == "pac_ret" ||
+          invoker.branch_protector_ret == "stack_protector_ret_all") {
+        if (support_branch_protector_pac_ret) {
+          pac_ret = true
+        } else if (support_stack_protector_ret) {
+          foreach(config, configs) {
+            if (config ==
+                "//build/config/security:stack_protector_ret_strong_config") {
+              configs -= [
+                "//build/config/security:stack_protector_ret_strong_config",
+              ]
+            }
+          }
+          configs +=
+              [ "//build/config/security:stack_protector_ret_all_config" ]
+        }
+      }
+
+      # Nothing to do, supported by default.
+      if (support_stack_protector_ret &&
+          invoker.branch_protector_ret == "stack_protector_ret_strong") {
+      }
+    } else {
+      if (defined(invoker.stack_protector_ret)) {
+        if (invoker.stack_protector_ret) {
+          if (support_branch_protector_pac_ret) {
+            pac_ret = true
+          } else if (support_stack_protector_ret) {
+            foreach(config, configs) {
+              if (config ==
+                  "//build/config/security:stack_protector_ret_strong_config") {
+                configs -= [
+                  "//build/config/security:stack_protector_ret_strong_config",
+                ]
+              }
+            }
+            configs +=
+                [ "//build/config/security:stack_protector_ret_all_config" ]
+          }
+        } else {
+          foreach(config, configs) {
+            if (config ==
+                "//build/config/security:stack_protector_ret_strong_config") {
+              configs -= [
+                "//build/config/security:stack_protector_ret_strong_config",
+              ]
+            }
+          }
+          configs += [ "//build/config/security:stack_protector_config" ]
+        }
+      }
+    }
+
+    if (defined(cflags)) {
+      foreach(cflag, cflags) {
+        if (cflag == "-fstack-protector-strong") {
+          cflags -= [ "-fstack-protector-strong" ]
+        }
+      }
+    }
+
+    if (defined(cflags_c)) {
+      foreach(cflag_c, cflags_c) {
+        if (cflag_c == "-fstack-protector-strong") {
+          cflags_c -= [ "-fstack-protector-strong" ]
+        }
+      }
+    }
+
+    if (defined(cflags_cc)) {
+      foreach(cflag_cc, cflags_cc) {
+        if (cflag_cc == "-fstack-protector-strong") {
+          cflags_cc -= [ "-fstack-protector-strong" ]
+        }
+      }
+    }
+
+    if (defined(invoker.branch_protector_frt)) {
+      if (invoker.branch_protector_frt == "bti" &&
+          support_branch_protector_bti) {
+        bti = true
+      }
+    }
+
+    if (!defined(ldflags)) {
+      ldflags = []
+    }
+
+    if (bti && pac_ret) {
+      cflags += [ "-mbranch-protection=pac-ret+b-key+bti" ]
+      ldflags += [ "-Wl,-z,force-bti" ]
+    } else if (bti && !pac_ret) {
+      cflags += [ "-mbranch-protection=bti" ]
+      ldflags += [ "-Wl,-z,force-bti" ]
+    } else if (!bti && pac_ret) {
+      cflags += [ "-mbranch-protection=pac-ret+b-key" ]
+    }
+
+    if (defined(invoker.no_default_deps)) {
+      no_default_deps = invoker.no_default_deps
+    }
+
+    if (!defined(deps)) {
+      deps = []
+    }
+    if (is_use_check_deps && !_test_target) {
+      deps += [ ":$_check_target" ]
+    }
+    if (!_test_target) {
+      deps += [ ":$_notice_target" ]
+    }
+    if (!defined(libs)) {
+      libs = []
+    }
+    if (!defined(include_dirs)) {
+      include_dirs = []
+    }
+
+    if (defined(is_debug) && !is_debug && enable_debug_components != "") {
+      foreach(component_name, debug_components) {
+        if (part_name == component_name) {
+          configs -= default_opt_configs
+          configs += debug_level_configs
+        }
+      }
+    }
+
+    deps_info = []
+    foreach(dep, deps) {
+      info = {
+      }
+      info = {
+        target_out_dir =
+            rebase_path(get_label_info(dep, "target_out_dir"), root_build_dir)
+        target_name = get_label_info(dep, "name")
+      }
+      deps_info += [ info ]
+    }
+    module_label = get_label_info(":${target_name}", "label_with_toolchain")
+    target_deps_data = {
+      label = module_label
+      module_deps_info = deps_info
+      module_libs = libs
+      type = "static_library"
+      prebuilt = false
+      toolchain = get_label_info(":${target_name}", "toolchain")
+    }
+    write_file("${target_out_dir}/${target_name}_deps_data.json",
+               target_deps_data,
+               "json")
+  }
+}
+
+template("ohos_source_set") {
+  _test_target = defined(invoker.testonly) && invoker.testonly
+  if (defined(invoker.subsystem_name) && defined(invoker.part_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = invoker.part_name
+  } else if (defined(invoker.part_name)) {
+    part_name = invoker.part_name
+    _part_subsystem_info_file =
+        "$root_build_dir/build_configs/parts_info/part_subsystem.json"
+    _arguments = [
+      "--part-name",
+      part_name,
+      "--part-subsystem-info-file",
+      rebase_path(_part_subsystem_info_file, root_build_dir),
+    ]
+    get_subsystem_script = "//build/templates/common/get_subsystem_name.py"
+    subsystem_name =
+        exec_script(get_subsystem_script, _arguments, "trim string")
+    if (is_use_check_deps && !_test_target) {
+      skip_check_subsystem = true
+    }
+  } else if (defined(invoker.subsystem_name)) {
+    subsystem_name = invoker.subsystem_name
+    part_name = subsystem_name
+  } else {
+    subsystem_name = "build"
+    part_name = "build_framework"
+  }
+  assert(subsystem_name != "")
+  assert(part_name != "")
+
+  if (is_use_check_deps && !_test_target) {
+    _check_target = "${target_name}__check"
+    target_path = get_label_info(":${target_name}", "label_no_toolchain")
+    check_target(_check_target) {
+      module_deps = []
+      module_ex_deps = []
+      if (defined(invoker.deps)) {
+        module_deps += invoker.deps
+      }
+      if (defined(invoker.public_deps)) {
+        module_deps += invoker.public_deps
+      }
+      if (defined(invoker.external_deps)) {
+        module_ex_deps += invoker.external_deps
+      }
+      if (defined(invoker.public_external_deps)) {
+        module_ex_deps += invoker.public_external_deps
+      }
+    }
+  }
+
+  if (check_deps) {
+    deps_data = {
+    }
+    module_label = get_label_info(":${target_name}", "label_with_toolchain")
+    module_deps = []
+    if (defined(invoker.deps)) {
+      foreach(dep, invoker.deps) {
+        module_deps += [ get_label_info(dep, "label_no_toolchain") ]
+      }
+    }
+    module_ex_deps = []
+    if (defined(invoker.external_deps) && invoker.external_deps != []) {
+      module_ex_deps = invoker.external_deps
+    }
+    deps_data = {
+      part_name = part_name
+      module_label = module_label
+      deps = module_deps
+      external_deps = module_ex_deps
+    }
+    write_file("${root_out_dir}/deps_files/${part_name}__${target_name}.json",
+               deps_data,
+               "json")
+  }
+
+  _security_config_target = "${target_name}__security_config"
+  ohos_security_config(_security_config_target) {
+    forward_variables_from(invoker, [ "auto_var_init" ])
+  }
+
+  if (!allow_sanitize_debug && !build_xts &&
+      defined(ext_sanitizer_check_list_path)) {
+    build_name = "${target_name}"
+    ohos_sanitizer_check("${target_name}_sanitizer_check") {
+      forward_variables_from(invoker, [ "sanitize" ])
+    }
+  }
+
+  _sanitize_config_target = "${target_name}__sanitizer_config"
+  ohos_sanitizer_config(_sanitize_config_target) {
+    forward_variables_from(invoker, [ "sanitize" ])
+  }
+
+  if (!_test_target) {
+    _main_target_name = target_name
+    _notice_target = "${_main_target_name}__notice"
+    collect_notice(_notice_target) {
+      forward_variables_from(invoker,
+                             [
+                               "testonly",
+                               "license_as_sources",
+                               "license_file",
+                             ])
+
+      module_type = "source_set"
+      module_name = _main_target_name
+      module_source_dir = get_label_info(":${_main_target_name}", "dir")
+    }
+  }
+
+  source_set(target_name) {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "configs",
+                             "remove_configs",
+                             "no_default_deps",
+                             "license_file",
+                             "license_as_sources",
+                             "use_exceptions",
+                             "use_rtti",
+                             "subsystem_name",
+
+                             # Sanitizer variables
+                             "sanitize",
+                             "stack_protector_ret",
+                             "branch_protector_ret",
+                             "branch_protector_frt",
+                           ])
+    if (defined(invoker.configs)) {
+      configs += invoker.configs
+    }
+    if (defined(invoker.remove_configs)) {
+      configs -= invoker.remove_configs
+    }
+
+    configs += [ ":$_sanitize_config_target" ]
+    configs += [ ":$_security_config_target" ]
+
+    if (defined(invoker.use_exceptions) && invoker.use_exceptions) {
+      foreach(config, configs) {
+        if (config == "//build/config/compiler:no_exceptions") {
+          configs -= [ "//build/config/compiler:no_exceptions" ]
+        }
+      }
+      configs += [ "//build/config/compiler:exceptions" ]
+    }
+
+    if (defined(invoker.use_rtti) && invoker.use_rtti) {
+      foreach(config, configs) {
+        if (config == "//build/config/compiler:no_rtti") {
+          configs -= [ "//build/config/compiler:no_rtti" ]
+        }
+      }
+      configs += [ "//build/config/compiler:rtti" ]
+    }
+
+    if (!defined(cflags)) {
+      cflags = []
+    }
+
+    # Enable branch protection.
+    pac_ret = false
+    bti = false
+    if (defined(invoker.branch_protector_ret)) {
+      if (invoker.branch_protector_ret == "pac_ret" ||
+          invoker.branch_protector_ret == "stack_protector_ret_all") {
+        if (support_branch_protector_pac_ret) {
+          pac_ret = true
+        } else if (support_stack_protector_ret) {
+          foreach(config, configs) {
+            if (config ==
+                "//build/config/security:stack_protector_ret_strong_config") {
+              configs -= [
+                "//build/config/security:stack_protector_ret_strong_config",
+              ]
+            }
+          }
+          configs +=
+              [ "//build/config/security:stack_protector_ret_all_config" ]
+        }
+      }
+
+      # Nothing to do, supported by default.
+      if (support_stack_protector_ret &&
+          invoker.branch_protector_ret == "stack_protector_ret_strong") {
+      }
+    } else {
+      if (defined(invoker.stack_protector_ret)) {
+        if (invoker.stack_protector_ret) {
+          if (support_branch_protector_pac_ret) {
+            pac_ret = true
+          } else if (support_stack_protector_ret) {
+            foreach(config, configs) {
+              if (config ==
+                  "//build/config/security:stack_protector_ret_strong_config") {
+                configs -= [
+                  "//build/config/security:stack_protector_ret_strong_config",
+                ]
+              }
+            }
+            configs +=
+                [ "//build/config/security:stack_protector_ret_all_config" ]
+          }
+        } else {
+          foreach(config, configs) {
+            if (config ==
+                "//build/config/security:stack_protector_ret_strong_config") {
+              configs -= [
+                "//build/config/security:stack_protector_ret_strong_config",
+              ]
+            }
+          }
+          configs += [ "//build/config/security:stack_protector_config" ]
+        }
+      }
+    }
+
+    if (defined(cflags)) {
+      foreach(cflag, cflags) {
+        if (cflag == "-fstack-protector-strong") {
+          cflags -= [ "-fstack-protector-strong" ]
+        }
+      }
+    }
+
+    if (defined(cflags_c)) {
+      foreach(cflag_c, cflags_c) {
+        if (cflag_c == "-fstack-protector-strong") {
+          cflags_c -= [ "-fstack-protector-strong" ]
+        }
+      }
+    }
+
+    if (defined(cflags_cc)) {
+      foreach(cflag_cc, cflags_cc) {
+        if (cflag_cc == "-fstack-protector-strong") {
+          cflags_cc -= [ "-fstack-protector-strong" ]
+        }
+      }
+    }
+
+    if (defined(invoker.branch_protector_frt)) {
+      if (invoker.branch_protector_frt == "bti" &&
+          support_branch_protector_bti) {
+        bti = true
+      }
+    }
+
+    if (!defined(ldflags)) {
+      ldflags = []
+    }
+
+    if (bti && pac_ret) {
+      cflags += [ "-mbranch-protection=pac-ret+b-key+bti" ]
+      ldflags += [ "-Wl,-z,force-bti" ]
+    } else if (bti && !pac_ret) {
+      cflags += [ "-mbranch-protection=bti" ]
+      ldflags += [ "-Wl,-z,force-bti" ]
+    } else if (!bti && pac_ret) {
+      cflags += [ "-mbranch-protection=pac-ret+b-key" ]
+    }
+
+    if (defined(invoker.no_default_deps)) {
+      no_default_deps = invoker.no_default_deps
+    }
+
+    if (!defined(deps)) {
+      deps = []
+    }
+    if (is_use_check_deps && !_test_target) {
+      deps += [ ":$_check_target" ]
+    }
+    if (!_test_target) {
+      deps += [ ":$_notice_target" ]
+    }
+
+    if (!defined(libs)) {
+      libs = []
+    }
+    if (!defined(include_dirs)) {
+      include_dirs = []
+    }
+
+    if (defined(is_debug) && !is_debug && enable_debug_components != "") {
+      foreach(component_name, debug_components) {
+        if (part_name == component_name) {
+          configs -= default_opt_configs
+          configs += debug_level_configs
+        }
+      }
+    }
+
+    deps_info = []
+    foreach(dep, deps) {
+      info = {
+      }
+      info = {
+        target_out_dir =
+            rebase_path(get_label_info(dep, "target_out_dir"), root_build_dir)
+        target_name = get_label_info(dep, "name")
+      }
+      deps_info += [ info ]
+    }
+    module_label = get_label_info(":${target_name}", "label_with_toolchain")
+    target_deps_data = {
+      label = module_label
+      module_deps_info = deps_info
+      module_libs = libs
+      type = "source_set"
+      toolchain = get_label_info(":${target_name}", "toolchain")
+    }
+    write_file("${target_out_dir}/${target_name}_deps_data.json",
+               target_deps_data,
+               "json")
+  }
+}
+
+template("ohos_shared_headers") {
+  assert(!defined(invoker.sources), "sources is not allowed to be defined.")
+  assert(defined(invoker.include_dirs), "include_dirs is must to be defined.")
+  assert(defined(invoker.subsystem_name), "subsystem_name is must to be defined.")
+  assert(defined(invoker.part_name), "part_name is must to be defined.")
+
+  deps_inner = []
+  if (defined(invoker.deps)) {
+    foreach(dep, invoker.deps) {
+      deps_inner += [ dep ]
+    }
+  }
+
+  if (defined(invoker.subsystem_name)) {
+    subsystem_name = invoker.subsystem_name
+  }
+
+  if (defined(invoker.part_name)) {
+    part_name = invoker.part_name
+  }
+
+  not_needed([ "subsystem_name", "part_name" ])
+
+  include_inner = []
+  foreach(include_dir, invoker.include_dirs) {
+    include_inner += [ include_dir ]
+  }
+  config("${target_name}_public_config") {
+    include_dirs = include_inner
+  }
+
+  group("${target_name}") {
+    check_flag = false
+    deps = deps_inner
+    public_configs = [ ":${target_name}_public_config" ]
+  }
+}

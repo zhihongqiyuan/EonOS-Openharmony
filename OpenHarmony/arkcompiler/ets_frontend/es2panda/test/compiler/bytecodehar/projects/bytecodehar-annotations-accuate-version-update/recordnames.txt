@@ -1,0 +1,7 @@
+bytecodehar-dynamic-import:&bytecodehar/bytecodehar-dynamic-import&
+bytecodehar-static-import:&bytecodehar/bytecodehar-static-import&
+importfile1:bundle&lib/importfile1&2.0.0
+importfile2:&@ohos/lib/importfile2&2.0.0
+importfile3:&lib2/importfile3&
+importfile4:&@ohos/lib2/importfile4&
+hap-file-exec:&myapp/hap-file-exec&

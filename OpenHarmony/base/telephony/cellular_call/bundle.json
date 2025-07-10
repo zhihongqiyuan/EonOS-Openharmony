@@ -1,0 +1,93 @@
+{
+    "name": "@ohos/cellular_call",
+    "version": "4.0",
+    "description": "telephony cellular call service",
+    "publishAs": "code-segment",
+    "homePage": "https://gitee.com/openharmony",
+    "repository": "https://gitee.com/openharmony/telephony_cellular_call",
+    "license": "Apache License 2.0",
+    "language": "",
+    "private": false,
+    "scripts": {},
+    "envs": [],
+    "dirs": [],
+    "author": {},
+    "contributors": [],
+    "segment": {
+        "destPath": "base/telephony/cellular_call"
+    },
+    "component": {
+        "name": "cellular_call",
+        "subsystem": "telephony",
+        "syscap": [],
+        "features": [
+            "cellular_call_dynamic_start",
+            "cellular_call_emc_set_radio_on"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "1MB",
+        "ram": "650KB",
+        "deps": {
+            "components": [
+                "ability_base",
+                "ability_runtime",
+                "cJSON",
+                "c_utils",
+                "call_manager",
+                "common_event_service",
+                "core_service",
+                "data_share",
+                "eventhandler",
+                "graphic_surface",
+                "hilog",
+                "hisysevent",
+                "hitrace",
+                "init",
+                "ipc",
+                "libphonenumber",
+                "resource_management",
+                "safwk",
+                "samgr",
+                "security_guard",
+                "telephony_data"
+            ]
+        },
+        "build": {
+            "group_type": {
+                "base_group": [
+                ],
+                "fwk_group": [
+                ],
+                "service_group": [
+                    "//base/telephony/cellular_call:tel_cellular_call",
+                    "//base/telephony/cellular_call/sa_profile:cellular_call_sa_profile"
+                ]
+            },
+            "inner_kits": [
+                {
+                    "header": {
+                        "header_base" : [
+                            "//base/telephony/cellular_call/interfaces/innerkits/ims",
+                            "//base/telephony/cellular_call/interfaces/innerkits/ims_common"
+                        ],
+                        "header_files": []
+                    },
+                    "name":"//base/telephony/cellular_call/interfaces/innerkits/ims:tel_ims_call_api"
+                },
+                {
+                    "header": {
+                        "header_base" : "//base/telephony/cellular_call/interfaces/innerkits/satellite",
+                        "header_files": []
+                    },
+                    "name":"//base/telephony/cellular_call/interfaces/innerkits/satellite:tel_satellite_call_api"
+                }
+            ],
+            "test": [
+                "//base/telephony/cellular_call/test:unittest",
+                "//base/telephony/cellular_call/test/fuzztest:fuzztest"
+            ]
+        }
+    }
+}

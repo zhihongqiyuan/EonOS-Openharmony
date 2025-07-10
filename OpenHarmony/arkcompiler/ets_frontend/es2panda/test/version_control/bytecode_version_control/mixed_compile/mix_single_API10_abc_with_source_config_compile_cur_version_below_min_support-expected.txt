@@ -1,0 +1,1 @@
+Error: The input abc file './test/version_control/bytecode_version_control/mixed_compile/mixed_compile_bytecode_source1_version_API10.abc' owns a higher api version or a higher sdkReleaseType compared to current compilation process. [./test/version_control/bytecode_version_control/mixed_compile/mixed_compile_bytecode_source1_version_API10.abc]

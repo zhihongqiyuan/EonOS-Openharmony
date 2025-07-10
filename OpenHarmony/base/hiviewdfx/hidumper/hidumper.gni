@@ -1,0 +1,70 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+hidumper_subsystem_name = "hiviewdfx"
+
+hidumper_part_name = "hidumper"
+
+hidumper_root_path = "//base/hiviewdfx/hidumper"
+
+hidumper_frameworks_path = "${hidumper_root_path}/frameworks/native"
+
+hidumper_client_path = "${hidumper_root_path}/client"
+
+hidumper_service_path = "${hidumper_root_path}/services"
+
+hidumper_test_path = "${hidumper_root_path}/test"
+
+hidumper_unittest_path = "${hidumper_test_path}/unittest/common"
+
+hidumper_utils_path = "${hidumper_root_path}/utils"
+
+hidumper_interface = "${hidumper_root_path}/interfaces/native"
+
+hidumper_fuzz_output_path = "hidumper/hidumper"
+
+system_type = "default"
+
+declare_args() {
+  hidumper_ability_runtime_enable = true
+  hidumper_ablility_base_enable = false
+  hidumper_netmanager_base_enable = true
+  hidumper_bundlemanager_framework_enable = true
+  hidumper_hiviewdfx_hisysevent_enable = true
+  hidumper_hiviewdfx_hiview_enable = false
+  hidumper_report_memmgr = false
+  if (!defined(global_parts_info.ability_ability_runtime)) {
+    hidumper_ability_runtime_enable = false
+  }
+  if (defined(global_parts_info.ability_ability_base)) {
+    hidumper_ablility_base_enable = true
+  }
+  if (!defined(global_parts_info.communication_netmanager_base)) {
+    hidumper_netmanager_base_enable = false
+  }
+  if (!defined(global_parts_info.bundlemanager_bundle_framework)) {
+    hidumper_bundlemanager_framework_enable = false
+  }
+  if (!defined(global_parts_info.hiviewdfx_hisysevent)) {
+    hidumper_hiviewdfx_hisysevent_enable = false
+  }
+  if (defined(global_parts_info.hiviewdfx_hiview)) {
+    hidumper_hiviewdfx_hiview_enable = true
+  }
+  if (defined(global_parts_info.resourceschedule_memmgr) ||
+      defined(global_parts_info.resourceschedule_memmgr_override)) {
+    hidumper_report_memmgr = true
+  }
+}

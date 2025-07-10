@@ -1,0 +1,21 @@
+#This is a comment
+-enable-toplevel-obfuscation
+-keep path
+-keep-dts
+-keep-global-name
+-keep-property-name
+-keep-file-name
+-keep-comments
+-disable-obfuscation
+-enable-property-obfuscation
+-enable-string-property-obfuscation
+-enable-toplevel-obfuscation
+-enable-filename-obfuscation
+-enable-export-obfuscation
+-remove-comments
+-compact
+-remove-log
+-print-namecache
+-print-kept-names
+-apply-namecache
+-enable-toplevel-obfuscation

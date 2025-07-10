@@ -1,0 +1,1388 @@
+All Dependency Files:
+program_file: bytecodehar1-abcinput.abc
+record_name: &bytecodehar1/bytecodehar1-file1&2.0.0
+program_file: bytecodehar2-abcinput.abc
+record_name: &@ohos/bytecodehar2/bytecodehar2-file1&2.0.0
+program_file: commonjs-say.js
+record_name: commonjs-say
+program_file: deps-json.json
+record_name: &myapp/deps-json&
+program_file: hap-file-exec.js
+record_name: &myapp/hap-file-exec&
+program_file: sourcehar-file1.js
+record_name: &sourcehar/sourcehar-file1&2.0.0
+program_file: sourcehar-file2.js
+record_name: &sourcehar/sourcehar-file2&2.0.0
+program_file: test-require.js
+record_name: &myapp/test-require&
+
+slotNum = 0x3
+.language ECMAScript
+.function any &bytecodehar1/bytecodehar1-file1&2.0.0.#*#test(any a0, any a1, any a2) {
+	tryldglobalbyname 0x0, print
+	sta v0
+	lda.str bytecodehar1.file1.test
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	lda.str @normalized:N&&&sourcehar/sourcehar-file1&2.0.0
+	dynamicimport
+	returnundefined
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &bytecodehar1/bytecodehar1-file1&2.0.0.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, &bytecodehar1/bytecodehar1-file1&2.0.0.#*#test, 0x0
+	stmodulevar 0x0
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &bytecodehar1/bytecodehar1-file1&2.0.0_1378
+------------------------------------
+slot &bytecodehar1/bytecodehar1-file1&2.0.0_1382
+{
+  index: 0
+    tag: 2
+    val: 1
+},
+{
+  index: 1
+    tag: 5
+    val: @normalized:N&&&@ohos/bytecodehar2/bytecodehar2-file1&2.0.0
+},
+{
+  index: 2
+    tag: 2
+    val: 1
+},
+{
+  index: 3
+    tag: 5
+    val: test1
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 9
+    val: 0
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 1
+},
+{
+  index: 8
+    tag: 5
+    val: test
+},
+{
+  index: 9
+    tag: 5
+    val: test
+},
+{
+  index: 10
+    tag: 2
+    val: 0
+},
+{
+  index: 11
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&bytecodehar1/bytecodehar1-file1&2.0.0.#*#test"; "@normalized:N&&&sourcehar/sourcehar-file1&2.0.0"; "bytecodehar1.file1.test"; "print"; 
+slotNum = 0x3
+.language ECMAScript
+.function any &bytecodehar1/bytecodehar1-file2&2.0.0.#*#test(any a0, any a1, any a2) {
+	tryldglobalbyname 0x0, print
+	sta v0
+	lda.str bytecodehar1.file2.test
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	lda.str @normalized:N&&&sourcehar/sourcehar-file2&2.0.0
+	dynamicimport
+	returnundefined
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &bytecodehar1/bytecodehar1-file2&2.0.0.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, &bytecodehar1/bytecodehar1-file2&2.0.0.#*#test, 0x0
+	stmodulevar 0x0
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &bytecodehar1/bytecodehar1-file2&2.0.0_1432
+------------------------------------
+slot &bytecodehar1/bytecodehar1-file2&2.0.0_1436
+{
+  index: 0
+    tag: 2
+    val: 1
+},
+{
+  index: 1
+    tag: 5
+    val: @normalized:N&&&@ohos/bytecodehar2/bytecodehar2-file2&2.0.0
+},
+{
+  index: 2
+    tag: 2
+    val: 1
+},
+{
+  index: 3
+    tag: 5
+    val: test1
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 9
+    val: 0
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 1
+},
+{
+  index: 8
+    tag: 5
+    val: test
+},
+{
+  index: 9
+    tag: 5
+    val: test
+},
+{
+  index: 10
+    tag: 2
+    val: 0
+},
+{
+  index: 11
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&bytecodehar1/bytecodehar1-file2&2.0.0.#*#test"; "@normalized:N&&&sourcehar/sourcehar-file2&2.0.0"; "bytecodehar1.file2.test"; "print"; 
+
+======> literal array buffer <======
+======> strings <======
+
+
+======> literal array buffer <======
+======> strings <======
+
+
+======> literal array buffer <======
+======> strings <======
+
+slotNum = 0x3
+.language ECMAScript
+.function any &@ohos/bytecodehar2/bytecodehar2-file1&2.0.0.#*#test(any a0, any a1, any a2) {
+	tryldglobalbyname 0x0, print
+	sta v0
+	lda.str bytecodehar2.file1.test
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &@ohos/bytecodehar2/bytecodehar2-file1&2.0.0.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, &@ohos/bytecodehar2/bytecodehar2-file1&2.0.0.#*#test, 0x0
+	stmodulevar 0x0
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &@ohos/bytecodehar2/bytecodehar2-file1&2.0.0_1179
+------------------------------------
+slot &@ohos/bytecodehar2/bytecodehar2-file1&2.0.0_1183
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 5
+    val: test
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&@ohos/bytecodehar2/bytecodehar2-file1&2.0.0.#*#test"; "bytecodehar2.file1.test"; "print"; 
+slotNum = 0x3
+.language ECMAScript
+.function any &@ohos/bytecodehar2/bytecodehar2-file2&2.0.0.#*#test(any a0, any a1, any a2) {
+	tryldglobalbyname 0x0, print
+	sta v0
+	lda.str bytecodehar2.file2.test
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &@ohos/bytecodehar2/bytecodehar2-file2&2.0.0.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, &@ohos/bytecodehar2/bytecodehar2-file2&2.0.0.#*#test, 0x0
+	stmodulevar 0x0
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &@ohos/bytecodehar2/bytecodehar2-file2&2.0.0_1219
+------------------------------------
+slot &@ohos/bytecodehar2/bytecodehar2-file2&2.0.0_1223
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 5
+    val: test
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&@ohos/bytecodehar2/bytecodehar2-file2&2.0.0.#*#test"; "bytecodehar2.file2.test"; "print"; 
+
+======> literal array buffer <======
+======> strings <======
+
+
+======> literal array buffer <======
+======> strings <======
+
+
+======> literal array buffer <======
+======> strings <======
+
+slotNum = 0x7
+.language ECMAScript
+.function any commonjs-say.#*#(any a0, any a1, any a2, any a3, any a4, any a5, any a6, any a7) {
+label_1: 
+label_0: 
+	newlexenv 0x1
+	definefunc 0x0, commonjs-say.#**#hi, 0x0
+	sta v0
+	ldundefined
+	stlexvar 0x0, 0x0
+	lda.str ./deps-json.json
+	sta v1
+	lda a4
+	callarg1 0x1, v1
+	stlexvar 0x0, 0x0
+	lda a5
+	ldobjbyname 0x3, exports
+	sta v1
+	lda v0
+	stobjbyname 0x5, hi, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any commonjs-say.#**#hi(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str hello require
+	sta v0
+	ldlexvar 0x0, 0x0
+	ldobjbyname 0x0, test
+	add2 0x2, v0
+	return
+label_2: 
+}
+
+slotNum = 0x11
+.language ECMAScript
+.function any commonjs-say.func_main_0(any a0, any a1, any a2, any a3, any a4, any a5, any a6, any a7) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, Reflect
+	sta v0
+	ldobjbyname 0x1, apply
+	sta v1
+	definefunc 0x3, commonjs-say.#*#, 0x5
+	sta v2
+	createemptyarray 0x4
+	sta v3
+	lda a3
+	stownbyindex 0x5, v3, 0x0
+	lda a4
+	stownbyindex 0x7, v3, 0x1
+	lda a5
+	stownbyindex 0x9, v3, 0x2
+	lda a6
+	stownbyindex 0xb, v3, 0x3
+	lda a7
+	stownbyindex 0xd, v3, 0x4
+	lda v1
+	callthis3 0xf, v0, v2, a3, v3
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot commonjs-say_0
+======> strings <======
+"./deps-json.json"; "Reflect"; "apply"; "commonjs-say.#*#"; "commonjs-say.#**#hi"; "exports"; "hello require"; "hi"; "test"; 
+
+======> literal array buffer <======
+======> strings <======
+
+slotNum = 0x4
+.language ECMAScript
+.function any &myapp/hap-file-exec&.#*#main(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldexternalmodulevar 0x0
+	sta v0
+	throw.undefinedifholewithname test
+	lda v0
+	callarg0 0x0
+	ldexternalmodulevar 0x1
+	sta v0
+	throw.undefinedifholewithname testRequire
+	lda v0
+	callarg0 0x2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &myapp/hap-file-exec&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, &myapp/hap-file-exec&.#*#main, 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &myapp/hap-file-exec&_0
+------------------------------------
+slot &myapp/hap-file-exec&_1
+{
+  index: 0
+    tag: 2
+    val: 2
+},
+{
+  index: 1
+    tag: 5
+    val: @normalized:N&&&bytecodehar1/bytecodehar1-file1&2.0.0
+},
+{
+  index: 2
+    tag: 5
+    val: @normalized:N&&&myapp/test-require&
+},
+{
+  index: 3
+    tag: 2
+    val: 2
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 5
+    val: test
+},
+{
+  index: 6
+    tag: 9
+    val: 0
+},
+{
+  index: 7
+    tag: 5
+    val: testRequire
+},
+{
+  index: 8
+    tag: 5
+    val: testRequire
+},
+{
+  index: 9
+    tag: 9
+    val: 1
+},
+{
+  index: 10
+    tag: 2
+    val: 0
+},
+{
+  index: 11
+    tag: 2
+    val: 0
+},
+{
+  index: 12
+    tag: 2
+    val: 0
+},
+{
+  index: 13
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&myapp/hap-file-exec&.#*#main"; "test"; "testRequire"; 
+slotNum = 0x3
+.language ECMAScript
+.function any &sourcehar/sourcehar-file1&2.0.0.#*#test(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, print
+	sta v0
+	lda.str sourcehar.file1.test
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &sourcehar/sourcehar-file1&2.0.0.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, &sourcehar/sourcehar-file1&2.0.0.#*#test, 0x0
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &sourcehar/sourcehar-file1&2.0.0_0
+------------------------------------
+slot &sourcehar/sourcehar-file1&2.0.0_1
+{
+  index: 0
+    tag: 2
+    val: 1
+},
+{
+  index: 1
+    tag: 5
+    val: @normalized:N&&&sourcehar/sourcehar-file2&2.0.0
+},
+{
+  index: 2
+    tag: 2
+    val: 1
+},
+{
+  index: 3
+    tag: 5
+    val: test1
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 9
+    val: 0
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 1
+},
+{
+  index: 8
+    tag: 5
+    val: test
+},
+{
+  index: 9
+    tag: 5
+    val: test
+},
+{
+  index: 10
+    tag: 2
+    val: 0
+},
+{
+  index: 11
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&sourcehar/sourcehar-file1&2.0.0.#*#test"; "print"; "sourcehar.file1.test"; 
+slotNum = 0x3
+.language ECMAScript
+.function any &sourcehar/sourcehar-file2&2.0.0.#*#test(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, print
+	sta v0
+	lda.str sourcehar.file2.test
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &sourcehar/sourcehar-file2&2.0.0.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, &sourcehar/sourcehar-file2&2.0.0.#*#test, 0x0
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &sourcehar/sourcehar-file2&2.0.0_0
+------------------------------------
+slot &sourcehar/sourcehar-file2&2.0.0_1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 5
+    val: test
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&sourcehar/sourcehar-file2&2.0.0.#*#test"; "print"; "sourcehar.file2.test"; 
+slotNum = 0x9
+.language ECMAScript
+.function any &myapp/test-require&.#*#testRequire(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, console
+	sta v0
+	ldobjbyname 0x1, log
+	sta v1
+	ldlexvar 0x0, 0x0
+	sta v2
+	ldobjbyname 0x3, hi
+	callthis0 0x5, v2
+	sta v2
+	lda v1
+	callthis1 0x7, v0, v2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x9
+.language ECMAScript
+.function any &myapp/test-require&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	newlexenv 0x1
+	ldundefined
+	stlexvar 0x0, 0x0
+	definefunc 0x0, &myapp/test-require&.#*#testRequire, 0x0
+	sta v0
+	tryldglobalbyname 0x1, require
+	sta v1
+	lda.str ./commonjs-say
+	sta v2
+	lda v1
+	callarg1 0x2, v2
+	stlexvar 0x0, 0x0
+	tryldglobalbyname 0x4, module
+	ldobjbyname 0x5, exports
+	sta v1
+	lda v0
+	stobjbyname 0x7, testRequire, v1
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &myapp/test-require&_0
+------------------------------------
+slot &myapp/test-require&_1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 0
+},
+{
+  index: 4
+    tag: 2
+    val: 0
+},
+{
+  index: 5
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&myapp/test-require&.#*#testRequire"; "./commonjs-say"; "console"; "exports"; "hi"; "log"; "module"; "require"; "testRequire"; 
+slotNum = 0x3
+.language ECMAScript
+.function any &bytecodehar1/bytecodehar1-file1&2.0.0.#*#test(any a0, any a1, any a2) {
+	tryldglobalbyname 0x0, print
+	sta v0
+	lda.str bytecodehar1.file1.test
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	lda.str @normalized:N&&&sourcehar/sourcehar-file1&2.0.0
+	dynamicimport
+	returnundefined
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &bytecodehar1/bytecodehar1-file1&2.0.0.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, &bytecodehar1/bytecodehar1-file1&2.0.0.#*#test, 0x0
+	stmodulevar 0x0
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &bytecodehar1/bytecodehar1-file1&2.0.0_1378
+------------------------------------
+slot &bytecodehar1/bytecodehar1-file1&2.0.0_1382
+{
+  index: 0
+    tag: 2
+    val: 1
+},
+{
+  index: 1
+    tag: 5
+    val: @normalized:N&&&@ohos/bytecodehar2/bytecodehar2-file1&2.0.0
+},
+{
+  index: 2
+    tag: 2
+    val: 1
+},
+{
+  index: 3
+    tag: 5
+    val: test1
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 9
+    val: 0
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 1
+},
+{
+  index: 8
+    tag: 5
+    val: test
+},
+{
+  index: 9
+    tag: 5
+    val: test
+},
+{
+  index: 10
+    tag: 2
+    val: 0
+},
+{
+  index: 11
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&bytecodehar1/bytecodehar1-file1&2.0.0.#*#test"; "@normalized:N&&&sourcehar/sourcehar-file1&2.0.0"; "bytecodehar1.file1.test"; "print"; 
+slotNum = 0x3
+.language ECMAScript
+.function any &@ohos/bytecodehar2/bytecodehar2-file1&2.0.0.#*#test(any a0, any a1, any a2) {
+	tryldglobalbyname 0x0, print
+	sta v0
+	lda.str bytecodehar2.file1.test
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &@ohos/bytecodehar2/bytecodehar2-file1&2.0.0.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, &@ohos/bytecodehar2/bytecodehar2-file1&2.0.0.#*#test, 0x0
+	stmodulevar 0x0
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &@ohos/bytecodehar2/bytecodehar2-file1&2.0.0_1179
+------------------------------------
+slot &@ohos/bytecodehar2/bytecodehar2-file1&2.0.0_1183
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 5
+    val: test
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&@ohos/bytecodehar2/bytecodehar2-file1&2.0.0.#*#test"; "bytecodehar2.file1.test"; "print"; 
+slotNum = 0x7
+.language ECMAScript
+.function any commonjs-say.#*#(any a0, any a1, any a2, any a3, any a4, any a5, any a6, any a7) {
+label_1: 
+label_0: 
+	newlexenv 0x1
+	definefunc 0x0, commonjs-say.#**#hi, 0x0
+	sta v0
+	ldundefined
+	stlexvar 0x0, 0x0
+	lda.str ./deps-json.json
+	sta v1
+	lda a4
+	callarg1 0x1, v1
+	stlexvar 0x0, 0x0
+	lda a5
+	ldobjbyname 0x3, exports
+	sta v1
+	lda v0
+	stobjbyname 0x5, hi, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any commonjs-say.#**#hi(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str hello require
+	sta v0
+	ldlexvar 0x0, 0x0
+	ldobjbyname 0x0, test
+	add2 0x2, v0
+	return
+label_2: 
+}
+
+slotNum = 0x11
+.language ECMAScript
+.function any commonjs-say.func_main_0(any a0, any a1, any a2, any a3, any a4, any a5, any a6, any a7) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, Reflect
+	sta v0
+	ldobjbyname 0x1, apply
+	sta v1
+	definefunc 0x3, commonjs-say.#*#, 0x5
+	sta v2
+	createemptyarray 0x4
+	sta v3
+	lda a3
+	stownbyindex 0x5, v3, 0x0
+	lda a4
+	stownbyindex 0x7, v3, 0x1
+	lda a5
+	stownbyindex 0x9, v3, 0x2
+	lda a6
+	stownbyindex 0xb, v3, 0x3
+	lda a7
+	stownbyindex 0xd, v3, 0x4
+	lda v1
+	callthis3 0xf, v0, v2, a3, v3
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot commonjs-say_0
+======> strings <======
+"./deps-json.json"; "Reflect"; "apply"; "commonjs-say.#*#"; "commonjs-say.#**#hi"; "exports"; "hello require"; "hi"; "test"; 
+
+======> literal array buffer <======
+======> strings <======
+
+slotNum = 0x4
+.language ECMAScript
+.function any &myapp/hap-file-exec&.#*#main(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldexternalmodulevar 0x0
+	sta v0
+	throw.undefinedifholewithname test
+	lda v0
+	callarg0 0x0
+	ldexternalmodulevar 0x1
+	sta v0
+	throw.undefinedifholewithname testRequire
+	lda v0
+	callarg0 0x2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &myapp/hap-file-exec&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, &myapp/hap-file-exec&.#*#main, 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &myapp/hap-file-exec&_0
+------------------------------------
+slot &myapp/hap-file-exec&_1
+{
+  index: 0
+    tag: 2
+    val: 2
+},
+{
+  index: 1
+    tag: 5
+    val: @normalized:N&&&bytecodehar1/bytecodehar1-file1&2.0.0
+},
+{
+  index: 2
+    tag: 5
+    val: @normalized:N&&&myapp/test-require&
+},
+{
+  index: 3
+    tag: 2
+    val: 2
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 5
+    val: test
+},
+{
+  index: 6
+    tag: 9
+    val: 0
+},
+{
+  index: 7
+    tag: 5
+    val: testRequire
+},
+{
+  index: 8
+    tag: 5
+    val: testRequire
+},
+{
+  index: 9
+    tag: 9
+    val: 1
+},
+{
+  index: 10
+    tag: 2
+    val: 0
+},
+{
+  index: 11
+    tag: 2
+    val: 0
+},
+{
+  index: 12
+    tag: 2
+    val: 0
+},
+{
+  index: 13
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&myapp/hap-file-exec&.#*#main"; "test"; "testRequire"; 
+slotNum = 0x3
+.language ECMAScript
+.function any &sourcehar/sourcehar-file1&2.0.0.#*#test(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, print
+	sta v0
+	lda.str sourcehar.file1.test
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &sourcehar/sourcehar-file1&2.0.0.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, &sourcehar/sourcehar-file1&2.0.0.#*#test, 0x0
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &sourcehar/sourcehar-file1&2.0.0_0
+------------------------------------
+slot &sourcehar/sourcehar-file1&2.0.0_1
+{
+  index: 0
+    tag: 2
+    val: 1
+},
+{
+  index: 1
+    tag: 5
+    val: @normalized:N&&&sourcehar/sourcehar-file2&2.0.0
+},
+{
+  index: 2
+    tag: 2
+    val: 1
+},
+{
+  index: 3
+    tag: 5
+    val: test1
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 9
+    val: 0
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 1
+},
+{
+  index: 8
+    tag: 5
+    val: test
+},
+{
+  index: 9
+    tag: 5
+    val: test
+},
+{
+  index: 10
+    tag: 2
+    val: 0
+},
+{
+  index: 11
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&sourcehar/sourcehar-file1&2.0.0.#*#test"; "print"; "sourcehar.file1.test"; 
+slotNum = 0x3
+.language ECMAScript
+.function any &sourcehar/sourcehar-file2&2.0.0.#*#test(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, print
+	sta v0
+	lda.str sourcehar.file2.test
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &sourcehar/sourcehar-file2&2.0.0.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, &sourcehar/sourcehar-file2&2.0.0.#*#test, 0x0
+	stmodulevar 0x0
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &sourcehar/sourcehar-file2&2.0.0_0
+------------------------------------
+slot &sourcehar/sourcehar-file2&2.0.0_1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 5
+    val: test
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&sourcehar/sourcehar-file2&2.0.0.#*#test"; "print"; "sourcehar.file2.test"; 
+slotNum = 0x9
+.language ECMAScript
+.function any &myapp/test-require&.#*#testRequire(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, console
+	sta v0
+	ldobjbyname 0x1, log
+	sta v1
+	ldlexvar 0x0, 0x0
+	sta v2
+	ldobjbyname 0x3, hi
+	callthis0 0x5, v2
+	sta v2
+	lda v1
+	callthis1 0x7, v0, v2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x9
+.language ECMAScript
+.function any &myapp/test-require&.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	newlexenv 0x1
+	ldundefined
+	stlexvar 0x0, 0x0
+	definefunc 0x0, &myapp/test-require&.#*#testRequire, 0x0
+	sta v0
+	tryldglobalbyname 0x1, require
+	sta v1
+	lda.str ./commonjs-say
+	sta v2
+	lda v1
+	callarg1 0x2, v2
+	stlexvar 0x0, 0x0
+	tryldglobalbyname 0x4, module
+	ldobjbyname 0x5, exports
+	sta v1
+	lda v0
+	stobjbyname 0x7, testRequire, v1
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &myapp/test-require&_0
+------------------------------------
+slot &myapp/test-require&_1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 0
+},
+{
+  index: 4
+    tag: 2
+    val: 0
+},
+{
+  index: 5
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&myapp/test-require&.#*#testRequire"; "./commonjs-say"; "console"; "exports"; "hi"; "log"; "module"; "require"; "testRequire"; 

@@ -1,0 +1,10 @@
+{
+  "IdentifierCache": {
+    "$1#param": "a",
+    "#__method1:21:21": "__method1",
+    "#__method2:23:25": "__method2"
+  },
+  "MemberMethodCache": {
+    "__nestedMethod:29:31": "__nestedMethod"
+  }
+}

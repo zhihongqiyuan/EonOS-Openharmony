@@ -1,0 +1,45 @@
+{
+  "keptReasons": {
+    "sdk": "same as the system api names",
+    "lang": "same as the language keywords",
+    "conf": "same as the user-configured kept name",
+    "struct": "same as the ArkUI struct property",
+    "strProp": "same as the string property",
+    "exported": "same as the exported names and properties",
+    "enum": "same as the members in the enum"
+  },
+  "keptNames": {
+    "property": {
+      "exportedProp": [
+        "exported"
+      ],
+      "string1": [
+        "strProp"
+      ],
+      "string2": [
+        "strProp"
+      ],
+      "unit": [
+        "lang",
+        "strProp"
+      ],
+      "property1": [
+        "conf"
+      ],
+      "a": [
+        "lang"
+      ],
+      "abcde": [
+        "conf"
+      ]
+    },
+    "/print_unobfuscation/unobfuscation_source/unobfudcation_source.ts": {
+      "#toplevel1": [
+        "conf"
+      ],
+      "#add": [
+        "lang"
+      ]
+    }
+  }
+}

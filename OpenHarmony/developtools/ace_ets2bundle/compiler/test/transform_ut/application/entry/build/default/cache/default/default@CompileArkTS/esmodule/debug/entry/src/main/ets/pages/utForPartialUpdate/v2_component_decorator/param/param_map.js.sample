@@ -1,0 +1,163 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+class Child extends ViewV2 {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda, extraInfo) {
+        super(parent, elmtId, extraInfo);
+        this.initParam("value", (params && "value" in params) ? params.value : new Map());
+        this.finalizeConstruction();
+    }
+    resetStateVarsOnReuse(params) {
+        this.resetParam("value", (params && "value" in params) ? params.value : new Map());
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            ForEach.create();
+            const forEachItemGenFunction = _item => {
+                const item = _item;
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Text.create("" + item[0]);
+                    Text.fontSize(30);
+                }, Text);
+                Text.pop();
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Text.create("" + item[1]);
+                    Text.fontSize(30);
+                }, Text);
+                Text.pop();
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Divider.create();
+                }, Divider);
+            };
+            this.forEachUpdateFunction(elmtId, Array.from(this.value.entries()), forEachItemGenFunction);
+        }, ForEach);
+        ForEach.pop();
+        Column.pop();
+    }
+    updateStateVars(params) {
+        if (params === undefined) {
+            return;
+        }
+        if ("value" in params) {
+            this.updateParam("value", params.value);
+        }
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+__decorate([
+    Param
+], Child.prototype, "value", void 0);
+class MapSample2 extends ViewV2 {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda, extraInfo) {
+        super(parent, elmtId, extraInfo);
+        this.message = new Map([[0, "a"], [1, "b"], [3, "c"]]);
+        this.finalizeConstruction();
+    }
+    resetStateVarsOnReuse(params) {
+        this.message = new Map([[0, "a"], [1, "b"], [3, "c"]]);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Row.create();
+            Row.height('100%');
+        }, Row);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+            Column.width('100%');
+        }, Column);
+        {
+            this.observeComponentCreation2((elmtId, isInitialRender) => {
+                if (isInitialRender) {
+                    let componentCall = new Child(this, { value: this.message }, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/v2_component_decorator/param/param_map.ets", line: 40, col: 9 });
+                    ViewV2.create(componentCall);
+                    let paramsLambda = () => {
+                        return {
+                            value: this.message
+                        };
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {
+                        value: this.message
+                    });
+                }
+            }, { name: "Child" });
+        }
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithLabel('init map');
+            Button.onClick(() => {
+                this.message = new Map([[0, "a"], [1, "b"], [3, "c"]]);
+            });
+        }, Button);
+        Button.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithLabel('set new one');
+            Button.onClick(() => {
+                this.message.set(4, "d");
+            });
+        }, Button);
+        Button.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithLabel('clear');
+            Button.onClick(() => {
+                this.message.clear();
+            });
+        }, Button);
+        Button.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithLabel('replace the first one');
+            Button.onClick(() => {
+                this.message.set(0, "aa");
+            });
+        }, Button);
+        Button.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithLabel('delete the first one');
+            Button.onClick(() => {
+                this.message.delete(0);
+            });
+        }, Button);
+        Button.pop();
+        Column.pop();
+        Row.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+        return "MapSample2";
+    }
+}
+__decorate([
+    Local
+], MapSample2.prototype, "message", void 0);
+registerNamedRoute(() => new MapSample2(undefined, {}), "", { bundleName: "com.example.application", moduleName: "application", pagePath: "pages/utForPartialUpdate/v2_component_decorator/param/param_map", pageFullPath: "application/entry/src/main/ets/pages/utForPartialUpdate/v2_component_decorator/param/param_map", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=param_map.js.map

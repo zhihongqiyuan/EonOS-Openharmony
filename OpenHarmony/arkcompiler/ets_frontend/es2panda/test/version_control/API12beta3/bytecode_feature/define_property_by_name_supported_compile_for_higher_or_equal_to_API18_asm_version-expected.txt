@@ -1,0 +1,50 @@
+slotNum = 0x4
+.language ECMAScript
+.function any .#~@0=#PropertyByName(any a0, any a1, any a2, any a3, any a4) {
+label_1: 
+label_0: 
+	lda a3
+	stobjbyname 0x0, name, a2
+	lda a4
+	stobjbyname 0x2, age, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0xa
+.language ECMAScript
+.function any .#~@0>#init(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, Object
+	sta v0
+	ldobjbyname 0x1, defineProperty
+	sta v1
+	lda.str name
+	sta v2
+	createobjectwithbuffer 0x3, _2
+	sta v3
+	lda a2
+	ldobjbyname 0x4, name
+	definepropertybyname 0x6, value, v3
+	lda v1
+	callthis3 0x8, v0, a2, v2, v3
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, .#~@0=#PropertyByName, _3, 0x2, v0
+	ldobjbyname 0x1, prototype
+	returnundefined
+label_2: 
+}
+
+

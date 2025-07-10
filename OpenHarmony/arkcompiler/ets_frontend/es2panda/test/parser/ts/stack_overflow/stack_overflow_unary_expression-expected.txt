@@ -1,0 +1,1 @@
+Error: Too many nested expressions/statemnets/declarations [stack_overflow_unary_expression.ts:27:25]

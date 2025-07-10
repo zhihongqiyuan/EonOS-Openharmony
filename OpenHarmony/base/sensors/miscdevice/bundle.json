@@ -1,0 +1,109 @@
+{
+  "name": "@ohos/miscdevice",
+  "description": "Control vibration vibration",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "segment": {
+    "destPath": "base/sensors/miscdevice"
+  },
+  "component": {
+    "name": "miscdevice",
+    "subsystem": "sensors",
+    "syscap": ["SystemCapability.Sensors.MiscDevice", "SystemCapability.Sensors.MiscDevice.Lite"],
+    "features": [
+      "miscdevice_feature_vibrator_custom",
+      "miscdevice_feature_vibrator_input_method_enable",
+      "miscdevice_feature_crown_vibrator_enable",
+      "miscdevice_feature_do_not_disturb_enable"
+    ],
+    "adapted_system_type": [ "standard" ],
+    "rom": "1024KB",
+    "ram": "~4096KB",
+    "hisysevent_config": [
+        "//base/sensors/miscdevice/hisysevent.yaml"
+    ],
+    "deps": {
+      "components": [
+        "ability_base",
+        "ability_runtime",
+        "access_token",
+        "bounds_checking_function",
+        "bundle_framework",
+        "common_event_service",
+        "c_utils",
+        "data_share",
+        "drivers_interface_light",
+        "drivers_interface_vibrator",
+        "hilog",
+        "hisysevent",
+        "hitrace",
+        "ipc",
+        "init",
+        "json",
+        "memmgr",
+        "napi",
+        "os_account",
+        "safwk",
+        "samgr",
+        "cJSON"
+      ],
+      "third_party": [
+      ]
+    },
+    "build": {
+      "group_type": {
+        "base_group": [],
+        "fwk_group": [
+          "//base/sensors/miscdevice/frameworks/js/napi:vibrator_js_target",
+          "//base/sensors/miscdevice/frameworks/cj:vibrator_cj_target",
+          "//base/sensors/miscdevice/frameworks/native/vibrator:vibrator_target",
+          "//base/sensors/miscdevice/frameworks/native/light:light_target",
+          "//base/sensors/miscdevice/utils:miscdevice_utils_target",
+          "//base/sensors/miscdevice/frameworks/capi:ohvibrator"
+        ],
+        "service_group": [
+          "//base/sensors/miscdevice/services/miscdevice_service:miscdevice_service_target",
+          "//base/sensors/miscdevice/sa_profile:sensors_sa_profiles"
+        ]
+      },
+      "inner_kits": [
+        {
+          "name": "//base/sensors/miscdevice/frameworks/native/vibrator:vibrator_interface_native",
+          "header": {
+            "header_files": [
+              "vibrator_agent.h",
+              "vibrator_agent_type.h"
+            ],
+            "header_base": "//base/sensors/miscdevice/interfaces/inner_api/vibrator"
+          }
+        },
+        {
+          "name": "//base/sensors/miscdevice/frameworks/native/light:light_interface_native",
+          "header": {
+            "header_files": [
+              "light_agent_type.h",
+              "light_agent.h"
+            ],
+            "header_base": "//base/sensors/miscdevice/interfaces/inner_api/light"
+          }
+        },
+        {
+          "name": "//base/sensors/miscdevice/frameworks/cj:cj_vibrator_ffi",
+          "header": {
+            "header_files": [],
+            "header_base": "//base/sensors/miscdevice/frameworks/cj/src"
+          }
+        }
+      ],
+      "test": [
+        "//base/sensors/miscdevice/test/unittest/vibrator/js:unittest",
+        "//base/sensors/miscdevice/test/fuzztest/vibrator:fuzztest",
+        "//base/sensors/miscdevice/test/fuzztest/light:fuzztest",
+        "//base/sensors/miscdevice/test/unittest/vibrator/native:unittest",
+        "//base/sensors/miscdevice/test/unittest/vibrator/capi:unittest",
+        "//base/sensors/miscdevice/test/unittest/light:unittest",
+        "//base/sensors/miscdevice/test/fuzztest/service:fuzztest"
+      ]
+    }
+  }
+}

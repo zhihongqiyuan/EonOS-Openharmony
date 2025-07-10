@@ -1,0 +1,209 @@
+slotNum = 0x26
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+	nop
+label_49: 
+label_0: 
+	createarraywithbuffer 0x0, _1
+	getiterator 0x1
+	sta v0
+	ldobjbyname 0x3, next
+	sta v1
+	ldfalse
+	sta v2
+	ldfalse
+	sta v3
+label_33: 
+label_25: 
+label_35: 
+	mov v6, v3
+	mov v4, v3
+	lda v3
+	callruntime.istrue 0x5
+	jnez label_1
+label_2: 
+	lda v1
+	callthis0 0x6, v0
+	sta v8
+	throw.ifnotobject v8
+	ldobjbyname 0x8, done
+	sta v3
+	mov v6, v3
+	mov v4, v3
+	callruntime.isfalse 0xa
+	jnez label_3
+label_4: 
+	ldtrue
+	sta v3
+	jmp label_1
+label_3: 
+	lda v8
+	ldobjbyname 0xb, value
+	sta v8
+	jmp label_5
+label_1: 
+	mov v6, v3
+	mov v4, v3
+	ldundefined
+	sta v8
+label_26: 
+end_label_26: 
+	jmp label_5
+label_51: 
+	sta v7
+label_44: 
+	mov v4, v6
+	ldtrue
+	sta v1
+	mov v4, v1
+	lda v7
+	throw
+label_5: 
+	mov v4, v3
+	lda v8
+	sttoglobalrecord 0xd, a
+label_27: 
+label_38: 
+	mov v6, v3
+	lda v3
+	callruntime.istrue 0xe
+	jnez label_6
+label_7: 
+	lda v1
+	callthis0 0xf, v0
+	sta v1
+	throw.ifnotobject v1
+	ldobjbyname 0x11, done
+	sta v3
+	mov v6, v3
+	mov v4, v3
+	callruntime.isfalse 0x13
+	jnez label_8
+label_9: 
+	ldtrue
+	sta v3
+	jmp label_6
+label_8: 
+	lda v1
+	ldobjbyname 0x14, value
+	sta v1
+	jmp label_10
+label_6: 
+	mov v6, v3
+	mov v4, v3
+	ldundefined
+	sta v1
+label_28: 
+end_label_28: 
+	jmp label_10
+label_52: 
+	sta v7
+label_45: 
+	mov v4, v6
+	ldtrue
+	sta v1
+	mov v4, v1
+	lda v7
+	throw
+label_10: 
+	mov v4, v3
+	lda v1
+	sttoglobalrecord 0x16, b
+label_34: 
+end_label_34: 
+label_36: 
+	lda v3
+	callruntime.istrue 0x17
+	jnez label_11
+label_12: 
+	lda v2
+	callruntime.istrue 0x18
+	jnez label_11
+label_14: 
+	ldundefined
+	sta v1
+	ldhole
+	sta v2
+label_29: 
+label_40: 
+	lda v0
+	ldobjbyname 0x19, return
+	sta v6
+	ldundefined
+	eq 0x1b, v6
+	jnez label_11
+label_15: 
+	lda v6
+	callthis0 0x1c, v0
+	sta v0
+label_30: 
+end_label_30: 
+	jmp label_56
+label_53: 
+	sta v3
+	mov v2, v3
+	jmp label_16
+label_56: 
+	mov v1, v0
+label_16: 
+	ldhole
+	sta v0
+	lda v2
+	noteq 0x1e, v0
+	jeqz label_17
+label_18: 
+	lda v2
+	throw
+label_17: 
+	throw.ifnotobject v1
+	jmp label_11
+label_54: 
+	sta v5
+label_47: 
+	lda v4
+	callruntime.istrue 0x1f
+	jnez label_19
+label_20: 
+	lda v2
+	callruntime.istrue 0x20
+	jnez label_21
+label_31: 
+label_42: 
+	lda v0
+	ldobjbyname 0x21, return
+	sta v1
+	ldundefined
+	eq 0x23, v1
+	jnez label_21
+label_23: 
+	lda v1
+	callthis0 0x24, v0
+label_32: 
+end_label_32: 
+	jmp label_24
+label_55: 
+label_24: 
+	lda v5
+	throw
+label_21: 
+	lda v5
+	throw
+label_19: 
+	lda v5
+	throw
+label_11: 
+	returnundefined
+label_50: 
+}
+
+.catchall label_25, end_label_26, label_51
+
+.catchall label_27, end_label_28, label_52
+
+.catchall label_29, end_label_30, label_53
+
+.catchall label_31, end_label_32, label_55
+
+.catchall label_33, end_label_34, label_54
+
+

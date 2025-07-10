@@ -1,0 +1,78 @@
+
+
+
+slotNum = 0x0
+.language ECMAScript
+.function any default.#~ES=#ES(any a0, any a1, any a2) {
+	lda a2
+	return
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any default.func_main_0(any a0, any a1, any a2) {
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, default.#~ES=#ES, default_1297, 0x0, v0
+	ldobjbyname 0x1, prototype
+	returnundefined
+}
+
+
+slotNum = 0x0
+.language ArkTS
+.function any ets.#~AT=#AT(any a0, any a1, any a2) {
+	lda a2
+	return
+}
+
+slotNum = 0x3
+.language ArkTS
+.function any ets.func_main_0(any a0, any a1, any a2) {
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, ets.#~AT=#AT, ets_1338, 0x0, v0
+	ldobjbyname 0x1, prototype
+	returnundefined
+}
+
+
+slotNum = 0x0
+.language JavaScript
+.function any js.#~JS=#JS(any a0, any a1, any a2) {
+	lda a2
+	return
+}
+
+slotNum = 0x3
+.language JavaScript
+.function any js.func_main_0(any a0, any a1, any a2) {
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, js.#~JS=#JS, js_1379, 0x0, v0
+	ldobjbyname 0x1, prototype
+	returnundefined
+}
+
+
+slotNum = 0x3
+.language TypeScript
+.function any ts.#*#TS(any a0, any a1, any a2) {
+	tryldglobalbyname 0x0, print
+	sta v0
+	lda.str base
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+}
+
+slotNum = 0x3
+.language TypeScript
+.function any ts.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, ts.#*#TS, 0x0
+	callarg0 0x1
+	returnundefined
+}
+
+

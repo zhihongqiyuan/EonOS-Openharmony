@@ -1,0 +1,138 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ /**
+ * @addtogroup HdiLpfenceCellfence
+ * @{
+ *
+ * @brief Provides cell fence APIs for low-power fence services.
+ *
+ * You can use the APIs to add or remove cell fences and obtain cell fence information of a device.
+ * The cell fence module is used to determine whether a device reaches a comparatively large area, so that subsequent services, for example, pushing the scenic spot introduction to tourists, can be implemented.
+ *
+ * @since 4.0
+ * @version 1.0
+ */
+
+/**
+ * @file ICellfenceInterface.idl
+ *
+ * @brief Declares the APIs provided by the cell fence module.
+ * You can use the APIs to add or remove cell fences and obtain cell fence information of a device.
+ * @since 4.0
+ * @version 1.0
+ */
+
+/**
+ * @brief Declares the path of the cell fence module interface package.
+ *
+ * @since 4.0
+ */
+package ohos.hdi.location.lpfence.cellfence.v1_0;
+
+/**
+ * @brief Imports the data types of the cell fence module.
+ *
+ * @since 4.0
+ */
+import ohos.hdi.location.lpfence.cellfence.v1_0.CellfenceTypes;
+
+/**
+ * @brief Imports the callback definitions of the cell fence module.
+ *
+ * @since 4.0
+ */
+import ohos.hdi.location.lpfence.cellfence.v1_0.ICellfenceCallback;
+
+/**
+ * @brief Defines APIs for basic cell fence operations.
+ *
+ * You can use the APIs to register or unregister a callback, add or remove cell fences, obtain the cell fence information of a device.
+ */
+interface ICellfenceInterface {
+    /**
+     * @brief Registers a callback.
+     *
+     * Before enabling the cell fencing feature, you need to register the callback to report the cell fence status when the relationship between a cell fence and a device changes.
+     *
+     * @param callbackObj Indicates the callback to register, which needs to be registered only once. For details, see {@link ICellfenceCallback}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    RegisterCellfenceCallback([in] ICellfenceCallback callbackObj);
+
+    /**
+     * @brief Unregisters a callback.
+     *
+     * When the cell fencing feature is no longer required or the registered callback needs to be changed, you need to unregister the callback.
+     *
+     * @param callbackObj Indicates the callback to unregister, which needs to be unregistered only once. For details, see {@link ICellfenceCallback}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    UnregisterCellfenceCallback([in] ICellfenceCallback callbackObj);
+
+    /**
+     * @brief Adds cell fences.
+     *
+     * Multiple cell fences can be added at a time. A cell fence contains information about multiple base stations.
+     *
+     * @param cellfence Indicates information about the cell fences to add. For details, see {@link CellfenceRequest}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    AddCellfences([in] struct CellfenceRequest[] cellfence);
+
+    /**
+     * @brief Removes cell fences.
+     *
+     * Multiple cell fences can be removed at a time.
+     *
+     * @param cellfenceId Indicates the cell fence ID. For details, see {@link CellfenceRequest}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    RemoveCellfences([in] int[] cellfenceId);
+
+    /**
+     * @brief Obtains the cell fence information, including the number of cell fences supported by and added for this device.
+     *
+     * The cell fence information is returned by the {@link OnGetWifenceSizeCb} callback.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    GetCellfenceSize();
+}
+/** @} */

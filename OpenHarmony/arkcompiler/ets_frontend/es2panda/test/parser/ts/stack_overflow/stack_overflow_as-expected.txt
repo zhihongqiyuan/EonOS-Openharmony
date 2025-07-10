@@ -1,0 +1,1 @@
+Error: Too many nested expressions/statemnets/declarations [stack_overflow_as.ts:130:29]

@@ -1,0 +1,171 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("./gn/config.gni")
+
+template("previewer_executable") {
+  ohos_executable(target_name) {
+    subsystem_name = "ide"
+    part_name = invoker.part_name
+    output_name = invoker.output_name
+    sources = invoker.src
+    configs = [ ":myconfig" ]
+    include_dirs = [
+      "./util/",
+      "./cli/",
+      "./mock/",
+      "./jsapp/",
+    ]
+
+    include_dirs += invoker.includes
+    deps = [ "//third_party/bounds_checking_function:libsec_static" ]
+    deps += invoker.deps
+    libs = invoker.libs
+
+    if (platform == "mingw_x86_64") {
+      defines = [ "NOGDI" ]
+      if (defined(enable_component_test) && enable_component_test) {
+        defines += [ "COMPONENT_TEST_ENABLED" ]
+      }
+      ldflags = [
+        "-static",
+        "-lws2_32",
+        "-lshlwapi",
+        "-ldbghelp",
+      ]
+    } else {
+      defines = []
+    }
+    cflags = [
+      "-std=c++17",
+      "-Wno-deprecated-declarations",
+      "-Wno-reorder",
+      "-Wno-sign-compare",
+    ]
+  }
+}
+
+group("rich_ace_previewer") {
+  if (platform == "mingw_x86_64") {
+    deps = [ ":rich_previewer(${windows_buildtool})" ]
+  } else if (platform == "mac_arm64" || platform == "mac_x64") {
+    deps = [ ":rich_previewer(${mac_buildtool})" ]
+  } else if (platform == "linux_x64") {
+    deps = [ ":rich_previewer(${linux_buildtool})" ]
+  }
+}
+
+group("lite_ace_previewer") {
+  if (platform == "mingw_x86_64") {
+    deps = [ ":lite_previewer(${windows_buildtool})" ]
+  } else if (platform == "mac_arm64" || platform == "mac_x64") {
+    deps = [ ":lite_previewer(${mac_buildtool})" ]
+  } else if (platform == "linux_x64") {
+    deps = [ ":lite_previewer(${linux_buildtool})" ]
+  }
+}
+
+previewer_executable("rich_previewer") {
+  part_name = "previewer"
+  output_name = "Previewer"
+  src = [ "RichPreviewer.cpp" ]
+  includes = os_include_dirs
+  includes += [
+    "./mock/rich/",
+    "./jsapp/rich/",
+  ]
+  libs = []
+  deps = [
+    "cli:cli_rich",
+    "jsapp:jsapp_rich",
+    "mock:mock_rich",
+    "util:util_rich",
+    "//third_party/libwebsockets:websockets_static",
+  ]
+}
+
+previewer_executable("lite_previewer") {
+  part_name = "litePreviewer"
+  output_name = "Simulator"
+  src = [ "ThinPreviewer.cpp" ]
+  includes = [
+    "//foundation/ace/frameworks/base/utils/",
+    "./mock/lite/",
+    "./jsapp/lite/",
+    "//foundation/arkui/ui_lite/interfaces/innerkits/",
+    "//foundation/graphic/graphic_utils_lite/interfaces/kits/",
+    "//foundation/graphic/graphic_utils_lite/interfaces/innerkits/",
+    "//foundation/arkui/ui_lite/frameworks/dock/",
+  ]
+  deps = [
+    "cli:cli_lite",
+    "jsapp:jsapp_lite",
+    "mock:mock_lite",
+    "util:util_lite",
+    "//foundation/arkui/ace_engine_lite/frameworks/targets/simulator:ace_lite",
+    "//third_party/libwebsockets:websockets_static",
+  ]
+  if (platform == "mingw_x86_64") {
+    libs = [ "psapi" ]
+  } else if (platform == "mac_arm64" || platform == "mac_x64") {
+    libs = []
+  } else if (platform == "linux_x64" || platform == "linux_arm64") {
+    libs = []
+  }
+}
+
+config("myconfig") {
+  cflags = [
+    "-std=c++17",
+    "-Wno-error=implicit-fallthrough",
+  ]
+}
+
+# copy liteWearable config dir
+ohos_copy("copy_previewer_fonts_lite") {
+  sources = [
+    "//foundation/arkui/ui_lite/tools/qt/simulator/font/SourceHanSansSC-Regular.otf",
+    "//foundation/arkui/ui_lite/tools/qt/simulator/font/font.bin",
+    "//foundation/arkui/ui_lite/tools/qt/simulator/font/line_cj.brk",
+  ]
+  outputs = [ target_out_dir + "/previewer/liteWearable/config/" +
+              "/{{source_file_part}}" ]
+  module_source_dir = target_out_dir + "/previewer/liteWearable/config/"
+  module_install_name = ""
+}
+
+# copy ide dynamic lib
+ohos_copy("copy_ide_library") {
+  if (platform == "mingw_x86_64") {
+    suffix = ".dll"
+  } else if (platform == "mac_arm64" || platform == "mac_x64") {
+    suffix = ".dylib"
+  } else if (platform == "linux_x64" || platform == "linux_arm64") {
+    suffix = ".so"
+  }
+  deps = []
+  sources = []
+
+  deps += [ "util:ide_util" ]
+  out_path = get_label_info("util:ide_util", "root_out_dir")
+  sources += [ out_path + "/ide/previewer/libide_util" + suffix ]
+
+  deps += [ "jsapp/rich/external:ide_extension" ]
+  out_path = get_label_info("jsapp/rich/external:ide_extension", "root_out_dir")
+  sources += [ out_path + "/ide/previewer/libide_extension" + suffix ]
+
+  outputs = [ target_out_dir + "/previewer/common/bin/{{source_file_part}}" ]
+  module_source_dir = target_out_dir + "/previewer/common/bin/"
+  module_install_name = ""
+}

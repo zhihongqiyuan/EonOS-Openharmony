@@ -1,0 +1,78 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the License);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import a from "assert";
+// 单实现interface
+interface b {
+    prop1: number;
+}
+class c implements b {
+    prop1: number = 2;
+}
+let d = new c();
+a(d.prop1 === 2);
+// 多实现interface
+interface e {
+    fly(): string;
+}
+interface f<T> {
+    swim(): void;
+}
+class g<U> implements e, f<number> {
+    swim(): void {
+        let s = 'i can swim';
+        return;
+    }
+    fly<r>(): string {
+        return 'i can fly';
+    }
+    prop2: number;
+}
+let h = new g();
+a(h.fly() === 'i can fly');
+// 单实现class
+class i {
+    method1() { return 4; }
+}
+class j implements i {
+    method1(): number {
+        return 1;
+    }
+}
+let k = new j();
+a(k.method1() === 1);
+// 多实现class
+class l {
+    prop3: number;
+    method3(): number {
+        return 1;
+    }
+}
+class m {
+    method4(q: string): string {
+        return 'hello 4' + q;
+    }
+}
+class n implements l, m {
+    method4(p: string): string {
+        return 'hello 44' + p;
+    }
+    prop3: number;
+    method3(): number {
+        return 33;
+    }
+}
+let o = new n();
+a(o.method3() === 33);
+a(o.method4('55') === 'hello 4455');

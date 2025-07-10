@@ -1,0 +1,40 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+OHOS_PROFILER_DIR = get_path_info("..", "abspath")
+OHOS_PROFILER_3RDPARTY_DIR = get_path_info("../../../third_party/", "abspath")
+OHOS_PROFILER_3RDPARTY_GRPC_DIR = "${OHOS_PROFILER_3RDPARTY_DIR}/grpc"
+OHOS_PROFILER_3RDPARTY_PROTOBUF_DIR = "${OHOS_PROFILER_3RDPARTY_DIR}/protobuf"
+OHOS_PROFILER_3RDPARTY_GOOGLETEST_DIR =
+    "${OHOS_PROFILER_3RDPARTY_DIR}/googletest"
+
+OHOS_PROFILER_SUBSYS_NAME = "developtools"
+OHOS_PROFILER_PART_NAME = "hiprofiler"
+OHOS_PROFILER_TEST_MODULE_OUTPUT_PATH = "hiprofiler/hiprofiler"
+
+build_l2 = false
+if (getenv("BUILD_L2") == "true") {
+  build_l2 = true
+}
+
+declare_args() {
+  hiprofiler_SmartPerf = true
+}
+
+declare_args() {
+  arkxtest_able = false
+  if (defined(global_parts_info) &&
+      defined(global_parts_info.testfwk_arkxtest)) {
+    arkxtest_able = true
+  }
+}

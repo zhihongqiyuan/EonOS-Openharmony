@@ -1,0 +1,71 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import assert from 'assert';
+import s1 from './export_default_01_conditional';
+assert(s1 === 2);
+import t1 from './export_default_02_instance';
+assert(t1.i === 1);
+import u1 from './export_default_03_this';
+assert(u1 !== undefined);
+import v1 from './export_default_04_var';
+assert(v1 === 4);
+import w1 from './export_default_05_array';
+assert(w1[0] === 1);
+assert(w1[1] === 2);
+import z1 from './export_default_06_object';
+assert(z1.objProp1 === 1);
+assert(z1.objProp2 === 2);
+import a2 from './export_default_07_regex';
+assert(a2.toString() === '/a/');
+import b2 from './export_default_08_str1';
+assert(b2 === `str1`);
+import c2 from './export_default_09_str2';
+assert(c2 === 'str2');
+import d2 from './export_default_10_str3';
+assert(d2 === "str3str4");
+import e2 from './export_default_11_conditional';
+assert(e2 === 2);
+import f2 from './export_default_13_module';
+async function o1() {
+    assert((await f2).default === 'str1');
+}
+o1();
+import g2 from './export_default_14_namepsace';
+assert(g2 === "ns_inner");
+import h2 from './export_default_15_object';
+assert(h2 === 1);
+import i2 from './export_default_16_function_ans';
+assert(i2 === 2);
+import j2 from './export_default_17_function_conditional';
+assert(j2 === 9);
+import l2 from './export_default_18_arrow';
+assert(l2() === 1);
+import m2 from './export_default_19_arrow_async';
+async function q1() {
+    assert(await m2() === 19);
+}
+q1();
+import n2 from './export_default_20_expression_01';
+assert(n2 === 2);
+import o2 from './export_default_21_expression_02';
+assert(o2 === 12);
+import q2 from './export_default_22_expression_03';
+assert(q2 === 3);
+import s2 from './export_default_23_expression_04';
+assert(s2 === 1);
+import t2 from './export_default_24_expression_05';
+assert(t2 === 1);
+import u2 from './export_default_25_object';
+assert(u2.n1 === 2);

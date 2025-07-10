@@ -1,0 +1,226 @@
+{
+    "name": "@ohos/power_manager",
+    "version": "3.1",
+    "description": "系统电源状态管理、电源状态转换、休眠唤醒、亮灭屏、休眠运行锁管理",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/powermgr_power_manager",
+    "domain": "os",
+    "publishAs": "code-segment",
+    "scripts": {},
+    "dirs": [],
+    "segment": {
+        "destPath": "base/powermgr/power_manager"
+    },
+    "component": {
+        "name": "power_manager",
+        "subsystem": "powermgr",
+        "syscap": [
+            "SystemCapability.PowerManager.PowerManager.Core",
+            "SystemCapability.PowerManager.PowerManager.Extension"
+        ],
+        "features": [
+            "power_manager_feature_allow_interrupting_powerkey_off",
+            "power_manager_feature_tv_dreaming",
+            "power_manager_feature_poweroff_charge",
+            "power_manager_feature_runninglock",
+            "power_manager_feature_shutdown_reboot",
+            "power_manager_feature_screen_on_off",
+            "power_manager_feature_power_state",
+            "power_manager_feature_power_mode",
+            "power_manager_feature_wakeup_action",
+            "power_manager_feature_power_dialog",
+            "power_manager_feature_enable_s4",
+            "power_manager_feature_enable_suspend_with_tag",
+            "power_manager_feature_audio_lock_unproxy",
+            "power_manager_feature_disable_auto_displayoff",
+            "power_manager_feature_doubleclick",
+            "power_manager_feature_pickup",
+            "power_manager_feature_force_sleep_broadcast",
+            "power_manager_feature_movement",
+            "power_manager_feature_screen_on_timeout_check",
+            "power_manager_feature_dialog_path",
+            "power_manager_feature_charging_type_setting",
+            "power_manager_feature_external_screen_management",
+            "power_manager_feature_block_long_press",
+            "power_manager_feature_judging_takeover_shutdown",
+            "power_manager_feature_watch_limit_screen_common_event_publish",
+            "power_manager_feature_watch_update_adapt"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "1024KB",
+        "ram": "2048KB",
+        "hisysevent_config": [
+            "//base/powermgr/power_manager/powermanager_POWER_UE.yaml",
+            "//base/powermgr/power_manager/powermanager.yaml"
+        ],
+        "deps": {
+            "components": [
+                "ability_base",
+                "ability_runtime",
+                "access_token",
+                "battery_manager",
+                "common_event_service",
+                "config_policy",
+                "c_utils",
+                "data_share",
+                "display_manager",
+                "drivers_interface_power",
+                "ets_runtime",
+                "eventhandler",
+                "ffrt",
+                "graphic_2d",
+                "hdf_core",
+                "hicollie",
+                "hisysevent",
+                "hitrace",
+                "hiview",
+                "hilog",
+                "init",
+                "input",
+                "ipc",
+                "image_framework",
+                "jsoncpp",
+                "libxml2",
+                "napi",
+                "os_account",
+                "safwk",
+                "samgr",
+                "sensor",
+                "device_standby",
+                "window_manager",
+                "miscdevice",
+                "bundle_framework",
+                "selinux_adapter",
+                "cJSON"
+            ]
+        },
+        "build": {
+            "group_type": {
+                "base_group": [
+                    "//base/powermgr/power_manager/etc/init:powermgr_cfg",
+                    "//base/powermgr/power_manager/etc/para:powermgr_para",
+                    "//base/powermgr/power_manager/etc/para:powermgr_para_dac",
+                    "//base/powermgr/power_manager/utils/ability:power_ability",
+                    "//base/powermgr/power_manager/utils/hookmgr:power_hookmgr",
+                    "//base/powermgr/power_manager/utils/shell:power-shell",
+                    "//base/powermgr/power_manager/utils/param:power_sysparam",
+                    "//base/powermgr/power_manager/utils/permission:power_permission",
+                    "//base/powermgr/power_manager/utils/setting:power_setting",
+                    "//base/powermgr/power_manager/power_dialog:dialog_hap"
+                ],
+                "fwk_group": [
+                    "//base/powermgr/power_manager/frameworks:power_napi",
+                    "//base/powermgr/power_manager/interfaces/inner_api:powermgr_client"
+                ],
+                "service_group": [
+                    "//base/powermgr/power_manager/sa_profile:powermgr_sa_profile",
+                    "//base/powermgr/power_manager/services:service"
+                ]
+            },
+            "inner_kits": [
+                {
+                    "name": "//base/powermgr/power_manager/interfaces/inner_api:powermgr_client",
+                    "header": {
+                      "header_files": [
+                        "ipower_mgr.h",
+                        "ipower_state_callback.h",
+                        "iscreen_off_pre_callback.h",
+                        "power_errors.h",
+                        "power_mgr_client.h",
+                        "power_state_machine_info.h",
+                        "running_lock.h",
+                        "running_lock_info.h",
+                        "shutdown/async_shutdown_callback_stub.h",
+                        "shutdown/ishutdown_client.h",
+                        "shutdown/itakeover_shutdown_callback.h",
+                        "shutdown/iasync_shutdown_callback.h",
+                        "shutdown/isync_shutdown_callback.h",
+                        "shutdown/shutdown_client.h",
+                        "shutdown/shutdown_priority.h",
+                        "shutdown/sync_shutdown_callback_stub.h",
+                        "shutdown/takeover_info.h",
+                        "shutdown/takeover_shutdown_callback_stub.h"
+                      ],
+                      "header_base": "//base/powermgr/power_manager/interfaces/inner_api/native/include"
+                    }
+                },
+                {
+                    "name": "//base/powermgr/power_manager/utils/ffrt:power_ffrt",
+                    "header": {
+                        "header_files": [ "ffrt_utils.h" ],
+                        "header_base": "//base/powermgr/power_manager/utils/ffrt/include"
+                    }
+                },
+                {
+                    "name": "//base/powermgr/power_manager/utils/hookmgr:power_hookmgr",
+                    "header": {
+                        "header_files": [ "power_hookmgr.h" ],
+                        "header_base": "//base/powermgr/power_manager/utils/hookmgr/include"
+                    }
+                },
+                {
+                    "name": "//base/powermgr/power_manager/utils/vibrator:power_vibrator",
+                    "header": {
+                        "header_files": [
+                          "power_vibrator.h",
+                          "vibrator_source_parser.h"
+                        ],
+                        "header_base": "//base/powermgr/power_manager/utils/vibrator/include"
+                    }
+                },
+                {
+                    "name": "//base/powermgr/power_manager/utils/param:power_sysparam",
+                    "header": {
+                      "header_files": [ "sysparam.h" ],
+                      "header_base": "//base/powermgr/power_manager/utils/param/include"
+                    }
+                },
+                {
+                    "name": "//base/powermgr/power_manager/utils/permission:power_permission",
+                    "header": {
+                      "header_files": [ "permission.h" ],
+                      "header_base": "//base/powermgr/power_manager/utils/permission/include"
+                    }
+                },
+                {
+                    "name": "//base/powermgr/power_manager/utils/setting:power_setting",
+                    "header": {
+                      "header_files": [
+                        "setting_observer.h",
+                        "setting_provider.h"
+                      ],
+                      "header_base": "//base/powermgr/power_manager/utils/setting/include"
+                    }
+                },
+                {
+                    "name": "//base/powermgr/power_manager/frameworks/cj/runninglock:cj_running_lock_ffi",
+                    "header": {
+                      "header_files": [
+                        "cj_running_lock_ffi.h",
+                        "cj_running_lock_impl.h"
+                      ],
+                      "header_base": "//base/powermgr/power_manager/frameworks/cj/runninglock/include"
+                    }
+                },
+                {
+                    "name": "//base/powermgr/power_manager/frameworks/cj/power:cj_power_ffi",
+                    "header": {
+                      "header_files": [
+                        "power_ffi.h"
+                      ],
+                      "header_base": "//base/powermgr/power_manager/frameworks/cj/power/include"
+                    }
+                }
+            ],
+            "test": [
+                "//base/powermgr/power_manager/test:apitest",
+                "//base/powermgr/power_manager/test:unittest",
+                "//base/powermgr/power_manager/test:fuzztest",
+                "//base/powermgr/power_manager/test:systemtest"
+            ]
+        }
+    }
+}

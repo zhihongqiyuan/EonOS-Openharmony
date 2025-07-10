@@ -1,0 +1,3 @@
+test-ts-decorators-2 flag-1
+test-ts-decorators-2 flag-2
+test-ts-decorators-2 flag-1

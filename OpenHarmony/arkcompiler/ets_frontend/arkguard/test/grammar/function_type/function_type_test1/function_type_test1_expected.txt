@@ -1,0 +1,46 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file ePara1cept in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either ePara1press or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+type foo1 = (Para1: number, Para2?: string) => void;
+type foo2 = (...args: number[]) => number;
+type foo3 = (Para1: number, Para2: number) => number;
+type foo4 = () => number | null;
+type foo5 = {
+    (Para1: number): string;
+    (Para1: string): number;
+};
+type foo6 = (Para1: number, Para2: string) => string;
+type foo7 = () => void;
+type foo8<T> = (Para1: T) => T;
+type foo9 = (Para1: number) => Promise<number>;
+type foo10 = (Para1: number) => (Para2: string) => void;
+function foo11(h?: (Para1: number) => void): void { }
+function foo12(g: number): (Para1: string) => number { return () => 0; }
+interface MyInterface {
+    Para1?: (Para1: number) => string;
+}
+function foo13(f?: (Para1: (Para1: string) => void) => void): void { }
+class User {
+    constructor(e?: (Para1: string) => void) { }
+}
+function foo14(): (Para1: number) => (str: string) => boolean {
+    return () => (d) => true;
+}
+type foo15 = (Para1: (Para1: number) => boolean) => string;
+function foo16(): (Para1: string) => (Para1: number) => void {
+    return (b) => (c) => { };
+}
+function foo17(a?: (Para3: number) => (Para3: string) => boolean): void { }
+type type2 = string;
+type type3 = (Para1: string) => type2;

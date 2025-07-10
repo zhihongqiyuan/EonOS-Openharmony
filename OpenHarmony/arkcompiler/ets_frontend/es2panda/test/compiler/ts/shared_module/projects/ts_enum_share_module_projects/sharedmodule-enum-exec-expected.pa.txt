@@ -1,0 +1,58 @@
+slotNum = 0xc
+.language ECMAScript
+.function any sharedmodule-enum-exec.#%#Color1(any a0, any a1, any a2, any a3) {
+label_1: 
+label_0: 
+	lda.str RED
+	sta v0
+	ldai 0x1
+	sta v1
+	lda v1
+	stobjbyvalue 0x0, a3, v0
+	lda.str RED
+	stobjbyvalue 0x2, a3, v1
+	lda.str BLUE
+	sta v0
+	ldai 0x2
+	sta v1
+	lda v1
+	stobjbyvalue 0x4, a3, v0
+	lda.str BLUE
+	stobjbyvalue 0x6, a3, v1
+	lda.str GREEN
+	sta v0
+	ldai 0x3
+	sta v1
+	lda v1
+	stobjbyvalue 0x8, a3, v0
+	lda.str GREEN
+	stobjbyvalue 0xa, a3, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any sharedmodule-enum-exec.func_main_0(any a0, any a1, any a2) {
+label_4: 
+label_0: 
+	ldundefined
+	stmodulevar 0x0
+	definefunc 0x0, sharedmodule-enum-exec.#%#Color1, 0x1
+	sta v0
+	ldlocalmodulevar 0x0
+	sta v1
+	callruntime.istrue 0x1
+	jnez label_3
+label_2: 
+	createemptyobject
+	sta v1
+	stmodulevar 0x0
+label_3: 
+	lda v0
+	callarg1 0x2, v1
+	returnundefined
+label_5: 
+}
+
+

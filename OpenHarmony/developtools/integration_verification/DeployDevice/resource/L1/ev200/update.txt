@@ -1,0 +1,8 @@
+setenv serverip %Tftpserver_IP%;setenv ipaddr %Device_IP%;setenv ethaddr %Device_MAC%;setenv netmask %Device_Netmask%;setenv gatewayip %Device_GatewayIP%;
+sf probe 0;
+mw.b 40000000 ff 500000; tftp 40000000 /ev200/OHOS_Image.bin; sf erase 100000 500000; sf write 40000000 100000 500000;
+mw.b 40000000 ff 900000; tftp 40000000 /ev200/rootfs.img; sf erase 600000 900000; sf write 40000000 600000 900000;
+mw.b 40000000 ff 100000; tftp 40000000 /ev200/userfs.img; sf erase f00000 100000; sf write 40000000 f00000 100000;
+setenv bootargs "console=ttyAMA0,115200n8 root=flash fstype=jffs2 rw rootaddr=6M rootsize=9M";
+setenv bootcmd 'sf probe 0;sf read 0x40000000 0x100000 0x500000;go 0x40000000;'
+sa;reset;

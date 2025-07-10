@@ -1,0 +1,135 @@
+# Copyright (c) 2023-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+declare_args() {
+  device_status_intention_framework = true
+  device_status_rust_enabled = false
+  device_status_interaction_coordination = false
+  device_status_drag_enable_monitor = true
+  device_status_drag_enable_interceptor = false
+  device_status_drag_enable_animation = false
+  device_status_performance_check = true
+  device_status_hisysevent_enable = false
+  device_status_hitrace_enable = false
+  device_status_udmf_enabled = false
+  device_status_sensor_enable = true
+  device_status_memmgr_enable = false
+  device_status_enable_universal_drag = false
+  device_status_device_type = "default"
+  device_status_motion_enable = false
+
+  # origin variables sets
+  if (!is_arkui_x) {
+    device_status_intention_framework = true
+    device_status_drag_enable_monitor = true
+    device_status_sensor_enable = true
+    device_status_memmgr_enable = false
+
+    if (defined(global_parts_info)) {
+      if (!defined(global_parts_info.sensors_sensor)) {
+        device_status_sensor_enable = false
+      }
+      if (defined(global_parts_info.resourceschedule_memmgr_override)) {
+        device_status_memmgr_enable = true
+      }
+      if (defined(global_parts_info.msdp_motion)) {
+        device_status_motion_enable = true
+      }
+    }
+  } else {  # is_arkui_x
+    device_status_intention_framework = false
+    device_status_drag_enable_monitor = false
+    device_status_sensor_enable = false
+    device_status_memmgr_enable = false
+  }
+}
+
+if (defined(global_parts_info)) {
+  if (defined(global_parts_info.hiviewdfx_hisysevent)) {
+    device_status_hisysevent_enable = true
+  }
+  if (defined(global_parts_info.hiviewdfx_hitrace)) {
+    device_status_hitrace_enable = true
+  }
+  if (defined(global_parts_info.distributeddatamgr_udmf)) {
+    device_status_udmf_enabled = true
+  }
+}
+
+ability_runtime_path = "//foundation/ability/ability_runtime"
+ability_runtime_kits_path = "${ability_runtime_path}/frameworks/kits"
+device_status_part_name = "device_status"
+device_status_subsystem_name = "msdp"
+device_status_root_path = "//base/msdp/device_status"
+device_status_interfaces_path = "${device_status_root_path}/interfaces"
+device_status_libs_path = "${device_status_root_path}/libs"
+device_status_frameworks_path = "${device_status_root_path}/frameworks"
+device_status_intention_path = "${device_status_root_path}/intention"
+device_status_service_path = "${device_status_root_path}/services"
+device_status_utils_path = "${device_status_root_path}/utils/common"
+device_status_fuzz_output_path = "${device_status_part_name}/device_status"
+intention_root_path = "//base/msdp/device_status/intention"
+file_dfs_service_path = "//foundation/filemanagement/dfs_service"
+file_framework_root_path = "//foundation/appframework"
+file_arkui_root_path = "//foundation/arkui"
+library_utils_path = "//commonlibrary/c_utils"
+plugins_media_path = "//plugins/multimedia"
+file_dfx_hilog_path = "//base/hiviewdfx/hilog"
+foundation_media_path = "//foundation/multimedia"
+foundation_input_path = "//foundation/multimodalinput"
+foundation_graphic_path = "//foundation/graphic"
+
+device_status_default_defines = []
+
+if (device_status_intention_framework) {
+  device_status_default_defines += [ "OHOS_BUILD_ENABLE_INTENTION_FRAMEWORK" ]
+}
+
+if (device_status_rust_enabled) {
+  device_status_default_defines += [ "OHOS_BUILD_ENABLE_RUST_IMPL" ]
+}
+
+if (device_status_interaction_coordination) {
+  device_status_default_defines += [ "OHOS_BUILD_ENABLE_COORDINATION" ]
+}
+
+if (device_status_performance_check) {
+  device_status_default_defines += [ "ENABLE_PERFORMANCE_CHECK" ]
+}
+
+if (device_status_drag_enable_monitor) {
+  device_status_default_defines += [ "OHOS_DRAG_ENABLE_MONITOR" ]
+}
+
+if (device_status_drag_enable_interceptor) {
+  device_status_default_defines += [ "OHOS_DRAG_ENABLE_INTERCEPTOR" ]
+}
+
+if (device_status_drag_enable_animation) {
+  device_status_default_defines += [ "OHOS_DRAG_ENABLE_ANIMATION" ]
+}
+
+# add new macro
+if (is_arkui_x) {
+  device_status_default_defines += [ "OHOS_BUILD_ENABLE_ARKUI_X" ]
+}
+
+if (device_status_enable_universal_drag) {
+  device_status_default_defines += [ "OHOS_BUILD_UNIVERSAL_DRAG" ]
+}
+
+if (device_status_device_type == "pc") {
+  device_status_default_defines += [ "OHOS_BUILD_PC_PRODUCT" ]
+}

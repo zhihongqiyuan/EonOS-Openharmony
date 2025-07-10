@@ -1,0 +1,127 @@
+{
+    "name": "@ohos/huks",
+    "description": "The provider of key and certificate manangement capbility, which belongs to security subsystem",
+    "version": "4.0.2",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/security/huks"
+    },
+    "dirs":{},
+    "scripts": {
+      "install": "DEST_PATH=${DEP_BUNDLE_BASE}/base/security/huks && mkdir -p $DEST_PATH && cp -r ./* $DEST_PATH"
+    },
+    "author": {},
+    "homePage": "https://gitee.com/openharmony",
+    "repository": "https://gitee.com/openharmony/security_huks",
+    "supplier": "Organization: OpenHarmony",
+    "component": {
+      "name": "huks",
+      "subsystem": "security",
+      "syscap": [
+          "SystemCapability.Security.Huks.Extension",
+          "SystemCapability.Security.Huks.Core",
+          "SystemCapability.Security.Cipher"
+          ],
+      "features": [
+        "huks_enabled",
+        "huks_use_mbedtls",
+        "huks_use_lite_storage",
+        "huks_use_hardware_root_key",
+        "huks_config_file",
+        "huks_key_store_path",
+        "huks_key_store_standard_path",
+        "huks_enable_log",
+        "huks_dependency_mbedtls_path",
+        "huks_dependency_openssl_path",
+        "huks_uid_trust_list_define",
+        "huks_enable_upgrade_key",
+        "huks_enable_upgrade_small_to_service",
+        "huks_enable_upgrade_rkc_v1tov2",
+        "huks_enable_upgrade_derive_key_alg",
+        "huks_security_level",
+        "huks_test_suite_running_environment",
+        "huks_lite_hap_store_path",
+        "huks_use_rkc_in_standard",
+        "huks_use_rkc_in_standard_path",
+        "huks_qemu_enabled",
+        "huks_enable_upgrade_key_storage_secure_level",
+        "huks_sa_upgrade_config",
+        "huks_hap_upgrade_config",
+        "huks_enable_skip_upgrade_key_storage_secure_level",
+        "huks_sa_skip_upgrade_config",
+        "huks_hap_skip_upgrade_config",
+        "huks_enable_hdi_in_standard"
+      ],
+      "adapted_system_type": [
+          "standard",
+          "small",
+          "mini"
+        ],
+      "hisysevent_config": [
+          "//base/security/huks/hisysevent.yaml"
+        ],
+      "rom": "5120KByte",
+      "ram": "4828KByte",
+      "deps": {
+        "components": [
+          "ability_base",
+          "access_token",
+          "bundle_framework",
+          "c_utils",
+          "common_event_service",
+          "hicollie",
+          "device_manager",
+          "hisysevent",
+          "hitrace",
+          "hilog",
+          "hilog_lite",
+          "ipc",
+          "napi",
+          "os_account",
+          "safwk",
+          "samgr",
+          "user_auth_framework",
+          "drivers_interface_user_auth",
+          "drivers_interface_huks",
+          "openssl",
+          "bounds_checking_function",
+          "mbedtls",
+          "cJSON",
+          "init"
+        ]
+      },
+      "build": {
+        "group_type": {
+          "base_group": [],
+          "fwk_group": [
+            "//base/security/huks:fwk_group"
+          ],
+          "service_group": [
+            "//base/security/huks/etc:param_files",
+            "//base/security/huks:service_group"
+          ]
+        },
+        "inner_api": [
+          {
+            "name": "//base/security/huks/interfaces/inner_api/huks_standard/main:libhukssdk",
+            "header": {
+              "header_files": [
+                "hks_api.h",
+                "hks_param.h",
+                "hks_type.h"
+              ],
+              "header_base": "//base/security/huks/interfaces/inner_api/huks_standard/main/include"
+            }
+          },
+          {
+            "name": "//base/security/huks/interfaces/kits/cj:cj_huks_ffi"
+          }
+        ],
+        "test": [
+          "//base/security/huks:huks_sdk_test",
+          "//base/security/huks/test/fuzz_test:fuzztest"
+        ]
+      }
+    }
+}

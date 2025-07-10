@@ -1,0 +1,52 @@
+{
+  "string": [
+    {
+      "name": "status_bar_position_landscape",
+      "value": "2"
+    },
+    {
+      "name": "status_bar_position_portrait",
+      "value": "2"
+    },
+    {
+      "name": "app_name",
+      "value": "SystemUI"
+    },
+    {
+      "name": "mainability_description",
+      "value": "JS_Phone_Empty Feature Ability"
+    },
+    {
+      "name": "net_null",
+      "value": "No SIM"
+    },
+    {
+      "name": "2G",
+      "value": "2G"
+    },
+    {
+      "name": "3G",
+      "value": "3G"
+    },
+    {
+      "name": "4G",
+      "value": "4G"
+    },
+    {
+      "name": "5G",
+      "value": "5G"
+    },
+    {
+      "name": "signal_null",
+      "value": "×"
+    },
+    {
+      "name": "incoming_call",
+      "value": "Incoming call"
+    },
+    {
+      "name": "communicate_by_phone",
+      "value": "communicate"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+bytecodehar-file1:&myapp/bytecodehar-file1&
+bytecodehar-file2:&myapp/bytecodehar-file2&

@@ -1,0 +1,79 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the License);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import assert from "assert";
+export var g = 1;
+export var {} = {};
+export var { h: h } = { h: 2 };
+export var { ...i } = { u1: 3, v1: 4, w1: 5 };
+export var { j: j, ...k } = { j: 6, z1: 7, a2: 8 };
+export var { l: l, "var10": var10, ...m } = { l: 9, var10: 10, b2: 11 };
+export var { o: o, ['var13']: p, ...q } = { o: 12, var13: 13, c2: 14 };
+let t: number = 16;
+export var { u: u, ["var16"]: var16, ...v } = { u: 15, var16: [t], d2: 17 };
+export var { ["var" + "18"]: a1, b1: b1 } = { ["var" + "18"]: 18, b1: 19 };
+assert(g === 1);
+assert(h === 2);
+assert(i.u1 === 3);
+assert(i.v1 === 4);
+assert(i.w1 === 5);
+assert(j === 6);
+assert(k.z1 === 7);
+assert(k.a2 === 8);
+assert(l === 9);
+assert(var10 === 10);
+assert(m.b2 === 11);
+assert(o === 12);
+assert(p === 13);
+assert(q.c2 === 14);
+assert(u === 15);
+assert(var16.toString() === "16");
+assert(v.d2 === 17);
+assert(a1 === 18);
+assert(b1 === 19);
+namespace c1 {
+    export var { q1: q1, ["var" + "21"]: s1, ...t1 } = { q1: 20, ["var" + "21"]: 21, e2: 22 };
+    assert(q1 === 20);
+    assert(s1 === 21);
+    assert(t1.e2 === 22);
+}
+assert(c1.q1 === 20);
+assert(c1.s1 === 21);
+assert(c1.t1.e2 === 22);
+export var [] = [];
+export let [,] = [,];
+export var [d1, e1] = [1, 2];
+export var [f1, , g1] = [3, 4, 5, 6];
+export var [...h1] = [7, 8, 9];
+export var [i1, ...j1] = [10, 11, 12];
+export var [, ...l1] = [13, 14, 15];
+assert(d1 === 1);
+assert(e1 === 2);
+assert(f1 === 3);
+assert(g1 === 5);
+assert(h1[0] === 7);
+assert(h1[1] === 8);
+assert(h1[2] === 9);
+assert(i1 === 10);
+assert(j1[0] === 11);
+assert(j1[1] === 12);
+assert(l1[0] === 14);
+assert(l1[1] === 15);
+namespace m1 {
+    export var [n1, { o1: o1 }] = [13, { o1: 14 }, 15];
+    assert(n1 === 13);
+    assert(o1 === 14);
+}
+assert(m1.n1 === 13);
+assert(m1.o1 === 14);

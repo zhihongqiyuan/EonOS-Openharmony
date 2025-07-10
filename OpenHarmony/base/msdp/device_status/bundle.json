@@ -1,0 +1,149 @@
+{
+  "name": "@ohos/device_status",
+  "description": "Msdp device status",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "segment": {
+    "destPath": "base/msdp/device_status"
+  },
+  "component": {
+    "name": "device_status",
+    "subsystem": "msdp",
+    "syscap": [
+      "SystemCapability.Msdp.DeviceStatus.Drag",
+      "SystemCapability.Msdp.DeviceStatus.Cooperate",
+      "SystemCapability.Msdp.DeviceStatus.Stationary"
+    ],
+    "hisysevent_config": [
+      "//base/msdp/device_status/hisysevent.yaml",
+      "//base/msdp/device_status/hisyseventdrague.yaml"
+    ],
+    "features": [
+      "device_status_intention_framework",
+      "device_status_rust_enabled",
+      "device_status_interaction_coordination",
+      "device_status_drag_enable_monitor",
+      "device_status_drag_enable_interceptor",
+      "device_status_drag_enable_animation",
+      "device_status_performance_check",
+      "device_status_sensor_enable",
+      "device_status_memmgr_enable",
+      "device_status_device_type",
+      "device_status_enable_universal_drag",
+      "device_status_motion_enable"
+    ],
+    "adapted_system_type": [ "standard" ],
+    "rom": "2048KB",
+    "ram": "~4096KB",
+    "deps": {
+      "components": [
+        "ability_runtime",
+        "access_token",
+        "cJSON",
+        "hicollie",
+        "hilog",
+        "ipc",
+        "safwk",
+        "samgr",
+        "c_utils",
+        "common_event_service",
+        "napi",
+        "image_framework",
+        "eventhandler",
+        "device_manager",
+        "sensor",
+        "init",
+        "input",
+        "json",
+        "hisysevent",
+        "window_manager",
+        "hitrace",
+        "ability_base",
+        "graphic_2d",
+        "udmf",
+        "device_info_manager",
+        "dsoftbus",
+        "ylong_runtime",
+        "dfs_service",
+        "qos_manager",
+        "memmgr",
+        "os_account",
+        "libxml2",
+        "wifi",
+        "power_manager",
+        "resource_schedule_service",
+        "motion",
+        "data_share"
+      ],
+      "third_party": [
+        "libuv",
+        "openssl",
+        "jsoncpp"
+      ]
+    },
+    "build": {
+      "group_type": {
+        "base_group":[],
+        "fwk_group":[
+          "//base/msdp/device_status/interfaces/innerkits:devicestatus_client",
+          "//base/msdp/device_status/frameworks/js/napi:stationary",
+          "//base/msdp/device_status/frameworks/js/napi/interaction:interaction_jsapi_group",
+          "//base/msdp/device_status/frameworks/js/napi/motion:motion_napi",
+          "//base/msdp/device_status/frameworks/js/napi/boomerang:metadatabinding_napi",
+          "//base/msdp/device_status/frameworks/js/napi/device_status:devicestatus_napi"
+        ],
+        "service_group":[
+          "//base/msdp/device_status/libs:devicestatus_algo",
+          "//base/msdp/device_status/libs:devicestatus_mock",
+          "//base/msdp/device_status/services:devicestatus_service",
+          "//base/msdp/device_status/frameworks/native/src:deviceagent",
+          "//base/msdp/device_status/sa_profile:devicestatus_sa_profile",
+          "//base/msdp/device_status/tools:devicestatus_tools",
+          "//base/msdp/device_status:devicestatus_service_group"
+        ]
+      },
+      "inner_kits": [
+        {
+          "name": "//base/msdp/device_status/interfaces/innerkits:devicestatus_client",
+          "header": {
+            "header_files": [
+              "include/stationary_data.h",
+              "include/iremote_dev_sta_callback.h",
+              "include/stationary_manager.h",
+              "interaction/include/coordination_message.h",
+              "interaction/include/drag_data.h",
+              "interaction/include/drag_data_util.h",
+              "interaction/include/i_coordination_listener.h",
+              "interaction/include/i_drag_listener.h",
+              "interaction/include/i_start_drag_listener.h",
+              "interaction/include/interaction_manager.h"
+            ],
+            "header_base": "//base/msdp/device_status/interfaces/innerkits"
+          }
+        },
+        {
+          "name": "//base/msdp/device_status/services/interaction/drag:interaction_drag",
+          "header": {
+            "header_files": [
+              "interaction/drag/include/drag_data_manager.h"
+            ],
+            "header_base": "//base/msdp/device_status/services"
+          }
+        },
+        {
+          "name": "//base/msdp/device_status/intention/services/intention_service:intention_service",
+          "header": {
+            "header_files": [
+              "prototype/include/i_context.h"
+            ],
+            "header_base": "//base/msdp/device_status/intention"
+          }
+        }
+      ],
+      "test": [
+        "//base/msdp/device_status:device_status_tests",
+        "//base/msdp/device_status/test/fuzztest:device_status_fuzztest"
+      ]
+    }
+  }
+}

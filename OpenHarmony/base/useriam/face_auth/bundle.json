@@ -1,0 +1,63 @@
+{
+    "name": "@ohos/face_auth",
+    "version": "4.0",
+    "description": "Face authentication capability",
+    "homePage": "https://gitee.com/openharmony",
+    "author": {},
+    "repository": "",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+      "destPath" : "base/useriam/face_auth"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+      "name": "face_auth",
+      "subsystem": "useriam",
+      "adapted_system_type": [ "standard" ],
+      "syscap": ["SystemCapability.UserIAM.UserAuth.FaceAuth"],
+      "features": ["face_auth_enabled"],
+      "rom": "1024KB",
+      "ram": "1306KB",
+      "deps": {
+        "components": [
+          "access_token",
+          "c_utils",
+          "display_manager",
+          "drivers_interface_camera",
+          "drivers_interface_face_auth",
+          "graphic_surface",
+          "hdf_core",
+          "hilog",
+          "init",
+          "ipc",
+          "miscdevice",
+          "napi",
+          "power_manager",
+          "safwk",
+          "samgr",
+          "sensor",
+          "user_auth_framework"
+        ]
+      },
+      "build": {
+        "group_type": {
+          "base_group": [
+          ],
+          "fwk_group": [
+            "//base/useriam/face_auth/frameworks/js/napi:faceauth"
+          ],
+          "service_group": [
+            "//base/useriam/face_auth/sa_profile:faceauth_sa_profile",
+            "//base/useriam/face_auth/services:faceauthservice",
+            "//base/useriam/face_auth/services_ex:faceauthservice_ex"
+          ]
+        },
+        "test": [
+          "//base/useriam/face_auth/test/fuzztest:faceauth_fuzztest",
+          "//base/useriam/face_auth/test/unittest:faceauth_unittest"
+        ]
+      }
+    }
+}

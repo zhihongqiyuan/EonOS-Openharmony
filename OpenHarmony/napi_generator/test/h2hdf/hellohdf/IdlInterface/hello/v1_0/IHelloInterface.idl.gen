@@ -1,0 +1,5 @@
+package ohos.hdi.hello.v1_0;
+
+interface IHelloInterface {
+    Helloworld([in] String sendMsg, [out] String recvMsg);
+}

@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "control_center_complex_toggle_ring_mode_title_on",
+      "value": "Sound"
+    },
+    {
+      "name": "control_center_complex_toggle_ring_mode_title_off",
+      "value": "Silent"
+    },
+    {
+      "name": "control_center_complex_toggle_ring_mode_title_vibration",
+      "value": "Vibration"
+    }
+  ]
+}

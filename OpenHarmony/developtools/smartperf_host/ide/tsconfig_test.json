@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "es6",
+    "module": "ES2022",
+    "allowJs": false,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": [
+    "src/trace/proto/",
+    "src/trace/grpc/*.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "name": "@ohos/code_signature",
+  "description": "Code signature",
+  "version": "4.0",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/security/code_signature"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "code_signature",
+    "subsystem": "security",
+    "syscap": [],
+    "hisysevent_config": [
+      "//base/security/code_signature/hisysevent.yaml"
+    ],
+    "features": [
+      "code_signature_support_oh_code_sign",
+      "code_signature_enable_xpm_mode",
+      "code_signature_support_oh_release_app",
+      "code_signature_support_app_allow_list"
+    ],
+    "adapted_system_type": [ "standard" ],
+    "rom": "1024KB",
+    "ram": "2048KB",
+    "deps": {
+      "components": [
+        "hilog",
+        "hitrace",
+        "hisysevent",
+        "ability_base",
+        "bounds_checking_function",
+        "c_utils",
+        "ipc",
+        "samgr",
+        "safwk",
+        "huks",
+        "eventhandler",
+        "access_token",
+        "ylong_json",
+        "appverify",
+        "init",
+        "openssl",
+        "fsverity-utils",
+        "screenlock_mgr",
+        "common_event_service",
+        "bounds_checking_function",
+        "rust_rust-openssl"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "sub_component": [
+        "//base/security/code_signature:subcomponents"
+      ],
+      "inner_kits": [
+        {
+          "name" : "//base/security/code_signature/interfaces/inner_api/code_sign_utils:libcode_sign_utils",
+          "header": {
+            "header_files": [
+              "code_sign_utils.h",
+              "code_sign_utils_in_c.h"
+            ],
+            "header_base": "//base/security/code_signature/interfaces/inner_api/code_sign_utils/include"
+          }
+        },
+        {
+          "name" : "//base/security/code_signature/interfaces/inner_api/local_code_sign:liblocal_code_sign_sdk",
+          "header": {
+            "header_files": [
+              "local_code_sign_kit.h"
+            ],
+            "header_base": "//base/security/code_signature/interfaces/inner_api/local_code_sign/include"
+          }
+        },
+        {
+          "name" : "//base/security/code_signature/interfaces/inner_api/code_sign_attr_utils:libcode_sign_attr_utils",
+          "header": {
+            "header_files": [
+              "code_sign_attr_utils.h"
+            ],
+            "header_base": "//base/security/code_signature/interfaces/inner_api/code_sign_attr_utils/include"
+          }
+        },
+        {
+          "name" : "//base/security/code_signature/interfaces/inner_api/jit_code_sign:libjit_code_sign",
+          "header": {
+            "header_files": [
+              "jit_buffer_integrity.h",
+              "jit_code_signer.h",
+              "jit_fort_helper.h"
+            ],
+            "header_base": "//base/security/code_signature/interfaces/inner_api/jit_code_sign/include"
+          }
+        }
+      ],
+      "test": [ "//base/security/code_signature/test:testgroup" ]
+    }
+  }
+}

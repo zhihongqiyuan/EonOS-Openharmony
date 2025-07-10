@@ -1,0 +1,372 @@
+From 1d1fe8d96215edb5f1a9b4fe8c305417eca0aac1 Mon Sep 17 00:00:00 2001
+From: John Doe <john.d@corp.com>
+Date: Fri, 26 Jul 2024 22:33:11 +0800
+Subject: [PATCH]
+
+Signed-off-by: John Doe <john.d@corp.com>
+---
+ lib/Agent.js         |  1 +
+ lib/ConsoleAgent.js  | 55 +++++++++++++++------------
+ lib/agents/panda.js  | 88 ++++++++++++++++++++++++++++++++++++++++++++
+ lib/dependencies.js  |  6 +--
+ lib/write-sources.js | 27 +++++++++-----
+ runtimes/panda.js    | 44 ++++++++++++++++++++++
+ 6 files changed, 184 insertions(+), 37 deletions(-)
+ create mode 100644 lib/agents/panda.js
+ create mode 100644 runtimes/panda.js
+
+diff --git a/lib/Agent.js b/lib/Agent.js
+index edcdf0e..7e655c5 100644
+--- a/lib/Agent.js
++++ b/lib/Agent.js
+@@ -7,6 +7,7 @@ class Agent {
+     this.args = options.hostArguments || [];
+     this.transform = options.transform || (x => x);
+     this.out = options.out || '';
++    this.test262Dir = options.test262Dir;
+ 
+     if (typeof this.args === 'string') {
+       this.args = this.args.includes(' ') ?
+diff --git a/lib/ConsoleAgent.js b/lib/ConsoleAgent.js
+index 947c1db..3fcd363 100644
+--- a/lib/ConsoleAgent.js
++++ b/lib/ConsoleAgent.js
+@@ -19,7 +19,7 @@ const {
+ const cpSym = Symbol.for('cp');
+ const tpSym = Symbol.for('tp');
+ 
+-function generateTempFileName() {
++function generateTempFileName(file) {
+   const now = Date.now();
+   return `f-${now}-${process.pid}-${(Math.random() * 0x100000000 + 1).toString(36)}.js`;
+ }
+@@ -47,9 +47,28 @@ class ConsoleAgent extends Agent {
+     }
+   }
+ 
++  genTempFileName(code){
++    let file = code.file;
++    let scenario = code.scenario === 'strict mode' ? '' : code.scenario;
++    let tmps = file.split(this.test262Dir);
++    let tempFile = path.join(this.out, tmps[1]);
++    tempFile = tempFile.substring(0, tempFile.indexOf('.js'));
++    let fileBase = path.basename(tempFile);
++    if (tempFile.indexOf("/dynamic-import/") != -1 || tempFile.indexOf("\\dynamic-import\\") != -1) {
++      tempFile = path.join(tempFile, "/", fileBase);
++    }
++    tempFile = path.normalize(
++      `${tempFile}${scenario}.js`
++    );
++    return tempFile;
++  }
++
+   evalScript(code, options = {}) {
+-    let tempfile = path.join(this[tpSym], generateTempFileName());
+-    let temppath = this[tpSym];
++    let fileBase = path.basename(code.file);
++    let originalFilePath = code.file.split(fileBase)[0];
++    let tempFile = this.genTempFileName(code);
++    let outputFilePath = path.basename(tempFile);
++    let depTempPath = tempFile.substring(0, tempFile.indexOf(outputFilePath));
+ 
+     let isExpectingRawSource = false;
+     let hasDependencies = false;
+@@ -57,11 +76,6 @@ class ConsoleAgent extends Agent {
+     const sources = [];
+     const dependencies = [];
+ 
+-    if (this.out) {
+-      tempfile = tempfile.replace(temppath, this.out);
+-      temppath = this.out;
+-    }
+-
+     // When evalScript is called with a test262-stream test record:
+     if (typeof code === 'object' && code.contents) {
+       let {attrs, contents, file} = code;
+@@ -84,13 +98,6 @@ class ConsoleAgent extends Agent {
+         hasDependencies = false;
+       }
+ 
+-      if (options.module || attrs.flags.module ||
+-          hasModuleSpecifier(contents)) {
+-        // When testing module or dynamic import code that imports itself,
+-        // we must copy the test file with its actual name.
+-        tempfile = path.join(temppath, sourcebase);
+-      }
+-
+       // The test record in "code" is no longer needed and
+       // all further operations expect the "code" argument to be
+       // a string, make that true for back-compat.
+@@ -112,7 +119,7 @@ class ConsoleAgent extends Agent {
+     //      raw source code.
+     //    - The file name of the test being executed, but within
+     //      the os's temporary file directory
+-    sources.push([ tempfile, code ]);
++    sources.push([ tempFile, code ]);
+ 
+     // If any dependencies were discovered, there will be
+     if (hasDependencies) {
+@@ -123,23 +130,24 @@ class ConsoleAgent extends Agent {
+       // 3. Push the dependency and source into the sources to be written.
+       //
+       dependencies.forEach(file => {
+-        let absname = path.join(temppath, file);
+-        let depsource = rawSource.get(path.basename(file));
++        let absName = path.join(depTempPath, file);
++        let depFile = path.join(originalFilePath, file);
++        let depSource = rawSource.get(depFile);
+ 
+         // Sometimes a test file might want to import itself,
+         // which is a valid exercise of the import semantics.
+         // Here we avoid adding the test file more than once.
+-        if (absname !== tempfile) {
++        if (absName !== tempFile) {
+           sources.push([
+-            absname,
+-            depsource
++            absName,
++            depSource
+           ]);
+         }
+       });
+     }
+ 
+     this[cpSym] = writeSources(sources)
+-      .then(() => this.createChildProcess([tempfile]));
++      .then(() => this.createChildProcess([tempFile]));
+ 
+     return this[cpSym].then(child => {
+       let stdout = '';
+@@ -158,10 +166,9 @@ class ConsoleAgent extends Agent {
+       });
+     }).then(({stdout, stderr}) => {
+       // Remove _all_ sources
+-      sources.forEach(({0: file}) => fs.unlink(file, () => { /* ignore */ }));
++      // sources.forEach(({0: file}) => fs.unlink(file, () => { /* ignore */ }));
+ 
+       const result = this.normalizeResult({ stderr, stdout });
+-
+       result.error = this.parseError(result.stderr);
+ 
+       return result;
+diff --git a/lib/agents/panda.js b/lib/agents/panda.js
+new file mode 100644
+index 0000000..ab22b47
+--- /dev/null
++++ b/lib/agents/panda.js
+@@ -0,0 +1,88 @@
++'use strict';
++
++const fs = require('fs');
++const runtimePath = require('../runtime-path');
++const ConsoleAgent = require('../ConsoleAgent');
++
++const errorRe = /[(](\d+),(\d+)[)]: (.*)/;
++const errorRe1 = /^(\w+): (.*)$/m;
++// const errorRe2 = /^(?:(\w+): (.*))|(?:(\w+))$/m;
++const errorRe2 = /(\w+): (\w+): (.*)$/m;
++
++function parseSyntaxError(syntaxErrorMessage) {
++  const matches = syntaxErrorMessage.match();
++  if (matches && matches.length) {
++    return {
++      message: matches[3],
++      lineNumber: Number(matches[1]),
++      columnNumber: Number(matches[2])
++    };
++  }
++  return null;
++}
++
++class PandaAgent extends ConsoleAgent{
++    constructor(options) {
++        super(options);
++    }
++
++    createChildProcess(args) {
++      let js_file = args[0]
++      args = []
++      args.unshift(`--js-file=${js_file}`)
++      return super.createChildProcess(args);
++    }
++
++    evalScript(code, options = {}) {
++        return super.evalScript(code, options);
++    }
++
++    parseError(str) {
++        let match = str.match(errorRe1);
++        if (match) {
++          return {
++            name: match[1],
++            message: match[2],
++            stack: [],
++          };
++        } else {
++          // Syntax errors don't have nice error messages...
++          let error = null;
++          let errors = str.match(/[(](\d+),(\d+)[)]: (.*)/gm);
++
++          if (errors && errors.length) {
++            error = {
++              name: 'SyntaxError',
++              message: errors[0],
++              stack: []
++            };
++
++            const stack = parseSyntaxError(errors[0]);
++
++            if (stack) {
++              error.stack.push(stack);
++              error.message = stack.message;
++            }
++          }
++
++          if (error) {
++            return error;
++          }
++
++          // Last chance...
++          errors = str.match(errorRe2);
++          if (errors && errors.length >3) {
++            return {
++              name: errors[2],
++              message: errors[0],
++              stack: [],
++            };
++          }
++        }
++
++        return null;
++      }
++}
++
++PandaAgent.runtime = fs.readFileSync(runtimePath.for('panda'), 'utf8');
++module.exports = PandaAgent;
+\ No newline at end of file
+diff --git a/lib/dependencies.js b/lib/dependencies.js
+index 00de9a4..3de6002 100644
+--- a/lib/dependencies.js
++++ b/lib/dependencies.js
+@@ -46,12 +46,12 @@ function getDependencies(file, accum = []) {
+   let basename = path.basename(file);
+   let contents = '';
+ 
+-  if (rawSourceCache.has(basename)) {
+-    contents = rawSourceCache.get(basename);
++  if (rawSourceCache.has(file)) {
++    contents = rawSourceCache.get(file);
+   } else {
+     try {
+       contents = fs.readFileSync(file, 'utf8');
+-      rawSourceCache.set(basename, contents);
++      rawSourceCache.set(file, contents);
+     } catch (error) {
+       accum.splice(accum.indexOf(basename), 1);
+     }
+diff --git a/lib/write-sources.js b/lib/write-sources.js
+index ba7ce71..408091e 100644
+--- a/lib/write-sources.js
++++ b/lib/write-sources.js
+@@ -1,12 +1,14 @@
+ 'use strict';
+ 
+-const fs = require('fs');
+-const path = require('path');
++let fs;
++
++try {
++  fs = require('fs/promises');
++} catch(error) {
++  fs = require('fs').promises;
++}
+ 
+-const promisify = require('./promisify');
+-const mkdir = promisify(fs.mkdir);
+-const stat = promisify(fs.stat);
+-const writeFile = promisify(fs.writeFile);
++const path = require('path');
+ 
+ module.exports = async function(sources) {
+   let {0: [file]} = sources;
+@@ -17,18 +19,23 @@ module.exports = async function(sources) {
+     first: path to output file
+     second: contents
+    */
+-  return await Promise.all(
+-    sources.map(args => writeFile(...args))
++  return Promise.all(
++    sources.map(args => fs.writeFile(...args, { flag: "wx" }).catch(
++      error => {
++        if (error && error.code !== 'EEXIST') {
++          throw error
++        }
++      }))
+   );
+ };
+ 
+ async function safeMkdir(dir) {
+   try {
+-    await stat(dir);
++    await fs.stat(dir);
+   } catch (error) {
+     if (error.code === 'ENOENT') {
+       try {
+-        await mkdir(dir);
++        await fs.mkdir(dir);
+       } catch ({}) {
+         // suppressed?
+       }
+diff --git a/runtimes/panda.js b/runtimes/panda.js
+new file mode 100644
+index 0000000..0acbd09
+--- /dev/null
++++ b/runtimes/panda.js
+@@ -0,0 +1,44 @@
++if (!globalThis.$262) {
++  globalThis.$262 = {
++    global: globalThis,
++    evalScript(code) {
++      try {
++        global.evalScript(code);
++        return { type: 'normal', value: undefined };
++      } catch (e) {
++        return { type: 'throw', value: e };
++      }
++    },
++    gc() {
++      throw new Test262Error('gc() not yet supported.');
++    },
++    getGlobal(name) {
++      return global[name];
++    },
++    setGlobal(name, value) {
++      global[name] = value;
++    },
++    agent: (function() {
++      function thrower() {
++        throw new Test262Error('agent.* not yet supported.');
++      };
++      return {
++        start: thrower,
++        broadcast: thrower,
++        getReport: thrower,
++        sleep: thrower,
++        monotonicNow: thrower,
++      };
++    })(),
++  };
++}
++
++$262.IsHTMLDDA = function() {};
++$262.destroy = function() {};
++$262.getGlobal = function(name) {
++  return this.global[name];
++};
++$262.setGlobal = function(name, value) {
++  this.global[name] = value;
++};
++$262.source = $SOURCE;
+-- 
+2.25.1
+

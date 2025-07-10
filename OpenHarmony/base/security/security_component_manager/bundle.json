@@ -1,0 +1,92 @@
+{
+  "name": "@ohos/security_component_manager",
+  "description": "security_component_manager",
+  "version": "4.0.0",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/security/security_component_manager"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "security_component_manager",
+    "subsystem": "security",
+    "syscap": [],
+    "hisysevent_config": [
+      "//base/security/security_component_manager/hisysevent.yaml"
+    ],
+    "features": [ "security_component_manager_feature_coverage" ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "2048KB",
+    "ram": "5102KB",
+    "deps": {
+      "components": [
+        "ability_base",
+        "ability_runtime",
+        "access_token",
+        "bundle_framework",
+        "c_utils",
+        "data_share",
+        "eventhandler",
+        "hilog",
+        "hisysevent",
+        "hitrace",
+        "graphic_2d",
+        "ipc",
+        "json",
+        "safwk",
+        "samgr",
+        "window_manager"
+      ],
+      "third_party": [
+        "cJSON"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//base/security/security_component_manager:security_component_build_module"
+      ],
+      "inner_kits": [
+        {
+          "name": "//base/security/security_component_manager/frameworks/inner_api/security_component:libsecurity_component_sdk",
+          "header": {
+            "header_files": [
+              "i_sec_comp_probe.h",
+              "location_button.h",
+              "paste_button.h",
+              "save_button.h",
+              "sec_comp_base.h",
+              "sec_comp_enhance_adapter.h",
+              "sec_comp_enhance_kit.h",
+              "sec_comp_enhance_kit_c.h",
+              "sec_comp_err.h",
+              "sec_comp_info.h",
+              "sec_comp_kit.h",
+              "sec_comp_ui_register.h",
+              "security_component_service_ipc_interface_code.h"
+            ],
+            "header_base": "//base/security/security_component_manager/interfaces/inner_api/security_component/include"
+          }
+        },
+        {
+          "name": "//base/security/security_component_manager/services/security_component_service/sa:security_component_common",
+          "header": {
+            "header_files": [
+              "delay_exit_task.h",
+              "sec_comp_info_helper.h",
+              "sec_event_handler.h"
+            ],
+            "header_base": "//base/security/security_component_manager/interfaces/inner_api/security_component_common"
+          }
+        }
+      ],
+      "test": [
+        "//base/security/security_component_manager:security_component_build_module_test",
+        "//base/security/security_component_manager:security_component_build_fuzz_test"
+      ]
+    }
+  }
+}

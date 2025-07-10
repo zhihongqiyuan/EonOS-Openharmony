@@ -1,0 +1,20 @@
+slotNum = 0x0
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_5: 
+label_0: 
+	ldtrue
+	istrue
+	jnez label_1
+label_2: 
+	ldtrue
+	jmp label_3
+label_1: 
+	ldfalse
+label_3: 
+	isfalse
+	returnundefined
+label_6: 
+}
+
+

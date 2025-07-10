@@ -1,0 +1,162 @@
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+access_token_path = "//base/security/access_token"
+access_token_innerkit_path =
+    "//base/security/access_token/interfaces/innerkits/accesstoken"
+module_output_path_interface_privacy =
+    "access_token/access_token/interface_privacy"
+module_output_path_interface_access_token =
+    "access_token/access_token/interface_access_token"
+module_output_path_service_privacy = "access_token/access_token/service_privacy"
+module_output_path_service_access_token =
+    "access_token/access_token/service_access_token"
+module_output_path_unittest_accesstoken = "access_token/access_token"
+module_output_path_unittest_privacy = "access_token/privacy"
+
+VENDOR_CONFIG_PATH = rebase_path(
+        "//vendor/${product_company}/${product_name}/base/security/access_token/access_token_impl.gni")
+CMD = "if [ -f ${VENDOR_CONFIG_PATH} ]; then echo true; else echo false; fi"
+
+vendor_config_exist =
+    exec_script("//build/lite/run_shell_cmd.py", [ CMD ], "value")
+if (vendor_config_exist) {
+  import(
+      "//vendor/${product_company}/${product_name}/base/security/access_token/access_token_impl.gni")
+} else {
+  access_token_impl_sources = []
+  access_token_impl_include_dirs = []
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.distributedhardware_device_manager)) {
+  token_sync_enable = true
+} else {
+  token_sync_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.security_dlp_permission_service)) {
+  dlp_permission_enable = true
+} else {
+  dlp_permission_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.ability_ability_base)) {
+  ability_base_enable = true
+} else {
+  ability_base_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.hiviewdfx_hicollie)) {
+  hicollie_enable = true
+} else {
+  hicollie_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.hiviewdfx_hitrace_native)) {
+  hiviewdfx_hitrace_native_enable = true
+} else {
+  hiviewdfx_hitrace_native_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.multimedia_audio_framework)) {
+  audio_framework_enable = true
+} else {
+  audio_framework_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.multimedia_camera_framework)) {
+  camera_framework_enable = true
+} else {
+  camera_framework_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.ability_ability_runtime)) {
+  ability_runtime_enable = true
+} else {
+  ability_runtime_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.security_security_component_enhance)) {
+  security_component_enhance_enable = true
+} else {
+  security_component_enhance_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.customization_config_policy)) {
+  customization_config_policy_enable = true
+} else {
+  customization_config_policy_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.theme_screenlock_mgr)) {
+  theme_screenlock_mgr_enable = true
+} else {
+  theme_screenlock_mgr_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.notification_common_event_service)) {
+  common_event_service_enable = true
+} else {
+  common_event_service_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.notification_eventhandler)) {
+  eventhandler_enable = true
+} else {
+  eventhandler_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.resourceschedule_background_task_mgr)) {
+  access_token_background_task_mgr_continuous_task_enable = true
+} else {
+  access_token_background_task_mgr_continuous_task_enable = false
+}
+
+declare_args() {
+  access_token_camera_float_window_enable = true
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.appsecurityprivacy_security_privacy_server)) {
+  access_token_app_security_privacy_service_enable = true
+} else {
+  access_token_app_security_privacy_service_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.window_window_manager)) {
+  window_manager_enable = true
+} else {
+  window_manager_enable = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.powermgr_power_manager)) {
+  power_manager_enable = true
+} else {
+  power_manager_enable = false
+}

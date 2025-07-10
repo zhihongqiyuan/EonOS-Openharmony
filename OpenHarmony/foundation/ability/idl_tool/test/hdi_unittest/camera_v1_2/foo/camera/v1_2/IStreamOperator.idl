@@ -1,0 +1,63 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @file istream_operator.h
+ *
+ * @brief Declares APIs for stream operations.
+ *
+ * @since 4.1
+ * @version 1.2
+ */
+
+package ohos.hdi.camera.v1_2;
+
+import ohos.hdi.camera.v1_1.IStreamOperator;
+import ohos.hdi.camera.v1_2.Types;
+
+interface IStreamOperator extends ohos.hdi.camera.v1_1.IStreamOperator {
+
+    /**
+     * @brief Update streams.
+     *
+     * The function must be called after Loop CancelCaptures {@link CancelCaptures}.
+     *
+     * @param streamInfos Indicates the list of stream information, which is defined by {@link StreamInfo}.
+     * The passed stream information may be changed. Therefore, you can run {@link GetStreamAttributes} to
+     * obtain the latest stream attributes after the stream is created.
+     *
+     * @return Returns <b>NO_ERROR</b> if the operation is successful;
+     * returns an error code defined in {@link CamRetCode} otherwise.
+     *
+     * @since 4.1
+     * @version 1.2
+     */
+    UpdateStreams([in] struct StreamInfo_V1_1[] streamInfos);
+
+    /**
+     * @brief Confirm capture.
+     *
+     * The function must be called after start capture, the scene is in night view mode.
+     *
+     * @param captureId Indicates the ID of the stream to confirm.
+     *
+     * @return Returns <b>NO_ERROR</b> if the operation is successful;
+     * returns an error code defined in {@link CamRetCode} otherwise.
+     *
+     * @since 4.1
+     * @version 1.2
+     */
+    ConfirmCapture([in] int captureId);
+}

@@ -1,0 +1,316 @@
+{
+  "type": "Program",
+  "statements": [
+    {
+      "type": "VariableDeclaration",
+      "declarations": [
+        {
+          "type": "VariableDeclarator",
+          "id": {
+            "type": "Identifier",
+            "name": "a",
+            "typeAnnotation": {
+              "type": "TSStringKeyword",
+              "loc": {
+                "start": {
+                  "line": 17,
+                  "column": 8
+                },
+                "end": {
+                  "line": 17,
+                  "column": 14
+                }
+              }
+            },
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 5
+              },
+              "end": {
+                "line": 17,
+                "column": 6
+              }
+            }
+          },
+          "init": {
+            "type": "StringLiteral",
+            "value": "1",
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 17
+              },
+              "end": {
+                "line": 17,
+                "column": 20
+              }
+            }
+          },
+          "loc": {
+            "start": {
+              "line": 17,
+              "column": 5
+            },
+            "end": {
+              "line": 17,
+              "column": 20
+            }
+          }
+        }
+      ],
+      "kind": "var",
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 1
+        },
+        "end": {
+          "line": 17,
+          "column": 21
+        }
+      }
+    },
+    {
+      "type": "SwitchStatement",
+      "discriminant": {
+        "type": "Identifier",
+        "name": "a",
+        "loc": {
+          "start": {
+            "line": 18,
+            "column": 9
+          },
+          "end": {
+            "line": 18,
+            "column": 10
+          }
+        }
+      },
+      "cases": [
+        {
+          "type": "SwitchCase",
+          "test": {
+            "type": "StringLiteral",
+            "value": "1",
+            "loc": {
+              "start": {
+                "line": 19,
+                "column": 10
+              },
+              "end": {
+                "line": 19,
+                "column": 13
+              }
+            }
+          },
+          "consequent": [
+            {
+              "type": "ClassDeclaration",
+              "definition": {
+                "id": {
+                  "type": "Identifier",
+                  "name": "C",
+                  "loc": {
+                    "start": {
+                      "line": 20,
+                      "column": 15
+                    },
+                    "end": {
+                      "line": 20,
+                      "column": 16
+                    }
+                  }
+                },
+                "superClass": null,
+                "implements": [],
+                "constructor": {
+                  "type": "MethodDefinition",
+                  "key": {
+                    "type": "Identifier",
+                    "name": "constructor",
+                    "loc": {
+                      "start": {
+                        "line": 1,
+                        "column": 1
+                      },
+                      "end": {
+                        "line": 1,
+                        "column": 1
+                      }
+                    }
+                  },
+                  "kind": "constructor",
+                  "static": false,
+                  "optional": false,
+                  "computed": false,
+                  "value": {
+                    "type": "FunctionExpression",
+                    "function": {
+                      "type": "ScriptFunction",
+                      "id": null,
+                      "generator": false,
+                      "async": false,
+                      "expression": false,
+                      "params": [],
+                      "body": {
+                        "type": "BlockStatement",
+                        "statements": [],
+                        "loc": {
+                          "start": {
+                            "line": 1,
+                            "column": 1
+                          },
+                          "end": {
+                            "line": 1,
+                            "column": 1
+                          }
+                        }
+                      },
+                      "loc": {
+                        "start": {
+                          "line": 1,
+                          "column": 1
+                        },
+                        "end": {
+                          "line": 1,
+                          "column": 1
+                        }
+                      }
+                    },
+                    "loc": {
+                      "start": {
+                        "line": 1,
+                        "column": 1
+                      },
+                      "end": {
+                        "line": 1,
+                        "column": 1
+                      }
+                    }
+                  },
+                  "overloads": [],
+                  "decorators": [],
+                  "annotations": [],
+                  "loc": {
+                    "start": {
+                      "line": 20,
+                      "column": 9
+                    },
+                    "end": {
+                      "line": 20,
+                      "column": 37
+                    }
+                  }
+                },
+                "body": [
+                  {
+                    "type": "ClassProperty",
+                    "key": {
+                      "type": "Identifier",
+                      "name": "p",
+                      "loc": {
+                        "start": {
+                          "line": 20,
+                          "column": 26
+                        },
+                        "end": {
+                          "line": 20,
+                          "column": 27
+                        }
+                      }
+                    },
+                    "value": {
+                      "type": "StringLiteral",
+                      "value": "str",
+                      "loc": {
+                        "start": {
+                          "line": 20,
+                          "column": 30
+                        },
+                        "end": {
+                          "line": 20,
+                          "column": 35
+                        }
+                      }
+                    },
+                    "static": true,
+                    "readonly": false,
+                    "declare": false,
+                    "optional": false,
+                    "computed": false,
+                    "decorators": [],
+                    "loc": {
+                      "start": {
+                        "line": 20,
+                        "column": 19
+                      },
+                      "end": {
+                        "line": 20,
+                        "column": 35
+                      }
+                    }
+                  }
+                ],
+                "indexSignatures": [],
+                "loc": {
+                  "start": {
+                    "line": 20,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 20,
+                    "column": 37
+                  }
+                }
+              },
+              "decorators": [],
+              "isAnnotationDeclaration": false,
+              "loc": {
+                "start": {
+                  "line": 20,
+                  "column": 9
+                },
+                "end": {
+                  "line": 20,
+                  "column": 37
+                }
+              }
+            }
+          ],
+          "loc": {
+            "start": {
+              "line": 19,
+              "column": 5
+            },
+            "end": {
+              "line": 20,
+              "column": 37
+            }
+          }
+        }
+      ],
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 1
+        },
+        "end": {
+          "line": 21,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 1
+    },
+    "end": {
+      "line": 22,
+      "column": 1
+    }
+  }
+}
+Transformed AST structure check passed.

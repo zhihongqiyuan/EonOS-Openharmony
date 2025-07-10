@@ -1,0 +1,51 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("../test.gni")
+
+module_output_path = "certificate_framework/certificate_framework"
+
+#######################################unittest#######################################
+ohos_unittest("cf_sdk_test") {
+  module_out_path = module_output_path
+  sources = [
+    "../common/src/cf_test_common.cpp",
+    "../common/src/cf_test_sdk_common.cpp",
+    "src/cf_cert_test.cpp",
+    "src/cf_extension_test.cpp",
+    "src/cf_param_test.cpp",
+  ]
+  configs = [ "../../../config/build:coverage_flag_cc" ]
+  include_dirs = [
+    "include",
+    "../common/include",
+  ]
+  cflags_cc = [
+    "-Wall",
+    "-Werror",
+  ]
+  if (test_print_data) {
+    cflags_cc += [ "-DTEST_PRINT_DATA" ]
+  }
+  cflags = cflags_cc
+
+  deps = []
+
+  external_deps = [
+    "c_utils:utils",
+    "certificate_framework:certificate_framework_core",
+    "hilog:libhilog",
+    "openssl:libcrypto_shared",
+  ]
+}

@@ -1,0 +1,294 @@
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=#A(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x80
+.language ECMAScript
+.function any .#~A>#foo(any a0, any a1, any a2) {
+label_128: 
+label_0: 
+	ldfalse
+	callruntime.isfalse 0x0
+	ldfalse
+	callruntime.isfalse 0x1
+	ldfalse
+	callruntime.isfalse 0x2
+	ldfalse
+	callruntime.isfalse 0x3
+	ldfalse
+	callruntime.isfalse 0x4
+	ldfalse
+	callruntime.isfalse 0x5
+	ldfalse
+	callruntime.isfalse 0x6
+	ldfalse
+	callruntime.isfalse 0x7
+	ldfalse
+	callruntime.isfalse 0x8
+	ldfalse
+	callruntime.isfalse 0x9
+	ldfalse
+	callruntime.isfalse 0xa
+	ldfalse
+	callruntime.isfalse 0xb
+	ldfalse
+	callruntime.isfalse 0xc
+	ldfalse
+	callruntime.isfalse 0xd
+	ldfalse
+	callruntime.isfalse 0xe
+	ldfalse
+	callruntime.isfalse 0xf
+	ldfalse
+	callruntime.isfalse 0x10
+	ldfalse
+	callruntime.isfalse 0x11
+	ldfalse
+	callruntime.isfalse 0x12
+	ldfalse
+	callruntime.isfalse 0x13
+	ldfalse
+	callruntime.isfalse 0x14
+	ldfalse
+	callruntime.isfalse 0x15
+	ldfalse
+	callruntime.isfalse 0x16
+	ldfalse
+	callruntime.isfalse 0x17
+	ldfalse
+	callruntime.isfalse 0x18
+	ldfalse
+	callruntime.isfalse 0x19
+	ldfalse
+	callruntime.isfalse 0x1a
+	ldfalse
+	callruntime.isfalse 0x1b
+	ldfalse
+	callruntime.isfalse 0x1c
+	ldfalse
+	callruntime.isfalse 0x1d
+	ldfalse
+	callruntime.isfalse 0x1e
+	ldfalse
+	callruntime.isfalse 0x1f
+	ldfalse
+	callruntime.isfalse 0x20
+	ldfalse
+	callruntime.isfalse 0x21
+	ldfalse
+	callruntime.isfalse 0x22
+	ldfalse
+	callruntime.isfalse 0x23
+	ldfalse
+	callruntime.isfalse 0x24
+	ldfalse
+	callruntime.isfalse 0x25
+	ldfalse
+	callruntime.isfalse 0x26
+	ldfalse
+	callruntime.isfalse 0x27
+	ldfalse
+	callruntime.isfalse 0x28
+	ldfalse
+	callruntime.isfalse 0x29
+	ldfalse
+	callruntime.isfalse 0x2a
+	ldfalse
+	callruntime.isfalse 0x2b
+	ldfalse
+	callruntime.isfalse 0x2c
+	ldfalse
+	callruntime.isfalse 0x2d
+	ldfalse
+	callruntime.isfalse 0x2e
+	ldfalse
+	callruntime.isfalse 0x2f
+	ldfalse
+	callruntime.isfalse 0x30
+	ldfalse
+	callruntime.isfalse 0x31
+	ldfalse
+	callruntime.isfalse 0x32
+	ldfalse
+	callruntime.isfalse 0x33
+	ldfalse
+	callruntime.isfalse 0x34
+	ldfalse
+	callruntime.isfalse 0x35
+	ldfalse
+	callruntime.isfalse 0x36
+	ldfalse
+	callruntime.isfalse 0x37
+	ldfalse
+	callruntime.isfalse 0x38
+	ldfalse
+	callruntime.isfalse 0x39
+	ldfalse
+	callruntime.isfalse 0x3a
+	ldfalse
+	callruntime.isfalse 0x3b
+	ldfalse
+	callruntime.isfalse 0x3c
+	ldfalse
+	callruntime.isfalse 0x3d
+	ldfalse
+	callruntime.isfalse 0x3e
+	ldfalse
+	callruntime.isfalse 0x3f
+	ldfalse
+	callruntime.isfalse 0x40
+	ldfalse
+	callruntime.isfalse 0x41
+	ldfalse
+	callruntime.isfalse 0x42
+	ldfalse
+	callruntime.isfalse 0x43
+	ldfalse
+	callruntime.isfalse 0x44
+	ldfalse
+	callruntime.isfalse 0x45
+	ldfalse
+	callruntime.isfalse 0x46
+	ldfalse
+	callruntime.isfalse 0x47
+	ldfalse
+	callruntime.isfalse 0x48
+	ldfalse
+	callruntime.isfalse 0x49
+	ldfalse
+	callruntime.isfalse 0x4a
+	ldfalse
+	callruntime.isfalse 0x4b
+	ldfalse
+	callruntime.isfalse 0x4c
+	ldfalse
+	callruntime.isfalse 0x4d
+	ldfalse
+	callruntime.isfalse 0x4e
+	ldfalse
+	callruntime.isfalse 0x4f
+	ldfalse
+	callruntime.isfalse 0x50
+	ldfalse
+	callruntime.isfalse 0x51
+	ldfalse
+	callruntime.isfalse 0x52
+	ldfalse
+	callruntime.isfalse 0x53
+	ldfalse
+	callruntime.isfalse 0x54
+	ldfalse
+	callruntime.isfalse 0x55
+	ldfalse
+	callruntime.isfalse 0x56
+	ldfalse
+	callruntime.isfalse 0x57
+	ldfalse
+	callruntime.isfalse 0x58
+	ldfalse
+	callruntime.isfalse 0x59
+	ldfalse
+	callruntime.isfalse 0x5a
+	ldfalse
+	callruntime.isfalse 0x5b
+	ldfalse
+	callruntime.isfalse 0x5c
+	ldfalse
+	callruntime.isfalse 0x5d
+	ldfalse
+	callruntime.isfalse 0x5e
+	ldfalse
+	callruntime.isfalse 0x5f
+	ldfalse
+	callruntime.isfalse 0x60
+	ldfalse
+	callruntime.isfalse 0x61
+	ldfalse
+	callruntime.isfalse 0x62
+	ldfalse
+	callruntime.isfalse 0x63
+	ldfalse
+	callruntime.isfalse 0x64
+	ldfalse
+	callruntime.isfalse 0x65
+	ldfalse
+	callruntime.isfalse 0x66
+	ldfalse
+	callruntime.isfalse 0x67
+	ldfalse
+	callruntime.isfalse 0x68
+	ldfalse
+	callruntime.isfalse 0x69
+	ldfalse
+	callruntime.isfalse 0x6a
+	ldfalse
+	callruntime.isfalse 0x6b
+	ldfalse
+	callruntime.isfalse 0x6c
+	ldfalse
+	callruntime.isfalse 0x6d
+	ldfalse
+	callruntime.isfalse 0x6e
+	ldfalse
+	callruntime.isfalse 0x6f
+	ldfalse
+	callruntime.isfalse 0x70
+	ldfalse
+	callruntime.isfalse 0x71
+	ldfalse
+	callruntime.isfalse 0x72
+	ldfalse
+	callruntime.isfalse 0x73
+	ldfalse
+	callruntime.isfalse 0x74
+	ldfalse
+	callruntime.isfalse 0x75
+	ldfalse
+	callruntime.isfalse 0x76
+	ldfalse
+	callruntime.isfalse 0x77
+	ldfalse
+	callruntime.isfalse 0x78
+	ldfalse
+	callruntime.isfalse 0x79
+	ldfalse
+	callruntime.isfalse 0x7a
+	ldfalse
+	callruntime.isfalse 0x7b
+	ldfalse
+	callruntime.isfalse 0x7c
+	ldfalse
+	callruntime.isfalse 0x7d
+	ldfalse
+	callruntime.isfalse 0x7e
+	ldai 0x5
+	sta v0
+	ldai 0x0
+	stricteq 0x7f, v0
+	returnundefined
+label_129: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, .#~A=#A, _1, 0x0, v0
+	sta v0
+	ldobjbyname 0x1, prototype
+	lda v0
+	sttoglobalrecord 0x3, A
+	returnundefined
+label_2: 
+}
+
+

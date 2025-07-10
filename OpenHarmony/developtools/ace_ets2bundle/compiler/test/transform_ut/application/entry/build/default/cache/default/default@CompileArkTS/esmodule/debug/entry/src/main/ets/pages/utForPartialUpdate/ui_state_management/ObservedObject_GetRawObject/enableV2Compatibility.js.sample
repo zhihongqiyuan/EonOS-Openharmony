@@ -1,0 +1,152 @@
+/*
+ * Copyright (c) 2022-2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+if (!("finalizeConstruction" in ViewPU.prototype)) {
+Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+// enableV2Compatibility test
+import { UIUtils } from '@ohos.arkui.StateManagement';
+let Decorated_Observed_Compatible_Info = class Decorated_Observed_Compatible_Info {
+    constructor() {
+        this.name = "Decorated_Observed_Compatible_Info";
+        this.age = 25;
+    }
+};
+Decorated_Observed_Compatible_Info = __decorate([
+    Observed
+], Decorated_Observed_Compatible_Info);
+class Decorated extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__decorated_observed_compatible_info = new ObservedPropertyObjectPU(new Decorated_Observed_Compatible_Info(), this, "decorated_observed_compatible_info");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.decorated_observed_compatible_info !== undefined) {
+            this.decorated_observed_compatible_info = params.decorated_observed_compatible_info;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__decorated_observed_compatible_info.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__decorated_observed_compatible_info.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get decorated_observed_compatible_info() {
+        return this.__decorated_observed_compatible_info.get();
+    }
+    set decorated_observed_compatible_info(newValue) {
+        this.__decorated_observed_compatible_info.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Row.create();
+        }, Row);
+        {
+            this.observeComponentCreation2((elmtId, isInitialRender) => {
+                if (isInitialRender) {
+                    let componentCall = new Decorated_Child_Full(this, {
+                        decorated_observed_compatible_info: UIUtils.enableV2Compatibility(this.decorated_observed_compatible_info)
+                        }, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/ui_state_management/ObservedObject_GetRawObject/enableV2Compatibility.ets", line: 29, col: 7 });
+                    ViewV2.create(componentCall);
+                    let paramsLambda = () => {
+                        return {
+                            decorated_observed_compatible_info: UIUtils.enableV2Compatibility(this.decorated_observed_compatible_info)
+                        };
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {
+                        decorated_observed_compatible_info: UIUtils.enableV2Compatibility(this.decorated_observed_compatible_info)
+                    });
+                }
+            }, { name: "Decorated_Child_Full" });
+        }
+        Row.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+      return "Decorated";
+    }
+}
+class Decorated_Child_Full extends ViewV2 {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda, extraInfo) {
+        super(parent, elmtId, extraInfo);
+        this.initParam("decorated_observed_compatible_info", (params && "decorated_observed_compatible_info" in params) ? params.decorated_observed_compatible_info : undefined);
+        this.finalizeConstruction();
+    }
+    resetStateVarsOnReuse(params) {
+        this.resetParam("decorated_observed_compatible_info", (params && "decorated_observed_compatible_info" in params) ? params.decorated_observed_compatible_info : undefined);
+    }
+    initialRender() {
+    }
+    updateStateVars(params) {
+        if (params === undefined) {
+            return;
+        }
+        if ("decorated_observed_compatible_info" in params) {
+            this.updateParam("decorated_observed_compatible_info", params.decorated_observed_compatible_info);
+        }
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+__decorate([
+    Param
+], Decorated_Child_Full.prototype, "decorated_observed_compatible_info", void 0);
+registerNamedRoute(() => new Decorated(undefined, {}), "", { bundleName: "com.example.application", moduleName: "application", pagePath: "pages/utForPartialUpdate/ui_state_management/ObservedObject_GetRawObject/enableV2Compatibility", pageFullPath: "application/entry/src/main/ets/pages/utForPartialUpdate/ui_state_management/ObservedObject_GetRawObject/enableV2Compatibility", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=enableV2Compatibility.js.map

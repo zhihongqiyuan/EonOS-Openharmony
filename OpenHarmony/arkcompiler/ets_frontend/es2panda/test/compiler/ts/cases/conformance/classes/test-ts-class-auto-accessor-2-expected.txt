@@ -1,0 +1,10 @@
+1
+2
+3
+accessor method
+static accessor method
+public accessor method
+private accessor property
+#accessor
+class name is accessor
+accessor function

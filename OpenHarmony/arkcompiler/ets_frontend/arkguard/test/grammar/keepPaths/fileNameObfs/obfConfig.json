@@ -1,0 +1,34 @@
+{
+    "mCompact": false,
+    "mRemoveComments": true,
+    "mOutputDir": "../../../local",
+    "mDisableHilog": false,
+    "mDisableConsole": true,
+    "mSimplify": false,
+    "mNameObfuscation": {
+        "mEnable": true,
+        "mNameGeneratorType": 1,
+        "mDictionaryList": [],
+        "mReservedNames": [],
+        "mRenameProperties": true,
+        "mReservedProperties": [],
+        "mKeepStringProperty": true,
+        "mTopLevel": true
+    },
+    "mEnableSourceMap": false,
+    "mEnableNameCache": false,
+    "mExportObfuscation": true,
+    "mKeepFileSourceCode": {
+        "mKeepSourceOfPaths": [
+            "./export_file.ts",
+            "./import_file.ts"
+        ],
+        "mkeepFilesAndDependencies": []
+    },
+    "mRenameFileName": {
+        "mEnable": true,
+        "mNameGeneratorType": 1,
+        "mReservedFileNames": ["local", "keepPaths", "fileNameObfs"],
+        "mOhmUrlUseNormalized": false
+    }
+}

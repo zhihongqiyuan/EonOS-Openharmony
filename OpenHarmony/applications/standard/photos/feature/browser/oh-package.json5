@@ -1,0 +1,9 @@
+{
+  "name": "@ohos/browser",
+  "description": "a npm package which contains browser feature",
+  "main": "index.ts",
+  "version": "1.0.0",
+  "dependencies": {
+    "@ohos/common": "../../common"
+  }
+}

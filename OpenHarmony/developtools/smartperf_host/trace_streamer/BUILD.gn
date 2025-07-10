@@ -1,0 +1,50 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("build/ts.gni")
+group("trace_streamer") {
+  if (is_test) {
+    deps = [ "test:unittest" ]
+    testonly = true
+  } else if (is_fuzz) {
+    deps = [ "test:fuzztest" ]
+    testonly = true
+  } else if (is_protoc) {
+    deps = [ "${THIRD_PARTY}/protobuf:protoc" ]
+  } else if (is_spb) {
+    deps = [
+      "src/proto_reader/protoc_plugin:protoreader_plugin(${host_toolchain})",
+    ]
+  } else if (is_sdkdemo) {
+    deps = [ "sdk/demo_sdk:trace_streamer_sdk_builtin" ]
+  } else if (is_sdkdemo_test) {
+    deps = [ "sdk/demo_sdk/test:sdkunittest" ]
+  } else if (use_wasm) {
+    deps = [ "src:trace_streamer_builtin" ]
+  } else {
+    deps = [ "src:trace_streamer" ]
+  }
+}
+
+if (!is_independent_compile) {
+  group("trace_streamer_all") {
+    if (host_os == "mac") {
+      deps = [ "src:trace_streamer(//build/toolchain/mac:clang_arm64)" ]
+    } else {
+      deps = [
+        "src:trace_streamer(//build/toolchain/linux:clang_x64)",
+        "src:trace_streamer(//build/toolchain/mingw:mingw_x86_64)",
+        "src:trace_streamer(//build/toolchain/ohos:ohos_clang_arm64)",
+      ]
+    }
+  }
+}

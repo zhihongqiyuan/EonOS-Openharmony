@@ -1,0 +1,103 @@
+# Copyright (c) 2024-2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+* @gavin1012_hw @zhuoli72
+.* @zhuoli72 @Prof1983 @igelhaus
+
+/arkguard/ @huangyu76
+/es2panda/ @gavin1012_hw
+/ets2panda/ @igelhaus @Prof1983
+/ets2panda/aot @dkofanov @gavin1012_hw ^igelhaus ^Prof1983
+/ets2panda/ast_verifier @mbolshov @dkofanov ^yyang16 ^igelhaus ^Prof1983
+/ets2panda/bindings ^igelhaus ^Prof1983 @dreamdoomwalker @Ascnbio ^muhammet-fevzi-bayiroglu @utkugursel
+/ets2panda/lexer @chernykhsergey @igelhaus ^zelentsovdmitry @Prof1983
+/ets2panda/lsp ^igelhaus ^Prof1983 @dreamdoomwalker @Ascnbio ^muhammet-fevzi-bayiroglu @utkugursel
+/ets2panda/parser @chernykhsergey ^igelhaus ^Prof1983
+/ets2panda/public @mbolshov @yyang16 ^igelhaus ^Prof1983
+/ets2panda/test ^akmaevaleksey ^igelhaus ^Prof1983
+/legacy_bin/ @ctw-ian
+/merge_abc/ @gavin1012_hw
+/test/ @gavin1012_hw
+/test262/ @gavin1012_hw
+/test262/*.json                 @shirunova_viktoria @gavin1012_hw @zhuheng27
+/test262/*.py			@shirunova_viktoria @gavin1012_hw @zhuheng27
+/test262/ignored*.txt		@shirunova_viktoria @gavin1012_hw @kuchkovairina @zhuheng27
+/test_ecma_bcopt/ @gavin1012_hw
+/ets2panda/checker/ @akmaevaleksey @zelentsovdmitry ^lirismankarina ^igelhaus ^Prof1983
+/ets2panda/checker/ETS*.* @zelentsovdmitry ^igelhaus ^Prof1983
+/ets2panda/checker/ETSAnalyzer.cpp ^akmaevaleksey @Ekkoruse ^igelhaus ^Prof1983
+/ets2panda/checker/ETSAnalyzerHelpers.* @lirismankarina ^igelhaus ^Prof1983
+/ets2panda/compiler/ @xuxjeeee @gogabr ^igelhaus ^Prof1983 ^zelentsovdmitry
+/ets2panda/declgen_ets2ts/ @dreamdoomwalker ^trubachevilya ^ivagin ^hufeng20 ^igelhaus ^Prof1983
+/ets2panda/driver/ ^trubachevilya @dreamdoomwalker @chenqy930 @hufeng20 ^igelhaus ^Prof1983
+/ets2panda/ir/ @ziziziiziziz @gavin1012_hw ^igelhaus ^Prof1983
+/ets2panda/linter/              @ragnvald @rosinskiyigor @eokolnov1 @liwentao_uiw ^utkugursel
+/ets2panda/parser/ @mkaskov ^igelhaus ^Prof1983 ^chernykhsergey ^zelentsovdmitry
+/ets2panda/scripts/*-build.sh @titovatatiana ^igelhaus ^Prof1983
+/ets2panda/scripts/arkui* @titovatatiana ^igelhaus ^Prof1983
+/ets2panda/test/ast @mbolshov ^igelhaus ^Prof1983
+/ets2panda/test/depanalyzer @trubachevilya ^igelhaus ^Prof1983
+/ets2panda/test/srcdump @mbolshov ^igelhaus ^Prof1983
+/ets2panda/test/test-lists @igelhaus ^Prof1983
+/ets2panda/test/utils @mbolshov ^igelhaus ^Prof1983
+/ets2panda/util/ @mkaskov @dkofanov ^igelhaus ^Prof1983
+/ets2panda/util/arktsconfig* @dreamdoomwalker ^trubachevilya ^igelhaus ^Prof1983
+/ets2panda/util/diagnostic* @chernykhsergey @mkaskov ^igelhaus ^Prof1983
+/ets2panda/util/importPathManager* @dreamdoomwalker @trubachevilya ^igelhaus ^Prof1983
+/ets2panda/util/plugin.* @yyang16 @mbolshov ^igelhaus ^Prof1983
+/ets2panda/varbinder/ @lirismankarina @akmaevaleksey ^Ekkoruse ^zelentsovdmitry ^igelhaus ^Prof1983
+/test/workload/ignored*.txt     @shirunova_viktoria @kuchkovairina @gavin1012_hw @zhuheng27
+/ets2panda/checker/ets/ @lirismankarina ^igelhaus ^Prof1983
+/ets2panda/checker/ets/dynamic.cpp @lirismankarina ^vpukhov ^igelhaus ^Prof1983
+/ets2panda/checker/ets/function.cpp @gogabr ^vpukhov ^igelhaus ^Prof1983
+/ets2panda/checker/ets/helpers.cpp @xuxjeeee @zelentsovdmitry ^igelhaus ^Prof1983
+/ets2panda/checker/ets/object.cpp @xuxjeeee @zelentsovdmitry ^vpukhov ^igelhaus ^Prof1983
+/ets2panda/checker/types/ets @dkofanov ^igelhaus ^Prof1983
+/ets2panda/checker/types/signature.* ^vpukhov ^igelhaus ^Prof1983 @zelentsovdmitry
+/ets2panda/checker/types/typeFlag.h ^vpukhov ^igelhaus ^Prof1983 @mkaskov
+/ets2panda/checker/types/typeRelation.* ^vpukhov ^igelhaus ^Prof1983 @mkaskov
+/ets2panda/compiler/core/ @zelentsovdmitry @xuxjeeee ^vpukhov ^igelhaus ^Prof1983
+/ets2panda/compiler/core/compilerImpl.* @yyang16 @dkofanov ^xuxjeeee ^igelhaus ^Prof1983
+/ets2panda/compiler/lowering/phase.* @yyang16 ^mbolshov ^igelhaus ^Prof1983
+/ets2panda/compiler/lowering/plugin_phase.* @yyang16 ^mbolshov ^igelhaus ^Prof1983
+/ets2panda/compiler/lowering/util.* @yyang16 ^mbolshov ^igelhaus ^Prof1983
+/ets2panda/ir/ets/ @lirismankarina @xuxjeeee ^igelhaus ^Prof1983
+/ets2panda/ir/expressions/ @mkaskov @ziziziiziziz ^igelhaus ^Prof1983
+/ets2panda/ir/statements/ @dkofanov @Ekkoruse ^akmaevaleksey ^igelhaus ^Prof1983
+/ets2panda/ir/statements/annotation* @lirismankarina @xuxjeeee ^igelhaus ^Prof1983
+/ets2panda/test/test-lists/astchecker @chernykhsergey ^igelhaus ^Prof1983
+/ets2panda/test/test-lists/declgenets2ts @dreamdoomwalker ^hufeng20 ^igelhaus ^Prof1983
+/ets2panda/test/test-lists/parser @chernykhsergey ^igelhaus ^Prof1983
+/ets2panda/test/unit/arktsconfig-parser @trubachevilya ^igelhaus ^Prof1983
+/ets2panda/test/unit/lsp @dreamdoomwalker @utkugursel ^igelhaus ^Prof1983
+/ets2panda/test/unit/plugin* @mbolshov ^igelhaus ^Prof1983
+/ets2panda/test/unit/public @mbolshov ^igelhaus ^Prof1983
+/ets2panda/checker/types/ets/Nullish.* ^vpukhov @gogabr ^igelhaus ^Prof1983
+/ets2panda/checker/types/ets/etsA* @xuxjeeee ^gogabr ^igelhaus ^Prof1983
+/ets2panda/checker/types/ets/etsDynamicType.* ^vpukhov @gogabr ^igelhaus ^Prof1983
+/ets2panda/checker/types/ets/etsE* @ziziziiziziz ^zelentsovdmitry ^igelhaus ^Prof1983
+/ets2panda/checker/types/ets/etsFunctionType.* ^vpukhov @gogabr ^igelhaus ^Prof1983
+/ets2panda/checker/types/ets/etsN* @ziziziiziziz ^zelentsovdmitry ^igelhaus ^Prof1983
+/ets2panda/checker/types/ets/etsT* @xuxjeeee ^gogabr ^igelhaus ^Prof1983
+/ets2panda/checker/types/ets/etsTypeParameter.* ^vpukhov @gogabr ^igelhaus ^Prof1983
+/ets2panda/checker/types/ets/etsUnionType.* @akmaevaleksey ^vpukhov ^igelhaus ^Prof1983
+/ets2panda/checker/types/ets/wildcardType.* ^vpukhov @gogabr ^igelhaus ^Prof1983
+/ets2panda/compiler/lowering/ets/ @gogabr ^igelhaus ^Prof1983 ^zelentsovdmitry
+/ets2panda/compiler/lowering/ets/const* @ziziziiziziz @lirismankarina ^akmaevaleksey ^igelhaus ^Prof1983
+/ets2panda/compiler/lowering/ets/enum* @ziziziiziziz @dkofanov ^akmaevaleksey ^igelhaus ^Prof1983
+/ets2panda/compiler/lowering/ets/lambdaLowering.cpp @Ekkoruse @gogabr ^vpukhov ^akmaevaleksey ^igelhaus ^Prof1983
+/ets2panda/compiler/lowering/ets/localClassLowering.cpp @gogabr ^akmaevaleksey ^igelhaus ^Prof1983
+/ets2panda/compiler/lowering/ets/optionalLowering.cpp @akmaevaleksey ^vpukhov ^igelhaus ^Prof1983
+/ets2panda/compiler/lowering/ets/spread* @ziziziiziziz @dkofanov ^akmaevaleksey ^igelhaus ^Prof1983
+/ets2panda/compiler/lowering/ets/unionLowering.cpp @Ekkoruse @akmaevaleksey ^vpukhov ^igelhaus ^Prof1983
+/ets2panda/compiler/lowering/ets/topLevelStmts/.* @lirismankarina @xuxjeeee ^akmaevaleksey ^vpukhov ^igelhaus ^Prof1983

@@ -1,0 +1,138 @@
+slotNum = 0x2
+expectedProperty = 0x1
+.language ECMAScript
+.function any default.#~ES=#ES(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str mod
+	stobjbyname 0x0, a, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any default.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, default.#~ES=#ES, default_2, 0x0, v0
+	ldobjbyname 0x1, prototype
+	returnundefined
+label_2: 
+}
+
+
+slotNum = 0x2
+expectedProperty = 0x1
+.language ArkTS
+.function any ets.#~AT=#AT(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str mod
+	stobjbyname 0x0, b, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x3
+.language ArkTS
+.function any ets.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, ets.#~AT=#AT, ets_2, 0x0, v0
+	ldobjbyname 0x1, prototype
+	returnundefined
+label_2: 
+}
+
+
+slotNum = 0x2
+expectedProperty = 0x1
+.language JavaScript
+.function any js.#~JS=#JS(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldlexvar 0x0, 0x0
+	callruntime.callinit 0x0, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x2
+.language JavaScript
+.function any js.#~JS>#instance_initializer(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str mod
+	definepropertybyname 0x0, c, a2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x4
+.language JavaScript
+.function any js.func_main_0(any a0, any a1, any a2) {
+	nop
+label_7: 
+label_0: 
+	newlexenv 0x1
+label_2: 
+label_4: 
+	ldhole
+	sta v1
+	defineclasswithbuffer 0x0, js.#~JS=#JS, js_2, 0x0, v1
+	ldobjbyname 0x1, prototype
+	definemethod 0x3, js.#~JS>#instance_initializer, 0x0
+	stlexvar 0x0, 0x0
+label_3: 
+end_label_3: 
+	jmp label_1
+label_9: 
+	sta v0
+label_6: 
+	poplexenv
+	lda v0
+	throw
+label_1: 
+	poplexenv
+	returnundefined
+label_8: 
+}
+
+.catchall label_2, end_label_3, label_9
+
+
+slotNum = 0x3
+.language TypeScript
+.function any ts.#*#TS(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, print
+	sta v0
+	lda.str mod
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x3
+.language TypeScript
+.function any ts.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, ts.#*#TS, 0x0
+	callarg0 0x1
+	returnundefined
+label_2: 
+}
+
+

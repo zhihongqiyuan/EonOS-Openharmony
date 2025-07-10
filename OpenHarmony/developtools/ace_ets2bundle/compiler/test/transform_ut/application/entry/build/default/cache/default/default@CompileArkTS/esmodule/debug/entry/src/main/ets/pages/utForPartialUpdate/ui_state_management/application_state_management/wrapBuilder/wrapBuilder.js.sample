@@ -1,0 +1,246 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+"use strict";
+if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+function MyBuilder(value, size, parent = null) {
+    (parent ? parent : this).observeComponentCreation2((elmtId, isInitialRender) => {
+        Column.create();
+    }, Column);
+    (parent ? parent : this).observeComponentCreation2((elmtId, isInitialRender) => {
+        Text.create(value);
+        Text.fontSize(size);
+    }, Text);
+    Text.pop();
+    Column.pop();
+}
+let globalBuilder = wrapBuilder(MyBuilder);
+class TestWrapperBuilder extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__message = new ObservedPropertySimplePU('Hello World', this, "message");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.message !== undefined) {
+            this.message = params.message;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__message.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__message.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get message() {
+        return this.__message.get();
+    }
+    set message(newValue) {
+        this.__message.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Row.create();
+            Row.height('100%');
+        }, Row);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+            Column.width('100%');
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create("wrapperBuilder 场景一：");
+            Text.fontSize(20);
+        }, Text);
+        Text.pop();
+        globalBuilder.builder.bind(this)(this.message, 50);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Divider.create();
+        }, Divider);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create("wrapperBuilder 场景二：");
+            Text.fontSize(20);
+        }, Text);
+        Text.pop();
+        {
+            this.observeComponentCreation2((elmtId, isInitialRender) => {
+                if (isInitialRender) {
+                    let componentCall = new TestWrapperBuilderChild(this, {}, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/ui_state_management/application_state_management/wrapBuilder/wrapBuilder.ets", line: 39, col: 9 });
+                    ViewV2.create(componentCall);
+                    let paramsLambda = () => {
+                        return {};
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {});
+                }
+            }, { name: "TestWrapperBuilderChild" });
+        }
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Divider.create();
+        }, Divider);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create("wrapperBuilder 场景三：");
+            Text.fontSize(20);
+        }, Text);
+        Text.pop();
+        {
+            this.observeComponentCreation2((elmtId, isInitialRender) => {
+                if (isInitialRender) {
+                    let componentCall = new TestWrapperBuilderChildTwo(this, {}, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/ui_state_management/application_state_management/wrapBuilder/wrapBuilder.ets", line: 43, col: 9 });
+                    ViewPU.create(componentCall);
+                    let paramsLambda = () => {
+                        return {};
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {});
+                }
+            }, { name: "TestWrapperBuilderChildTwo" });
+        }
+        Column.pop();
+        Row.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+        return "TestWrapperBuilder";
+    }
+}
+function YourBuilder(value, size, parent = null) {
+    (parent ? parent : this).observeComponentCreation2((elmtId, isInitialRender) => {
+        Column.create();
+    }, Column);
+    (parent ? parent : this).observeComponentCreation2((elmtId, isInitialRender) => {
+        Text.create(value);
+        Text.fontSize(size);
+        Text.fontColor(Color.Pink);
+    }, Text);
+    Text.pop();
+    Column.pop();
+}
+const builderArr = [wrapBuilder(MyBuilder), wrapBuilder(YourBuilder)];
+class TestWrapperBuilderChild extends ViewV2 {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda, extraInfo) {
+        super(parent, elmtId, extraInfo);
+        this.finalizeConstruction();
+    }
+    resetStateVarsOnReuse(params) {
+    }
+    testBuilder(parent = null) {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            ForEach.create();
+            const forEachItemGenFunction = _item => {
+                const item = _item;
+                item.builder.bind(this)('Hello World', 30);
+            };
+            this.forEachUpdateFunction(elmtId, builderArr, forEachItemGenFunction);
+        }, ForEach);
+        ForEach.pop();
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Row.create();
+        }, Row);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+        }, Column);
+        this.testBuilder.bind(this)();
+        Column.pop();
+        Row.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+class Tmp {
+    constructor() {
+        this.paramA2 = 'hello';
+    }
+}
+function overBuilder(param, parent = null) {
+    const __param__ = param;
+    (parent ? parent : this).observeComponentCreation2((elmtId, isInitialRender, param = __param__) => {
+        Column.create();
+    }, Column);
+    (parent ? parent : this).observeComponentCreation2((elmtId, isInitialRender, param = __param__) => {
+        Text.create(`wrapBuilderValue:${param.paramA2}`);
+    }, Text);
+    Text.pop();
+    Column.pop();
+}
+const wBuilder = wrapBuilder(overBuilder);
+class TestWrapperBuilderChildTwo extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__label = new ObservedPropertyObjectPU(new Tmp(), this, "label");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.label !== undefined) {
+            this.label = params.label;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__label.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__label.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get label() {
+        return this.__label.get();
+    }
+    set label(newValue) {
+        this.__label.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+        }, Column);
+        wBuilder.builder.bind(this)(makeBuilderParameterProxy("builder", { paramA2: () => this.label.paramA2 }));
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithLabel('Click me change UI update');
+            Button.onClick(() => {
+                this.label.paramA2 = 'ArkUI';
+            });
+        }, Button);
+        Button.pop();
+        Column.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+registerNamedRoute(() => new TestWrapperBuilder(undefined, {}), "", { bundleName: "com.example.application", moduleName: "application", pagePath: "pages/utForPartialUpdate/ui_state_management/application_state_management/wrapBuilder/wrapBuilder", pageFullPath: "application/entry/src/main/ets/pages/utForPartialUpdate/ui_state_management/application_state_management/wrapBuilder/wrapBuilder", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=wrapBuilder.js.map

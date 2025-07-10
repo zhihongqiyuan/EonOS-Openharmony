@@ -1,0 +1,105 @@
+slotNum = 0x0
+.language ECMAScript
+.function any .#*#fun(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=#A(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .#~B<#foo1(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	callruntime.ldsendablelocalmodulevar 0x0
+	sta v0
+	throw.undefinedifholewithname A
+	mov v1, v0
+	newobjrange 0x0, 0x1, v1
+	callruntime.ldsendablelocalmodulevar 0x1
+	callarg0 0x2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~B=#B(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .#~B>#foo2(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	callruntime.ldsendablelocalmodulevar 0x0
+	sta v0
+	throw.undefinedifholewithname A
+	mov v1, v0
+	newobjrange 0x0, 0x1, v1
+	callruntime.ldsendablelocalmodulevar 0x1
+	callarg0 0x2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x8
+.language ECMAScript
+.function any .#~B>#static_initializer(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldlocalmodulevar 0x0
+	sta v0
+	throw.undefinedifholewithname A
+	mov v1, v0
+	newobjrange 0x0, 0x1, v1
+	definepropertybyname 0x2, a1, a2
+	ldlocalmodulevar 0x1
+	callarg0 0x4
+	ldlocalmodulevar 0x0
+	sta v0
+	throw.undefinedifholewithname A
+	mov v1, v0
+	newobjrange 0x6, 0x1, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x6
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, .#*#fun, 0x0
+	stmodulevar 0x1
+	ldhole
+	sta v0
+	callruntime.definesendableclass 0x1, .#~A=#A, _3, 0x0, v0
+	stmodulevar 0x0
+	ldhole
+	sta v0
+	callruntime.definesendableclass 0x2, .#~B=#B, _5, 0x0, v0
+	sta v0
+	definemethod 0x3, .#~B>#static_initializer, 0x0
+	callthis0 0x4, v0
+	returnundefined
+label_2: 
+}
+
+

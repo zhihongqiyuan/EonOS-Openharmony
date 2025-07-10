@@ -1,0 +1,112 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "SystemUI"
+    },
+    {
+      "name": "mainability_description",
+      "value": "JS_Phone_Empty Feature Ability"
+    },
+    {
+      "name": "monday",
+      "value": "monday"
+    },
+    {
+      "name": "tuesday",
+      "value": "tuesday"
+    },
+    {
+      "name": "wednesday",
+      "value": "wednesday"
+    },
+    {
+      "name": "thursday",
+      "value": "thursday"
+    },
+    {
+      "name": "friday",
+      "value": "friday"
+    },
+    {
+      "name": "saturday",
+      "value": "saturday"
+    },
+    {
+      "name": "sunday",
+      "value": "sunday"
+    },
+    {
+      "name": "day",
+      "value": "day"
+    },
+    {
+      "name": "month",
+      "value": "month"
+    },
+    {
+      "name": "no_notification",
+      "value": "No Notification"
+    },
+    {
+      "name": "airplane_mode",
+      "value": "Airplane mode"
+    },
+    {
+      "name": "control_center_complex_toggle_bluetooth_title",
+      "value": "Bluetooth"
+    },
+    {
+      "name": "control_center_complex_toggle_location_title",
+      "value": "Location"
+    },
+    {
+      "name": "control_center_complex_toggle_ring_mode_title_on",
+      "value": "Sound"
+    },
+    {
+      "name": "control_center_complex_toggle_ring_mode_title_off",
+      "value": "Silent"
+    },
+    {
+      "name": "control_center_complex_toggle_ring_mode_title_vibration",
+      "value": "Vibration"
+    },
+    {
+      "name": "status_bar_position_landscape",
+      "value": "2"
+    },
+    {
+      "name": "nav_bar_position_landscape",
+      "value": "4"
+    },
+    {
+      "name": "status_bar_size_landscape",
+      "value": "48"
+    },
+    {
+      "name": "nav_bar_size_landscape",
+      "value": "36"
+    },
+    {
+      "name": "status_bar_position_portrait",
+      "value": "2"
+    },
+    {
+      "name": "nav_bar_position_portrait",
+      "value": "4"
+    },
+    {
+      "name": "status_bar_size_portrait",
+      "value": "48"
+    },
+    {
+      "name": "nav_bar_size_portrait",
+      "value": "36"
+    },
+    {
+      "name": "control_center_complex_toggle_nfc_mode_title",
+      "value": "NFC"
+    }
+  ]
+}

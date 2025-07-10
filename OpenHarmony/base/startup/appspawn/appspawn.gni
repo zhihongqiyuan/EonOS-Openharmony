@@ -1,0 +1,46 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+ability_runtime_path = "//foundation/ability/ability_runtime"
+ability_runtime_kits_path = "${ability_runtime_path}/frameworks/kits"
+appspawn_path = "//base/startup/appspawn"
+appspawn_innerkits_path = "//base/startup/appspawn/interfaces/innerkits"
+startup_path = "//base/startup"
+subsystem_name = "startup"
+part_name = "appspawn"
+module_output_path = "${part_name}/appspawn_l2"
+
+declare_args() {
+  appspawn_support_nweb = true
+  appspawn_support_cj = true
+  appspawn_support_native = true
+  appspawn_report_event = true
+  appspawn_test_cmd = false
+  appspawn_sandbox_new = false
+  appspawn_use_encaps = false
+  enable_appspawn_dump_catcher = true
+  appspawn_unittest_coverage = false
+  appspawn_mount_tmpshm = false
+  appspawn_seccomp_privilege = false
+  appspawn_support_prefork = true
+  appspawn_support_code_signature = true
+  appspawn_allow_internet_permission = false
+  appspawn_custom_sandbox = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.security_dlp_permission_service)) {
+  dlp_permission_enable = true
+} else {
+  dlp_permission_enable = false
+}

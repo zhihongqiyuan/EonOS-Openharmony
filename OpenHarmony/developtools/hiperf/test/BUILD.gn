@@ -1,0 +1,369 @@
+# Copyright (C) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("../hiperf.gni")
+
+module_output_path = "hiperf/hiperf"
+
+sources_base = [
+  "unittest/common/native/hiperf_client_test.cpp",
+  "unittest/common/native/command_test.cpp",
+  "unittest/common/native/cpu_usage_test.cpp",
+  "unittest/common/native/perf_events_test.cpp",
+  "unittest/common/native/perf_event_record_test.cpp",
+  "unittest/common/native/perf_file_format_test.cpp",
+  "unittest/common/native/perf_file_writer_test.cpp",
+  "unittest/common/native/subcommand_test.cpp",
+  "unittest/common/native/utilities_test.cpp",
+  "unittest/common/native/register_test.cpp",
+  "unittest/common/native/option_test.cpp",
+  "unittest/common/native/perf_file_reader_test.cpp",
+  "unittest/common/native/virtual_thread_test.cpp",
+  "unittest/common/native/virtual_runtime_test.cpp",
+  "unittest/common/native/callstack_test.cpp",
+  "unittest/common/native/ring_buffer_test.cpp",
+  "unittest/common/native/symbols_file_test.cpp",
+  "unittest/common/native/tracked_command_test.cpp",
+  "unittest/common/native/dwarf_test.cpp",
+  "unittest/common/native/subcommand_help_test.cpp",
+  "unittest/common/native/subcommand_list_test.cpp",
+  "unittest/common/native/subcommand_dump_test.cpp",
+  "unittest/common/native/hashlist_test.cpp",
+  "unittest/common/native/report_test.cpp",
+  "unittest/common/native/report_json_file_test.cpp",
+  "unittest/common/native/unique_stack_table_test.cpp",
+  "unittest/common/native/spe_decoder_test.cpp",
+  "unittest/common/native/test_utilities.cpp",
+  "unittest/common/native/perf_pipe_test.cpp",
+]
+
+if (hiperf_debug) {
+  sources_base += [ "unittest/common/native/debug_logger_test.cpp" ]
+  sources_base += [ "unittest/common/native/option_debug_test.cpp" ]
+}
+
+if (!hiperf_target_static) {
+  sources_base += [ "unittest/common/native/report_protobuf_file_test.cpp" ]
+}
+
+sources_interface = [
+  "unittest/common/native/subcommand_record_test.cpp",
+  "unittest/common/native/subcommand_stat_test.cpp",
+  "unittest/common/native/subcommand_report_test.cpp",
+  "unittest/common/native/test_hiperf_event_listener.cpp",
+]
+
+common_deps = [
+  "${hiperf_path}/:hiperf_platform_common",
+  "${hiperf_path}/:hiperf_platform_linux",
+  "${hiperf_path}/interfaces/innerkits/native:hiperf_client_static",
+]
+
+if (!ohos_indep_compiler_enable) {
+  common_deps += [ "${hiperf_path}/:hiperf_platform_host" ]
+  sources_interface += [ "unittest/common/native/hiperf_libreport_test.cpp" ]
+}
+
+config("hiperf_test_config") {
+  cflags = code_check_flag
+  ldflags = []
+  defines = []
+
+  if (hiperf_test_coverage && is_ohos) {
+    defines += [ "TEST_COVERAGE" ]
+    cflags += [
+      "-fprofile-arcs",
+      "-ftest-coverage",
+    ]
+    ldflags += [ "--coverage" ]
+  }
+
+  defines += [ "DEFAULT_LOG_LEVEL=LEVEL_INFO" ]
+
+  include_dirs = [ "${hiperf_path}/test/unittest/common/native/include" ]
+}
+
+ohos_unittest("hiperf_unittest") {
+  configs = [ ":hiperf_test_config" ]
+  module_out_path = module_output_path
+  resource_config_file = "unittest/resource/ohos_test.xml"
+  deps = [ "${hiperf_path}/interfaces/innerkits/native:hiperf_client_static" ]
+  use_exceptions = true
+
+  public_configs = [ "${hiperf_path}/:hiperf_inner_config" ]
+
+  defines = [
+    "SUPPORT_PERF_EVENT",
+    "HIPERF_UNITTEST",
+    "CONFIG_HAS_CCM",
+  ]
+
+  public_deps = []
+  external_deps = [
+    "abseil-cpp:absl_container",
+    "abseil-cpp:absl_cord",
+    "abseil-cpp:absl_log",
+    "abseil-cpp:absl_strings",
+    "bounds_checking_function:libsec_shared",
+    "cJSON:cjson",
+    "c_utils:utils",
+    "config_policy:configpolicy_util",
+    "faultloggerd:libunwinder",
+    "googletest:gmock",
+    "hilog:libhilog",
+    "hisysevent:libhisysevent",
+    "hisysevent:libhisyseventmanager",
+    "ipc:ipc_single",
+    "protobuf:protobuf_lite",
+    "zlib:libz",
+  ]
+
+  cflags = [
+    "-Dprivate=public",  #allow test code access private members
+    "-Dprotected=public",  #allow test code access protected members
+  ]
+
+  sources = sources_interface
+  sources += sources_base
+
+  sources += [
+    "./../src/command.cpp",
+    "./../src/command_reporter.cpp",
+    "./../src/dwarf_encoding.cpp",
+    "./../src/hiperf_libreport.cpp",
+    "./../src/ipc_utilities.cpp",
+    "./../src/option.cpp",
+    "./../src/perf_event_record.cpp",
+    "./../src/perf_events.cpp",
+    "./../src/perf_file_format.cpp",
+    "./../src/perf_file_reader.cpp",
+    "./../src/perf_file_writer.cpp",
+    "./../src/register.cpp",
+    "./../src/report.cpp",
+    "./../src/report_json_file.cpp",
+    "./../src/ring_buffer.cpp",
+    "./../src/spe_decoder.cpp",
+    "./../src/subcommand.cpp",
+    "./../src/subcommand_dump.cpp",
+    "./../src/subcommand_help.cpp",
+    "./../src/subcommand_list.cpp",
+    "./../src/subcommand_record.cpp",
+    "./../src/subcommand_report.cpp",
+    "./../src/subcommand_stat.cpp",
+    "./../src/symbols_file.cpp",
+    "./../src/tracked_command.cpp",
+    "./../src/unique_stack_table.cpp",
+    "./../src/utilities.cpp",
+    "./../src/virtual_runtime.cpp",
+    "./../src/virtual_thread.cpp",
+    "./../src/perf_pipe.cpp",
+  ]
+
+  if (is_ohos) {
+    sources += [ "./../src/callstack.cpp" ]
+    external_deps += [
+      "init:libbegetutil",
+      "ipc:ipc_core",
+      "samgr:samgr_proxy",
+    ]
+  }
+
+  if (is_linux) {
+    static_link = false
+  }
+
+  if (hiperf_use_libunwinder) {
+    defines += [ "HAVE_LIBUNWINDER=1" ]
+  }
+
+  if (!hiperf_target_static) {
+    public_configs += [ "${hiperf_path}/:protobuf_config" ]
+    public_deps += [ "${hiperf_path}/:proto_file_cpp" ]
+    sources += [ "./../src/report_protobuf_file.cpp" ]
+  }
+
+  if (hiperf_debug) {
+    sources += [
+      "./../src/debug_logger.cpp",
+      "./../src/option_debug.cpp",
+    ]
+  }
+
+  if (is_ohos && hiperf_use_syspara) {
+    public_configs += [ "${hiperf_path}/:hiperf_syspara_config" ]
+  }
+}
+
+fuzz_cflags = [
+  "-O0",
+  "-fno-omit-frame-pointer",
+]
+
+ohos_fuzztest("CommandLineFuzzTest") {
+  module_out_path = hiperf_fuzz_test_output_path
+  fuzz_config_file = "${hiperf_path}/test/fuzztest/commandline_fuzzer"
+  configs = [ ":hiperf_test_config" ]
+  cflags = fuzz_cflags
+  deps = common_deps
+  external_deps = [
+    "abseil-cpp:absl_container",
+    "abseil-cpp:absl_cord",
+    "abseil-cpp:absl_log",
+    "abseil-cpp:absl_strings",
+    "bounds_checking_function:libsec_shared",
+    "c_utils:utils",
+    "faultloggerd:libunwinder",
+    "hilog:libhilog",
+    "ipc:ipc_single",
+    "protobuf:protobuf_lite",
+  ]
+  defines = [ "FUZZER_TEST" ]
+  sources = [
+    "${hiperf_path}/src/main.cpp",
+    "fuzztest/commandline_fuzzer/CommandLine_fuzzer.cpp",
+  ]
+}
+
+ohos_fuzztest("LibReportFuzzTest") {
+  module_out_path = hiperf_fuzz_test_output_path
+  fuzz_config_file = "${hiperf_path}/test/fuzztest/libreport_fuzzer"
+  configs = [ ":hiperf_test_config" ]
+  cflags = fuzz_cflags
+  deps = common_deps
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "c_utils:utils",
+    "hilog:libhilog",
+    "ipc:ipc_single",
+    "protobuf:protobuf_lite",
+  ]
+  defines = [ "FUZZER_TEST" ]
+  sources = [ "fuzztest/libreport_fuzzer/LibReport_fuzzer.cpp" ]
+}
+
+ohos_fuzztest("ClientApiFuzzTest") {
+  module_out_path = hiperf_fuzz_test_output_path
+  fuzz_config_file = "${hiperf_path}/test/fuzztest/clientapi_fuzzer"
+  configs = [ ":hiperf_test_config" ]
+  cflags = fuzz_cflags
+  deps = common_deps
+  external_deps = [
+    "abseil-cpp:absl_container",
+    "abseil-cpp:absl_cord",
+    "abseil-cpp:absl_log",
+    "abseil-cpp:absl_strings",
+    "bounds_checking_function:libsec_shared",
+    "c_utils:utils",
+    "hilog:libhilog",
+    "ipc:ipc_single",
+    "protobuf:protobuf_lite",
+  ]
+  defines = [ "FUZZER_TEST" ]
+  sources = [ "fuzztest/clientapi_fuzzer/ClientApi_fuzzer.cpp" ]
+}
+
+ohos_fuzztest("SpeDecoderFuzzTest") {
+  module_out_path = hiperf_fuzz_test_output_path
+  fuzz_config_file = "${hiperf_path}/test/fuzztest/spedecoder_fuzzer"
+  configs = [ ":hiperf_test_config" ]
+  cflags = fuzz_cflags
+  deps = common_deps
+  external_deps = [
+    "abseil-cpp:absl_container",
+    "abseil-cpp:absl_cord",
+    "abseil-cpp:absl_log",
+    "abseil-cpp:absl_strings",
+    "bounds_checking_function:libsec_shared",
+    "c_utils:utils",
+    "hilog:libhilog",
+    "ipc:ipc_single",
+    "protobuf:protobuf_lite",
+  ]
+  defines = [ "FUZZER_TEST" ]
+  sources = [ "fuzztest/spedecoder_fuzzer/SpeDecoder_fuzzer.cpp" ]
+}
+
+ohos_fuzztest("PerfFileFuzzTest") {
+  module_out_path = hiperf_fuzz_test_output_path
+  fuzz_config_file = "${hiperf_path}/test/fuzztest/perffile_fuzzer"
+  resource_config_file = "fuzztest/resource/ohos_test.xml"
+  configs = [ ":hiperf_test_config" ]
+  cflags = fuzz_cflags
+  deps = common_deps
+  external_deps = [
+    "abseil-cpp:absl_container",
+    "abseil-cpp:absl_cord",
+    "abseil-cpp:absl_log",
+    "abseil-cpp:absl_strings",
+    "bounds_checking_function:libsec_shared",
+    "c_utils:utils",
+    "faultloggerd:libunwinder",
+    "hilog:libhilog",
+    "ipc:ipc_single",
+    "protobuf:protobuf_lite",
+  ]
+  defines = [ "FUZZER_TEST" ]
+  sources = [ "fuzztest/perffile_fuzzer/PerfFile_fuzzer.cpp" ]
+}
+
+ohos_fuzztest("PerfFileFormatFuzzTest") {
+  module_out_path = hiperf_fuzz_test_output_path
+  fuzz_config_file = "${hiperf_path}/test/fuzztest/perffileformat_fuzzer"
+  configs = [ ":hiperf_test_config" ]
+  cflags = fuzz_cflags
+  deps = common_deps
+  external_deps = [
+    "abseil-cpp:absl_container",
+    "abseil-cpp:absl_cord",
+    "abseil-cpp:absl_log",
+    "abseil-cpp:absl_strings",
+    "bounds_checking_function:libsec_shared",
+    "c_utils:utils",
+    "faultloggerd:libunwinder",
+    "hilog:libhilog",
+    "ipc:ipc_single",
+    "protobuf:protobuf_lite",
+  ]
+  defines = [ "FUZZER_TEST" ]
+  sources = [ "fuzztest/perffileformat_fuzzer/PerfFileFormat_fuzzer.cpp" ]
+}
+
+group("hiperf_fuzztest") {
+  testonly = true
+  deps = [
+    ":ClientApiFuzzTest",
+    ":CommandLineFuzzTest",
+    ":PerfFileFormatFuzzTest",
+    ":PerfFileFuzzTest",
+    ":SpeDecoderFuzzTest",
+  ]
+  if (!ohos_indep_compiler_enable) {
+    deps += [ ":LibReportFuzzTest" ]
+  }
+}
+
+group("hiperf_test") {
+  testonly = true
+  if (hiperf_target_host && !ohos_indep_compiler_enable) {
+    deps = [
+      ":hiperf_fuzztest(${host_toolchain})",
+      ":hiperf_unittest(${host_toolchain})",
+    ]
+  } else {
+    deps = [ ":hiperf_unittest" ]
+  }
+  if (hiperf_test_fuzz) {
+    deps += [ ":hiperf_fuzztest" ]
+  }
+}

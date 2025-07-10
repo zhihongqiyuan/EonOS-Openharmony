@@ -1,0 +1,92 @@
+{
+  "string":  [
+      {
+          "name": "phone_entry_dsc",
+          "value": "i am an entry for phone"
+      },
+      {
+          "name": "phone_entry_main",
+          "value": "the phone entry ability"
+      },
+      {
+          "name": "entry_label",
+          "value": "DctsDistributeRdbDisJsServer"
+      },
+      {
+          "name": "form_description",
+          "value": "my form"
+      },
+      {
+        "name": "description_application",
+        "value": "demo for test"
+      },
+      {
+        "name": "entry_desc",
+        "value": "description"
+      },
+      {
+        "name": "MainAbility_desc",
+        "value": "description"
+      },
+      {
+        "name": "MainAbility_label",
+        "value": "label"
+      },
+      {
+        "name": "MainAbility1_desc",
+        "value": "description"
+      },
+      {
+        "name": "MainAbility1_label",
+        "value": "label"
+      },
+      {
+        "name": "MainAbility2_desc",
+        "value": "description"
+      },
+      {
+        "name": "MainAbility2_label",
+        "value": "label"
+      },
+      {
+        "name": "MainAbility3_desc",
+        "value": "description"
+      },
+      {
+        "name": "MainAbility3_label",
+        "value": "label"
+      },
+      {
+        "name": "MainAbility4_desc",
+        "value": "description"
+      },
+      {
+        "name": "MainAbility4_label",
+        "value": "label"
+      },
+      {
+        "name": "MainAbility5_desc",
+        "value": "description"
+      },
+      {
+        "name": "MainAbility5_label",
+        "value": "label"
+      },
+      {
+        "name": "MainAbility6_desc",
+        "value": "description"
+      },
+      {
+        "name": "MainAbility6_label",
+        "value": "label"
+      },
+      {
+        "name": "MainAbility7_desc",
+        "value": "description"
+      },
+      {
+        "name": "MainAbility7_label",
+        "value": "label"
+      }
+  ]
+}

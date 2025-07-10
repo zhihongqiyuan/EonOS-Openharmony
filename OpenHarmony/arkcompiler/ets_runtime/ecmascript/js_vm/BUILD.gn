@@ -1,0 +1,75 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//arkcompiler/ets_runtime/js_runtime_config.gni")
+
+if (ark_standalone_build) {
+  if (is_ohos && run_with_qemu) {
+    import("$build_root/toolchain/ark/ark_toolchain.gni")
+    copy("copy_libcxxso_for_qemu") {
+      sources = [ "${libcxxso_file}" ]
+      outputs = [ "${root_out_dir}/${so_dir_for_qemu}/lib/libc++.so" ]
+    }
+  }
+}
+
+ohos_executable("ark_js_vm") {
+  if (enable_sanitize) {
+    sanitize = {
+      ubsan = true
+    }
+  }
+
+  sources = [ "main.cpp" ]
+
+  configs = [
+    "$js_root:ark_jsruntime_common_config",
+    "$js_root:ark_jsruntime_public_config",
+  ]
+
+  external_deps = []
+  deps = [ "$js_root:libark_jsruntime" ]
+  if (ark_standalone_build) {
+    if (run_with_qemu && is_ohos) {
+      deps += [
+        ":copy_libcxxso_for_qemu",
+        "$build_root/third_party_gn/bounds_checking_function:libsec_shared_for_qemu",
+      ]
+      if (use_musl) {
+        deps +=
+            [ "$build_root/third_party_gn/musl:soft_create_linker_for_qemu" ]
+      }
+    }
+  }
+
+  if (!is_arkui_x) {
+    external_deps += [
+      "runtime_core:arkfile_header_deps",
+      "runtime_core:libarkbase_static",
+    ]
+  } else {
+    deps += [
+      "$ark_root/libpandabase:libarkbase_static",
+      "$ark_root/libpandafile:arkfile_header_deps",
+    ]
+  }
+
+  # hiviewdfx libraries
+  external_deps += hiviewdfx_ext_deps
+  deps += hiviewdfx_deps
+
+  install_enable = false
+
+  part_name = "ets_runtime"
+  subsystem_name = "arkcompiler"
+}

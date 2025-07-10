@@ -1,0 +1,18 @@
+{
+    "reporters": [
+        "html",
+        "consoleFull",
+        "markdown"
+    ],
+    "output": ".duplicate-report",
+    "patern": "**/*.{js,ts}",
+    "ignore": [
+        "**/node_modules/**",
+        "**/.nyc_output/**",
+        "**/lib/**",
+        "**/declarations/**",
+        "**/.test_output/**"
+    ],
+    "format": "javascript,typescript",
+    "threshold": 5
+}

@@ -1,0 +1,72 @@
+slotNum = 0x2
+expectedProperty = 0x1
+.language ECMAScript
+.function any .#*#setB(any a0, any a1, any a2, any a3) {
+label_1: 
+label_0: 
+	lda a3
+	stobjbyname 0x0, b, a2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x2
+expectedProperty = 0x1
+.language ECMAScript
+.function any .#*#setC(any a0, any a1, any a2, any a3) {
+	nop
+label_5: 
+label_0: 
+	asyncfunctionenter
+	sta v0
+label_1: 
+label_3: 
+	lda a3
+	stobjbyname 0x0, c, a2
+	ldundefined
+	asyncfunctionresolve v0
+	return
+label_2: 
+end_label_2: 
+label_7: 
+	sta v1
+label_4: 
+	lda v1
+	asyncfunctionreject v0
+	return
+label_6: 
+}
+
+.catchall label_1, end_label_2, label_7
+
+slotNum = 0x2
+.language ECMAScript
+.function any .#*#setD(any a0, any a1, any a2, any a3) {
+label_1: 
+label_0: 
+	ldlexvar 0x0, 0x1
+	sta v0
+	lda a3
+	stobjbyname 0x0, d, v0
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	newlexenv 0x2
+	lda a1
+	stlexvar 0x0, 0x0
+	lda a2
+	stlexvar 0x0, 0x1
+	definefunc 0x0, .#*#setC, 0x1
+	definefunc 0x1, .#*#setB, 0x1
+	definefunc 0x2, .#*#setD, 0x1
+	returnundefined
+label_2: 
+}
+
+

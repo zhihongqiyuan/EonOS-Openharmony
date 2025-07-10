@@ -1,0 +1,56 @@
+{
+    "name": "@ohos/settings",
+    "description": "Settings app for standard system.",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "applications/standard/settings"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "settings",
+        "subsystem": "applications",
+        "syscap": [
+            "SystemCapability.Applications.Settings.Core"
+        ],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "ability_base",
+                "ability_runtime",
+                "ace_engine",
+                "c_utils",
+                "data_share",
+                "hilog",
+                "relational_store",
+                "os_account",
+                "napi",
+                "ipc"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//applications/standard/settings/napi/settings:settings",
+                "//applications/standard/settings/cj/settings:cj_settings_ffi"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//applications/standard/settings/cj/settings:cj_settings_ffi",
+                    "header": {
+                      "header_files": [],
+                      "header_base": "//applications/standard/settings/cj/settings/src"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}

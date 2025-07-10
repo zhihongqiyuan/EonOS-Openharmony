@@ -1,0 +1,24 @@
+{
+  "license": "ISC",
+  "devDependencies": {},
+  "author": "",
+  "name": "updateapp",
+  "ohos": {
+    "org": "huawei",
+    "directoryLevel": "project",
+    "buildTool": "hvigor"
+  },
+  "description": "example description",
+  "main": "hvigorfile.js",
+  "repository": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0",
+  "dependencies": {
+    "@ohos/hvigor": "1.4.0",
+    "@ohos/hvigor-ohos-plugin": "1.4.0",
+    "hypium": "^1.0.0",
+    "@ohos/hypium": "1.0.3"
+  }
+}

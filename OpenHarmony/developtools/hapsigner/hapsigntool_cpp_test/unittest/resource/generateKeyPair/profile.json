@@ -1,0 +1,31 @@
+{
+    "version-name": "1.0.0",
+    "version-code": 1,
+    "uuid": "fe686e1b-3770-4824-a938-961b140a7c98",
+    "validity": {
+        "not-before": 1610519532,
+        "not-after": 1705127532
+    },
+    "type": "debug",
+    "bundle-info": {
+        "developer-id": "OpenHarmony",
+        "development-certificate": "-----BEGIN CERTIFICATE-----\nMIICXjCCAeOgAwIBAgIBATAKBggqhkjOPQQDAzBuMQswCQYDVQQGEwJDTjEUMBIG\nA1UECgwLT3Blbkhhcm1vbnkxHjAcBgNVBAsMFU9wZW5IYXJtb255IENvbW11bml0\neTEpMCcGA1UEAwwgQXBwbGljYXRpb24gU2lnbmF0dXJlIFNlcnZpY2UgQ0EwHhcN\nMjQwNDE1MDUzOTUyWhcNMjUwNDE1MDUzOTUyWjBaMQswCQYDVQQGEwJDTjEUMBIG\nA1UECgwLT3Blbkhhcm1vbnkxHjAcBgNVBAsMFU9wZW5IYXJtb255IENvbW11bml0\neTEVMBMGA1UEAwwMQXBwMSBSZWxlYXNlMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE\nodSztdiucyVAo7VQnzHzBJsS9vQYa1vU1cP92F6fiJLazWtvEljNP1XoJldSZaN9\nUYGdAVHh2yrHzaJFEqHCSB3uQhlJgSbl9sT0lJ4hro1YvVx921/knMRlunz4eAGX\no2kwZzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIHgDATBgNVHSUEDDAKBggrBgEF\nBQcDAzAbBgNVHQ4EFEpzK6IntvQxLaKGX6xZQSiISBx+MBgGDCsGAQQBj1sCgngB\nAwQIMAYCAQEKAQAwCgYIKoZIzj0EAwMDaQAwZgIxAPboDdi9EhOiwAhO3N6vTRcK\nQT1K1TQq2vjvpC2231Dq4tLPeSzLz6ROq+Zv6IgBYgIxAJ9sZZUBoR2lgPHBzt01\n4uxt5nLfJj2XKa6Leb/JWDoosXjoVXoB47y699PtGetcFw==\n-----END CERTIFICATE-----\n",
+        "bundle-name": "com.example.nativetemplatedemo",
+        "app-feature": "hos_system_app"
+    },
+    "permissions": {
+        "restricted-permissions": [
+            ""
+        ]
+    },
+    "debug-info": {
+        "device-ids": [
+            "69C7505BE341BDA5948C3C0CB44ABCD530296054159EFE0BD16A16CD0129CC42",
+            "7EED06506FCE6325EB2E2FAA019458B856AB10493A6718C7679A73F958732865"
+        ],
+        "device-id-type": "udid"
+    },
+    "issuer": "pki_internal"
+}
+
+

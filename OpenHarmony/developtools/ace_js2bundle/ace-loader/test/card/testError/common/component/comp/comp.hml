@@ -1,0 +1,5 @@
+<div>
+   <slot>
+      <text>default content form part1</text>
+   </slot>
+</div>

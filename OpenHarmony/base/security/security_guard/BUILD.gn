@@ -1,0 +1,104 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/security/security_guard/security_guard.gni")
+import("//build/ohos.gni")
+import("//build/test.gni")
+
+group("sg_classify_service_build_module") {
+  if (is_standard_system) {
+    deps = []
+    if (!security_guard_trim_model_analysis) {
+      deps += [ "${sg_root_dir}/services/risk_classify:sg_classify_service" ]
+    }
+  }
+}
+
+group("sg_collect_service_build_module") {
+  if (is_standard_system) {
+    deps = [
+      "${sg_root_dir}/services/data_collect:sg_collect_service",
+      "${sg_root_dir}/services/data_collect:sg_collect_service_database",
+    ]
+  }
+}
+
+group("security_guard_fuzz_test") {
+  testonly = true
+  deps = []
+  if (is_standard_system) {
+    deps += [
+      "${sg_root_dir}/test/fuzztest/collect:fuzztest",
+      "${sg_root_dir}/test/fuzztest/config_manager:fuzztest",
+      "${sg_root_dir}/test/fuzztest/data_collect:fuzztest",
+      "${sg_root_dir}/test/fuzztest/inner_sdk:fuzztest",
+      "${sg_root_dir}/test/fuzztest/ipc:fuzztest",
+      "${sg_root_dir}/test/fuzztest/obtaindata:fuzztest",
+      "${sg_root_dir}/test/fuzztest/security_collector:fuzztest",
+    ]
+    if (!security_guard_trim_model_analysis) {
+      deps += [ "${sg_root_dir}/test/fuzztest/classify:fuzztest" ]
+    }
+  }
+}
+
+group("security_guard_napi") {
+  if (os_level == "standard") {
+    if (support_jsapi) {
+      deps = [ "${sg_root_dir}/frameworks/js/napi:securityguard_napi" ]
+    }
+  }
+}
+
+group("security_collector_service_build_module") {
+  if (is_standard_system) {
+    deps = [
+      "${sg_root_dir}/services/security_collector:security_collector_service",
+    ]
+  }
+}
+
+group("security_collector_manager_build_module") {
+  if (is_standard_system) {
+    deps = [
+      "${sg_root_dir}/services/collector_manager:security_collector_manager",
+    ]
+  }
+}
+
+group("security_guard_unit_test") {
+  testonly = true
+  if (is_standard_system) {
+    deps = [
+      "${sg_root_dir}/test/unittest/config_manager:unittest",
+      "${sg_root_dir}/test/unittest/data_collect:data_collect_test",
+      "${sg_root_dir}/test/unittest/data_collect:unittest",
+      "${sg_root_dir}/test/unittest/inner_api:unittest",
+      "${sg_root_dir}/test/unittest/model_manager:unittest",
+      "${sg_root_dir}/test/unittest/risk_classify:unittest",
+      "${sg_root_dir}/test/unittest/security_collector:security_collector_test",
+      "${sg_root_dir}/test/unittest/security_collector:unittest",
+    ]
+  }
+}
+
+group("security_guard_build_module_test") {
+  testonly = true
+  deps = []
+  if (is_standard_system) {
+    deps += [
+      "${sg_root_dir}/frameworks/common/classify/test:unittest",
+      "${sg_root_dir}/frameworks/common/collect/test:unittest",
+    ]
+  }
+}

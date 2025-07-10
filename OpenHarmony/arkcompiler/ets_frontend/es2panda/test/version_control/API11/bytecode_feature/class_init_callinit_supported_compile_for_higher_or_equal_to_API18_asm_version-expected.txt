@@ -1,0 +1,73 @@
+slotNum = 0x4
+expectedProperty = 0x1
+.language ECMAScript
+.function any .#~A=#A(any a0, any a1, any a2, any a3) {
+label_1: 
+label_0: 
+	ldlexvar 0x0, 0x0
+	callruntime.callinit 0x0, a2
+	lda a3
+	stobjbyname 0x2, a, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x2
+.language ECMAScript
+.function any .#~A>#instance_initializer(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str a
+	definepropertybyname 0x0, a, a2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0xb
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+	nop
+label_7: 
+label_0: 
+	newlexenv 0x1
+label_2: 
+label_4: 
+	ldhole
+	sta v1
+	defineclasswithbuffer 0x0, .#~A=#A, _2, 0x1, v1
+	sta v1
+	ldobjbyname 0x1, prototype
+	definemethod 0x3, .#~A>#instance_initializer, 0x0
+	stlexvar 0x0, 0x0
+label_3: 
+end_label_3: 
+	jmp label_1
+label_9: 
+	sta v0
+label_6: 
+	poplexenv
+	lda v0
+	throw
+label_1: 
+	poplexenv
+	lda.str b
+	sta v0
+	mov v2, v1
+	mov v3, v0
+	newobjrange 0x4, 0x2, v2
+	sta v0
+	tryldglobalbyname 0x6, print
+	sta v1
+	lda v0
+	ldobjbyname 0x7, a
+	sta v0
+	lda v1
+	callarg1 0x9, v0
+	returnundefined
+label_8: 
+}
+
+.catchall label_2, end_label_3, label_9
+
+

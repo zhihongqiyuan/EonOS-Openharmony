@@ -1,0 +1,71 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import assert from 'assert';
+import default_01 from './export_default_01_conditional';
+assert(default_01 === 2);
+import default_02 from './export_default_02_instance';
+assert(default_02.g === 1);
+import default_03 from './export_default_03_this';
+assert(default_03 !== undefined);
+import default_04 from './export_default_04_var';
+assert(default_04 === 4);
+import default_05 from './export_default_05_array';
+assert(default_05[0] === 1);
+assert(default_05[1] === 2);
+import default_06 from './export_default_06_object';
+assert(default_06.h === 1);
+assert(default_06.i === 2);
+import default_07 from './export_default_07_regex';
+assert(default_07.toString() === '/a/');
+import default_08 from './export_default_08_str1';
+assert(default_08 === `str1`);
+import default_09 from './export_default_09_str2';
+assert(default_09 === 'str2');
+import default_10 from './export_default_10_str3';
+assert(default_10 === "str3str4");
+import default_11 from './export_default_11_conditional';
+assert(default_11 === 2);
+import default_13 from './export_default_13_module';
+async function assert_async1() {
+    assert((await default_13).default === 'str1');
+}
+assert_async1();
+import default_14 from './export_default_14_namepsace';
+assert(default_14 === "ns_inner");
+import default_15 from './export_default_15_object';
+assert(default_15 === 1);
+import default_16 from './export_default_16_function_ans';
+assert(default_16 === 2);
+import default_17 from './export_default_17_function_conditional';
+assert(default_17 === 9);
+import default_18 from './export_default_18_arrow';
+assert(default_18() === 1);
+import default_19 from './export_default_19_arrow_async';
+async function assert_async2() {
+    assert(await default_19() === 19);
+}
+assert_async2();
+import default_20 from './export_default_20_expression_01';
+assert(default_20 === 2);
+import default_21 from './export_default_21_expression_02';
+assert(default_21 === 12);
+import default_22 from './export_default_22_expression_03';
+assert(default_22 === 3);
+import default_23 from './export_default_23_expression_04';
+assert(default_23 === 1);
+import default_24 from './export_default_24_expression_05';
+assert(default_24 === 1);
+import default_25 from './export_default_25_object';
+assert(default_25.p === 2);

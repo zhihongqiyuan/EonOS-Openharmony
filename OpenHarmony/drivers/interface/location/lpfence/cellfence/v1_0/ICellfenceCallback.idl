@@ -1,0 +1,99 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ /**
+ * @addtogroup HdiLpfenceCellfence
+ * @{
+ *
+ * @brief Provides cell fence APIs for low-power fence services.
+ *
+ * You can use the APIs to add or remove cell fences and obtain cell fence information of a device.
+ * The cell fence module is used to determine whether a device reaches a comparatively large area, so that subsequent services, for example, pushing the scenic spot introduction to tourists, can be implemented.
+ *
+ * @since 4.0
+ * @version 1.0
+ */
+
+/**
+ * @file ICellfenceCallback.idl
+ *
+ * @brief Defines the callbacks of the cell fence module.
+ *
+ * @since 4.0
+ * @version 1.0
+ */
+
+/**
+ * @brief Declares the path of the cell fence module interface package.
+ *
+ * @since 4.0
+ */
+package ohos.hdi.location.lpfence.cellfence.v1_0;
+
+/**
+ * @brief Imports data types of the cell fence module.
+ *
+ * @since 4.0
+ */
+import ohos.hdi.location.lpfence.cellfence.v1_0.CellfenceTypes;
+
+/**
+ * @brief Defines the callback of the cell fence module.
+ *
+ * Before enabling the cell fencing feature, you need to register the callback to report the cell fence status when the relationship between a cell fence and a device changes.
+ * For details, see {@link ICellfenceInterface}.
+ *
+ * @since 4.0
+ */
+[callback] interface ICellfenceCallback {
+    /**
+     * @brief Called to report the cell fence status changes.
+     *
+     * This callback will be invoked to report the cell fence status when the relationship between a device and a cell fence changes.
+     *
+     * @param fences Indicates the cell fence status change to report. For details, see {@link CellfenceStatus}.
+     *
+     * @return Returns <b>0</b> if the callback is invoked successfully.
+     * @return Returns a negative value if the callback fails to be invoked.
+     *
+     * @since 4.0
+     */
+    OnCellfenceChanged([in] struct CellfenceStatus fences);
+
+    /**
+     * @brief Called to report the cell fence information of a device.
+     *
+     *
+     * @param size Indicates the cell fence information obtained. For details, see {@link CellfenceSize}.
+     *
+     * @return Returns <b>0</b> if the callback is invoked successfully.
+     * @return Returns a negative value if the callback fails to be invoked.
+     *
+     * @since 4.0
+     */
+    OnGetCellfenceSizeCb([in] struct CellfenceSize size);
+
+    /**
+     * @brief Called when the low-power fence service is reset.
+     *
+     *
+     * @return Returns <b>0</b> if the callback is invoked successfully.
+     * @return Returns a negative value if the callback fails to be invoked.
+     *
+     * @since 4.0
+     */
+    OnCellfenceReset();
+}
+/** @} */

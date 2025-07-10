@@ -1,0 +1,45 @@
+slotNum = 0x4
+.language ECMAScript
+.function any .SendableLazyLoading(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldexternalmodulevar 0x0
+	sta v0
+	throw.undefinedifholewithname a1
+	lda v0
+	stobjbyname 0x0, name, a2
+	wide.ldexternalmodulevar 0xad
+	sta v0
+	throw.undefinedifholewithname a255
+	lda v0
+	stobjbyname 0x2, name1, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0xa
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, .SendableLazyLoading, _1, 0x0, v0
+	sta v0
+	ldobjbyname 0x1, prototype
+	mov v2, v0
+	newobjrange 0x3, 0x1, v2
+	sta v0
+	tryldglobalbyname 0x5, print
+	sta v1
+	lda v0
+	ldobjbyname 0x6, name
+	sta v0
+	lda v1
+	callarg1 0x8, v0
+	returnundefined
+label_2: 
+}
+
+

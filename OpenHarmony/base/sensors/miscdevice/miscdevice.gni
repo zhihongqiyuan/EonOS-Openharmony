@@ -1,0 +1,95 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+declare_args() {
+  miscdevice_feature_vibrator_custom = true
+  miscdevice_feature_hiviewdfx_hisysevent = true
+  miscdevice_feature_vibrator_input_method_enable = true
+  miscdevice_feature_crown_vibrator_enable = false
+  miscdevice_feature_do_not_disturb_enable = false
+}
+
+print(
+    "miscdevice_feature_vibrator_custom = ${miscdevice_feature_vibrator_custom}")
+
+SUBSYSTEM_DIR = "//base/sensors/miscdevice"
+
+FUZZ_MODULE_OUT_PATH = "miscdevice/miscdevice"
+
+miscdevice_default_defines = []
+
+if (miscdevice_feature_vibrator_custom) {
+  miscdevice_default_defines += [ "OHOS_BUILD_ENABLE_VIBRATOR_CUSTOM" ]
+}
+
+if (miscdevice_feature_vibrator_input_method_enable) {
+  miscdevice_default_defines += [ "OHOS_BUILD_ENABLE_VIBRATOR_INPUT_METHOD" ]
+} else {
+  miscdevice_default_defines += [ "OHOS_BUILD_ENABLE_VIBRATOR_PRESET_INFO" ]
+}
+
+if (miscdevice_feature_crown_vibrator_enable) {
+  miscdevice_default_defines += [ "OHOS_BUILD_ENABLE_VIBRATOR_CROWN" ]
+}
+
+if (miscdevice_feature_do_not_disturb_enable) {
+  miscdevice_default_defines += [ "OHOS_BUILD_ENABLE_DO_NOT_DISTURB" ]
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.hdf_drivers_interface_light)) {
+  hdf_drivers_interface_light = true
+  miscdevice_default_defines += [ "HDF_DRIVERS_INTERFACE_LIGHT" ]
+} else {
+  hdf_drivers_interface_light = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.resourceschedule_memmgr_override)) {
+  miscdevice_memmgr_enable = true
+} else {
+  miscdevice_memmgr_enable = false
+}
+
+if (build_variant == "root") {
+  miscdevice_default_defines += [ "BUILD_VARIANT_ENG" ]
+  miscdevice_build_eng = true
+} else {
+  miscdevice_build_eng = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.hdf_drivers_interface_vibrator)) {
+  miscdevice_feature_hdf_drivers_interface_vibrator = true
+  miscdevice_default_defines += [ "HDF_DRIVERS_INTERFACE_VIBRATOR" ]
+} else {
+  miscdevice_feature_hdf_drivers_interface_vibrator = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.hiviewdfx_hisysevent)) {
+  miscdevice_feature_hiviewdfx_hisysevent = true
+  miscdevice_default_defines += [ "HIVIEWDFX_HISYSEVENT_ENABLE" ]
+} else {
+  miscdevice_feature_hiviewdfx_hisysevent = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.hiviewdfx_hitrace)) {
+  miscdevice_feature_hiviewdfx_hitrace = true
+  miscdevice_default_defines += [ "HIVIEWDFX_HITRACE_ENABLE" ]
+} else {
+  miscdevice_feature_hiviewdfx_hitrace = false
+}

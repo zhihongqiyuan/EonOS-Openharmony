@@ -1,0 +1,53 @@
+.language ECMAScript
+
+slotNum = 0x2
+.function any .#~@0=#TopLevelSendableClass1(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldai 0x1
+	stobjbyname 0x0, o, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0xa
+.function any .#~@1=#SendableTestClass1(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	callruntime.ldsendablevar 0x0, 0x0
+	sta v0
+	throw.undefinedifholewithname TopLevelSendableClass1
+	mov v1, v0
+	newobjrange 0x0, 0x1, v1
+	stobjbyname 0x2, a1, a2
+	lda a2
+	ldobjbyname 0x4, a1
+	ldobjbyname 0x6, o
+	stobjbyname 0x8, u, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x4
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	callruntime.newsendableenv 0x1
+	ldhole
+	sta v0
+	callruntime.definesendableclass 0x0, .#~@0=#TopLevelSendableClass1, _3, 0x0, v0
+	callruntime.stsendablevar 0x0, 0x0
+	ldhole
+	sta v0
+	callruntime.definesendableclass 0x1, .#~@1=#SendableTestClass1, _5, 0x0, v0
+	sta v0
+	mov v1, v0
+	newobjrange 0x2, 0x1, v1
+	ldundefined
+	returnundefined
+label_2: 
+}
+
+

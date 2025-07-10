@@ -1,0 +1,180 @@
+slotNum = 0x4
+.language ECMAScript
+.function any .#*#testCatchPhiDataflow(any a0, any a1, any a2) {
+	nop
+label_9: 
+label_5: 
+label_7: 
+	ldlexvar 0x0, 0x0
+	sta v1
+	throw.undefinedifholewithname globalCond
+	lda v1
+	callruntime.isfalse 0x0
+	jnez label_1
+label_2: 
+	lda.str 1
+	throw
+label_1: 
+	lda.str 2
+	sta v1
+label_6: 
+end_label_6: 
+	jmp label_12
+label_11: 
+	sta v0
+	jmp label_4
+label_12: 
+	mov v0, v1
+label_4: 
+	tryldglobalbyname 0x1, print
+	callarg1 0x2, v0
+	returnundefined
+label_10: 
+}
+
+.catchall label_5, end_label_6, label_11
+
+slotNum = 0x3
+.language ECMAScript
+.function any .#*#testTryWithAccCatchPhi(any a0, any a1, any a2) {
+	nop
+label_7: 
+label_2: 
+label_4: 
+	ldai 0x1
+	throw
+label_3: 
+end_label_3: 
+label_9: 
+	sta v0
+label_6: 
+	tryldglobalbyname 0x0, print
+	callarg1 0x1, v0
+	returnundefined
+label_8: 
+}
+
+.catchall label_2, end_label_3, label_9
+
+slotNum = 0x8
+.language ECMAScript
+.function any .#*#testTryWithMoveConstants(any a0, any a1, any a2) {
+	nop
+label_12: 
+	ldai 0x2
+	sta v0
+label_3: 
+label_7: 
+	lda v0
+	throw
+label_4: 
+end_label_4: 
+label_14: 
+label_10: 
+	ldai 0x3
+	sta v1
+	tryldglobalbyname 0x0, print
+	sta v2
+	lda v0
+	stricteq 0x1, v0
+	sta v0
+	lda v2
+	callarg1 0x2, v0
+label_5: 
+label_1: 
+	lda v1
+	throw
+label_6: 
+end_label_6: 
+label_15: 
+label_11: 
+	tryldglobalbyname 0x4, print
+	sta v0
+	lda v1
+	stricteq 0x5, v1
+	sta v1
+	lda v0
+	callarg1 0x6, v1
+	returnundefined
+label_13: 
+}
+
+.catchall label_3, end_label_4, label_14
+
+.catchall label_5, end_label_6, label_15
+
+slotNum = 0xc
+.language ECMAScript
+.function any .#*#testTryWithRegAccAlloc(any a0, any a1, any a2) {
+	nop
+label_7: 
+label_0: 
+	lda.str s1
+	sta v0
+	lda.str s2
+	sta v1
+	add2 0x0, v0
+	sta v2
+	tryldglobalbyname 0x1, print
+	callarg1 0x2, v2
+label_2: 
+label_4: 
+	mov v2, v1
+	mov v3, v0
+	lda.str s1
+	sta v0
+	mov v3, v0
+	lda.str s2
+	sta v0
+	ldai 0x1
+	mov v2, v0
+	throw
+label_3: 
+end_label_3: 
+label_9: 
+label_6: 
+	lda v2
+	add2 0x4, v3
+	sta v0
+	tryldglobalbyname 0x5, print
+	callarg1 0x6, v0
+	lda v2
+	add2 0x8, v3
+	sta v0
+	tryldglobalbyname 0x9, print
+	callarg1 0xa, v0
+	returnundefined
+label_8: 
+}
+
+.catchall label_2, end_label_3, label_9
+
+slotNum = 0xc
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	newlexenv 0x1
+	definefunc 0x0, .#*#testCatchPhiDataflow, 0x0
+	sta v0
+	definefunc 0x1, .#*#testTryWithAccCatchPhi, 0x0
+	sta v1
+	definefunc 0x2, .#*#testTryWithMoveConstants, 0x0
+	sta v2
+	definefunc 0x3, .#*#testTryWithRegAccAlloc, 0x0
+	sta v3
+	ldtrue
+	stlexvar 0x0, 0x0
+	lda v0
+	callarg0 0x4
+	lda v1
+	callarg0 0x6
+	lda v2
+	callarg0 0x8
+	lda v3
+	callarg0 0xa
+	returnundefined
+label_2: 
+}
+
+

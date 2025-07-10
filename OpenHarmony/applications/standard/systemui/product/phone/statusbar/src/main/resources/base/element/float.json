@@ -1,0 +1,160 @@
+{
+  "float": [
+    {
+      "name": "status_bar_clock_width",
+      "value": "37vp"
+    },
+    {
+      "name": "battery_component_gap",
+      "value": "0vp"
+    },
+    {
+      "name": "battery_component_pic_gap",
+      "value": "1.2vp"
+    },
+    {
+      "name": "battery_component_pic_body_height",
+      "value": "11vp"
+    },
+    {
+      "name": "battery_component_pic_body_width",
+      "value": "18.5vp"
+    },
+    {
+      "name": "battery_component_pic_body_padding",
+      "value": "1vp"
+    },
+    {
+      "name": "battery_component_pic_body_border_width",
+      "value": "1vp"
+    },
+    {
+      "name": "battery_component_pic_border_radius",
+      "value": "2.5vp"
+    },
+    {
+      "name": "battery_component_pic_head_radius",
+      "value": "3vp"
+    },
+    {
+      "name": "battery_component_pic_head_width",
+      "value": "1.5vp"
+    },
+    {
+      "name": "battery_component_pic_head_height",
+      "value": "5.75vp"
+    },
+    {
+      "name": "green_capsule_phone_width",
+      "value": "14vp"
+    },
+    {
+      "name": "green_capsule_phone_height",
+      "value": "14vp"
+    },
+    {
+      "name": "green_capsule_height",
+      "value": "20vp"
+    },
+    {
+      "name": "green_capsule_text_left_right",
+      "value": "6vp"
+    },
+    {
+      "name": "green_capsule_radius",
+      "value": "10vp"
+    },
+    {
+      "name": "signal_component_icon_width",
+      "value": "21.5vp"
+    },
+    {
+      "name": "signal_component_icon_height",
+      "value": "15vp"
+    },
+    {
+      "name": "status_bar_signal_unknown_font_size",
+      "value": "7fp"
+    },
+    {
+      "name": "signal_text_max_width",
+      "value": "113vp"
+    },
+    {
+      "name": "status_bar_signal_net_signal_text_max_width",
+      "value": "15vp"
+    },
+    {
+      "name": "status_bar_bluetooth_width",
+      "value": "11.5vp"
+    },
+    {
+      "name": "status_bar_bluetooth_height",
+      "value": "15vp"
+    },
+    {
+      "name": "status_bar_ring_mode_width",
+      "value": "17vp"
+    },
+    {
+      "name": "status_bar_ring_mode_height",
+      "value": "15vp"
+    },
+    {
+      "name": "status_bar_signal_type_font_size",
+      "value": "5.5fp"
+    },
+    {
+      "name": "status_bar_wifi_width",
+      "value": "15.75vp"
+    },
+    {
+      "name": "status_bar_wifi_height",
+      "value": "15vp"
+    },
+    {
+      "name": "status_bar_location_width",
+      "value": "13vp"
+    },
+    {
+      "name": "status_bar_location_height",
+      "value": "15vp"
+    },
+    {
+      "name": "icon_component_opacity",
+      "value": "0.7"
+    },
+    {
+      "name": "mTime_text_margin_left",
+      "value": "2vp"
+    },
+    {
+      "name": "signal_component_text_margin_left",
+      "value": "3vp"
+    },
+    {
+      "name": "green_capsule_phone_text_left",
+      "value": "1vp"
+    },
+    {
+      "name": "green_capsule_phone_margin_left",
+      "value": "2vp"
+    },
+    {
+      "name": "battery_component_margin",
+      "value": "2vp"
+    },
+    {
+      "name": "status_bar_margin_left_right",
+      "value": "5vp"
+    },
+    {
+      "name": "status_bar_airplane_width",
+      "value": "13vp"
+    },
+    {
+      "name": "status_bar_airplane_height",
+      "value": "15vp"
+    }
+  ]
+}

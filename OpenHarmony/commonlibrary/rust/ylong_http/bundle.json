@@ -1,0 +1,54 @@
+{
+  "name": "@ohos/ylong_http",
+  "version": "4.0",
+  "description": "ylong HTTP implementation",
+  "publishAs": "code-segment",
+  "homePage": "https://gitee.com/openharmony",
+  "repository": "https://gitee.com/openharmony/commonlibrary_rust_ylong_http",
+  "license": "Apache License 2.0",
+  "language": "Rust",
+  "segment": {
+    "destPath": "commonlibrary/rust/ylong_http"
+  },
+  "licensePath": "COPYING",
+  "readmePath": {
+    "en": "README.md",
+    "zh": "README_zh.md"
+  },
+  "component": {
+    "name": "ylong_http",
+    "subsystem": "commonlibrary",
+    "features": [],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "100KB",
+    "ram": "~200KB",
+    "deps": {
+      "components": [
+        "ylong_runtime",
+        "openssl"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//commonlibrary/rust/ylong_http/ylong_http:ylong_http"
+      ],
+      "inner_kits": [
+        {
+          "name": "//commonlibrary/rust/ylong_http/ylong_http_client:ylong_http_client_inner",
+          "header": {
+            "header_base": [],
+            "header_files": []
+          }
+        },
+        {
+          "name": "//commonlibrary/rust/ylong_http/ylong_http:ylong_http"
+        }
+      ],
+      "test": [
+        "//commonlibrary/rust/ylong_http/ylong_http_client:unittest"
+      ]
+    }
+  }
+}

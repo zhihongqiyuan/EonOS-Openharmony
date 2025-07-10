@@ -1,0 +1,169 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//developtools/profiler/device/base/config.gni")
+
+skel_src_dir = "$target_out_dir/src"
+skel_out_dir = "$root_gen_dir/cpp/developtools/profiler/hiebpf/ebpf_skeleton"
+
+config("common_config") {
+  cflags = [
+    "-Wno-unused-command-line-argument",
+    "-Wno-unused-variable",
+    "-Wno-unused-function",
+    "-Wno-gnu-folding-constant",
+    "-fno-omit-frame-pointer",
+    "-mno-omit-leaf-frame-pointer",
+    "-fno-inline",
+    "-fno-optimize-sibling-calls",
+    "-Wno-format",
+    "-Wno-switch",
+    "-Wno-braced-scalar-init",
+    "-fno-common",
+  ]
+  defines = [
+    "__KERNEL__",
+    "BPF_LOGGER_DEBUG",
+    "HH_LOGGER_DEBUG",
+  ]
+  include_dirs = [
+    "$skel_out_dir",
+    "./include",
+  ]
+}
+
+config("user_common_config") {
+  cflags = [
+    "-g",
+    "-Wno-unknown-attributes",
+    "-Wno-bitwise-op-parentheses",
+    "-Wno-shift-op-parentheses",
+    "-Wno-sign-compare",
+    "-Wno-format",
+  ]
+  include_dirs = []
+  defines = [ "__aarch64__" ]
+}
+
+config("kern_common_config") {
+  cflags = [
+    "-target",
+    "bpf",
+    "-g",
+    "-fno-stack-protector",
+    "-fno-data-sections",
+  ]
+  defines = [ "__aarch64__" ]
+  include_dirs = []
+}
+
+ohos_source_set("hiebpf.bpf") {
+  remove_configs = [ "//build/config/coverage:default_coverage" ]
+  if (use_libfuzzer) {
+    remove_configs += [ "//build/config/sanitizers:default_sanitizer_flags" ]
+  }
+  cflags_c = [ "-fno-lto" ]
+  sources = [ "./src/hiebpf.bpf.c" ]
+  configs = [
+    ":common_config",
+    ":kern_common_config",
+  ]
+  external_deps = [ "libbpf:libbpf" ]
+  subsystem_name = "${OHOS_PROFILER_SUBSYS_NAME}"
+  part_name = "${OHOS_PROFILER_PART_NAME}"
+  output_name = "hiebpf.bpf.o"
+}
+
+action("gen_bpf_skeleton") {
+  script = "./scripts/gen_skeleton.sh"
+  sources = []
+  outputs = [ "$skel_out_dir/hiebpf.skel.h" ]
+  bpftool_dir = rebase_path("//prebuilts/develop_tools/bpftool/bin/bpftool")
+  skel_src_dir_abs = rebase_path("${skel_src_dir}")
+  skel_out_dir_abs = rebase_path("${skel_out_dir}")
+  args = [
+    bpftool_dir,
+    skel_src_dir_abs,
+    skel_out_dir_abs,
+  ]
+  deps = [ ":hiebpf.bpf" ]
+}
+
+ohos_source_set("hiebpf_source_common") {
+  public_configs = [
+    ":common_config",
+    ":user_common_config",
+    "${OHOS_PROFILER_DIR}/device/base:hiprofiler_test_config",
+  ]
+
+  sources = [
+    "./src/bpf_controller.cpp",
+    "./src/bpf_event_receiver.cpp",
+    "./src/bpf_log_reader.cpp",
+    "./src/command_helper.cpp",
+    "./src/elf_file.cpp",
+    "./src/elf_symbol_info.cpp",
+    "./src/fstrace_args_converter.cpp",
+    "./src/hhlog.cpp",
+    "./src/hiebpf_data_file.cpp",
+    "./src/ipc_unix_socket.cpp",
+    "./src/kernel_symbol_info.cpp",
+    "./src/libbpf_logger.cpp",
+    "./src/maps_info.cpp",
+    "./src/ringbuffer.cpp",
+    "./src/utilities.cpp",
+  ]
+
+  public_deps = [ ":gen_bpf_skeleton" ]
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "libbpf:libbpf",
+  ]
+  subsystem_name = "${OHOS_PROFILER_SUBSYS_NAME}"
+  part_name = "${OHOS_PROFILER_PART_NAME}"
+}
+
+ohos_executable("hiebpf") {
+  sources = [ "./src/hiebpf.cpp" ]  # this is main()
+
+  deps = [ ":hiebpf_source_common" ]
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "libbpf:libbpf",
+  ]
+  subsystem_name = "${OHOS_PROFILER_SUBSYS_NAME}"
+  part_name = "${OHOS_PROFILER_PART_NAME}"
+  output_name = "hiebpf"
+}
+
+group("hiebpf_tool") {
+  if (current_toolchain == "//build/toolchain/ohos:ohos_clang_arm64") {
+    if (!is_asan && !is_tsan && use_musl) {
+      if (build_variant == "root") {
+        deps = [
+          ":hiebpf",
+          ":hiebpf.bpf",
+        ]
+      }
+    }
+  }
+}
+
+group("hiebpf_all") {
+  testonly = true
+  deps = [
+    ":hiebpf_tool",
+    "test:hiebpf_ut",
+  ]
+}

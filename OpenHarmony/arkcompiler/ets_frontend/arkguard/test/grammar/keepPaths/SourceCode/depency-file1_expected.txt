@@ -1,0 +1,15 @@
+export class DependencyClass {
+    depencyProp1: string = "";
+    depencyProp2: number = 1;
+    depencyMethod1() {
+        const c = 2;
+        return this.depencyProp1 + this.depencyProp2;
+    }
+}
+export function DependencyFunctionReduce(a: number, b: number) {
+    return a - b;
+}
+export interface DependencyInterface {
+    depencyProp3: string;
+    depencyProp4: number;
+}

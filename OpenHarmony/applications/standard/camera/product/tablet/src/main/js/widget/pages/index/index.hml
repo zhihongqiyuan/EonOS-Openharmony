@@ -1,0 +1,8 @@
+<div class="card_root_layout">
+    <div class="button_container">
+        <button class="button_info" icon="/widget/common/ic_camera_mode_photo.svg" onclick="photoRouter"></button>
+    </div>
+    <div class="button_container">
+        <button class="button_info" icon="/widget/common/ic_camera_mode_video.svg" onclick="videoRouter"></button>
+    </div>
+</div>

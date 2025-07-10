@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<configuration ver="2.0">
+    <target name="memdataplugin_ut">
+        <preparer>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/1/oom_score_adj -> /data/local/tmp/utresources/proc/1/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/1/smaps -> /data/local/tmp/utresources/proc/1/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/1/status -> /data/local/tmp/utresources/proc/1/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/2/oom_score_adj -> /data/local/tmp/utresources/proc/2/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/2/smaps -> /data/local/tmp/utresources/proc/2/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/2/status -> /data/local/tmp/utresources/proc/2/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/11/oom_score_adj -> /data/local/tmp/utresources/proc/11/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/11/smaps -> /data/local/tmp/utresources/proc/11/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/11/status -> /data/local/tmp/utresources/proc/11/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/cmdline -> /data/local/tmp/utresources/proc/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/meminfo -> /data/local/tmp/utresources/proc/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/vmstat -> /data/local/tmp/utresources/proc/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/purgeable_ashmem_trigger -> /data/local/tmp/utresources/proc/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/gpu_memory -> /data/local/tmp/utresources/proc/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/process_dmabuf_info -> /data/local/tmp/utresources/proc/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/dumpMem.txt -> /data/local/tmp/utresources/proc/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/window_manager_service.txt -> /data/local/tmp/utresources/proc/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/mem_profile.txt -> /data/local/tmp/utresources/proc/" src="res"/>
+            <option name="push" value="developtools/hiprofiler/memorytest -> /data/local/tmp/" src="out"/>
+        </preparer>
+    </target>
+    <target name="smaps_stats_ut">
+        <preparer>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/2/smaps -> /data/local/tmp/utresources/proc/2/" src="res"/>
+            <option name="push" value="plugins/memory_plugin/test/utresources/proc/2/smaps_rollup -> /data/local/tmp/utresources/proc/2/" src="res"/>
+        </preparer>
+    </target>
+    <target name="cpudataplugin_ut">
+        <preparer>
+            <option name="push" value="plugins/cpu_plugin/test/resources/proc/stat -> /data/local/tmp/resources/proc/" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/proc/1872/stat -> /data/local/tmp/resources/proc/1872/" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/proc/1872/task/1872/stat -> /data/local/tmp/resources/proc/1872/task/1872/" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/proc/1872/task/1965/stat -> /data/local/tmp/resources/proc/1872/task/1965/" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/proc/1872/task/1966/stat -> /data/local/tmp/resources/proc/1872/task/1966/" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/proc/1872/task/1967/stat -> /data/local/tmp/resources/proc/1872/task/1967/" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/proc/1872/task/1968/stat -> /data/local/tmp/resources/proc/1872/task/1968/" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/proc/1872/task/1995/stat -> /data/local/tmp/resources/proc/1872/task/1995/" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/proc/1872/task/1996/stat -> /data/local/tmp/resources/proc/1872/task/1996/" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu0/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu0/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu0/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu1/cpufreq/cpuinfo_cur_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu1/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu1/cpufreq/cpuinfo_max_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu1/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu1/cpufreq/cpuinfo_min_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu1/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu2/cpufreq/cpuinfo_cur_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu2/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu2/cpufreq/cpuinfo_max_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu2/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu2/cpufreq/cpuinfo_min_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu2/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu3/cpufreq/cpuinfo_cur_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu3/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu3/cpufreq/cpuinfo_max_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu3/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu3/cpufreq/cpuinfo_min_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu3/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu4/cpufreq/cpuinfo_cur_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu4/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu4/cpufreq/cpuinfo_max_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu4/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu4/cpufreq/cpuinfo_min_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu4/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu5/cpufreq/cpuinfo_cur_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu5/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu5/cpufreq/cpuinfo_max_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu5/cpufreq" src="res"/>
+            <option name="push" value="plugins/cpu_plugin/test/resources/sys/devices/system/cpu/cpu5/cpufreq/cpuinfo_min_freq -> /data/local/tmp/resources/sys/devices/system/cpu/cpu5/cpufreq" src="res"/>
+            <option name="push" value="developtools/hiprofiler/cpudataplugintest -> /data/local/tmp/" src="out"/>
+        </preparer>
+    </target>
+    <target name="diskiodataplugin_ut">
+        <preparer>
+            <option name="push" value="plugins/diskio_plugin/test/resources/proc/vmstat -> /data/local/tmp/resources/proc/" src="res"/>
+            <option name="push" value="developtools/hiprofiler/diskiodataplugintest -> /data/local/tmp/" src="out"/>
+        </preparer>
+    </target>
+    <target name="networkplugin_ut">
+        <preparer>
+            <option name="push" value="plugins/network_plugin/test/utresources/begin/proc/9553/status -> /data/local/tmp/utresources/begin/proc/9553/" src="res"/>
+            <option name="push" value="plugins/network_plugin/test/utresources/begin/proc/net/xt_qtaguid/stats -> /data/local/tmp/utresources/begin/proc/net/xt_qtaguid/" src="res"/>
+            <option name="push" value="plugins/network_plugin/test/utresources/end/proc/9553/status -> /data/local/tmp/utresources/end/proc/9553/" src="res"/>
+            <option name="push" value="plugins/network_plugin/test/utresources/end/proc/net/xt_qtaguid/stats -> /data/local/tmp/utresources/end/proc/net/xt_qtaguid/" src="res"/>
+        </preparer>
+    </target>
+        <target name="native_daemon_ut">
+        <preparer>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/dummpfile -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/empytfile -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/vmlinux -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/vmlinux_stripped -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/vmlinux_stripped_nobuildid -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/vmlinux_stripped_broken -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/perf.data -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/proto_test -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/elf_test -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/elf_test_stripped -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/elf_test_stripped_nobuildid -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/elf_test_stripped_broken -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/elf_test_stripped_noehframehdr -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/elf32_test -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/elf32_test_stripped -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/elf32_test_stripped_nobuildid -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/elf32_test_broken -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/elf32_test_stripped_noehframehdr -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/source/elf_test_source_code.cpp -> /data/testresource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/ehdr_from_readelf_32 -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/ehdr_from_readelf_64 -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/shdrs_from_readelf_32 -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/shdrs_from_readelf_64 -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/phdrs_from_readelf_32 -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/phdrs_from_readelf_64 -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/syms_from_readelf_32 -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/syms_from_readelf_64 -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/symbols_file_test_elf32 -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/symbols_file_test_elf64 -> /data/test/resource/testdata/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/dwarf/user_regs.dump -> /data/test/resource/testdata/dwarf/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/dwarf/user_data.dump -> /data/test/resource/testdata/dwarf/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/dwarf/hiperf_example_cmd -> /data/test/resource/testdata/dwarf/" src="res"/>
+            <option name="push" value="plugins/native_daemon/test/unittest/resource/testdata/dwarf/hiperf_643_644_sample_record_213_6754913387560.dump -> /data/test/resource/testdata/dwarf/" src="res"/>
+        </preparer>
+    </target>
+    <target name="nativehook_ut">
+        <preparer>
+            <option name="shell" value="remount"/>
+            <option name="push" value="developtools/hiprofiler/libnativetest_so.z.so -> /data/local/tmp/" src="out"/>
+            <option name="push" value="developtools/hiprofiler/native_daemon_client -> /data/local/tmp/" src="out"/>
+            <option name="shell" value="chmod 777 /data/local/tmp/native_daemon_client"/>
+        </preparer>
+    </target>
+    <target name="processplugin_ut">
+        <preparer>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/stat -> /data/local/tmp/resources/proc/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/11/cmdline -> /data/local/tmp/resources/proc/11/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/11/io -> /data/local/tmp/resources/proc/11/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/11/smaps_rollup -> /data/local/tmp/resources/proc/11/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/11/stat -> /data/local/tmp/resources/proc/11/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/11/status -> /data/local/tmp/resources/proc/11/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/11/task/11/cmdline -> /data/local/tmp/resources/proc/11/task/11/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/1872/cmdline -> /data/local/tmp/resources/proc/1872/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/1872/io -> /data/local/tmp/resources/proc/1872/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/1872/smaps_rollup -> /data/local/tmp/resources/proc/1872/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/1872/stat -> /data/local/tmp/resources/proc/1872/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/1872/status -> /data/local/tmp/resources/proc/1872/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/1872/task/1872/cmdline -> /data/local/tmp/resources/proc/1872/task/1872/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/1872/task/1873/cmdline -> /data/local/tmp/resources/proc/1872/task/1873/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/proc/1872/task/1965/cmdline -> /data/local/tmp/resources/proc/1872/task/1965/" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/other/11/status -> /data/local/tmp/resources/other/11" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/other/22/status -> /data/local/tmp/resources/other/22" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/other/33/status -> /data/local/tmp/resources/other/33" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/other/44/status -> /data/local/tmp/resources/other/44" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/other/55/status -> /data/local/tmp/resources/other/55" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/other/66/status -> /data/local/tmp/resources/other/66" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/other/77/status -> /data/local/tmp/resources/other/77" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/other/88/status -> /data/local/tmp/resources/other/88" src="res"/>
+            <option name="push" value="plugins/process_plugin/test/resources/other/99/status -> /data/local/tmp/resources/other/99" src="res"/>
+        </preparer>
+    </target>
+    <target name="hiebpf_ut">
+        <preparer>
+            <option name="push" value="../hiebpf/test/resources/elf32.unstripped -> /data/test/resources/testdata/" src="res"/>
+            <option name="push" value="../hiebpf/test/resources/elf64.stripped -> /data/test/resources/testdata/" src="res"/>
+        </preparer>
+    </target>
+    <target name="ftrace_plugin_ut">
+        <preparer>
+            <option name="push" value="plugins/ftrace_plugin/test/unittest/resource/test_raw_0 -> /data/local/tmp/" src="res"/>
+            <option name="push" value="plugins/ftrace_plugin/test/unittest/resource/test_raw_1 -> /data/local/tmp/" src="res"/>
+            <option name="push" value="plugins/ftrace_plugin/test/unittest/resource/test_raw_2 -> /data/local/tmp/" src="res"/>
+            <option name="push" value="plugins/ftrace_plugin/test/unittest/resource/test_raw_3 -> /data/local/tmp/" src="res"/>
+            <option name="push" value="plugins/ftrace_plugin/test/unittest/resource/test_tgid -> /data/local/tmp/" src="res"/>
+            <option name="push" value="plugins/ftrace_plugin/test/unittest/resource/test_comm -> /data/local/tmp/" src="res"/>
+        </preparer>
+    </target>
+    <target name="xpowerplugin_ut">
+        <preparer>
+            <option name="shell" value="aa start -a EntryAbility -b com.taobao.taobao"/>
+        </preparer>
+        <cleaner>
+            <option name="shell" value="aa force-stop com.taobao.taobao"/>
+        </cleaner>
+    </target>
+    <target name="gpudataplugin_ut">
+        <preparer>
+            <option name="push" value="plugins/gpu_plugin/test/utresources/info/1/gpustat1.txt -> /data/local/tmp/resource/" src="res"/>
+            <option name="push" value="plugins/gpu_plugin/test/utresources/info/2/gpustat2.txt -> /data/local/tmp/resource/" src="res"/>
+        </preparer>
+    </target>
+    <target name="ffrt_profiler_ut">
+        <preparer>
+            <option name="push" value="developtools/hiprofiler/ffrt_profiler_test_exe -> /data/local/tmp/" src="out"/>
+            <option name="shell" value="chmod +x /data/local/tmp/ffrt_profiler_test_exe"/>
+        </preparer>
+    </target>
+</configuration>

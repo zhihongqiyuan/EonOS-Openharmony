@@ -1,0 +1,108 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/ohos_var.gni")
+
+group("tests") {
+  deps = [
+    ":cxx_test_host_and_target",
+    "test_cdylib_crate:test_cdylib_crate(${host_toolchain})",
+    "test_proc_macro_crate:test_proc_macro_crate(${host_toolchain})",
+  ]
+  deps += [
+    "//build/rust/tests/test_cdylib_crate",
+    "//build/rust/tests/test_staticlib_crate",
+  ]
+  deps += [ ":cargo_crate_test" ]
+  if (is_system_component) {
+    deps += [ "//build/rust/tests/test_idl" ]
+  }
+  deps += [ ":original_libstd.so" ]
+  if (!use_clang_coverage) {
+    deps += [
+      "test_bin_crate:test_bin_crate(${host_toolchain})",
+      "test_dylib_crate:test_dylib_crate(${host_toolchain})",
+      "test_static_link:test_static_link(${host_toolchain})",
+      "//build/rust/tests/test_bin_crate",
+      "//build/rust/tests/test_dylib_crate",
+      "//build/rust/tests/test_rlib_crate",
+      "//build/rust/tests/test_static_link",
+    ]
+  }
+}
+
+group("ohos_rust_xxxtest_tests") {
+  testonly = true
+  deps = [
+    "test_rust_ut:test_rust_ut(${host_toolchain})",
+    "//build/rust/tests/test_proc_macro_crate/test_derive_macro:test_derive_macro(${host_toolchain})",
+    "//build/rust/tests/test_rust_ut",
+  ]
+}
+
+group("cargo_crate_test") {
+  deps = [ "test_proc_macro_cargo_crate:test_proc_macro_cargo_crate(${host_toolchain})" ]
+  if (!use_clang_coverage) {
+    deps += [
+      "test_bin_cargo_crate:test_bin_cargo_crate",
+      "test_rlib_cargo_crate:test_rlib_crate_associated_bin",
+    ]
+  }
+}
+
+group("cxx_test_host_and_target") {
+  deps = [
+    "//build/rust/tests/test_cxx:test_cxx_exe",
+    "//build/rust/tests/test_cxx:test_cxx_exe(${host_toolchain})",
+  ]
+  if (!use_clang_coverage && !use_libfuzzer) {
+    deps += [
+      "//build/rust/tests/test_bindgen_test/test_for_extern_c:test_extern_c",
+      "//build/rust/tests/test_bindgen_test/test_for_extern_c:test_extern_c(${host_toolchain})",
+      "//build/rust/tests/test_bindgen_test/test_for_h:bindgen_test_for_h",
+      "//build/rust/tests/test_bindgen_test/test_for_h:bindgen_test_for_h(${host_toolchain})",
+      "//build/rust/tests/test_bindgen_test/test_for_hello_world:bindgen_test",
+      "//build/rust/tests/test_bindgen_test/test_for_hello_world:bindgen_test(${host_toolchain})",
+      "//build/rust/tests/test_bindgen_test/test_for_hpp:bindgen_test_hpp",
+      "//build/rust/tests/test_bindgen_test/test_for_hpp:bindgen_test_hpp(${host_toolchain})",
+      "//build/rust/tests/test_cxx_rust:test_cxx_rust",
+      "//build/rust/tests/test_cxx_rust:test_cxx_rust(${host_toolchain})",
+    ]
+  }
+}
+
+ohos_prebuilt_shared_library("original_libstd.so") {
+  if (current_cpu == "arm64") {
+    source = "//prebuilts/rustc/linux-x86_64/current/lib/rustlib/aarch64-unknown-linux-ohos/lib/libstd.dylib.so"
+    output = "libstd.dylib.so"
+  } else if (current_cpu == "arm") {
+    source = "//prebuilts/rustc/linux-x86_64/current/lib/rustlib/armv7-unknown-linux-ohos/lib/libstd.dylib.so"
+    output = "libstd.dylib.so"
+  } else if ((current_cpu == "x86_64" || current_cpu == "x64") &&
+             current_os == "ohos") {
+    source = "//prebuilts/rustc/linux-x86_64/current/lib/rustlib/x86_64-unknown-linux-ohos/lib/libstd.dylib.so"
+    output = "libstd.dylib.so"
+  } else if (current_cpu == "x86_64" || current_cpu == "x64") {
+    source =
+        "//prebuilts/rustc/linux-x86_64/current/lib/libstd-ae85deb1fb5d0029.so"
+    output = "libstd-ae85deb1fb5d0029.so"
+  }
+  enable_strip = true
+  install_images = [
+    "system",
+    "updater",
+  ]
+  subsystem_name = "build"
+  part_name = "build_framework"
+}

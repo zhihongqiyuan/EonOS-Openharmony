@@ -1,0 +1,82 @@
+{
+  "name": "@ohos/previewer",
+  "description": "IDE使用相关插件",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+      "destPath": "ide/tools/previewer"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+      "name": "previewer",
+      "subsystem": "ide",
+      "syscap": [],
+      "features": [],
+      "adapted_system_type": [
+          "mini",
+          "standard"
+      ],
+      "rom": "25600KB",
+      "ram": "102400KB",
+      "hisysevent_config":[],
+      "deps": {
+          "components": [
+            "ace_engine",
+            "window_manager",
+            "ability_runtime",
+            "graphic_2d",
+            "zlib"
+          ],
+          "third_party": [
+            "bounds_checking_function",
+            "libjpeg-turbo",
+            "libwebsockets",
+            "cJSON"
+          ]
+      },
+      "build": {
+        "sub_component": [
+          "//ide/tools/previewer/cli:cli_lite",
+          "//ide/tools/previewer/cli:cli_rich",
+          "//ide/tools/previewer/jsapp:jsapp_lite",
+          "//ide/tools/previewer/jsapp:jsapp_rich",
+          "//ide/tools/previewer/mock:mock_lite",
+          "//ide/tools/previewer/mock:mock_rich",
+          "//ide/tools/previewer/util:util_lite",
+          "//ide/tools/previewer/util:util_rich",
+          "//ide/tools/previewer:rich_previewer",
+          "//ide/tools/previewer:lite_previewer",
+          "//ide/tools/previewer/jsapp/rich/external:ide_extension"
+        ],
+        "inner_kits": [
+          {
+            "type": "so",
+            "name": "//ide/tools/previewer/util:ide_util",
+            "header": {
+              "header_files": [
+                "KeyboardHelper.h",
+                "ClipboardHelper.h"
+              ],
+              "header_base": "//ide/tools/previewer/util"
+            }
+          },
+          {
+            "type": "so",
+            "name": "//ide/tools/previewer/jsapp/rich/external:ide_extension",
+            "header": {
+              "header_files": [
+                "EventRunner.h",
+                "EventHandler.h",
+                "StageContext.h",
+                "JsMockUtil.h"
+              ],
+              "header_base": "//ide/tools/previewer/jsapp/rich/external"
+            }
+          }
+        ],
+        "test": []
+      }
+  }
+}

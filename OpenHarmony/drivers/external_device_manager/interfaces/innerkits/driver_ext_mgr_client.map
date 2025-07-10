@@ -1,0 +1,15 @@
+1.0 {
+    global:
+      extern "C++" {
+        *OnRemoteRequest*;
+        *DriverExtMgrClient*;
+        *QueryDevice*;
+        *BindDevice*;
+        *UnBindDevice*;
+        *QueryDeviceInfo*;
+        *GetBusTypeByDeviceId*;
+        *QueryDriverInfo*;
+      };
+    local:
+      *;
+};

@@ -1,0 +1,1 @@
+SyntaxError: Variable 'a' has already been declared. [subpackage_module_2.sts:19:12]

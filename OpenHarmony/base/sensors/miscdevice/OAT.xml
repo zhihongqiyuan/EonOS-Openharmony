@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+
+-->
+
+<configuration>
+    <oatconfig>
+        <licensefile></licensefile>
+        <policylist>
+             <policy name="defaultPolicy" desc="" >
+                <policyitem type="compatibility" name="Apache" path="frameworks/.*" rule="may" group="defaultGroup" filefilter="defaultPolicyFilter" desc=""/>
+                <policyitem type="compatibility" name="Apache" path="interfaces/.*" rule="may" group="defaultGroup" filefilter="defaultPolicyFilter" desc=""/>
+                <policyitem type="compatibility" name="Apache" path="sa_profile/.*" rule="may" group="defaultGroup" filefilter="defaultPolicyFilter" desc=""/>
+                <policyitem type="compatibility" name="Apache" path="services/.*" rule="may" group="defaultGroup" filefilter="defaultPolicyFilter" desc=""/>
+                <policyitem type="compatibility" name="Apache" path="utils/.*" rule="may" group="defaultGroup" filefilter="defaultPolicyFilter" desc=""/>
+                <policyitem type="copyright" name="Shanghai Ruisheng Kaitai Acoustic Science Co., Ltd." path="utils/haptic_decoder/he_json/.*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc=""/>
+            </policy>
+        </policylist>
+        <filefilterlist>
+            <filefilter name="defaultFilter" desc="Files not to check">
+                <filteritem type="filename" name="*.json" desc=""/>
+                <filteritem type="filename" name="*.he" dese=".he is actually a json format haptic file"/>
+                <filteritem type="filepath" name="dir name underproject/.*.uvwxyz" desc="Describe the reason for filtering scan results"/>
+                <filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/>
+            </filefilter>
+            <filefilter name="licenseFileNamePolicyFilter" desc="Filters for LICENSE file policies">
+            </filefilter>
+            <filefilter name="readmeFileNamePolicyFilter" desc="Filters for README file policies">
+            </filefilter>
+            <filefilter name="readmeOpenSourcefileNamePolicyFilter" desc="Filters for README.OpenSource file policies">
+            </filefilter>
+            <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
+                <filteritem type="filepath" name="figures/en-us_image_0000001152988366.png" desc="png文件,不参与打包不影响兼容性"/>
+                <filteritem type="filepath" name="figures/zh-cn_image_0000001152988366.png" desc="png文件,不参与打包不影响兼容性"/>
+            </filefilter>
+        </filefilterlist>
+        <licensematcherlist>
+            <licensematcher name="uvwxyz License" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                    uvwxyz license text xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+				 " desc=""/>
+            </licensematcher>
+        </licensematcherlist>
+    </oatconfig>
+</configuration>

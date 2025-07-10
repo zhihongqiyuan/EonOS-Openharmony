@@ -1,0 +1,58 @@
+{
+    "name": "@ohos/hapsigner",
+    "version": "3.1",
+    "description": "hap包签名工具，支持.hsp、.hqf、.hap和.app等文件签名",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/developtools_hapsigner",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "developtools"
+    ],
+    "keywords": [
+        "hapsigner"
+    ],
+    "envs": {},
+    "dirs": {},
+    "segment": {
+        "destPath": "developtools/hapsigner"
+    },
+    "component": {
+        "name": "hapsigner",
+        "subsystem": "developtools",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [ "standard" ],
+        "rom": "0KB",
+        "ram": "0KB",
+        "deps": {
+            "components": [
+                "bounds_checking_function",
+                "c_utils",
+                "json",
+                "zlib"
+            ],
+            "third_party": [
+                "elfio",
+                "bzip2",
+                "openssl",
+                "jsoncpp"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//developtools/hapsigner/binary_sign_tool:binary-sign-tool",
+                "//developtools/hapsigner/hapsigntool_cpp:hap-sign-tool"
+            ],
+            "inner_kits": [],
+            "test": [
+                "//developtools/hapsigner/hapsigntool_cpp_test/unittest:hapsigntool_pc_unittest",
+                "//developtools/hapsigner/hapsigntool_cpp_test/fuzztest:hapsigntool_pc_fuzztest"
+            ]
+        }
+    }
+}

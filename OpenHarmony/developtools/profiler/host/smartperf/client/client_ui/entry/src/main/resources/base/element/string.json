@@ -1,0 +1,56 @@
+{
+  "string": [
+    {
+      "name": "entry_desc",
+      "value": "SmartPerf"
+    },
+    {
+      "name": "MainAbility_desc",
+      "value": "SmartPerf"
+    },
+    {
+      "name": "MainAbility_label",
+      "value": "SmartPerf"
+    },
+    {
+      "name": "entry_MainAbility",
+      "value": "SmartPerf"
+    },
+    {
+      "name": "mainability_description",
+      "value": "SmartPerf"
+    },
+    {
+      "name": "login",
+      "value": "登录"
+    },
+    {
+      "name": "description_collectserviceability",
+      "value": "hap sample empty service"
+    },
+    {
+      "name": "description_serviceability",
+      "value": "hap sample empty service"
+    },
+    {
+      "name": "description_floatwindowability",
+      "value": "ETS_Empty Ability"
+    },
+    {
+      "name": "entry_FloatWindowAbility",
+      "value": "entry_FloatWindowAbility"
+    },
+    {
+      "name": "description_floatwindowpage",
+      "value": "ETS_Empty Ability"
+    },
+    {
+      "name": "entry_FloatWindowPage",
+      "value": "entry_FloatWindowPage"
+    },
+    {
+      "name": "description_profileserviceability",
+      "value": "hap sample empty service"
+    }
+  ]
+}

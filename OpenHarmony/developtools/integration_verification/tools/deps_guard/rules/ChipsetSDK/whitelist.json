@@ -1,0 +1,85 @@
+[
+	"libc.so",
+	"libc++.so",
+	"libhilog.so",
+	"libhilog_ndk.z.so",
+	"libhisysevent.z.so",
+	"libhicollie.z.so",
+	"libservice_checker.z.so",
+	"libbegetutil.z.so",
+	"libbeget_proxy.z.so",
+	"libutils.z.so",
+	"libsec_shared.z.so",
+	"libhdi.z.so",
+	"libpub_utils.z.so",
+	"libhdf_ipc_adapter.z.so",
+	"libipc_single.z.so",
+	"libhdifd_parcelable.z.so",
+	"libconfigpolicy_util.z.so",
+	"libstd.dylib.so",
+	"libbacktrace_local.so",
+
+	// Third party libraries
+	"libdrm.so",
+	"libpng.z.so",
+	"libxml2.z.so",
+	"libexif.z.so",
+	"libcjson.z.so",
+	"libjsoncpp.z.so",
+	"libnl_share.z.so",
+	"libshared_libz.z.so",
+	"libcrypto_openssl.z.so",
+	"libunwind.z.so",
+	"libsurface.z.so",
+	"libsamgr_proxy.z.so",
+	"libhril_innerkits.z.so",
+	"libpower_proxy_1.0.z.so",
+
+	"libbuffer_producer_sequenceable_1.0.z.so",
+
+	"libmap_data_sequenceable_1.0.z.so",
+	"libbuffer_handle_sequenceable_1.0.z.so",
+
+	"libohosffmpeg.z.so",
+
+	// To be optimized
+	"libprotobuf_lite.z.so",
+	"libdmabufheap.z.so",
+	"libsync.z.so",
+	"libsync_fence.z.so",
+
+	// chipset modules can be depended by system directly
+	"libaccesstoken_sdk.z.so",
+	"libmetadata.z.so",
+
+	"libhdi_input.z.so",
+
+	"libhitrace_meter.so",
+	"libhdf_utils.z.so",
+	"libdisplay_buffer_vdi_impl.z.so",
+	"libdisplay_buffer_vendor.z.so",
+	"libcodec_hdi_omx_callback_type_service_impl.z.so",
+
+	// by libdisplay_layer_video.z.so for hispark taurus platform
+
+	// by libwpa.z.so for hispark taurus platform
+	"libipc_core.z.so",
+	"libffrt.z.so",
+	"libffrt.so",
+	"libbtcommon.z.so",
+	"libclang_rt.ubsan_minimal.so",
+	"libssl_openssl.z.so",
+	
+	//add by analyser noh_926_1914 system.img and vendor.img
+	"libopencv_core.z.so",
+	"libopencv_imgproc.z.so",
+	"libcurl_shared.z.so",
+	"libsystem_ability_fwk.z.so",
+	//add by analyser aln
+	"libc++_shared.so",
+
+	"libuds_channel.z.so",
+	"libsocperf_client.z.so",
+
+	"libffrt_profiler.z.so"
+]

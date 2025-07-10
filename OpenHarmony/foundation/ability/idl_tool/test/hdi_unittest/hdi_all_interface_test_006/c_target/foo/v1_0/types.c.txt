@@ -1,0 +1,620 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include "v1_0/types.h"
+#include <hdf_core_log.h>
+#include <hdf_sbuf.h>
+#include <osal_mem.h>
+#include <securec.h>
+
+static bool ReadPodArray(struct HdfSBuf *parcel, void **data, uint32_t elementSize, uint32_t *count);
+static bool WritePodArray(struct HdfSBuf *parcel, const void *data, uint32_t elementSize, uint32_t count);
+
+
+static bool ReadPodArray(struct HdfSBuf *parcel, void **data, uint32_t elementSize, uint32_t *count)
+{
+    const void * dataPtr = NULL;
+    uint32_t dataLen = 0;
+    void *memPtr = NULL;
+    uint32_t elementCount = 0;
+    if (count == NULL || data == NULL || elementSize == 0) {
+        HDF_LOGE("%{public}s: invalid param", __func__);
+        return false;
+    }
+
+    if (!HdfSbufReadUint32(parcel, &elementCount)) {
+        HDF_LOGE("%{public}s: failed to read element count", __func__);
+        return false;
+    }
+
+    if (elementCount > HDI_BUFF_MAX_SIZE / elementSize) {
+        HDF_LOGE("%{public}s: invalid elementCount", __func__);
+        return false;
+    }
+
+    if (elementCount == 0) {
+        *count = elementCount;
+        return true;
+    }
+
+    if (!HdfSbufReadBuffer(parcel, (const void **)&dataPtr, &dataLen)) {
+        HDF_LOGE("%{public}s: failed to read buffer data", __func__);
+        return false;
+    }
+
+    memPtr = OsalMemCalloc(elementSize * elementCount);
+    if (memPtr == NULL) {
+        HDF_LOGE("%{public}s: failed to malloc buffer", __func__);
+        return false;
+    }
+
+    if (memcpy_s(memPtr, elementSize * elementCount, dataPtr, elementSize * elementCount) != EOK) {
+        HDF_LOGE("%{public}s: failed to memcpy buffer", __func__);
+        OsalMemFree(memPtr);
+        return false;
+    }
+
+    *data = memPtr;
+    *count = elementCount;
+    return true;
+}
+
+static bool WritePodArray(struct HdfSBuf *parcel, const void *data, uint32_t elementSize, uint32_t count)
+{
+    if (!HdfSbufWriteUint32(parcel, count)) {
+        HDF_LOGE("%{public}s: failed to write array size", __func__);
+        return false;
+    }
+
+    if (data == NULL && count == 0) {
+        return true;
+    }
+
+    if (!HdfSbufWriteBuffer(parcel, (const void *)data, elementSize * count)) {
+        HDF_LOGE("%{public}s: failed to write array", __func__);
+        return false;
+    }
+
+    return true;
+}
+
+bool FooInfoBlockMarshalling(struct HdfSBuf *data, const struct FooInfo *dataBlock)
+{
+    uint32_t i = 0;
+    if (data == NULL) {
+        HDF_LOGE("%{public}s: invalid sbuf", __func__);
+        return false;
+    }
+
+    if (dataBlock == NULL) {
+        HDF_LOGE("%{public}s: invalid data block", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteUint32(data, dataBlock->id)) {
+        HDF_LOGE("%{public}s: write dataBlock->id failed!", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteString(data, dataBlock->name)) {
+        HDF_LOGE("%{public}s: write dataBlock->name failed!", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteUint64(data, (uint64_t)dataBlock->type)) {
+        HDF_LOGE("%{public}s: write dataBlock->type failed!", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteInt8(data, dataBlock->data1 ? 1 : 0)) {
+        HDF_LOGE("%{public}s: write dataBlock->data1 failed!", __func__);
+        return false;
+    }
+
+    if (dataBlock->data2Len > HDI_BUFF_MAX_SIZE / sizeof(bool) || !HdfSbufWriteUint32(data, dataBlock->data2Len)) {
+        HDF_LOGE("%{public}s: write dataBlock->data2Len failed!", __func__);
+        return false;
+    }
+
+    if ((dataBlock->data2 == NULL && dataBlock->data2Len != 0) || (dataBlock->data2 != NULL && dataBlock->data2Len == 0)) {
+        HDF_LOGE("%{public}s: dataBlock->data2 is invalid", __func__);
+        return false;
+    }
+
+    for (i = 0; i < dataBlock->data2Len; i++) {
+        if (!HdfSbufWriteInt8(data, (dataBlock->data2)[i] ? 1 : 0)) {
+            HDF_LOGE("%{public}s: write (dataBlock->data2)[i] failed!", __func__);
+            return false;
+        }
+    }
+
+    if (!HdfSbufWriteInt8(data, dataBlock->data3)) {
+        HDF_LOGE("%{public}s: write dataBlock->data3 failed!", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteInt16(data, dataBlock->data4)) {
+        HDF_LOGE("%{public}s: write dataBlock->data4 failed!", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteInt32(data, dataBlock->data5)) {
+        HDF_LOGE("%{public}s: write dataBlock->data5 failed!", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteInt64(data, dataBlock->data6)) {
+        HDF_LOGE("%{public}s: write dataBlock->data6 failed!", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteString(data, dataBlock->data7)) {
+        HDF_LOGE("%{public}s: write dataBlock->data7 failed!", __func__);
+        return false;
+    }
+
+    if (!WritePodArray(data, dataBlock->data14, sizeof(int32_t), dataBlock->data14Len)) {
+        HDF_LOGE("%{public}s: failed to write dataBlock->data14", __func__);
+        return false;
+    }
+
+    //Writing "" type of data is not supported
+
+    if (!HdfSbufWriteUint32(data, dataBlock->data17)) {
+        HDF_LOGE("%{public}s: write dataBlock->data17 failed!", __func__);
+        return false;
+    }
+
+    if (!WritePodArray(data, dataBlock->data18, sizeof(uint8_t), dataBlock->data18Len)) {
+        HDF_LOGE("%{public}s: failed to write dataBlock->data18", __func__);
+        return false;
+    }
+
+    if (!WritePodArray(data, dataBlock->data19, sizeof(uint16_t), dataBlock->data19Len)) {
+        HDF_LOGE("%{public}s: failed to write dataBlock->data19", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteUint32(data, dataBlock->data20)) {
+        HDF_LOGE("%{public}s: write dataBlock->data20 failed!", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteUint64(data, dataBlock->data21)) {
+        HDF_LOGE("%{public}s: write dataBlock->data21 failed!", __func__);
+        return false;
+    }
+
+    return true;
+}
+
+bool FooInfoBlockUnmarshalling(struct HdfSBuf *data, struct FooInfo *dataBlock)
+{
+    uint32_t i = 0;
+    if (data == NULL) {
+        HDF_LOGE("%{public}s: invalid sbuf", __func__);
+        return false;
+    }
+
+    if (dataBlock == NULL) {
+        HDF_LOGE("%{public}s: invalid data block", __func__);
+        return false;
+    }
+
+    if (!HdfSbufReadUint32(data, &dataBlock->id)) {
+        HDF_LOGE("%{public}s: read dataBlock->id failed!", __func__);
+        goto ERRORS;
+    }
+
+    {
+        const char *nameCp = HdfSbufReadString(data);
+        if (nameCp == NULL) {
+            HDF_LOGE("%{public}s: read nameCp failed!", __func__);
+            goto ERRORS;
+        }
+        dataBlock->name = (char*)OsalMemCalloc(strlen(nameCp) + 1);
+        if (dataBlock->name == NULL) {
+            goto ERRORS;
+        }
+        if (strcpy_s(dataBlock->name, (strlen(nameCp) + 1), nameCp) != EOK) {
+            goto ERRORS;
+        }
+        if (dataBlock->name == NULL) {
+            goto ERRORS;
+        }
+    }
+
+    {
+        uint64_t enumTmp = 0;
+        if (!HdfSbufReadUint64(data, &enumTmp)) {
+            HDF_LOGE("%{public}s: read dataBlock->type failed!", __func__);
+            goto ERRORS;
+        }
+        dataBlock->type = (enum FooType)enumTmp;
+    }
+
+    if (!HdfSbufReadInt8(data, (int8_t *)&dataBlock->data1)) {
+        HDF_LOGE("%{public}s: read dataBlock->data1 failed!", __func__);
+        goto ERRORS;
+    }
+
+    {
+        bool* data2Cp = NULL;
+        uint32_t data2CpLen = 0;
+        if (!HdfSbufReadUint32(data, &data2CpLen)) {
+            HDF_LOGE("%{public}s: read data2CpLen failed!", __func__);
+            goto ERRORS;
+        }
+        if (data2CpLen > HDI_BUFF_MAX_SIZE / sizeof(bool)) {
+            HDF_LOGE("%{public}s: data2CpLen is invalid data", __func__);
+            goto ERRORS;
+        }
+        if (data2CpLen > 0) {
+            data2Cp = (bool*)OsalMemCalloc(sizeof(bool) * data2CpLen);
+            if (data2Cp == NULL) {
+                goto ERRORS;
+            }
+            for (i = 0; i < data2CpLen; i++) {
+                if (!HdfSbufReadInt8(data, (int8_t *)&data2Cp[i])) {
+                    HDF_LOGE("%{public}s: read data2Cp[i] failed!", __func__);
+                    OsalMemFree(data2Cp);
+                    goto ERRORS;
+                }
+            }
+        }
+        dataBlock->data2 = data2Cp;
+        dataBlock->data2Len = data2CpLen;
+    }
+
+    if (!HdfSbufReadInt8(data, &dataBlock->data3)) {
+        HDF_LOGE("%{public}s: read dataBlock->data3 failed!", __func__);
+        goto ERRORS;
+    }
+
+    if (!HdfSbufReadInt16(data, &dataBlock->data4)) {
+        HDF_LOGE("%{public}s: read dataBlock->data4 failed!", __func__);
+        goto ERRORS;
+    }
+
+    if (!HdfSbufReadInt32(data, &dataBlock->data5)) {
+        HDF_LOGE("%{public}s: read dataBlock->data5 failed!", __func__);
+        goto ERRORS;
+    }
+
+    if (!HdfSbufReadInt64(data, &dataBlock->data6)) {
+        HDF_LOGE("%{public}s: read dataBlock->data6 failed!", __func__);
+        goto ERRORS;
+    }
+
+    {
+        const char *data7Cp = HdfSbufReadString(data);
+        if (data7Cp == NULL) {
+            HDF_LOGE("%{public}s: read data7Cp failed!", __func__);
+            goto ERRORS;
+        }
+        dataBlock->data7 = (char*)OsalMemCalloc(strlen(data7Cp) + 1);
+        if (dataBlock->data7 == NULL) {
+            goto ERRORS;
+        }
+        if (strcpy_s(dataBlock->data7, (strlen(data7Cp) + 1), data7Cp) != EOK) {
+            goto ERRORS;
+        }
+        if (dataBlock->data7 == NULL) {
+            goto ERRORS;
+        }
+    }
+
+    {
+        int32_t* data14Cp = NULL;
+        uint32_t data14CpLen = 0;
+        if (!ReadPodArray(data, (void**)&data14Cp, sizeof(int32_t), &data14CpLen)) {
+            HDF_LOGE("%{public}s: failed to read data14Cp", __func__);
+            goto ERRORS;
+        }
+        dataBlock->data14 = data14Cp;
+        dataBlock->data14Len = data14CpLen;
+    }
+
+    //Reading "" type of data is not supported
+
+    if (!HdfSbufReadUint32(data, &dataBlock->data17)) {
+        HDF_LOGE("%{public}s: read dataBlock->data17 failed!", __func__);
+        goto ERRORS;
+    }
+
+    {
+        uint8_t* data18Cp = NULL;
+        uint32_t data18CpLen = 0;
+        if (!ReadPodArray(data, (void**)&data18Cp, sizeof(uint8_t), &data18CpLen)) {
+            HDF_LOGE("%{public}s: failed to read data18Cp", __func__);
+            goto ERRORS;
+        }
+        dataBlock->data18 = data18Cp;
+        dataBlock->data18Len = data18CpLen;
+    }
+
+    {
+        uint16_t* data19Cp = NULL;
+        uint32_t data19CpLen = 0;
+        if (!ReadPodArray(data, (void**)&data19Cp, sizeof(uint16_t), &data19CpLen)) {
+            HDF_LOGE("%{public}s: failed to read data19Cp", __func__);
+            goto ERRORS;
+        }
+        dataBlock->data19 = data19Cp;
+        dataBlock->data19Len = data19CpLen;
+    }
+
+    if (!HdfSbufReadUint32(data, &dataBlock->data20)) {
+        HDF_LOGE("%{public}s: read dataBlock->data20 failed!", __func__);
+        goto ERRORS;
+    }
+
+    if (!HdfSbufReadUint64(data, &dataBlock->data21)) {
+        HDF_LOGE("%{public}s: read dataBlock->data21 failed!", __func__);
+        goto ERRORS;
+    }
+
+    return true;
+ERRORS:
+    if (dataBlock->name != NULL) {
+        OsalMemFree(dataBlock->name);
+        dataBlock->name = NULL;
+    }
+
+    if (dataBlock->data2 != NULL) {
+        OsalMemFree(dataBlock->data2);
+        dataBlock->data2 = NULL;
+    }
+
+    if (dataBlock->data7 != NULL) {
+        OsalMemFree(dataBlock->data7);
+        dataBlock->data7 = NULL;
+    }
+
+    if (dataBlock->data14 != NULL) {
+        OsalMemFree(dataBlock->data14);
+        dataBlock->data14 = NULL;
+    }
+
+    if (dataBlock->data18 != NULL) {
+        OsalMemFree(dataBlock->data18);
+        dataBlock->data18 = NULL;
+    }
+
+    if (dataBlock->data19 != NULL) {
+        OsalMemFree(dataBlock->data19);
+        dataBlock->data19 = NULL;
+    }
+
+    return false;
+}
+
+void FooInfoFree(struct FooInfo *dataBlock, bool freeSelf)
+{
+    if (dataBlock == NULL) {
+        return;
+    }
+
+    if (dataBlock->name != NULL) {
+        OsalMemFree(dataBlock->name);
+        dataBlock->name = NULL;
+    }
+
+    if (dataBlock->data2 != NULL) {
+        OsalMemFree(dataBlock->data2);
+        dataBlock->data2 = NULL;
+    }
+
+    if (dataBlock->data7 != NULL) {
+        OsalMemFree(dataBlock->data7);
+        dataBlock->data7 = NULL;
+    }
+
+    if (dataBlock->data14 != NULL) {
+        OsalMemFree(dataBlock->data14);
+        dataBlock->data14 = NULL;
+    }
+
+    if (dataBlock->data18 != NULL) {
+        OsalMemFree(dataBlock->data18);
+        dataBlock->data18 = NULL;
+    }
+
+    if (dataBlock->data19 != NULL) {
+        OsalMemFree(dataBlock->data19);
+        dataBlock->data19 = NULL;
+    }
+
+    if (freeSelf) {
+        OsalMemFree(dataBlock);
+    }
+}
+
+bool AudioDeviceDescriptorBlockMarshalling(struct HdfSBuf *data, const struct AudioDeviceDescriptor *dataBlock)
+{
+    if (data == NULL) {
+        HDF_LOGE("%{public}s: invalid sbuf", __func__);
+        return false;
+    }
+
+    if (dataBlock == NULL) {
+        HDF_LOGE("%{public}s: invalid data block", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteUint32(data, dataBlock->portId)) {
+        HDF_LOGE("%{public}s: write dataBlock->portId failed!", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteUint64(data, (uint64_t)dataBlock->pins)) {
+        HDF_LOGE("%{public}s: write dataBlock->pins failed!", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteString(data, dataBlock->desc)) {
+        HDF_LOGE("%{public}s: write dataBlock->desc failed!", __func__);
+        return false;
+    }
+
+    return true;
+}
+
+bool AudioDeviceDescriptorBlockUnmarshalling(struct HdfSBuf *data, struct AudioDeviceDescriptor *dataBlock)
+{
+    if (data == NULL) {
+        HDF_LOGE("%{public}s: invalid sbuf", __func__);
+        return false;
+    }
+
+    if (dataBlock == NULL) {
+        HDF_LOGE("%{public}s: invalid data block", __func__);
+        return false;
+    }
+
+    if (!HdfSbufReadUint32(data, &dataBlock->portId)) {
+        HDF_LOGE("%{public}s: read dataBlock->portId failed!", __func__);
+        goto ERRORS;
+    }
+
+    {
+        uint64_t enumTmp = 0;
+        if (!HdfSbufReadUint64(data, &enumTmp)) {
+            HDF_LOGE("%{public}s: read dataBlock->pins failed!", __func__);
+            goto ERRORS;
+        }
+        dataBlock->pins = (enum AudioPortPin)enumTmp;
+    }
+
+    {
+        const char *descCp = HdfSbufReadString(data);
+        if (descCp == NULL) {
+            HDF_LOGE("%{public}s: read descCp failed!", __func__);
+            goto ERRORS;
+        }
+        dataBlock->desc = (char*)OsalMemCalloc(strlen(descCp) + 1);
+        if (dataBlock->desc == NULL) {
+            goto ERRORS;
+        }
+        if (strcpy_s(dataBlock->desc, (strlen(descCp) + 1), descCp) != EOK) {
+            goto ERRORS;
+        }
+        if (dataBlock->desc == NULL) {
+            goto ERRORS;
+        }
+    }
+
+    return true;
+ERRORS:
+    if (dataBlock->desc != NULL) {
+        OsalMemFree(dataBlock->desc);
+        dataBlock->desc = NULL;
+    }
+
+    return false;
+}
+
+void AudioDeviceDescriptorFree(struct AudioDeviceDescriptor *dataBlock, bool freeSelf)
+{
+    if (dataBlock == NULL) {
+        return;
+    }
+
+    if (dataBlock->desc != NULL) {
+        OsalMemFree(dataBlock->desc);
+        dataBlock->desc = NULL;
+    }
+
+    if (freeSelf) {
+        OsalMemFree(dataBlock);
+    }
+}
+
+bool AudioSceneDescriptorBlockMarshalling(struct HdfSBuf *data, const struct AudioSceneDescriptor *dataBlock)
+{
+    if (data == NULL) {
+        HDF_LOGE("%{public}s: invalid sbuf", __func__);
+        return false;
+    }
+
+    if (dataBlock == NULL) {
+        HDF_LOGE("%{public}s: invalid data block", __func__);
+        return false;
+    }
+
+    if (!HdfSbufWriteBuffer(data, (const void *)&dataBlock->scene, sizeof(union SceneDesc))) {
+        HDF_LOGE("%{public}s: write dataBlock->scene failed!", __func__);
+        return false;
+    }
+
+    if (!AudioDeviceDescriptorBlockMarshalling(data, &dataBlock->desc)) {
+        HDF_LOGE("%{public}s: write dataBlock->desc failed!", __func__);
+        return false;
+    }
+
+    return true;
+}
+
+bool AudioSceneDescriptorBlockUnmarshalling(struct HdfSBuf *data, struct AudioSceneDescriptor *dataBlock)
+{
+    if (data == NULL) {
+        HDF_LOGE("%{public}s: invalid sbuf", __func__);
+        return false;
+    }
+
+    if (dataBlock == NULL) {
+        HDF_LOGE("%{public}s: invalid data block", __func__);
+        return false;
+    }
+
+    union SceneDesc *sceneCp = NULL;
+    uint32_t len = 0;
+    if (!HdfSbufReadBuffer(data, (const void **)&sceneCp, &len)) {
+        HDF_LOGE("%{public}s: read sceneCp failed!", __func__);
+        goto ERRORS;
+    }
+
+    if (sceneCp == NULL || sizeof(union SceneDesc) != len) {
+        HDF_LOGE("%{public}s: read sceneCp failed!", __func__);
+        goto ERRORS;
+    }
+    if (memcpy_s(&dataBlock->scene, sizeof(union SceneDesc), sceneCp, sizeof(union SceneDesc)) != EOK) {
+        HDF_LOGE("%{public}s: failed to memcpy data", __func__);
+        goto ERRORS;
+    }
+    if (!AudioDeviceDescriptorBlockUnmarshalling(data, &dataBlock->desc)) {
+        HDF_LOGE("%{public}s: read &dataBlock->desc failed!", __func__);
+        goto ERRORS;
+    }
+
+    return true;
+ERRORS:
+    AudioDeviceDescriptorFree(&dataBlock->desc, false);
+
+    return false;
+}
+
+void AudioSceneDescriptorFree(struct AudioSceneDescriptor *dataBlock, bool freeSelf)
+{
+    if (dataBlock == NULL) {
+        return;
+    }
+
+    AudioDeviceDescriptorFree(&dataBlock->desc, false);
+
+    if (freeSelf) {
+        OsalMemFree(dataBlock);
+    }
+}

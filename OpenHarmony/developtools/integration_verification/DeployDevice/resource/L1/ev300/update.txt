@@ -1,0 +1,3 @@
+setenv bootcmd 'sf probe 0;sf read 0x40000000 0x100000 0x500000;mw 0x112c0048 1a04 1;mw 0x112c004c 1004 1;mw 0x112c0064 1004 1;mw 0x112c0060 1004 1;mw 0x112c005c 1004 1;mw 0x112c0058 1004 1;go 0x40000000';saveenv;
+setenv bootargs "console=ttyAMA0,115200n8 root=flash fstype=jffs2 rw rootaddr=6M rootsize=9M";saveenv;
+sa;reset;

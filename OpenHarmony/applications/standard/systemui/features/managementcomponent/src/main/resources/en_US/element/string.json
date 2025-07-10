@@ -1,0 +1,132 @@
+{
+  "string": [
+    {
+      "name": "notification",
+      "value": "Notification"
+    },
+    {
+      "name": "notificationManagement",
+      "value": "Notification Management"
+    },
+    {
+      "name": "batch_Management",
+      "value": "Batch Management"
+    },
+    {
+      "name": "version",
+      "value": "ver. "
+    },
+    {
+      "name": "allowNotification",
+      "value": "Allow Notification"
+    },
+    {
+      "name": "noDisturb",
+      "value": "No Disturbing"
+    },
+    {
+      "name": "noDisturb_closed",
+      "value": "Closed"
+    },
+    {
+      "name": "noDisturb_opened",
+      "value": "Opend"
+    },
+    {
+      "name": "slotType",
+      "value": "Slot Type"
+    },
+    {
+      "name": "slot_unknown",
+      "value": "No notice has been issued"
+    },
+    {
+      "name": "slot_social_communication",
+      "value": "Social Communication"
+    },
+    {
+      "name": "slot_service_information",
+      "value": "Service Information"
+    },
+    {
+      "name": "slot_content_information",
+      "value": "Content Information"
+    },
+    {
+      "name": "slot_other",
+      "value": "Other"
+    },
+    {
+      "name": "startDate",
+      "value": "Start Date"
+    },
+    {
+      "name": "endDate",
+      "value": "End Date"
+    },
+    {
+      "name": "startTime",
+      "value": "Start Time"
+    },
+    {
+      "name": "endTime",
+      "value": "End Time"
+    },
+    {
+      "name": "repeat",
+      "value": "Repeat"
+    },
+    {
+      "name": "noDisturb_once_label",
+      "value": "Once:"
+    },
+    {
+      "name": "noDisturb_daily_label",
+      "value": "Daily:"
+    },
+    {
+      "name": "noDisturb_clearly_label",
+      "value": "Clearly:"
+    },
+    {
+      "name": "noDisturb_none",
+      "value": "None"
+    },
+    {
+      "name": "noDisturb_once",
+      "value": "Once"
+    },
+    {
+      "name": "noDisturb_daily",
+      "value": "Daily"
+    },
+    {
+      "name": "noDisturb_clearly",
+      "value": "Clearly"
+    },
+    {
+      "name": "noDisturb_nextDay",
+      "value": "Next day "
+    },
+    {
+      "name": "cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "confirm",
+      "value": "Confirm"
+    },
+    {
+      "name": "notificationStyle",
+      "value": "Notification Style"
+    },
+    {
+      "name": "notificationStyle_banner",
+      "value": "Notification Banner"
+    },
+    {
+      "name": "notificationSound",
+      "value": "Notification Sound"
+    }
+  ]
+}

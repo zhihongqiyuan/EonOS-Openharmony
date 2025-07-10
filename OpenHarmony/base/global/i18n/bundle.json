@@ -1,0 +1,159 @@
+{
+    "name": "@ohos/i18n",
+    "version": "1.0.0",
+    "description": "Provides internationalization APIS for implementing functions such date and time formatting.",
+    "homePage": "https://gitee.com/openharmony/",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/global_i18n",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "global"
+    ],
+    "keywords": [
+        "i18n",
+        "standard"
+    ],
+    "envs": [],
+    "dirs": [],
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [
+        {
+            "name": "",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "segment": {
+        "destPath": "base/global/i18n"
+    },
+    "component": {
+        "name": "i18n",
+        "subsystem": "global",
+        "syscap": [
+            "SystemCapability.Global.I18n"
+        ],
+        "features": [
+            "i18n_support_ui",
+            "i18n_support_app_preferred_language"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "ability_base",
+                "ability_runtime",
+                "access_token",
+                "bundle_framework",
+                "common_event_service",
+                "config_policy",
+                "cJSON",
+                "c_utils",
+                "eventhandler",
+                "hilog",
+                "icu",
+                "init",
+                "ipc",
+                "libphonenumber",
+                "libpng",
+                "libxml2",
+                "memmgr",
+                "napi",
+                "openssl",
+                "os_account",
+                "preferences",
+                "protobuf",
+                "resource_management",
+                "safwk",
+                "samgr",
+                "selinux_adapter"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//base/global/i18n/frameworks/zone:zone_util",
+                "//base/global/i18n/frameworks/intl:build_module",
+                "//base/global/i18n/interfaces/js/innerkits/intl:build_module",
+                "//base/global/i18n/interfaces/js/kits:build_module",
+                "//base/global/i18n/interfaces/cj:build_module",
+                "//base/global/i18n/frameworks/intl:geocoding_depends",
+                "//base/global/i18n/ta:binary_files",
+                "//base/global/i18n/sa_profile:i18n_service_ability_profile",
+                "//base/global/i18n/services:i18n_service_ability"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//base/global/i18n/frameworks/zone:zone_util",
+                    "header": {
+                        "header_files": [
+                            "zone_util.h"
+                        ],
+                        "header_base": "//base/global/i18n/interfaces/native/inner_api/zone/include"
+                    }
+                },
+                {
+                    "name": "//base/global/i18n/frameworks/intl:intl_util",
+                    "header": {
+                        "header_files": [
+                            "i18n_types.h",
+                            "locale_config.h",
+                            "locale_info.h",
+                            "utils.h"
+                        ],
+                        "header_base": "//base/global/i18n/frameworks/intl/include"
+                    }
+                },
+                {
+                    "name": "//base/global/i18n/frameworks/intl:preferred_language",
+                    "header": {
+                        "header_files": [
+                            "preferred_language.h"
+                        ],
+                        "header_base": "//base/global/i18n/interfaces/native/inner_api/preferred_language/include"
+                    }
+                },
+                {
+                    "name": "//base/global/i18n/services:i18n_sa_client",
+                    "header": {
+                        "header_files": [
+                            "i18n_service_ability_client.h"
+                        ],
+                        "header_base": "//base/global/i18n/services/include"
+                    }
+                },
+                {
+                    "name": "//base/global/i18n/interfaces/js/innerkits/intl:intl_register",
+                    "header": {
+                        "header_files": [
+                            "replace_intl_module.h"
+                        ],
+                        "header_base": "//base/global/i18n/interfaces/js/innerkits/intl/include"
+                    }
+                },
+                {
+                    "name": "//base/global/i18n/interfaces/cj:cj_i18n_ffi"
+                },
+                {
+                    "name": "//base/global/i18n/interfaces/cj/intl:cj_intl_ffi"
+                }
+            ],
+            "test": [
+                "//base/global/i18n/frameworks/intl/test:intl_test",
+                "//base/global/i18n/frameworks/zone/test:zone_util_test",
+                "//base/global/i18n/frameworks/intl/test/fuzztest:fuzztest",
+                "//base/global/i18n/services/test:i18n_service_test"
+            ]
+        }
+    }
+}

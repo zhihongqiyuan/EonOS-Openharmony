@@ -1,0 +1,69 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+declare_args() {
+  thermal_manager_audio_framework_enable = false
+}
+defines = []
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.hiviewdfx_hisysevent)) {
+  has_hiviewdfx_hisysevent_part = true
+  defines += [ "HAS_HIVIEWDFX_HISYSEVENT_PART" ]
+} else {
+  has_hiviewdfx_hisysevent_part = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.communication_netmanager_base)) {
+  has_thermal_airplane_manager_part = true
+} else {
+  has_thermal_airplane_manager_part = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.multimedia_audio_framework)) {
+  has_thermal_audio_framework_part = true
+} else {
+  has_thermal_audio_framework_part = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.powermgr_display_manager)) {
+  has_thermal_display_manager_part = true
+  defines += [ "HAS_THERMAL_DISPLAY_MANAGER_PART" ]
+} else {
+  has_thermal_display_manager_part = false
+}
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.customization_config_policy)) {
+  has_thermal_config_policy_part = true
+} else {
+  has_thermal_config_policy_part = false
+}
+
+ability_runtime_path = "//foundation/ability/ability_runtime"
+ability_runtime_inner_api_path = "${ability_runtime_path}/interfaces/inner_api"
+ability_runtime_services_path = "${ability_runtime_path}/services"
+batterystats_utils_path = "//base/powermgr/battery_statistics/utils"
+netmanager_base_path = "//foundation/communication/netmanager_base"
+netmanager_base_inner_api_path = "${netmanager_base_path}/interfaces/innerkits"
+netmanager_base_services_path = "${netmanager_base_path}/services"
+thermalmgr_native_part_name = "thermal_manager"
+thermal_manager_path = "//base/powermgr/thermal_manager"
+thermal_inner_api = "${thermal_manager_path}/interfaces/inner_api"
+thermal_service_zidl = "${thermal_manager_path}/services/zidl"
+thermal_frameworks = "${thermal_manager_path}/frameworks"
+utils_path = "${thermal_manager_path}/utils"

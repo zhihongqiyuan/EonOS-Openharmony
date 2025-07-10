@@ -1,0 +1,106 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @addtogroup HdfFingerprintAuth
+ * @{
+ *
+ * @brief Provides APIs for the fingerprint auth driver.
+ *
+ * The fingerprint auth driver provides a unified interface for the fingerprint auth service to access the fingerprint auth driver.
+ * After obtaining the fingerprint auth driver proxy, the service can call related APIs to obtain executors.
+ * After obtaining the fingerprint auth executors, the service can call related APIs to get executor info, get
+ * template info, enroll template, authenticate template, delete template, etc.
+ *
+ * @since 4.0
+ */
+
+/**
+ * @file IExecutor.idl
+ *
+ * @brief Defines the APIs of executor. These APIs can be used to get executor info, get
+ * template info, enroll template, authenticate template, delete template, etc.
+ *
+ * @since 4.0
+ */
+
+package ohos.hdi.fingerprint_auth.v1_1;
+
+import ohos.hdi.fingerprint_auth.v1_0.FingerprintAuthTypes;
+import ohos.hdi.fingerprint_auth.v1_0.IExecutor;
+import ohos.hdi.fingerprint_auth.v1_0.IExecutorCallback;
+import ohos.hdi.fingerprint_auth.v1_1.FingerprintAuthTypes;
+import ohos.hdi.fingerprint_auth.v1_1.ISaCommandCallback;
+
+/**
+ * @brief Defines the APIs of executor. These APIs can be used to get executor info, get
+ * template info, enroll template, authenticate template, delete template, etc.
+ *
+ * @since 4.0
+ * @version 1.1
+ */
+interface IExecutor extends ohos.hdi.fingerprint_auth.v1_0.IExecutor {
+    /**
+     * @brief Authenticate template.
+     *
+     * @param scheduleId Indicates schedule id of authenticate.
+     * @param templateIdList Indicates the templates to process.
+     * @param endAfterFirstFail Indicates end authentication after the first authentication failure.
+     * @param extraInfo Indicates extra info of authenticate.
+     * @param callbackObj Indicates authenticate callback object, see {@link IExecutorCallback}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a non-zero value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.1
+     */
+    AuthenticateV1_1([in] unsigned long scheduleId, [in] unsigned long[] templateIdList, [in] boolean endAfterFirstFail, [in] unsigned char[] extraInfo, [in] IExecutorCallback callbackObj);
+    /**
+     * @brief Get property.
+     *
+     * @param templateIdList Indicates the templates to process.
+     * @param propertyTypes Indicates the property types to get. See {@link GetPropertyType}.
+     * @param property Indicates property. See {@link Property}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a non-zero value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.1
+     */
+    GetProperty([in] unsigned long[] templateIdList, [in] enum GetPropertyType[] propertyTypes, [out] struct Property property);
+    /**
+     * @brief Set cached templates.
+     *
+     * @param templateIdList Indicates the templates to cache.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a non-zero value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.1
+     */
+    SetCachedTemplates([in] unsigned long[] templateIdList);
+    /**
+     * @brief Register sa command callback.
+     *
+     * @param callbackObj Indicates the sa command callback.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a non-zero value if the operation fails.
+     */
+    RegisterSaCommandCallback([in] ISaCommandCallback callbackObj);
+}

@@ -1,0 +1,92 @@
+{
+    "name": "@ohos/hidumper",
+    "description": "Dump system information for development and test",
+    "version": "4.0",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/hiviewdfx/hidumper"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "hidumper",
+        "subsystem": "hiviewdfx",
+        "syscap": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "950KB",
+        "ram": "~2000KB",
+        "deps": {
+            "components": [
+                "ability_base",
+                "access_token",
+                "bundle_framework",
+                "c_utils",
+                "eventhandler",
+                "hilog",
+                "hiview",
+                "init",
+                "ipc",
+                "memmgr",
+                "netmanager_base",
+                "safwk",
+                "samgr",
+                "skia",
+                "drivers_interface_memorytracker",
+                "hdf_core",
+                "ability_runtime",
+                "graphic_2d",
+                "hisysevent",
+                "zlib"
+            ]
+        },
+        "hisysevent_config": [
+            "//base/hiviewdfx/hidumper/hidumper.yaml"
+        ],
+        "build": {
+            "sub_component": [
+                "//base/hiviewdfx/hidumper:bin",
+                "//base/hiviewdfx/hidumper:service"
+            ],
+            "inner_kits": [
+                {
+                    "type": "so",
+                    "name": "//base/hiviewdfx/hidumper/interfaces/innerkits:lib_dump_usage",
+                    "header": {
+                      "header_files": [
+                        "dump_usage.h"
+                      ],
+                      "header_base": "//base/hiviewdfx/hidumper/interfaces/innerkits/include/"
+                    }
+                },
+                {
+                    "type": "so",
+                    "name": "//base/hiviewdfx/hidumper/services:hidumper_client",
+                    "header": {
+                      "header_files": [
+                        "idump_broker.h",
+                        "dump_broker_proxy.h"
+                      ],
+                      "header_base": "//base/hiviewdfx/hidumper/interfaces/native/innerkits/include/"
+                    }
+                },
+                {
+                    "type": "so",
+                    "name": "//base/hiviewdfx/hidumper/services:hidumperservice_cpu_source",
+                    "header": {
+                      "header_files": [
+                        "dump_manager_cpu_service.h"
+                      ],
+                      "header_base": "//base/hiviewdfx/hidumper/services/native/include/"
+                    }
+                }
+            ],
+            "test": [
+                "//base/hiviewdfx/hidumper/test:unittest",
+                "//base/hiviewdfx/hidumper/test:fuzztest"
+            ]
+        }
+    }
+}

@@ -1,0 +1,211 @@
+/*
+ * Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+USAGE:	<generate-keypair|generate-csr|generate-cert|generate-ca|generate-app-cert|generate-profile-cert> [options]
+USAGE:  <sign-profile|verify-profile|sign-app|verify-app> [options]
+
+    generate-keypair [options]:
+        -keyAlias : key alias, required fields;
+        -keyPwd : key password, optional fields;
+        -keyAlg : key algorithm, required fields, including RSA/ECC;
+        -keySize : key size, required fields, the size of the RSA algorithm is 2048/3072/4096, and the size of the ECC algorithm is NIST-P-256/NIST-P-384;
+        -keystoreFile : keystore file, required fields, JKS or P12 format;
+        -keystorePwd : keystore password, optional fields;
+        -extCfgFile : Extend Profile, optional fields;
+
+    EXAMPLE:
+        generate-keypair -keyAlias "oh-app1-key-v1" -keyPwd ****** -keyAlg ECC -keySize NIST-P-256 -keystoreFile "D:\OH\app-keypair.jks" -keystorePwd ******
+        generate-keypair -keyAlias "oh-profile-key-v1" -keyPwd ****** -keyAlg RSA -keySize 2048 -keystoreFile "D:\OH\profile-keypair.jks" -keystorePwd ******
+
+    generate-csr [options]:
+        -keyAlias : key alias, required fields;
+        -keyPwd : key password, optional fields;
+        -subject : certificate subject, required fields;
+        -signAlg : signature algorithm, required fields, including SHA256withRSA/SHA384withRSA/SHA256withECDSA/SHA384withECDSA;
+        -keystoreFile : keystore file, required fields, JKS or P12 format;
+        -keystorePwd : keystore password, optional fields;
+        -outFile : output file, optional fields, if not filled, it will be directly output to the console;
+        -extCfgFile : Extend Profile, optional fields;
+
+    EXAMPLE:
+        generate-csr -keyAlias "oh-app1-key-v1" -keyPwd ****** -subject "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=App1 Release" -signAlg SHA256withECDSA  -keystoreFile  "D:\OH\app-keypair.jks" -keystorePwd ****** -outFile "D:\OH\oh-app1-key-v1.csr"
+
+    generate-cert [options]:
+        -keyAlias : key alias, required fields;
+        -keyPwd : key password, optional fields;
+        -issuer : issuer subject, required fields;
+        -issuerKeyAlias : issuer key alias, required fields;
+        -issuerKeyPwd : issuer key password, optional fields;
+        -subject : certificate subject, required fields;
+        -validity : certificate validity, optional fields, the default is 1095 days;
+        -keyUsage : key usage, required fields, including digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment, keyAgreement, certificateSignature, crlSignature, encipherOnly and decipherOnly, if the certificate includes multiple key usages, separate them with commas;
+        -keyUsageCritical : whether keyUsage is a key item, optional fields, the default is true;
+        -extKeyUsage : extended key usage, optional fields, including clientAuthentication, serverAuthentication, codeSignature, emailProtection, smartCardLogin, timestamp, ocspSignature;
+        -extKeyUsageCritical : whether extKeyUsage is a key item, optional fields, the default is false;
+        -signAlg : signature algorithm, required fields, including SHA256withRSA/SHA384withRSA/SHA256withECDSA/SHA384withECDSA；
+        -basicConstraints : whether to include basicConstraints, optional fields, the default is false;
+        -basicConstraintsCritical : whether basicConstraints is a key item, optional fields, the default is false;
+        -basicConstraintsCa : whether it is CA, optional fields, the default is false;
+        -basicConstraintsPathLen : basicConstraints path length, optional fields, the default is 0;
+        -keystoreFile : keystore file, required fields, JKS or P12 format;
+        -keystorePwd : keystore password, optional fields;
+        -outFile : output file, optional fields, if not filled, it will be directly output to the console;
+        -extCfgFile : Extend Profile, optional fields;
+        -issuerKeystoreFile : issuer keystore file, optional fields, JKS or P12 format;
+        -issuerKeystorePwd : issuer keystore password, optional fields;
+
+    EXAMPLE:
+        generate-cert -keyAlias "oh-app1-key-v1" -keyPwd ****** -issuer "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=Application Signature Service CA" -issuerKeyAlias "oh-app-sign-srv-ca-key-v1" -issuerKeyPwd ****** -subject  "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=App1 Release" -validity 365 -keyUsage digitalSignature -extKeyUsage codeSignature -signAlg SHA256withECDSA  -keystoreFile  "D:\OH\app-keypair.jks" -keystorePwd ****** -outFile "D:\OH\app1.cer"
+
+    generate-ca [options]:
+        -keyAlias : key alias, required fields;
+        -keyPwd : key password, optional fields;
+        -keyAlg : key algorithm, required fields, including RSA/ECC;
+        -keySize : key size, required fields, the size of the RSA algorithm is 2048/3072/4096, and the size of the ECC algorithm is NIST-P-256/NIST-P-384;
+        -issuer : issuer subject, optional fields, if it is empty, it means root CA;
+        -issuerKeyAlias : issuer key alias, optional fields, if it is empty, it means root CA;
+        -issuerKeyPwd : issuer key password, optional fields;
+        -subject : certificate subject, required fields;
+        -validity : certificate validity, optional fields, the default is 3650 days;
+        -signAlg : signature algorithm, required fields, including SHA256withRSA/SHA384withRSA/SHA256withECDSA/SHA384withECDSA;
+        -basicConstraintsPathLen : basicConstraints path length, optional fields, the default is 0;
+        -keystoreFile : keystore file, required fields, JKS or P12 format;
+        -keystorePwd : keystore password, optional fields;
+        -outFile : output file, optional fields, if not filled, it will be directly output to the console;
+        -extCfgFile : Extend Profile, optional fields;
+        -issuerKeystoreFile : issuer keystore file, optional fields, JKS or P12 format;
+        -issuerKeystorePwd : issuer keystore password, optional fields;
+
+    EXAMPLE:
+        generate-ca -keyAlias "oh-root-ca-key-v1" -subject  "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=Root CA" -validity 365 -signAlg SHA384withECDSA  -keystoreFile  "D:\OH\app-keypair.jks" -keystorePwd ******  -outFile "D:\OH\root-ca.cer" -keyAlg RSA -keySize 2048
+        generate-ca -keyAlias "oh-app1-key-v1" -keyAlg RSA -keySize 2048 -issuer "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=Root CA" -issuerKeyAlias "oh-sub-app-ca-key-v1" -issuerKeyPwd ****** -subject  "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN= Application Signature Service CA" -validity 365 -signAlg SHA384withECDSA  -keystoreFile  "D:\OH\app-keypair.jks" -keystorePwd ******  -outFile "D:\OH\sub-app-sign-srv-ca.cer"
+        generate-ca -keyAlias "oh-profile-key-v1" -keyAlg RSA -keySize 4096 -issuer "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=Root CA" -issuerKeyAlias "oh-sub-profile-ca-key-v1" -issuerKeyPwd ****** -subject  "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN= Profile Signature Service CA" -validity 365 -signAlg SHA384withECDSA  -keystoreFile  "D:\OH\profile-keypair.jks" -keystorePwd ******  -outFile "D:\OH\sub-profile-sign-srv-ca.cer"
+
+    generate-app-cert [options]:
+        -keyAlias : key alias, required fields;
+        -keyPwd : key password, optional fields;
+        -issuer : issuer subject, required fields;
+        -issuerKeyAlias : issuer key alias, required fields;
+        -issuerKeyPwd : issuer key password, optional fields;
+        -subject : certificate subject, required fields;
+        -validity : certificate validity, optional fields, the default is 1095 days;
+        -signAlg : signature algorithm, required fields, including SHA256withRSA/SHA384withRSA/SHA256withECDSA/SHA384withECDSA;
+        -keystoreFile : keystore file, required fields, JKS or P12 format;
+        -keystorePwd : keystore password, optional fields;
+        -outForm : the format of the output certificate file, including cert/certChain, optional fields, the default is cert;
+        -rootCaCertFile : root CA certificate file, required when outForm is certChain;
+        -subCaCertFile : secondary sub-CA certificate file, required when outForm is certChain;
+        -outFile : output certificate file (certificate or certificate chain), optional fields, if not filled, it will be directly output to the console;
+        -extCfgFile : Extend Profile, optional fields;
+        -issuerKeystoreFile : issuer keystore file, optional fields, JKS or P12 format;
+        -issuerKeystorePwd : issuer keystore password, optional fields;
+
+    EXAMPLE:
+        generate-app-cert -keyAlias "oh-app1-key-v1" -keyPwd ****** -issuer "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=Application Debug Signature Service CA" -issuerKeyAlias "oh-app-sign-debug-srv-ca-key-v1" -subject  "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=App1 Debug" -validity 365 -signAlg SHA256withECDSA -rootCaCertFile "D:\OH\root-ca.cer" -subCaCertFile "D:\OH\sub-app-sign-srv-ca.cer" -keystoreFile  "D:\OH\app-keypair.jks" -keystorePwd ****** -outForm certChain -outFile "D:\OH\app-debug-cert.cer"
+        generate-app-cert -keyAlias "oh-app1-key-v1" -keyPwd ****** -issuer "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=Application Release Signature Service CA" -issuerKeyAlias "oh-app-sign-release-srv-ca-key-v1" -subject  "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=App1 Release" -validity 365 -signAlg SHA256withECDSA -rootCaCertFile "D:\OH\root-ca.cer" -subCaCertFile "D:\OH\sub-app-sign-srv-ca.cer" -keystoreFile  "D:\OH\app-keypair.jks" -keystorePwd ****** -outForm certChain -outFile "D:\OH\app-release-cert.cer"
+
+    generate-profile-cert [options]:
+        -keyAlias : key alias, required fields;
+        -keyPwd : key password, optional fields;
+        -issuer : issuer subject, required fields;
+        -issuerKeyAlias : issuer key alias, required fields;
+        -issuerKeyPwd : issuer key password, optional fields;
+        -subject : certificate subject, required fields;
+        -validity : certificate validity, optional fields, the default is 1095 days;
+        -signAlg : signature algorithm, required fields, including SHA256withRSA/SHA384withRSA/SHA256withECDSA/SHA384withECDSA;
+        -keystoreFile : keystore file, required fields, JKS or P12 format;
+        -keystorePwd : keystore password, optional fields;
+        -outForm : the format of the output certificate file, including cert/certChain, optional fields, the default is cert;
+        -rootCaCertFile : root CA certificate file, required when outForm is certChain;
+        -subCaCertFile : secondary sub-CA certificate file, required when outForm is certChain;
+        -outFile : output file, optional fields, if not filled, it will be directly output to the console;
+        -extCfgFile : Extend Profile, optional fields;
+        -issuerKeystoreFile : issuer keystore file, optional fields, JKS or P12 format;
+        -issuerKeystorePwd : issuer keystore password, optional fields;
+
+    EXAMPLE:
+        generate-profile-cert -keyAlias "oh-profile-key-v1" -keyPwd ****** -issuer "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=Provision Profile Debug Signature Service CA" -issuerKeyAlias "oh-profile-sign-debug-srv-ca-key-v1" -issuerKeyPwd ****** -subject  "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=Provision Profile Debug" -validity 365 -signAlg SHA256withECDSA  -rootCaCertFile "D:\OH\root-ca.cer" -subCaCertFile "D:\OH\sub-profile-sign-srv-ca.cer" -keystoreFile  "D:\OH\profile-keypair.jks" -keystorePwd ****** -outForm certChain -outFile "D:\OH\provision-profile-debug.cer"
+        generate-profile-cert -keyAlias "oh-profile-key-v1" -keyPwd ****** -issuer "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=Provision Profile Release Signature Service CA" -issuerKeyAlias "oh-profile-sign-release-srv-ca-key-v1" -issuerKeyPwd ****** -subject  "C=CN,O=OpenHarmony,OU=OpenHarmony Community,CN=Provision Profile Release" -validity 365 -signAlg SHA256withECDSA  -rootCaCertFile "D:\OH\root-ca.cer" -subCaCertFile "D:\OH\sub-profile-sign-srv-ca.cer" -keystoreFile  "D:\OH\profile-keypair.jks" -keystorePwd ****** -outForm certChain -outFile "D:\OH\provision-profile-release.cer"
+
+    sign-profile [options]:
+        -mode : signature mode, required fields, including localSign/remoteSign;
+        -keyAlias : key alias, required fields;
+        -keyPwd : key password, optional fields;
+        -profileCertFile : profile signing certificate (certificate chain, the order is three-level-two-root), required fields;
+        -inFile : input original Provision Profile file, required fields;
+        -signAlg : signature algorithm, required fields, including SHA256withRSA/SHA384withRSA/SHA256withECDSA/SHA384withECDSA;
+        -keystoreFile : keystore file, if signature mode is localSign, required fields, JKS or P12 format;
+        -keystorePwd : keystore password, optional fields;
+        -outFile : output the signed Provision Profile file, p7b format, required fields;
+        -extCfgFile : Extend Profile, optional fields;
+
+    EXAMPLE:
+        sign-profile -mode localSign -keyAlias "oh-profile-key-v1" -keyPwd ****** -profileCertFile "D:\OH\provision-profile-release.cer" -inFile "D:\OH\app1-profile-release.json" -signAlg SHA256withECDSA  -keystoreFile  "D:\OH\profile-keypair.jks" -keystorePwd ****** -outFile "D:\OH\signed-profile.p7b"
+
+    verify-profile [options]:
+        -inFile : signed Provision Profile file, p7b format, required fields;
+        -outFile : Verification result file (including verification result and profile content), json format, optional; if not filled, it will be directly output to the console;
+        -extCfgFile : Extend Profile, optional fields;
+
+    EXAMPLE:
+        verify-profile -inFile "D:\OH\signed-profile.p7b" -outFile "D:\OH\VerifyResult.json"
+
+    sign-app [options]:
+        -mode : signature mode, required fields, including localSign/remoteSign/remoteResign;
+        -keyAlias : key alias, required fields;
+        -keyPwd : key password, optional fields on localSign mode;
+        -appCertFile : application signature certificate file, required fields on localSign mode, optional fields on remoteSign mode;
+        -profileFile : signed Provision Profile file, p7b format, required fields;
+        -profileSigned : indicates whether the profile file has a signature.The options are as follows: 1:yes; 0:no; default value:1. optional fields;
+        -inFile : input original application package file, .hap, .bin, and .elf format, required fields;
+        -signAlg : signature algorithm, required fields, including SHA256withRSA/SHA384withRSA/SHA256withECDSA/SHA384withECDSA;
+        -keystoreFile : keystore file, if signature mode is localSign, required fields on localSign mode, JKS or P12 format;
+        -keystorePwd : keystore password, optional fields on localSign mode;
+        -outFile : output the signed Provision Profile file, required fields;
+        -extCfgFile : Extend Profile, optional fields;
+        -inForm : Enter the format of the original file. The supported file formats include .zip, .bin, and .elf.;
+        -compatibleVersion : min compatible api version for running app, required fields while input original application package file format is hap;
+        -signServer : remote signer plugin, required fields on remoteSign mode;
+        -signerPlugin : remote sign service url, required fields on remoteSign mode;
+        -onlineAuthMode : remote sign auth mode, required fields on remoteSign mode, including account;
+        -username : user account for online auth, required fields on remoteSign mode with account auth mode;
+        -userPwd : user password for online auth, required fields on remoteSign mode with account auth mode;
+        -ext : extend parameters for remote signer plugin, optional fields;
+        -signCode : Whether the HAP file is signed code, The options are as follows: 1:yes; 0:no; default value:1. code sign is only enabled for hap, hsp, hqf and elf. optional fields.
+
+    EXAMPLE:
+        sign-app -mode localSign -keyAlias "oh-app1-key-v1" -appCertFile "D:\OH\app-release-cert.cer" -profileFile "D:\OH\signed-profile.p7b" -inFile "D:\OH\app1-unsigned.hap" -signAlg SHA256withECDSA  -keystoreFile  "D:\OH\app-keypair.jks" -keystorePwd ****** -outFile "D:\OH\app1-signed.hap -compatibleVersion 8" -signCode "1"
+
+    verify-app [options]:
+        -inFile : signed application package file, hap or bin format, required fields;
+        -outCertChain : signed certificate chain file, required fields;
+        -outProfile : profile file in application package, required fields;
+        -extCfgFile : Extend Profile, optional fields;
+        -inForm : Enter the format of the original file. The supported file formats include .zip, .bin, and .elf.;
+
+    EXAMPLE:
+        verify-app -inFile "D:\OH\app1-signed.hap" -outCertChain "outCertChain.cer" -outProfile "outprofile.p7b"
+
+COMMANDS:
+        generate-keypair : generate key pair
+        generate-csr : generate certificate signing request
+        generate-cert : generate certificate in full, large and complete, any certificate can be generated
+        generate-ca : generate root/subject CA certificate, if the key does not exist, generate the key together
+        generate-app-cert : generate application debug/release certificate
+        generate-profile-cert : generate application debug/release certificate
+        sign-profile : Provision Profile file signature
+        verify-profile : Provision Profile file verification
+        sign-app : application package signature
+        verify-app : application package file verification

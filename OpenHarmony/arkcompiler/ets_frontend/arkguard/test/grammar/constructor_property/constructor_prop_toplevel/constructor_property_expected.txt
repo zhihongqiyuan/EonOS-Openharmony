@@ -1,0 +1,48 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+let b: {
+    getX2(o: number): number;
+    setX2(o: number, v: number): void;
+};
+namespace c {
+    class d {
+        x: number;
+        constructor(m: number) {
+            this.x = m;
+        }
+        getX2() {
+            return this.x;
+        }
+        obj() {
+            b = {
+                getX2(l): number { return l; },
+                setX2(j, k) { j = k; }
+            };
+        }
+    }
+    ;
+    class e {
+        constructor(public a: number, private x01: number = 1, protected x02: string = '', readonly x03: number = 2) {
+            const i = b.getX2(a); // ok
+            b.setX2(a, i + 1); // ok
+        }
+    }
+    ;
+    const f = new d(41);
+    f.obj();
+    let g = 1;
+    const h = new e(g);
+    f.getX2();
+}

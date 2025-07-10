@@ -1,0 +1,12 @@
+{
+  "devDependencies": {},
+  "name": "tablet",
+  "description": "",
+  "version": "1.0.0",
+  "dependencies": {
+    "@ohos/multi": "../../features/multi",
+    "@ohos/common": "../../common",
+    "@ohos/video": "../../features/video",
+    "@ohos/photo": "../../features/photo"
+  }
+}

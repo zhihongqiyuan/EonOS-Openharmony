@@ -1,0 +1,8 @@
+prop_ns.A
+str_prop_ns.A
+computed_ns.A
+symbol_ns.A
+prop_ns.B
+str_prop_ns.B
+computed_ns.B
+symbol_ns.B

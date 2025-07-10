@@ -1,0 +1,7 @@
+test-export-default-const:&myapp/test-export-default-const&
+test-export-default-let:&myapp/test-export-default-let&
+test-export-default-value:&myapp/test-export-default-value&
+test-export-syntax:&myapp/test-export-syntax&
+test-import-syntax-exec:&myapp/test-import-syntax-exec&
+test-local-export:&myapp/test-local-export&
+test-ts-namespace-export:&myapp/test-ts-namespace-export&

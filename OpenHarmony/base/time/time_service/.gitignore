@@ -1,0 +1,7 @@
+.idea/
+.DS_Store
+*.iml
+._*
+.clang-format
+CMakeLists.txt
+cmake-build-debug

@@ -1,0 +1,58 @@
+slotNum = 0x6
+.language ECMAScript
+.function any .#&#nameB(any a0, any a1, any a2, any a3) {
+label_1: 
+label_0: 
+	newlexenv 0x1
+	lda a3
+	stlexvar 0x0, 0x0
+	definefunc 0x0, .#&@0*#foo, 0x0
+	sta v0
+	ldlexvar 0x0, 0x0
+	sta v1
+	createarraywithbuffer 0x1, _1
+	stobjbyname 0x2, a, v1
+	ldlexvar 0x0, 0x0
+	sta v1
+	lda v0
+	stobjbyname 0x4, foo, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x2
+.language ECMAScript
+.function any .#&@0*#foo(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldlexvar 0x0, 0x0
+	ldobjbyname 0x0, a
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x7
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_4: 
+label_0: 
+	ldundefined
+	stglobalvar 0x0, nameB
+	definefunc 0x1, .#&#nameB, 0x1
+	sta v0
+	ldglobalvar 0x2, nameB
+	sta v1
+	callruntime.istrue 0x3
+	jnez label_3
+label_2: 
+	createemptyobject
+	sta v1
+	stglobalvar 0x4, nameB
+label_3: 
+	lda v0
+	callarg1 0x5, v1
+	returnundefined
+label_5: 
+}
+
+

@@ -1,0 +1,4 @@
+main_hap:&src_hap_to/main_hap&
+main_hap_import_file:&src_hap_to/main_hap_import_file&
+sdk_hap:&src_hap/sdk_hap&
+sdk_hap_import_file:&src_hap/sdk_hap_import_file&

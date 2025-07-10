@@ -1,0 +1,123 @@
+{
+  "name": "@ohos/hitrace",
+  "description": "cross-thread, cross-process, and cross-device service call chain",
+  "version": "4.0",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/hiviewdfx/hitrace"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "hitrace",
+    "subsystem": "hiviewdfx",
+    "syscap": [
+      "SystemCapability.HiviewDFX.HiTrace"
+    ],
+    "features": [
+      "hitrace_support_executable_file",
+      "hitrace_snapshot_tracebuffer_size",
+      "hitrace_snapshot_file_limit",
+      "hitrace_record_file_limit",
+      "hitrace_feature_enable_pgo",
+      "hitrace_feature_pgo_path"
+    ],
+    "adapted_system_type": [
+      "small",
+      "standard"
+    ],
+    "rom": "330KB",
+    "ram": "~320KB",
+    "deps": {
+      "components": [
+        "bounds_checking_function",
+        "cJSON",
+        "hilog",
+        "hilog_lite",
+        "hisysevent",
+        "hiview",
+        "init",
+        "napi",
+        "zlib"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//base/hiviewdfx/hitrace:hitrace_all_target"
+      ],
+      "inner_kits": [
+        {
+          "type": "so",
+          "name": "//base/hiviewdfx/hitrace/interfaces/native/innerkits:hitrace_meter",
+          "header": {
+            "header_base": "//base/hiviewdfx/hitrace/interfaces/native/innerkits/include/hitrace_meter/",
+            "header_files": [
+              "hitrace_meter.h",
+              "hitrace_meter_c.h"
+            ]
+          }
+        },
+        {
+          "type": "so",
+          "name": "//base/hiviewdfx/hitrace/interfaces/native/innerkits:hitrace_dump",
+          "header": {
+            "header_base": "//base/hiviewdfx/hitrace/interfaces/native/innerkits/include/",
+            "header_files": [
+              "hitrace_dump.h"
+            ]
+          }
+        },
+        {
+          "type": "so",
+          "name": "//base/hiviewdfx/hitrace/interfaces/native/innerkits:libhitrace_option",
+          "header": {
+            "header_base": "//base/hiviewdfx/hitrace/interfaces/native/innerkits/include/hitrace_option/",
+            "header_files": [
+              "hitrace_option.h"
+            ]
+          }
+        },
+        {
+          "type": "so",
+          "name": "//base/hiviewdfx/hitrace/interfaces/native/innerkits:libhitracechain",
+          "header": {
+            "header_base": "//base/hiviewdfx/hitrace/interfaces/native/innerkits/include/",
+            "header_files": [
+              "hitrace/hitracechain.h",
+              "hitrace/hitracechainc.h",
+              "hitrace/hitraceid.h",
+              "hitrace/trace.h",
+              "hitrace/tracechain.h"
+            ]
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/hitrace/interfaces/rust/innerkits/hitrace_meter:hitrace_meter_rust",
+          "header": {
+            "header_files": [],
+            "header_base": []
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/hitrace/interfaces/rust/innerkits/hitracechain:hitracechain_rust",
+          "header": {
+            "header_files": [],
+            "header_base": []
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/hitrace/interfaces/cj/kits/ffi:cj_hitracechain_ffi"
+        },
+        {
+          "name": "//base/hiviewdfx/hitrace/interfaces/cj/kits/ffi:cj_hitracemeter_ffi"
+        }
+      ],
+      "test": [
+        "//base/hiviewdfx/hitrace/test:hitrace_systemtest",
+        "//base/hiviewdfx/hitrace/test:hitrace_unittest",
+        "//base/hiviewdfx/hitrace/test:hitrace_fuzztest"
+      ]
+    }
+  }
+}

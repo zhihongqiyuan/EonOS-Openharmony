@@ -1,0 +1,27 @@
+device_board_hihope
+The hcs,neptune100,picture,shields and others directories are licensed under Apache License, Version 2.0.
+
+(1) The directories below are licensed under Apache License, Version 2.0.
+./dayu210/bootanimation
+./dayu210/camera
+./dayu210/cfg
+./dayu210/distributedhardware
+./dayu210/kernel
+./dayu210/startup
+./dayu210/uboot
+./dayu210/updater
+./rk3568/audio_alsa
+./rk3568/bootanimation
+./rk3568/camera
+./rk3568/cfg
+./rk3568/distributedhardware
+./rk3568/kernel
+./rk3568/loader
+./rk3568/updater
+
+(2) The directories below are licensed under GNU General Public License, version 2.
+./dayu210/audio_drivers
+./rk3568/wifi
+./rk3568/audio_drivers
+
+As for the specific use of the licenses,  please refer to the relevant description in the documents.

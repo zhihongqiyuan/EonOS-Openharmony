@@ -1,0 +1,138 @@
+{
+  "name": "@ohos/selinux_adapter",
+  "description": "security-enhanced linux(SELINUX) is a mandatory access control mechanism on linux",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/security/selinux_adapter"
+  },
+  "scripts": {},
+  "dirs": {},
+  "component": {
+    "name": "selinux_adapter",
+    "subsystem": "security",
+    "features": [
+      "selinux_adapter_build_path",
+      "selinux_adapter_components",
+      "selinux_adapter_enforce",
+      "selinux_adapter_vendor_policy_version",
+      "selinux_adapter_support_developer_mode",
+      "selinux_adapter_special_build_policy_script",
+      "selinux_adapter_extra_args",
+      "selinux_adapter_special_build_contexts_script",
+      "selinux_adapter_contexts_extra_args",
+      "selinux_adapter_special_build_selinux_gni_path",
+      "selinux_adapter_check_extend_list",
+      "selinux_adapter_seharmony_build_path",
+      "selinux_adapter_seharmony_build_path_updater",
+      "selinux_adapter_mcs_enable"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "3072KB",
+    "ram": "3072KB",
+    "deps": {
+      "components": [
+        "hilog",
+        "bounds_checking_function",
+        "selinux",
+        "pcre2"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "sub_component": [
+        "//base/security/selinux_adapter:selinux_group"
+      ],
+      "inner_kits": [
+        {
+          "name": "//base/security/selinux_adapter:libload_policy",
+          "header": {
+            "header_files": [
+              "policycoreutils.h"
+            ],
+            "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
+          }
+        },
+        {
+          "name": "//base/security/selinux_adapter:librestorecon",
+          "header": {
+            "header_files": [
+              "policycoreutils.h"
+            ],
+            "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
+          }
+        },
+        {
+          "name": "//base/security/selinux_adapter:librestorecon_static",
+          "header": {
+            "header_files": [
+              "policycoreutils.h"
+            ],
+            "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
+          }
+        },
+        {
+          "name": "//base/security/selinux_adapter:libhap_restorecon",
+          "header": {
+            "header_files": [
+              "hap_restorecon.h"
+            ],
+            "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
+          }
+        },
+        {
+          "name": "//base/security/selinux_adapter:libparaperm_checker",
+          "header": {
+            "header_files": [
+              "selinux_parameter.h"
+            ],
+            "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
+          }
+        },
+        {
+          "name": "//base/security/selinux_adapter:libservice_checker",
+          "header": {
+            "header_files": [
+              "service_checker.h",
+              "hdf_service_checker.h"
+            ],
+            "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
+          }
+        },
+        {
+          "name": "//base/security/selinux_adapter:libselinux_parameter_static",
+          "header": {
+            "header_files": [
+              "contexts_trie.h",
+              "selinux_map.h",
+              "selinux_parameter.h",
+              "selinux_share_mem.h"
+            ],
+            "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
+          }
+        },
+        {
+          "name": "//base/security/selinux_adapter:libselinux_parameter_static_noflto",
+          "header": {
+            "header_files": [
+              "contexts_trie.h",
+              "selinux_map.h",
+              "selinux_parameter.h",
+              "selinux_share_mem.h"
+            ],
+            "header_base": "//base/security/selinux_adapter/interfaces/policycoreutils/include"
+          }
+        },
+        {
+          "name": "//base/security/selinux_adapter:file_contexts"
+        }
+      ],
+      "test": [
+        "//base/security/selinux_adapter/test:unittest"
+      ]
+    }
+  }
+}

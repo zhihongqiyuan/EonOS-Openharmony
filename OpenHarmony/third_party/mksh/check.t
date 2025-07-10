@@ -12415,4 +12415,1507 @@ stdin:
 	vara=1  varb='2  3'  cmd  arg1  $arg2  "$arg3  4" >&3
 	#TPAREN_TPIPE_TLIST
 	(echo $foo  |  tr -dc 0-9 >&3; echo >&3) >&3
-	#TAND_TO
+	#TAND_TOR
+	cmd  >&3 &&  >&3 echo ja  ||  echo >&3 nein
+	#TSELECT
+	select  file  in  *;  do  echo  "<$file>" ;  break >&3 ;  done >&3
+	#TFOR_TTIME
+	for  i  in  {1,2,3}  ;  do  time  >&3 echo  $i ;  done >&3
+	#TCASE
+	case  $foo  in  1)  echo eins >&3;& 2) echo zwei >&3  ;| *) echo kann net bis drei z√§hlen >&3;;  esac >&3
+	#TIF_TBANG_TDBRACKET_TELIF
+	if  !  [[  1  =  1  ]]  >&3 ;  then  echo eins;  elif [[ 1 = 2 ]] >&3; then echo zwei  ;else echo drei; fi >&3
+	#TWHILE
+	i=1; while (( i < 10 )) >&3; do echo $i; let ++i; done >&3
+	#TUNTIL
+	i=10; until  (( !--i )) >&3 ; do echo $i; done >&3
+	#TCOPROC
+	cat  *  >&3 |&  >&3 ls
+	#TFUNCT_TBRACE_TASYNC
+	function  korn  {  echo eins; echo >&3 zwei ;  }
+	bourne  ()  {  logger *  >&3 &  }
+	#COMSUB_EXPRSUB
+	echo $(true >&3) $((1+ 2))
+	#0
+	EOD
+expected-stdout:
+	inline_TCOM() {
+		vara=1  varb='2  3'  cmd  arg1  $arg2  "$arg3  4" >&3
+	}
+	inline_TCOM() {
+		vara=1 varb="2  3" \cmd arg1 $arg2 "$arg3  4" >&3 
+	} 
+	function comsub_TCOM { x=$(
+		vara=1  varb='2  3'  cmd  arg1  $arg2  "$arg3  4" >&3
+	); }
+	function comsub_TCOM {
+		x=$(vara=1 varb="2  3" \cmd arg1 $arg2 "$arg3  4" >&3 ) 
+	} 
+	function reread_TCOM { x=$((
+		vara=1  varb='2  3'  cmd  arg1  $arg2  "$arg3  4" >&3
+	)|tr u x); }
+	function reread_TCOM {
+		x=$( ( vara=1 varb="2  3" \cmd arg1 $arg2 "$arg3  4" >&3 ) | \tr u x ) 
+	} 
+	inline_TPAREN_TPIPE_TLIST() {
+		(echo $foo  |  tr -dc 0-9 >&3; echo >&3) >&3
+	}
+	inline_TPAREN_TPIPE_TLIST() {
+		( \echo $foo | \tr -dc 0-9 >&3 
+		  \echo >&3 ) >&3 
+	} 
+	function comsub_TPAREN_TPIPE_TLIST { x=$(
+		(echo $foo  |  tr -dc 0-9 >&3; echo >&3) >&3
+	); }
+	function comsub_TPAREN_TPIPE_TLIST {
+		x=$( ( \echo $foo | \tr -dc 0-9 >&3 ; \echo >&3 ) >&3 ) 
+	} 
+	function reread_TPAREN_TPIPE_TLIST { x=$((
+		(echo $foo  |  tr -dc 0-9 >&3; echo >&3) >&3
+	)|tr u x); }
+	function reread_TPAREN_TPIPE_TLIST {
+		x=$( ( ( \echo $foo | \tr -dc 0-9 >&3 ; \echo >&3 ) >&3 ) | \tr u x ) 
+	} 
+	inline_TAND_TOR() {
+		cmd  >&3 &&  >&3 echo ja  ||  echo >&3 nein
+	}
+	inline_TAND_TOR() {
+		\cmd >&3 && \echo ja >&3 || \echo nein >&3 
+	} 
+	function comsub_TAND_TOR { x=$(
+		cmd  >&3 &&  >&3 echo ja  ||  echo >&3 nein
+	); }
+	function comsub_TAND_TOR {
+		x=$(\cmd >&3 && \echo ja >&3 || \echo nein >&3 ) 
+	} 
+	function reread_TAND_TOR { x=$((
+		cmd  >&3 &&  >&3 echo ja  ||  echo >&3 nein
+	)|tr u x); }
+	function reread_TAND_TOR {
+		x=$( ( \cmd >&3 && \echo ja >&3 || \echo nein >&3 ) | \tr u x ) 
+	} 
+	inline_TSELECT() {
+		select  file  in  *;  do  echo  "<$file>" ;  break >&3 ;  done >&3
+	}
+	inline_TSELECT() {
+		select file in * 
+		do
+			\echo "<$file>" 
+			\break >&3 
+		done >&3 
+	} 
+	function comsub_TSELECT { x=$(
+		select  file  in  *;  do  echo  "<$file>" ;  break >&3 ;  done >&3
+	); }
+	function comsub_TSELECT {
+		x=$(select file in * ; do \echo "<$file>" ; \break >&3 ; done >&3 ) 
+	} 
+	function reread_TSELECT { x=$((
+		select  file  in  *;  do  echo  "<$file>" ;  break >&3 ;  done >&3
+	)|tr u x); }
+	function reread_TSELECT {
+		x=$( ( select file in * ; do \echo "<$file>" ; \break >&3 ; done >&3 ) | \tr u x ) 
+	} 
+	inline_TFOR_TTIME() {
+		for  i  in  {1,2,3}  ;  do  time  >&3 echo  $i ;  done >&3
+	}
+	inline_TFOR_TTIME() {
+		for i in {1,2,3} 
+		do
+			time \echo $i >&3 
+		done >&3 
+	} 
+	function comsub_TFOR_TTIME { x=$(
+		for  i  in  {1,2,3}  ;  do  time  >&3 echo  $i ;  done >&3
+	); }
+	function comsub_TFOR_TTIME {
+		x=$(for i in {1,2,3} ; do time \echo $i >&3 ; done >&3 ) 
+	} 
+	function reread_TFOR_TTIME { x=$((
+		for  i  in  {1,2,3}  ;  do  time  >&3 echo  $i ;  done >&3
+	)|tr u x); }
+	function reread_TFOR_TTIME {
+		x=$( ( for i in {1,2,3} ; do time \echo $i >&3 ; done >&3 ) | \tr u x ) 
+	} 
+	inline_TCASE() {
+		case  $foo  in  1)  echo eins >&3;& 2) echo zwei >&3  ;| *) echo kann net bis drei z√§hlen >&3;;  esac >&3
+	}
+	inline_TCASE() {
+		case $foo in
+		(1)
+			\echo eins >&3 
+			;&
+		(2)
+			\echo zwei >&3 
+			;|
+		(*)
+			\echo kann net bis drei z√§hlen >&3 
+			;;
+		esac >&3 
+	} 
+	function comsub_TCASE { x=$(
+		case  $foo  in  1)  echo eins >&3;& 2) echo zwei >&3  ;| *) echo kann net bis drei z√§hlen >&3;;  esac >&3
+	); }
+	function comsub_TCASE {
+		x=$(case $foo in (1) \echo eins >&3  ;& (2) \echo zwei >&3  ;| (*) \echo kann net bis drei z√§hlen >&3  ;; esac >&3 ) 
+	} 
+	function reread_TCASE { x=$((
+		case  $foo  in  1)  echo eins >&3;& 2) echo zwei >&3  ;| *) echo kann net bis drei z√§hlen >&3;;  esac >&3
+	)|tr u x); }
+	function reread_TCASE {
+		x=$( ( case $foo in (1) \echo eins >&3  ;& (2) \echo zwei >&3  ;| (*) \echo kann net bis drei z√§hlen >&3  ;; esac >&3 ) | \tr u x ) 
+	} 
+	inline_TIF_TBANG_TDBRACKET_TELIF() {
+		if  !  [[  1  =  1  ]]  >&3 ;  then  echo eins;  elif [[ 1 = 2 ]] >&3; then echo zwei  ;else echo drei; fi >&3
+	}
+	inline_TIF_TBANG_TDBRACKET_TELIF() {
+		if ! [[ 1 = 1 ]] >&3 
+		then
+			\echo eins 
+		elif [[ 1 = 2 ]] >&3 
+		then
+			\echo zwei 
+		else
+			\echo drei 
+		fi >&3 
+	} 
+	function comsub_TIF_TBANG_TDBRACKET_TELIF { x=$(
+		if  !  [[  1  =  1  ]]  >&3 ;  then  echo eins;  elif [[ 1 = 2 ]] >&3; then echo zwei  ;else echo drei; fi >&3
+	); }
+	function comsub_TIF_TBANG_TDBRACKET_TELIF {
+		x=$(if ! [[ 1 = 1 ]] >&3 ; then \echo eins ; elif [[ 1 = 2 ]] >&3 ; then \echo zwei ; else \echo drei ; fi >&3 ) 
+	} 
+	function reread_TIF_TBANG_TDBRACKET_TELIF { x=$((
+		if  !  [[  1  =  1  ]]  >&3 ;  then  echo eins;  elif [[ 1 = 2 ]] >&3; then echo zwei  ;else echo drei; fi >&3
+	)|tr u x); }
+	function reread_TIF_TBANG_TDBRACKET_TELIF {
+		x=$( ( if ! [[ 1 = 1 ]] >&3 ; then \echo eins ; elif [[ 1 = 2 ]] >&3 ; then \echo zwei ; else \echo drei ; fi >&3 ) | \tr u x ) 
+	} 
+	inline_TWHILE() {
+		i=1; while (( i < 10 )) >&3; do echo $i; let ++i; done >&3
+	}
+	inline_TWHILE() {
+		i=1 
+		while {
+			      \\builtin let " i < 10 " 
+		      } >&3 
+		do
+			\echo $i 
+			\let ++i 
+		done >&3 
+	} 
+	function comsub_TWHILE { x=$(
+		i=1; while (( i < 10 )) >&3; do echo $i; let ++i; done >&3
+	); }
+	function comsub_TWHILE {
+		x=$(i=1 ; while { \\builtin let " i < 10 " ; } >&3 ; do \echo $i ; \let ++i ; done >&3 ) 
+	} 
+	function reread_TWHILE { x=$((
+		i=1; while (( i < 10 )) >&3; do echo $i; let ++i; done >&3
+	)|tr u x); }
+	function reread_TWHILE {
+		x=$( ( i=1 ; while { \\builtin let " i < 10 " ; } >&3 ; do \echo $i ; \let ++i ; done >&3 ) | \tr u x ) 
+	} 
+	inline_TUNTIL() {
+		i=10; until  (( !--i )) >&3 ; do echo $i; done >&3
+	}
+	inline_TUNTIL() {
+		i=10 
+		until {
+			      \\builtin let " !--i " 
+		      } >&3 
+		do
+			\echo $i 
+		done >&3 
+	} 
+	function comsub_TUNTIL { x=$(
+		i=10; until  (( !--i )) >&3 ; do echo $i; done >&3
+	); }
+	function comsub_TUNTIL {
+		x=$(i=10 ; until { \\builtin let " !--i " ; } >&3 ; do \echo $i ; done >&3 ) 
+	} 
+	function reread_TUNTIL { x=$((
+		i=10; until  (( !--i )) >&3 ; do echo $i; done >&3
+	)|tr u x); }
+	function reread_TUNTIL {
+		x=$( ( i=10 ; until { \\builtin let " !--i " ; } >&3 ; do \echo $i ; done >&3 ) | \tr u x ) 
+	} 
+	inline_TCOPROC() {
+		cat  *  >&3 |&  >&3 ls
+	}
+	inline_TCOPROC() {
+		\cat * >&3 |& 
+		\ls >&3 
+	} 
+	function comsub_TCOPROC { x=$(
+		cat  *  >&3 |&  >&3 ls
+	); }
+	function comsub_TCOPROC {
+		x=$(\cat * >&3 |&  \ls >&3 ) 
+	} 
+	function reread_TCOPROC { x=$((
+		cat  *  >&3 |&  >&3 ls
+	)|tr u x); }
+	function reread_TCOPROC {
+		x=$( ( \cat * >&3 |&  \ls >&3 ) | \tr u x ) 
+	} 
+	inline_TFUNCT_TBRACE_TASYNC() {
+		function  korn  {  echo eins; echo >&3 zwei ;  }
+		bourne  ()  {  logger *  >&3 &  }
+	}
+	inline_TFUNCT_TBRACE_TASYNC() {
+		function korn {
+			\echo eins 
+			\echo zwei >&3 
+		} 
+		bourne() {
+			\logger * >&3 & 
+		} 
+	} 
+	function comsub_TFUNCT_TBRACE_TASYNC { x=$(
+		function  korn  {  echo eins; echo >&3 zwei ;  }
+		bourne  ()  {  logger *  >&3 &  }
+	); }
+	function comsub_TFUNCT_TBRACE_TASYNC {
+		x=$(function korn { \echo eins ; \echo zwei >&3 ; } ; bourne() { \logger * >&3 &  } ) 
+	} 
+	function reread_TFUNCT_TBRACE_TASYNC { x=$((
+		function  korn  {  echo eins; echo >&3 zwei ;  }
+		bourne  ()  {  logger *  >&3 &  }
+	)|tr u x); }
+	function reread_TFUNCT_TBRACE_TASYNC {
+		x=$( ( function korn { \echo eins ; \echo zwei >&3 ; } ; bourne() { \logger * >&3 &  } ) | \tr u x ) 
+	} 
+	inline_COMSUB_EXPRSUB() {
+		echo $(true >&3) $((1+ 2))
+	}
+	inline_COMSUB_EXPRSUB() {
+		\echo $(\true >&3 ) $((1+ 2)) 
+	} 
+	function comsub_COMSUB_EXPRSUB { x=$(
+		echo $(true >&3) $((1+ 2))
+	); }
+	function comsub_COMSUB_EXPRSUB {
+		x=$(\echo $(\true >&3 ) $((1+ 2)) ) 
+	} 
+	function reread_COMSUB_EXPRSUB { x=$((
+		echo $(true >&3) $((1+ 2))
+	)|tr u x); }
+	function reread_COMSUB_EXPRSUB {
+		x=$( ( \echo $(\true >&3 ) $((1+ 2)) ) | \tr u x ) 
+	} 
+---
+name: funsub-1
+description:
+	Check that non-subenvironment command substitution works
+stdin:
+	set -e
+	foo=bar
+	echo "ob $foo ."
+	echo "${
+		echo "ib $foo :"
+		foo=baz
+		echo "ia $foo :"
+		false
+	}" .
+	echo "oa $foo ."
+expected-stdout:
+	ob bar .
+	ib bar :
+	ia baz : .
+	oa baz .
+---
+name: funsub-2
+description:
+	You can now reliably use local and return in funsubs
+	(not exit though)
+stdin:
+	x=q; e=1; x=${ echo a; e=2; echo x$e;}; echo 1:y$x,$e,$?.
+	x=q; e=1; x=${ echo a; typeset e=2; echo x$e;}; echo 2:y$x,$e,$?.
+	x=q; e=1; x=${ echo a; typeset e=2; return 3; echo x$e;}; echo 3:y$x,$e,$?.
+expected-stdout:
+	1:ya x2,2,0.
+	2:ya x2,1,0.
+	3:ya,1,3.
+---
+name: valsub-1
+description:
+	Check that "value substitutions" work as advertised
+stdin:
+	x=1
+	y=2
+	z=3
+	REPLY=4
+	echo "before:	x<$x> y<$y> z<$z> R<$REPLY>"
+	x=${|
+		local y
+		echo "start:	x<$x> y<$y> z<$z> R<$REPLY>"
+		x=5
+		y=6
+		z=7
+		REPLY=8
+		echo "end:	x<$x> y<$y> z<$z> R<$REPLY>"
+	}
+	echo "after:	x<$x> y<$y> z<$z> R<$REPLY>"
+	# ensure trailing newlines are kept
+	t=${|REPLY=$'foo\n\n';}
+	typeset -p t
+	echo -n this used to segfault
+	echo ${|true;}$(true).
+expected-stdout:
+	before:	x<1> y<2> z<3> R<4>
+	start:	x<1> y<> z<3> R<>
+	end:	x<5> y<6> z<7> R<8>
+	after:	x<8> y<2> z<7> R<4>
+	typeset t=$'foo\n\n'
+	this used to segfault.
+---
+name: event-subst-3
+description:
+	Check that '!' substitution in noninteractive mode is ignored
+file-setup: file 755 "falsetto"
+	#! /bin/sh
+	echo molto bene
+	exit 42
+file-setup: file 755 "!false"
+	#! /bin/sh
+	echo si
+stdin:
+	export PATH=.$PATHSEP$PATH
+	falsetto
+	echo yeap
+	!false
+	echo meow
+	! false
+	echo = $?
+	if
+	! false; then echo foo; else echo bar; fi
+expected-stdout:
+	molto bene
+	yeap
+	si
+	meow
+	= 0
+	foo
+---
+name: event-subst-0
+description:
+	Check that '!' substitution in interactive mode is ignored
+need-ctty: yes
+arguments: !-i!
+file-setup: file 755 "falsetto"
+	#! /bin/sh
+	echo molto bene
+	exit 42
+file-setup: file 755 "!false"
+	#! /bin/sh
+	echo si
+stdin:
+	export PATH=.$PATHSEP$PATH
+	falsetto
+	echo yeap
+	!false
+	echo meow
+	! false
+	echo = $?
+	if
+	! false; then echo foo; else echo bar; fi
+expected-stdout:
+	molto bene
+	yeap
+	si
+	meow
+	= 0
+	foo
+expected-stderr-pattern:
+	/.*/
+---
+name: nounset-1
+description:
+	Check that "set -u" matches (future) SUSv4 requirement
+stdin:
+	(set -u
+	try() {
+		local v
+		eval v=\$$1
+		if [[ -n $v ]]; then
+			echo $1=nz
+		else
+			echo $1=zf
+		fi
+	}
+	x=y
+	(echo $x)
+	echo =1
+	(echo $y)
+	echo =2
+	(try x)
+	echo =3
+	(try y)
+	echo =4
+	(try 0)
+	echo =5
+	(try 2)
+	echo =6
+	(try)
+	echo =7
+	(echo at=$@)
+	echo =8
+	(echo asterisk=$*)
+	echo =9
+	(echo $?)
+	echo =10
+	(echo $!)
+	echo =11
+	(echo $-)
+	echo =12
+	#(echo $_)
+	#echo =13
+	(echo $#)
+	echo =14
+	(mypid=$$; try mypid)
+	echo =15
+	) 2>&1 | sed -e 's/^[A-Za-z]://' -e 's/^[^]]*]//' -e 's/^[^:]*: *//'
+	exit ${PIPESTATUS[0]}
+expected-stdout:
+	y
+	=1
+	y: parameter not set
+	=2
+	x=nz
+	=3
+	y: parameter not set
+	=4
+	0=nz
+	=5
+	2: parameter not set
+	=6
+	1: parameter not set
+	=7
+	at=
+	=8
+	asterisk=
+	=9
+	0
+	=10
+	!: parameter not set
+	=11
+	ush
+	=12
+	0
+	=14
+	mypid=nz
+	=15
+---
+name: nameref-1
+description:
+	Testsuite for nameref (bound variables)
+stdin:
+	bar=global
+	typeset -n ir2=bar
+	typeset -n ind=ir2
+	echo !ind: ${!ind}
+	echo ind: $ind
+	echo !ir2: ${!ir2}
+	echo ir2: $ir2
+	typeset +n ind
+	echo !ind: ${!ind}
+	echo ind: $ind
+	typeset -n ir2=ind
+	echo !ir2: ${!ir2}
+	echo ir2: $ir2
+	set|grep ^ir2|sed 's/^/s1: /'
+	typeset|grep ' ir2'|sed -e 's/^/s2: /' -e 's/nameref/typeset -n/'
+	set -A blub -- e1 e2 e3
+	typeset -n ind=blub
+	typeset -n ir2=blub[2]
+	echo !ind[1]: ${!ind[1]}
+	echo !ir2: $!ir2
+	echo ind[1]: ${ind[1]}
+	echo ir2: $ir2
+expected-stdout:
+	!ind: bar
+	ind: global
+	!ir2: bar
+	ir2: global
+	!ind: ind
+	ind: ir2
+	!ir2: ind
+	ir2: ir2
+	s1: ir2=ind
+	s2: typeset -n ir2
+	!ind[1]: blub[1]
+	!ir2: ir2
+	ind[1]: e2
+	ir2: e3
+---
+name: nameref-2da
+description:
+	Testsuite for nameref (bound variables)
+	Functions, argument given directly, after local
+stdin:
+	function foo {
+		typeset bar=lokal baz=auch
+		typeset -n v=bar
+		echo entering
+		echo !v: ${!v}
+		echo !bar: ${!bar}
+		echo !baz: ${!baz}
+		echo bar: $bar
+		echo v: $v
+		v=123
+		echo bar: $bar
+		echo v: $v
+		echo exiting
+	}
+	bar=global
+	echo bar: $bar
+	foo bar
+	echo bar: $bar
+expected-stdout:
+	bar: global
+	entering
+	!v: bar
+	!bar: bar
+	!baz: baz
+	bar: lokal
+	v: lokal
+	bar: 123
+	v: 123
+	exiting
+	bar: global
+---
+name: nameref-3
+description:
+	Advanced testsuite for bound variables (ksh93 fails this)
+stdin:
+	typeset -n foo=bar[i]
+	set -A bar -- b c a
+	for i in 0 1 2 3; do
+		print $i $foo .
+	done
+expected-stdout:
+	0 b .
+	1 c .
+	2 a .
+	3 .
+---
+name: nameref-4
+description:
+	Ensure we don't run in an infinite loop
+time-limit: 3
+stdin:
+	baz() {
+		typeset -n foo=fnord fnord=foo
+		foo[0]=bar
+	}
+	set -A foo bad
+	echo sind $foo .
+	baz
+	echo blah $foo .
+expected-stdout:
+	sind bad .
+	blah bad .
+expected-stderr-pattern:
+	/fnord: expression recurses on parameter/
+---
+name: better-parens-1a
+description:
+	Check support for ((‚Ä¶)) and $((‚Ä¶)) vs (‚Ä¶) and $(‚Ä¶)
+stdin:
+	if ( (echo fubar)|tr u x); then
+		echo ja
+	else
+		echo nein
+	fi
+expected-stdout:
+	fxbar
+	ja
+---
+name: better-parens-1b
+description:
+	Check support for ((‚Ä¶)) and $((‚Ä¶)) vs (‚Ä¶) and $(‚Ä¶)
+stdin:
+	echo $( (echo fubar)|tr u x) $?
+expected-stdout:
+	fxbar 0
+---
+name: better-parens-1c
+description:
+	Check support for ((‚Ä¶)) and $((‚Ä¶)) vs (‚Ä¶) and $(‚Ä¶)
+stdin:
+	x=$( (echo fubar)|tr u x); echo $x $?
+expected-stdout:
+	fxbar 0
+---
+name: better-parens-2a
+description:
+	Check support for ((‚Ä¶)) and $((‚Ä¶)) vs (‚Ä¶) and $(‚Ä¶)
+stdin:
+	if ((echo fubar)|tr u x); then
+		echo ja
+	else
+		echo nein
+	fi
+expected-stdout:
+	fxbar
+	ja
+---
+name: better-parens-2b
+description:
+	Check support for ((‚Ä¶)) and $((‚Ä¶)) vs (‚Ä¶) and $(‚Ä¶)
+stdin:
+	echo $((echo fubar)|tr u x) $?
+expected-stdout:
+	fxbar 0
+---
+name: better-parens-2c
+description:
+	Check support for ((‚Ä¶)) and $((‚Ä¶)) vs (‚Ä¶) and $(‚Ä¶)
+stdin:
+	x=$((echo fubar)|tr u x); echo $x $?
+expected-stdout:
+	fxbar 0
+---
+name: better-parens-3a
+description:
+	Check support for ((‚Ä¶)) and $((‚Ä¶)) vs (‚Ä¶) and $(‚Ä¶)
+stdin:
+	if ( (echo fubar)|(tr u x)); then
+		echo ja
+	else
+		echo nein
+	fi
+expected-stdout:
+	fxbar
+	ja
+---
+name: better-parens-3b
+description:
+	Check support for ((‚Ä¶)) and $((‚Ä¶)) vs (‚Ä¶) and $(‚Ä¶)
+stdin:
+	echo $( (echo fubar)|(tr u x)) $?
+expected-stdout:
+	fxbar 0
+---
+name: better-parens-3c
+description:
+	Check support for ((‚Ä¶)) and $((‚Ä¶)) vs (‚Ä¶) and $(‚Ä¶)
+stdin:
+	x=$( (echo fubar)|(tr u x)); echo $x $?
+expected-stdout:
+	fxbar 0
+---
+name: better-parens-4a
+description:
+	Check support for ((‚Ä¶)) and $((‚Ä¶)) vs (‚Ä¶) and $(‚Ä¶)
+stdin:
+	if ((echo fubar)|(tr u x)); then
+		echo ja
+	else
+		echo nein
+	fi
+expected-stdout:
+	fxbar
+	ja
+---
+name: better-parens-4b
+description:
+	Check support for ((‚Ä¶)) and $((‚Ä¶)) vs (‚Ä¶) and $(‚Ä¶)
+stdin:
+	echo $((echo fubar)|(tr u x)) $?
+expected-stdout:
+	fxbar 0
+---
+name: better-parens-4c
+description:
+	Check support for ((‚Ä¶)) and $((‚Ä¶)) vs (‚Ä¶) and $(‚Ä¶)
+stdin:
+	x=$((echo fubar)|(tr u x)); echo $x $?
+expected-stdout:
+	fxbar 0
+---
+name: better-parens-5
+description:
+	Another corner case
+stdin:
+	( (echo 'fo	o$bar' "baz\$bla\"" m\$eh) | tr a A)
+	((echo 'fo	o$bar' "baz\$bla\"" m\$eh) | tr a A)
+expected-stdout:
+	fo	o$bAr bAz$blA" m$eh
+	fo	o$bAr bAz$blA" m$eh
+---
+name: echo-test-1
+description:
+	Test what the echo builtin does (mksh)
+category: !shell:ebcdic-yes
+stdin:
+	echo -n 'foo\x40bar'
+	echo -e '\tbaz'
+expected-stdout:
+	foo@bar	baz
+---
+name: echo-test-1-ebcdic
+description:
+	Test what the echo builtin does (mksh)
+category: !shell:ebcdic-no
+stdin:
+	echo -n 'foo\x7Cbar'
+	echo -e '\tbaz'
+expected-stdout:
+	foo@bar	baz
+---
+name: echo-test-2
+description:
+	Test what the echo builtin does (POSIX)
+	Note: this follows Debian Policy 10.4 which mandates
+	that -n shall be treated as an option, not XSI which
+	mandates it shall be treated as string but escapes
+	shall be expanded.
+stdin:
+	test -n "$POSH_VERSION" || set -o posix
+	echo -n 'foo\x40bar'
+	echo -e '\tbaz'
+expected-stdout:
+	foo\x40bar-e \tbaz
+---
+name: echo-test-3-mnbsd
+description:
+	Test what the echo builtin does, and test a compatibility flag.
+category: mnbsdash
+stdin:
+	"$__progname" -c 'echo -n 1=\\x40$1; echo -e \\x2E' -- foo bar
+	"$__progname" -o posix -c 'echo -n 2=\\x40$1; echo -e \\x2E' -- foo bar
+	"$__progname" -o sh -c 'echo -n 3=\\x40$1; echo -e \\x2E' -- foo bar
+expected-stdout:
+	1=@foo.
+	2=\x40foo-e \x2E
+	3=\x40bar.
+---
+name: echo-test-3-normal
+description:
+	Test what the echo builtin does, and test a compatibility flag.
+category: !mnbsdash,!shell:ebcdic-yes
+stdin:
+	"$__progname" -c 'echo -n 1=\\x40$1; echo -e \\x2E' -- foo bar
+	"$__progname" -o posix -c 'echo -n 2=\\x40$1; echo -e \\x2E' -- foo bar
+	"$__progname" -o sh -c 'echo -n 3=\\x40$1; echo -e \\x2E' -- foo bar
+expected-stdout:
+	1=@foo.
+	2=\x40foo-e \x2E
+	3=\x40foo-e \x2E
+---
+name: echo-test-3-ebcdic
+description:
+	Test what the echo builtin does, and test a compatibility flag.
+category: !mnbsdash,!shell:ebcdic-no
+stdin:
+	"$__progname" -c 'echo -n 1=\\x7C$1; echo -e \\x4B' -- foo bar
+	"$__progname" -o posix -c 'echo -n 2=\\x7C$1; echo -e \\x4B' -- foo bar
+	"$__progname" -o sh -c 'echo -n 3=\\x7C$1; echo -e \\x4B' -- foo bar
+expected-stdout:
+	1=@foo.
+	2=\x7Cfoo-e \x4B
+	3=\x7Cfoo-e \x4B
+---
+name: utilities-getopts-1
+description:
+	getopts sets OPTIND correctly for unparsed option
+stdin:
+	set -- -a -a -x
+	while getopts :a optc; do
+	    echo "OPTARG=$OPTARG, OPTIND=$OPTIND, optc=$optc."
+	done
+	echo done
+expected-stdout:
+	OPTARG=, OPTIND=2, optc=a.
+	OPTARG=, OPTIND=3, optc=a.
+	OPTARG=x, OPTIND=4, optc=?.
+	done
+---
+name: utilities-getopts-2
+description:
+	Check OPTARG
+stdin:
+	set -- -a Mary -x
+	while getopts a: optc; do
+	    echo "OPTARG=$OPTARG, OPTIND=$OPTIND, optc=$optc."
+	done
+	echo done
+expected-stdout:
+	OPTARG=Mary, OPTIND=3, optc=a.
+	OPTARG=, OPTIND=4, optc=?.
+	done
+expected-stderr-pattern: /.*-x.*option/
+---
+name: utilities-getopts-3
+description:
+	Check unsetting OPTARG
+stdin:
+	set -- -x arg -y
+	getopts x:y opt && echo "${OPTARG-unset}"
+	getopts x:y opt && echo "${OPTARG-unset}"
+expected-stdout:
+	arg
+	unset
+---
+name: wcswidth-1
+description:
+	Check the new wcswidth feature
+stdin:
+	s=‰Ωï
+	set +U
+	print octets: ${#s} .
+	print 8-bit width: ${%s} .
+	set -U
+	print characters: ${#s} .
+	print columns: ${%s} .
+	s=ÔøΩ
+	set +U
+	print octets: ${#s} .
+	print 8-bit width: ${%s} .
+	set -U
+	print characters: ${#s} .
+	print columns: ${%s} .
+expected-stdout:
+	octets: 3 .
+	8-bit width: -1 .
+	characters: 1 .
+	columns: 2 .
+	octets: 3 .
+	8-bit width: 3 .
+	characters: 1 .
+	columns: 1 .
+---
+name: wcswidth-2
+description:
+	Check some corner cases
+stdin:
+	print % $% .
+	set -U
+	x='a	b'
+	print c ${%x} .
+	set +U
+	x='a	b'
+	print d ${%x} .
+expected-stdout:
+	% $% .
+	c -1 .
+	d -1 .
+---
+name: wcswidth-3
+description:
+	Check some corner cases
+stdin:
+	print ${%} .
+expected-stderr-pattern:
+	/bad substitution/
+expected-exit: 1
+---
+name: wcswidth-4a
+description:
+	Check some corner cases
+stdin:
+	print ${%*} .
+expected-stderr-pattern:
+	/bad substitution/
+expected-exit: 1
+---
+name: wcswidth-4b
+description:
+	Check some corner cases
+stdin:
+	print ${%@} .
+expected-stderr-pattern:
+	/bad substitution/
+expected-exit: 1
+---
+name: wcswidth-4c
+description:
+	Check some corner cases
+stdin:
+	:
+	print ${%?} .
+expected-stdout:
+	1 .
+---
+name: realpath-1
+description:
+	Check proper return values for realpath
+category: os:mirbsd
+stdin:
+	wd=$(realpath .)
+	mkdir dir
+	:>file
+	:>dir/file
+	ln -s dir lndir
+	ln -s file lnfile
+	ln -s nix lnnix
+	ln -s . lnself
+	i=0
+	chk() {
+		typeset x y
+		x=$(realpath "$wd/$1" 2>&1); y=$?
+		print $((++i)) "?$1" =${x##*$wd/} !$y
+	}
+	chk dir
+	chk dir/
+	chk dir/file
+	chk dir/nix
+	chk file
+	chk file/
+	chk file/file
+	chk file/nix
+	chk nix
+	chk nix/
+	chk nix/file
+	chk nix/nix
+	chk lndir
+	chk lndir/
+	chk lndir/file
+	chk lndir/nix
+	chk lnfile
+	chk lnfile/
+	chk lnfile/file
+	chk lnfile/nix
+	chk lnnix
+	chk lnnix/
+	chk lnnix/file
+	chk lnnix/nix
+	chk lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself
+	rm lnself
+expected-stdout:
+	1 ?dir =dir !0
+	2 ?dir/ =dir !0
+	3 ?dir/file =dir/file !0
+	4 ?dir/nix =dir/nix !0
+	5 ?file =file !0
+	6 ?file/ =file/: Not a directory !20
+	7 ?file/file =file/file: Not a directory !20
+	8 ?file/nix =file/nix: Not a directory !20
+	9 ?nix =nix !0
+	10 ?nix/ =nix !0
+	11 ?nix/file =nix/file: No such file or directory !2
+	12 ?nix/nix =nix/nix: No such file or directory !2
+	13 ?lndir =dir !0
+	14 ?lndir/ =dir !0
+	15 ?lndir/file =dir/file !0
+	16 ?lndir/nix =dir/nix !0
+	17 ?lnfile =file !0
+	18 ?lnfile/ =lnfile/: Not a directory !20
+	19 ?lnfile/file =lnfile/file: Not a directory !20
+	20 ?lnfile/nix =lnfile/nix: Not a directory !20
+	21 ?lnnix =nix !0
+	22 ?lnnix/ =nix !0
+	23 ?lnnix/file =lnnix/file: No such file or directory !2
+	24 ?lnnix/nix =lnnix/nix: No such file or directory !2
+	25 ?lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself =lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself/lnself: Too many levels of symbolic links !62
+---
+name: realpath-2
+description:
+	Ensure that exactly two leading slashes are not collapsed
+	POSIX guarantees this exception, e.g. for UNC paths on Cygwin
+category: os:mirbsd
+stdin:
+	ln -s /bin t1
+	ln -s //bin t2
+	ln -s ///bin t3
+	realpath /bin
+	realpath //bin
+	realpath ///bin
+	realpath /usr/bin
+	realpath /usr//bin
+	realpath /usr///bin
+	realpath t1
+	realpath t2
+	realpath t3
+	rm -f t1 t2 t3
+	cd //usr/bin
+	pwd
+	cd ../lib
+	pwd
+	realpath //usr/include/../bin
+expected-stdout:
+	/bin
+	//bin
+	/bin
+	/usr/bin
+	/usr/bin
+	/usr/bin
+	/bin
+	//bin
+	/bin
+	//usr/bin
+	//usr/lib
+	//usr/bin
+---
+name: crash-1
+description:
+	Crashed during March 2011, fixed on vernal equin≈çx ‚ò∫
+category: os:mirbsd,os:openbsd
+stdin:
+	export MALLOC_OPTIONS=FGJRSX
+	"$__progname" -c 'x=$(tr z r <<<baz); echo $x'
+expected-stdout:
+	bar
+---
+name: debian-117-1
+description:
+	Check test - bug#465250
+stdin:
+	test \( ! -e \) ; echo $?
+expected-stdout:
+	1
+---
+name: debian-117-2
+description:
+	Check test - bug#465250
+stdin:
+	test \(  -e \) ; echo $?
+expected-stdout:
+	0
+---
+name: debian-117-3
+description:
+	Check test - bug#465250
+stdin:
+	test ! -e  ; echo $?
+expected-stdout:
+	1
+---
+name: debian-117-4
+description:
+	Check test - bug#465250
+stdin:
+	test  -e  ; echo $?
+expected-stdout:
+	0
+---
+name: case-zsh
+description:
+	Check that zsh case variants work
+stdin:
+	case 'b' in
+	  a) echo a ;;
+	  b) echo b ;;
+	  c) echo c ;;
+	  *) echo x ;;
+	esac
+	echo =
+	case 'b' in
+	  a) echo a ;&
+	  b) echo b ;&
+	  c) echo c ;&
+	  *) echo x ;&
+	esac
+	echo =
+	case 'b' in
+	  a) echo a ;|
+	  b) echo b ;|
+	  c) echo c ;|
+	  *) echo x ;|
+	esac
+expected-stdout:
+	b
+	=
+	b
+	c
+	x
+	=
+	b
+	x
+---
+name: case-braces
+description:
+	Check that case end tokens are not mixed up (Debian #220272)
+stdin:
+	i=0
+	for value in 'x' '}' 'esac'; do
+		print -n "$((++i))($value)bourne "
+		case $value in
+		}) echo brace ;;
+		*) echo no ;;
+		esac
+		print -n "$((++i))($value)korn "
+		case $value {
+		esac) echo esac ;;
+		*) echo no ;;
+		}
+	done
+expected-stdout:
+	1(x)bourne no
+	2(x)korn no
+	3(})bourne brace
+	4(})korn no
+	5(esac)bourne no
+	6(esac)korn esac
+---
+name: command-shift
+description:
+	Check that 'command shift' works
+stdin:
+	function snc {
+		echo "before	0='$0' 1='$1' 2='$2'"
+		shift
+		echo "after	0='$0' 1='$1' 2='$2'"
+	}
+	function swc {
+		echo "before	0='$0' 1='$1' 2='$2'"
+		command shift
+		echo "after	0='$0' 1='$1' 2='$2'"
+	}
+	echo = without command
+	snc ‰∏Ä ‰∫å
+	echo = with command
+	swc ‰∏Ä ‰∫å
+	echo = done
+expected-stdout:
+	= without command
+	before	0='snc' 1='‰∏Ä' 2='‰∫å'
+	after	0='snc' 1='‰∫å' 2=''
+	= with command
+	before	0='swc' 1='‰∏Ä' 2='‰∫å'
+	after	0='swc' 1='‰∫å' 2=''
+	= done
+---
+name: command-set
+description:
+	Same but with set
+stdin:
+	showargs() { for s_arg in "$@"; do echo -n "<$s_arg> "; done; echo .; }
+	showargs 1 "$@"
+	set -- foo bar baz
+	showargs 2 "$@"
+	command set -- miau 'meow nyao'
+	showargs 3 "$@"
+expected-stdout:
+	<1> .
+	<2> <foo> <bar> <baz> .
+	<3> <miau> <meow nyao> .
+---
+name: command-readonly
+description:
+	These should not exit on error when prefixed
+stdin:
+	exec 2>/dev/null
+	"$__progname" -c 'readonly v; export v=foo || echo ok'
+	echo ef=$?
+	"$__progname" -c 'readonly v; command export v=foo || echo ok'
+	echo en=$?
+	"$__progname" -c 'readonly v; readonly v=foo || echo ok'
+	echo rf=$?
+	"$__progname" -c 'readonly v; command readonly v=foo || echo ok'
+	echo rn=$?
+expected-stdout:
+	ef=2
+	ok
+	en=0
+	rf=2
+	ok
+	rn=0
+---
+name: command-dot-regression
+description:
+	Check a regression in fixing the above does not appear
+stdin:
+	cat >test.mksh <<\EOF
+	set -- one two
+	shift
+	for s_arg in "$#" "$@"; do echo -n "<$s_arg> "; done; echo .
+	EOF
+	"$__progname" -c '. ./test.mksh' dummy oh dear this is not good
+	echo =
+	"$__progname" -c 'command . ./test.mksh' dummy oh dear this is not good
+expected-stdout:
+	<1> <two> .
+	=
+	<1> <two> .
+---
+name: command-pvV-posix-priorities
+description:
+	For POSIX compatibility, command -v should find aliases and reserved
+	words, and command -p[vV] should find aliases, reserved words, and
+	builtins over external commands.
+stdin:
+	# extra checks prep
+	mkdir mrr
+	:>mrr/miau
+	chmod +x mrr/miau
+	# priorities
+	PATH=/bin:/usr/bin
+	alias foo="bar baz"
+	alias '[ab]=:'
+	bar() { :; }
+	for word in 'if' 'foo' 'bar' 'set' 'true' '[ab]'; do
+		command -v "$word"
+		command -pv "$word"
+		command -V "$word"
+		command -pV "$word"
+	done
+	# extra checks
+	alias '[ab]'
+	whence '[ab]'
+	PATH=mrr
+	case $(command -v miau) {
+	(mrr/miau) echo fail ;;
+	(!(/*|[A-Z]:/*)) echo fail2 ;;
+	($PWD/mrr/miau) echo ok ;;
+	(/*|[A-Z]:/*) echo pwd bad? ;;
+	(*) echo not reached ;;
+	}
+expected-stdout:
+	if
+	if
+	if is a reserved word
+	if is a reserved word
+	alias foo='bar baz'
+	alias foo='bar baz'
+	foo is an alias for 'bar baz'
+	foo is an alias for 'bar baz'
+	bar
+	bar
+	bar is a function
+	bar is a function
+	set
+	set
+	set is a special shell builtin
+	set is a special shell builtin
+	true
+	true
+	true is a shell builtin
+	true is a shell builtin
+	alias '[ab]'=:
+	alias '[ab]'=:
+	'[ab]' is an alias for :
+	'[ab]' is an alias for :
+	'[ab]'=:
+	:
+	ok
+---
+name: whence-preserve-tradition
+description:
+	This regression test is to ensure that the POSIX compatibility
+	changes for 'command' (see previous test) do not affect traditional
+	'whence' behaviour.
+category: os:mirbsd
+stdin:
+	PATH=/bin:/usr/bin
+	alias foo="bar baz"
+	bar() { :; }
+	for word in 'if' 'foo' 'bar' 'set' 'true'; do
+		whence "$word"
+		whence -p "$word"
+		whence -v "$word"
+		whence -pv "$word"
+	done
+expected-stdout:
+	if
+	if is a reserved word
+	if not found
+	'bar baz'
+	foo is an alias for 'bar baz'
+	foo not found
+	bar
+	bar is a function
+	bar not found
+	set
+	set is a special shell builtin
+	set not found
+	true
+	/bin/true
+	true is a shell builtin
+	true is a tracked alias for /bin/true
+---
+name: duffs-device
+description:
+	Check that the compiler did not optimise-break them
+	(lex.c has got a similar one in SHEREDELIM)
+category: !shell:faux-ebcdic,!shell:ebcdic-yes
+stdin:
+	set +U
+	s=
+	typeset -i1 i=0
+	while (( ++i < 256 )); do
+		s+=${i#1#}
+	done
+	s+=$'\xC2\xA0\xE2\x82\xAC\xEF\xBF\xBD\xEF\xBF\xBE\xEF\xBF\xBF\xF0\x90\x80\x80.'
+	typeset -p s
+expected-stdout:
+	typeset s=$'\001\002\003\004\005\006\a\b\t\n\v\f\r\016\017\020\021\022\023\024\025\026\027\030\031\032\E\034\035\036\037 !"#$%&\047()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\177\200\201\202\203\204\205\206\207\210\211\212\213\214\215\216\217\220\221\222\223\224\225\226\227\230\231\232\233\234\235\236\237\240\241\242\243\244\245\246\247\250\251\252\253\254\255\256\257\260\261\262\263\264\265\266\267\270\271\272\273\274\275\276\277\300\301\302\303\304\305\306\307\310\311\312\313\314\315\316\317\320\321\322\323\324\325\326\327\330\331\332\333\334\335\336\337\340\341\342\343\344\345\346\347\350\351\352\353\354\355\356\357\360\361\362\363\364\365\366\367\370\371\372\373\374\375\376\377\u00A0\u20AC\uFFFD\357\277\276\357\277\277\360\220\200\200.'
+---
+name: duffs-device-ebcdic
+description:
+	Check that the compiler did not optimise-break them
+category: !shell:ebcdic-no
+stdin:
+	set +U
+	s=
+	typeset -i1 i=0
+	while (( ++i < 256 )); do
+		s+=${i#1#}
+	done
+	#s+=$'\xC2\xA0\xE2\x82\xAC\xEF\xBF\xBD\xEF\xBF\xBE\xEF\xBF\xBF\xF0\x90\x80\x80.' #XXX
+	typeset -p s
+expected-stdout:
+	typeset s=$'\001\002\003\004\t\006\007\010\011\012\v\f\r\016\017\020\021\022\023\024\n\b\027\030\031\032\033\034\035\036\037\040\041\042\043\044\045\046\E\050\051\052\053\054\055\056\a\060\061\062\063\064\065\066\067\070\071\072\073\074\075\076\077 †‚‰‡·„ÂÁÒ¢.<(+|&ÈÍÎËÌÓÔÏﬂ!$*);^-/¬ƒ¿¡√≈«—¶,%_>?¯… À»ÕŒœÃ`:#@\175="ÿabcdefghi´ª˝˛±∞jklmnopqr™∫Ê∏∆§µ~stuvwxyz°ø–[ﬁÆ¨£•∑©ß∂ºΩæ›®Ø]¥◊{ABCDEFGHI≠ÙˆÚÛı}JKLMNOPQRπ˚¸˘˙ˇ\\˜STUVWXYZ≤‘÷“”’0123456789≥€‹Ÿ⁄\377'
+---
+name: duffs-device-faux-EBCDIC
+description:
+	Check that the compiler did not optimise-break them
+category: shell:faux-ebcdic
+stdin:
+	set +U
+	s=
+	typeset -i1 i=0
+	while (( ++i < 256 )); do
+		s+=${i#1#}
+	done
+	s+=$'\xC2\xA0\xE2\x82\xAC\xEF\xBF\xBD\xEF\xBF\xBE\xEF\xBF\xBF\xF0\x90\x80\x80.'
+	typeset -p s
+expected-stdout:
+	typeset s=$'\001\002\003\004\005\006\a\b\t\n\v\f\r\016\017\020\021\022\023\024\025\026\027\030\031\032\E\034\035\036\037 !"#$%&\047()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\177\200\201\202\203\204\205\206\207\210\211\212\213\214\215\216\217\220\221\222\223\224\225\226\227\230\231\232\233\234\235\236\237†°¢£§•¶ß®©™´¨≠ÆØ∞±≤≥¥µ∂∑∏π∫ªºΩæø¿¡¬√ƒ≈∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂ‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘˙˚¸˝˛ˇ\u00A0\u20AC\uFFFDÔøæÔøø\220\200\200.'
+---
+name: stateptr-underflow
+description:
+	This check overflows an Xrestpos stored in a short in R40
+category: fastbox
+stdin:
+	function Lb64decode {
+		[[ -o utf8-mode ]]; local u=$?
+		set +U
+		local c s="$*" t=
+		[[ -n $s ]] || { s=$(cat;print x); s=${s%x}; }
+		local -i i=0 n=${#s} p=0 v x
+		local -i16 o
+	
+		while (( i < n )); do
+			c=${s:(i++):1}
+			case $c {
+			(=)	break ;;
+			([A-Z])	(( v = 1#$c - 65 )) ;;
+			([a-z])	(( v = 1#$c - 71 )) ;;
+			([0-9])	(( v = 1#$c + 4 )) ;;
+			(+)	v=62 ;;
+			(/)	v=63 ;;
+			(*)	continue ;;
+			}
+			(( x = (x << 6) | v ))
+			case $((p++)) {
+			(0)	continue ;;
+			(1)	(( o = (x >> 4) & 255 )) ;;
+			(2)	(( o = (x >> 2) & 255 )) ;;
+			(3)	(( o = x & 255 ))
+				p=0
+				;;
+			}
+			t=$t\\x${o#16#}
+		done
+		print -n $t
+		(( u )) || set -U
+	}
+	
+	i=-1
+	s=
+	while (( ++i < 12120 )); do
+		s+=a
+	done
+	Lb64decode $s >/dev/null
+---
+name: xtrace-1
+description:
+	Check that "set -x" doesn't redirect too quickly
+stdin:
+	print '#!'"$__progname" >bash
+	cat >>bash <<'EOF'
+	echo 'GNU bash, version 2.05b.0(1)-release (i386-ecce-mirbsd10)
+	Copyright (C) 2002 Free Software Foundation, Inc.'
+	EOF
+	chmod +x bash
+	"$__progname" -xc 'foo=$(./bash --version 2>&1 | sed q); echo "=$foo="'
+expected-stdout:
+	=GNU bash, version 2.05b.0(1)-release (i386-ecce-mirbsd10)=
+expected-stderr-pattern:
+	/.*/
+---
+name: xtrace-2
+description:
+	Check that "set -x" is off during PS4 expansion
+stdin:
+	f() {
+		print -n "(f1:$-)"
+		set -x
+		print -n "(f2:$-)"
+	}
+	PS4='[(p:$-)$(f)] '
+	print "(o0:$-)"
+	set -x -o inherit-xtrace
+	print "(o1:$-)"
+	set +x
+	print "(o2:$-)"
+expected-stdout:
+	(o0:sh)
+	(o1:shx)
+	(o2:sh)
+expected-stderr:
+	[(p:sh)(f1:sh)(f2:sh)] print '(o1:shx)'
+	[(p:sh)(f1:sh)(f2:sh)] set +x
+---
+name: fksh-flags
+description:
+	Check that FKSH functions have their own shell flags
+category: shell:legacy-no
+stdin:
+	[[ $KSH_VERSION = Version* ]] && set +B
+	function foo {
+		set +f
+		set -e
+		echo 2 "${-/s}" .
+	}
+	set -fh
+	echo 1 "${-/s}" .
+	foo
+	echo 3 "${-/s}" .
+expected-stdout:
+	1 fh .
+	2 eh .
+	3 fh .
+---
+name: fksh-flags-legacy
+description:
+	Check that even FKSH functions share the shell flags
+category: shell:legacy-yes
+stdin:
+	[[ $KSH_VERSION = Version* ]] && set +B
+	foo() {
+		set +f
+		set -e
+		echo 2 "${-/s}" .
+	}
+	set -fh
+	echo 1 "${-/s}" .
+	foo
+	echo 3 "${-/s}" .
+expected-stdout:
+	1 fh .
+	2 eh .
+	3 eh .
+---
+name: fsh-flags
+description:
+	Check that !FKSH functions share the shell flags
+stdin:
+	[[ $KSH_VERSION = Version* ]] && set +B
+	foo() {
+		set +f
+		set -e
+		echo 2 "${-/s}" .
+	}
+	set -fh
+	echo 1 "${-/s}" .
+	foo
+	echo 3 "${-/s}" .
+expected-stdout:
+	1 fh .
+	2 eh .
+	3 eh .
+---

@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @file iimage_process_session.h
+ *
+ * @brief  Declares APIs for image process service.
+ *
+ * @since 4.1
+ * @version 1.2
+ */
+
+package ohos.hdi.camera.v1_2;
+
+import ohos.hdi.camera.v1_2.IImageProcessSession;
+import ohos.hdi.camera.v1_2.IImageProcessCallback;
+
+interface IImageProcessService {
+    /**
+     * @brief Create image process session.
+     *
+     * @param userId Indicates user ID.
+     * @param imageProcessCallback Indicates the image process callback. For details, see {@link IImageProcessCallback}.
+     * @param imageProcessSession Indicates the image process session. For details, see {@link IImageProcessSession}
+     *
+     * @since 4.1
+     * @version 1.2
+     */
+    CreateImageProcessSession([in] int userId,
+        [in] IImageProcessCallback imageProcessCallback,
+        [out] IImageProcessSession imageProcessSession);
+}

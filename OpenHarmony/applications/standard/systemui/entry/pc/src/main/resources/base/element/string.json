@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "SystemUI"
+    },
+    {
+      "name": "mainability_description",
+      "value": "JS_Phone_Empty Feature Ability"
+    },
+    {
+      "name": "description_mainability",
+      "value": "SystemUI ServiceExtension"
+    },
+    {
+      "name": "distributed_data_sync_reason",
+      "value": "SystemUI Distributed Notification Request"
+    },
+    {
+      "name": "get_installed_bundle_list_reason",
+      "value": "SystemUI Get installed bundle list"
+    }
+  ]
+}

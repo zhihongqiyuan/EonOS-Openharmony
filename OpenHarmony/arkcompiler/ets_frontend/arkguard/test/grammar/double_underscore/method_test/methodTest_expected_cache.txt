@@ -1,0 +1,11 @@
+{
+  "IdentifierCache": {
+    "MyClass#__mySetter#value": "a"
+  },
+  "MemberMethodCache": {
+    "__method:18:18": "__method",
+    "__myGetter:21:23": "__myGetter",
+    "__mySetter:26:26": "__mySetter",
+    "#__method:28:28": "#__method"
+  }
+}

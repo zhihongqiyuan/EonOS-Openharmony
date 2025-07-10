@@ -1,0 +1,92 @@
+{
+    "name": "@ohos/battery_statistics",
+    "version": "3.1",
+    "description": "耗电统计服务，包括硬件耗电统计和软件耗电统计。",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/powermgr_battery_statistics",
+    "domain": "os",
+    "publishAs": "code-segment",
+    "scripts": {},
+    "segment": {
+        "destPath": "base/powermgr/battery_statistics"
+    },
+    "component": {
+        "name": "battery_statistics",
+        "subsystem": "powermgr",
+        "syscap": [ "SystemCapability.PowerManager.BatteryStatistics" ],
+        "features": [],
+        "adapted_system_type": [
+	       	"standard"
+       	],
+        "rom": "1024KB",
+        "ram": "2048KB",
+        "hisysevent_config": [
+            "//base/powermgr/battery_statistics/batterystats.yaml"
+        ],
+        "deps": {
+            "components": [
+                "ability_base",
+                "ability_runtime",
+                "battery_manager",
+                "bluetooth",
+                "call_manager",
+                "common_event_service",
+                "config_policy",
+                "c_utils",
+                "display_manager",
+                "eventhandler",
+                "hicollie",
+                "hisysevent",
+                "hilog",
+                "ipc",
+                "jsoncpp",
+                "napi",
+                "os_account",
+                "power_manager",
+                "safwk",
+                "samgr",
+                "wifi"
+            ]
+        },
+        "build": {
+            "group_type": {
+                "fwk_group": [
+                    "//base/powermgr/battery_statistics/frameworks/napi:batterystatistics",
+                    "//base/powermgr/battery_statistics/interfaces/inner_api:batterystats_client"
+                ],
+                "service_group": [
+                    "//base/powermgr/battery_statistics/sa_profile:batterystats_sa_profile",
+                    "//base/powermgr/battery_statistics/services:service"
+                ]
+            },
+            "inner_kits": [
+                {
+                    "name": "//base/powermgr/battery_statistics/interfaces/inner_api:batterystats_client",
+                    "header": {
+                      "header_files": [
+                        "battery_stats_client.h",
+                        "battery_stats_errors.h",
+                        "battery_stats_info.h"
+                      ],
+                      "header_base": "//base/powermgr/battery_statistics/interfaces/inner_api/include"
+                    }
+                },
+                {
+                    "name": "//base/powermgr/battery_statistics/utils:batterystats_utils",
+                    "visibility": ["thermal_manager"],
+                    "header": {
+                      "header_files": [],
+                      "header_base": "//base/powermgr/battery_statistics/utils/native/include"
+                    }
+                }
+            ],
+            "test": [
+                "//base/powermgr/battery_statistics/test:unittest",
+                "//base/powermgr/battery_statistics/test:fuzztest",
+                "//base/powermgr/battery_statistics/test:systemtest"
+            ]
+        }
+    }
+}
+

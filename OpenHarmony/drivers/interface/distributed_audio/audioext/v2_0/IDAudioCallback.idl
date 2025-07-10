@@ -1,0 +1,148 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @addtogroup Distributed Audio
+ * @{
+ *
+ * @brief Provides APIs for communication to distributed audio SA service
+ *
+ * Call of the transmission interface between the distributed audio HDF service and
+ * the distributed audio SA service, and provide hardware driver interfaces for
+ * the upper layer.
+ *
+ * @since 5.0
+ * @version 2.0
+ */
+
+package ohos.hdi.distributed_audio.audioext.v2_0;
+
+import ohos.hdi.distributed_audio.audioext.v2_0.Types;
+
+/**
+ * @brief Basic operations for Distributed Audio devices.
+ *
+ * Enabling and disabling distributed audio devices, setting audio parameters,
+ * event notifications, and other related operations
+ *
+ * @since 5.0
+ * @version 2.0
+ */
+[callback] interface IDAudioCallback {
+    /**
+     * @brief Create distributed audio stream.
+     *
+     * @param streamId Stream ID for distributed audio devices.
+     *
+     * @return a value of 0 if success, return a negative value if failed.
+     *
+     * @since 5.0
+     * @version 2.0
+     */
+    CreateStream([in] int streamId);
+
+    /**
+     * @brief Create distributed audio stream.
+     *
+     * @param streamId Stream ID for distributed audio devices.
+     *
+     * @return a value of 0 if success, return a negative value if failed.
+     *
+     * @since 5.0
+     * @version 2.0
+     */
+    DestroyStream([in] int streamId);
+
+    /**
+     * @brief Set distributed audio device parameters.
+     *
+     * @param streamId Stream ID for distributed audio devices.
+     * @param param Audio parameters (sampling rate, number of channels, etc.)
+     *
+     * @return a value of 0 if success, return a negative value if failed.
+     *
+     * @since 5.0
+     * @version 2.0
+     */
+    SetParameters([in] int streamId, [in] struct AudioParameter param);
+
+    /**
+     * @brief Notify distributed audio SA of events.
+     *
+     * @param streamId Stream ID for distributed audio devices.
+     * @param event Notification event types (such as focus events, volume events)
+     *
+     * @return a value of 0 if success, return a negative value if failed.
+     *
+     * @since 5.0
+     * @version 2.0
+     */
+    NotifyEvent([in] int streamId, [in] struct DAudioEvent event);
+
+    /**
+     * @brief Write stream to distributed audio devices.
+     *
+     * @param streamId Stream ID for distributed audio devices.
+     * @param data frame data of audio stream.
+     *
+     * @return a value of 0 if success, return a negative value if failed.
+     *
+     * @since 5.0
+     * @version 2.0
+     */
+    WriteStreamData([in] int streamId, [in] struct AudioData data);
+
+    /**
+     * @brief Reading recording streams from distributed audio devices.
+     *
+     * @param streamId Stream ID for distributed audio devices.
+     * @param data Frame data of audio stream.
+     *
+     * @return a value of 0 if success, return a negative value if failed.
+     *
+     * @since 5.0
+     * @version 2.0
+     */
+    ReadStreamData([in] int streamId, [out] struct AudioData data);
+
+    /**
+     * @brief Get the current frame rate and timestamp for reading and writing
+     *
+     * @param streamId Stream ID for distributed audio devices.
+     * @param frames current frame number
+     * @param time current timestamp
+     *
+     * @return a value of 0 if success, return a negative value if failed.
+     *
+     * @since 5.0
+     * @version 2.0
+     */
+    ReadMmapPosition([in] int streamId, [out] unsigned long frames, [out] struct CurrentTime time);
+
+    /**
+     * @brief Refresh shared memory information
+     *
+     * @param streamId Stream ID for distributed audio devices.
+     * @param fd file descriptors corresponding to shared memory
+     * @param ashmemLength The total number of bytes of shared memory.
+     * @param lengthPerTrans The number of bytes to be transmitted.
+     *
+     * @return a value of 0 if success, return a negative value if failed.
+     *
+     * @since 5.0
+     * @version 2.0
+     */
+    RefreshAshmemInfo([in] int streamId, [in] FileDescriptor fd, [in] int ashmemLength, [in] int lengthPerTrans);
+}

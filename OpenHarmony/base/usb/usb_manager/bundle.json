@@ -1,0 +1,97 @@
+{
+    "name": "@ohos/usb_manager",
+    "version": "3.1.0",
+    "description": "usb manager",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/usb/usb_manager"
+    },
+    "repository": "https://gitee.com/openharmony/usb_manager",
+    "license": "Apache License 2.0",
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "usb_manager",
+        "subsystem": "usb",
+        "features": [
+            "usb_manager_feature_pop_up_func_switch_model",
+            "usb_manager_feature_usb_right_dialog",
+            "usb_manager_feature_host",
+            "usb_manager_feature_device",
+            "usb_manager_feature_port"
+        ],
+        "syscap": [
+            "SystemCapability.USB.USBManager.Serial",            
+            "SystemCapability.USB.USBManager"
+        ],
+        "hisysevent_config": [
+            "//base/usb/usb_manager/hisysevent.yaml"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "4111KB",
+        "ram": "6660KB",
+        "deps": {
+            "components": [
+                "hilog",
+                "ability_base",
+                "napi",
+                "bundle_framework",
+                "common_event_service",
+                "data_share",
+                "distributed_notification_service",
+                "drivers_interface_usb",
+                "i18n",
+                "init",
+                "ipc",
+                "safwk",
+                "c_utils",
+                "samgr",
+                "access_token",
+                "memmgr",
+                "os_account",
+                "relational_store",
+                "resource_management",
+                "ability_runtime",
+                "hisysevent",
+                "cJSON",
+                "bounds_checking_function",
+                "hitrace",
+                "selinux_adapter"
+            ]
+        },
+        "build": {
+            "group_type": {
+                "base_group": [],
+                "fwk_group": [
+                    "//base/usb/usb_manager/interfaces/innerkits:usbsrv_client",
+                    "//base/usb/usb_manager/interfaces/kits/js/napi:usbmanager",
+                    "//base/usb/usb_manager/interfaces/kits/js/napi:usb",
+                    "//base/usb/usb_manager/frameworks/dialog/dialog_ui/usb_right_dialog:dialog_hap",
+                    "//base/usb/usb_manager/interfaces/kits/js/napi:serial"
+                ],
+                "service_group": [
+                    "//base/usb/usb_manager/sa_profile:usbmgr_sa_profile",
+                    "//base/usb/usb_manager/services:usbservice",
+                    "//base/usb/usb_manager/services:usb_service.init",
+                    "//base/usb/usb_manager/etc:usb_etc_files"
+                ]
+            },
+            "inner_kits": [{
+                "name": "//base/usb/usb_manager/interfaces/innerkits:usbsrv_client",
+                "header": {
+                    "header_files": [
+                        "usb_srv_client.h",
+                        "usb_interface_type.h",
+                        "iusb_srv.h"
+                    ],
+                    "header_base": "//base/usb/usb_manager/interfaces/innerkits/native/include"
+                }
+            }],
+            "test": [
+                "//base/usb/usb_manager/test/native:usb_unittest_test"
+            ]
+        }
+    }
+}

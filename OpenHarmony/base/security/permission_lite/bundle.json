@@ -1,0 +1,65 @@
+{
+  "name": "@openharmony/permission_lite",
+  "description": "permission_lite",
+  "version": "3.1.0",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/security/permission_lite"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "permission_lite",
+    "subsystem": "security",
+    "syscap": [],
+    "features": [
+      "permission_lite_pms_hal_path"
+    ],
+    "adapted_system_type": [
+      "small",
+      "mini"
+    ],
+    "rom": "150KB",
+    "ram": "500KB",
+    "deps": {
+      "components": [
+        "hilog_lite",
+        "samgr_lite",
+        "ipc"
+      ],
+      "third_party": [
+        "bounds_checking_function",
+        "cJSON"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//base/security/permission_lite/services:permission_lite"
+      ],
+      "inner_kits": [
+        {
+          "name": "//base/security/permission_lite/services/pms_client:pms_client",
+          "header": {
+            "header_files": [
+              "pms_interface_inner.h"
+            ],
+            "header_base": "//base/security/permission_lite/interfaces/innerkits"
+          }
+        },
+        {
+          "name": "//base/security/permission_lite/services/ipc_auth:ipc_auth_target",
+          "header": {
+            "header_files": [
+              "ipc_auth_interface.h"
+            ],
+            "header_base": "//base/security/permission_lite/interfaces/innerkits"
+          }
+        }
+      ],
+      "test": [
+        "//base/security/permission_lite/services/unittest:unittest"
+      ]
+    }
+  }
+}

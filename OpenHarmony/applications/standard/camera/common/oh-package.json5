@@ -1,0 +1,9 @@
+{
+  "license": "ISC",
+  "devDependencies": {},
+  "name": "@ohos/common",
+  "description": "common feature",
+  "repository": {},
+  "version": "1.0.0",
+  "dependencies": {}
+}

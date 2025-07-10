@@ -1,0 +1,24 @@
+# Known failure list for test262 - fastverify-x64-jit
+#19208
+test262/data/test/language/module-code/instn-iee-err-circular-as.js
+
+#21423
+test262/data/test/built-ins/TypedArray/prototype/slice/results-with-empty-length.js
+
+#21819  #23295
+test262/data/test/built-ins/TypedArray/prototype/slice/BigInt/results-with-different-length.js
+test262/data/test/built-ins/TypedArray/prototype/subarray/results-with-empty-length.js
+test262/data/test/built-ins/TypedArray/prototype/some/callbackfn-not-callable-throws.js
+test262/data/test/built-ins/TypedArray/prototype/set/array-arg-offset-tointeger.js
+test262/data/test/built-ins/TypedArray/prototype/every/callbackfn-not-callable-throws.js
+test262/data/test/built-ins/TypedArray/prototype/set/typedarray-arg-offset-tointeger.js
+test262/data/test/built-ins/TypedArray/prototype/fill/coerced-indexes.js
+test262/data/test/built-ins/TypedArray/prototype/copyWithin/negative-out-of-bounds-end.js
+test262/data/test/built-ins/TypedArray/prototype/copyWithin/non-negative-out-of-bounds-target-and-start.js
+test262/data/test/built-ins/TypedArray/prototype/lastIndexOf/strict-comparison.js
+test262/data/test/built-ins/TypedArray/prototype/some/returns-false-if-every-cb-returns-false.js
+test262/data/test/built-ins/TypedArray/prototype/copyWithin/coerced-values-start.js
+test262/data/test/built-ins/TypedArray/prototype/subarray/tointeger-end.js
+test262/data/test/built-ins/TypedArray/prototype/slice/results-with-different-length.js
+test262/data/test/built-ins/TypedArray/prototype/copyWithin/BigInt/non-negative-target-and-start.js
+

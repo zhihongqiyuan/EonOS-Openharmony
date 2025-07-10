@@ -1,0 +1,36 @@
+{
+  "float": [
+    {
+      "name": "status_bar_signal_type_font_size",
+      "value": "10fp"
+    },
+    {
+      "name": "status_bar_signal_unknown_font_size",
+      "value": "14fp"
+    },
+    {
+      "name": "signal_component_icon_width",
+      "value": "32vp"
+    },
+    {
+      "name": "signal_component_icon_height",
+      "value": "24vp"
+    },
+    {
+      "name": "signal_text_max_width",
+      "value": "113vp"
+    },
+    {
+      "name": "status_bar_signal_net_signal_text_max_width",
+      "value": "18vp"
+    },
+    {
+      "name": "signal_component_text_margin_left",
+      "value": "0vp"
+    },
+    {
+      "name": "icon_component_opacity",
+      "value": "1"
+    }
+  ]
+}

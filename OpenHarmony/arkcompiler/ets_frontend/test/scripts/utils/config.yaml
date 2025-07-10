@@ -1,0 +1,78 @@
+#  Copyright (c) 2024 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+# download_sdk_and image_config
+# decide whether to save the download file or not[True,False]
+is_save: True
+# where to store your download files
+download_save_path: D:\save_path
+# choice download task and decide where to update the image
+download_list:
+  - sdk:
+    name: sdk
+    url: ''
+    date: null
+    output_path_list:
+      - D:\SDK\openHarmony_SDK\11
+      - D:\SDK\HarmonyOS_SDK\HarmonyOS-NEXT-DP1\base
+    # the mapping between API and file name
+    api_version_file_name_map:
+      "HarmonyOS-NEXT-DP0": 10
+      "HarmonyOS-NEXT-DP1": 11
+      "HarmonyOS-NEXT-DB0": 12
+  - dayu200:
+    name: dayu200
+    url: ''
+    date: null
+    output_path_list:
+      - D:\AutoXTSTest\dayu200_xts
+
+# commit_message_config
+# Specify the date for which you want to retrieve the commit information, Use the following format: '2024-01-01'
+commit_start_time: null
+# which repo you want to get commit message
+repo_list:
+  - 'arkcompiler_ets_frontend'
+  - 'developtools_ace_ets2bundle'
+  - 'third_party_typescript'
+  - 'arkcompiler_runtime_core'
+
+# flash_image_config
+url_tools : 'http://123.60.114.105:9999/RKDevTool.zip'
+
+# send_email_config
+user_name : ""
+sender_email_address : ""
+auth_code : ""
+receiver_list :
+    - ""
+smtp_server: ""
+smtp_port: "25"
+
+xts_report_file : "../../auto_xts_test/result/summary_report.html"
+sdk_report_file : "../../sdk_test/sdk_test_report.html"
+perf_report_file : "../../performance_test/mail_data/email_msg.html"
+commit_log_report_file : "../get_commit_log/commit_log.html"
+attatchment_files :
+    - "../../auto_xts_test/result/details_report.html"
+    - "../../auto_xts_test/result/failures_report.html"
+    - "../../performance_test/mail_data/performance_logs.zip"
+image_files:
+    "../../performance_test/mail_data/debug_full_time.jpg": performance00
+    "../../performance_test/mail_data/debug_incremental_time.jpg": performance01
+    "../../performance_test/mail_data/debug_size.jpg": performance02
+    "../../performance_test/mail_data/release_full_time.jpg": performance10
+    "../../performance_test/mail_data/release_incremental_time.jpg": performance11
+    "../../performance_test/mail_data/release_size.jpg": performance12
+    "../../performance_test/mail_data/debug_preview_model_build_time.jpg": performance31
+    "../../performance_test/mail_data/release_preview_model_build_time.jpg": performance41

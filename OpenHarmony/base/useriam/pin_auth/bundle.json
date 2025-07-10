@@ -1,0 +1,83 @@
+{
+    "name": "@ohos/pin_auth",
+    "version": "4.0",
+    "description": "PIN Authentication capability",
+    "homePage": "https://gitee.com/openharmony",
+    "author": {},
+    "repository": "",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+      "destPath" : "base/useriam/pin_auth"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+      "name": "pin_auth",
+      "subsystem": "useriam",
+      "adapted_system_type": [ "standard" ],
+      "syscap": ["SystemCapability.UserIAM.UserAuth.PinAuth"],
+      "features": [
+        "pin_auth_enabled",
+        "pin_auth_enable_dynamic_load"
+      ],
+      "hisysevent_config": [
+        "//base/useriam/pin_auth/hisysevent.yaml"
+      ],
+      "rom": "1024KB",
+      "ram": "6072KB",
+      "deps": {
+        "components": [
+            "ability_base",
+            "hilog",
+            "ipc",
+            "safwk",
+            "samgr",
+            "access_token",
+            "miscdevice",
+            "user_auth_framework",
+            "drivers_interface_pin_auth",
+            "c_utils",
+            "enterprise_device_management",
+            "openssl",
+            "data_share",
+            "init",
+            "device_manager",
+            "hdf_core",
+            "hisysevent"
+        ]
+      },
+      "build": {
+        "group_type": {
+          "base_group": [
+          ],
+          "fwk_group": [
+            "//base/useriam/pin_auth/frameworks:pinauth_framework"
+          ],
+          "service_group": [
+            "//base/useriam/pin_auth/sa_profile:pinauth_sa_profile",
+            "//base/useriam/pin_auth/services:pinauthservice",
+            "//base/useriam/pin_auth/sa_profile:pinauth_sa_profile.init"
+          ]
+        },
+        "inner_kits": [
+          {
+            "type": "so",
+            "name": "//base/useriam/pin_auth/frameworks:pinauth_framework",
+            "header": {
+              "header_files": [
+                "i_inputer_data.h",
+                "i_inputer.h",
+                "pinauth_register.h"
+              ],
+              "header_base": "//base/useriam/pin_auth/interfaces/inner_api/"
+            }
+          }
+        ],
+        "test": [
+            "//base/useriam/pin_auth/test/unittest:PinAuth_UT_test",
+            "//base/useriam/pin_auth/test/fuzztest:pin_auth_fuzz_test"
+        ]
+      }
+    }
+  }

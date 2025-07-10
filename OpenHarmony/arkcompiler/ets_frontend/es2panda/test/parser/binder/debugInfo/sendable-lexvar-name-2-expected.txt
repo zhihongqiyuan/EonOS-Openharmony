@@ -1,0 +1,460 @@
+slotNum = 0xe
+.language ECMAScript
+.function any .#*#test2(any a0, any a1, any a2) {
+	mov v0, a0
+	mov v1, a1
+	mov v2, a2
+	callruntime.ldsendablevar 0x0, 0x0
+	throw.undefinedifholewithname SendableA
+	sta v6
+	newobjrange 0x0, 0x1, v6
+	sta v3
+	callruntime.ldsendablevar 0x0, 0x1
+	throw.undefinedifholewithname SendableB
+	sta v6
+	newobjrange 0x2, 0x1, v6
+	sta v4
+	tryldglobalbyname 0x4, print
+	sta v6
+	callruntime.ldsendablevar 0x0, 0x0
+	throw.undefinedifholewithname SendableA
+	sta v7
+	lda v7
+	ldobjbyname 0x5, propA
+	sta v7
+	lda v6
+	callarg1 0x7, v7
+	tryldglobalbyname 0x9, print
+	sta v6
+	callruntime.ldsendablevar 0x0, 0x1
+	throw.undefinedifholewithname SendableB
+	sta v7
+	lda v7
+	ldobjbyname 0xa, propB
+	sta v7
+	lda v6
+	callarg1 0xc, v7
+	ldai 0x29a
+	sta v6
+	ldlexvar 0x0, 0x0
+	throw.undefinedifholewithname moduleA
+	lda v6
+	sta v6
+	lda v6
+	stlexvar 0x0, 0x0
+	lda.str 456
+	sta v6
+	ldlexvar 0x0, 0x1
+	throw.undefinedifholewithname closureStr
+	lda v6
+	sta v6
+	lda v6
+	stlexvar 0x0, 0x1
+	ldai 0x1c8
+	sta v6
+	ldlexvar 0x0, 0x2
+	throw.undefinedifholewithname closureNum
+	lda v6
+	sta v6
+	lda v6
+	stlexvar 0x0, 0x2
+	lda.str test
+	return
+}
+
+slotNum = 0x2
+expectedProperty = 0x1
+.language ECMAScript
+.function any .#~@0=#SendableA(any a0, any a1, any a2) {
+	mov v0, a0
+	mov v1, a1
+	mov v2, a2
+	lda.str use sendable
+	lda v2
+	sta v4
+	lda.str a
+	stobjbyname 0x0, propA, v4
+	lda v2
+	return
+}
+
+slotNum = 0x2
+.language ECMAScript
+.function any .#~@0>#static_initializer(any a0, any a1, any a2) {
+	mov v0, a0
+	mov v1, a1
+	mov v2, a2
+	lda v2
+	sta v4
+	lda.str ArkCompilerTestA
+	definepropertybyname 0x0, propA, v4
+	ldundefined
+	returnundefined
+}
+
+slotNum = 0x2
+expectedProperty = 0x1
+.language ECMAScript
+.function any .#~@1=#SendableB(any a0, any a1, any a2) {
+	mov v0, a0
+	mov v1, a1
+	mov v2, a2
+	lda.str use sendable
+	lda v2
+	sta v4
+	lda.str b
+	stobjbyname 0x0, propA, v4
+	lda v2
+	return
+}
+
+slotNum = 0x2
+.language ECMAScript
+.function any .#~@1>#static_initializer(any a0, any a1, any a2) {
+	mov v0, a0
+	mov v1, a1
+	mov v2, a2
+	lda v2
+	sta v4
+	lda.str ArkCompilerTestB
+	definepropertybyname 0x0, propB, v4
+	ldundefined
+	returnundefined
+}
+
+slotNum = 0x9
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+	newlexenvwithname 0x3, _6
+	callruntime.newsendableenv 0x2
+	mov v0, a0
+	mov v1, a1
+	mov v2, a2
+	definefunc 0x0, .#*#test2, 0x0
+	stmodulevar 0x0
+	ldai 0x3e7
+	sta v4
+	lda v4
+	stlexvar 0x0, 0x0
+	lda.str 1234
+	sta v4
+	lda v4
+	stlexvar 0x0, 0x1
+	ldhole
+	sta v6
+	callruntime.definesendableclass 0x1, .#~@0=#SendableA, _3, 0x0, v6
+	sta v4
+	sta v5
+	definemethod 0x2, .#~@0>#static_initializer, 0x0
+	sta v7
+	mov v8, v4
+	lda v7
+	callthis0 0x3, v8
+	lda v4
+	callruntime.stsendablevar 0x0, 0x0
+	ldai 0x11d3
+	sta v4
+	lda v4
+	stlexvar 0x0, 0x2
+	ldhole
+	sta v6
+	callruntime.definesendableclass 0x5, .#~@1=#SendableB, _5, 0x0, v6
+	sta v4
+	sta v5
+	definemethod 0x6, .#~@1>#static_initializer, 0x0
+	sta v7
+	mov v8, v4
+	lda v7
+	callthis0 0x7, v8
+	lda v4
+	callruntime.stsendablevar 0x0, 0x1
+	ldundefined
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot _0
+{
+  index: 0
+    tag: 0
+    val: 5
+},
+{
+  index: 1
+    tag: 5
+    val: SendableA
+},
+{
+  index: 2
+    tag: 0
+    val: 5
+},
+{
+  index: 3
+    tag: 5
+    val: SendableB
+},
+------------------------------------
+slot _1
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: test2
+},
+{
+  index: 5
+    tag: 5
+    val: test2
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _2
+{
+  index: 0
+    tag: 0
+    val: 5
+},
+{
+  index: 1
+    tag: 5
+    val: propA
+},
+{
+  index: 2
+    tag: 0
+    val: 2
+},
+{
+  index: 3
+    tag: 2
+    val: 2
+},
+{
+  index: 4
+    tag: 0
+    val: 5
+},
+{
+  index: 5
+    tag: 5
+    val: propA
+},
+{
+  index: 6
+    tag: 0
+    val: 2
+},
+{
+  index: 7
+    tag: 2
+    val: 2
+},
+{
+  index: 8
+    tag: 0
+    val: 2
+},
+{
+  index: 9
+    tag: 2
+    val: 1
+},
+------------------------------------
+slot _3
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 0
+    val: 24
+},
+{
+  index: 3
+    tag: 24
+    val: _2
+},
+------------------------------------
+slot _4
+{
+  index: 0
+    tag: 0
+    val: 5
+},
+{
+  index: 1
+    tag: 5
+    val: propA
+},
+{
+  index: 2
+    tag: 0
+    val: 2
+},
+{
+  index: 3
+    tag: 2
+    val: 2
+},
+{
+  index: 4
+    tag: 0
+    val: 5
+},
+{
+  index: 5
+    tag: 5
+    val: propB
+},
+{
+  index: 6
+    tag: 0
+    val: 2
+},
+{
+  index: 7
+    tag: 2
+    val: 2
+},
+{
+  index: 8
+    tag: 0
+    val: 2
+},
+{
+  index: 9
+    tag: 2
+    val: 1
+},
+------------------------------------
+slot _5
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 0
+    val: 24
+},
+{
+  index: 3
+    tag: 24
+    val: _4
+},
+------------------------------------
+slot _6
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 3
+},
+{
+  index: 2
+    tag: 0
+    val: 5
+},
+{
+  index: 3
+    tag: 5
+    val: moduleA
+},
+{
+  index: 4
+    tag: 0
+    val: 2
+},
+{
+  index: 5
+    tag: 2
+    val: 0
+},
+{
+  index: 6
+    tag: 0
+    val: 5
+},
+{
+  index: 7
+    tag: 5
+    val: closureStr
+},
+{
+  index: 8
+    tag: 0
+    val: 2
+},
+{
+  index: 9
+    tag: 2
+    val: 1
+},
+{
+  index: 10
+    tag: 0
+    val: 5
+},
+{
+  index: 11
+    tag: 5
+    val: closureNum
+},
+{
+  index: 12
+    tag: 0
+    val: 2
+},
+{
+  index: 13
+    tag: 2
+    val: 2
+},

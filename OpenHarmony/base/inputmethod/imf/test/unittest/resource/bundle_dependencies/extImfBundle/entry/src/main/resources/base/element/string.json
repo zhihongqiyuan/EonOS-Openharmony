@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "entry_desc",
+      "value": "imeTest"
+    },
+    {
+      "name": "MainAbility_desc",
+      "value": "imeTest"
+    },
+    {
+      "name": "MainAbility_label",
+      "value": "imeTest"
+    },
+    {
+      "name": "english",
+      "value": "english"
+    },
+    {
+      "name": "chinese",
+      "value": "chinese"
+    }
+  ]
+}

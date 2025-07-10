@@ -1,0 +1,74 @@
+slotNum = 0x3
+.language ECMAScript
+.function any .#14695981039346656037#(any a0, any a1, any a2, any a3) {
+	nop
+label_7: 
+label_0: 
+	newlexenv 0x1
+label_2: 
+label_4: 
+	ldhole
+	sta v1
+	defineclasswithbuffer 0x0, .TestTypeA, _1, 0x0, v1
+	sta v1
+	stlexvar 0x0, 0x0
+	lda v1
+	ldobjbyname 0x1, prototype
+label_3: 
+end_label_3: 
+	jmp label_1
+label_9: 
+	sta v0
+label_6: 
+	poplexenv
+	lda v0
+	throw
+label_1: 
+	poplexenv
+	returnundefined
+label_8: 
+}
+
+.catchall label_2, end_label_3, label_9
+
+slotNum = 0x6
+.language ECMAScript
+.function any .TestTypeA(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str A
+	stobjbyname 0x0, name, a2
+	ldlexvar 0x0, 0x0
+	sta v0
+	throw.undefinedifholewithname TestTypeA
+	mov v1, v0
+	newobjrange 0x2, 0x1, v1
+	stobjbyname 0x4, test, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_4: 
+label_0: 
+	ldundefined
+	sta v0
+	definefunc 0x0, .#14695981039346656037#, 0x1
+	sta v1
+	lda v0
+	istrue
+	jnez label_3
+label_2: 
+	createemptyobject
+	sta v0
+label_3: 
+	lda v1
+	callarg1 0x1, v0
+	returnundefined
+label_5: 
+}
+
+

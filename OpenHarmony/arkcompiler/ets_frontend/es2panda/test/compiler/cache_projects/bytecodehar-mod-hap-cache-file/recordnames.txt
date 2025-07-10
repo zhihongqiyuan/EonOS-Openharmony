@@ -1,0 +1,8 @@
+bytecodehar1-file1:&bytecodehar1/bytecodehar1-file1&2.0.0
+bytecodehar1-file2:&bytecodehar1/bytecodehar1-file2&2.0.0
+bytecodehar2-file1:&@ohos/bytecodehar2/bytecodehar2-file1&2.0.0
+bytecodehar2-file2:&@ohos/bytecodehar2/bytecodehar2-file2&2.0.0
+sourcehar-file1:&sourcehar/sourcehar-file1&2.0.0
+sourcehar-file2:&sourcehar/sourcehar-file2&2.0.0
+hap-file-exec:&myapp/hap-file-exec&
+mod/hap-add-file:&myapp/hap-add-file&

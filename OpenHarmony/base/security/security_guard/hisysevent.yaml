@@ -1,0 +1,78 @@
+#  Copyright (c) 2022 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+domain: SECURITY_GUARD
+
+OBTAIN_DATA:
+  __BASE: {type: STATISTIC, level: CRITICAL, desc: obtain detailed data}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALL_TIME: {type: STRING, desc: call time}
+  EVENT_SIZE: {type: INT32, desc: event size}
+
+RISK_ANALYSIS:
+  __BASE: {type: STATISTIC, level: CRITICAL, desc: obtain device risk status}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALL_TIME: {type: STRING, desc: call time}
+  EVENT_INFO: {type: STRING, desc: event info}
+  RISK_STATUS: {type: STRING, desc: risk status}
+
+SG_EVENT_SUBSCRIBE:
+  __BASE: {type: STATISTIC, level: CRITICAL, desc: security guard event subscribe data}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALL_TIME: {type: STRING, desc: call time}
+  EVENT_ID: {type: INT64, desc: event id}
+  SUB_RET: {type: INT32, desc: subsecribe result}
+
+SG_EVENT_UNSUBSCRIBE:
+  __BASE: {type: STATISTIC, level: CRITICAL, desc: security guard event unsubscribe data}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALL_TIME: {type: STRING, desc: call time}
+  UNSUB_RET: {type: INT32, desc: unsubsecribe result}
+
+SC_EVENT_SUBSCRIBE:
+  __BASE: {type: STATISTIC, level: CRITICAL, desc: security collect event subscribe data}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  EVENT_VERSION: {type: STRING, desc: event version}
+  EVENT_ID: {type: INT64, desc: event id}
+  SUB_RET: {type: INT32, desc: subsecribe result}
+
+SC_EVENT_UNSUBSCRIBE:
+  __BASE: {type: STATISTIC, level: CRITICAL, desc: security collect event unsubscribe data}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  UNSUB_RET: {type: INT32, desc: unsubsecribe result}
+
+SG_UPDATE_CONFIG:
+  __BASE: {type: STATISTIC, level: CRITICAL, desc: security config update event}
+  CONFIG_PATH: {type: STRING, desc: config path}
+  CALL_TIME: {type: STRING, desc: call time}
+  RET: {type: INT32, desc: update result}
+
+SG_EVENT_SET_MUTE:
+  __BASE: {type: STATISTIC, level: CRITICAL, desc: security set event mute data}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALL_TIME: {type: STRING, desc: call time}
+  EVENT_ID: {type: INT64, desc: event id}
+  RET: {type: INT32, desc: set event mute result}
+
+SG_EVENT_SET_UNMUTE:
+  __BASE: {type: STATISTIC, level: CRITICAL, desc: security set event unmute data}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALL_TIME: {type: STRING, desc: call time}
+  EVENT_ID: {type: INT64, desc: event id}
+  RET: {type: INT32, desc: set event unmute result}
+
+SG_FILE_STORE_ERROE:
+  __BASE: {type: STATISTIC, level: CRITICAL, desc: security guard file system store error}
+  FILE_OPERATION: {type: STRING, desc: file operation}
+  FILE_NAME: {type: STRING, desc: file path}
+  ERR_MSG: {type: STRING, desc: error message}

@@ -1,0 +1,198 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ /**
+ * @addtogroup HdiLpfenceGeofence
+ * @{
+ *
+ * @brief Provides geofence APIs for the low-power fence service.
+ *
+ * You can use the APIs to add circle or polygon geofences, remove geofences, obtain relationship between a device and a geofence, and obtain the geographical location of a device. The geofence module can work continuously even when the AP is in sleep mode.
+ * The geofencing feature is used to determine whether a device reaches a specific geographical location, so that subsequent services, such as switching to the appropriate access card and pushing customized messages, can be implemented.
+ *
+ * @since 4.0
+ * @version 1.0
+ */
+
+/**
+ * @file IGeofenceIntf.idl
+ *
+ * @brief Declares the APIs provided by the geofence module. These APIs can be used to add multiple types of geofences, remove geofences, obtain the relationship between a geofence and a device, obtain device geographical location, and send base station offline database data.
+ *
+ * @since 4.0
+ * @version 1.0
+ */
+
+/**
+ * @brief Declares the path of the geofence module interface package.
+ *
+ * @since 4.0
+ */
+package ohos.hdi.location.lpfence.geofence.v1_0;
+
+/**
+ * @brief Imports data types of the geofence module.
+ *
+ * @since 4.0
+ */
+import ohos.hdi.location.lpfence.geofence.v1_0.GeofenceTypes;
+
+/**
+ * @brief Imports callback definitions of the geofence module.
+ *
+ * @since 4.0
+ */
+import ohos.hdi.location.lpfence.geofence.v1_0.IGeofenceCallback;
+
+/**
+ * @brief Provides APIs for basic geofence operations.
+ *
+ * You can use the APIs to register or unregister a callback, add circle or polygon geofences, remove geofences, obtain the relationship between a geofence and a device, obtain device geographical location, and send offline database data of base stations.
+ */
+interface IGeofenceIntf {
+    /**
+     * @brief Registers a callback.
+     *
+     * Before enabling the geofencing feature, you need to register the callback to report the geofence status when the relationship between a geofence and a device changes.
+     *
+     * @param callbackObj Indicates the callback to register, which needs to be registered only once. For details, see {@link IGeofenceCallback}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    RegisterGeofenceCallback([in] IGeofenceCallback callbackObj);
+
+    /**
+     * @brief Unregisters a callback.
+     *
+     * When the geofencing feature is no longer required or the registered callback needs to be changed, you need to unregister the callback.
+     *
+     * @param callbackObj Indicates the callback to unregister, which needs to be unregistered only once. For details, see {@link IGeofenceCallback}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    UnregisterGeofenceCallback([in] IGeofenceCallback callbackObj);
+
+    /**
+     * @brief Adds circle geofences.
+     *
+     * Multiple circle geofences can be added at a time.
+     *
+     * @param circleGeofences Indicates the circle geofences to add. For details, see {@link GeofenceCircleRequest}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    AddCircleGeofences([in] struct GeofenceCircleRequest[] circleGeofences);
+
+    /**
+     * @brief Adds polygon geofences.
+     *
+     * Multiple polygon geofences can be added at a time.
+     *
+     * @param polygonGeofences Indicates the polygon geofences to add. For details, see {@link GeofencePolygonRequest}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    AddPolygonGeofences([in] struct GeofencePolygonRequest[] polygonGeofences);
+
+    /**
+     * @brief Removes geofences.
+     *
+     * Multiple geofences can be removed at a time.
+     *
+     * @param geofenceId Indicates the IDs of the geofences to remove. For details, see {@link GeofenceCircleRequest} and {@link GeofencePolygonRequest}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    RemoveGeofences([in] int[] geofenceId);
+
+    /**
+     * @brief Obtains the relationship between a geofence and this device.
+     *
+     * For details about the relationships between a device and a geofence, see {@link GeofenceTransition}.
+     *
+     * @param geofenceId Indicates the ID of the geofence.
+     *
+     * @return Returns the relationship information obtained if the operation is successful. For details, see {@link GeofenceTransition}.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    GetGeofenceStatus([in] int geofenceId);
+
+    /**
+     * @brief Obtains the latest location information.
+     *
+     * The location information is reported by the {@link OnGetCurrentLocationCb} callback.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    GetGeofenceLocation();
+
+    /**
+     * @brief Obtains geofence information, including the number of geofences supported by and added for this device.
+     *
+     * The geofence information is returned by the {@link OnGetWifenceSizeCb} callback.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    GetGeofenceSize();
+
+    /**
+     * @brief Sends the base station offline database data.
+     *
+     * If the offline database data is successfully requested, the upper-layer service delivers the data through this API.
+     *
+     * @param dbData Indicates the offline database data to send. For details, see {@link OfflineDb}.
+     * @param cellType Indicates the generation of the mobile communication technologies used by the cell where the device resides. For details, see {@link GeofenceCellType}.
+     *
+     * @return Returns <b>0</b> if the operation is successful.
+     * @return Returns a negative value if the operation fails.
+     *
+     * @since 4.0
+     * @version 1.0
+     */
+    SendCellOfflineDb([in] struct OfflineDb dbData,
+                      [in] int cellType);
+}
+/** @} */

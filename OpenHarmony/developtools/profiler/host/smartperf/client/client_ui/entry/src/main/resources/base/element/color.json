@@ -1,0 +1,37 @@
+{
+  "color": [
+    {
+      "name": "colorPrimary",
+      "value": "#B3193F"
+    },
+    {
+      "name": "color_fff",
+      "value": "#ffffff"
+    },
+    {
+      "name": "color_80fff",
+      "value": "#80ffffff"
+    },
+    {
+      "name": "color_eee",
+      "value": "#eeeeee"
+    },
+    {
+      "name": "color_80B3193F",
+      "value": "#80B3193F"
+    },
+    {
+      "name": "color_333",
+      "value": "#333333"
+    },
+    {
+      "name": "color_666",
+      "value": "#666666"
+    },
+    {
+      "name": "color_999",
+      "value": "#999999"
+    }
+
+  ]
+}

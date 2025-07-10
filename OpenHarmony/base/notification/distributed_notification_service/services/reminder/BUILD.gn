@@ -1,0 +1,380 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/notification/distributed_notification_service/notification.gni")
+import("//build/ohos.gni")
+
+group("reminder_service") {
+  deps = [ ":libreminder" ]
+}
+
+config("public_reminder_config") {
+  include_dirs = [
+    "${services_path}/reminder/include",
+    "${core_path}/include",
+  ]
+}
+
+ohos_source_set("reminder_service_sources") {
+  sanitize = {
+    integer_overflow = true
+    ubsan = true
+    boundary_sanitize = true
+    cfi = true
+    cfi_cross_dso = true
+    debug = false
+  }
+
+  cflags = [
+    "-fno-math-errno",
+    "-fno-unroll-loops",
+    "-fmerge-all-constants",
+    "-fno-ident",
+    "-Oz",
+    "-flto",
+    "-ffunction-sections",
+    "-fdata-sections",
+  ]
+
+  include_dirs = [ "${services_path}/reminder/include" ]
+
+  defines = []
+
+  sources = [
+    "src/reminder_agent_service.cpp",
+    "src/reminder_agent_service_ability.cpp",
+    "src/reminder_bundle_manager_helper.cpp",
+    "src/reminder_config_change_observer.cpp",
+    "src/reminder_data_manager.cpp",
+    "src/reminder_data_manager_inner.cpp",
+    "src/reminder_datashare_helper.cpp",
+    "src/reminder_event_manager.cpp",
+    "src/reminder_store.cpp",
+    "src/reminder_store_strategy.cpp",
+    "src/reminder_table.cpp",
+    "src/reminder_table_old.cpp",
+    "src/reminder_timer_info.cpp",
+  ]
+
+  deps = [
+    "${frameworks_module_ans_path}:ans_innerkits",
+    "${frameworks_module_reminder_path}:reminder_innerkits",
+  ]
+
+  if (is_double_framework) {
+    cflags += [ "-DCONFIG_DUAL_FRAMEWORK" ]
+  }
+
+  if (distributed_notification_supported) {
+    defines += [ "DISTRIBUTED_NOTIFICATION_SUPPORTED" ]
+    deps += [ "${services_path}/distributed:libans_distributed" ]
+    include_dirs += [ "${services_path}/distributed/include" ]
+  }
+
+  if (notification_smart_reminder_supported) {
+    defines += [ "NOTIFICATION_SMART_REMINDER_SUPPORTED" ]
+  }
+
+  external_deps = [
+    "ability_base:configuration",
+    "ability_runtime:ability_manager",
+    "ability_runtime:app_manager",
+    "ability_runtime:appkit_native",
+    "ability_runtime:dataobs_manager",
+    "ability_runtime:extension_manager",
+    "ability_runtime:wantagent_innerkits",
+    "access_token:libaccesstoken_sdk",
+    "access_token:libtokenid_sdk",
+    "bundle_framework:appexecfwk_base",
+    "bundle_framework:appexecfwk_core",
+    "c_utils:utils",
+    "common_event_service:cesfwk_innerkits",
+    "config_policy:configpolicy_util",
+    "data_share:datashare_common",
+    "data_share:datashare_consumer",
+    "data_share:datashare_permission",
+    "device_manager:devicemanagersdk",
+    "ffrt:libffrt",
+    "i18n:intl_util",
+    "image_framework:image_native",
+    "init:libbegetutil",
+    "kv_store:distributeddata_inner",
+    "openssl:libcrypto_shared",
+    "os_account:os_account_innerkits",
+    "relational_store:native_rdb",
+    "resource_management:global_resmgr",
+    "time_service:time_client",
+  ]
+  external_deps += component_external_deps
+
+  if (device_usage) {
+    external_deps += [ "device_usage_statistics:usagestatsinner" ]
+    defines += [ "DEVICE_USAGE_STATISTICS_ENABLE" ]
+  }
+
+  if (hisysevent_usage) {
+    cflags += [ "-DHAS_HISYSEVENT_PART" ]
+    external_deps += [ "hisysevent:libhisysevent" ]
+  }
+
+  if (standby_enable) {
+    external_deps += [ "device_standby:standby_innerkits" ]
+    defines += [ "DEVICE_STANDBY_ENABLE" ]
+  }
+
+  if (player_framework) {
+    external_deps += [ "player_framework:media_client" ]
+    external_deps += [ "audio_framework:audio_client" ]
+    defines += [ "PLAYER_FRAMEWORK_ENABLE" ]
+  }
+
+  if (ans_hitrace_usage) {
+    external_deps += [ "hitrace:hitrace_meter" ]
+    defines += [ "HITRACE_METER_ENABLE" ]
+  }
+
+  if (ans_config_policy_enable) {
+    external_deps += [ "config_policy:configpolicy_util" ]
+    defines += [ "CONFIG_POLICY_ENABLE" ]
+  }
+
+  if (screenlock_mgr_enable) {
+    external_deps += [ "screenlock_mgr:screenlock_client" ]
+    defines += [ "SCREENLOCK_MGR_ENABLE" ]
+  }
+
+  if (distributed_notification_service_feature_summary) {
+    defines += [ "ENABLE_ANS_EXT_WRAPPER" ]
+  }
+
+  if (telephony_cust) {
+    defines += [ "ENABLE_ANS_TELEPHONY_CUST_WRAPPER" ]
+  }
+
+  if (distributed_notification_service_feature_disable_fa_model) {
+    defines += [ "ANS_DISABLE_FA_MODEL" ]
+  }
+
+  if (is_emulator) {
+    defines += [ "IS_EMULATOR" ]
+  }
+  subsystem_name = "${subsystem_name}"
+  part_name = "${component_name}"
+}
+
+ohos_shared_library("libreminder") {
+  sanitize = {
+    integer_overflow = true
+    ubsan = true
+    boundary_sanitize = true
+    cfi = true
+    cfi_cross_dso = true
+    debug = false
+  }
+  branch_protector_ret = "pac_ret"
+
+  shlib_type = "sa"
+  version_script = "libreminder.map"
+  cflags = [
+    "-fno-math-errno",
+    "-fno-unroll-loops",
+    "-fmerge-all-constants",
+    "-fno-ident",
+    "-Oz",
+    "-flto",
+    "-ffunction-sections",
+    "-fdata-sections",
+  ]
+  sources = []
+
+  configs = [ ":public_reminder_config" ]
+
+  defines = []
+
+  if (is_double_framework) {
+    cflags += [ "-DCONFIG_DUAL_FRAMEWORK" ]
+  }
+
+  deps = [ "${services_path}/reminder:reminder_service_sources" ]
+
+  if (distributed_notification_supported) {
+    deps += [ "${services_path}/distributed:libans_distributed" ]
+  }
+
+  external_deps = [
+    "ability_base:configuration",
+    "ability_runtime:ability_manager",
+    "ability_runtime:app_manager",
+    "ability_runtime:appkit_native",
+    "ability_runtime:dataobs_manager",
+    "ability_runtime:extension_manager",
+    "ability_runtime:wantagent_innerkits",
+    "access_token:libaccesstoken_sdk",
+    "access_token:libtokenid_sdk",
+    "bundle_framework:appexecfwk_base",
+    "bundle_framework:appexecfwk_core",
+    "c_utils:utils",
+    "common_event_service:cesfwk_innerkits",
+    "config_policy:configpolicy_util",
+    "data_share:datashare_common",
+    "data_share:datashare_consumer",
+    "data_share:datashare_permission",
+    "device_manager:devicemanagersdk",
+    "ffrt:libffrt",
+    "i18n:intl_util",
+    "image_framework:image_native",
+    "init:libbegetutil",
+    "kv_store:distributeddata_inner",
+    "openssl:libcrypto_shared",
+    "os_account:os_account_innerkits",
+    "relational_store:native_rdb",
+    "resource_management:global_resmgr",
+    "time_service:time_client",
+  ]
+  external_deps += component_external_deps
+
+  if (device_usage) {
+    external_deps += [ "device_usage_statistics:usagestatsinner" ]
+  }
+
+  if (hisysevent_usage) {
+    cflags += [ "-DHAS_HISYSEVENT_PART" ]
+    external_deps += [ "hisysevent:libhisysevent" ]
+  }
+
+  if (standby_enable) {
+    external_deps += [ "device_standby:standby_innerkits" ]
+  }
+
+  if (player_framework) {
+    external_deps += [ "player_framework:media_client" ]
+  }
+
+  if (ans_hitrace_usage) {
+    external_deps += [ "hitrace:hitrace_meter" ]
+  }
+
+  if (ans_config_policy_enable) {
+    external_deps += [ "config_policy:configpolicy_util" ]
+  }
+
+  if (screenlock_mgr_enable) {
+    external_deps += [ "screenlock_mgr:screenlock_client" ]
+  }
+
+  subsystem_name = "${subsystem_name}"
+  part_name = "${component_name}"
+}
+
+# for unittest
+ohos_static_library("libreminder_static") {
+  sanitize = {
+    integer_overflow = true
+    ubsan = true
+    boundary_sanitize = true
+    cfi = true
+    cfi_cross_dso = true
+    debug = false
+  }
+  branch_protector_ret = "pac_ret"
+
+  cflags = [
+    "-fno-math-errno",
+    "-fno-unroll-loops",
+    "-fmerge-all-constants",
+    "-fno-ident",
+    "-Oz",
+    "-flto",
+    "-ffunction-sections",
+    "-fdata-sections",
+  ]
+  sources = []
+
+  configs = [ ":public_reminder_config" ]
+
+  defines = []
+
+  if (is_double_framework) {
+    cflags += [ "-DCONFIG_DUAL_FRAMEWORK" ]
+  }
+
+  deps = [ "${services_path}/reminder:reminder_service_sources" ]
+
+  if (distributed_notification_supported) {
+    deps += [ "${services_path}/distributed:libans_distributed" ]
+  }
+
+  external_deps = [
+    "ability_base:configuration",
+    "ability_runtime:ability_manager",
+    "ability_runtime:app_manager",
+    "ability_runtime:appkit_native",
+    "ability_runtime:dataobs_manager",
+    "ability_runtime:extension_manager",
+    "ability_runtime:wantagent_innerkits",
+    "access_token:libaccesstoken_sdk",
+    "access_token:libtokenid_sdk",
+    "bundle_framework:appexecfwk_base",
+    "bundle_framework:appexecfwk_core",
+    "c_utils:utils",
+    "common_event_service:cesfwk_innerkits",
+    "config_policy:configpolicy_util",
+    "data_share:datashare_common",
+    "data_share:datashare_consumer",
+    "data_share:datashare_permission",
+    "device_manager:devicemanagersdk",
+    "ffrt:libffrt",
+    "i18n:intl_util",
+    "image_framework:image_native",
+    "init:libbegetutil",
+    "kv_store:distributeddata_inner",
+    "openssl:libcrypto_shared",
+    "os_account:os_account_innerkits",
+    "relational_store:native_rdb",
+    "resource_management:global_resmgr",
+    "time_service:time_client",
+  ]
+  external_deps += component_external_deps
+
+  if (device_usage) {
+    external_deps += [ "device_usage_statistics:usagestatsinner" ]
+  }
+
+  if (hisysevent_usage) {
+    cflags += [ "-DHAS_HISYSEVENT_PART" ]
+    external_deps += [ "hisysevent:libhisysevent" ]
+  }
+
+  if (standby_enable) {
+    external_deps += [ "device_standby:standby_innerkits" ]
+  }
+
+  if (player_framework) {
+    external_deps += [ "player_framework:media_client" ]
+  }
+
+  if (ans_hitrace_usage) {
+    external_deps += [ "hitrace:hitrace_meter" ]
+  }
+
+  if (ans_config_policy_enable) {
+    external_deps += [ "config_policy:configpolicy_util" ]
+  }
+
+  if (screenlock_mgr_enable) {
+    external_deps += [ "screenlock_mgr:screenlock_client" ]
+  }
+
+  subsystem_name = "${subsystem_name}"
+  part_name = "${component_name}"
+}

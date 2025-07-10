@@ -1,0 +1,24 @@
+{
+  "color": [
+    {
+      "name": "default_background",
+      "value": "#F2F1F3F5"
+    },
+    {
+      "name": "default_font_color",
+      "value": "#000000"
+    },
+    {
+      "name": "quicklysetting_time_fontcolor",
+      "value": "#FF000000"
+    },
+    {
+      "name": "quicklysetting_date_fontcolor",
+      "value": "#FF000000"
+    },
+    {
+      "name": "notification_title_image_color",
+      "value": "#ff182431"
+    }
+  ]
+}

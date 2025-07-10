@@ -1,0 +1,8 @@
+{
+  "app": {
+    "bundleName": "com.example.app"
+  },
+  "module": {
+    "name": "entry"
+  }
+}

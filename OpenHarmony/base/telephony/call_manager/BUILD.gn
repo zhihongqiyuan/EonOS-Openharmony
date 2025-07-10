@@ -1,0 +1,82 @@
+# Copyright (C) 2021-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("callmanager.gni")
+
+declare_args() {
+  call_manager_feature_hfp_async_enable = false
+  call_manager_feature_not_support_multicall = false
+}
+
+ohos_shared_library("tel_call_manager") {
+  sanitize = {
+    cfi = true
+    cfi_cross_dso = true
+    debug = false
+    cfi_vcall_icall_only = true
+  }
+  branch_protector_ret = "pac_ret"
+  sources = call_manager_sources
+
+  include_dirs = call_manager_include_dirs
+
+  deps = [
+    "frameworks/native:tel_call_manager_api",
+    "//third_party/cJSON:cjson",
+    "//third_party/libphonenumber/cpp:phonenumber_standard",
+  ]
+
+  external_deps = call_manager_external_deps
+
+  cflags_cc = [
+    "-Wunused",
+    "-Wunreachable-code",
+    "-fno-exceptions",
+    "-fno-rtti",
+    "-fstack-protector-all",
+    "-Os",
+    "-D_FORTIFY_SOURCE=2",
+    "-flto",
+    "-Wno-unused-but-set-variable",
+    "-fdata-sections",
+    "-ffunction-sections",
+    "-fno-asynchronous-unwind-tables",
+    "-fno-unwind-tables",
+    "-fvisibility=hidden",
+  ]
+
+  ldflags = [
+    "-flto",
+    "-Wl,--gc-sections",
+  ]
+
+  defines = [
+    "TELEPHONY_LOG_TAG = \"CallManager\"",
+    "LOG_DOMAIN = 0xD001F10",
+  ]
+
+  if (call_manager_feature_hfp_async_enable) {
+    print("Support hfp async enable.")
+    defines += [ "HFP_ASYNC_ENABLE" ]
+  }
+
+  if (call_manager_feature_not_support_multicall) {
+    print("not Support multi call.")
+    defines += [ "NOT_SUPPORT_MULTICALL" ]
+  }
+  defines += call_manager_defines
+
+  part_name = "call_manager"
+  subsystem_name = "telephony"
+}

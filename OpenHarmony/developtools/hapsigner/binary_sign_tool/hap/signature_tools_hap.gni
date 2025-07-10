@@ -1,0 +1,35 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("../signature_tools.gni")
+signature_tools_hap_include = [
+  "${signature_tools_hap}/verify/include",
+  "${signature_tools_hap}/config/include",
+  "${signature_tools_hap}/entity/include",
+  "${signature_tools_hap}/provider/include",
+  "${signature_tools_hap}/sign/include",
+  "${signature_tools_hap}/utils/include",
+]
+
+signature_tools_hap_src = [
+  "${signature_tools_hap}/config/src/signer_config.cpp",
+  "${signature_tools_hap}/entity/src/content_digest_algorithm.cpp",
+  "${signature_tools_hap}/entity/src/param_constants.cpp",
+  "${signature_tools_hap}/entity/src/signature_algorithm_helper.cpp",
+  "${signature_tools_hap}/provider/src/local_sign_provider.cpp",
+  "${signature_tools_hap}/provider/src/remote_sign_provider.cpp",
+  "${signature_tools_hap}/provider/src/sign_provider.cpp",
+  "${signature_tools_hap}/sign/src/sign_elf.cpp",
+  "${signature_tools_hap}/utils/src/dynamic_lib_handle.cpp",
+  "${signature_tools_hap}/sign/src/bc_pkcs7_generator.cpp",
+]

@@ -1,0 +1,13 @@
+.item{
+    width: 700px;
+    flex-direction: column;
+    height: 300px;
+    align-items: center;
+    margin-top: 100px;
+  }
+
+.text_style {
+  font-weight:500;
+  font-family:Courier;
+  font-size:40px
+}

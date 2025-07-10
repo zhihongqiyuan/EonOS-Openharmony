@@ -1,0 +1,98 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include "v1_0/foo_ext_service.h"
+#include <hdf_base.h>
+#include <hdf_core_log.h>
+#include <osal_mem.h>
+#include <securec.h>
+
+#define HDF_LOG_TAG    foo_ext_service
+
+static int32_t FooExtTestFunc13(struct IFooExt *self, unknow type inData, unknow type outData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooExtTestFunc15(struct IFooExt *self, uint8_t inData, uint8_t outData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooExtTestFunc16(struct IFooExt *self, uint32_t inData, uint8_t outData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooExtTestFunc17(struct IFooExt *self, uint16_t inData, uint32_t* outData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooExtTestFunc18(struct IFooExt *self, uint64_t inData, uint64_t* outData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooExtTestFunc19(struct IFooExt *self, const struct FooInfo* inData, enum AudioPortPin* outData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooExtTestFunc20(struct IFooExt *self, const struct AudioSceneDescriptor* inData,
+     union SceneDesc* outData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooExtGetVersion(struct IFooExt *self, uint32_t* majorVer, uint32_t* minorVer)
+{
+    *majorVer = IFOO_EXT_MAJOR_VERSION;
+    *minorVer = IFOO_EXT_MINOR_VERSION;
+    return HDF_SUCCESS;
+}
+
+struct FooExtService *FooExtServiceGet(void)
+{
+    struct FooExtService *service = (struct FooExtService *)OsalMemCalloc(sizeof(struct FooExtService));
+    if (service == NULL) {
+        HDF_LOGE("%{public}s: malloc FooExtService obj failed!", __func__);
+        return NULL;
+    }
+
+    if (!FooExtStubConstruct(&service->stub)) {
+        HDF_LOGE("%{public}s: construct FooExtStub obj failed!", __func__);
+        OsalMemFree(service);
+        return NULL;
+    }
+
+    service->stub.interface.TestFunc13 = FooExtTestFunc13;
+    service->stub.interface.TestFunc15 = FooExtTestFunc15;
+    service->stub.interface.TestFunc16 = FooExtTestFunc16;
+    service->stub.interface.TestFunc17 = FooExtTestFunc17;
+    service->stub.interface.TestFunc18 = FooExtTestFunc18;
+    service->stub.interface.TestFunc19 = FooExtTestFunc19;
+    service->stub.interface.TestFunc20 = FooExtTestFunc20;
+    return service;
+}
+
+void FooExtServiceRelease(struct FooExtService *instance)
+{
+    if (instance == NULL) {
+        return;
+    }
+
+    OsalMemFree(instance);
+}

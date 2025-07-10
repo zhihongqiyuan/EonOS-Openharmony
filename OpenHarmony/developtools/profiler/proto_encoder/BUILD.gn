@@ -1,0 +1,37 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//developtools/profiler/device/base/config.gni")
+
+config("proto_encoder_config") {
+  include_dirs = [
+    "include",
+    "${OHOS_PROFILER_DIR}/interfaces/kits",
+  ]
+}
+
+ohos_source_set("proto_encoder_source") {
+  output_name = "proto_encoder"
+  sources = [
+    "src/base_message.cpp",
+    "src/varint_encode.cpp",
+  ]
+  public_configs = [
+    ":proto_encoder_config",
+    "${OHOS_PROFILER_DIR}/device/base:hiprofiler_test_config",
+  ]
+  external_deps = [ "bounds_checking_function:libsec_shared" ]
+  subsystem_name = "${OHOS_PROFILER_SUBSYS_NAME}"
+  part_name = "${OHOS_PROFILER_PART_NAME}"
+}

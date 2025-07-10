@@ -1,0 +1,100 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("../hapsigntool_cpp/cmd/signature_tools_cmd.gni")
+import("../hapsigntool_cpp/codesigning/signature_tools_codesigning.gni")
+import("../hapsigntool_cpp/common/signature_tools_common.gni")
+import("../hapsigntool_cpp/hap/signature_tools_hap.gni")
+import("../hapsigntool_cpp/profile/signature_tools_profile.gni")
+import("../hapsigntool_cpp/signature_tools.gni")
+import("../hapsigntool_cpp/utils/signature_tools_utils.gni")
+import("../hapsigntool_cpp/zip/signature_tools_zip.gni")
+
+import("//build/ohos.gni")
+
+config("service_include") {
+  visibility = [ "*" ]
+
+  include_dirs = [
+    "//third_party/openssl/include",
+    "//third_party/openssl/crypto/pkcs12",
+    "${signature_tools_api}/include",
+    "${signature_tools_signer}/include",
+  ]
+
+  include_dirs += signature_tools_utils_include
+  include_dirs += signature_tools_zip_include
+  include_dirs += signature_tools_codesigning_include
+  include_dirs += signature_tools_common_include
+  include_dirs += signature_tools_hap_include
+  include_dirs += signature_tools_profile_include
+  include_dirs += signature_tools_cmd_include
+
+  defines = [
+    "HI_LOG_ENABLE",
+    "SIGNATURE_LOG_TAG=\"Signature_Tools\"",
+    "LOG_DOMAIN=0xD004100",
+  ]
+
+  cflags = [ "--coverage" ]
+
+  cflags_cc = [
+    "-std=c++17",
+    "--coverage",
+  ]
+
+  ldflags = [
+    "-fPIC",
+    "-Wl,-E",
+    "--coverage",
+  ]
+}
+
+ohos_source_set("service_target") {
+  sources_obj = [
+    "${signature_tools_api}/src/sign_tool_service_impl.cpp",
+    "${signature_tools_api}/src/cert_tools.cpp",
+    "${signature_tools_signer}/src/signer_factory.cpp",
+    "${signature_tools_signer}/src/local_signer.cpp",
+  ]
+
+  sources_obj += signature_tools_utils_src
+  sources_obj += signature_tools_zip_src
+  sources_obj += signature_tools_codesigning_src
+  sources_obj += signature_tools_common_src
+  sources_obj += signature_tools_hap_src
+  sources_obj += signature_tools_profile_src
+  sources_obj += signature_tools_cmd_src
+
+  sources = sources_obj
+
+  configs = [ ":service_include" ]
+
+  remove_configs = [ "//build/config/compiler:no_exceptions" ]
+
+  public_deps = [
+    "//third_party/bzip2:libbz2",
+    "//third_party/openssl:libcrypto_shared",
+    "//third_party/openssl:libssl_shared",
+  ]
+
+  public_external_deps = [
+    "c_utils:utils",
+    "hilog:libhilog",
+    "json:nlohmann_json_static",
+    "zlib:shared_libz",
+  ]
+
+  part_name = "hapsigner"
+  subsystem_name = "developtools"
+}

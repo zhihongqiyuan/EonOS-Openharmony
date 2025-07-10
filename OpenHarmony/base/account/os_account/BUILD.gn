@@ -1,0 +1,77 @@
+# Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("os_account.gni")
+import("services/accountmgr/os_account_service.gni")
+
+group("account_build_unittest") {
+  testonly = true
+  deps = []
+  if (has_app_account_part) {
+    deps += [ "${os_account_path}/frameworks/appaccount/native/test:unittest" ]
+  }
+  deps += [
+    "${os_account_path}/frameworks/account_iam/test:unittest",
+    "${os_account_path}/frameworks/common/test:unittest",
+    "${os_account_path}/frameworks/osaccount/core/test:unittest",
+    "${os_account_path}/frameworks/osaccount/native/test/benchmarktest:benchmarktest",
+    "${os_account_path}/frameworks/osaccount/native/test/unittest:unittest",
+    "${os_account_path}/frameworks/test/unittest:unittest",
+    "${os_account_path}/interfaces/kits/capi/test/unittest:unittest",
+    "${os_account_path}/services/accountmgr/test:unittest",
+    "${os_account_path}/test/systemtest:systemtest",
+    "${os_account_path}/tools/test:unittest",
+  ]
+}
+
+group("account_build_moduletest") {
+  testonly = true
+  deps = []
+  if (has_app_account_part) {
+    deps += [
+      "${os_account_path}/frameworks/appaccount/native/test:moduletest",
+      "${os_account_path}/services/accountmgr/test/moduletest/app_account:moduletest",
+    ]
+  }
+  deps += [
+    "${os_account_path}/frameworks/domain_account/test/moduletest:moduletest",
+    "${os_account_path}/frameworks/ohosaccount/test:moduletest",
+    "${os_account_path}/frameworks/osaccount/native/test/moduletest:moduletest",
+    "${os_account_path}/services/accountmgr/test/moduletest/common:moduletest",
+    "${os_account_path}/services/accountmgr/test/moduletest/os_account:moduletest",
+    "${os_account_path}/tools/test:moduletest",
+  ]
+}
+
+group("account_build_fuzztest") {
+  testonly = true
+  deps = []
+  if (has_app_account_part) {
+    deps += [
+      "${os_account_path}/test/fuzztest/account_stub:fuzztest",
+      "${os_account_path}/test/fuzztest/appaccount:fuzztest",
+      "${os_account_path}/test/fuzztest/appaccount_stub:fuzztest",
+    ]
+  }
+  deps += [
+    "${os_account_path}/test/fuzztest/iamaccount:fuzztest",
+    "${os_account_path}/test/fuzztest/ohosaccount:fuzztest",
+    "${os_account_path}/test/fuzztest/osaccount:fuzztest",
+  ]
+  deps += [
+    "${os_account_path}/test/fuzztest/domainaccount_stub:fuzztest",
+    "${os_account_path}/test/fuzztest/iamaccount_stub:fuzztest",
+    "${os_account_path}/test/fuzztest/osaccount_stub:fuzztest",
+  ]
+}

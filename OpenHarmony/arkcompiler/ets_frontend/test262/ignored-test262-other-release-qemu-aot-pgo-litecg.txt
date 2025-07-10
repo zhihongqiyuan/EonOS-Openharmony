@@ -1,0 +1,30 @@
+# Issue #19225
+test262/data/other_tests/built-ins/Date/UTC/fp-evaluation-order.js
+
+# Issue #19223
+test262/data/other_tests/built-ins/Date/prototype/setDate/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setHours/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setMilliseconds/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setMilliseconds/this-value-invalid-date.js
+test262/data/other_tests/built-ins/Date/prototype/setMinutes/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setMonth/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setSeconds/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setSeconds/this-value-invalid-date.js
+test262/data/other_tests/built-ins/Date/prototype/setUTCDate/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setUTCHours/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setUTCMilliseconds/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setUTCMinutes/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setUTCMonth/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setUTCSeconds/arg-coercion-order.js
+# --- end of Issue #19223
+
+# Issue #19228
+test262/data/other_tests/built-ins/Date/prototype/setDate/this-value-invalid-date.js
+test262/data/other_tests/built-ins/Date/prototype/setHours/this-value-invalid-date.js
+test262/data/other_tests/built-ins/Date/prototype/setMilliseconds/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setMilliseconds/this-value-invalid-date.js
+test262/data/other_tests/built-ins/Date/prototype/setMinutes/this-value-invalid-date.js
+test262/data/other_tests/built-ins/Date/prototype/setMonth/this-value-invalid-date.js
+test262/data/other_tests/built-ins/Date/prototype/setSeconds/arg-coercion-order.js
+test262/data/other_tests/built-ins/Date/prototype/setSeconds/this-value-invalid-date.js
+# --- end of Issue #19228

@@ -1,0 +1,56 @@
+---
+# Ref: https://releases.llvm.org/12.0.0/tools/clang/tools/extra/docs/clang-tidy/checks/list.html
+Checks: >
+  bugprone-*,
+  clang-analyzer-*,
+  concurrency-mt-unsafe,
+  cppcoreguidelines-*,
+  cert-*
+  hicpp-*,
+  llvm-*,
+  modernize*,
+  performance-*,
+  portability-*,
+  readability-*,
+  -modernize-use-trailing-return-type,
+  -hicpp-vararg,
+  -hicpp-no-array-decay,
+  -cppcoreguidelines-owning-memory,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -cppcoreguidelines-pro-type-union-access,
+  -cppcoreguidelines-pro-type-vararg,
+  -readability-implicit-bool-conversion,
+
+CheckOptions:
+  # Ref: https://releases.llvm.org/12.0.0/tools/clang/tools/extra/docs/clang-tidy/checks/readability-identifier-naming.html
+  - { key: readability-identifier-naming.NamespaceCase,            value: CamelCase  }
+  - { key: readability-identifier-naming.ClassCase,                value: CamelCase  }
+  - { key: readability-identifier-naming.StructCase,               value: CamelCase  }
+  - { key: readability-identifier-naming.UnionCase,                value: CamelCase  }
+  - { key: readability-identifier-naming.EnumCase,                 value: CamelCase  }
+  - { key: readability-identifier-naming.TypedefCase,              value: CamelCase  }
+  - { key: readability-identifier-naming.TypeAliasCase,            value: CamelCase  }
+  - { key: readability-identifier-naming.FunctionCase,             value: CamelCase  }
+  - { key: readability-identifier-naming.GlobalVariableCase,       value: camelBack  }
+  - { key: readability-identifier-naming.GlobalVariablePrefix,     value: g_         }
+  - { key: readability-identifier-naming.MacroDefinitionCase,      value: UPPER_CASE }
+  - { key: readability-identifier-naming.EnumConstantCase,         value: UPPER_CASE }
+  - { key: readability-identifier-naming.GlobalConstantCase,       value: UPPER_CASE }
+  - { key: readability-identifier-naming.ClassConstantCase,        value: UPPER_CASE }
+  - { key: readability-identifier-naming.StaticConstantCase,       value: UPPER_CASE }
+  - { key: readability-identifier-naming.LocalConstantCase,        value: camelBack  }
+  - { key: readability-identifier-naming.ParameterCase,            value: camelBack  }
+  # 如下例外无法处理：对于struct/union的成员变量，仍采用小驼峰不加后缀的命名方式，与局部变量命名风格一致
+  # - { key: readability-identifier-naming.ClassMemberCase,          value: camelCase  }
+  # - { key: readability-identifier-naming.PublicMemberSuffix,       value: _          }
+  # - { key: readability-identifier-naming.ProtectedMemberSuffix,    value: _          }
+  # - { key: readability-identifier-naming.PrivateMemberSuffix,      value: _          }
+
+  # 规则8.1.1 避免函数过长，函数不超过50行（非空非注释）
+  - { key: readability-function-size.LineThreshold,                value:  50       }
+  # 建议8.3.3 函数的参数个数不超过5个
+  - { key: readability-function-size.ParameterThreshold,           value:  5        }
+  - { key: readability-function-size.NestingThreshold,             value:  4        }
+  - { key: bugprone-assert-side-effect.CheckFunctionCalls,         value:  1        }
+  - { key: modernize-use-transparent-functors.SafeMode,            value:  1        }
+

@@ -1,0 +1,232 @@
+{
+  "float": [
+    {
+      "name": "notification_title_fontsize",
+      "value": "20"
+    },
+    {
+      "name": "notification_expanded_text_maxheight",
+      "value": "295"
+    },
+    {
+      "name": "notification_content_fontsize",
+      "value": "20"
+    },
+    {
+      "name": "notification_content_lineheight",
+      "value": "20"
+    },
+    {
+      "name": "notification_content_maxlines",
+      "value": "1"
+    },
+    {
+      "name": "content_margin_top",
+      "value": "10"
+    },
+    {
+      "name": "body_margin_top",
+      "value": "10"
+    },
+    {
+      "name": "item_borderradius",
+      "value": "20"
+    },
+    {
+      "name": "item_paddingbottom",
+      "value": "20"
+    },
+    {
+      "name": "titleitem_row_space",
+      "value": "10"
+    },
+    {
+      "name": "titleitem_height",
+      "value": "50"
+    },
+    {
+      "name": "title_image_width",
+      "value": "28vp"
+    },
+    {
+      "name": "title_image_height",
+      "value": "28vp"
+    },
+    {
+      "name": "title_font_height",
+      "value": "26vp"
+    },
+    {
+      "name": "title_font_margin_t",
+      "value": "10vp"
+    },
+    {
+      "name": "message_font_margin_t",
+      "value": "8vp"
+    },
+    {
+      "name": "title_name_fontsize",
+      "value": "20"
+    },
+    {
+      "name": "title_time_fontsize",
+      "value": "20"
+    },
+    {
+      "name": "displayicon_width",
+      "value": "20"
+    },
+    {
+      "name": "displayicon_height",
+      "value": "20"
+    },
+    {
+      "name": "deleteall_image_opacity",
+      "value": "0.9"
+    },
+    {
+      "name": "setting_title_fontsize",
+      "value": "20fp"
+    },
+    {
+      "name": "setting_cont_fontsize",
+      "value": "16fp"
+    },
+    {
+      "name": "setting_border_width",
+      "value": "1"
+    },
+    {
+      "name": "setting_border_radius",
+      "value": "80"
+    },
+    {
+      "name": "setting_dialog_height",
+      "value": "184vp"
+    },
+    {
+      "name": "setting_dialog_width",
+      "value": "272vp"
+    },
+    {
+      "name": "setting_dialog_row_width",
+      "value": "208vp"
+    },
+    {
+      "name": "setting_dialog_row_height",
+      "value": "40vp"
+    },
+    {
+      "name": "confirm_dialog_height",
+      "value": "124vp"
+    },
+    {
+      "name": "confirm_dialog_width",
+      "value": "272vp"
+    },
+    {
+      "name": "confirm_dialog_row_width",
+      "value": "176vp"
+    },
+    {
+      "name": "confirm_dialog_button_width",
+      "value": "262vp"
+    },
+    {
+      "name": "notification_border_radius",
+      "value": "24vp"
+    },
+    {
+      "name": "action_button_height",
+      "value": "48"
+    },
+    {
+      "name": "action_button_padding",
+      "value": "12"
+    },
+    {
+      "name": "picture_default_height",
+      "value": "300"
+    },
+    {
+      "name": "confirm_title_fontsize",
+      "value": "40px"
+    },
+    {
+      "name": "confirm_cont_fontsize",
+      "value": "32px"
+    },
+    {
+      "name": "confirm_divider_height",
+      "value": "44"
+    },
+    {
+      "name": "confirm_button_height",
+      "value": "60"
+    },
+    {
+      "name": "confirm_dialog_margin",
+      "value": "0"
+    },
+    {
+      "name": "confirm_button_margin_t",
+      "value": "20vp"
+    },
+    {
+      "name": "icon_item_fontsize",
+      "value": "18"
+    },
+    {
+      "name": "setting_dialog_dy",
+      "value": "20"
+    },
+    {
+      "name": "confirm_dialog_dy",
+      "value": "20"
+    },
+    {
+      "name": "close_notification_margin_top",
+      "value": "10vp"
+    },
+    {
+      "name": "notification_appname_margin_top",
+      "value": "16vp"
+    },
+    {
+      "name": "notification_cancle_margin_top",
+      "value": "6vp"
+    },
+    {
+      "name": "device_divider_margin_l",
+      "value": "70"
+    },
+    {
+      "name": "device_divider_margin_r",
+      "value": "30"
+    },
+    {
+      "name": "device_border_width",
+      "value": "1"
+    },
+    {
+      "name": "device_border_radius",
+      "value": "30"
+    },
+    {
+      "name": "device_button_font",
+      "value": "20fp"
+    },
+    {
+      "name": "device_margin_16",
+      "value": "16fp"
+    },
+    {
+      "name": "notice_image_boderRadius",
+      "value": "0"
+    },
+    {
+      "name": "notice_divider",
+      "value": "1vp"
+    }
+  ]
+}

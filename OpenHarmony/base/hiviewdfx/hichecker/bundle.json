@@ -1,0 +1,72 @@
+{
+    "name": "@ohos/hichecker",
+    "description": "HiChecker mode for application",
+    "version": "4.0",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/hiviewdfx/hichecker"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "hichecker",
+        "subsystem": "hiviewdfx",
+        "syscap": [
+            "SystemCapability.HiviewDFX.HiChecker"
+        ],
+        "features": [
+            "hichecker_support_asan"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "80KB",
+        "ram": "~100KB",
+        "deps": {
+            "components": [
+                "c_utils",
+                "ets_frontend",
+                "ets_runtime",
+                "faultloggerd",
+                "hilog",
+                "init",
+                "napi"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/hiviewdfx/hichecker/interfaces/native/innerkits:libhichecker",
+		        "//base/hiviewdfx/hichecker/interfaces/js/kits/napi:hichecker",
+                "//base/hiviewdfx/hichecker/interfaces/js/kits/napi/js_leak_watcher:jsleakwatcher",
+                "//base/hiviewdfx/hichecker/frameworks/native:libhichecker_source"
+            ],
+            "inner_kits": [
+                {
+                    "type": "so",
+                    "name": "//base/hiviewdfx/hichecker/interfaces/native/innerkits:libhichecker",
+                    "header": {
+                      "header_files": [
+                        "hichecker.h",
+                        "caution.h",
+                        "hichecker_wrapper.h"
+                      ],
+                      "header_base": "//base/hiviewdfx/hichecker/interfaces/native/innerkits/include/"
+                    }
+                },
+                {
+                    "name": "//base/hiviewdfx/hichecker/frameworks/native:libhichecker_source",
+                    "header": {
+                      "header_files": [
+                        "caution.cpp",
+                        "hichecker.cpp",
+                        "hichecker_wrapper.cpp"
+                      ],
+                      "header_base": "//base/hiviewdfx/hichecker/interfaces/native/innerkits/include/"
+                    }
+                  }
+            ],
+            "test": [ "//base/hiviewdfx/hichecker/test:unittest" ]
+        }
+    }
+}

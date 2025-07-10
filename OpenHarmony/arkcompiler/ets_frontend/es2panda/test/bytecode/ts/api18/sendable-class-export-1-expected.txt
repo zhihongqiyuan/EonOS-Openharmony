@@ -1,0 +1,4411 @@
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@0=#a10(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@10=#a100(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@11=#a101(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@12=#a102(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@13=#a103(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@14=#a104(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@15=#a105(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@16=#a106(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@17=#a107(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@18=#a108(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@19=#a109(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@1=#a11(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@1a=#a110(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@1b=#a111(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@1c=#a112(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@1d=#a113(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@1e=#a114(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@1f=#a115(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@20=#a116(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@21=#a117(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@22=#a118(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@23=#a119(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@24=#a120(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@25=#a121(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@26=#a122(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@27=#a123(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@28=#a124(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@29=#a125(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@2=#a12(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@2a=#a126(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@2b=#a127(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@2c=#a128(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@2d=#a129(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@2e=#a130(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@2f=#a131(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@30=#a132(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@31=#a133(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@32=#a134(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@33=#a135(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@34=#a136(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@35=#a137(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@36=#a138(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@37=#a139(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@38=#a140(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@39=#a141(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@3=#a13(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@3a=#a142(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@3b=#a143(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@3c=#a144(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@3d=#a145(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@3e=#a146(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@3f=#a147(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@40=#a148(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@41=#a149(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@42=#a150(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@43=#a151(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@44=#a152(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@45=#a153(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@46=#a154(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@47=#a155(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@48=#a156(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@49=#a157(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@4=#a14(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@4a=#a158(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@4b=#a159(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@4c=#a160(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@4d=#a161(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@4e=#a162(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@4f=#a163(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@50=#a164(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@51=#a165(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@52=#a166(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@53=#a167(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@54=#a168(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@55=#a169(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@56=#a170(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@57=#a171(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@58=#a172(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@59=#a173(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@5=#a15(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@5a=#a174(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@5b=#a175(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@5c=#a176(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@5d=#a177(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@5e=#a178(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@5f=#a179(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@60=#a180(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@61=#a181(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@62=#a182(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@63=#a183(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@64=#a184(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@65=#a185(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@66=#a186(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@67=#a187(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@68=#a188(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@69=#a189(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@6=#a16(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@6a=#a190(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@6b=#a191(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@6c=#a192(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@6d=#a193(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@6e=#a194(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@6f=#a195(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@70=#a196(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@71=#a197(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@72=#a198(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@73=#a199(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@74=#a200(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@75=#a201(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@76=#a202(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@77=#a203(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@78=#a204(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@79=#a205(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@7=#a17(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@7a=#a206(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@7b=#a207(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@7c=#a208(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@7d=#a209(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@7e=#a210(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@7f=#a211(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@80=#a212(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@81=#a213(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@82=#a214(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@83=#a215(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@84=#a216(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@85=#a217(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@86=#a218(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@87=#a219(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@88=#a220(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@89=#a221(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@8=#a18(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@8a=#a222(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@8b=#a223(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@8c=#a224(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@8d=#a225(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@8e=#a226(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@8f=#a227(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@90=#a228(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@91=#a229(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@92=#a230(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@93=#a231(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@94=#a232(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@95=#a233(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@96=#a234(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@97=#a235(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@98=#a236(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@99=#a237(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@9=#a19(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@9a=#a238(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@9b=#a239(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@9c=#a240(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@9d=#a241(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@9e=#a242(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@9f=#a243(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@a0=#a244(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@a1=#a245(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@a2=#a246(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@a3=#a247(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@a4=#a248(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@a5=#a249(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@a6=#a250(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@a7=#a251(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@a8=#a252(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@a9=#a253(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@a=#a20(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@aa=#a254(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@ab=#a255(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@ac=#a256(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@ad=#a257(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@b=#a21(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@c=#a22(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@d=#a23(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@e=#a24(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@f=#a25(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~B=#B(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .#~B>#foo(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	callruntime.ldsendablelocalmodulevar 0x0
+	sta v0
+	throw.undefinedifholewithname a1
+	mov v1, v0
+	newobjrange 0x0, 0x1, v1
+	callruntime.wideldsendablelocalmodulevar 0xaf
+	sta v0
+	throw.undefinedifholewithname a257
+	mov v1, v0
+	newobjrange 0x2, 0x1, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a1=#a1(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a26=#a26(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a27=#a27(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a28=#a28(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a29=#a29(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a2=#a2(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a30=#a30(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a31=#a31(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a32=#a32(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a33=#a33(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a34=#a34(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a35=#a35(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a36=#a36(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a37=#a37(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a38=#a38(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a39=#a39(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a3=#a3(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a40=#a40(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a41=#a41(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a42=#a42(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a43=#a43(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a44=#a44(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a45=#a45(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a46=#a46(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a47=#a47(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a48=#a48(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a49=#a49(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a4=#a4(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a50=#a50(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a51=#a51(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a52=#a52(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a53=#a53(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a54=#a54(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a55=#a55(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a56=#a56(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a57=#a57(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a58=#a58(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a59=#a59(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a5=#a5(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a60=#a60(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a61=#a61(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a62=#a62(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a63=#a63(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a64=#a64(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a65=#a65(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a66=#a66(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a67=#a67(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a68=#a68(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a69=#a69(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a6=#a6(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a70=#a70(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a71=#a71(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a72=#a72(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a73=#a73(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a74=#a74(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a75=#a75(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a76=#a76(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a77=#a77(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a78=#a78(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a79=#a79(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a7=#a7(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a80=#a80(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a81=#a81(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a82=#a82(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a83=#a83(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a84=#a84(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a85=#a85(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a86=#a86(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a87=#a87(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a88=#a88(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a89=#a89(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a8=#a8(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a90=#a90(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a91=#a91(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a92=#a92(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a93=#a93(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a94=#a94(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a95=#a95(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a96=#a96(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a97=#a97(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a98=#a98(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a99=#a99(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~a9=#a9(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x305
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, .#~a1=#a1, _2, 0x0, v0
+	sta v0
+	ldobjbyname 0x1, prototype
+	lda v0
+	stmodulevar 0x0
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x3, .#~a2=#a2, _3, 0x0, v0
+	sta v0
+	ldobjbyname 0x4, prototype
+	lda v0
+	stmodulevar 0x6f
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x6, .#~a3=#a3, _4, 0x0, v0
+	sta v0
+	ldobjbyname 0x7, prototype
+	lda v0
+	wide.stmodulevar 0xb4
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x9, .#~a4=#a4, _5, 0x0, v0
+	sta v0
+	ldobjbyname 0xa, prototype
+	lda v0
+	wide.stmodulevar 0xbf
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xc, .#~a5=#a5, _6, 0x0, v0
+	sta v0
+	ldobjbyname 0xd, prototype
+	lda v0
+	wide.stmodulevar 0xca
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xf, .#~a6=#a6, _7, 0x0, v0
+	sta v0
+	ldobjbyname 0x10, prototype
+	lda v0
+	wide.stmodulevar 0xd5
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x12, .#~a7=#a7, _8, 0x0, v0
+	sta v0
+	ldobjbyname 0x13, prototype
+	lda v0
+	wide.stmodulevar 0xe0
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x15, .#~a8=#a8, _9, 0x0, v0
+	sta v0
+	ldobjbyname 0x16, prototype
+	lda v0
+	wide.stmodulevar 0xeb
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x18, .#~a9=#a9, _10, 0x0, v0
+	sta v0
+	ldobjbyname 0x19, prototype
+	lda v0
+	wide.stmodulevar 0xf6
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1b, .#~@0=#a10, _11, 0x0, v0
+	sta v0
+	ldobjbyname 0x1c, prototype
+	lda v0
+	stmodulevar 0x1
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1e, .#~@1=#a11, _12, 0x0, v0
+	sta v0
+	ldobjbyname 0x1f, prototype
+	lda v0
+	stmodulevar 0xc
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x21, .#~@2=#a12, _13, 0x0, v0
+	sta v0
+	ldobjbyname 0x22, prototype
+	lda v0
+	stmodulevar 0x17
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x24, .#~@3=#a13, _14, 0x0, v0
+	sta v0
+	ldobjbyname 0x25, prototype
+	lda v0
+	stmodulevar 0x22
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x27, .#~@4=#a14, _15, 0x0, v0
+	sta v0
+	ldobjbyname 0x28, prototype
+	lda v0
+	stmodulevar 0x2d
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2a, .#~@5=#a15, _16, 0x0, v0
+	sta v0
+	ldobjbyname 0x2b, prototype
+	lda v0
+	stmodulevar 0x38
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2d, .#~@6=#a16, _17, 0x0, v0
+	sta v0
+	ldobjbyname 0x2e, prototype
+	lda v0
+	stmodulevar 0x43
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x30, .#~@7=#a17, _18, 0x0, v0
+	sta v0
+	ldobjbyname 0x31, prototype
+	lda v0
+	stmodulevar 0x4e
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x33, .#~@8=#a18, _19, 0x0, v0
+	sta v0
+	ldobjbyname 0x34, prototype
+	lda v0
+	stmodulevar 0x59
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x36, .#~@9=#a19, _20, 0x0, v0
+	sta v0
+	ldobjbyname 0x37, prototype
+	lda v0
+	stmodulevar 0x64
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x39, .#~@a=#a20, _21, 0x0, v0
+	sta v0
+	ldobjbyname 0x3a, prototype
+	lda v0
+	stmodulevar 0x70
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x3c, .#~@b=#a21, _22, 0x0, v0
+	sta v0
+	ldobjbyname 0x3d, prototype
+	lda v0
+	stmodulevar 0x7b
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x3f, .#~@c=#a22, _23, 0x0, v0
+	sta v0
+	ldobjbyname 0x40, prototype
+	lda v0
+	wide.stmodulevar 0x86
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x42, .#~@d=#a23, _24, 0x0, v0
+	sta v0
+	ldobjbyname 0x43, prototype
+	lda v0
+	wide.stmodulevar 0x91
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x45, .#~@e=#a24, _25, 0x0, v0
+	sta v0
+	ldobjbyname 0x46, prototype
+	lda v0
+	wide.stmodulevar 0x9c
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x48, .#~@f=#a25, _26, 0x0, v0
+	sta v0
+	ldobjbyname 0x49, prototype
+	lda v0
+	wide.stmodulevar 0xa7
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x4b, .#~a26=#a26, _27, 0x0, v0
+	sta v0
+	ldobjbyname 0x4c, prototype
+	lda v0
+	wide.stmodulevar 0xb0
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x4e, .#~a27=#a27, _28, 0x0, v0
+	sta v0
+	ldobjbyname 0x4f, prototype
+	lda v0
+	wide.stmodulevar 0xb1
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x51, .#~a28=#a28, _29, 0x0, v0
+	sta v0
+	ldobjbyname 0x52, prototype
+	lda v0
+	wide.stmodulevar 0xb2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x54, .#~a29=#a29, _30, 0x0, v0
+	sta v0
+	ldobjbyname 0x55, prototype
+	lda v0
+	wide.stmodulevar 0xb3
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x57, .#~a30=#a30, _31, 0x0, v0
+	sta v0
+	ldobjbyname 0x58, prototype
+	lda v0
+	wide.stmodulevar 0xb5
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x5a, .#~a31=#a31, _32, 0x0, v0
+	sta v0
+	ldobjbyname 0x5b, prototype
+	lda v0
+	wide.stmodulevar 0xb6
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x5d, .#~a32=#a32, _33, 0x0, v0
+	sta v0
+	ldobjbyname 0x5e, prototype
+	lda v0
+	wide.stmodulevar 0xb7
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x60, .#~a33=#a33, _34, 0x0, v0
+	sta v0
+	ldobjbyname 0x61, prototype
+	lda v0
+	wide.stmodulevar 0xb8
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x63, .#~a34=#a34, _35, 0x0, v0
+	sta v0
+	ldobjbyname 0x64, prototype
+	lda v0
+	wide.stmodulevar 0xb9
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x66, .#~a35=#a35, _36, 0x0, v0
+	sta v0
+	ldobjbyname 0x67, prototype
+	lda v0
+	wide.stmodulevar 0xba
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x69, .#~a36=#a36, _37, 0x0, v0
+	sta v0
+	ldobjbyname 0x6a, prototype
+	lda v0
+	wide.stmodulevar 0xbb
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x6c, .#~a37=#a37, _38, 0x0, v0
+	sta v0
+	ldobjbyname 0x6d, prototype
+	lda v0
+	wide.stmodulevar 0xbc
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x6f, .#~a38=#a38, _39, 0x0, v0
+	sta v0
+	ldobjbyname 0x70, prototype
+	lda v0
+	wide.stmodulevar 0xbd
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x72, .#~a39=#a39, _40, 0x0, v0
+	sta v0
+	ldobjbyname 0x73, prototype
+	lda v0
+	wide.stmodulevar 0xbe
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x75, .#~a40=#a40, _41, 0x0, v0
+	sta v0
+	ldobjbyname 0x76, prototype
+	lda v0
+	wide.stmodulevar 0xc0
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x78, .#~a41=#a41, _42, 0x0, v0
+	sta v0
+	ldobjbyname 0x79, prototype
+	lda v0
+	wide.stmodulevar 0xc1
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x7b, .#~a42=#a42, _43, 0x0, v0
+	sta v0
+	ldobjbyname 0x7c, prototype
+	lda v0
+	wide.stmodulevar 0xc2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x7e, .#~a43=#a43, _44, 0x0, v0
+	sta v0
+	ldobjbyname 0x7f, prototype
+	lda v0
+	wide.stmodulevar 0xc3
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x81, .#~a44=#a44, _45, 0x0, v0
+	sta v0
+	ldobjbyname 0x82, prototype
+	lda v0
+	wide.stmodulevar 0xc4
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x84, .#~a45=#a45, _46, 0x0, v0
+	sta v0
+	ldobjbyname 0x85, prototype
+	lda v0
+	wide.stmodulevar 0xc5
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x87, .#~a46=#a46, _47, 0x0, v0
+	sta v0
+	ldobjbyname 0x88, prototype
+	lda v0
+	wide.stmodulevar 0xc6
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x8a, .#~a47=#a47, _48, 0x0, v0
+	sta v0
+	ldobjbyname 0x8b, prototype
+	lda v0
+	wide.stmodulevar 0xc7
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x8d, .#~a48=#a48, _49, 0x0, v0
+	sta v0
+	ldobjbyname 0x8e, prototype
+	lda v0
+	wide.stmodulevar 0xc8
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x90, .#~a49=#a49, _50, 0x0, v0
+	sta v0
+	ldobjbyname 0x91, prototype
+	lda v0
+	wide.stmodulevar 0xc9
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x93, .#~a50=#a50, _51, 0x0, v0
+	sta v0
+	ldobjbyname 0x94, prototype
+	lda v0
+	wide.stmodulevar 0xcb
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x96, .#~a51=#a51, _52, 0x0, v0
+	sta v0
+	ldobjbyname 0x97, prototype
+	lda v0
+	wide.stmodulevar 0xcc
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x99, .#~a52=#a52, _53, 0x0, v0
+	sta v0
+	ldobjbyname 0x9a, prototype
+	lda v0
+	wide.stmodulevar 0xcd
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x9c, .#~a53=#a53, _54, 0x0, v0
+	sta v0
+	ldobjbyname 0x9d, prototype
+	lda v0
+	wide.stmodulevar 0xce
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x9f, .#~a54=#a54, _55, 0x0, v0
+	sta v0
+	ldobjbyname 0xa0, prototype
+	lda v0
+	wide.stmodulevar 0xcf
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xa2, .#~a55=#a55, _56, 0x0, v0
+	sta v0
+	ldobjbyname 0xa3, prototype
+	lda v0
+	wide.stmodulevar 0xd0
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xa5, .#~a56=#a56, _57, 0x0, v0
+	sta v0
+	ldobjbyname 0xa6, prototype
+	lda v0
+	wide.stmodulevar 0xd1
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xa8, .#~a57=#a57, _58, 0x0, v0
+	sta v0
+	ldobjbyname 0xa9, prototype
+	lda v0
+	wide.stmodulevar 0xd2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xab, .#~a58=#a58, _59, 0x0, v0
+	sta v0
+	ldobjbyname 0xac, prototype
+	lda v0
+	wide.stmodulevar 0xd3
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xae, .#~a59=#a59, _60, 0x0, v0
+	sta v0
+	ldobjbyname 0xaf, prototype
+	lda v0
+	wide.stmodulevar 0xd4
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xb1, .#~a60=#a60, _61, 0x0, v0
+	sta v0
+	ldobjbyname 0xb2, prototype
+	lda v0
+	wide.stmodulevar 0xd6
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xb4, .#~a61=#a61, _62, 0x0, v0
+	sta v0
+	ldobjbyname 0xb5, prototype
+	lda v0
+	wide.stmodulevar 0xd7
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xb7, .#~a62=#a62, _63, 0x0, v0
+	sta v0
+	ldobjbyname 0xb8, prototype
+	lda v0
+	wide.stmodulevar 0xd8
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xba, .#~a63=#a63, _64, 0x0, v0
+	sta v0
+	ldobjbyname 0xbb, prototype
+	lda v0
+	wide.stmodulevar 0xd9
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xbd, .#~a64=#a64, _65, 0x0, v0
+	sta v0
+	ldobjbyname 0xbe, prototype
+	lda v0
+	wide.stmodulevar 0xda
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xc0, .#~a65=#a65, _66, 0x0, v0
+	sta v0
+	ldobjbyname 0xc1, prototype
+	lda v0
+	wide.stmodulevar 0xdb
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xc3, .#~a66=#a66, _67, 0x0, v0
+	sta v0
+	ldobjbyname 0xc4, prototype
+	lda v0
+	wide.stmodulevar 0xdc
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xc6, .#~a67=#a67, _68, 0x0, v0
+	sta v0
+	ldobjbyname 0xc7, prototype
+	lda v0
+	wide.stmodulevar 0xdd
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xc9, .#~a68=#a68, _69, 0x0, v0
+	sta v0
+	ldobjbyname 0xca, prototype
+	lda v0
+	wide.stmodulevar 0xde
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xcc, .#~a69=#a69, _70, 0x0, v0
+	sta v0
+	ldobjbyname 0xcd, prototype
+	lda v0
+	wide.stmodulevar 0xdf
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xcf, .#~a70=#a70, _71, 0x0, v0
+	sta v0
+	ldobjbyname 0xd0, prototype
+	lda v0
+	wide.stmodulevar 0xe1
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xd2, .#~a71=#a71, _72, 0x0, v0
+	sta v0
+	ldobjbyname 0xd3, prototype
+	lda v0
+	wide.stmodulevar 0xe2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xd5, .#~a72=#a72, _73, 0x0, v0
+	sta v0
+	ldobjbyname 0xd6, prototype
+	lda v0
+	wide.stmodulevar 0xe3
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xd8, .#~a73=#a73, _74, 0x0, v0
+	sta v0
+	ldobjbyname 0xd9, prototype
+	lda v0
+	wide.stmodulevar 0xe4
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xdb, .#~a74=#a74, _75, 0x0, v0
+	sta v0
+	ldobjbyname 0xdc, prototype
+	lda v0
+	wide.stmodulevar 0xe5
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xde, .#~a75=#a75, _76, 0x0, v0
+	sta v0
+	ldobjbyname 0xdf, prototype
+	lda v0
+	wide.stmodulevar 0xe6
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xe1, .#~a76=#a76, _77, 0x0, v0
+	sta v0
+	ldobjbyname 0xe2, prototype
+	lda v0
+	wide.stmodulevar 0xe7
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xe4, .#~a77=#a77, _78, 0x0, v0
+	sta v0
+	ldobjbyname 0xe5, prototype
+	lda v0
+	wide.stmodulevar 0xe8
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xe7, .#~a78=#a78, _79, 0x0, v0
+	sta v0
+	ldobjbyname 0xe8, prototype
+	lda v0
+	wide.stmodulevar 0xe9
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xea, .#~a79=#a79, _80, 0x0, v0
+	sta v0
+	ldobjbyname 0xeb, prototype
+	lda v0
+	wide.stmodulevar 0xea
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xed, .#~a80=#a80, _81, 0x0, v0
+	sta v0
+	ldobjbyname 0xee, prototype
+	lda v0
+	wide.stmodulevar 0xec
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xf0, .#~a81=#a81, _82, 0x0, v0
+	sta v0
+	ldobjbyname 0xf1, prototype
+	lda v0
+	wide.stmodulevar 0xed
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xf3, .#~a82=#a82, _83, 0x0, v0
+	sta v0
+	ldobjbyname 0xf4, prototype
+	lda v0
+	wide.stmodulevar 0xee
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xf6, .#~a83=#a83, _84, 0x0, v0
+	sta v0
+	ldobjbyname 0xf7, prototype
+	lda v0
+	wide.stmodulevar 0xef
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xf9, .#~a84=#a84, _85, 0x0, v0
+	sta v0
+	ldobjbyname 0xfa, prototype
+	lda v0
+	wide.stmodulevar 0xf0
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xfc, .#~a85=#a85, _86, 0x0, v0
+	sta v0
+	ldobjbyname 0xfd, prototype
+	lda v0
+	wide.stmodulevar 0xf1
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x100, .#~a86=#a86, _87, 0x0, v0
+	sta v0
+	ldobjbyname 0x101, prototype
+	lda v0
+	wide.stmodulevar 0xf2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x103, .#~a87=#a87, _88, 0x0, v0
+	sta v0
+	ldobjbyname 0x104, prototype
+	lda v0
+	wide.stmodulevar 0xf3
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x106, .#~a88=#a88, _89, 0x0, v0
+	sta v0
+	ldobjbyname 0x107, prototype
+	lda v0
+	wide.stmodulevar 0xf4
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x109, .#~a89=#a89, _90, 0x0, v0
+	sta v0
+	ldobjbyname 0x10a, prototype
+	lda v0
+	wide.stmodulevar 0xf5
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x10c, .#~a90=#a90, _91, 0x0, v0
+	sta v0
+	ldobjbyname 0x10d, prototype
+	lda v0
+	wide.stmodulevar 0xf7
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x10f, .#~a91=#a91, _92, 0x0, v0
+	sta v0
+	ldobjbyname 0x110, prototype
+	lda v0
+	wide.stmodulevar 0xf8
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x112, .#~a92=#a92, _93, 0x0, v0
+	sta v0
+	ldobjbyname 0x113, prototype
+	lda v0
+	wide.stmodulevar 0xf9
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x115, .#~a93=#a93, _94, 0x0, v0
+	sta v0
+	ldobjbyname 0x116, prototype
+	lda v0
+	wide.stmodulevar 0xfa
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x118, .#~a94=#a94, _95, 0x0, v0
+	sta v0
+	ldobjbyname 0x119, prototype
+	lda v0
+	wide.stmodulevar 0xfb
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x11b, .#~a95=#a95, _96, 0x0, v0
+	sta v0
+	ldobjbyname 0x11c, prototype
+	lda v0
+	wide.stmodulevar 0xfc
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x11e, .#~a96=#a96, _97, 0x0, v0
+	sta v0
+	ldobjbyname 0x11f, prototype
+	lda v0
+	wide.stmodulevar 0xfd
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x121, .#~a97=#a97, _98, 0x0, v0
+	sta v0
+	ldobjbyname 0x122, prototype
+	lda v0
+	wide.stmodulevar 0xfe
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x124, .#~a98=#a98, _99, 0x0, v0
+	sta v0
+	ldobjbyname 0x125, prototype
+	lda v0
+	wide.stmodulevar 0xff
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x127, .#~a99=#a99, _100, 0x0, v0
+	sta v0
+	ldobjbyname 0x128, prototype
+	lda v0
+	wide.stmodulevar 0x100
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x12a, .#~@10=#a100, _101, 0x0, v0
+	sta v0
+	ldobjbyname 0x12b, prototype
+	lda v0
+	stmodulevar 0x2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x12d, .#~@11=#a101, _102, 0x0, v0
+	sta v0
+	ldobjbyname 0x12e, prototype
+	lda v0
+	stmodulevar 0x3
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x130, .#~@12=#a102, _103, 0x0, v0
+	sta v0
+	ldobjbyname 0x131, prototype
+	lda v0
+	stmodulevar 0x4
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x133, .#~@13=#a103, _104, 0x0, v0
+	sta v0
+	ldobjbyname 0x134, prototype
+	lda v0
+	stmodulevar 0x5
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x136, .#~@14=#a104, _105, 0x0, v0
+	sta v0
+	ldobjbyname 0x137, prototype
+	lda v0
+	stmodulevar 0x6
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x139, .#~@15=#a105, _106, 0x0, v0
+	sta v0
+	ldobjbyname 0x13a, prototype
+	lda v0
+	stmodulevar 0x7
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x13c, .#~@16=#a106, _107, 0x0, v0
+	sta v0
+	ldobjbyname 0x13d, prototype
+	lda v0
+	stmodulevar 0x8
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x13f, .#~@17=#a107, _108, 0x0, v0
+	sta v0
+	ldobjbyname 0x140, prototype
+	lda v0
+	stmodulevar 0x9
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x142, .#~@18=#a108, _109, 0x0, v0
+	sta v0
+	ldobjbyname 0x143, prototype
+	lda v0
+	stmodulevar 0xa
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x145, .#~@19=#a109, _110, 0x0, v0
+	sta v0
+	ldobjbyname 0x146, prototype
+	lda v0
+	stmodulevar 0xb
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x148, .#~@1a=#a110, _111, 0x0, v0
+	sta v0
+	ldobjbyname 0x149, prototype
+	lda v0
+	stmodulevar 0xd
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x14b, .#~@1b=#a111, _112, 0x0, v0
+	sta v0
+	ldobjbyname 0x14c, prototype
+	lda v0
+	stmodulevar 0xe
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x14e, .#~@1c=#a112, _113, 0x0, v0
+	sta v0
+	ldobjbyname 0x14f, prototype
+	lda v0
+	stmodulevar 0xf
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x151, .#~@1d=#a113, _114, 0x0, v0
+	sta v0
+	ldobjbyname 0x152, prototype
+	lda v0
+	stmodulevar 0x10
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x154, .#~@1e=#a114, _115, 0x0, v0
+	sta v0
+	ldobjbyname 0x155, prototype
+	lda v0
+	stmodulevar 0x11
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x157, .#~@1f=#a115, _116, 0x0, v0
+	sta v0
+	ldobjbyname 0x158, prototype
+	lda v0
+	stmodulevar 0x12
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x15a, .#~@20=#a116, _117, 0x0, v0
+	sta v0
+	ldobjbyname 0x15b, prototype
+	lda v0
+	stmodulevar 0x13
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x15d, .#~@21=#a117, _118, 0x0, v0
+	sta v0
+	ldobjbyname 0x15e, prototype
+	lda v0
+	stmodulevar 0x14
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x160, .#~@22=#a118, _119, 0x0, v0
+	sta v0
+	ldobjbyname 0x161, prototype
+	lda v0
+	stmodulevar 0x15
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x163, .#~@23=#a119, _120, 0x0, v0
+	sta v0
+	ldobjbyname 0x164, prototype
+	lda v0
+	stmodulevar 0x16
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x166, .#~@24=#a120, _121, 0x0, v0
+	sta v0
+	ldobjbyname 0x167, prototype
+	lda v0
+	stmodulevar 0x18
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x169, .#~@25=#a121, _122, 0x0, v0
+	sta v0
+	ldobjbyname 0x16a, prototype
+	lda v0
+	stmodulevar 0x19
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x16c, .#~@26=#a122, _123, 0x0, v0
+	sta v0
+	ldobjbyname 0x16d, prototype
+	lda v0
+	stmodulevar 0x1a
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x16f, .#~@27=#a123, _124, 0x0, v0
+	sta v0
+	ldobjbyname 0x170, prototype
+	lda v0
+	stmodulevar 0x1b
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x172, .#~@28=#a124, _125, 0x0, v0
+	sta v0
+	ldobjbyname 0x173, prototype
+	lda v0
+	stmodulevar 0x1c
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x175, .#~@29=#a125, _126, 0x0, v0
+	sta v0
+	ldobjbyname 0x176, prototype
+	lda v0
+	stmodulevar 0x1d
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x178, .#~@2a=#a126, _127, 0x0, v0
+	sta v0
+	ldobjbyname 0x179, prototype
+	lda v0
+	stmodulevar 0x1e
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x17b, .#~@2b=#a127, _128, 0x0, v0
+	sta v0
+	ldobjbyname 0x17c, prototype
+	lda v0
+	stmodulevar 0x1f
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x17e, .#~@2c=#a128, _129, 0x0, v0
+	sta v0
+	ldobjbyname 0x17f, prototype
+	lda v0
+	stmodulevar 0x20
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x181, .#~@2d=#a129, _130, 0x0, v0
+	sta v0
+	ldobjbyname 0x182, prototype
+	lda v0
+	stmodulevar 0x21
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x184, .#~@2e=#a130, _131, 0x0, v0
+	sta v0
+	ldobjbyname 0x185, prototype
+	lda v0
+	stmodulevar 0x23
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x187, .#~@2f=#a131, _132, 0x0, v0
+	sta v0
+	ldobjbyname 0x188, prototype
+	lda v0
+	stmodulevar 0x24
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x18a, .#~@30=#a132, _133, 0x0, v0
+	sta v0
+	ldobjbyname 0x18b, prototype
+	lda v0
+	stmodulevar 0x25
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x18d, .#~@31=#a133, _134, 0x0, v0
+	sta v0
+	ldobjbyname 0x18e, prototype
+	lda v0
+	stmodulevar 0x26
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x190, .#~@32=#a134, _135, 0x0, v0
+	sta v0
+	ldobjbyname 0x191, prototype
+	lda v0
+	stmodulevar 0x27
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x193, .#~@33=#a135, _136, 0x0, v0
+	sta v0
+	ldobjbyname 0x194, prototype
+	lda v0
+	stmodulevar 0x28
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x196, .#~@34=#a136, _137, 0x0, v0
+	sta v0
+	ldobjbyname 0x197, prototype
+	lda v0
+	stmodulevar 0x29
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x199, .#~@35=#a137, _138, 0x0, v0
+	sta v0
+	ldobjbyname 0x19a, prototype
+	lda v0
+	stmodulevar 0x2a
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x19c, .#~@36=#a138, _139, 0x0, v0
+	sta v0
+	ldobjbyname 0x19d, prototype
+	lda v0
+	stmodulevar 0x2b
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x19f, .#~@37=#a139, _140, 0x0, v0
+	sta v0
+	ldobjbyname 0x1a0, prototype
+	lda v0
+	stmodulevar 0x2c
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1a2, .#~@38=#a140, _141, 0x0, v0
+	sta v0
+	ldobjbyname 0x1a3, prototype
+	lda v0
+	stmodulevar 0x2e
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1a5, .#~@39=#a141, _142, 0x0, v0
+	sta v0
+	ldobjbyname 0x1a6, prototype
+	lda v0
+	stmodulevar 0x2f
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1a8, .#~@3a=#a142, _143, 0x0, v0
+	sta v0
+	ldobjbyname 0x1a9, prototype
+	lda v0
+	stmodulevar 0x30
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1ab, .#~@3b=#a143, _144, 0x0, v0
+	sta v0
+	ldobjbyname 0x1ac, prototype
+	lda v0
+	stmodulevar 0x31
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1ae, .#~@3c=#a144, _145, 0x0, v0
+	sta v0
+	ldobjbyname 0x1af, prototype
+	lda v0
+	stmodulevar 0x32
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1b1, .#~@3d=#a145, _146, 0x0, v0
+	sta v0
+	ldobjbyname 0x1b2, prototype
+	lda v0
+	stmodulevar 0x33
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1b4, .#~@3e=#a146, _147, 0x0, v0
+	sta v0
+	ldobjbyname 0x1b5, prototype
+	lda v0
+	stmodulevar 0x34
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1b7, .#~@3f=#a147, _148, 0x0, v0
+	sta v0
+	ldobjbyname 0x1b8, prototype
+	lda v0
+	stmodulevar 0x35
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1ba, .#~@40=#a148, _149, 0x0, v0
+	sta v0
+	ldobjbyname 0x1bb, prototype
+	lda v0
+	stmodulevar 0x36
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1bd, .#~@41=#a149, _150, 0x0, v0
+	sta v0
+	ldobjbyname 0x1be, prototype
+	lda v0
+	stmodulevar 0x37
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1c0, .#~@42=#a150, _151, 0x0, v0
+	sta v0
+	ldobjbyname 0x1c1, prototype
+	lda v0
+	stmodulevar 0x39
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1c3, .#~@43=#a151, _152, 0x0, v0
+	sta v0
+	ldobjbyname 0x1c4, prototype
+	lda v0
+	stmodulevar 0x3a
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1c6, .#~@44=#a152, _153, 0x0, v0
+	sta v0
+	ldobjbyname 0x1c7, prototype
+	lda v0
+	stmodulevar 0x3b
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1c9, .#~@45=#a153, _154, 0x0, v0
+	sta v0
+	ldobjbyname 0x1ca, prototype
+	lda v0
+	stmodulevar 0x3c
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1cc, .#~@46=#a154, _155, 0x0, v0
+	sta v0
+	ldobjbyname 0x1cd, prototype
+	lda v0
+	stmodulevar 0x3d
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1cf, .#~@47=#a155, _156, 0x0, v0
+	sta v0
+	ldobjbyname 0x1d0, prototype
+	lda v0
+	stmodulevar 0x3e
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1d2, .#~@48=#a156, _157, 0x0, v0
+	sta v0
+	ldobjbyname 0x1d3, prototype
+	lda v0
+	stmodulevar 0x3f
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1d5, .#~@49=#a157, _158, 0x0, v0
+	sta v0
+	ldobjbyname 0x1d6, prototype
+	lda v0
+	stmodulevar 0x40
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1d8, .#~@4a=#a158, _159, 0x0, v0
+	sta v0
+	ldobjbyname 0x1d9, prototype
+	lda v0
+	stmodulevar 0x41
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1db, .#~@4b=#a159, _160, 0x0, v0
+	sta v0
+	ldobjbyname 0x1dc, prototype
+	lda v0
+	stmodulevar 0x42
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1de, .#~@4c=#a160, _161, 0x0, v0
+	sta v0
+	ldobjbyname 0x1df, prototype
+	lda v0
+	stmodulevar 0x44
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1e1, .#~@4d=#a161, _162, 0x0, v0
+	sta v0
+	ldobjbyname 0x1e2, prototype
+	lda v0
+	stmodulevar 0x45
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1e4, .#~@4e=#a162, _163, 0x0, v0
+	sta v0
+	ldobjbyname 0x1e5, prototype
+	lda v0
+	stmodulevar 0x46
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1e7, .#~@4f=#a163, _164, 0x0, v0
+	sta v0
+	ldobjbyname 0x1e8, prototype
+	lda v0
+	stmodulevar 0x47
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1ea, .#~@50=#a164, _165, 0x0, v0
+	sta v0
+	ldobjbyname 0x1eb, prototype
+	lda v0
+	stmodulevar 0x48
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1ed, .#~@51=#a165, _166, 0x0, v0
+	sta v0
+	ldobjbyname 0x1ee, prototype
+	lda v0
+	stmodulevar 0x49
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1f0, .#~@52=#a166, _167, 0x0, v0
+	sta v0
+	ldobjbyname 0x1f1, prototype
+	lda v0
+	stmodulevar 0x4a
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1f3, .#~@53=#a167, _168, 0x0, v0
+	sta v0
+	ldobjbyname 0x1f4, prototype
+	lda v0
+	stmodulevar 0x4b
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1f6, .#~@54=#a168, _169, 0x0, v0
+	sta v0
+	ldobjbyname 0x1f7, prototype
+	lda v0
+	stmodulevar 0x4c
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1f9, .#~@55=#a169, _170, 0x0, v0
+	sta v0
+	ldobjbyname 0x1fa, prototype
+	lda v0
+	stmodulevar 0x4d
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1fc, .#~@56=#a170, _171, 0x0, v0
+	sta v0
+	ldobjbyname 0x1fd, prototype
+	lda v0
+	stmodulevar 0x4f
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1ff, .#~@57=#a171, _172, 0x0, v0
+	sta v0
+	ldobjbyname 0x200, prototype
+	lda v0
+	stmodulevar 0x50
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x202, .#~@58=#a172, _173, 0x0, v0
+	sta v0
+	ldobjbyname 0x203, prototype
+	lda v0
+	stmodulevar 0x51
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x205, .#~@59=#a173, _174, 0x0, v0
+	sta v0
+	ldobjbyname 0x206, prototype
+	lda v0
+	stmodulevar 0x52
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x208, .#~@5a=#a174, _175, 0x0, v0
+	sta v0
+	ldobjbyname 0x209, prototype
+	lda v0
+	stmodulevar 0x53
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x20b, .#~@5b=#a175, _176, 0x0, v0
+	sta v0
+	ldobjbyname 0x20c, prototype
+	lda v0
+	stmodulevar 0x54
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x20e, .#~@5c=#a176, _177, 0x0, v0
+	sta v0
+	ldobjbyname 0x20f, prototype
+	lda v0
+	stmodulevar 0x55
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x211, .#~@5d=#a177, _178, 0x0, v0
+	sta v0
+	ldobjbyname 0x212, prototype
+	lda v0
+	stmodulevar 0x56
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x214, .#~@5e=#a178, _179, 0x0, v0
+	sta v0
+	ldobjbyname 0x215, prototype
+	lda v0
+	stmodulevar 0x57
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x217, .#~@5f=#a179, _180, 0x0, v0
+	sta v0
+	ldobjbyname 0x218, prototype
+	lda v0
+	stmodulevar 0x58
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x21a, .#~@60=#a180, _181, 0x0, v0
+	sta v0
+	ldobjbyname 0x21b, prototype
+	lda v0
+	stmodulevar 0x5a
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x21d, .#~@61=#a181, _182, 0x0, v0
+	sta v0
+	ldobjbyname 0x21e, prototype
+	lda v0
+	stmodulevar 0x5b
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x220, .#~@62=#a182, _183, 0x0, v0
+	sta v0
+	ldobjbyname 0x221, prototype
+	lda v0
+	stmodulevar 0x5c
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x223, .#~@63=#a183, _184, 0x0, v0
+	sta v0
+	ldobjbyname 0x224, prototype
+	lda v0
+	stmodulevar 0x5d
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x226, .#~@64=#a184, _185, 0x0, v0
+	sta v0
+	ldobjbyname 0x227, prototype
+	lda v0
+	stmodulevar 0x5e
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x229, .#~@65=#a185, _186, 0x0, v0
+	sta v0
+	ldobjbyname 0x22a, prototype
+	lda v0
+	stmodulevar 0x5f
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x22c, .#~@66=#a186, _187, 0x0, v0
+	sta v0
+	ldobjbyname 0x22d, prototype
+	lda v0
+	stmodulevar 0x60
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x22f, .#~@67=#a187, _188, 0x0, v0
+	sta v0
+	ldobjbyname 0x230, prototype
+	lda v0
+	stmodulevar 0x61
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x232, .#~@68=#a188, _189, 0x0, v0
+	sta v0
+	ldobjbyname 0x233, prototype
+	lda v0
+	stmodulevar 0x62
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x235, .#~@69=#a189, _190, 0x0, v0
+	sta v0
+	ldobjbyname 0x236, prototype
+	lda v0
+	stmodulevar 0x63
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x238, .#~@6a=#a190, _191, 0x0, v0
+	sta v0
+	ldobjbyname 0x239, prototype
+	lda v0
+	stmodulevar 0x65
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x23b, .#~@6b=#a191, _192, 0x0, v0
+	sta v0
+	ldobjbyname 0x23c, prototype
+	lda v0
+	stmodulevar 0x66
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x23e, .#~@6c=#a192, _193, 0x0, v0
+	sta v0
+	ldobjbyname 0x23f, prototype
+	lda v0
+	stmodulevar 0x67
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x241, .#~@6d=#a193, _194, 0x0, v0
+	sta v0
+	ldobjbyname 0x242, prototype
+	lda v0
+	stmodulevar 0x68
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x244, .#~@6e=#a194, _195, 0x0, v0
+	sta v0
+	ldobjbyname 0x245, prototype
+	lda v0
+	stmodulevar 0x69
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x247, .#~@6f=#a195, _196, 0x0, v0
+	sta v0
+	ldobjbyname 0x248, prototype
+	lda v0
+	stmodulevar 0x6a
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x24a, .#~@70=#a196, _197, 0x0, v0
+	sta v0
+	ldobjbyname 0x24b, prototype
+	lda v0
+	stmodulevar 0x6b
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x24d, .#~@71=#a197, _198, 0x0, v0
+	sta v0
+	ldobjbyname 0x24e, prototype
+	lda v0
+	stmodulevar 0x6c
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x250, .#~@72=#a198, _199, 0x0, v0
+	sta v0
+	ldobjbyname 0x251, prototype
+	lda v0
+	stmodulevar 0x6d
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x253, .#~@73=#a199, _200, 0x0, v0
+	sta v0
+	ldobjbyname 0x254, prototype
+	lda v0
+	stmodulevar 0x6e
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x256, .#~@74=#a200, _201, 0x0, v0
+	sta v0
+	ldobjbyname 0x257, prototype
+	lda v0
+	stmodulevar 0x71
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x259, .#~@75=#a201, _202, 0x0, v0
+	sta v0
+	ldobjbyname 0x25a, prototype
+	lda v0
+	stmodulevar 0x72
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x25c, .#~@76=#a202, _203, 0x0, v0
+	sta v0
+	ldobjbyname 0x25d, prototype
+	lda v0
+	stmodulevar 0x73
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x25f, .#~@77=#a203, _204, 0x0, v0
+	sta v0
+	ldobjbyname 0x260, prototype
+	lda v0
+	stmodulevar 0x74
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x262, .#~@78=#a204, _205, 0x0, v0
+	sta v0
+	ldobjbyname 0x263, prototype
+	lda v0
+	stmodulevar 0x75
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x265, .#~@79=#a205, _206, 0x0, v0
+	sta v0
+	ldobjbyname 0x266, prototype
+	lda v0
+	stmodulevar 0x76
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x268, .#~@7a=#a206, _207, 0x0, v0
+	sta v0
+	ldobjbyname 0x269, prototype
+	lda v0
+	stmodulevar 0x77
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x26b, .#~@7b=#a207, _208, 0x0, v0
+	sta v0
+	ldobjbyname 0x26c, prototype
+	lda v0
+	stmodulevar 0x78
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x26e, .#~@7c=#a208, _209, 0x0, v0
+	sta v0
+	ldobjbyname 0x26f, prototype
+	lda v0
+	stmodulevar 0x79
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x271, .#~@7d=#a209, _210, 0x0, v0
+	sta v0
+	ldobjbyname 0x272, prototype
+	lda v0
+	stmodulevar 0x7a
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x274, .#~@7e=#a210, _211, 0x0, v0
+	sta v0
+	ldobjbyname 0x275, prototype
+	lda v0
+	stmodulevar 0x7c
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x277, .#~@7f=#a211, _212, 0x0, v0
+	sta v0
+	ldobjbyname 0x278, prototype
+	lda v0
+	stmodulevar 0x7d
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x27a, .#~@80=#a212, _213, 0x0, v0
+	sta v0
+	ldobjbyname 0x27b, prototype
+	lda v0
+	stmodulevar 0x7e
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x27d, .#~@81=#a213, _214, 0x0, v0
+	sta v0
+	ldobjbyname 0x27e, prototype
+	lda v0
+	stmodulevar 0x7f
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x280, .#~@82=#a214, _215, 0x0, v0
+	sta v0
+	ldobjbyname 0x281, prototype
+	lda v0
+	wide.stmodulevar 0x80
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x283, .#~@83=#a215, _216, 0x0, v0
+	sta v0
+	ldobjbyname 0x284, prototype
+	lda v0
+	wide.stmodulevar 0x81
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x286, .#~@84=#a216, _217, 0x0, v0
+	sta v0
+	ldobjbyname 0x287, prototype
+	lda v0
+	wide.stmodulevar 0x82
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x289, .#~@85=#a217, _218, 0x0, v0
+	sta v0
+	ldobjbyname 0x28a, prototype
+	lda v0
+	wide.stmodulevar 0x83
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x28c, .#~@86=#a218, _219, 0x0, v0
+	sta v0
+	ldobjbyname 0x28d, prototype
+	lda v0
+	wide.stmodulevar 0x84
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x28f, .#~@87=#a219, _220, 0x0, v0
+	sta v0
+	ldobjbyname 0x290, prototype
+	lda v0
+	wide.stmodulevar 0x85
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x292, .#~@88=#a220, _221, 0x0, v0
+	sta v0
+	ldobjbyname 0x293, prototype
+	lda v0
+	wide.stmodulevar 0x87
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x295, .#~@89=#a221, _222, 0x0, v0
+	sta v0
+	ldobjbyname 0x296, prototype
+	lda v0
+	wide.stmodulevar 0x88
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x298, .#~@8a=#a222, _223, 0x0, v0
+	sta v0
+	ldobjbyname 0x299, prototype
+	lda v0
+	wide.stmodulevar 0x89
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x29b, .#~@8b=#a223, _224, 0x0, v0
+	sta v0
+	ldobjbyname 0x29c, prototype
+	lda v0
+	wide.stmodulevar 0x8a
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x29e, .#~@8c=#a224, _225, 0x0, v0
+	sta v0
+	ldobjbyname 0x29f, prototype
+	lda v0
+	wide.stmodulevar 0x8b
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2a1, .#~@8d=#a225, _226, 0x0, v0
+	sta v0
+	ldobjbyname 0x2a2, prototype
+	lda v0
+	wide.stmodulevar 0x8c
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2a4, .#~@8e=#a226, _227, 0x0, v0
+	sta v0
+	ldobjbyname 0x2a5, prototype
+	lda v0
+	wide.stmodulevar 0x8d
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2a7, .#~@8f=#a227, _228, 0x0, v0
+	sta v0
+	ldobjbyname 0x2a8, prototype
+	lda v0
+	wide.stmodulevar 0x8e
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2aa, .#~@90=#a228, _229, 0x0, v0
+	sta v0
+	ldobjbyname 0x2ab, prototype
+	lda v0
+	wide.stmodulevar 0x8f
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2ad, .#~@91=#a229, _230, 0x0, v0
+	sta v0
+	ldobjbyname 0x2ae, prototype
+	lda v0
+	wide.stmodulevar 0x90
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2b0, .#~@92=#a230, _231, 0x0, v0
+	sta v0
+	ldobjbyname 0x2b1, prototype
+	lda v0
+	wide.stmodulevar 0x92
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2b3, .#~@93=#a231, _232, 0x0, v0
+	sta v0
+	ldobjbyname 0x2b4, prototype
+	lda v0
+	wide.stmodulevar 0x93
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2b6, .#~@94=#a232, _233, 0x0, v0
+	sta v0
+	ldobjbyname 0x2b7, prototype
+	lda v0
+	wide.stmodulevar 0x94
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2b9, .#~@95=#a233, _234, 0x0, v0
+	sta v0
+	ldobjbyname 0x2ba, prototype
+	lda v0
+	wide.stmodulevar 0x95
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2bc, .#~@96=#a234, _235, 0x0, v0
+	sta v0
+	ldobjbyname 0x2bd, prototype
+	lda v0
+	wide.stmodulevar 0x96
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2bf, .#~@97=#a235, _236, 0x0, v0
+	sta v0
+	ldobjbyname 0x2c0, prototype
+	lda v0
+	wide.stmodulevar 0x97
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2c2, .#~@98=#a236, _237, 0x0, v0
+	sta v0
+	ldobjbyname 0x2c3, prototype
+	lda v0
+	wide.stmodulevar 0x98
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2c5, .#~@99=#a237, _238, 0x0, v0
+	sta v0
+	ldobjbyname 0x2c6, prototype
+	lda v0
+	wide.stmodulevar 0x99
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2c8, .#~@9a=#a238, _239, 0x0, v0
+	sta v0
+	ldobjbyname 0x2c9, prototype
+	lda v0
+	wide.stmodulevar 0x9a
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2cb, .#~@9b=#a239, _240, 0x0, v0
+	sta v0
+	ldobjbyname 0x2cc, prototype
+	lda v0
+	wide.stmodulevar 0x9b
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2ce, .#~@9c=#a240, _241, 0x0, v0
+	sta v0
+	ldobjbyname 0x2cf, prototype
+	lda v0
+	wide.stmodulevar 0x9d
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2d1, .#~@9d=#a241, _242, 0x0, v0
+	sta v0
+	ldobjbyname 0x2d2, prototype
+	lda v0
+	wide.stmodulevar 0x9e
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2d4, .#~@9e=#a242, _243, 0x0, v0
+	sta v0
+	ldobjbyname 0x2d5, prototype
+	lda v0
+	wide.stmodulevar 0x9f
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2d7, .#~@9f=#a243, _244, 0x0, v0
+	sta v0
+	ldobjbyname 0x2d8, prototype
+	lda v0
+	wide.stmodulevar 0xa0
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2da, .#~@a0=#a244, _245, 0x0, v0
+	sta v0
+	ldobjbyname 0x2db, prototype
+	lda v0
+	wide.stmodulevar 0xa1
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2dd, .#~@a1=#a245, _246, 0x0, v0
+	sta v0
+	ldobjbyname 0x2de, prototype
+	lda v0
+	wide.stmodulevar 0xa2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2e0, .#~@a2=#a246, _247, 0x0, v0
+	sta v0
+	ldobjbyname 0x2e1, prototype
+	lda v0
+	wide.stmodulevar 0xa3
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2e3, .#~@a3=#a247, _248, 0x0, v0
+	sta v0
+	ldobjbyname 0x2e4, prototype
+	lda v0
+	wide.stmodulevar 0xa4
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2e6, .#~@a4=#a248, _249, 0x0, v0
+	sta v0
+	ldobjbyname 0x2e7, prototype
+	lda v0
+	wide.stmodulevar 0xa5
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2e9, .#~@a5=#a249, _250, 0x0, v0
+	sta v0
+	ldobjbyname 0x2ea, prototype
+	lda v0
+	wide.stmodulevar 0xa6
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2ec, .#~@a6=#a250, _251, 0x0, v0
+	sta v0
+	ldobjbyname 0x2ed, prototype
+	lda v0
+	wide.stmodulevar 0xa8
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2ef, .#~@a7=#a251, _252, 0x0, v0
+	sta v0
+	ldobjbyname 0x2f0, prototype
+	lda v0
+	wide.stmodulevar 0xa9
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2f2, .#~@a8=#a252, _253, 0x0, v0
+	sta v0
+	ldobjbyname 0x2f3, prototype
+	lda v0
+	wide.stmodulevar 0xaa
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2f5, .#~@a9=#a253, _254, 0x0, v0
+	sta v0
+	ldobjbyname 0x2f6, prototype
+	lda v0
+	wide.stmodulevar 0xab
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2f8, .#~@aa=#a254, _255, 0x0, v0
+	sta v0
+	ldobjbyname 0x2f9, prototype
+	lda v0
+	wide.stmodulevar 0xac
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2fb, .#~@ab=#a255, _256, 0x0, v0
+	sta v0
+	ldobjbyname 0x2fc, prototype
+	lda v0
+	wide.stmodulevar 0xad
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x2fe, .#~@ac=#a256, _257, 0x0, v0
+	sta v0
+	ldobjbyname 0x2ff, prototype
+	lda v0
+	wide.stmodulevar 0xae
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x301, .#~@ad=#a257, _258, 0x0, v0
+	sta v0
+	ldobjbyname 0x302, prototype
+	lda v0
+	wide.stmodulevar 0xaf
+	ldhole
+	sta v0
+	callruntime.definesendableclass 0x304, .#~B=#B, _260, 0x0, v0
+	returnundefined
+label_2: 
+}
+
+

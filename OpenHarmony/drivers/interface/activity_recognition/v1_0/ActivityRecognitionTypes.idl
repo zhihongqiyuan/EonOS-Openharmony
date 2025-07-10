@@ -1,0 +1,91 @@
+/*
+ * Copyright (c) 2022 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @addtogroup HdiActivityRecognition
+ * @{
+ *
+ * @brief Provides APIs for subscribing to and obtaining user activities.
+ *
+ * The Multimodal Sensor Data Platform (MSDP) can obtain the object or proxy of the activity recognition driver,
+ * and call the APIs provided by the object or proxy to obtain activities supported by the device,
+ * the current activity event of the device, and activity events cached on the device,
+ * and subscribe to or unsubscribe from activity events.
+ *
+ * @since 3.2
+ * @version 1.0
+ */
+
+/**
+ * @file ActivityRecognitionTypes.idl
+ *
+ * @brief Declares the data types used by the activity recognition module.
+ *
+ * @since 3.2
+ * @version 1.0
+ */
+
+/**
+ * @brief Defines the package path of the activity recognition module APIs.
+ *
+ * @since 3.2
+ */
+package ohos.hdi.activity_recognition.v1_0;
+
+/**
+ * @brief Enumerates the activity event types.
+ *
+ * The following activities are supported: in the car, cycling, walking, running, still, fast walking,
+ * in the high-speed railway, unknown, in the elevator, relatively still, handheld walking, lying down,
+ * taking the plane, in the subway, and more.
+ *
+ * @since 3.2
+ */
+enum ActRecognitionEventType {
+    /** Entering an activity. */
+    ACT_RECOGNITION_EVENT_ENTER = 0x01,
+    /** Exiting an activity. */
+    ACT_RECOGNITION_EVENT_EXIT = 0x02,
+};
+
+/**
+ * @brief Enumerates the power consumption modes.
+ *
+ * @since 3.2
+ */
+enum ActRecognitionPowerMode {
+    /** Common mode, in which activity events are reported regardless of whether the primary core is in sleep mode. */
+    ACT_RECOGNITION_NORMAL_MODE = 0,
+    /** Low-power mode, in which no activity event is reported when the primary core is in sleep mode. */
+    ACT_RECOGNITION_LOW_POWER_MODE = 1,
+};
+
+/**
+ * @brief Defines the data structure of a reported activity event.
+ *
+ * @since 3.2
+ */
+struct ActRecognitionEvent {
+    /** Activity type. For details, see {@link ActRecognitionEventType}. */
+    int activity;
+    /** Activity event type. For details, see {@link ActRecognitionEventType}. */
+    int eventType;
+    /** Timestamp. */
+    long timestamp;
+    /** Confidence level. The value <b>100</> indicates the highest level, <b>0</b> indicates the lowest level,
+    and <b>-1</b> means that the activity does not support confidence level calculation. */
+    int confidence;
+};
+/** @} */

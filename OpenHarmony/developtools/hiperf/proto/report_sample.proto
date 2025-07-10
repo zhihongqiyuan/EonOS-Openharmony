@@ -1,0 +1,94 @@
+// Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// report_sample.proto format:
+// char magic[10] = "HIPERF_PB_";
+// LittleEndian16(version) = 1;
+// LittleEndian32(sample_size)
+// message Record(sample)
+// LittleEndian32(sample_size)
+// message Record(sample)
+// ...
+// LittleEndian32(sample_size)
+// message Record(sample)
+// LittleEndian32(0)
+
+syntax = "proto2";
+option optimize_for = LITE_RUNTIME;
+package OHOS.Developtools.Hiperf.Proto;
+
+message CallStackSample {
+  optional uint64 time = 1;
+  optional uint32 tid = 2;
+
+  message CallStackFrame {
+    // virtual address of the instruction in symbols file
+    optional uint64 symbols_vaddr = 1;
+
+    // index of index of SymbolTableFile::id, base from 0
+    optional uint32 symbols_file_id = 2;
+
+    // index of SymbolTableFile::symbol_name, base from 0
+    // -1 means not found
+    optional int32 function_name_id = 3;
+  
+    // loaded function base vaddr
+    optional uint64 loaded_vaddr = 4;
+  }
+
+  repeated CallStackFrame callStackFrame = 3;
+
+  // not include lost
+  optional uint64 event_count = 4;
+
+  // index of ReportInfo::config_name
+  optional uint32 config_name_id = 5;
+}
+
+message SampleStatistic {
+  optional uint64 count = 1;
+  optional uint64 lost = 2;
+}
+
+message SymbolTableFile {
+  // unique id , start from 0
+  optional uint32 id = 1;
+
+  // symbols file path, like developtools/hiperf/hiperf
+  optional string path = 2;
+
+  // function symbol table of the file (always mangled).
+  repeated string function_name = 3;
+
+}
+
+message VirtualThreadInfo {
+  optional uint32 tid = 1;
+  optional uint32 pid = 2;
+  optional string name = 3;
+}
+
+message ReportInfo {
+  repeated string config_name = 1;
+  optional string workload_cmd = 2;
+}
+
+message HiperfRecord {
+  oneof RecordType {
+    CallStackSample sample = 1;
+    SampleStatistic statistic = 2;
+    SymbolTableFile file = 3;
+    VirtualThreadInfo thread = 4;
+    ReportInfo info= 5;
+  }
+}

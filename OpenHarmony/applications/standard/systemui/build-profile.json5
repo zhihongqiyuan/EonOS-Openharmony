@@ -1,0 +1,198 @@
+{
+  "app": {
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "release",
+        "compileSdkVersion": 20,
+        "compatibleSdkVersion": 20
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "phone_entry",
+      "srcPath": "./entry/phone",
+      "targets": [
+        {
+          "name": "default",
+        },
+      ],
+    },
+    {
+      "name": "pc_entry",
+      "srcPath": "./entry/pc",
+      "targets": [
+        {
+          "name": "default"
+        },
+      ],
+    },
+    {
+      "name": "default_navigationBar",
+      "srcPath": "./product/default/navigationBar",
+      "targets": [
+        {
+          "name": "default"
+        },
+      ],
+    },
+    {
+      "name": "default_notificationmanagement",
+      "srcPath": "./product/default/notificationmanagement",
+      "targets": [
+        {
+          "name": "default"
+        },
+      ],
+    },
+    {
+      "name": "default_volumepanel",
+      "srcPath": "./product/default/volumepanel",
+      "targets": [
+        {
+          "name": "default"
+        },
+      ],
+    },
+    {
+      "name": "default_dialog",
+      "srcPath": "./product/default/dialog",
+      "targets": [
+        {
+          "name": "default"
+        },
+      ],
+    },
+    {
+      "name": "pc_controlpanel",
+      "srcPath": "./product/pc/controlpanel",
+      "targets": [
+        {
+          "name": "default"
+        },
+      ],
+    },
+    {
+      "name": "pc_notificationpanel",
+      "srcPath": "./product/pc/notificationpanel",
+      "targets": [
+        {
+          "name": "default"
+        },
+      ],
+    },
+    {
+      "name": "pc_statusbar",
+      "srcPath": "./product/pc/statusbar",
+      "targets": [
+        {
+          "name": "default"
+        },
+      ],
+    },
+    {
+      "name": "phone_dropdownpanel",
+      "srcPath": "./product/phone/dropdownpanel",
+      "targets": [
+        {
+          "name": "default"
+        },
+      ],
+    },
+    {
+      "name": "phone_statusbar",
+      "srcPath": "./product/phone/statusbar",
+      "targets": [
+        {
+          "name": "default"
+        },
+      ],
+    },
+    {
+      "name": "common",
+      "srcPath": "./common",
+      "targets": [
+        {
+          "name": "default"
+        },
+      ],
+    },
+    {
+      "name": "airplanecomponent",
+      "srcPath": "./features/airplanecomponent",
+    },
+    {
+      "name": "autorotatecomponent",
+      "srcPath": "./features/autorotatecomponent",
+    },
+    {
+      "name": "batterycomponent",
+      "srcPath": "./features/batterycomponent",
+    },
+    {
+      "name": "bluetoothcomponent",
+      "srcPath": "./features/bluetoothcomponent",
+    },
+    {
+      "name": "brightnesscomponent",
+      "srcPath": "./features/brightnesscomponent",
+    },
+    {
+      "name": "capsulecomponent",
+      "srcPath": "./features/capsulecomponent",
+    },
+    {
+      "name": "clockcomponent",
+      "srcPath": "./features/clockcomponent",
+    },
+    {
+      "name": "controlcentercomponent",
+      "srcPath": "./features/controlcentercomponent",
+    },
+    {
+      "name": "locationcomponent",
+      "srcPath": "./features/locationcomponent",
+    },
+    {
+      "name": "managementcomponent",
+      "srcPath": "./features/managementcomponent",
+    },
+    {
+      "name": "navigationservice",
+      "srcPath": "./features/navigationservice",
+    },
+    {
+      "name": "nfccomponent",
+      "srcPath": "./features/nfccomponent",
+    },
+    {
+      "name": "noticeitem",
+      "srcPath": "./features/noticeitem",
+    },
+    {
+      "name": "ringmodecomponent",
+      "srcPath": "./features/ringmodecomponent",
+    },
+    {
+      "name": "signalcomponent",
+      "srcPath": "./features/signalcomponent",
+    },
+    {
+      "name": "statusbarcomponent",
+      "srcPath": "./features/statusbarcomponent",
+    },
+    {
+      "name": "volumecomponent",
+      "srcPath": "./features/volumecomponent",
+    },
+    {
+      "name": "volumepanelcomponent",
+      "srcPath": "./features/volumepanelcomponent",
+    },
+    {
+      "name": "wificomponent",
+      "srcPath": "./features/wificomponent",
+    }
+  ],
+}

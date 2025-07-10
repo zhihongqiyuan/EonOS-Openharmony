@@ -1,0 +1,1 @@
+# Known failures list for test262 - release-qemu-int

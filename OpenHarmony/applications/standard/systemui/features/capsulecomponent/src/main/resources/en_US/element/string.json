@@ -1,0 +1,12 @@
+{
+  "string": [
+    {
+      "name": "incoming_call",
+      "value": "Incoming call"
+    },
+    {
+      "name": "communicate_by_phone",
+      "value": "communicate"
+    }
+  ]
+}

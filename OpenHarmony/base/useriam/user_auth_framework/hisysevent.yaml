@@ -1,0 +1,108 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: USERIAM_FWK
+
+USERIAM_SYSTEM_FAULT:
+  __BASE: {type: FAULT, level: CRITICAL, tag: LifeCycle, desc: system fault message}
+  HAPPEN_TIME: {type: STRING, desc: happen time}
+  MODULE_NAME: {type: STRING, desc: module name}
+
+USERIAM_USER_CREDENTIAL_MANAGER:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UserIdm, desc: credential manager message}
+  OPERATION_TIME: {type: STRING, desc: operation time}
+  CALLER_NAME: {type: STRING, desc: caller name}
+  USER_ID: {type: INT32, desc: user id}
+  AUTH_TYPE: {type: INT32, desc: auth type}
+  OPERATION_TYPE: {type: UINT32, desc: operation type}
+  OPERATION_RESULT: {type: INT32, desc: operation result}
+
+USERIAM_CREDENTIAL_CHANGE:
+  __BASE: {type: SECURITY, level: CRITICAL, tag: UserIdm, desc: credential change message}
+  OPERATION_TIME: {type: STRING, desc: operation time}
+  CALLER_NAME: {type: STRING, desc: caller name}
+  REQUEST_CONTEXTID: {type: UINT64, desc: context id}
+  USER_ID: {type: INT32, desc: user id}
+  AUTH_TYPE: {type: INT32, desc: auth type}
+  OPERATION_TYPE: {type: UINT32, desc: operation type}
+  OPERATION_RESULT: {type: INT32, desc: operation result}
+  TIME_SPAN: {type: UINT64, desc: time span}
+
+USERIAM_TEMPLATE_CHANGE:
+  __BASE: {type: SECURITY, level: CRITICAL, tag: UserIdm, desc: template change message}
+  OPERATION_TIME: {type: STRING, desc: operation time}
+  SCHEDULE_ID: {type: UINT64, desc: schedule id}
+  EXECUTOR_TYPE: {type: INT32, desc: executor type}
+  CHANGE_TYPE: {type: UINT32, desc: change type}
+  TRIGGER_REASON: {type: STRING, desc: trigger reason}
+
+USERIAM_USER_AUTH:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: UserAuth, desc: user auth message}
+  OPERATION_TIME: {type: STRING, desc: operation time}
+  CALLER_NAME: {type: STRING, desc: caller name}
+  SDK_VERSION: {type: UINT32, desc: sdk version}
+  AUTH_TRUST_LEVEL: {type: UINT32, desc: auth trust level}
+  AUTH_TYPE: {type: INT32, desc: auth type}
+  AUTH_RESULT: {type: INT32, desc: auth result}
+  AUTH_TIME_SPAN: {type: UINT64, desc: auth time span}
+  AUTH_WIDGET_TYPE: {type: UINT32, desc: auth widget auth type and window mode}
+  REUSE_UNLOCK_RESULT_TYPE: {type: UINT32, desc: whether to reuse unlock result and reused mode}
+  REUSE_UNLOCK_RESULT_DURATION: {type: UINT64, desc: allowable reuse unlock result duration}
+  IS_REMOTE_AUTH: {type: BOOL, desc: is remote auth}
+  LOCAL_UDID: {type: STRING, desc: local udid mask}
+  REMOTE_UDID: {type: STRING, desc: remote udid mask}
+  CONNECTION_NAME: {type: STRING, desc: connection name}
+  AUTH_FINISH_REASON: {type: STRING, desc: auth finish reason}
+  IS_BACKGROUND_APPLICATION: {type: BOOL, desc: is foreground application}
+
+USERIAM_USER_AUTH_FWK:
+  __BASE: {type: SECURITY, level: CRITICAL, tag: UserAuth, desc: user auth security message}
+  OPERATION_TIME: {type: STRING, desc: operation time}
+  CALLER_NAME: {type: STRING, desc: caller name}
+  REQUEST_CONTEXTID: {type: UINT64, desc: request context id}
+  AUTH_CONTEXTID: {type: UINT64, desc: auth context id}
+  AUTH_TRUST_LEVEL: {type: UINT32, desc: auth trust level}
+  AUTH_TYPE: {type: INT32, desc: auth type}
+  AUTH_RESULT: {type: INT32, desc: auth result}
+  AUTH_TIME_SPAN: {type: UINT64, desc: auth time span}
+  IS_REMOTE_AUTH: {type: BOOL, desc: is remote auth}
+  LOCAL_UDID: {type: STRING, desc: local udid mask}
+  REMOTE_UDID: {type: STRING, desc: remote udid mask}
+  CONNECTION_NAME: {type: STRING, desc: connection name}
+  AUTH_FINISH_REASON: {type: STRING, desc: auth finish reason}
+
+USERIAM_REMOTE_EXECUTE:
+  __BASE: {type: SECURITY, level: CRITICAL, tag: UserAuth, desc: user auth remote execute message}
+  OPERATION_TIME: {type: STRING, desc: operation time}
+  SCHEDULE_ID: {type: UINT64, desc: schedule id}
+  CONNECTION_NAME: {type: STRING, desc: connection name}
+  OPERATION_RESULT: {type: INT32, desc: operation result}
+
+USERIAM_REMOTE_CONNECT:
+  __BASE: {type: SECURITY, level: CRITICAL, tag: UserAuth, desc: user auth remote connect message}
+  OPERATION_TIME: {type: STRING, desc: operation time}
+  CONNECTION_NAME: {type: STRING, desc: connection name}
+  OPERATION_RESULT: {type: INT32, desc: operation result}
+  TIME_SPAN: {type: UINT64, desc: time span}
+  NETWORK_ID: {type: STRING, desc: network id}
+  SOCKET_ID: {type: STRING, desc: socket id}
+
+SA_LOAD_DRIVER_FAILURE:
+  __BASE: {type: FAULT, level: CRITICAL, tag: UserAuth, desc: user auth Sa load Driver fail}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+IS_CREDENTIAL_ENROLLED_MISMATCH:
+  __BASE: {type: STATISTIC, level: CRITICAL, tag: UserAuth, desc: credential judgement system param mismatches actual credential}
+  AUTH_TYPE: {type: INT32, desc: auth type}
+  PREVIOUS_STATUS: {type: BOOL, desc: system param value before update}
+  UPDATED_STATUS: {type: BOOL, desc: system param value updated}

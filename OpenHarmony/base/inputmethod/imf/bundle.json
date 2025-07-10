@@ -1,0 +1,132 @@
+{
+  "name": "@ohos/imf", 
+  "description": "Provide input capability to ime app", 
+  "version": "3.1", 
+  "license": "Apache License 2.0", 
+  "publishAs": "code-segment", 
+  "segment": {
+      "destPath": "base/inputmethod/imf"
+  }, 
+  "dirs": { }, 
+  "scripts": { }, 
+  "component": {
+      "name": "imf", 
+      "subsystem": "inputmethod", 
+      "syscap": [
+          "SystemCapability.MiscServices.InputMethodFramework"
+      ], 
+      "features": [
+          "imf_screenlock_mgr_enable",
+          "imf_on_demand_start_stop_sa_enable"
+      ], 
+      "hisysevent_config": [
+          "//base/inputmethod/imf/hisysevent.yaml",
+          "//base/inputmethod/imf/hisysevent_ue.yaml"
+      ], 
+      "adapted_system_type": [
+          "standard"
+      ], 
+      "rom": "300KB", 
+      "ram": "1024KB", 
+      "deps": {
+          "components": [
+              "init",
+              "napi",
+              "samgr",
+              "common_event_service",
+              "ipc",
+              "eventhandler",
+              "bundle_framework",
+              "ability_runtime",
+              "hilog",
+              "ability_base",
+              "safwk",
+              "input",
+              "c_utils",
+              "access_token",
+              "i18n",
+              "window_manager",
+              "os_account",
+              "hisysevent",
+              "hitrace",
+              "ffrt",
+              "graphic_2d",
+              "config_policy",
+              "data_share",
+              "resource_schedule_service",
+              "memmgr",
+              "hicollie",
+              "resource_management",
+              "screenlock_mgr",
+              "cJSON",
+              "icu",
+              "selinux_adapter"
+          ]
+      }, 
+      "build": {
+          "group_type": {
+              "base_group": ["//base/inputmethod/imf/common:inputmethod_common"],
+              "fwk_group": [
+                  "//base/inputmethod/imf/interfaces/inner_api/inputmethod_controller:inputmethod_client",
+                  "//base/inputmethod/imf/frameworks/js/napi/inputmethodclient:inputmethod",
+                  "//base/inputmethod/imf/frameworks/js/napi/inputmethodlist:inputmethodlist",
+                  "//base/inputmethod/imf/frameworks/js/napi/inputmethodpanel:panel",
+                  "//base/inputmethod/imf/frameworks/ndk:ohinputmethod"
+              ], 
+              "service_group": [
+                  "//base/inputmethod/imf/etc/init:inputmethodservice.cfg", 
+                  "//base/inputmethod/imf/etc/para:inputmethod.para.dac",
+                  "//base/inputmethod/imf/etc/para:inputmethod.para",
+                  "//base/inputmethod/imf/interfaces/inner_api/inputmethod_ability:inputmethod_ability",
+                  "//base/inputmethod/imf/profile:inputmethod_inputmethod_sa_profiles",
+                  "//base/inputmethod/imf/services:inputmethod_service",
+                  "//base/inputmethod/imf/frameworks/kits/extension:inputmethod_extension",
+                  "//base/inputmethod/imf/frameworks/kits/extension:inputmethod_extension_module", 
+                  "//base/inputmethod/imf/frameworks/js/napi/inputmethodability:inputmethodengine", 
+                  "//base/inputmethod/imf/frameworks/js/napi/inputmethod_extension_ability:inputmethodextensionability_napi",
+                  "//base/inputmethod/imf/frameworks/js/napi/inputmethod_extension_context:inputmethodextensioncontext_napi",
+                  "//base/inputmethod/imf/frameworks/js/napi/keyboardpanelmanager:keyboardpanelmanager",
+                  "//base/inputmethod/imf/frameworks/cj:cj_inputmethod_ffi",
+                  "//base/inputmethod/imf/seccomp_policy:imf_ext_secure_filter",
+                  "//base/inputmethod/imf/services/dialog:input_method_choose_dialog",
+                  "//base/inputmethod/imf/tools/ime:ime"
+              ]
+          },
+          "inner_api": [
+              {
+                  "name": "//base/inputmethod/imf/interfaces/inner_api/inputmethod_controller:inputmethod_client", 
+                  "header": {
+                      "header_files": [
+                          "../../../../frameworks/native/inputmethod_controller/include/input_method_property.h",
+                          "../../../../frameworks/native/inputmethod_controller/include/input_method_utils.h",
+                          "../../../../frameworks/native/inputmethod_controller/include/input_window_info.h",
+                          "ime_event_listener.h",
+                          "ime_event_monitor_manager.h",
+                          "input_method_controller.h"
+                      ], 
+                      "header_base": "//base/inputmethod/imf/interfaces/inner_api/inputmethod_controller/include"
+                  }
+              },
+              {
+                  "name": "//base/inputmethod/imf/interfaces/inner_api/inputmethod_ability:inputmethod_ability",
+                  "header": {
+                      "header_files": [
+                          "input_method_ability_interface.h",
+                          "input_method_engine_listener.h",
+                          "keyboard_listener.h",
+                          "input_method_types.h"
+                      ],
+                      "header_base": "//base/inputmethod/imf/interfaces/inner_api/inputmethod_ability/include"
+                  }
+              },
+              {
+                "name": "//base/inputmethod/imf/frameworks/cj:cj_inputmethod_ffi"
+              }
+          ], 
+          "test": [
+              "//base/inputmethod/imf/test/fuzztest:fuzztest",
+              "//base/inputmethod/imf/test/unittest:unittest"
+          ]
+      }
+  }
+}

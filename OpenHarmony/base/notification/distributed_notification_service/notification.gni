@@ -1,0 +1,121 @@
+# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+ability_runtime_path = "//foundation/ability/ability_runtime"
+ability_runtime_inner_api_path = "${ability_runtime_path}/interfaces/inner_api"
+ability_runtime_services_path = "${ability_runtime_path}/services"
+ability_runtime_kits_path = "${ability_runtime_path}/frameworks/kits"
+ability_runtime_napi_path = "${ability_runtime_path}/frameworks/js/napi"
+access_token_path = "//base/security/access_token"
+component_name = "distributed_notification_service"
+component_path = "//base/notification/distributed_notification_service"
+multimedia_path = "//foundation/multimedia/image_framework"
+commonlibrary_utils_path = "//commonlibrary/c_utils"
+services_path = "${component_path}/services"
+reminder_services_path = "${component_path}/services/reminder"
+frameworks_path = "${component_path}/frameworks"
+frameworks_module_ans_path = "${frameworks_path}/ans"
+frameworks_module_reminder_path = "${frameworks_path}/reminder"
+interfaces_path = "${component_path}/interfaces"
+inner_api_path = "${interfaces_path}/inner_api"
+notification_ndk_path = "${interfaces_path}/ndk"
+core_path = "${frameworks_path}/core"
+test_path = "${component_path}/test"
+tools_path = "${component_path}/tools"
+service_fuzz_test_path =
+    "distributed_notification_service/distributed_notification_service"
+distributed_notification_supported = true
+subsystem_name = "notification"
+component_external_deps = [
+  "ability_base:base",
+  "ability_base:want",
+  "ability_base:zuri",
+  "bundle_framework:appexecfwk_base",
+  "bundle_framework:appexecfwk_core",
+  "common_event_service:cesfwk_innerkits",
+  "eventhandler:libeventhandler",
+  "hilog:libhilog",
+  "ipc:ipc_core",
+  "safwk:system_ability_fwk",
+  "samgr:samgr_proxy",
+]
+
+declare_args() {
+  device_usage = true
+  hisysevent_usage = true
+  standby_enable = true
+  player_framework = true
+  ans_hitrace_usage = true
+  distributed_notification_service_feature_summary = false
+  distributed_notification_service_feature_disable_fa_model = false
+  distributed_notification_service_feature_additional_control = false
+  distributed_notification_service_feature_privileged_message = false
+  distributed_notification_service_feature_badge_manager = true
+  distributed_notification_service_feature_local_liveview = true
+  distributed_notification_service_feature_distributed_db = true
+  distributed_notification_service_feature_disturb_manager = true
+  distributed_notification_service_feature_slot_manager = true
+  distributed_notification_service_feature_additional_config = true
+  distributed_notification_service_feature_open_notification_settings = true
+  distributed_notification_service_feature_all_scenario_collaboration = true
+  distributed_notification_service_feature_phone_collaboration = true
+  distributed_notification_service_disable_control = false
+  notification_smart_reminder_supported = true
+  ans_config_policy_enable = true
+  screenlock_mgr_enable = true
+  telephony_cust = true
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.resourceschedule_device_usage_statistics)) {
+    device_usage = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.hiviewdfx_hisysevent_native)) {
+    hisysevent_usage = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.resourceschedule_device_standby)) {
+    standby_enable = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.multimedia_player_framework)) {
+    player_framework = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.hiviewdfx_hitrace)) {
+    ans_hitrace_usage = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.customization_config_policy)) {
+    ans_config_policy_enable = false
+  }
+
+  if ((defined(global_parts_info) &&
+       !defined(global_parts_info.theme_screenlock_mgr)) || is_emulator) {
+    screenlock_mgr_enable = false
+    notification_smart_reminder_supported = false
+  }
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.telephony_telephony_cust)) {
+    telephony_cust = false
+  }
+
+  print("hisysevent_usage = " + "$hisysevent_usage")
+  print("ans_hitrace_usage = " + "$ans_hitrace_usage")
+}

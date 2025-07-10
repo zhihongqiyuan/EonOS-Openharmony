@@ -1,0 +1,101 @@
+
+======> literal array buffer <======
+======> strings <======
+
+
+======> literal array buffer <======
+======> strings <======
+
+
+======> literal array buffer <======
+======> strings <======
+
+slotNum = 0x0
+.language ECMAScript
+.function any original.#*#(any a0, any a1, any a2) {
+	returnundefined
+}
+
+slotNum = 0x7
+.language ECMAScript
+.function any original.func_main_0(any a0, any a1, any a2) {
+	newlexenv 0x2
+	lda a1
+	stlexvar 0x0, 0x0
+	lda a2
+	stlexvar 0x0, 0x1
+	ldexternalmodulevar 0x0
+	sta v0
+	throw.undefinedifholewithname test
+	lda v0
+	callarg0 0x0
+	lda.str @normalized:N&&&package/src/main/other&2.0.0
+	dynamicimport
+	sta v0
+	ldobjbyname 0x2, then
+	sta v1
+	definefunc 0x4, original.#*#, 0x0
+	sta v2
+	lda v1
+	callthis1 0x5, v0, v2
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot original_686
+------------------------------------
+slot original_690
+{
+  index: 0
+    tag: 2
+    val: 1
+},
+{
+  index: 1
+    tag: 5
+    val: @normalized:N&&&package/src/main/test&2.0.0
+},
+{
+  index: 2
+    tag: 2
+    val: 1
+},
+{
+  index: 3
+    tag: 5
+    val: test
+},
+{
+  index: 4
+    tag: 5
+    val: test
+},
+{
+  index: 5
+    tag: 9
+    val: 0
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+{
+  index: 8
+    tag: 2
+    val: 0
+},
+{
+  index: 9
+    tag: 2
+    val: 0
+},
+======> strings <======
+"@normalized:N&&&package/src/main/other&1.0.0"; "@normalized:N&&&package/src/main/other&2.0.0"; "original.#*#"; "test"; "then"; 

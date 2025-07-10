@@ -1,0 +1,78 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+import("//developtools/profiler/device/base/config.gni")
+
+module_output_path = "${OHOS_PROFILER_TEST_MODULE_OUTPUT_PATH}/hiebpf"
+config("module_private_config") {
+  visibility = [ ":*" ]
+  if (current_toolchain != host_toolchain) {
+    defines = [
+      "HAVE_HILOG",
+      "BPF_LOGGER_DEBUG",
+      "HH_LOGGER_DEBUG",
+    ]
+  }
+}
+
+ohos_unittest("hiebpf_ut") {
+  module_out_path = module_output_path
+  sources = [
+    "unittest/bpf_controller_test.cpp",
+    "unittest/bpf_log_reader_test.cpp",
+    "unittest/command_helper_test.cpp",
+    "unittest/elf_symbol_info_test.cpp",
+    "unittest/hhlog_test.cpp",
+    "unittest/hiebpf_data_file_test.cpp",
+    "unittest/ipc_unix_socket_test.cpp",
+    "unittest/kernel_symbol_info_test.cpp",
+    "unittest/libbpf_logger_test.cpp",
+    "unittest/maps_info_test.cpp",
+    "unittest/ringbuffer_test.cpp",
+  ]
+  deps = [ "${OHOS_PROFILER_DIR}/hiebpf:hiebpf_source_common" ]
+  include_dirs = [
+    "unittest/include",
+    "${OHOS_PROFILER_DIR}/hiebpf/include",
+  ]
+  cflags = [
+    "-Wno-inconsistent-missing-override",
+    "-Dprivate=public",  #allow test code access private members
+  ]
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "googletest:gtest",
+    "hilog:libhilog_base",
+  ]
+  configs = [ ":module_private_config" ]
+  subsystem_name = "${OHOS_PROFILER_SUBSYS_NAME}"
+  part_name = "${OHOS_PROFILER_PART_NAME}"
+  resource_config_file = "ohos_test.xml"
+}
+
+group("unittest") {
+  testonly = true
+  if (target_cpu == "arm64" && !is_asan && use_musl) {
+    if (build_variant == "root") {
+      deps = [ ":hiebpf_ut" ]
+    }
+  }
+}
+
+ohos_executable("hiebpf_test_demo") {
+  cflags = [ "-O0" ]
+  sources = [ "hiebpf_test_demo.cpp" ]
+  subsystem_name = "${OHOS_PROFILER_SUBSYS_NAME}"
+  part_name = "${OHOS_PROFILER_PART_NAME}"
+}

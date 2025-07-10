@@ -1,0 +1,96 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @file iimage_process_session.h
+ *
+ * @brief Declares APIs for image process session.
+ *
+ * @since 4.1
+ * @version 1.2
+ */
+
+package ohos.hdi.camera.v1_2;
+
+import ohos.hdi.camera.v1_2.Types;
+
+interface IImageProcessSession {
+    /**
+     * @brief Get coucurrency task count of the process session with the spacific post-procession execution mode.
+     *
+     * @param mode Indicates execution mode.
+     * @param taskCount Indicates coucurrency task count.
+     *
+     * @since 4.1
+     * @version 1.2
+     */
+    GetCoucurrency([in] enum ExecutionMode mode, [out] int taskCount);
+
+    /**
+     * @brief Get the IDs of the pending images which are unprocessed.
+     *
+     * @param imageIds Indicates the IDs of the pending images.
+     *
+     * @since 4.1
+     * @version 1.2
+     */
+    GetPendingImages([out] List<String> imageIds);
+
+    /**
+     * @brief Set the post-procession execution mode.
+     *
+     * @param mode Indicates the execution mode.
+     *
+     * @since 4.1
+     * @version 1.2
+     */
+    SetExecutionMode([in] ExecutionMode mode);
+
+    /**
+     * @brief Process the specific image by image ID.
+     *
+     * @param imageId Indicates image ID.
+     *
+     * @since 4.1
+     * @version 1.2
+     */
+    ProcessImage([in] String imageId);
+
+    /**
+     * @brief Remove the specific image by image ID.
+     *
+     * @param imageId Indicates image ID.
+     *
+     * @since 4.1
+     * @version 1.2
+     */
+    RemoveImage([in] String imageId);
+
+    /**
+     * @brief Interrupt the process session.
+     *
+     * @since 4.1
+     * @version 1.2
+     */
+    Interrupt();
+
+    /**
+     * @brief Reset the process session.
+     *
+     * @since 4.1
+     * @version 1.2
+     */
+    Reset();
+}

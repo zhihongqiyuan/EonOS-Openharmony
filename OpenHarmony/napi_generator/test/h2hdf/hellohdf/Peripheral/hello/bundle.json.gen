@@ -1,0 +1,46 @@
+{
+  "name": "@ohos/drivers_peripheral_hello",
+  "description": "hello device driver",
+  "version": "4.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "drivers/peripheral/hello"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "drivers_peripheral_hello",
+    "subsystem": "hdf",
+    "features": [
+    ],
+    "syscap": [],
+    "adapted_system_type": ["standard"],
+    "rom": "675KB",
+    "ram": "7400KB",
+    "deps": {
+      "components": [
+        "ipc",
+        "hdf_core",
+        "hilog",
+        "c_utils",
+        "drivers_interface_hello",
+        "hitrace",
+        "hilog_lite"
+      ],
+      "third_party": [
+        "bounds_checking_function"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//drivers/peripheral/hello:hello_entry"
+      ],
+      "test": [
+      ],
+      "inner_kits": [
+        
+      ]
+    }
+  }
+}

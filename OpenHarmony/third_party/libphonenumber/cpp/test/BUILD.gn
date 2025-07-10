@@ -1,0 +1,61 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+
+module_output_path = "libphonenumber/libphonenumber_test"
+
+config("phonenumber_test_config") {
+  include_dirs = [
+    "//third_party/libphonenumber/cpp/test",
+    "//third_party/libphonenumber/cpp/src",
+  ]
+  cflags_cc = [
+    "-DI18N_PHONENUMBERS_USE_ALTERNATE_FORMATS",
+    "-DI18N_PHONENUMBERS_USE_ICU_REGEXP",
+    "-Dphonenumber_shared_EXPORTS",
+    "-Wall",
+    "-Werror",
+    "-fPIC",
+    "-Wno-sign-compare",
+    "-Wno-error=unused-parameter",
+    "-Wno-error=unused-const-variable",
+    "-Wno-error=unneeded-internal-declaration",
+  ]
+  cflags = [ "-Wno-implicit-fallthrough" ]
+}
+
+ohos_unittest("libphonenumber_test") {
+  module_out_path = module_output_path
+
+  sources = [
+    "phonenumbers/phonenumberutil_test.cc",
+    "phonenumbers/test_util.cc",
+  ]
+
+  configs = [ ":phonenumber_test_config" ]
+
+  defines = [
+    "I18N_PHONENUMBERS_USE_ALTERNATE_FORMATS",
+    "I18N_PHONENUMBERS_USE_ICU_REGEXP",
+    "HAVE_PTHREAD",
+  ]
+
+  deps = [ "//third_party/libphonenumber/cpp:phonenumber_standard" ]
+  external_deps = [
+    "googletest:gtest",
+    "icu:shared_icui18n",
+    "icu:shared_icuuc",
+    "protobuf:protobuf_lite",
+  ]
+}

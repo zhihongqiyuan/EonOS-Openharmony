@@ -1,0 +1,70 @@
+# Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: ACCOUNT
+
+PERMISSION_EXCEPTION:
+  __BASE: {type: SECURITY, level: CRITICAL, desc: permission verification errors}
+  CALLER_UID: {type: INT32, desc: caller uid}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  PERMISSION_NAME: {type: STRING, desc: permission name}
+
+SERVICE_START_FAILED:
+  __BASE: {type: FAULT, level: CRITICAL, desc: service start errors}
+  ERROR_TYPE: {type: INT32, desc: error code}
+  ERROR_MSG: {type: STRING, desc: error message}
+
+OS_ACCOUNT_FAILED:
+  __BASE: {type: FAULT, level: CRITICAL, desc: os account operation errors}
+  ID: {type: INT32, desc: the id of an os account}
+  OPERATE_TYPE: {type: STRING, desc: operation type on an os account}
+  ERROR_TYPE: {type: INT32, desc: error code}
+  ERROR_MSG: {type: STRING, desc: error message}
+
+DISTRIBUTED_ACCOUNT_FAILED:
+  __BASE: {type: FAULT, level: CRITICAL, desc: distributed account operation errors}
+  USER_ID: {type: INT32, desc: the user id bound to a distributed account}
+  OPERATE_TYPE: {type: STRING, desc: operation type on a distributed account}
+  ERROR_TYPE: {type: INT32, desc: error code}
+  ERROR_MSG: {type: STRING, desc: error message}
+
+APP_ACCOUNT_FAILED:
+  __BASE: {type: FAULT, level: CRITICAL, desc: app operation errors}
+  NAME: {type: STRING, desc: the name of an app account}
+  OWNER: {type: STRING, desc: the owner of an app account}
+  OPERATE_TYPE: {type: STRING, desc: operation type on an app account}
+  ERROR_TYPE: {type: INT32, desc: error code}
+  ERROR_MSG: {type: STRING, desc: error message}
+
+OS_ACCOUNT_LIFE_CYCLE:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: osaccount create or delete event}
+  ID: {type: INT32, desc: the id of os account which is created or deleted}
+  OPERATE_TYPE: {type: STRING, desc: operation type on an os account create or delete}
+
+OS_ACCOUNT_SWITCH:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: osaccount switch event}
+  CURRENT_ID: {type: INT32, desc: the id of os account after switch}
+  OLD_ID: {type: INT32, desc: the id of os account before switch}
+
+DISTRIBUTED_ACCOUNT_CHANGE:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: ohosaccount state change events}
+  USER_ID: {type: INT32, desc: local account id}
+  OPERATION_TYPE: {type: INT32, desc: operation type}
+  OLD_STATE: {type: INT32, desc: ohos account old state}
+  NEW_STATE: {type: INT32, desc: ohos account new state}
+
+DATA_TAMPERED:
+  __BASE: {type: SECURITY, level: CRITICAL, desc: account data is tampered}
+  ID: {type: INT32, desc: the id of os account which is tampered}
+  DATA_PATH: {type: STRING, desc: the file path which is tampered}
+  DATA_LABEL: {type: STRING, desc: the data label which is tampered}

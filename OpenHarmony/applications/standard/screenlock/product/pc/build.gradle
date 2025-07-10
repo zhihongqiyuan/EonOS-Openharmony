@@ -1,0 +1,27 @@
+apply plugin: 'com.huawei.ohos.hap'
+ohos {
+    compileSdkVersion rootProject.ext.version.compileSdk
+    defaultConfig {
+        compatibleSdkVersion rootProject.ext.version.compatibleSdk
+    }
+
+    buildTypes {
+        release {
+            proguardOpt {
+                proguardEnabled false
+                rulesFiles 'proguard-rules.pro'
+            }
+        }
+    }
+    entryModules "entry"
+}
+
+dependencies {
+    entryImplementation project(':entry')
+    implementation project(':common')
+    implementation project(':features:screenlock')
+    implementation project(':features:datetimecomponent')
+    implementation project(':features:shortcutcomponent')
+    implementation project(':features:wallpapercomponent')
+    implementation project(':features:noticeitem')
+}

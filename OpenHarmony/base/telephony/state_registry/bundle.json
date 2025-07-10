@@ -1,0 +1,86 @@
+{
+    "name": "@ohos/state_registry",
+    "version": "4.0",
+    "description": "telephony state_registry service",
+    "publishAs": "code-segment",
+    "homePage": "https://gitee.com/openharmony",
+    "repository": "https://gitee.com/openharmony/telephony_state_registry",
+    "license": "Apache License 2.0",
+    "language": "",
+    "private": false,
+    "scripts": {},
+    "envs": [],
+    "dirs": [],
+    "author": {},
+    "contributors": [],
+    "segment": {
+        "destPath": "base/telephony/state_registry"
+    },
+    "component": {
+        "name": "state_registry",
+        "subsystem": "telephony",
+        "syscap": [
+            "SystemCapability.Telephony.StateRegistry"
+        ],
+        "features": [],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "550KB",
+        "ram": "1MB",
+        "deps": {
+            "components": [
+                "ability_base",
+                "access_token",
+                "c_utils",
+                "common_event_service",
+                "core_service",
+                "eventhandler",
+                "hicollie",
+                "hilog",
+                "init",
+                "ipc",
+                "libuv",
+                "napi",
+                "safwk",
+                "samgr"
+            ]
+        },
+        "build": {
+            "group_type": {
+                "base_group": [
+                ],
+                "fwk_group": [
+                    "//base/telephony/state_registry/frameworks/native/observer:tel_state_registry_api",
+                    "//base/telephony/state_registry/frameworks/js/napi:observer"
+                ],
+                "service_group": [
+                    "//base/telephony/state_registry:tel_state_registry",
+                    "//base/telephony/state_registry/sa_profile:state_registry_sa_profile"
+                ]
+            },
+            "inner_kits": [
+                {
+                    "type": "so",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/telephony/core_service/interfaces/innerkits/include"
+                    },
+                    "name": "//base/telephony/state_registry/frameworks/native/observer:tel_state_registry_api"
+                },
+                {
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/telephony/state_registry/frameworks/cj/src"
+                    },
+                    "name": "//base/telephony/state_registry/frameworks/cj:cj_observer_ffi"
+                }
+            ],
+            "test": [
+                "//base/telephony/state_registry/test:unittest",
+                "//base/telephony/state_registry/test/fuzztest:fuzztest"
+            ]
+        }
+    }
+}
+

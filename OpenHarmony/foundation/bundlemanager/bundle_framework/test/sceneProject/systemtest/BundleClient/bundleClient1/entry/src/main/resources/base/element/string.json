@@ -1,0 +1,36 @@
+{
+    "string": [
+      {
+        "name": "entry_desc",
+        "value": "description"
+      },
+      {
+        "name": "phone_entry_main",
+        "value": "description"
+      },
+      {
+        "name": "entry_label",
+        "value": "description"
+      },
+      {
+        "name": "phone_entry_dsc",
+        "value": "defaultApp"
+      },
+      {
+        "name": "form_description",
+        "value": "defaultApp"
+      },
+      {
+        "name": "serviceability_description",
+        "value": "defaultApp"
+      },
+      {
+        "name": "16777223",
+        "value": "defaultApp"
+      },
+      {
+        "name": "16777219",
+        "value": "defaultApp"
+      }
+    ]
+  }

@@ -1,0 +1,24 @@
+{
+  "float": [
+    {
+      "name": "green_capsule_phone_width",
+      "value": "15vp"
+    },
+    {
+      "name": "green_capsule_phone_height",
+      "value": "15vp"
+    },
+    {
+      "name": "green_capsule_height",
+      "value": "48vp"
+    },
+    {
+      "name": "green_capsule_text_left_right",
+      "value": "10vp"
+    },
+    {
+      "name": "green_capsule_radius",
+      "value": "24vp"
+    }
+  ]
+}

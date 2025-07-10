@@ -1,0 +1,10 @@
+slotNum = 0x0
+.language ECMAScript
+.function any sharedmodule-const-enum-exec.func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	returnundefined
+label_2: 
+}
+
+

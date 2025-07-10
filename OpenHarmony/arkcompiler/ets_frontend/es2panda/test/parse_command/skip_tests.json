@@ -1,0 +1,37 @@
+[
+    {
+        "reason" : "An error is occured when v8 is executed because the definition of the component is missing",
+        "files" : [
+            "../benchmark/test_cases/Sunspider/3d-raytrace.js",
+            "../benchmark/test_cases/Sunspider/3d-morph.js",
+            "../benchmark/test_cases/Sunspider/date-format-xparb.js",
+            "../benchmark/test_cases/Sunspider/3d-cube.js",
+            "../benchmark/test_cases/Sunspider/regexp-dna.js",
+            "../benchmark/test_cases/Sunspider/math-partial-sums.js",
+            "../benchmark/test_cases/Sunspider/string-validate-input.js",
+            "../benchmark/test_cases/Sunspider/date-format-tofte.js",
+            "../benchmark/test_cases/Sunspider/bitops-bitwise-and.js",
+            "../benchmark/test_cases/Kraken/audio-fft.js",
+            "../benchmark/test_cases/Kraken/stanford-crypto-ccm.js",
+            "../benchmark/test_cases/Kraken/audio-oscillator.js",
+            "../benchmark/test_cases/Kraken/ai-astar.js",
+            "../benchmark/test_cases/Kraken/stanford-crypto-sha256-iterative.js",
+            "../benchmark/test_cases/Kraken/stanford-crypto-pbkdf2.js",
+            "../benchmark/test_cases/Kraken/audio-dft.js",
+            "../benchmark/test_cases/Kraken/audio-beat-detection.js",
+            "../benchmark/test_cases/Kraken/stanford-crypto-aes.js",
+            "../benchmark/test_cases/Kraken/json-parse-financial.js",
+            "../benchmark/test_cases/Octane/box2d.js",
+            "../benchmark/test_cases/Octane/richards.js",
+            "../benchmark/test_cases/Octane/navier-stokes.js",
+            "../benchmark/test_cases/Octane/raytrace.js",
+            "../benchmark/test_cases/Octane/splay.js",
+            "../benchmark/test_cases/Octane/code-load.js",
+            "../benchmark/test_cases/Octane/crypto.js",
+            "../benchmark/test_cases/Octane/deltablue.js",
+            "../benchmark/test_cases/Octane/typescript.js",
+            "../benchmark/test_cases/Octane/regexp.js",
+            "../benchmark/test_cases/Octane/pdfjs.js"
+        ]
+    }
+]

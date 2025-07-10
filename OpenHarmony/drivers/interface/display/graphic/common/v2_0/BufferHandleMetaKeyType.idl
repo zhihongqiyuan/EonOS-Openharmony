@@ -1,0 +1,112 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @addtogroup HdiDisplay
+ * 
+ * @since 5.0
+ * @version 2.0
+ */
+
+package ohos.hdi.display.graphic.common.v2_0;
+
+struct BufferHandleMetaRegion {
+    unsigned int left;
+    unsigned int top;
+    unsigned int width;
+    unsigned int height;
+};
+
+enum BufferHandleAttrKey {
+    /* 0-2047 OS standard meta type */
+    ATTRKEY_COLORSPACE_INFO = 1,            // value: CM_ColorSpaceInfo
+    ATTRKEY_COLORSPACE_TYPE,                // value: CM_ColorSpaceType
+    ATTRKEY_HDR_METADATA_TYPE,              // value: CM_HDRMetaDataType
+
+    ATTRKEY_HDR_STATIC_METADATA,            // value: HdrStaticMetadata
+    ATTRKEY_HDR_DYNAMIC_METADATA,           // byte stream of SEI in video stream
+
+    ATTRKEY_HDR_PROCESSED,                  // value: int
+    ATTRKEY_CROP_REGION,                    // value: Meta_Rect_Region
+    ATTRKEY_EXPECT_FPS,                     // value: int
+    ATTRKEY_DATA_ACCESS,                    // value: int
+
+    ATTRKEY_REQUEST_ACCESS_TYPE = 10,       // value: current request frame mode
+    ATTRKEY_ACCESS_TYPE = 11,               // value: current data frame mode
+    ATTRKEY_FORCE_GLOBAL_ALPHA = 12,        // 0~255, pixel alpha value, default to -1, don't take effect.
+    ATTRKEY_VIDEO_DECODER_MV = 13,          // value BlobDataType
+
+    /* vendor internal extended meta type */
+    ATTRKEY_VENDOR_EXT_START = 2048,
+
+    /* temporarily extended meta type, between system and vendor */
+    ATTRKEY_OEM_EXT_START = 4096,
+    ATTRKEY_EXTERNAL_METADATA_001 = 4097, // value: ExternalMetadata001
+    ATTRKEY_EXTERNAL_METADATA_002 = 4098, // value: SDR nature tone metadata
+    ATTRKEY_END = 8192
+};
+
+/**
+ * @brief Enumerates the Gralloc Hebc Access types.
+ *
+ */
+enum HebcAccessType {
+    HEBC_ACCESS_UNINIT = 0,  // not configured frame mode
+    HEBC_ACCESS_CPU_ACCESS,  // cpu is accessible; hebc is not accessible
+    HEBC_ACCESS_HW_ONLY,     // hardware_only: cpu is not accessible; hebc is accessible
+};
+
+/**
+ * @brief Enumerates the CacheOption types.
+ *
+ * @since 5.0
+ * @version 2.0
+ */
+enum CacheOption {
+    CACHE_NOOP = 0x0, // Do nothing
+    CACHE_INVALIDATE, // Hardware writing aux buffer to disable cache
+    CACHE_FLUSH, // Write aux buffer on CPU and flash cache to DDR
+};
+
+/**
+ * @brief BlobDataType of [value] in GetMetadata/SetMetaData, to avoid data copy.
+ *
+ * @since 5.0
+ * @version 2.0
+ */
+struct BlobDataType {
+    unsigned long vaddr; // virtual address, direct accessed w/o copy
+    unsigned int offset; // field offset in dmabuf, support dma access
+    unsigned int length; // data length set by previous SetMetadata(), default to 0
+    unsigned int capacity; // reserved data size
+    enum CacheOption cacheOp; // effective in SetMetaData()
+};
+
+/**
+ * @brief ExternalMetadata001 of [value] in GetMetadata/SetMetaData, to trans metadata.
+ *
+ * @since 5.0
+ * @version 2.0
+ */
+struct ExternalMetadata001 {
+    unsigned int sliceNum;        // default number of slice
+    unsigned int srcEvent;        // hts event pair, src side
+    unsigned int dstEvent;        // hts event pair, dst side
+    unsigned int hasGamma;        // gamma correction flag
+    unsigned int alignment;       // buffer align
+    unsigned int isHtsEnable;     // hts enable flag
+    unsigned int uvOrder;         // u/v order
+    unsigned int actualSliceNum;  // actual number of slice
+};

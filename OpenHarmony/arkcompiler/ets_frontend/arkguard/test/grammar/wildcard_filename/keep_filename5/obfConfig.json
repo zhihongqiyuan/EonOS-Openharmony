@@ -1,0 +1,27 @@
+{
+    "mCompact": false,
+    "mRemoveComments": false,
+    "mOutputDir": "../../../local",
+    "mDisableHilog": false,
+    "mDisableConsole": false,
+    "mSimplify": false,
+    "mNameObfuscation": {
+        "mEnable": true,
+        "mNameGeneratorType": 1,
+        "mDictionaryList": [],
+        "mReservedNames": [],
+        "mRenameProperties": false,
+        "mReservedProperties": [],
+        "mKeepStringProperty": true,
+        "mReservedToplevelNames": []
+    },
+    "mEnableSourceMap": false,
+    "mEnableNameCache": false,
+    "mTopLevel":true,
+    "mRenameFileName": {
+        "mEnable": true,
+        "mNameGeneratorType": 1,
+        "mReservedFileNames": ["keep_*.ts", "other_name.ts"],
+        "mOhmUrlUseNormalized": false
+    }
+}

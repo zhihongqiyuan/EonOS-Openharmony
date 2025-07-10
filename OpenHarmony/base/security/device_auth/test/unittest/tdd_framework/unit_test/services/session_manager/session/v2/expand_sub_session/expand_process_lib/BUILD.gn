@@ -1,0 +1,243 @@
+# Copyright (C) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("../../../../../../../tdd_framework.gni")
+
+module_output_path = "device_auth/device_auth"
+
+ohos_unittest("auth_code_import_test") {
+  module_out_path = module_output_path
+
+  include_dirs = hals_inc_path
+  include_dirs += [
+    "${inner_api_path}",
+    "${frameworks_path}/inc/standard",
+    "${session_manager_path}/inc/session/v2/expand_sub_session/expand_process_lib",
+  ]
+
+  include_dirs += [
+    "${tdd_framework_path}/tdd_helper/exception_controller/inc",
+    "${tdd_framework_path}/tdd_helper/memory_mock/inc",
+    "${tdd_framework_path}/tdd_helper/memory_monitor/inc",
+  ]
+
+  sources = auth_code_import_files
+  sources += [ "auth_code_import_test.cpp" ]
+
+  include_dirs += identity_manager_inc
+  include_dirs += identity_service_inc
+  include_dirs += [
+    "${dev_frameworks_path}/inc",
+    "${group_manager_path}/inc",
+    "${group_auth_path}/inc",
+    "${dev_frameworks_path}/inc/account_task_manager",
+    "${dev_frameworks_path}/inc/os_account_adapter",
+    "${dev_frameworks_path}/inc/plugin_adapter",
+    "${protocol_path}/inc/pake_protocol",
+    "${group_data_manager_path}/inc",
+    "${session_manager_path}/inc/session/v1",
+    "${session_manager_path}/inc/session/v1/compatible_auth_sub_session",
+    "${group_auth_path}/inc/account_related_group_auth",
+    "${authenticators_path}/inc/account_unrelated/pake_task",
+    "${authenticators_path}/inc/account_unrelated",
+    "${authenticators_path}/inc/account_related",
+    "${authenticators_path}/inc/account_related/creds_manager",
+    "${dev_frameworks_path}/inc/hiview_adapter",
+    "${dev_frameworks_path}/inc/module",
+    "${dev_frameworks_path}/inc/security_label_adapter",
+    "${group_manager_path}/inc/broadcast_manager",
+    "${privacy_enhancement_path}/inc",
+    "${mk_agree_path}/inc",
+    "${services_path}/ext_plugin_manager/inc/account_related",
+    "${services_path}/ext_plugin_manager/inc",
+    "${device_auth_common}/inc",
+    "${protocol_path}/inc",
+  ]
+  sources += identity_manager_files
+  sources += identity_service_mock_files
+  sources += [
+    "${authenticators_path}/src/account_related/creds_manager/asy_token_manager.c",
+    "${authenticators_path}/src/account_related/creds_manager/sym_token_manager.c",
+    "${authenticators_path}/src/account_unrelated/common/das_task_common.c",
+    "${authenticators_path}/src/account_unrelated/creds_manager/das_standard_token_manager.c",
+    "${dev_frameworks_path}/src/account_task_manager/account_task_manager.c",
+    "${dev_frameworks_path}/src/os_account_adapter_mock/os_account_adapter_mock.cpp",
+    "${dev_frameworks_path}/src/plugin_adapter/ext_part/account_auth_plugin/account_auth_plugin_proxy.c",
+    "${dev_frameworks_path}/src/security_label_adapter_mock/security_label_adapter_mock.c",
+    "${deviceauth_account_group_auth_path}/src/group_auth_manager/account_related_group_auth/account_related_group_auth.c",
+    "${group_auth_path}/src/group_auth_manager/group_auth_common/group_auth_data_operation.c",
+    "${group_data_manager_path}/src/group_data_manager.c",
+    "${group_manager_path}/src/broadcast_manager_mock/broadcast_manager_mock.c",
+    "${group_manager_path}/src/group_operation/group_operation_common/group_operation_common.c",
+    "${identity_manager_path}/src/cert_operation.c",
+    "${mk_agree_path}/src/mock/key_manager_mock.c",
+    "${privacy_enhancement_path}/src/mock/pseudonym_manager_mock.c",
+  ]
+  defines = [
+    "DEV_AUTH_MEMORY_DEBUG",
+    "ENABLE_AUTH_CODE_IMPORT",
+  ]
+
+  deps = [ "${tdd_framework_path}/tdd_helper:device_auth_test_hal" ]
+
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "cJSON:cjson",
+    "googletest:gmock_main",
+    "googletest:gtest_main",
+    "hilog:libhilog",
+    "huks:libhukssdk",
+  ]
+}
+
+ohos_unittest("pub_key_exchange_test") {
+  module_out_path = module_output_path
+
+  include_dirs = hals_inc_path
+  include_dirs += [
+    "${inner_api_path}",
+    "${frameworks_path}/inc/standard",
+    "${session_manager_path}/inc/session/v2/expand_sub_session/expand_process_lib",
+  ]
+
+  include_dirs += [
+    "${tdd_framework_path}/tdd_helper/exception_controller/inc",
+    "${tdd_framework_path}/tdd_helper/memory_mock/inc",
+    "${tdd_framework_path}/tdd_helper/memory_monitor/inc",
+    "${authenticators_path}/inc/account_related",
+    "${authenticators_path}/inc/account_related/creds_manager",
+    "${dev_frameworks_path}/inc/hiview_adapter",
+    "${dev_frameworks_path}/inc/module",
+    "${dev_frameworks_path}/inc/security_label_adapter",
+    "${group_manager_path}/inc/broadcast_manager",
+    "${privacy_enhancement_path}/inc",
+    "${mk_agree_path}/inc",
+    "${services_path}/ext_plugin_manager/inc/account_related",
+    "${services_path}/ext_plugin_manager/inc",
+    "${device_auth_common}/inc",
+    "${protocol_path}/inc",
+  ]
+
+  sources = pub_key_exchange_files
+  sources += [ "pub_key_exchange_test.cpp" ]
+  sources += [
+    "${authenticators_path}/src/account_related/creds_manager/asy_token_manager.c",
+    "${authenticators_path}/src/account_related/creds_manager/sym_token_manager.c",
+    "${authenticators_path}/src/account_unrelated/common/das_task_common.c",
+    "${authenticators_path}/src/account_unrelated/creds_manager/das_standard_token_manager.c",
+    "${dev_frameworks_path}/src/account_task_manager/account_task_manager.c",
+    "${dev_frameworks_path}/src/os_account_adapter_mock/os_account_adapter_mock.cpp",
+    "${dev_frameworks_path}/src/plugin_adapter/ext_part/account_auth_plugin/account_auth_plugin_proxy.c",
+    "${dev_frameworks_path}/src/security_label_adapter_mock/security_label_adapter_mock.c",
+    "${deviceauth_account_group_auth_path}/src/group_auth_manager/account_related_group_auth/account_related_group_auth.c",
+    "${group_auth_path}/src/group_auth_manager/group_auth_common/group_auth_data_operation.c",
+    "${group_data_manager_path}/src/group_data_manager.c",
+    "${group_manager_path}/src/broadcast_manager_mock/broadcast_manager_mock.c",
+    "${group_manager_path}/src/group_operation/group_operation_common/group_operation_common.c",
+    "${identity_manager_path}/src/cert_operation.c",
+    "${mk_agree_path}/src/mock/key_manager_mock.c",
+    "${privacy_enhancement_path}/src/mock/pseudonym_manager_mock.c",
+  ]
+  include_dirs += identity_service_inc
+  include_dirs += identity_manager_inc
+  include_dirs += [
+    "${dev_frameworks_path}/inc",
+    "${group_manager_path}/inc",
+    "${group_auth_path}/inc",
+    "${dev_frameworks_path}/inc/account_task_manager",
+    "${dev_frameworks_path}/inc/os_account_adapter",
+    "${dev_frameworks_path}/inc/plugin_adapter",
+    "${protocol_path}/inc/pake_protocol",
+    "${group_data_manager_path}/inc",
+    "${session_manager_path}/inc/session/v1",
+    "${session_manager_path}/inc/session/v1/compatible_auth_sub_session",
+    "${group_auth_path}/inc/account_related_group_auth",
+    "${authenticators_path}/inc/account_unrelated/pake_task",
+    "${authenticators_path}/inc/account_unrelated",
+  ]
+  sources += identity_manager_files
+  sources += identity_service_mock_files
+
+  defines = [
+    "DEV_AUTH_MEMORY_DEBUG",
+    "ENABLE_PUB_KEY_EXCHANGE",
+    "DEV_AUTH_FUNC_TEST",
+  ]
+
+  deps = [ "${tdd_framework_path}/tdd_helper:device_auth_test_hal" ]
+
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "cJSON:cjson",
+    "googletest:gmock_main",
+    "googletest:gtest_main",
+    "hilog:libhilog",
+    "huks:libhukssdk",
+  ]
+}
+
+ohos_unittest("save_trusted_info_test") {
+  module_out_path = module_output_path
+
+  include_dirs = inc_path
+  include_dirs += hals_inc_path
+  include_dirs += [
+    "${inner_api_path}",
+    "${group_data_manager_path}/inc",
+    "${dev_frameworks_path}/inc/",
+    "${dev_frameworks_path}/inc/hiview_adapter",
+    "${frameworks_path}/inc/standard",
+    "${group_manager_path}/inc/broadcast_manager",
+    "${session_manager_path}/inc/session/v2/expand_sub_session/expand_process_lib",
+    "${mk_agree_path}/inc",
+    "${privacy_enhancement_path}/inc",
+  ]
+  include_dirs += identity_service_inc
+
+  include_dirs += [
+    "${tdd_framework_path}/tdd_helper/exception_controller/inc",
+    "${tdd_framework_path}/tdd_helper/memory_mock/inc",
+    "${tdd_framework_path}/tdd_helper/memory_monitor/inc",
+    "${tdd_framework_path}/tdd_helper/dev_info_mock/inc",
+  ]
+
+  sources = broadcast_manager_mock_files
+  sources += account_auth_plugin_mock_files
+  sources += account_task_manager_mock_files
+  sources += group_database_manager_files
+  sources += save_trusted_info_files
+  sources += privacy_enhancement_mock_files
+  sources += mk_agree_mock_files
+  sources += security_label_adapter_files
+  sources += [ "${tdd_framework_path}/common/src/os_account_adapter_mock.c" ]
+  sources += [ "save_trusted_info_test.cpp" ]
+
+  cflags = [ "-DHILOG_ENABLE" ]
+
+  defines = [
+    "DEV_AUTH_MEMORY_DEBUG",
+    "ENABLE_SAVE_TRUSTED_INFO",
+    "DEV_AUTH_SAVE_TRUST_INFO_TEST",
+  ]
+
+  deps = [ "${tdd_framework_path}/tdd_helper:device_auth_test_hal" ]
+
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "cJSON:cjson",
+    "googletest:gmock_main",
+    "googletest:gtest_main",
+    "hilog:libhilog",
+    "huks:libhukssdk",
+  ]
+}

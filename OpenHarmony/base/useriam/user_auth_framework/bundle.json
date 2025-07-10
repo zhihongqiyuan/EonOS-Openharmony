@@ -1,0 +1,130 @@
+{
+  "name": "@ohos/user_auth_framework",
+  "version": "4.0",
+  "description": "User Authentication capability",
+  "homePage": "https://gitee.com/openharmony",
+  "author": {},
+  "repository": "",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/useriam/user_auth_framework"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "user_auth_framework",
+    "subsystem": "useriam",
+    "adapted_system_type": [
+      "standard"
+    ],
+    "syscap": [
+      "SystemCapability.UserIAM.UserAuth.Core"
+    ],
+    "features": [
+      "user_auth_framework_enabled",
+      "user_auth_framework_enable_dynamic_load"
+    ],
+    "hisysevent_config": [
+      "//base/useriam/user_auth_framework/hisysevent.yaml"
+    ],
+    "rom": "3380KB",
+    "ram": "7271KB",
+    "deps": {
+      "components": [
+        "ability_base",
+        "ability_runtime",
+        "ace_engine",
+        "bundle_framework",
+        "hilog",
+        "hicollie",
+        "ipc",
+        "safwk",
+        "samgr",
+        "init",
+        "hisysevent",
+        "drivers_interface_user_auth",
+        "access_token",
+        "os_account",
+        "napi",
+        "hdf_core",
+        "hitrace",
+        "c_utils",
+        "common_event_service",
+        "window_manager",
+        "device_manager",
+        "dsoftbus",
+        "ets_frontend",
+        "hiappevent",
+        "jsoncpp"
+      ]
+    },
+    "build": {
+      "group_type": {
+        "base_group": [
+        ],
+        "fwk_group": [
+          "//base/useriam/user_auth_framework/frameworks/js/napi/user_auth:userauth",
+          "//base/useriam/user_auth_framework/frameworks/js/napi/user_auth_extension/user_auth_extension:userauthextensionability_napi",
+          "//base/useriam/user_auth_framework/frameworks/js/napi/user_auth_extension/module_loader:user_auth_extension",
+          "//base/useriam/user_auth_framework/frameworks/js/napi/user_auth_extension/module_loader:user_auth_extension_module",
+          "//base/useriam/user_auth_framework/frameworks/js/napi/user_auth_icon:userauthicon",
+          "//base/useriam/user_auth_framework/frameworks/js/napi/user_access_ctrl:useraccessctrl"
+         ],
+        "service_group": [
+          "//base/useriam/user_auth_framework/sa_profile:useriam.init",
+          "//base/useriam/user_auth_framework/services:userauthservice",
+          "//base/useriam/user_auth_framework/sa_profile:userauth_sa_profile",
+          "//base/useriam/user_auth_framework/param:param_files"
+        ]
+      },
+      "inner_kits": [
+        {
+          "type": "so",
+          "name": "//base/useriam/user_auth_framework/frameworks/native/client:userauth_client",
+          "header": {
+            "header_files": [
+              "attributes.h",
+              "co_auth_client.h",
+              "co_auth_client_callback.h",
+              "co_auth_client_defines.h",
+              "iam_common_defines.h",
+              "user_auth_client.h",
+              "user_auth_client_callback.h",
+              "user_auth_client_defines.h",
+              "user_idm_client.h",
+              "user_idm_client_callback.h",
+              "user_idm_client_defines.h"
+            ],
+            "header_base": "//base/useriam/user_auth_framework/interfaces/inner_api/"
+          }
+        },
+        {
+          "type": "so",
+          "name": "//base/useriam/user_auth_framework/frameworks/native/executors:userauth_executors",
+          "header": {
+            "header_files": [
+              "iam_executor_framework_types.h",
+              "iam_executor_iauth_driver_hdi.h",
+              "iam_executor_iauth_executor_hdi.h",
+              "iam_executor_idriver_manager.h",
+              "iam_executor_iexecute_callback.h"
+            ],
+            "header_base": "//base/useriam/user_auth_framework/interfaces/inner_api/iam_executor/"
+          }
+        },
+        {
+          "name": "//base/useriam/user_auth_framework/frameworks/cj/user_auth:cj_userauth_ffi",
+          "header": {
+            "header_files": [],
+            "header_base": "//base/useriam/user_auth_framework/frameworks/cj/user_auth/inc"
+          }
+        }
+      ],
+      "test": [
+        "//base/useriam/user_auth_framework/test:iam_unittest",
+        "//base/useriam/user_auth_framework/test:iam_fuzztest"
+      ]
+    }
+  }
+}

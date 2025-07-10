@@ -1,0 +1,96 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+
+## UnitTest calendarmanager_test {{{
+config("test_public_config") {
+  visibility = [ ":*" ]
+  include_dirs = [ "unittest/include" ]
+  cflags = []
+}
+
+ohos_unittest("calendarmanager_test") {
+  branch_protector_ret = "pac_ret"
+  sanitize = {
+    cfi = true
+    cfi_cross_dso = true
+    debug = false
+    blocklist = "./calendardata_blocklist.txt"
+  }
+  module_out_path = "applications/calendar_data"
+  sources = [
+    "unittest/src/calendar_manager_test.cpp",
+    "unittest/src/calendar_test.cpp",
+    "unittest/src/data_share_helper_manager_test.cpp",
+    "unittest/src/event_attendee_test.cpp",
+    "unittest/src/event_filter_test.cpp",
+    "unittest/src/event_location_test.cpp",
+    "unittest/src/event_recurrence_rule_test.cpp",
+    "unittest/src/event_reminder_test.cpp",
+    "unittest/src/event_service_test.cpp",
+    "unittest/src/get_self_permissions.cpp",
+    "unittest/src/test_main.cpp",
+  ]
+  deps = [
+    "//applications/standard/calendardata/calendarmanager:calendarmanager_static",
+  ]
+  include_dirs = [
+    "//utils/system/safwk/native/include",
+    "//base/security/access_token/frameworks/common/include",
+    "//foundation/ability/ability_runtime/services/abilitymgr/include",
+    "//applications/standard/calendardata/calendarmanager/common",
+    "//applications/standard/calendardata/calendarmanager/native/include",
+  ]
+  public_configs = [ ":test_public_config" ]
+  external_deps = [
+    "ability_base:want",
+    "ability_base:zuri",
+    "ability_runtime:ability_manager",
+    "ability_runtime:abilitykit_native",
+    "access_token:libaccesstoken_sdk",
+    "access_token:libnativetoken",
+    "access_token:libtoken_setproc",
+    "c_utils:utils",
+    "data_share:datashare_common",
+    "data_share:datashare_consumer",
+    "hilog:libhilog",
+    "ipc:ipc_single",
+    "napi:ace_napi",
+    "safwk:system_ability_fwk",
+    "samgr:samgr_proxy",
+    "c_utils:utils",
+    "access_token:libtokenid_sdk",
+    "hilog:libhilog",
+    "hilog:libhilog_base",
+    "jsoncpp:jsoncpp",
+    "os_account:libaccountkits",
+    "os_account:os_account_innerkits",
+    "ability_runtime:ability_manager",
+    "ability_runtime:cj_extensionkit_native",
+    "googletest:gmock",
+    "googletest:gtest",
+  ]
+
+  defines = []
+}
+
+## UnitTest calendarmanager_test }}}
+
+group("unittest") {
+  testonly = true
+
+  deps = []
+
+  deps += [ ":calendarmanager_test" ]
+}

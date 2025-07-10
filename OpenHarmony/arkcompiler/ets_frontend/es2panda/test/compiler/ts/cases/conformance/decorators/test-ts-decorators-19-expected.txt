@@ -1,0 +1,4 @@
+prop1
+method1
+prop2
+method2

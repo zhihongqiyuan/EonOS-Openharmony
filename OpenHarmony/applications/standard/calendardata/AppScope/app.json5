@@ -1,0 +1,11 @@
+{
+    "app": {
+        "bundleName": "com.ohos.calendardata",
+        "vendor": "huawei",
+        "versionCode": 140005130,
+        "versionName": "14.0.5.130",
+        "debug": true,
+        "icon": "$media:icon",
+        "label": "$string:app_name",
+    }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Partition_Info>
+<Part Sel="1" PartitionName="fastboot" FlashType="emmc" FileSystem="none" Start="0" Length="500K" SelectFile="D:\DevicetestTools\DeployDevice\resource\L2\dv300\u-boot-hi3516dv300_emmc.bin"/>
+<Part Sel="1" PartitionName="boot" FlashType="emmc" FileSystem="none" Start="1M" Length="15M" SelectFile="D:\version_L1dv300\version\boot.img"/>
+<Part Sel="1" PartitionName="updater" FlashType="emmc" FileSystem="ext3/4" Start="16M" Length="20M" SelectFile="D:\version_L1dv300\version\updater.img"/>
+<Part Sel="1" PartitionName="misc" FlashType="emmc" FileSystem="none" Start="36M" Length="2M" SelectFile=""/>
+<Part Sel="1" PartitionName="system" FlashType="emmc" FileSystem="ext3/4" Start="38M" Length="3307M" SelectFile="D:\version_L1dv300\version\system.img"/>
+<Part Sel="1" PartitionName="vendor" FlashType="emmc" FileSystem="ext3/4" Start="3345M" Length="256M" SelectFile="D:\version_L1dv300\version\vendor.img"/>
+<Part Sel="1" PartitionName="userdata" FlashType="emmc" FileSystem="ext3/4" Start="3601M" Length="1464M" SelectFile="D:\version_L1dv300\version\userdata.img"/>
+</Partition_Info>

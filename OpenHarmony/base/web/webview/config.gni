@@ -1,0 +1,110 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+declare_args() {
+  webview_soc_perf_enable = true
+  webview_audio_enable = true
+  webview_location_enable = true
+  webview_media_player_enable = true
+  webview_camera_enable = true
+  webview_telephony_enable = true
+  webview_battery_manager_enable = true
+  webview_power_manager_enable = true
+  webview_avcodec_enable = true
+  webview_print_enable = true
+  webview_enterprise_device_manager_enable = true
+  webview_media_avsession_enable = true
+  webview_sensors_sensor_enable = true
+  webview_graphic_2d_ext_enable = true
+  webview_enable_heif_decoder = false
+  webview_drm_enable = true
+
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.resourceschedule_soc_perf)) {
+    webview_soc_perf_enable = false
+  }
+  if (defined(global_parts_info) &&
+      (!defined(global_parts_info.multimedia_audio_framework) ||
+       !defined(global_parts_info.multimedia_av_session))) {
+    webview_audio_enable = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.location_location)) {
+    webview_location_enable = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.multimedia_player_framework)) {
+    webview_media_player_enable = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.multimedia_camera_framework)) {
+    webview_camera_enable = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.multimedia_av_codec)) {
+    webview_avcodec_enable = false
+  }
+  if (defined(global_parts_info) &&
+      (!defined(global_parts_info.telephony_cellular_data) ||
+       !defined(global_parts_info.telephony_core_service))) {
+    webview_telephony_enable = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.powermgr_battery_manager)) {
+    webview_battery_manager_enable = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.powermgr_power_manager)) {
+    webview_power_manager_enable = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.print_print_fwk)) {
+    webview_print_enable = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.customization_enterprise_device_management)) {
+    webview_enterprise_device_manager_enable = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.multimedia_av_session)) {
+    webview_media_avsession_enable = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.sensors_sensor)) {
+    webview_sensors_sensor_enable = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.graphic_graphic_2d_ext)) {
+    webview_graphic_2d_ext_enable = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.hdf_drivers_interface_display)) {
+    webview_enable_heif_decoder = false
+  }
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.multimedia_drm_framework)) {
+    webview_drm_enable = false
+  }
+}
+
+webview_package_name = "com.ohos.arkwebcore"
+webview_hap_path =
+    "/module_update/ArkWebCore/app/${webview_package_name}/ArkWebCore.hap"
+webview_sandbox_path = "/data/storage/el1/bundle/arkwebcore/"
+webview_sandbox_hap_path = "${webview_sandbox_path}entry.hap"
+webview_sandbox_lib_path = "${webview_sandbox_path}libs/${target_cpu}"
+webview_sandbox_relative_lib_path = "arkwebcore/libs/${target_cpu}"
+webview_crashpad_handler_so = "libarkweb_crashpad_handler.so"
+webview_engine_so = "libarkweb_engine.so"
+webview_app_hap_path = "/system/app/ArkWeb/ArkWebCore.hap"
+webview_app_hap_path2 = "/system/app/${webview_package_name}/ArkWebCore.hap"

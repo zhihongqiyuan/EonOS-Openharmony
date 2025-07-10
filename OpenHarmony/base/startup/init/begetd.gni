@@ -1,0 +1,94 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+init_innerkits_path = "//base/startup/init/interfaces/innerkits"
+
+declare_args() {
+  enable_ohos_startup_init_feature_watcher = true
+  enable_ohos_startup_init_feature_deviceinfo = true
+
+  # only for test
+  param_test = true
+  param_base_log = false
+  init_feature_ab_partition = false
+
+  # init begetctl support liteos
+  init_feature_begetctl_liteos = false
+
+  # only support mbedtls for hash
+  init_lite_use_thirdparty_mbedtls = true
+  init_lite_use_posix_file_api = false
+  config_ohos_startup_init_lite_data_path = "/"
+
+  # enable process_priority for ohos_lite
+  init_feature_enable_lite_process_priority = false
+
+  # enable hook_mgr for ohos_lite
+  init_feature_use_hook_mgr = false
+  if (!defined(ohos_lite)) {
+    init_feature_use_hook_mgr = true
+  }
+
+  # config memory size for liteos-m
+  init_lite_memory_size = 5120
+
+  startup_init_feature_decode_group_file = false
+
+  startup_init_test_performance = true
+
+  # log display control
+  init_lite_no_log = false
+
+  startup_init_with_param_base = false
+  if (!use_musl) {
+    startup_init_with_param_base = true
+    startup_init_feature_decode_group_file = true
+  }
+
+  #deps appspawn_client
+  init_appspawn_client_module = true
+
+  # begetutil extension module
+  init_begetutil_extra_modules = ""
+  init_extra_static_modules = ""
+
+  init_use_encaps = false
+
+  # erofs overlay feature switch
+  init_startup_feature_erofs_overlay = false
+
+  # system call wrap switch
+  init_startup_feature_system_call_switch = false
+
+  #deps param_watcher xcollie
+  init_paramwatcher_hicollie_enable = true
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.hiviewdfx_hicollie)) {
+    init_paramwatcher_hicollie_enable = false
+  }
+
+  # seccomp privilege
+  init_feature_seccomp_privilege = false
+
+  # group_type support system
+  init_feature_group_type = true
+
+  # only the pc can obtain the device serial number
+  init_get_disk_sn = false
+
+  # seccomp custom
+  init_feature_custom_sandbox = false
+
+  # init sasn support
+  init_feature_support_asan = false
+}

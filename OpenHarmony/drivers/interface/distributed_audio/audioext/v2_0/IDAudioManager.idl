@@ -1,0 +1,86 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @addtogroup Distributed Audio
+ * @{
+ *
+ * @brief Provides APIs for registration, unregistration, and event notification.
+ *
+ * The interface for the distributed audio, providing hardware driver registration, 
+ * unregistration, and event notification capabilities for distributed audio SA.
+ *
+ * @since 5.0
+ * @version 2.0
+ */
+
+package ohos.hdi.distributed_audio.audioext.v2_0;
+
+import ohos.hdi.distributed_audio.audioext.v2_0.IDAudioCallback;
+import ohos.hdi.distributed_audio.audioext.v2_0.Types;
+
+/**
+ * @brief Basic operations of Distributed Audio devices
+ *
+ * Register and unregister distributed audio devices, and provide event notification
+ * mechanisms for distributed audio SA to the HDF layer.
+ *
+ * @since 5.0
+ * @version 2.0
+ */
+interface IDAudioManager {
+    /**
+     * @brief Registering distributed audio device drivers
+     *
+     * @param adpName Distributed audio device NetworkID.
+     * @param devId Distributed audio device Port ID.
+     * @param capability Distributed audio device capability set (including sampling rate, channels, etc).
+     * @param callbackObj Distributed Audio SA Callback.
+     *
+     * @return a value of 0 if success and a negative value if failed.
+     *
+     * @since 5.0
+     * @version 2.0
+     */
+    RegisterAudioDevice([in] String adpName, [in] int devId, [in] String capability, [in] IDAudioCallback callbackObj);
+
+    /**
+     * @brief Unregistering distributed audio device drivers
+     *
+     * @param adpName Distributed audio device NetworkID.
+     * @param devId Distributed audio device Port ID.
+     *
+     * @return a value of 0 if success and a negative value if failed.
+     *
+     * @since 5.0
+     * @version 2.0
+     */
+    UnRegisterAudioDevice([in] String adpName, [in] int devId);
+
+    /**
+     * @brief Distribute audio device SA notification events.
+     *
+     * @param adpName Distributed audio device NetworkID.
+     * @param devId Distributed audio device Port ID.
+     * @param streamId Stream ID for distributed audio devices.
+     * @param event Notification event types (such as focus events, volume events).
+     *
+     * @return a value of 0 if success and a negative value if failed.
+     *
+     * @since 5.0
+     * @version 2.0
+     */
+    NotifyEvent([in] String adpName, [in] int devId, [in] int streamId, [in] struct DAudioEvent event);
+}

@@ -1,0 +1,113 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: INPUTMETHOD
+
+SERVICE_INIT_FAILED:
+  __BASE: {type: FAULT, level: CRITICAL, tag: IMFServiceFailed, desc: Input method service init fault}
+  USER_ID: {type: INT32, desc: The user id}
+  COMPONENT_ID: {type: STRING, desc: Component name}
+  ERROR_CODE: {type: INT32, desc: Error code}
+
+UNAVAILABLE_INPUTMETHOD:
+  __BASE: {type: FAULT, level: CRITICAL, tag: IMEUnavaliable, desc: Inputmethod unavailable}
+  USER_ID: {type: INT32, desc: The user id}
+  APP_NAME: {type: STRING, desc: App name}
+  ERROR_CODE: {type: INT32, desc: Error code}
+  INFO: {type: STRING, desc: Error information}
+
+IME_USAGE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: IMEUsage, desc: Inputmethod using report}
+  IME_START: {type: INT32, desc: The count of ime starts}
+  IME_CHANGE: {type: INT32, desc: The count of ime switchs}
+
+OPERATE_SOFTKEYBOARD:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: IMEOperate, desc: Operate the soft keyboard report}
+  OPERATING: {type: STRING, desc: 'Show, hide or unbind soft keyboard'}
+  OPERATE_INFO: {type: STRING, desc: 'Manipulate to show, hide, or unbind soft keyboard information'}
+
+IME_STATE_CHANGED:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: IMEState, desc: InputMethodExtension state changed}
+  STATE: {type: INT32, desc: InputMethodExtension STATE}
+  PID: {type: INT32, desc: The process id of current InputMethodExtension}
+  BUNDLE_NAME: {type: STRING, desc: The bundle name of current InputMethodExtension}
+
+CLIENT_ATTACH_FAILED:
+  __BASE: {type: FAULT, level: CRITICAL, desc: Client attach failed}
+  SELF_NAME: {type: STRING, desc: Self name}
+  PEER_NAME: {type: STRING, desc: Peer name}
+  PEER_PID: {type: INT64, desc: Peer pid}
+  PEER_USERID: {type: INT32, desc: Peer userId}
+  CLIENT_TYPE: {type: UINT8, desc: Client type}
+  INPUT_PATTERN: {type: INT32, desc: Input pattern of editorBox}
+  ISSHOWKEYBOARD: {type: BOOL, desc: Is show softkeyboard}
+  IME_NAME: {type: STRING, desc: Name of current ime}
+  ERR_CODE: {type: INT32, desc: Error code}
+  FAULT_COUNT: {type: INT64, desc: The fault count within five minutes}
+
+CLIENT_SHOW_FAILED:
+  __BASE: {type: FAULT, level: CRITICAL, desc: Client show failed}
+  SELF_NAME: {type: STRING, desc: Self name}
+  PEER_NAME: {type: STRING, desc: Peer name}
+  PEER_PID: {type: INT64, desc: Peer pid}
+  PEER_USERID: {type: INT32, desc: Peer userId}
+  CLIENT_TYPE: {type: UINT8, desc: Client type}
+  INPUT_PATTERN: {type: INT32, desc: Input pattern of editorBox}
+  IME_NAME: {type: STRING, desc: Name of current ime}
+  EVENT_CODE: {type: UINT8, desc: Event code of imf}
+  ERR_CODE: {type: INT32, desc: Error code}
+  FAULT_COUNT: {type: INT64, desc: The fault count within five minutes}
+
+IME_START_INPUT_FAILED:
+  __BASE: {type: FAULT, level: CRITICAL, desc: Ime start input failed}
+  SELF_NAME: {type: STRING, desc: Self name}
+  PEER_NAME: {type: STRING, desc: Peer name}
+  PEER_PID: {type: INT64, desc: Peer pid}
+  ISSHOWKEYBOARD: {type: BOOL, desc: Is show softkeyboard}
+  EVENT_CODE: {type: UINT8, desc: Event code of imf}
+  ERR_CODE: {type: INT32, desc: Error code}
+  FAULT_COUNT: {type: INT64, desc: The fault count within five minutes}
+
+BASE_TEXT_OPERATION_FAILED:
+  __BASE: {type: FAULT, level: CRITICAL, desc: Base text operation failed}
+  SELF_NAME: {type: STRING, desc: Self name}
+  PEER_NAME: {type: STRING, desc: Peer name}
+  PEER_PID: {type: INT64, desc: Peer pid}
+  CLIENT_TYPE: {type: UINT8, desc: Client type}
+  EVENT_CODE: {type: UINT8, desc: Event code of imf}
+  ERR_CODE: {type: INT32, desc: Error code}
+  FAULT_COUNT: {type: INT64, desc: The fault count within five minutes}
+
+CLIENT_ATTACH_STATISTICS:
+  __BASE: {type: STATISTIC, level: MINOR, desc: Client attach statistics}
+  IME_NAME: {type: STRING, arrsize: 100, desc: All ime that use in a statistical period}
+  APP_NAME: {type: STRING, arrsize: 100, desc: All app that use ime in a statistical period}
+  INFOS: {type: STRING, arrsize: 100, desc: Statistics of client attach events}
+
+CLIENT_SHOW_STATISTICS:
+  __BASE: {type: STATISTIC, level: MINOR, desc: Client show statistics}
+  IME_NAME: {type: STRING, arrsize: 100, desc: All ime that use in a statistical period}
+  APP_NAME: {type: STRING, arrsize: 100, desc: All app that use ime in a statistical period}
+  INFOS: {type: STRING, arrsize: 100, desc: Statistics of client show events}
+
+IME_START_INPUT_STATISTICS:
+  __BASE: {type: STATISTIC, level: MINOR, desc: Ime start input statistics}
+  SELF_NAME: {type: STRING, desc: self Name}
+  APP_NAME: {type: STRING, arrsize: 100, desc: All app that use ime in a statistical period}
+  INFOS: {type: STRING, arrsize: 100, desc: Statistics of ime start input events}
+
+BASE_TEXT_OPERATION_STATISTICS:
+  __BASE: {type: STATISTIC, level: MINOR, desc: Base text operation statistics}
+  SELF_NAME: {type: STRING, desc: self Name}
+  APP_NAME: {type: STRING, arrsize: 100, desc: All app that use ime in a statistical period}
+  INFOS: {type: STRING, arrsize: 100, desc: Statistics of base text operation events}

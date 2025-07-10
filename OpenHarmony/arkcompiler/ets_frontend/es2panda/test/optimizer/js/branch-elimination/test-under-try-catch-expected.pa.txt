@@ -1,0 +1,92 @@
+slotNum = 0x14
+.language ECMAScript
+.function any .#*#testUnderTryCatch(any a0, any a1, any a2) {
+	nop
+label_15: 
+	ldai 0x1
+	sta v0
+	ldai 0x3
+	sta v1
+label_10: 
+label_12: 
+	ldai 0x0
+	sta v3
+	ldfalse
+	mov v2, v3
+	jnez label_5
+label_2: 
+	ldtrue
+	mov v2, v0
+	jnez label_3
+label_4: 
+	tryldglobalbyname 0x2, print
+	sta v1
+	lda.str bad
+	sta v3
+	lda v1
+	callarg1 0x3, v3
+label_3: 
+	lda v0
+	throw
+label_5: 
+	ldai 0x2
+	sta v3
+	mov v2, v3
+	tryldglobalbyname 0x5, print
+	sta v4
+	lda v0
+	stricteq 0x6, v3
+	sta v3
+	lda v4
+	callarg1 0x7, v3
+label_11: 
+end_label_11: 
+	jmp label_6
+label_17: 
+label_14: 
+	tryldglobalbyname 0x9, print
+	sta v1
+	lda v0
+	stricteq 0xa, v2
+	sta v3
+	lda v1
+	callarg1 0xb, v3
+	mov v1, v2
+label_6: 
+	lda v0
+	stricteq 0xd, v1
+	jeqz label_7
+label_8: 
+	tryldglobalbyname 0xe, print
+	sta v0
+	lda.str good1
+	sta v1
+	lda v0
+	callarg1 0xf, v1
+	jmp label_9
+label_7: 
+	tryldglobalbyname 0x11, print
+	sta v0
+	lda.str good2
+	sta v1
+	lda v0
+	callarg1 0x12, v1
+label_9: 
+	returnundefined
+label_16: 
+}
+
+.catchall label_10, end_label_11, label_17
+
+slotNum = 0x3
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, .#*#testUnderTryCatch, 0x0
+	callarg0 0x1
+	returnundefined
+label_2: 
+}
+
+

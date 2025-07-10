@@ -1,0 +1,33 @@
+/*
+ * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @addtogroup HdiDisplay
+ * 
+ * @since 5.1
+ * @version 2.1
+ */
+
+package ohos.hdi.display.graphic.common.v2_1;
+import ohos.hdi.display.graphic.common.v2_0.BufferHandleMetaKeyType;
+
+/**
+ * @ brief Enumerates buffer handle attribution keys.
+ *
+ */
+enum BufferHandleAttrKey : ohos.hdi.display.graphic.common.v2_0.BufferHandleAttrKey {
+    ATTRKEY_VIDEO_TV_PQ = 14,                // value: TvPQMetadata
+    ATTRKEY_ADAPTIVE_FOV_METADATA = 15,      // value: byte stream of look up table
+};

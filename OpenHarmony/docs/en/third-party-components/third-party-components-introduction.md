@@ -1,0 +1,5 @@
+# Introduction to OpenHarmony Third-Party Components
+
+OpenHarmony third-party components are verified software that work with the OpenHarmony system to facilitate your development of OpenHarmony devices or applications. Depending on the programming language they use, these components are classified as third-party JavaScript and TypeScript components or third-party C and C++ components. The third-party JavaScript and TypeScript components use the JavaScript or TypeScript programming language and are usually imported as source code or OpenHarmony HAR files. They are used in application development. The third-party C and C++ components use the C and C++ programming language and are usually imported as source code or OpenHarmony hpm packages. They are used as native APIs during application development or directly compiled in the OpenHarmony OS image during device development.
+
+Currently, OpenHarmony provides UI, animation, image, multimedia, file, network, security, tool, and other third-party components.

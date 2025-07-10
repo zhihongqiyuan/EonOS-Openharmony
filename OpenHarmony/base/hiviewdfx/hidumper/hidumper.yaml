@@ -1,0 +1,54 @@
+#  Copyright (c) 2022 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+domain: HIDUMPER
+
+CMD_USAGE:
+  __BASE: {type: STATISTIC, level: CRITICAL, tag: usageStats, desc: hidumper usage statistics}
+  IS_DUMP_CPU_FREQ: {type: BOOL, desc: is user dump cpu frequency}
+  IS_DUMP_CPU_USAGE: {type: BOOL, desc: is user dump cpu usage}
+  CPU_USAGE_PID: {type: INT32, desc: pid number when dump cpu usage}
+  IS_DUMP_LOG: {type: BOOL, desc: is user dump log}
+  LOG_ARGS: {type: STRING, desc: args when user dump log}
+  IS_DUMP_MEM: {type: BOOL, desc: is user dump memory}
+  MEM_PID: {type: INT32, desc: pid when dump memory}
+  IS_DUMP_STORAGE: {type: BOOL, desc: is user dump storage}
+  STORAGE_PID: {type: INT32, desc: pid number when dump storage}
+  IS_DUMP_NET: {type: BOOL, desc: is user dump net}
+  NET_PID: {type: INT32, desc: pid number when dump net}
+  IS_DUMP_LIST: {type: BOOL, desc: is user dump list}
+  IS_DUMP_SERVICE: {type: BOOL, desc: is user dump service}
+  IS_DUMP_SYSTEM_ABILITY: {type: BOOL, desc: is user dump system ability}
+  ABILITIE_NAMES: {type: STRING, desc: name when dump system ability}
+  ABILITIE_ARGS: {type: STRING, desc: args when dump system ability}
+  IS_DUMP_SYSTEM: {type: BOOL, desc: is user dump system}
+  SYSTEM_ARGS: {type: STRING, desc: args when dump system}
+  IS_DUMP_PROCESSES: {type: BOOL, desc: is user dump process}
+  PROCESS_PID: {type: INT32, desc: pid number when dump process}
+  IS_FAULT_LOG: {type: BOOL, desc: is user dump fault log}
+  TIME_OUT: {type: INT32, desc: timeout value}
+  LIMIT_SIZE: {type: INT32, desc: limit size}
+  PATH: {type: STRING, desc: output path of hidumper operation statistics}
+  IS_APPENDIX: {type: BOOL, desc: is user dump all with no args}
+  IS_TEST: {type: BOOL, desc: is test}
+  IS_SHOW_SMAPS: {type: BOOL, desc: is user dump smaps}
+  IS_SHOW_SMAPS_INFO: {type: BOOL, desc: is user dump smaps info}
+  CMD_USER_INPUT: {type: STRING, desc: command that user input}
+  OPT: {type: STRING, desc: hidumper request type}
+  CALLER: {type: STRING, desc: hidumper caller}
+  SUB_OPT: {type: STRING, desc: hidumper sub request type}
+  TARGET: {type: STRING, desc: hidumper target}
+  ARGS: {type: STRING, desc: hidumper arguments}
+  ERROR_CODE: {type: INT32, desc: error code}
+  ERROR_MESSAGE: {type: STRING, desc: error message}
+  RECORD_COUNT: {type: UINT64, desc: record count}

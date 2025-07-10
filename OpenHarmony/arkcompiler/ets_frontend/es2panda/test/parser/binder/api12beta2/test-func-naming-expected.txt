@@ -1,0 +1,97 @@
+slotNum = 0x0
+.language ECMAScript
+.function any .#1016906796659230483#(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#1016906796659230483_1#(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#1471473088249306135#(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#5496465400387880830#(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#7640569466637989364#aa(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .aa(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x11
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	newlexenv 0x2
+	lda a1
+	stlexvar 0x0, 0x0
+	lda a2
+	stlexvar 0x0, 0x1
+	definefunc 0x0, .aa, 0x0
+	stglobalvar 0x1, aa
+	definefunc 0x2, .name1, 0x0
+	sttoglobalrecord 0x3, name1
+	definefunc 0x4, .#1016906796659230483#, 0x0
+	definefunc 0x5, .#1016906796659230483_1#, 0x0
+	definefunc 0x6, .#7640569466637989364#aa, 0x0
+	createobjectwithbuffer 0x7, _0
+	sta v0
+	definefunc 0x8, .#1471473088249306135#, 0x0
+	definefieldbyname 0x9, index.js, v0
+	lda v0
+	sttoglobalrecord 0xb, obj
+	createobjectwithbuffer 0xc, _1
+	sta v0
+	definefunc 0xd, .#5496465400387880830#, 0x0
+	definefieldbyname 0xe, \testcase, v0
+	lda v0
+	sttoglobalrecord 0x10, objBackslash
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .name1(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	returnundefined
+label_2: 
+}
+
+

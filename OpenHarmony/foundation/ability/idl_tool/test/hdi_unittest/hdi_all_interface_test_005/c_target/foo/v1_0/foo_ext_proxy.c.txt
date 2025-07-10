@@ -1,0 +1,57 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include <hdi_support.h>
+#include "v1_0/ifoo_ext.h"
+
+#define HDF_LOG_TAG    foo_ext_proxy
+
+struct IFooExt *IFooExtGet(bool isStub)
+{
+    return IFooExtGetInstance("foo_ext_service", isStub);
+}
+
+struct IFooExt *IFooExtGetInstance(const char *serviceName, bool isStub)
+{
+    if (isStub) {
+        const char *instName = serviceName;
+        if (strcmp(instName, "foo_ext_service") == 0) {
+            instName = "service";
+        }
+        return LoadHdiImpl(IFOOEXT_INTERFACE_DESC, instName);
+    }
+    return NULL;
+}
+
+void IFooExtRelease(struct IFooExt *instance, bool isStub)
+{
+    IFooExtReleaseInstance("foo_ext_service", instance, isStub);
+}
+
+void IFooExtReleaseInstance(const char *serviceName, struct IFooExt *instance, bool isStub)
+{
+    if (instance == NULL) {
+        return;
+    }
+
+    if (isStub) {
+        const char *instName = serviceName;
+        if (strcmp(instName, "foo_ext_service") == 0) {
+            instName = "service";
+        }
+        UnloadHdiImpl(IFOOEXT_INTERFACE_DESC, instName, instance);
+        return;
+    }
+}

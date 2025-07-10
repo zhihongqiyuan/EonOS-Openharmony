@@ -1,0 +1,466 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include "v1_0/foo_stub.h"
+#include <hdf_base.h>
+#include <hdf_core_log.h>
+#include <osal_mem.h>
+#include <securec.h>
+
+#define HDF_LOG_TAG    foo_stub
+
+
+static int32_t SerStubPing(struct IFoo *serviceImpl, struct HdfSBuf *fooData, struct HdfSBuf *fooReply)
+{
+    int32_t fooRet = HDF_FAILURE;
+    bool fooMemSet = false;
+    char* sendMsg = NULL;
+    char* recvMsg = NULL;
+    uint32_t recvMsgLen = 0;
+
+    if (!HdfSbufReadUint8(fooData, (uint8_t *)&fooMemSet)) {
+        HDF_LOGE("%{public}s: read flag of memory setting failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    const char *sendMsgCp = HdfSbufReadString(fooData);
+    if (sendMsgCp == NULL) {
+        HDF_LOGE("%{public}s: read sendMsgCp failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    sendMsg = (char*)OsalMemCalloc(strlen(sendMsgCp) + 1);
+    if (sendMsg == NULL) {
+        fooRet = HDF_ERR_MALLOC_FAIL;
+        HDF_LOGE("%{public}s: malloc sendMsg failed", __func__);
+        goto FINISHED;
+    }
+
+    if (strcpy_s(sendMsg, (strlen(sendMsgCp) + 1), sendMsgCp) != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s: read sendMsg failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    if (fooMemSet) {
+        if (!HdfSbufReadUint32(fooData, &recvMsgLen)) {
+            HDF_LOGE("%{public}s: read recvMsg size failed!", __func__);
+            fooRet = HDF_ERR_INVALID_PARAM;
+            goto FINISHED;
+        }
+
+        HDI_CHECK_VALUE_RET_GOTO(recvMsgLen, >, HDI_BUFF_MAX_SIZE / sizeof(char), fooRet, HDF_ERR_INVALID_PARAM, FINISHED);
+        if (recvMsgLen > 0) {
+            recvMsg = (char*)OsalMemCalloc(recvMsgLen);
+            if (recvMsg == NULL) {
+                HDF_LOGE("%{public}s: malloc recvMsg failed", __func__);
+                fooRet = HDF_ERR_MALLOC_FAIL;
+                goto FINISHED;
+            }
+        }
+    } else {
+        recvMsg = (char*)OsalMemCalloc(HDI_BUFF_MAX_SIZE);
+        if (recvMsg == NULL) {
+            HDF_LOGE("%{public}s: malloc recvMsg failed", __func__);
+            fooRet = HDF_ERR_MALLOC_FAIL;
+            goto FINISHED;
+        }
+        recvMsgLen = HDI_BUFF_MAX_SIZE;
+    }
+
+
+    if (serviceImpl == NULL) {
+        HDF_LOGE("%{public}s: invalid serviceImpl object", __func__);
+        fooRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (serviceImpl->Ping == NULL) {
+        HDF_LOGE("%{public}s: invalid interface function Ping ", __func__);
+        fooRet = HDF_ERR_NOT_SUPPORT;
+        goto FINISHED;
+    }
+
+    fooRet = serviceImpl->Ping(serviceImpl, sendMsg, recvMsg, recvMsgLen);
+    if (fooRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s failed, error code is %{public}d", __func__, fooRet);
+        goto FINISHED;
+    }
+
+    if (!HdfSbufWriteString(fooReply, recvMsg)) {
+        HDF_LOGE("%{public}s: write recvMsg failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+FINISHED:
+    if (sendMsg != NULL) {
+        OsalMemFree(sendMsg);
+        sendMsg = NULL;
+    }
+    if (recvMsg != NULL) {
+        OsalMemFree(recvMsg);
+        recvMsg = NULL;
+    }
+    return fooRet;
+}
+
+static int32_t SerStubGetData(struct IFoo *serviceImpl, struct HdfSBuf *fooData, struct HdfSBuf *fooReply)
+{
+    int32_t fooRet = HDF_FAILURE;
+    struct FooInfo* info = NULL;
+
+    info = (struct FooInfo*)OsalMemCalloc(sizeof(struct FooInfo));
+    if (info == NULL) {
+        HDF_LOGE("%{public}s: malloc info failed", __func__);
+        fooRet = HDF_ERR_MALLOC_FAIL;
+        goto FINISHED;
+    }
+
+    if (serviceImpl == NULL) {
+        HDF_LOGE("%{public}s: invalid serviceImpl object", __func__);
+        fooRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (serviceImpl->GetData == NULL) {
+        HDF_LOGE("%{public}s: invalid interface function GetData ", __func__);
+        fooRet = HDF_ERR_NOT_SUPPORT;
+        goto FINISHED;
+    }
+
+    fooRet = serviceImpl->GetData(serviceImpl, info);
+    if (fooRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s failed, error code is %{public}d", __func__, fooRet);
+        goto FINISHED;
+    }
+
+    if (!FooInfoBlockMarshalling(fooReply, info)) {
+        HDF_LOGE("%{public}s: write info failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+FINISHED:
+    if (info != NULL) {
+        FooInfoFree(info, true);
+        info = NULL;
+    }
+    return fooRet;
+}
+
+static int32_t SerStubTestFunc1(struct IFoo *serviceImpl, struct HdfSBuf *fooData, struct HdfSBuf *fooReply)
+{
+    int32_t fooRet = HDF_FAILURE;
+    bool inData = false;
+    bool outData = false;
+
+    if (!HdfSbufReadInt8(fooData, (int8_t *)&inData)) {
+        HDF_LOGE("%{public}s: read &inData failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    if (serviceImpl == NULL) {
+        HDF_LOGE("%{public}s: invalid serviceImpl object", __func__);
+        fooRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (serviceImpl->TestFunc1 == NULL) {
+        HDF_LOGE("%{public}s: invalid interface function TestFunc1 ", __func__);
+        fooRet = HDF_ERR_NOT_SUPPORT;
+        goto FINISHED;
+    }
+
+    fooRet = serviceImpl->TestFunc1(serviceImpl, inData, &outData);
+    if (fooRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s failed, error code is %{public}d", __func__, fooRet);
+        goto FINISHED;
+    }
+
+    if (!HdfSbufWriteInt8(fooReply, outData ? 1 : 0)) {
+        HDF_LOGE("%{public}s: write outData failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+FINISHED:
+    return fooRet;
+}
+
+static int32_t SerStubTestFunc2(struct IFoo *serviceImpl, struct HdfSBuf *fooData, struct HdfSBuf *fooReply)
+{
+    int32_t fooRet = HDF_FAILURE;
+    int8_t inData = 0;
+
+    if (!HdfSbufReadInt8(fooData, &inData)) {
+        HDF_LOGE("%{public}s: read &inData failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    if (serviceImpl == NULL) {
+        HDF_LOGE("%{public}s: invalid serviceImpl object", __func__);
+        fooRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (serviceImpl->TestFunc2 == NULL) {
+        HDF_LOGE("%{public}s: invalid interface function TestFunc2 ", __func__);
+        fooRet = HDF_ERR_NOT_SUPPORT;
+        goto FINISHED;
+    }
+
+    fooRet = serviceImpl->TestFunc2(serviceImpl, inData);
+    if (fooRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s failed, error code is %{public}d", __func__, fooRet);
+        goto FINISHED;
+    }
+
+FINISHED:
+    return fooRet;
+}
+
+static int32_t SerStubTestFunc3(struct IFoo *serviceImpl, struct HdfSBuf *fooData, struct HdfSBuf *fooReply)
+{
+    int32_t fooRet = HDF_FAILURE;
+    int16_t inData = 0;
+    int16_t outData = 0;
+
+    if (!HdfSbufReadInt16(fooData, &inData)) {
+        HDF_LOGE("%{public}s: read &inData failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    if (serviceImpl == NULL) {
+        HDF_LOGE("%{public}s: invalid serviceImpl object", __func__);
+        fooRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (serviceImpl->TestFunc3 == NULL) {
+        HDF_LOGE("%{public}s: invalid interface function TestFunc3 ", __func__);
+        fooRet = HDF_ERR_NOT_SUPPORT;
+        goto FINISHED;
+    }
+
+    fooRet = serviceImpl->TestFunc3(serviceImpl, inData, &outData);
+    if (fooRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s failed, error code is %{public}d", __func__, fooRet);
+        goto FINISHED;
+    }
+
+    if (!HdfSbufWriteInt16(fooReply, outData)) {
+        HDF_LOGE("%{public}s: write outData failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+FINISHED:
+    return fooRet;
+}
+
+static int32_t SerStubTestFunc4(struct IFoo *serviceImpl, struct HdfSBuf *fooData, struct HdfSBuf *fooReply)
+{
+    int32_t fooRet = HDF_FAILURE;
+    int32_t inData = 0;
+    int32_t outData = 0;
+
+    if (!HdfSbufReadInt32(fooData, &inData)) {
+        HDF_LOGE("%{public}s: read &inData failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    if (serviceImpl == NULL) {
+        HDF_LOGE("%{public}s: invalid serviceImpl object", __func__);
+        fooRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (serviceImpl->TestFunc4 == NULL) {
+        HDF_LOGE("%{public}s: invalid interface function TestFunc4 ", __func__);
+        fooRet = HDF_ERR_NOT_SUPPORT;
+        goto FINISHED;
+    }
+
+    fooRet = serviceImpl->TestFunc4(serviceImpl, inData, &outData);
+    if (fooRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s failed, error code is %{public}d", __func__, fooRet);
+        goto FINISHED;
+    }
+
+    if (!HdfSbufWriteInt32(fooReply, outData)) {
+        HDF_LOGE("%{public}s: write outData failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+FINISHED:
+    return fooRet;
+}
+
+static int32_t SerStubTestFunc5(struct IFoo *serviceImpl, struct HdfSBuf *fooData, struct HdfSBuf *fooReply)
+{
+    int32_t fooRet = HDF_FAILURE;
+    int64_t inData = 0;
+    int64_t outData = 0;
+
+    if (!HdfSbufReadInt64(fooData, &inData)) {
+        HDF_LOGE("%{public}s: read &inData failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    if (serviceImpl == NULL) {
+        HDF_LOGE("%{public}s: invalid serviceImpl object", __func__);
+        fooRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (serviceImpl->TestFunc5 == NULL) {
+        HDF_LOGE("%{public}s: invalid interface function TestFunc5 ", __func__);
+        fooRet = HDF_ERR_NOT_SUPPORT;
+        goto FINISHED;
+    }
+
+    fooRet = serviceImpl->TestFunc5(serviceImpl, inData, &outData);
+    if (fooRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s failed, error code is %{public}d", __func__, fooRet);
+        goto FINISHED;
+    }
+
+    if (!HdfSbufWriteInt64(fooReply, outData)) {
+        HDF_LOGE("%{public}s: write outData failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+FINISHED:
+    return fooRet;
+}
+
+static int32_t SerStubTestFunc6(struct IFoo *serviceImpl, struct HdfSBuf *fooData, struct HdfSBuf *fooReply)
+{
+    int32_t fooRet = HDF_FAILURE;
+    char* inData = NULL;
+
+    const char *inDataCp = HdfSbufReadString(fooData);
+    if (inDataCp == NULL) {
+        HDF_LOGE("%{public}s: read inDataCp failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    inData = (char*)OsalMemCalloc(strlen(inDataCp) + 1);
+    if (inData == NULL) {
+        fooRet = HDF_ERR_MALLOC_FAIL;
+        HDF_LOGE("%{public}s: malloc inData failed", __func__);
+        goto FINISHED;
+    }
+
+    if (strcpy_s(inData, (strlen(inDataCp) + 1), inDataCp) != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s: read inData failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    if (serviceImpl == NULL) {
+        HDF_LOGE("%{public}s: invalid serviceImpl object", __func__);
+        fooRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (serviceImpl->TestFunc6 == NULL) {
+        HDF_LOGE("%{public}s: invalid interface function TestFunc6 ", __func__);
+        fooRet = HDF_ERR_NOT_SUPPORT;
+        goto FINISHED;
+    }
+
+    fooRet = serviceImpl->TestFunc6(serviceImpl, inData);
+    if (fooRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s failed, error code is %{public}d", __func__, fooRet);
+        goto FINISHED;
+    }
+
+FINISHED:
+    if (inData != NULL) {
+        OsalMemFree(inData);
+        inData = NULL;
+    }
+    return fooRet;
+}
+
+static int32_t SerStubGetVersion(struct IFoo *serviceImpl, struct HdfSBuf *fooData, struct HdfSBuf *fooReply)
+{
+    int32_t fooRet = HDF_SUCCESS;
+    if (!HdfSbufWriteUint32(fooReply, IFOO_MAJOR_VERSION)) {
+        HDF_LOGE("%{public}s: write IFOO_MAJOR_VERSION failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    if (!HdfSbufWriteUint32(fooReply, IFOO_MINOR_VERSION)) {
+        HDF_LOGE("%{public}s: write IFOO_MINOR_VERSION failed!", __func__);
+        fooRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+FINISHED:
+    return fooRet;
+}
+
+static int32_t FooOnRemoteRequest(struct IFoo *serviceImpl, int code, struct HdfSBuf *data, struct HdfSBuf *reply)
+{
+    switch (code) {
+        case CMD_FOO_PING:
+            return SerStubPing(serviceImpl, data, reply);
+        case CMD_FOO_GET_DATA:
+            return SerStubGetData(serviceImpl, data, reply);
+        case CMD_FOO_TEST_FUNC1:
+            return SerStubTestFunc1(serviceImpl, data, reply);
+        case CMD_FOO_TEST_FUNC2:
+            return SerStubTestFunc2(serviceImpl, data, reply);
+        case CMD_FOO_TEST_FUNC3:
+            return SerStubTestFunc3(serviceImpl, data, reply);
+        case CMD_FOO_TEST_FUNC4:
+            return SerStubTestFunc4(serviceImpl, data, reply);
+        case CMD_FOO_TEST_FUNC5:
+            return SerStubTestFunc5(serviceImpl, data, reply);
+        case CMD_FOO_TEST_FUNC6:
+            return SerStubTestFunc6(serviceImpl, data, reply);
+        case CMD_FOO_GET_VERSION:
+            return SerStubGetVersion(serviceImpl, data, reply);
+        default: {
+            HDF_LOGE("%{public}s: not support cmd %{public}d", __func__, code);
+            return HDF_ERR_INVALID_PARAM;
+        }
+    }
+}
+
+bool FooStubConstruct(struct FooStub *stub)
+{
+    if (stub == NULL) {
+        HDF_LOGE("%{public}s: stub is null!", __func__);
+        return false;
+    }
+
+    stub->OnRemoteRequest = FooOnRemoteRequest;
+    return true;
+}

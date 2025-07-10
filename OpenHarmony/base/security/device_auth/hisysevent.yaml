@@ -1,0 +1,50 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: DEVICE_AUTH
+
+CALL_EVENT:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: the frequency of function calling, preserve: true}
+  FUNC_NAME: {type: STRING, desc: function name}
+  APP_ID: {type: STRING, desc: app id}
+  OS_ACCOUNT_ID: {type: INT32, desc: os account id}
+  CALL_RESULT: {type: INT32, desc: call result}
+  PROCESS_CODE: {type: INT32, desc: process code}
+  CRED_TYPE: {type: UINT8, desc: credential type}
+  GROUP_TYPE: {type: INT32, desc: group type}
+  EXECUTION_TIME: {type: INT64, desc: execution time}
+  EXT_INFO: {type: STRING, desc: extra info}
+
+DEVAUTH_BEHAVIOR:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: device auth behavior, preserve: false}
+  ORG_PKG: {type: STRING, desc: package name}
+  FUNC: {type: STRING, desc: function name}
+  BIZ_SCENE: {type: INT32, desc: business scene}
+  BIZ_STATE: {type: INT32, desc: business state}
+  BIZ_STAGE: {type: INT32, desc: business stage}
+  STAGE_RES: {type: INT32, desc: stage res}
+  ERROR_CODE: {type: INT32, desc: error code}
+  TO_CALL_PKG: {type: STRING, desc: call package}
+  HOST_PKG: {type: STRING, desc: host package}
+  LOCAL_UDID: {type: STRING, desc: local udid}
+  PEER_UDID: {type: STRING, desc: peer udid}
+  CONCURRENT_ID: {type: STRING, desc: concurrent id}
+
+FAULT_EVENT:
+  __BASE: {type: FAULT, level: CRITICAL, desc: fault event, preserve: true}
+  APP_ID: {type: STRING, desc: app id}
+  PROCESS_CODE: {type: INT32, desc: process code}
+  FUNC_NAME: {type: STRING, desc: function name}
+  REQ_ID: {type: INT64, desc: request id}
+  ERROR_CODE: {type: INT32, desc: error code}
+  FAULT_INFO: {type: STRING, desc: error information}

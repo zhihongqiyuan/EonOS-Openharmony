@@ -1,0 +1,6 @@
+* txt=auto eol=lf
+
+*.ets text
+
+*.jpg binary
+*.png binary

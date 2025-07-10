@@ -1,0 +1,3 @@
+src:*/base/print/print_fwk/test/unittest/*
+src:*/base/print/print_fwk/test/fuzztest/*
+src:*/third_party/googletest/*

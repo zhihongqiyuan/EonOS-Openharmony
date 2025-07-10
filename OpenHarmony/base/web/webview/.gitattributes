@@ -1,0 +1,2 @@
+ohos_nweb/prebuilts/arm/ArkWebCore.hap filter=lfs diff=lfs merge=lfs -text
+ohos_nweb/prebuilts/arm64/ArkWebCore.hap filter=lfs diff=lfs merge=lfs -text

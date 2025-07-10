@@ -1,0 +1,133 @@
+{
+  "name": "@ohos/security_guard",
+  "description": "security_guard",
+  "version": "3.1.0",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/security/security_guard"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "security_guard",
+    "subsystem": "security",
+    "syscap": [
+      "SystemCapability.Security.SecurityGuard"
+    ],
+    "hisysevent_config": [
+      "//base/security/security_guard/hisysevent.yaml"
+    ],
+    "features": [
+      "security_guard_enable",
+      "security_guard_enable_ext",
+      "security_guard_event_cfg_source",
+      "security_guard_model_cfg_source",
+      "security_guard_event_group_cfg_source",
+      "security_guard_config_update_trust_list_source",
+      "security_guard_collector_cfg_source",
+      "security_guard_trim_model_analysis",
+      "security_guard_sa_profile_path",
+      "security_guard_security_collector_sa_profile_path",
+      "security_guard_event_filter_path"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "2048KB",
+    "ram": "5102KB",
+    "deps": {
+      "components": [
+        "ability_base",
+        "ability_runtime",
+        "access_token",
+        "c_utils",
+        "common_event_service",
+        "device_manager",
+        "hdf_core",
+        "hiappevent",
+        "hisysevent",
+        "hilog",
+        "init",
+        "ipc",
+        "json",
+        "napi",
+        "netmanager_base",
+        "openssl",
+        "os_account",
+        "preferences",
+        "relational_store",
+        "safwk",
+        "samgr",
+        "time_service",
+        "appverify",
+        "ffrt",
+        "bundle_framework",
+        "zlib",
+        "cJSON",
+        "selinux_adapter"
+      ],
+      "third_party": [
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//base/security/security_guard/sa_profile:sg_sa_profile_standard",
+        "//base/security/security_guard/sa_profile:security_guard.init",
+        "//base/security/security_guard/oem_property:security_audit_cfg",
+        "//base/security/security_guard/oem_property:security_guard_cfg",
+        "//base/security/security_guard/oem_property:config_update_trust_list_cfg",
+        "//base/security/security_guard/oem_property:security_guard_event_group_cfg",
+        "//base/security/security_guard/oem_property:security_guard_model_cfg",
+        "//base/security/security_guard/oem_property:security_guard_event_cfg",
+        "//base/security/security_guard:sg_classify_service_build_module",
+        "//base/security/security_guard:sg_collect_service_build_module",
+        "//base/security/security_guard:security_guard_napi",
+        "//base/security/security_guard/sa_profile:security_collector_sa_profile_standard",
+        "//base/security/security_guard/sa_profile:security_collector.init",
+        "//base/security/security_guard:security_collector_service_build_module",
+        "//base/security/security_guard:security_collector_manager_build_module",
+        "//base/security/security_guard/frameworks/common/classify:libsg_classify_sdk",
+        "//base/security/security_guard/frameworks/common/collect:libsg_collect_sdk",
+        "//base/security/security_guard/frameworks/common/collector:libsg_collector_sdk"
+      ],
+      "inner_kits": [
+        {
+          "name": "//base/security/security_guard/frameworks/common/classify:libsg_classify_sdk",
+          "header": {
+            "header_files": [],
+            "header_base": [
+              "//base/security/security_guard/interfaces/inner_api/classify/include",
+              "//base/security/security_guard/interfaces/inner_api/common/include"
+            ]
+          }
+        },
+        {
+          "name": "//base/security/security_guard/frameworks/common/collect:libsg_collect_sdk",
+          "header": {
+            "header_files": [],
+            "header_base": [
+              "//base/security/security_guard/interfaces/inner_api/collect/include",
+              "//base/security/security_guard/interfaces/inner_api/common/include"
+            ]
+          }
+        },
+        {
+          "name": "//base/security/security_guard/frameworks/common/collector:libsg_collector_sdk",
+          "header": {
+            "header_files": [],
+            "header_base": [
+              "//base/security/security_guard/interfaces/inner_api/collector/include",
+              "//base/security/security_guard/interfaces/inner_api/common/include"
+            ]
+          }
+        }
+      ],
+      "test": [
+        "//base/security/security_guard:security_guard_build_module_test",
+        "//base/security/security_guard:security_guard_fuzz_test",
+        "//base/security/security_guard:security_guard_unit_test"
+      ]
+    }
+  }
+}

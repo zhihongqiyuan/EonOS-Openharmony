@@ -1,0 +1,16 @@
+{
+    "string":  [
+        {
+            "name": "MainAbility_desc",
+            "value": "i am an entry for phone"
+        },
+        {
+            "name": "MainAbility_label",
+            "value": "the phone entry ability"
+        },
+        {
+            "name": "entry_desc",
+            "value": "ActsContextTest"
+        }
+    ]
+}

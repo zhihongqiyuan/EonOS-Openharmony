@@ -1,0 +1,4 @@
+# Known failure list for test262 - fastverify-x64-aot-pgo
+
+#19208
+test262/data/test_es2021/language/module-code/instn-iee-err-circular-as.js

@@ -1,0 +1,36 @@
+{
+  "color": [
+    {
+      "name": "background_color",
+      "value": "#DCDCDC"
+    },
+    {
+      "name": "background_transparent",
+      "value": "#00000000"
+    },
+    {
+      "name": "appitem_label_fontcolor",
+      "value": "#333333"
+    },
+    {
+      "name": "appitem_version_fontcolor",
+      "value": "#999999"
+    },
+    {
+      "name": "divider_color",
+      "value": "#0C000000"
+    },
+    {
+      "name": "itemComp_title_color",
+      "value": "#182431"
+    },
+    {
+      "name": "itemComp_font_color",
+      "value": "#182431"
+    },
+    {
+      "name": "font_color_007DFF",
+      "value": "#007DFF"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+    "name": "@ohos/appspawn",
+    "description": "app start manager",
+    "homePage": "https://gitee.com/openharmony",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/startup_appspawn",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/startup/appspawn"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "appspawn",
+        "subsystem": "startup",
+        "adapted_system_type": [
+            "small",
+            "standard"
+        ],
+        "features": [
+            "appspawn_support_nweb",
+            "appspawn_support_cj",
+            "appspawn_support_native",
+            "appspawn_use_encaps",
+            "appspawn_mount_tmpshm",
+            "appspawn_seccomp_privilege",
+            "appspawn_support_prefork",
+            "appspawn_support_code_signature",
+            "appspawn_allow_internet_permission",
+            "appspawn_custom_sandbox"
+        ],
+        "rom": "296KB",
+        "ram": "13125KB",
+        "hisysevent_config": [
+            "//base/startup/appspawn/hisysevent.yaml",
+            "//base/startup/appspawn/startup_events.yaml"
+        ],
+        "deps": {
+            "components": [
+                "ability_base",
+                "c_utils",
+                "ipc",
+                "selinux_adapter",
+                "selinux",
+                "hilog",
+                "init",
+                "ability_runtime",
+                "access_token",
+                "eventhandler",
+                "config_policy",
+                "resource_management",
+                "hitrace",
+                "common_event_service",
+                "hisysevent",
+                "security_component_manager",
+                "napi",
+                "netmanager",
+                "netmanager_base",
+                "ace_engine",
+                "os_account",
+                "hilog_lite",
+                "samgr_lite",
+                "ipc_single",
+                "kv_store",
+                "ability_lite",
+                "ace_engine_lite",
+                "surface_lite",
+                "ui_lite",
+                "code_signature",
+                "bounds_checking_function",
+                "zlib",
+                "cJSON",
+                "json",
+                "faultloggerd",
+                "dlp_permission_service",
+                "ffrt"
+            ],
+            "third_party": [
+                "bounds_checking_function",
+                "zlib",
+                "selinux",
+                "cJSON"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/startup/appspawn:appspawn_all"
+            ],
+            "inner_kits": [
+                {
+                    "header": {
+                        "header_base": "//base/startup/appspawn/interfaces/innerkits/include/",
+                        "header_files": [
+                            "appspawn.h"
+                        ]
+                    },
+                    "name": "//base/startup/appspawn/interfaces/innerkits/client:appspawn_client"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/startup/appspawn/interfaces/innerkits/hnp/include/",
+                        "header_files": [
+                            "hnp_api.h"
+                        ]
+                    },
+                    "name": "//base/startup/appspawn/interfaces/innerkits/hnp:hnpapi"
+                }
+            ],
+            "test": [
+                "//base/startup/appspawn/test:moduletest",
+                "//base/startup/appspawn/test:unittest",
+                "//base/startup/appspawn/test:fuzztest"
+            ]
+        }
+    }
+}

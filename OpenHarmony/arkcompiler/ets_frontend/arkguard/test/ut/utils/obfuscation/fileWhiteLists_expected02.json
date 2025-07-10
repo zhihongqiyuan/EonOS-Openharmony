@@ -1,0 +1,143 @@
+{
+  "testPath1": {
+    "fileKeepInfo": {
+      "keepSymbol": {
+        "propertyNames": [
+          "test2"
+        ],
+        "globalNames": [
+          "test1"
+        ]
+      },
+      "keepAsConsumer": {
+        "propertyNames": [
+          "test4"
+        ],
+        "globalNames": [
+          "test3"
+        ]
+      },
+      "structProperties": [
+        "test01",
+        "test5"
+      ],
+      "exported": {
+        "propertyNames": [
+          "test8"
+        ],
+        "globalNames": [
+          "test7"
+        ]
+      },
+      "enumProperties": [
+        "test02",
+        "test6"
+      ],
+      "stringProperties": [
+        "test9"
+      ],
+      "arkUIKeepInfo": {
+        "propertyNames": [
+          "test112"
+        ],
+        "globalNames": [
+          "test111"
+        ]
+      }
+    },
+    "fileReservedInfo": {
+      "enumProperties": [
+        "test10"
+      ],
+      "propertyParams": [
+        "test11"
+      ]
+    }
+  },
+  "testPath3": {
+    "fileKeepInfo": {
+      "keepSymbol": {
+        "propertyNames": [],
+        "globalNames": []
+      },
+      "keepAsConsumer": {
+        "propertyNames": [],
+        "globalNames": []
+      },
+      "structProperties": [],
+      "exported": {
+        "propertyNames": [],
+        "globalNames": [
+          "test33"
+        ]
+      },
+      "enumProperties": [],
+      "stringProperties": [],
+      "arkUIKeepInfo": {
+        "propertyNames": [],
+        "globalNames": []
+      }
+    },
+    "fileReservedInfo": {
+      "enumProperties": [],
+      "propertyParams": []
+    }
+  },
+  "testPath4": {
+    "fileKeepInfo": {
+      "keepSymbol": {
+        "propertyNames": [
+          "test2"
+        ],
+        "globalNames": [
+          "test1",
+          "test32"
+        ]
+      },
+      "keepAsConsumer": {
+        "propertyNames": [
+          "test4"
+        ],
+        "globalNames": [
+          "test3"
+        ]
+      },
+      "structProperties": [
+        "test01",
+        "test5"
+      ],
+      "exported": {
+        "propertyNames": [
+          "test8"
+        ],
+        "globalNames": [
+          "test7"
+        ]
+      },
+      "enumProperties": [
+        "test02",
+        "test6"
+      ],
+      "stringProperties": [
+        "test9"
+      ],
+      "arkUIKeepInfo": {
+        "propertyNames": [
+          "test123"
+        ],
+        "globalNames": [
+          "test122"
+        ]
+      }
+    },
+    "fileReservedInfo": {
+      "enumProperties": [
+        "test10"
+      ],
+      "propertyParams": [
+        "test11",
+        "test31"
+      ]
+    }
+  }
+}

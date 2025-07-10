@@ -1,0 +1,185 @@
+{
+  "name": "@ohos/enterprise_device_management",
+  "version": "3.2",
+  "description": "EDM（Enterprise Device Management）提供系统级别的管理功能API，支持企业MDM应用对设备的管控",
+  "homePage": "https://gitee.com/openharmony",
+  "license": "Apache-2.0",
+  "repository": "https://gitee.com/openharmony/customization_enterprise_device_management",
+  "domain": "os",
+  "language": "",
+  "publishAs": "code-segment",
+  "private": false,
+  "scripts": {},
+  "tags": [
+    "base"
+  ],
+  "keywords": [
+    "customization",
+    "edm",
+    "standard"
+  ],
+  "envs": [],
+  "dirs": [],
+  "author": {
+    "name": "",
+    "email": "",
+    "url": ""
+  },
+  "contributors": [
+    {
+      "name": "",
+      "email": "",
+      "url": ""
+    }
+  ],
+  "segment": {
+    "destPath": "base/customization/enterprise_device_management"
+  },
+  "component": {
+    "name": "enterprise_device_management",
+    "subsystem": "customization",
+    "syscap": [ "SystemCapability.Customization.EnterpriseDeviceManager" ],
+    "features": [
+      "enterprise_device_management_support_all",
+      "enterprise_device_management_feature_charging_type_setting",
+      "enterprise_device_management_feature_coverage",
+      "enterprise_device_management_feature_pc_only"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "hisysevent_config": [
+      "//base/customization/enterprise_device_management/common/native/src/hisysevent.yaml"
+    ],
+    "rom": "1800KB",
+    "ram": "6293KB",
+    "deps": {
+      "components": [
+        "ability_base",
+        "ability_runtime",
+        "access_token",
+        "audio_framework",
+        "bluetooth",
+        "bounds_checking_function",
+        "bundle_framework",
+        "cJSON",
+        "c_utils",
+        "camera_framework",
+        "cellular_data",
+        "certificate_manager",
+        "common_event_service",
+        "core_service",
+        "data_share",
+        "drivers_interface_usb",
+        "graphic_2d",
+        "file_api",
+        "ets_runtime",
+        "eventhandler",
+        "netmanager_base",
+        "netmanager_ext",
+        "hilog",
+        "hisysevent",
+        "image_framework",
+        "init",
+        "ipc",
+        "jsoncpp",
+        "location",
+        "napi",
+        "os_account",
+        "pasteboard",
+        "power_manager",
+        "relational_store",
+        "safwk",
+        "samgr",
+        "screenlock_mgr",
+        "security_guard",
+        "storage_service",
+        "time_service",
+        "update_service",
+        "usb_manager",
+        "user_auth_framework",
+        "wifi",
+        "window_manager"
+      ]
+    },
+    "build": {
+      "group_type":{
+        "base_group":[
+          "//base/customization/enterprise_device_management/tools/edm:tools_edm"
+        ],
+        "fwk_group":[
+          "//base/customization/enterprise_device_management/interfaces/kits/common:napi_edm_common",
+          "//base/customization/enterprise_device_management/interfaces/kits/account_manager:accountmanager",
+          "//base/customization/enterprise_device_management/interfaces/kits/application_manager:applicationmanager",
+          "//base/customization/enterprise_device_management/interfaces/kits/admin_manager:adminmanager",
+          "//base/customization/enterprise_device_management/interfaces/kits/browser:browser",
+          "//base/customization/enterprise_device_management/interfaces/kits/bundle_manager:bundlemanager",
+          "//base/customization/enterprise_device_management/interfaces/kits/datetime_manager:datetimemanager",
+          "//base/customization/enterprise_device_management/interfaces/kits/device_control:devicecontrol",
+          "//base/customization/enterprise_device_management/interfaces/kits/device_info:deviceinfo",
+          "//base/customization/enterprise_device_management/interfaces/kits/device_settings:devicesettings",
+          "//base/customization/enterprise_device_management/interfaces/kits/network_manager:networkmanager",
+          "//base/customization/enterprise_device_management/interfaces/kits/restrictions:restrictions",
+          "//base/customization/enterprise_device_management/interfaces/kits/system_manager:systemmanager",
+          "//base/customization/enterprise_device_management/interfaces/kits/usb_manager:usbmanager",
+          "//base/customization/enterprise_device_management/interfaces/kits/wifi_manager:wifimanager",
+          "//base/customization/enterprise_device_management/interfaces/kits/security_manager:securitymanager",
+          "//base/customization/enterprise_device_management/interfaces/kits/bluetooth_manager:bluetoothmanager",
+          "//base/customization/enterprise_device_management/interfaces/kits/location_manager:locationmanager",
+          "//base/customization/enterprise_device_management/framework/extension:enterprise_admin_extension",
+          "//base/customization/enterprise_device_management/interfaces/kits/enterprise_admin_extension:enterpriseadminextensionability_napi",
+          "//base/customization/enterprise_device_management/interfaces/kits/enterprise_admin_extension_context:enterpriseadminextensioncontext_napi",
+          "//base/customization/enterprise_device_management/framework/extension:enterprise_admin_extension_module",
+          "//base/customization/enterprise_device_management/interfaces/inner_api:edmservice_kits",
+          "//base/customization/enterprise_device_management/common/native:edm_commom",
+          "//base/customization/enterprise_device_management/interfaces/inner_api/plugin_kits:plugin_kits"
+        ],
+        "service_group":[
+          "//base/customization/enterprise_device_management/services/edm:edmservice",
+          "//base/customization/enterprise_device_management/services/edm_plugin:edmplugin",
+          "//base/customization/enterprise_device_management/sa_profile:edm_sa_profile",
+          "//base/customization/enterprise_device_management/etc/init:edm.cfg",
+          "//base/customization/enterprise_device_management/etc/param:edm.para",
+          "//base/customization/enterprise_device_management/etc/param:edm.para.dac"
+        ]
+      },
+      "inner_kits": [
+        {
+          "header": {
+            "header_base":"//base/customization/enterprise_device_management/interfaces/inner_api/plugin_kits/include",
+            "header_files": [
+              "iplugin.h",
+              "iplugin_manager.h",
+              "ipolicy_manager.h",
+              "ipolicy_serializer.h",
+              "plugin_singleton.h",
+              "utils/array_map_serializer.h",
+              "utils/array_string_serializer.h",
+              "utils/bool_serializer.h",
+              "utils/func_code_utils.h",
+              "utils/json_serializer.h",
+              "utils/long_serializer.h",
+              "utils/map_string_serializer.h",
+              "utils/string_serializer.h"
+            ]
+          },
+          "name": "//base/customization/enterprise_device_management/interfaces/inner_api/plugin_kits:plugin_kits"
+        },
+      {
+        "header": {
+          "header_base": "//base/customization/enterprise_device_management/interfaces/inner_api",
+          "header_files": [
+            "common/include/enterprise_device_mgr_proxy.h",
+            "restrictions/include/restrictions_proxy.h"
+          ]
+        },
+        "name": "//base/customization/enterprise_device_management/interfaces/inner_api:edmservice_kits"
+      }
+     ],
+      "test": [
+        "//base/customization/enterprise_device_management/test/unittest:unittest",
+        "//base/customization/enterprise_device_management/test/fuzztest:fuzztest"
+      ]
+    }
+  }
+}

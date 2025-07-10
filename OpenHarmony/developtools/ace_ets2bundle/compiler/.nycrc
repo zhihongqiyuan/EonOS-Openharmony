@@ -1,0 +1,23 @@
+{
+    "all": true,
+    "include": [
+        "lib/component_map.js",
+        "lib/ets_checker.js",
+        "lib/process_component_build.js",
+        "lib/process_component_class.js",
+        "lib/process_component_constructor.js",
+        "lib/process_component_member.js",
+        "lib/process_custom_component.js",
+        "lib/process_import.js",
+        "lib/process_system_module.js",
+        "lib/process_ui_syntax.js",
+        "lib/utils.js",
+        "lib/validate_ui_syntax.js"
+    ],
+    "reporter":[
+         "text-summary",
+         "html",
+         "lcovonly"
+    ],
+    "report-dir": ".test_output/coverage"
+}

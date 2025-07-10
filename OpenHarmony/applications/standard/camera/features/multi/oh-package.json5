@@ -1,0 +1,12 @@
+{
+  "license": "ISC",
+  "devDependencies": {},
+  "name": "@ohos/multi",
+  "description": "multi mode",
+  "main": "index.ts",
+  "repository": {},
+  "version": "1.0.0",
+  "dependencies": {
+    "@ohos/common": "../../common"
+  }
+}

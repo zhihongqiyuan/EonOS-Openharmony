@@ -1,0 +1,165 @@
+# Copyright (c) 2021-2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("signature/pm.gni")
+
+ohos_hap("Telephony_Data_Storage") {
+  hap_profile = "entry/src/main/module.json"
+  deps = [
+    ":Telephony_DataAbility_js_assets",
+    ":Telephony_DataAbility_resources",
+  ]
+  shared_libraries = [ ":tel_telephony_data" ]
+  certificate_profile = "./signature/datastorage.p7b"
+  hap_name = "Telephony_Data_Storage"
+  module_install_dir = "app/com.ohos.telephonydataability"
+  part_name = "telephony_data"
+  publicity_file = "publicity.xml"
+  subsystem_name = "telephony"
+  if (defined(sign_hap_py_path)) {
+    certificate_profile = "${certificate_profile_path}"
+    key_alias = "telephony_data"
+    private_key_path = "telephony_data"
+    compatible_version = "9"
+  }
+}
+
+ohos_app_scope("Telephony_DataAbility_app_profile") {
+  app_profile = "AppScope/app.json"
+  sources = [ "AppScope/resources" ]
+}
+
+ohos_js_assets("Telephony_DataAbility_js_assets") {
+  ets2abc = true
+  source_dir = "entry/src/main/ets"
+}
+
+ohos_resources("Telephony_DataAbility_resources") {
+  sources = [ "entry/src/main/resources" ]
+  deps = [ ":Telephony_DataAbility_app_profile" ]
+  hap_profile = "entry/src/main/module.json"
+}
+
+config("telephony_innerkits_config") {
+  include_dirs = [ "interfaces/innerkits/include" ]
+}
+
+config("telephony_data_config") {
+  include_dirs = [
+    "common/include",
+    "opkey/include",
+    "opkey_version/include",
+    "pdp_profile/include",
+    "sim/include",
+    "sms_mms/include",
+    "global_params/include",
+  ]
+}
+
+ohos_shared_library("tel_telephony_data") {
+  sanitize = {
+    cfi = true
+    cfi_cross_dso = true
+    debug = false
+  }
+  branch_protector_ret = "pac_ret"
+  sources = [
+    "common/src/data_storage_log_wrapper.cpp",
+    "common/src/parser_util.cpp",
+    "common/src/permission_util.cpp",
+    "common/src/preferences_util.cpp",
+    "common/src/rdb_base_callback.cpp",
+    "common/src/rdb_base_helper.cpp",
+    "common/src/telephony_datashare_stub_impl.cpp",
+    "global_params/src/global_params_ability.cpp",
+    "global_params/src/rdb_global_params_callback.cpp",
+    "global_params/src/rdb_global_params_helper.cpp",
+    "opkey/src/opkey_ability.cpp",
+    "opkey/src/rdb_opkey_callback.cpp",
+    "opkey/src/rdb_opkey_helper.cpp",
+    "opkey_version/src/opkey_version_ability.cpp",
+    "opkey_version/src/opkey_version_result_set_bridge.cpp",
+    "pdp_profile/src/pdp_profile_ability.cpp",
+    "pdp_profile/src/rdb_pdp_profile_callback.cpp",
+    "pdp_profile/src/rdb_pdp_profile_helper.cpp",
+    "pdp_profile/src/apn_encryption_util.cpp",
+    "pdp_profile/src/pdp_result_set_bridge.cpp",
+    "sim/src/rdb_sim_callback.cpp",
+    "sim/src/rdb_sim_helper.cpp",
+    "sim/src/sim_ability.cpp",
+    "sms_mms/src/rdb_sms_mms_callback.cpp",
+    "sms_mms/src/rdb_sms_mms_helper.cpp",
+    "sms_mms/src/sms_mms_ability.cpp",
+  ]
+
+  configs = [ ":telephony_data_config" ]
+
+  public_configs = [ ":telephony_innerkits_config" ]
+
+  external_deps = [
+    "ability_base:want",
+    "ability_base:zuri",
+    "ability_runtime:ability_manager",
+    "ability_runtime:abilitykit_native",
+    "ability_runtime:app_context",
+    "ability_runtime:dataobs_manager",
+    "ability_runtime:extensionkit_native",
+    "access_token:libaccesstoken_sdk",
+    "cJSON:cjson",
+    "c_utils:utils",
+    "common_event_service:cesfwk_innerkits",
+    "config_policy:configpolicy_util",
+    "core_service:tel_core_service_api",
+    "data_share:datashare_common",
+    "data_share:datashare_provider",
+    "hilog:libhilog",
+    "init:libbegetutil",
+    "ipc:ipc_single",
+    "napi:ace_napi",
+    "preferences:native_preferences",
+    "relational_store:native_rdb",
+    "relational_store:rdb_data_share_adapter",
+    "zlib:libz",
+    "huks:libhukssdk",
+    "kv_store:distributeddata_inner",
+  ]
+
+  cflags_cc = [
+    "-Wunused",
+    "-Wunreachable-code",
+    "-fno-exceptions",
+    "-fno-rtti",
+    "-fstack-protector-all",
+    "-Os",
+    "-D_FORTIFY_SOURCE=2",
+    "-flto",
+  ]
+
+  defines = [
+    "TELEPHONY_LOG_TAG = \"DataStorage\"",
+    "LOG_DOMAIN = 0xD001F05",
+  ]
+
+  if (defined(global_parts_info) &&
+      defined(global_parts_info.telephony_telephony_enhanced) &&
+      global_parts_info.telephony_telephony_enhanced) {
+    print(
+        "telephony_telephony_enhanced = ${global_parts_info.telephony_telephony_enhanced}")
+    defines += [ "OHOS_BUILD_ENABLE_TELEPHONY_EXT" ]
+  }
+
+  part_name = "telephony_data"
+  subsystem_name = "telephony"
+  innerapi_tags = [ "platformsdk_indirect" ]
+}

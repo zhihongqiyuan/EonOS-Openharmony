@@ -1,0 +1,16 @@
+{
+  "name": "delete",
+  "version": "1.0.0",
+  "description": "",
+  "main": "delete_systemapi_plugin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "typescript": "npm:ohos-typescript@4.9.5-r5"
+  }
+}

@@ -1,0 +1,118 @@
+#  Copyright (c) 2023 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+domain: PRINT
+
+CANCEL_PRINT:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: cancel_print}
+  BEHAVIOR_CODE: {type: INT32, desc: behavior_code}
+  MSG: {type: STRING, desc: msg}
+  PACKAGE_NAME: {type: STRING, desc: package_name}
+  PROCESS_NAME: {type: STRING, desc: process_name}
+  PVERSIONID: {type: STRING, desc: version}
+
+CONNECT_PRINTER:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: connect_printer}
+  BEHAVIOR_CODE: {type: STRING, desc: behavior_code}
+  MSG: {type: STRING, desc: msg}
+  PACKAGE_NAME: {type: STRING, desc: package_name}
+  PROCESS_NAME: {type: STRING, desc: process_name}
+  PVERSIONID: {type: STRING, desc: version}
+
+EPRINT_CONVERT_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: eprint_convert_success}
+  BEHAVIOR_CODE: {type: INT32, desc: behavior_code}
+  MSG: {type: STRING, desc: msg}
+  PACKAGE_NAME: {type: STRING, desc: package_name}
+  PROCESS_NAME: {type: STRING, desc: process_name}
+  PVERSIONID: {type: STRING, desc: version}
+
+EPRINT_UPLOAD_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: eprint_upload_success}
+  BEHAVIOR_CODE: {type: INT32, desc: behavior_code}
+  MSG: {type: STRING, desc: msg}
+  PACKAGE_NAME: {type: STRING, desc: package_name}
+  PROCESS_NAME: {type: STRING, desc: process_name}
+  PVERSIONID: {type: STRING, desc: version}
+
+FAULT_CONNECT_PRINT:
+  __BASE: {type: FAULT, level: MINOR, desc: fault_connect_print}
+  FAULT_CODE: {type: INT32, desc: behavior_code}
+  MSG: {type: STRING, desc: msg}
+  PACKAGE_NAME: {type: STRING, desc: package_name}
+  PROCESS_NAME: {type: STRING, desc: process_name}
+  PVERSIONID: {type: STRING, desc: version}
+  SCENE: {type: STRING, desc: scene}
+
+FAULT_FILE_PREVIEW:
+  __BASE: {type: FAULT, level: MINOR, desc: fault_file_preview}
+  FAULT_CODE: {type: INT32, desc: behavior_code}
+  MSG: {type: STRING, desc: msg}
+  PACKAGE_NAME: {type: STRING, desc: package_name}
+  PROCESS_NAME: {type: STRING, desc: process_name}
+  PVERSIONID: {type: STRING, desc: version}
+  SCENE: {type: STRING, desc: scene}
+
+FILE_PREVIEW_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: file_preview_success}
+  BEHAVIOR_CODE: {type: STRING, desc: behavior_code}
+  MSG: {type: STRING, desc: msg}
+  PACKAGE_NAME: {type: STRING, desc: package_name}
+  PROCESS_NAME: {type: STRING, desc: process_name}
+  PVERSIONID: {type: STRING, desc: version}
+
+PRINT_BUTTON_CLICK_COUNT:
+  __BASE: {type: STATISTIC, level: MINOR, desc: print_button_click_count}
+  BEHAVIOR_CODE: {type: INT32, desc: behavior_code}
+  MSG: {type: STRING, desc: msg}
+  PACKAGE_NAME: {type: STRING, desc: package_name}
+  PROCESS_NAME: {type: STRING, desc: process_name}
+  PVERSIONID: {type: STRING, desc: version}
+
+PRINT_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: print_exception}
+  FAULT_CODE: {type: INT32, desc: behavior_code}
+  MSG: {type: STRING, desc: msg}
+  PACKAGE_NAME: {type: STRING, desc: package_name}
+  PROCESS_NAME: {type: STRING, desc: process_name}
+  SCENE: {type: STRING, desc: scene}
+
+PRINT_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: print_success}
+  BEHAVIOR_CODE: {type: STRING, desc: behavior_code}
+  MSG: {type: STRING, desc: msg}
+  PACKAGE_NAME: {type: STRING, desc: package_name}
+  PROCESS_NAME: {type: STRING, desc: process_name}
+
+RUNTIME_FAULT:
+  __BASE: {type: FAULT, level: CRITICAL, desc: The event is runtime fault }
+  ERROR_TYPE: {type: INT32, desc: error type }
+  FAULT_TYPE: {type: INT32, desc: fault id }
+
+SERVICE_FAULT:
+  __BASE: {type: FAULT, level: CRITICAL, desc: The event is service fault }
+  ERROR_TYPE: {type: INT32, desc: error type }
+  FAULT_TYPE: {type: INT32, desc: fault id }
+  MODULE_NAME: {type: STRING, desc: module name }
+
+START_PRINT:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: start_print}
+  BEHAVIOR_CODE: {type: STRING, desc: behavior_code}
+  MSG: {type: STRING, desc: msg}
+  PACKAGE_NAME: {type: STRING, desc: package_name}
+  PROCESS_NAME: {type: STRING, desc: process_name}
+  PVERSIONID: {type: STRING, desc: version}
+
+USAGETIME_STATISTIC:
+  __BASE: {type: STATISTIC, level: MINOR, desc: The event is usagetime statistic }
+  PRINT_INFO: {type: STRING, desc: print infomation }

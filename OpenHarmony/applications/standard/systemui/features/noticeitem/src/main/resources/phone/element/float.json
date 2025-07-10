@@ -1,0 +1,124 @@
+{
+  "float": [
+    {
+      "name": "title_image_width",
+      "value": "24vp"
+    },
+    {
+      "name": "title_image_height",
+      "value": "24vp"
+    },
+    {
+      "name": "title_font_height",
+      "value": "28vp"
+    },
+    {
+      "name": "title_font_margin_t",
+      "value": "11vp"
+    },
+    {
+      "name": "message_font_margin_t",
+      "value": "17.65vp"
+    },
+    {
+      "name": "setting_title_fontsize",
+      "value": "20vp"
+    },
+    {
+      "name": "setting_cont_fontsize",
+      "value": "16vp"
+    },
+    {
+      "name": "setting_border_width",
+      "value": "0.5vp"
+    },
+    {
+      "name": "setting_border_radius",
+      "value": "24vp"
+    },
+    {
+      "name": "setting_dialog_height",
+      "value": "192vp"
+    },
+    {
+      "name": "setting_dialog_width",
+      "value": "336vp"
+    },
+    {
+      "name": "setting_dialog_row_width",
+      "value": "304vp"
+    },
+    {
+      "name": "setting_dialog_row_height",
+      "value": "40vp"
+    },
+    {
+      "name": "confirm_dialog_height",
+      "value": "142vp"
+    },
+    {
+      "name": "confirm_dialog_width",
+      "value": "336vp"
+    },
+    {
+      "name": "confirm_dialog_margin",
+      "value": "12vp"
+    },
+    {
+      "name": "confirm_dialog_row_width",
+      "value": "288vp"
+    },
+    {
+      "name": "confirm_dialog_button_width",
+      "value": "127.59vp"
+    },
+    {
+      "name": "confirm_title_fontsize",
+      "value": "20vp"
+    },
+    {
+      "name": "confirm_cont_fontsize",
+      "value": "16vp"
+    },
+    {
+      "name": "confirm_divider_height",
+      "value": "22vp"
+    },
+    {
+      "name": "confirm_button_height",
+      "value": "30vp"
+    },
+    {
+      "name": "confirm_button_margin_t",
+      "value": "25vp"
+    },
+    {
+      "name": "setting_dialog_dy",
+      "value": "-12vp"
+    },
+    {
+      "name": "confirm_dialog_dy",
+      "value": "-12vp"
+    },
+    {
+      "name": "notification_appname_margin_top",
+      "value": "11vp"
+    },
+    {
+      "name": "close_notification_margin_top",
+      "value": "17vp"
+    },
+    {
+      "name": "notification_cancle_margin_top",
+      "value": "13.28vp"
+    },
+    {
+      "name": "notice_image_boderRadius",
+      "value": "12vp"
+    },
+    {
+      "name": "notice_divider",
+      "value": "1vp"
+    }
+  ]
+}

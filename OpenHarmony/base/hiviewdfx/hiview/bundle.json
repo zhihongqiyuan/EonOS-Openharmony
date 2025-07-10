@@ -1,0 +1,218 @@
+{
+    "name": "@ohos/hiview",
+    "description": "Hiview is the module of OpenHarmony that provides toolkits for device maintenance across different platforms.",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/hiviewdfx/hiview"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "hiview",
+        "subsystem": "hiviewdfx",
+        "syscap": [
+            "SystemCapability.HiviewDFX.Hiview.FaultLogger",
+            "SystemCapability.HiviewDFX.Hiview.LogLibrary"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "features": [
+            "hiview_feature_bbox_userspace",
+            "hiview_enable_leak_detector",
+            "hiview_enable_performance_monitor",
+            "hiview_unified_collector_PC_app_state_collect_enable",
+            "hiview_enable_crash_validator",
+            "hiview_freeze_collect_enable",
+            "hiview_eventlogger_window_manager_enable",
+            "hiview_eventlogger_stacktrace_catcher_enable",
+            "hiview_eventlogger_binder_catcher_enable",
+            "hiview_eventlogger_dmesg_catcher_enable",
+            "hiview_eventlogger_hilog_catcher_enable",
+            "hiview_eventlogger_hitrace_catcher_enable",
+            "hiview_eventlogger_usage_catcher_enable",
+            "hiview_eventlogger_scb_catcher_enable",
+            "hiview_eventlogger_other_catcher_enable",
+            "hiview_appevent_publish_enable",
+            "hiview_param_update_enable",
+            "hiview_sysevent_store_enable",
+            "hiview_privacy_enable",
+            "hiview_usage_stat_enable",
+            "hiview_unified_collector_perf_enable",
+            "hiview_unified_collector_ebpf_enable",
+            "hiview_unified_collector_network_enable",
+            "hiview_usage_fold_stat_enable",
+            "hiview_unified_collector_graphic_enable",
+            "hiview_unified_collector_gpu_enable",
+            "hiview_unified_collector_cpu_enable",
+            "hiview_unified_collector_mem_profiler_enable",
+            "hiview_unified_collector_io_enable",
+            "hiview_unified_collector_thermal_enable",
+            "hiview_unified_collector_memory_enable",
+            "hiview_unified_collector_hilog_enable",
+            "hiview_unified_collector_wm_enable",
+            "hiview_unified_collector_process_enable",
+            "hiview_unified_collector_trace_enable",
+            "hiview_unified_collector_low_mem_threshold",
+            "hiview_unified_collector_trace_for_cpu_high_load",
+            "hiview_eventlogger_kernel_catcher_enable"
+        ],
+        "rom": "",
+        "ram": "",
+        "hisysevent_config": [
+            "//base/hiviewdfx/hiview/hisysevent.yaml",
+            "//base/hiviewdfx/hiview/hisysevent/hiviewdfx.yaml",
+            "//base/hiviewdfx/hiview/hisysevent/hiviewdfx_ue.yaml",
+            "//base/hiviewdfx/hiview/kernel_vendor.yaml",
+            "//base/hiviewdfx/hiview/plugins/performance/hisysevent.yaml"
+        ],
+        "deps": {
+            "components": [
+                "ability_base",
+                "ability_runtime",
+                "access_token",
+                "soc_perf",
+                "bounds_checking_function",
+                "bundle_framework",
+                "common_event_service",
+                "config_policy",
+                "cJSON",
+                "c_utils",
+                "data_share",
+                "device_usage_statistics",
+                "display_manager",
+                "drivers_interface_memorytracker",
+                "ets_runtime",
+                "faultloggerd",
+                "ffrt",
+                "graphic_2d",
+                "hidumper",
+                "hilog",
+                "hiprofiler",
+                "hisysevent",
+                "init",
+                "input",
+                "ipc",
+                "jsoncpp",
+                "libxml2",
+                "openssl",
+                "os_account",
+                "power_manager",
+                "relational_store",
+                "safwk",
+                "samgr",
+                "storage_service",
+                "thermal_manager",
+                "napi",
+                "hiperf",
+                "hitrace",
+                "wifi",
+                "window_manager",
+                "zlib",
+                "thermal_manager",
+                "selinux_adapter"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/hiviewdfx/hiview:hiview_package",
+                "//base/hiviewdfx/hiview/plugins/faultlogger/interfaces/js/napi:faultlogger_napi",
+                "//base/hiviewdfx/hiview/plugins/faultlogger/interfaces/cj:cj_faultlogger_ffi",
+                "//base/hiviewdfx/hiview/interfaces/js/napi:loglibrary_napi",
+                "//base/hiviewdfx/hiview/interfaces/inner_api/unified_collection/client:libucollection_client",
+                "//base/hiviewdfx/hiview/interfaces/inner_api/unified_collection/utility:libucollection_graphic",
+                "//base/hiviewdfx/hiview/interfaces/inner_api/unified_collection/utility:libucollection_utility",
+                "//base/hiviewdfx/hiview/framework/native/unified_collection/graphic_memory:libgraphic_memory",
+                "//base/hiviewdfx/hiview/framework/native/unified_collection/trace_manager:libtrace_manager"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//base/hiviewdfx/hiview/plugins/faultlogger:libfaultlogger",
+                    "header": {
+                        "header_base": "//base/hiviewdfx/hiview/plugins/faultlogger/interfaces/cpp/innerkits/include",
+                        "header_files": [
+                            "faultlog_info.h",
+                            "faultlog_query_result.h",
+                            "faultlogger_client.h"
+                        ]
+                    }
+                },
+                {
+                    "name": "//base/hiviewdfx/hiview/interfaces/inner_api/xpower_event:libxpower_event",
+                    "header": {
+                        "header_base": "//base/hiviewdfx/hiview/interfaces/inner_api/xpower_event/include",
+                        "header_files": [
+                            "xpower_event_common.h",
+                            "xpower_event.h"
+                        ]
+                    }
+                },
+                {
+                    "name": "//base/hiviewdfx/hiview/interfaces/inner_api/xpower_event:libxpower_event_js",
+                    "header": {
+                        "header_base": "//base/hiviewdfx/hiview/interfaces/inner_api/xpower_event/include",
+                        "header_files": [
+                            "xpower_event_common.h",
+                            "xpower_event_js.h",
+                            "xpower_event_jsvm.h"
+                        ]
+                    }
+                },
+                {
+                    "name": "//base/hiviewdfx/hiview/base:hiviewbase",
+                    "header": {
+                        "header_base": "//base/hiviewdfx/hiview/base/include",
+                        "header_files": [
+                            "plugin_factory.h",
+                            "event_loop.h",
+                            "plugin.h",
+                            "event.h"
+                        ]
+                    }
+                },
+                {
+                    "name": "//base/hiviewdfx/hiview/interfaces/inner_api/unified_collection/client:libucollection_client",
+                    "header": {
+                        "header_base": "//base/hiviewdfx/hiview/interfaces/inner_api/unified_collection",
+                        "header_files": [
+                            "client/cpu_collector_client.h",
+                            "client/trace_collector_client.h"
+                        ]
+                    }
+                },
+                {
+                    "name": "//base/hiviewdfx/hiview/interfaces/inner_api/unified_collection/utility:libucollection_utility",
+                    "header": {
+                        "header_base": "//base/hiviewdfx/hiview/interfaces/inner_api/unified_collection",
+                        "header_files": [
+                            "utility/cpu_collector.h",
+                            "utility/gpu_collector.h",
+                            "utility/io_collector.h",
+                            "utility/mem_profiler_collector.h",
+                            "utility/memory_collector.h",
+                            "utility/network_collector.h",
+                            "utility/thermal_collector.h",
+                            "utility/trace_collector.h",
+                            "utility/wm_collector.h"
+                        ]
+                    }
+                },
+                {
+                    "name": "//base/hiviewdfx/hiview/plugins/faultlogger/interfaces/cj:cj_faultlogger_ffi"
+                },
+                {
+                    "name": "//base/hiviewdfx/hiview/plugins/faultlogger/service/sanitizer_collector/gwp_asan:libasan_logger",
+                    "header": {
+                        "header_base": "//base/hiviewdfx/hiview/plugins/faultlogger/service/sanitizer_collector/gwp_asan",
+                        "header_files": [
+                            "gwpasan_collector.h"
+                        ]
+                    }
+                }
+            ],
+            "test": [ "//base/hiviewdfx/hiview:hiview_test_package" ]
+        }
+    }
+}

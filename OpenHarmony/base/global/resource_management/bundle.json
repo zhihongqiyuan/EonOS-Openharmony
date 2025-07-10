@@ -1,0 +1,173 @@
+{
+    "name": "@ohos/resource_management",
+    "version": "4.0",
+    "description": "根据当前configuration（语言，区域，横竖屏，mccmnc）和device capability（设备类型，分辨率）获取应用资源信息读取接口",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache-2.0",
+    "repository": "https://gitee.com/openharmony/global_resource_management",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "base"
+    ],
+    "keywords": [
+        "global",
+        "resmgr",
+        "standard"
+    ],
+    "envs": [],
+    "dirs": [],
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [
+        {
+            "name": "",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "segment": {
+        "destPath": "base/global/resource_management"
+    },
+    "component": {
+        "name": "resource_management",
+        "subsystem": "global",
+        "syscap": [ "SystemCapability.Global.ResourceManager" ],
+        "features": ["resource_management_support_icu"],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "hisysevent_config": [
+          "//base/global/resource_management/hisysevent.yaml"
+        ],
+        "rom": "600KB",
+        "ram": "2500KB",
+        "deps": {
+          "components": [
+            "ability_base",
+            "ability_runtime",
+            "hilog",
+            "hisysevent",
+            "hitrace",
+            "napi",
+            "ace_engine",
+            "bundle_framework",
+            "c_utils",
+            "init",
+            "zlib",
+            "bounds_checking_function",
+            "icu",
+            "cJSON",
+            "graphic_2d"
+          ]
+      },
+        "build": {
+            "sub_component": [
+              "//base/global/resource_management/interfaces/js/kits:resourcemanager",
+              "//base/global/resource_management/interfaces/js/kits:sendableresourcemanager",
+              "//base/global/resource_management/interfaces/cj:cj_resource_manager_ffi",
+              "//base/global/resource_management/frameworks/resmgr:global_resmgr",
+              "//base/global/resource_management/frameworks/resmgr:librawfile",
+              "//base/global/resource_management/frameworks/resmgr:win_resmgr",
+              "//base/global/resource_management/frameworks/resmgr:linux_resmgr",
+              "//base/global/resource_management/frameworks/resmgr:mac_resmgr",
+              "//base/global/resource_management/frameworks/resmgr:ohresmgr",
+              "//base/global/resource_management/interfaces/js/innerkits/core:resmgr_napi_core_preview"
+            ],
+            "inner_kits": [
+              {
+                "header": {
+                  "header_base": "//base/global/resource_management/interfaces/inner_api/include/",
+                  "header_files": [
+                    "res_common.h",
+                    "res_config.h",
+                    "resource_manager.h",
+                    "rstate.h"
+                  ]
+                },
+                "name": "//base/global/resource_management/frameworks/resmgr:global_resmgr"
+              },
+              {
+                "header": {
+                  "header_base": "//base/global/resource_management/interfaces/js/innerkits/core/include/",
+                  "header_files": [
+                    "resource_manager_addon.h"
+                  ]
+                },
+                "name": "//base/global/resource_management/interfaces/js/innerkits/core:resmgr_napi_core"
+              },
+              {
+                "header": {
+                  "header_base": "//base/global/resource_management/interfaces/js/innerkits/core/include/",
+                  "header_files": [
+                    "resource_manager_addon.h"
+                  ]
+                },
+                "name": "//base/global/resource_management/interfaces/js/innerkits/core:resmgr_napi_core_preview"
+              },
+              {
+                "header": {
+                  "header_base": "//base/global/resource_management/interfaces/inner_api/include/",
+                  "header_files": [
+                    "res_common.h",
+                    "res_config.h",
+                    "resource_manager.h",
+                    "rstate.h"
+                  ]
+                },
+                "name": "//base/global/resource_management/frameworks/resmgr:win_resmgr"
+              },
+              {
+                "header": {
+                  "header_base": "//base/global/resource_management/interfaces/inner_api/include/",
+                  "header_files": [
+                    "res_common.h",
+                    "res_config.h",
+                    "resource_manager.h",
+                    "rstate.h"
+                  ]
+                },
+                "name": "//base/global/resource_management/frameworks/resmgr:mac_resmgr"
+              },
+              {
+                "header": {
+                  "header_base": "//base/global/resource_management/interfaces/inner_api/include/",
+                  "header_files": [
+                    "res_common.h",
+                    "res_config.h",
+                    "resource_manager.h",
+                    "rstate.h"
+                  ]
+                },
+                "name": "//base/global/resource_management/frameworks/resmgr:linux_resmgr"
+              },
+              {
+                "header": {
+                  "header_base": "//base/global/resource_management/interfaces/native/resource/include/",
+                  "header_files": [
+                    "raw_file.h"
+                  ]
+                },
+                "name": "//base/global/resource_management/frameworks/resmgr:librawfile"
+              },
+              {
+                "header": {
+                  "header_base": "//base/global/resource_management/interfaces/cj/src",
+                  "header_files": []
+                },
+                "name": "//base/global/resource_management/interfaces/cj:cj_resource_manager_ffi"
+              }
+            ],
+            "test": [
+              "//base/global/resource_management/frameworks/resmgr/test:unittest",
+              "//base/global/resource_management/test/fuzztest:fuzztest"
+            ]
+        }
+    }
+}

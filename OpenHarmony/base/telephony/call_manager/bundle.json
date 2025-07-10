@@ -1,0 +1,115 @@
+{
+    "name": "@ohos/call_manager",
+    "version": "4.0",
+    "description": "telephony call manager service",
+    "publishAs": "code-segment",
+    "homePage": "https://gitee.com/openharmony",
+    "repository": "https://gitee.com/openharmony/telephony_call_manager",
+    "license": "Apache License 2.0",
+    "language": "",
+    "private": false,
+    "scripts": {},
+    "envs": [],
+    "dirs": [],
+    "author": {},
+    "contributors": [],
+    "segment": {
+        "destPath": "base/telephony/call_manager"
+    },
+    "component": {
+        "name": "call_manager",
+        "subsystem": "telephony",
+        "syscap": [
+            "SystemCapability.Telephony.CallManager",
+            "SystemCapability.Applications.Contacts"
+        ],
+        "features": [
+            "call_manager_feature_hfp_async_enable",
+            "call_manager_feature_not_support_multicall"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "1639KB",
+        "ram": "6MB",
+        "deps": {
+            "components": [
+                "ability_base",
+                "ability_runtime",
+                "access_token",
+                "bluetooth",
+                "c_utils",
+                "cellular_data",
+                "common_event_service",
+                "core_service",
+                "data_share",
+                "distributed_notification_service",
+                "eventhandler",
+                "ffrt",
+                "graphic_2d",
+                "graphic_surface",
+                "hilog",
+                "hicollie",
+                "hisysevent",
+                "hitrace",
+                "init",
+                "ipc",
+                "audio_framework",
+                "camera_framework",
+                "napi",
+                "os_account",
+                "player_framework",
+                "power_manager",
+                "safwk",
+                "samgr",
+                "libuv",
+                "sms_mms",
+                "image_framework",
+                "miscdevice",
+                "location",
+                "dsoftbus",
+                "input",
+                "device_manager",
+                "openssl"
+            ],
+            "third_party": [
+                "libphonenumber",
+                "json",
+                "cJSON"
+            ]
+        },
+        "build": {
+            "group_type": {
+                "base_group": [
+                ],
+                "fwk_group": [
+                    "//base/telephony/call_manager/frameworks/js:call"
+                ],
+                "service_group": [
+                    "//base/telephony/call_manager:tel_call_manager",
+                    "//base/telephony/call_manager/sa_profile:call_manager_sa_profile"
+                ]
+            },
+            "inner_kits": [
+                {
+                    "header": {
+                        "header_base" : "//base/telephony/call_manager/interfaces/innerkits/",
+                        "header_files": []
+                    },
+                    "name":"//base/telephony/call_manager/frameworks/native:tel_call_manager_api"
+                },
+                {
+                    "header": {
+                        "header_base" : "//base/telephony/call_manager/frameworks/cj/src",
+                        "header_files": []
+                    },
+                    "name":"//base/telephony/call_manager/frameworks/cj:cj_telephony_call_ffi"
+                }
+            ],
+            "test": [
+                "//base/telephony/call_manager/test/unittest:unittest",
+                "//base/telephony/call_manager/test/fuzztest:fuzztest"
+            ]
+        }
+    }
+}

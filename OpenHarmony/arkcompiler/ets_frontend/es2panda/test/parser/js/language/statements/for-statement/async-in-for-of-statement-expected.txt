@@ -1,0 +1,1 @@
+SyntaxError:  The left-hand side of a for-of loop may not be 'async' [async-in-for-of-statement.js:18:6]

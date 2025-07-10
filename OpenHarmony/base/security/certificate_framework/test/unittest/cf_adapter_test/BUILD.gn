@@ -1,0 +1,58 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+
+module_output_path = "certificate_framework/certificate_framework"
+
+#######################################unittest#######################################
+ohos_unittest("cf_adapter_test") {
+  module_out_path = module_output_path
+  sources = [
+    "../common/src/cf_test_common.cpp",
+    "src/cf_ability_test.cpp",
+    "src/cf_adapter_cert_test.cpp",
+    "src/cf_adapter_extension_test.cpp",
+    "src/cf_common_test.cpp",
+  ]
+  sanitize = {
+    cfi = true
+    cfi_cross_dso = true
+    debug = false
+  }
+  configs = [ "../../../config/build:coverage_flag_cc" ]
+  include_dirs = [
+    "include",
+    "../../../frameworks/core/cert/inc",
+    "../common/include",
+  ]
+  cflags_cc = [
+    "-Wall",
+    "-Werror",
+  ]
+  cflags = cflags_cc
+  deps = [
+    "../../../frameworks/ability:libcertificate_framework_ability",
+    "../../../frameworks/adapter/v2.0:libcertificate_framework_adapter_openssl",
+    "../../../frameworks/common:libcertificate_framework_common_static",
+  ]
+  defines = [ "HILOG_ENABLE" ]
+
+  external_deps = [
+    "c_utils:utils",
+    "crypto_framework:crypto_framework_lib",
+    "hilog:libhilog",
+    "openssl:libcrypto_shared",
+  ]
+  ldflags = [ "-Wl,--whole-archive" ]
+}

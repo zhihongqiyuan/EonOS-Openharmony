@@ -1,0 +1,96 @@
+{
+    "name": "@ohos/cellular_data",
+    "version": "4.0",
+    "description": "telephony cellular data service",
+    "publishAs": "code-segment",
+    "homePage": "https://gitee.com/openharmony",
+    "repository": "https://gitee.com/openharmony/telephony_cellular_data",
+    "license": "Apache License 2.0",
+    "language": "",
+    "private": false,
+    "scripts": {},
+    "envs": [],
+    "dirs": [],
+    "author": {},
+    "contributors": [],
+    "segment": {
+        "destPath": "base/telephony/cellular_data"
+    },
+    "component": {
+        "name": "cellular_data",
+        "subsystem": "telephony",
+        "syscap": [
+            "SystemCapability.Telephony.CellularData"
+        ],
+        "features": [
+            "cellular_data_dynamic_start"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "750KB",
+        "ram": "1MB",
+        "deps": {
+            "components": [
+                "ability_base",
+                "ability_runtime",
+                "c_utils",
+                "common_event_service",
+                "core_service",
+                "data_share",
+                "eventhandler",
+                "hicollie",
+                "hilog",
+                "hisysevent",
+                "hitrace",
+                "init",
+                "ipc",
+                "napi",
+                "netmanager_base",
+                "preferences",
+                "relational_store",
+                "safwk",
+                "samgr",
+                "telephony_data",
+                "power_manager",
+                "netmanager_ext"
+            ]
+        },
+        "build": {
+            "group_type": {
+                "base_group": [
+                    "//base/telephony/cellular_data/interfaces/kits/c/telephony_data:telephony_data"
+                ],
+                "fwk_group": [
+                    "//base/telephony/cellular_data/frameworks/js:data",
+                    "//base/telephony/cellular_data/frameworks/native:tel_cellular_data_api"
+                ],
+                "service_group": [
+                    "//base/telephony/cellular_data:tel_cellular_data",
+                    "//base/telephony/cellular_data/sa_profile:cellular_data_sa_profile"
+                ]
+            },
+            "inner_kits": [
+                {
+                    "type": "so",
+                    "name": "//base/telephony/cellular_data/frameworks/native:tel_cellular_data_api",
+                    "header": {
+                        "header_files": [],
+                        "header_base":"//base/telephony/cellular_data/interfaces/innerkits"
+                    }
+                },
+                {
+                    "name": "//base/telephony/cellular_data/frameworks/cj:cj_cellular_data_ffi",
+                    "header": {
+                        "header_files": [],
+                        "header_base":"//base/telephony/cellular_data/frameworks/cj/src"
+                    }
+                }
+            ],
+            "test": [
+                "//base/telephony/cellular_data/test:unittest",
+                "//base/telephony/cellular_data/test/fuzztest:fuzztest"
+            ]
+        }
+    }
+}

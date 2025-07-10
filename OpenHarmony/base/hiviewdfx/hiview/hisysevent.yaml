@@ -1,0 +1,216 @@
+#  Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+domain: RELIABILITY
+
+APP_FREEZE:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: application freeze}
+  SUB_EVENT_TYPE: {type: STRING, desc: sub event type}
+  EVENT_TIME: {type: STRING, desc: event time}
+  MODULE: {type: STRING, desc: module name}
+  PNAME: {type: STRING, desc: process name}
+  REASON: {type: STRING, desc: app_freeze reason}
+  DIAG_INFO: {type: STRING, desc: diagnostic info}
+  STACK: {type: STRING, desc: app_freeze stack}
+  HIVIEW_LOG_FILE_PATHS: {type: STRING, arrsize: 10, desc: log paths}
+  DOMAIN: {type: STRING, desc: event domain}
+  STRING_ID: {type: STRING, desc: event stringid}
+  PID: {type: INT32, desc: app_freeze pid}
+  UID: {type: INT32, desc: app_freeze uid}
+  PACKAGE_NAME: {type: STRING, desc: package name}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  MSG: {type: STRING, desc: application event message}
+  SUMMARY: {type: STRING, desc: fault summary}
+  FAULT_TYPE: {type: STRING, desc: fault type}
+  LOG_PATH: {type: STRING, desc: fault log path}
+  FINGERPRINT: {type: STRING, desc: unique id for grouping same fault}
+  PANME: {type: STRING, desc: process name}
+  FIRST_FRAME: {type: STRING, desc: first stack info}
+  SECOND_FRAME: {type: STRING, desc: second stack info}
+  LAST_FRAME: {type: STRING, desc: last stack info}
+  PRE_INSTALL: {type: STRING, desc: current app pre-installe status(No:not pre-install Yes:pre-install empty:unknown) }
+  FOREGROUND: {type: STRING, desc: app running status(No:background Yes:foreground empty:unknown) }
+
+SYS_FREEZE:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: system freeze}
+  SUB_EVENT_TYPE: {type: STRING, desc: sub event type}
+  EVENT_TIME: {type: STRING, desc: event time}
+  MODULE: {type: STRING, desc: module name}
+  PNAME: {type: STRING, desc: process name}
+  REASON: {type: STRING, desc: sys_freeze reason}
+  DIAG_INFO: {type: STRING, desc: diagnostic info}
+  STACK: {type: STRING, desc: sys_freeze stack}
+  HIVIEW_LOG_FILE_PATHS: {type: STRING, arrsize: 10, desc: log paths}
+  DOMAIN: {type: STRING, desc: event domain}
+  STRING_ID: {type: STRING, desc: event stringid}
+  PID: {type: INT32, desc: sys_freeze pid}
+  UID: {type: INT32, desc: sys_freeze uid}
+  PACKAGE_NAME: {type: STRING, desc: package name}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  MSG: {type: STRING, desc: application event message}
+  FINGERPRINT: {type: STRING, desc: unique id for grouping same fault}
+  PANME: {type: STRING, desc: process name}
+  FIRST_FRAME: {type: STRING, desc: first stack info}
+  SECOND_FRAME: {type: STRING, desc: second stack info}
+  LAST_FRAME: {type: STRING, desc: last stack info}
+  LOG_PATH: {type: STRING, desc: fault log path}
+
+STACK:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: system freeze}
+  PID: {type: INT32, desc: stack pid}
+  UID: {type: INT32, desc: stack uid}
+  PACKAGE_NAME: {type: STRING, desc: package name}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  MSG: {type: STRING, desc: application event message}
+
+SERVICE_BLOCK_REPORT:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: application freeze}
+  HIVIEW_LOG_FILE_PATHS: {type: STRING, arrsize: 10, desc: log paths}
+  PID: {type: INT32, desc: service_block_report pid}
+  TGID: {type: INT32, desc: service_block_report tgid}
+  MSG: {type: STRING, desc: watchdog event message}
+
+SERVICE_TIMEOUT_REPORT:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: application freeze}
+  HIVIEW_LOG_FILE_PATHS: {type: STRING, arrsize: 10, desc: log paths}
+  PID: {type: INT32, desc: service_timeout_report pid}
+  TGID: {type: INT32, desc: service_timeout_report tgid}
+  MSG: {type: STRING, desc: timer event message}
+
+CPP_CRASH:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: cpp crash}
+  MODULE: {type: STRING, desc: module name}
+  VERSION: {type: STRING, desc: module version}
+  REASON: {type: STRING, desc: fault reason}
+  PID: {type: INT32, desc: cpp_crash pid}
+  UID: {type: INT32, desc: cpp_crash uid}
+  SUMMARY: {type: STRING, desc: fault summary}
+  FAULT_TYPE: {type: STRING, desc: fault type}
+  LOG_PATH: {type: STRING, desc: fault log path}
+  FINGERPRINT: {type: STRING, desc: unique id for grouping same fault}
+  HAPPEN_TIME: {type: INT64, desc: fault trigger time}
+  LIFETIME: {type: INT64, desc: elapse time since process start}
+  PANME: {type: STRING, desc: process name}
+  FIRST_FRAME: {type: STRING, desc: first stack info}
+  SECOND_FRAME: {type: STRING, desc: second stack info}
+  LAST_FRAME: {type: STRING, desc: last stack info}
+  PRE_INSTALL: {type: STRING, desc: current app pre-installe status(No:not pre-install Yes:pre-install empty:unknown) }
+  FOREGROUND: {type: STRING, desc: app running status(No:background Yes:foreground empty:unknown) }
+
+CPP_CRASH_NO_LOG:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: encounter cpp crash but no log generated}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  PID: {type: INT32, desc: cpp_crash_no_log pid}
+  UID: {type: INT32, desc: cpp_crash_no_log uid}
+  HAPPEN_TIME: {type: INT64, desc: fault trigger time}
+
+RUST_PANIC:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: rust panic}
+  MODULE: {type: STRING, desc: module name}
+  REASON: {type: STRING, desc: fault reason}
+  PID: {type: INT32, desc: rust panic pid}
+  TID: {type: INT32, desc: rust panic tid}
+  UID: {type: INT32, desc: rust panic uid}
+  SUMMARY: {type: STRING, desc: panic summary}
+  FINGERPRINT: {type: STRING, desc: unique id for grouping same fault}
+  HAPPEN_TIME: {type: INT64, desc: panic trigger time}
+  PNAME: {type: STRING, desc: process name}
+  FIRST_FRAME: {type: STRING, desc: first stack info}
+  SECOND_FRAME: {type: STRING, desc: second stack info}
+  LAST_FRAME: {type: STRING, desc: last stack info}
+
+MEMORY_LEAK:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: MemoryLeak}
+  MODULE: {type: STRING, desc: module name}
+  VERSION: {type: STRING, desc: module version}
+  REASON: {type: STRING, desc: fault reason}
+  PID: {type: INT32, desc: memory_leak pid}
+  UID: {type: INT32, desc: memory_leak uid}
+  SUMMARY: {type: STRING, desc: fault summary}
+  FIRST_FRAME: {type: STRING, desc: f1Name}
+  SECOND_FRAME: {type: STRING, desc: log grade}
+  MEMTOTAL: {type: STRING, desc: memory total}
+  FINGERPRINT: {type: STRING, desc: unique id for grouping same fault}
+  LOG_PATH: {type: STRING, desc: memory leak log path}
+  HAPPEN_TIME: {type: STRING, desc: leaked time}
+
+FD_LEAK:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: FdLeak}
+  MODULE: {type: STRING, desc: module name}
+  VERSION: {type: STRING, desc: module version}
+  PID: {type: INT32, desc: fd_leak pid}
+  UID: {type: INT32, desc: fd_leak uid}
+  FD_NUM: {type: INT32, desc: fd num}
+  SUMMARY: {type: STRING, desc: fault summary}
+  FINGERPRINT: {type: STRING, desc: unique id for grouping same fault}
+  LOG_PATH: {type: STRING, desc: fd leak log path}
+  HAPPEN_TIME: {type: INT64, desc: leaked time}
+
+THREAD_LEAK:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: ThreadLeak}
+  MODULE: {type: STRING, desc: module name}
+  VERSION: {type: STRING, desc: module version}
+  PID: {type: INT32, desc: thread_leak pid}
+  UID: {type: INT32, desc: thread_leak uid}
+  THREAD_NUM: {type: INT64, desc: thread num}
+  SUMMARY: {type: STRING, desc: fault summary}
+  FINGERPRINT: {type: STRING, desc: unique id for grouping same fault}
+  LOG_PATH: {type: STRING, desc: thread leak log path}
+  HAPPEN_TIME: {type: INT64, desc: leaked time}
+
+ADDR_SANITIZER:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: AddressSanitizer}
+  MODULE: {type: STRING, desc: module name}
+  VERSION: {type: STRING, desc: module version}
+  REASON: {type: STRING, desc: fault reason}
+  PID: {type: INT32, desc: pid}
+  UID: {type: INT32, desc: uid}
+  SUMMARY: {type: STRING, desc: fault summary}
+  FAULT_TYPE: {type: STRING, desc: fault type}
+  LOG_NAME: {type: STRING, desc: fault log name}
+  FINGERPRINT: {type: STRING, desc: unique id for grouping same fault}
+  HAPPEN_TIME: {type: INT64, desc: fault trigger time}
+  FIRST_FRAME: {type: STRING, desc: first stack info}
+
+CPP_CRASH_EXCEPTION:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: encounter exception when crash dump}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  PID: {type: INT32, desc: cpp_crash_exception pid}
+  UID: {type: INT32, desc: cpp_crash_exception uid}
+  HAPPEN_TIME: {type: INT64, desc: crash time}
+  ERROR_CODE: {type: INT32, desc: crash dump exception error code}
+  ERROR_MSG: {type: STRING, desc: crash dump exception error message}
+
+CPP_CRASH_MATCHED:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: CppCrashMatched}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  PID: {type: INT32, desc: crash pid}
+  UID: {type: INT32, desc: crash uid}
+  SUMMARY: {type: STRING, desc: fault summary}
+  HAPPEN_TIME: {type: INT64, desc: crash time}
+
+CPP_CRASH_EXCEPTION_MATCHED:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: CppCrashExceptionMatched}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  PID: {type: INT32, desc: crash pid}
+  UID: {type: INT32, desc: crash uid}
+  SUMMARY: {type: STRING, desc: fault summary}
+  HAPPEN_TIME: {type: INT64, desc: crash time}
+
+CPP_CRASH_DISMATCH:
+  __BASE: {type: FAULT, level: CRITICAL, tag: STABILITY, desc: CppCrashDisMatch}
+  PROCESS_NAME: {type: STRING, desc: process name}
+  PID: {type: INT32, desc: crash pid}
+  UID: {type: INT32, desc: crash uid}
+  SUMMARY: {type: STRING, desc: fault summary}
+  HAPPEN_TIME: {type: INT64, desc: crash time}

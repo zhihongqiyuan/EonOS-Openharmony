@@ -1,0 +1,118 @@
+slotNum = 0xa
+expectedProperty = 0x5
+.language ECMAScript
+.function any .#~D1=#D1(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str str1
+	stobjbyname 0x0, prop, a2
+	lda.str str2
+	sta v0
+	ldai 0x1
+	sta v1
+	lda v0
+	stobjbyvalue 0x2, a2, v1
+	lda.str str_prop
+	sta v0
+	lda.str str3
+	stobjbyvalue 0x4, a2, v0
+	ldlexvar 0x0, 0x0
+	sta v0
+	lda.str str5
+	stobjbyvalue 0x6, a2, v0
+	ldlexvar 0x0, 0x1
+	sta v0
+	lda.str str6
+	stobjbyvalue 0x8, a2, v0
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0xd
+expectedProperty = 0x2
+.language ECMAScript
+.function any .#~D2=#D2(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldlexvar 0x0, 0x2
+	sta v0
+	throw.undefinedifholewithname computed1
+	lda.str str4
+	stobjbyvalue 0x0, a2, v0
+	lda.str computed2
+	sta v0
+	lda.str str5
+	stobjbyvalue 0x2, a2, v0
+	lda.str 
+	sta v0
+	ldlexvar 0x0, 0x3
+	sta v1
+	throw.undefinedifholewithname part1
+	lda v1
+	add2 0x4, v0
+	sta v0
+	lda.str _
+	add2 0x5, v0
+	sta v0
+	ldlexvar 0x0, 0x4
+	sta v1
+	throw.undefinedifholewithname part2
+	lda v1
+	add2 0x6, v0
+	sta v0
+	lda.str 
+	add2 0x7, v0
+	sta v0
+	lda.str str6
+	stobjbyvalue 0x8, a2, v0
+	ldai 0x1
+	sta v0
+	ldai 0x2
+	add2 0xa, v0
+	sta v0
+	lda.str str7
+	stobjbyvalue 0xb, a2, v0
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x9
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	newlexenv 0x5
+	ldundefined
+	stlexvar 0x0, 0x0
+	ldundefined
+	stlexvar 0x0, 0x1
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, .#~D1=#D1, _2, 0x0, v0
+	ldobjbyname 0x1, prototype
+	lda.str computed2
+	stlexvar 0x0, 0x0
+	ldai 0x2
+	stlexvar 0x0, 0x1
+	tryldglobalbyname 0x3, Symbol
+	sta v0
+	lda.str symbol1
+	sta v1
+	lda v0
+	callarg1 0x4, v1
+	stlexvar 0x0, 0x2
+	lda.str dynamic
+	stlexvar 0x0, 0x3
+	lda.str property
+	stlexvar 0x0, 0x4
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x6, .#~D2=#D2, _3, 0x0, v0
+	ldobjbyname 0x7, prototype
+	returnundefined
+label_2: 
+}
+
+

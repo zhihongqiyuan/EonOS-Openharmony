@@ -1,0 +1,3 @@
+SyntaxError: Current configuration does not support using lazy import. Lazy import can be used in the beta3 version of API 12 or higher versions.
+Solutions: > Check the compatibleSdkVersion and compatibleSdkVersionStage in build-profile.json5.> If compatibleSdkVersion is set to API 12, then compatibleSdkVersionStage needs to be configured as beta3.> If you're running es2abc in commandline without IDE, please check whether target-api-version and target-api-sub-version options are correctly configured. [lazy_import_bytecode.ts:16:13]
+The size of programs is expected to be 1, but is 0

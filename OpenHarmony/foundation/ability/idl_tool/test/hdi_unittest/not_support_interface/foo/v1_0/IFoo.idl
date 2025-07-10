@@ -1,0 +1,31 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package ohos.hdi.foo.v1_0;
+
+interface test.IFoo {
+    void void_test_func();
+    boolean bool_test_func([in] boolean inParam, [out] boolean outParam, [inout] boolean inoutParam);
+    byte byte_test_func([in] byte inParam, [out] byte outParam, [inout] byte inoutParam);
+    short short_test_func([in] short inParam, [out] short outParam, [inout] short inoutParam);
+    int int_test_func([in] int inParam, [out] int outParam, [inout] int inoutParam);
+    long long_test_func([in] long inParam, [out] long outParam, [inout] long inoutParam);
+    String string_test_func([in] String inParam, [out] String outParam, [inout] String inoutParam);
+    float float_test_func([in] float inParam, [out] float outParam, [inout] float inoutParam);
+    double double_test_func([in] double inParam, [out] double outParam, [inout] double inoutParam);
+    char char_test_func([in] char inParam, [out] char outParam, [inout] char inoutParam);  // Ts不支持
+    myseq seq_test_func([in] myseq inParam, [out] myseq outParam, [inout] myseq inoutParam);
+    myinterface interface_test_func([in] myinterface inParam, [out] myinterface outParam, [inout] myinterface inoutParam);
+}

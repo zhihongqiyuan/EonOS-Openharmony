@@ -1,0 +1,91 @@
+{
+  "name": "@ohos/tee_client",
+  "description": "tee_client",
+  "version": "1.0.0",
+  "license": "MulanPSL-2.0",
+  "segment": {
+    "destPath": "base/tee/tee_client"
+  },
+  "component": {
+    "name": "tee_client",
+    "subsystem": "tee",
+    "syscap": [],
+    "features": [
+      "tee_client_features_tui"
+    ],
+    "adapted_system_type": [
+      "small",
+      "standard"
+    ],
+    "rom": "250KB",
+    "ram": "5995KB",
+    "deps": {
+      "components": [
+        "ability_base",
+        "access_token",
+        "call_manager",
+        "c_utils",
+        "hilog",
+        "image_framework",
+        "power_manager",
+        "safwk",
+        "samgr",
+        "window_manager",
+        "ipc",
+        "dsoftbus",
+        "device_manager",
+        "bounds_checking_function",
+        "zlib",
+        "openssl",
+        "bundle_framework",
+        "hisysevent"
+      ]
+    },
+    "build": {
+      "group_type": {
+        "service_group": [
+          "//base/tee/tee_client/services/cadaemon/build/standard:libcadaemon",
+          "//base/tee/tee_client/services/cadaemon/build/standard/init:cadaemon.rc",
+          "//base/tee/tee_client/services/cadaemon/build/standard/sa_profile:cadaemon_profile",
+          "//base/tee/tee_client/services/teecd/build/standard:teecd",
+          "//base/tee/tee_client/services/teecd/build/standard/init:teecd.rc",
+          "//base/tee/tee_client/services/tlogcat/build/standard:tlogcat",
+          "//base/tee/tee_client/services/tlogcat/build/standard/init:tlogcat.rc"
+        ]
+      },
+      "inner_kits": [
+        {
+          "name": "//base/tee/tee_client/frameworks/build/standard:libteec",
+          "header": {
+            "header_files": [
+              "tee_client_api.h",
+              "tee_client_type.h",
+              "tee_client_constants.h",
+              "tee_client_ext_api.h",
+              "tee_client_list.h"
+            ],
+            "header_base": "//base/tee/tee_client/interfaces/inner_api"
+          }
+        },
+        {
+          "name": "//base/tee/tee_client/frameworks/build/standard:libteec_vendor",
+          "header": {
+            "header_files": [
+              "tee_client_api.h",
+              "tee_client_type.h",
+              "tee_client_constants.h",
+              "tee_client_ext_api.h",
+              "tee_client_list.h"
+            ],
+            "header_base": "//base/tee/tee_client/interfaces/inner_api"
+          }
+        }
+      ],
+      "test": [
+        "//base/tee/tee_client/test/fuzztest/teeclient:fuzztest",
+        "//base/tee/tee_client/test/fuzztest/libteecvendor:libteec_vendor_fuzztest",
+        "//base/tee/tee_client/test/unittest:unittest"
+      ]
+    }
+  }
+}

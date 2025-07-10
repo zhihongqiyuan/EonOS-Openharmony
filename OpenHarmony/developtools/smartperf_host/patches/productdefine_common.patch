@@ -1,0 +1,92 @@
+From 130403fa56b6ac2dba0e86abe6ddf81bfcf0fda0 Mon Sep 17 00:00:00 2001
+From: jichuan <jichuan1@huawei.com>
+Date: Wed, 12 Jul 2023 14:16:41 +0800
+Subject: [PATCH] patch
+
+Signed-off-by: jichuan <jichuan1@huawei.com>
+---
+ inherit/default.json  | 4 ++++
+ inherit/ipcamera.json | 4 ++++
+ inherit/pc.json       | 4 ++++
+ inherit/rich.json     | 4 ++++
+ inherit/tablet.json   | 4 ++++
+ 5 files changed, 20 insertions(+)
+
+diff --git a/inherit/default.json b/inherit/default.json
+index 3621e9e..df2b902 100644
+--- a/inherit/default.json
++++ b/inherit/default.json
+@@ -454,6 +454,10 @@
+             "component": "hiperf",
+             "features": []
+           },
++          {
++            "component": "smartperf_host",
++            "features": []
++          },
+           {
+             "component": "syscap_codec",
+             "features": []
+diff --git a/inherit/ipcamera.json b/inherit/ipcamera.json
+index 88562be..ab81e60 100644
+--- a/inherit/ipcamera.json
++++ b/inherit/ipcamera.json
+@@ -455,6 +455,10 @@
+             {
+               "component": "hiperf",
+               "features": []
++            },
++            {
++              "component": "smartperf_host",
++              "features": []
+             }
+           ]
+         },
+diff --git a/inherit/pc.json b/inherit/pc.json
+index 89392c5..c25f665 100644
+--- a/inherit/pc.json
++++ b/inherit/pc.json
+@@ -454,6 +454,10 @@
+             "component": "hiperf",
+             "features": []
+           },
++          {
++            "component": "smartperf_host",
++            "features": []
++          },
+           {
+             "component": "syscap_codec",
+             "features": []
+diff --git a/inherit/rich.json b/inherit/rich.json
+index 7277257..a80b9e2 100644
+--- a/inherit/rich.json
++++ b/inherit/rich.json
+@@ -464,6 +464,10 @@
+           "component": "hiperf",
+           "features": []
+         },
++        {
++            "component": "smartperf_host",
++            "features": []
++        },
+         {
+           "component": "syscap_codec",
+           "features": []
+diff --git a/inherit/tablet.json b/inherit/tablet.json
+index 1e0e322..c6ad521 100644
+--- a/inherit/tablet.json
++++ b/inherit/tablet.json
+@@ -421,6 +421,10 @@
+             "component": "hiperf",
+             "features": []
+           },
++          {
++            "component": "smartperf_host",
++            "features": []
++          },
+           {
+             "component": "syscap_codec",
+             "features": []
+-- 
+2.34.1
+

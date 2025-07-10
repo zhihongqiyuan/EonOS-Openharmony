@@ -1,0 +1,90 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ /**
+ * @addtogroup HdiLpfenceCellbatching
+ * @{
+ *
+ * @brief Provides APIs for recording base station trajectory data for low-power fence services.
+ *
+ * You can use the APIs to cache and flush the base station data received.
+ * The cell batching feature is used to determine the user's activity area based on the base station trajectory data received by the device, so as to further provide service information.
+ *
+ * @since 4.0
+ * @version 1.0
+ */
+
+/**
+ * @file CellbatchingTypes.idl
+ *
+ * @brief Defines the data types of the cell batching module.
+ *
+ * @since 4.0
+ * @version 1.0
+ */
+
+/**
+ * @brief Declares the path of the cell batching interface package.
+ *
+ * @since 4.0
+ */
+package ohos.hdi.location.lpfence.cellbatching.v1_0;
+
+/**
+ * @brief Enumerates the operations on the cell batching feature.
+ *
+ * @since 4.0
+ */
+enum CellbatchingSwitch {
+    /** Disable the cell batching feature. */
+    SWITCH_OFF = 0,
+    /** Enable the cell batching feature. */
+    SWITCH_ON = 1,
+};
+
+/**
+ * @brief Defines the struct for setting the cell batching feature.
+ *
+ * @since 4.0
+ */
+struct CellbatchingRequest {
+    /** Enable or disable the cell batching function. For details, see {@Link CellbatchingSwitch}. */
+    int status;
+    /** Interval (in seconds) for the modem to receive base station data. The minimum interval is 30 seconds, and the maximum interval is 240 seconds. */
+    int interval;
+};
+
+/**
+ * @brief Defines the struct for the base station trajectory data.
+ *
+ * @since 4.0
+ */
+struct CellTrajectoryData {
+    /** Lower-order 32 bits of the timestamp. */
+    unsigned int timeStampLow;
+    /** High-order 32 bits of the timestamp. */
+    unsigned int timeStampHigh;
+    /** Cell ID. */
+    unsigned long cid;
+    /** Location area code (LAC) of the base station. */
+    unsigned int lac;
+    /** Received Signal Strength Indication (RSSI). */
+    unsigned short rssi;
+    /** Mobile country code (MCC). */
+    unsigned short mcc;
+    /** Mobile network code (MNC). */
+    unsigned short mnc;
+};
+/** @} */

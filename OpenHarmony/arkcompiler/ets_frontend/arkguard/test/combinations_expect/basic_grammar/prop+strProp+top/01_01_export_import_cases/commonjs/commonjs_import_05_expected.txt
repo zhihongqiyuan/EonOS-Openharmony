@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import assert from 'assert';
+require('./commonjs_export_01');
+var j = require('./commonjs_export_01');
+assert(j.exportApi1 === 'commonjs');
+assert(j.exportApi2(2) === 3);
+assert(j.api() === 'api');
+assert(j.constVal === 2);
+const { classExport3Alias: classExport3Alias, exportObj3: exportObj3 } = require('./commonjs_export_01');
+assert(exportObj3.obj_prop3 === 3);
+let k = new classExport3Alias();
+assert(k.class3_prop1 === 3);
+const l = require('./commonjs_export_02');
+let m = new l();
+assert(m.class2_prop1 === 2);
+const o = require('./commonjs_export_03');
+assert(o.obj_prop1 === 1);
+assert(o.obj_prop2.inner_prop1 === 2);
+const { classExport1: classExport1, arrowFunc: arrowFunc } = require('./commonjs_export_04');
+let p = new classExport1();
+assert(p.class1_prop1 === 1);
+assert(arrowFunc(2) === 12);

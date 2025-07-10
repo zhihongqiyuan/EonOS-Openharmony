@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Partition_Info ProgrammerFile="">
+<Part Sel="1" PartitionName="fastboot" FlashType="spi" FileSystem="none" Start="0" Length="1M" SelectFile="D:\zmtest\newimg\u-boot-hi3518ev300.bin"/>
+</Partition_Info>

@@ -1,0 +1,11 @@
+{
+  "app": {
+    "bundleName": "com.ohos.mms",
+    "vendor": "example",
+    "versionCode": 1000000,
+    "versionName": "1.0.4.013",
+    "icon": "$media:smsmms",
+    "label": "$string:app_name",
+    "distributedNotificationEnabled": true
+  }
+}

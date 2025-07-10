@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import assert from 'assert';
+import h1 from './export_api_01';
+import * as i1 from './export_api_01';
+import {} from './export_api_01';
+import { j } from './export_api_01';
+import { k, l, } from './export_api_01';
+import { default as j1 } from './export_api_01';
+import l1, * as m1 from './export_api_01';
+import n1, { h, } from './export_api_01';
+assert(h1(2, 3) === 3);
+assert(i1.j === 1);
+assert(j === 1);
+assert(k === 2);
+assert(l === 3);
+assert(j1(3, 4) === 4);
+assert(l1(7, 8) === 8);
+assert(m1.l === 3);
+assert(n1(3, 4) === 4);
+assert(h(5, 4) === 1);
+// import ""; TypeError: The argument 'id' must be a non-empty string. Received ''
+import './export_api_01';
+import { t } from './export_api_02';
+import * as o1 from './export_api_02';
+assert(t.g(3, 4) === 7);
+assert(o1.t.h(5, 4) === 1);
+export { t } from './export_api_02';
+import { u } from './export_api_02';
+import * as q1 from './export_api_02';
+assert(u.g(3, 4) === 7);
+assert(q1.u.h(5, 4) === 1);

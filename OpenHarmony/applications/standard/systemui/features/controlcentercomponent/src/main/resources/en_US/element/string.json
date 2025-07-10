@@ -1,0 +1,64 @@
+{
+  "string": [
+    {
+      "name": "control_center",
+      "value": "Control Panel"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit",
+      "value": "Edit switches"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_opt_desc",
+      "value": "Drag the switches to rearrange them. The above switches will be shown in the Control Panel."
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_opt_drag",
+      "value": "Drag here to remove"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_opt_max",
+      "value": "Maximum of %s switches."
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_opt_min",
+      "value": "Add at least %s switches."
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_reset",
+      "value": "RESET"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_finish",
+      "value": "DONE"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_reset_confirm",
+      "value": "Reset switch order?"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_reset_confirm_primary",
+      "value": "CANCEL"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_reset_confirm_secondary",
+      "value": "RESET"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_back_confirm",
+      "value": "Save changes?"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_back_confirm_primary",
+      "value": "CANCEL"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_back_confirm_secondary",
+      "value": "SAVE"
+    },
+    {
+      "name": "control_center_simple_toggle_screenshot_mode_title",
+      "value": "Screenshot"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import y1 from 'assert';
+// 不新增变量
+let [z1, a2] = ['akria', 12];
+let { ...b2 } = { 'name2': 'akria2', age2: 18 };
+y1(z1 === 'akria', 'success');
+y1(a2 === 12, 'success');
+y1(b2.name2 === 'akria2', 'success');
+y1(b2.age2 === 18, 'success');
+function w1() {
+    let [k2, l2] = ['akria3', 13];
+    let { ...m2 } = { 'name2': 'akria4', age2: 18 };
+    y1(k2 === 'akria3', 'success');
+    y1(l2 === 13, 'success');
+    y1(m2.name2 === 'akria4', 'success');
+    y1(m2.age2 === 18, 'success');
+}
+w1();
+// 新增变量
+let { newName: c2, ...d2 } = { 'newName': 'akria5', newAge: 18 };
+y1(c2 === 'akria5', 'success');
+y1(d2.newAge === 18, 'success');
+function x1() {
+    return { Propx1: 1, Propy1: 2 };
+}
+const { Propx1: e2, Propy1: f2 } = x1();
+y1(e2 === 1, 'success');
+y1(f2 === 2, 'success');
+let g2 = 3;
+let h2 = 4;
+const { Propx2: i2, Propy2: j2 } = { Propx2: g2, Propy2: h2 };
+y1(i2 === 3, 'success');
+y1(j2 === 4, 'success');

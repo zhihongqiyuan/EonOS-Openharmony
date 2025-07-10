@@ -1,0 +1,13 @@
+-enable-property-obfuscation
+-enable-toplevel-obfuscation
+-compact
+-remove-log
+-enable-export-obfuscation
+
+-keep-property-name
+userIdCipher
+telephone
+contactObjects
+isTextContent
+descriptionEn
+keywordsList

@@ -1,0 +1,154 @@
+{
+  "name": "@ohos/sys_installer",
+  "description": "A system ability started by the init process of OHOS to implement an update",
+  "version": "3.2",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/update/sys_installer"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "sys_installer",
+    "subsystem": "updater",
+    "syscap": [],
+    "features": [
+      "sys_installer_cfg_file"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "deps": {
+      "components": [
+        "c_utils",
+        "hilog",
+        "hvb",
+        "ipc",
+        "safwk",
+        "samgr",
+        "updater",
+        "access_token",
+        "hisysevent",
+        "selinux_adapter",
+        "init",
+        "bounds_checking_function",
+        "cJSON",
+        "curl",
+        "lz4",
+        "openssl",
+        "zlib"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "sub_component": [
+        "//base/update/sys_installer/frameworks/ipc_server:sys_installer",
+        "//base/update/sys_installer/frameworks/ipc_server/etc:sys_installer_etc",
+        "//base/update/sys_installer/frameworks/ipc_server/sa_profile:sys_installer_sa_profile",
+        "//base/update/sys_installer/frameworks/ipc_server/sa_profile:module_update_sa_profile",
+        "//base/update/sys_installer/interfaces/innerkits/ipc_client:module_update",
+        "//base/update/sys_installer/interfaces/innerkits/ipc_client:module_update_client",
+        "//base/update/sys_installer/services/module_update/service:module_update_service",
+        "//base/update/sys_installer/services/module_update/src:check_module_update"
+      ],
+      "inner_kits": [
+        {
+          "name": "//base/update/sys_installer/interfaces/innerkits/ipc_client:libsysinstallerkits",
+          "header": {
+            "header_files": [],
+            "header_base": [
+               "//base/update/sys_installer/interfaces/innerkits/inner_api/include",
+               "//base/update/sys_installer/interfaces/innerkits/ipc_client/include",
+               "//base/update/sys_installer/interfaces/innerkits",
+               "//base/update/sys_installer/common/include"
+            ]
+          }
+        },
+        {
+          "name": "//base/update/sys_installer/interfaces/innerkits/ipc_client:libsysinstaller_shared",
+          "header": {
+            "header_files": [],
+            "header_base": [
+               "//base/update/sys_installer/interfaces/innerkits/inner_api/include",
+               "//base/update/sys_installer/interfaces/innerkits/ipc_client/include",
+               "//base/update/sys_installer/interfaces/innerkits",
+               "//base/update/sys_installer/common/include"
+            ]
+          }
+        },
+        {
+          "name": "//base/update/sys_installer/interfaces/innerkits/ipc_client:libmodule_update_shared",
+          "header": {
+            "header_files": [],
+            "header_base": [
+               "//base/update/sys_installer/interfaces/innerkits/inner_api/include",
+               "//base/update/sys_installer/interfaces/innerkits/ipc_client/include",
+               "//base/update/sys_installer/interfaces/innerkits",
+               "//base/update/sys_installer/common/include"
+            ]
+          }
+        },
+        {
+          "name": "//base/update/sys_installer/interfaces/innerkits/ipc_client:module_update",
+          "header": {
+            "header_files": [],
+            "header_base": [
+              "//base/update/sys_installer/interfaces/innerkits/inner_api/include"
+            ]
+          }
+        },
+        {
+          "name": "//base/update/sys_installer/services/module_update/src:check_module_update_static",
+          "header": {
+            "header_files": [],
+            "header_base": [
+              "//base/update/sys_installer/services/module_update/include"
+            ]
+          }
+        },
+        {
+          "name": "//base/update/sys_installer/frameworks/installer_manager:libinstallermanager",
+          "header": {
+            "header_files": [],
+            "header_base": [
+               "//base/update/sys_installer/frameworks/installer_manager/include"
+            ]
+          }
+        },
+        {
+          "name": "//base/update/sys_installer/frameworks/ipc_server:sys_installer",
+          "header": {
+            "header_files": [],
+            "header_base": [
+               "//base/update/sys_installer/frameworks/ipc_server/include"
+            ]
+          }
+        },
+        {
+          "name": "//base/update/sys_installer/services/module_update:module_update_utils",
+          "header": {
+            "header_files": [],
+            "header_base": [
+               "//base/update/sys_installer/services/module_update/utils/include"
+            ]
+          }
+        },
+        {
+          "name": "//base/update/sys_installer/services/module_update/service:libmodule_update_service_static",
+          "header": {
+            "header_files": [],
+            "header_base": [
+               "//base/update/sys_installer/services/module_update/service/include",
+               "//base/update/sys_installer/services/module_update/utils/include"
+            ]
+          }
+        }
+      ],
+      "test": [
+        "//base/update/sys_installer:fuzztest",
+        "//base/update/sys_installer:unittest"
+      ]
+    }
+  }
+}

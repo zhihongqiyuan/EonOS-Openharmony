@@ -1,0 +1,79 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the License);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import a from "assert";
+export var b = 1;
+export var {} = {};
+export var { var2: c } = { var2: 2 };
+export var { ...d } = { val3: 3, val4: 4, val5: 5 };
+export var { var6: e, ...f } = { var6: 6, var7: 7, var8: 8 };
+export var { var9: g, "var10": h, ...i } = { var9: 9, var10: 10, var11: 11 };
+export var { var12: j, ['var13']: k, ...l } = { var12: 12, var13: 13, var14: 14 };
+let m: number = 16;
+export var { var15: n, ["var16"]: o, ...p } = { var15: 15, var16: [m], var17: 17 };
+export var { ["var" + "18"]: q, var19: r } = { ["var" + "18"]: 18, var19: 19 };
+a(b === 1);
+a(c === 2);
+a(d.val3 === 3);
+a(d.val4 === 4);
+a(d.val5 === 5);
+a(e === 6);
+a(f.var7 === 7);
+a(f.var8 === 8);
+a(g === 9);
+a(h === 10);
+a(i.var11 === 11);
+a(j === 12);
+a(k === 13);
+a(l.var14 === 14);
+a(n === 15);
+a(o.toString() === "16");
+a(p.var17 === 17);
+a(q === 18);
+a(r === 19);
+namespace s {
+    export var { var20: var20, ["var" + "21"]: var21, ...varr } = { var20: 20, ["var" + "21"]: 21, var22: 22 };
+    a(var20 === 20);
+    a(var21 === 21);
+    a(varr.var22 === 22);
+}
+a(s.var20 === 20);
+a(s.var21 === 21);
+a(s.varr.var22 === 22);
+export var [] = [];
+export let [,] = [,];
+export var [u, v] = [1, 2];
+export var [w, , x] = [3, 4, 5, 6];
+export var [...y] = [7, 8, 9];
+export var [z, ...a1] = [10, 11, 12];
+export var [, ...b1] = [13, 14, 15];
+a(u === 1);
+a(v === 2);
+a(w === 3);
+a(x === 5);
+a(y[0] === 7);
+a(y[1] === 8);
+a(y[2] === 9);
+a(z === 10);
+a(a1[0] === 11);
+a(a1[1] === 12);
+a(b1[0] === 14);
+a(b1[1] === 15);
+namespace c1 {
+    export var [ele13, { ele14: ele14 }] = [13, { ele14: 14 }, 15];
+    a(ele13 === 13);
+    a(ele14 === 14);
+}
+a(c1.ele13 === 13);
+a(c1.ele14 === 14);

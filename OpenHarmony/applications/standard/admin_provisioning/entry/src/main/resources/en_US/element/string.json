@@ -1,0 +1,160 @@
+{
+  "string": [
+    {
+      "name": "entry_MainAbility",
+      "value": "Device Management Configuration"
+    },
+    {
+      "name": "description_mainability",
+      "value": "激活DeviceAdmin"
+    },
+    {
+      "name": "description_autoManagerAbility",
+      "value": "激活SuperDeviceAdmin"
+    },
+    {
+      "name": "description_adminProvisioning",
+      "value": "支撑EDM下发业务"
+    },
+    {
+      "name": "adminprovisioning",
+      "value": "Activate device administrator"
+    },
+    {
+      "name": "activation",
+      "value": "Activate"
+    },
+    {
+      "name": "deActivate",
+      "value": "Deactivate"
+    },
+    {
+      "name": "cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "enterprise_name",
+      "value": "Enterprise name: %s"
+    },
+    {
+      "name": "enterprise_description",
+      "value": "Enterprise description: %s"
+    },
+    {
+      "name": "permissionLabel",
+      "value": "Set system time"
+    },
+    {
+      "name": "permissionDescription",
+      "value": "Allows an app to set the system time."
+    },
+    {
+      "name": "device_mgr_info_content",
+      "value": "Your organization's administrator can monitor this device's settings, apps, permissions, and data, including network activity, location information, call history, and contact search history."
+    },
+    {
+      "name": "returnVal",
+      "value": "Back"
+    },
+    {
+      "name": "nextVal",
+      "value": "Next"
+    },
+    {
+      "name": "tips",
+      "value": "Note"
+    },
+    {
+      "name": "tipsInfo",
+      "value": "Your device will be reset and all progress will be lost. Cancel setup anyway?"
+    },
+    {
+      "name": "CancelSetting",
+      "value": "Cancel setup"
+    },
+    {
+      "name": "deviceManageInfo",
+      "value": "Device management information"
+    },
+    {
+      "name": "unitManageDevice",
+      "value": "This device will be managed by your organization"
+    },
+    {
+      "name": "unitManage",
+      "value": "administrator"
+    },
+    {
+      "name": "textManagerBefore",
+      "value": ", if you have any questions, please contact your "
+    },
+    {
+      "name": "textManagerAfter",
+      "value": " contact."
+    },
+    {
+      "name": "textTerms",
+      "value": "View terms"
+    },
+    {
+      "name": "textTermsBefore",
+      "value": "you can "
+    },
+    {
+      "name": "buttonAcceptAndContinue",
+      "value": "Accept & continue"
+    },
+    {
+      "name": "loadingSearch",
+      "value": "Setting up device…"
+    },
+    {
+      "name": "terms",
+      "value": "Terms"
+    },
+    {
+      "name": "manageInfo",
+      "value": "Manage information"
+    },
+    {
+      "name": "settingFailed",
+      "value": "Setup failed"
+    },
+    {
+      "name": "settingFailedInfo",
+      "value": "Unable to set up app. Reset your phone and try again."
+    },
+    {
+      "name": "resetFactorySet",
+      "value": "Factory reset"
+    },
+    {
+      "name": "setupComplete",
+      "value": "Setup complete"
+    },
+    {
+      "name": "AutoDeployText",
+      "value": "This device is configured and managed by your organization. If you have any questions, contact your organization."
+    },
+    {
+      "name": "continue",
+      "value": "Continue"
+    },
+    {
+      "name": "PreviousStep",
+      "value": "Back"
+    },
+    {
+      "name": "textManageSuccessContent",
+      "value": "If you have any questions, please contact your %s."
+    },
+    {
+      "name": "textApplicationInfoActive",
+      "value": "This administrator has been activated. %s can perform the following:"
+    },
+    {
+      "name": "textApplicationInfoInactive",
+      "value": "Activating this administrator will allow %s to perform the following:"
+    }
+  ]
+}

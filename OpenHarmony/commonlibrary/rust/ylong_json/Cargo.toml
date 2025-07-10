@@ -1,0 +1,42 @@
+[package]
+name = "ylong_json"
+version = "1.0.0"
+edition = "2021"
+description = "A JSON serialization file format"
+#readme = "README.md"
+license = "Apache-2.0"
+repository = "https://gitee.com/openharmony-sig/commonlibrary_rust_ylong_json"
+keywords = ["ylong", "json", "serialization", "deserialization"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "ylong_json"
+crate-type = ["cdylib", "staticlib", "lib"]
+
+[features]
+default = ["btree_object", "vec_array"] # Object 默认使用 Btree 结构，Array 默认使用 Vec 结构。
+c_adapter = ["libc"]    # 使用 C 封装层接口
+list_array = []         # Array 底层使用 LinkedList。在 Array 的平均子节点数较少（约小于 15 个）、查找数量较少时，性能较好。
+vec_array = []          # Array 底层使用 Vec。在 Array 的平均子节点数较多（约大于 15 个）、查找数量较多时，性能较好。
+list_object = []        # Object 底层使用 LinkedList。在 Object 的平均子节点数较少（约小于 15 个）、查找数量较少时，性能较好。
+vec_object = []         # Object 底层使用 Vec。在 Object 的平均子节点数中等（约大于 15 个，小于 1024 个）、查找数量较少时，性能较好。
+btree_object = []       # Object 底层使用 Btree。在 Object 的平均子节点数较多（约大于 1024 个）、查找数量较多时，性能较好。
+ascii_only = []         # 仅使用 ASCII 字符，正常解析 unicode 字符，但超出 ASCII 的 UTF-8 字符在输出时保持不变。
+
+[dependencies]
+libc = { version = "0.2.134", optional = true }
+serde = { version = "1.0.136", features = ["derive"] }
+
+[dev-dependencies]
+serde_json = "1.0.74"
+
+[[test]]
+name = "sdv_adapter_test"
+path = "./tests/sdv_adapter_test.rs"
+required-features = ["c_adapter"]
+
+[[test]]
+name = "ylong_json_sdv_test"
+path = "./tests/ylong_json_sdv_test.rs"
+required-features = []

@@ -1,0 +1,302 @@
+slotNum = 0x3
+.language ECMAScript
+.function any .#3695988052376289509#xxx(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, print
+	sta v0
+	ldexternalmodulevar 0x0
+	sta v1
+	throw.undefinedifholewithname x
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .A(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x5
+.language ECMAScript
+.function any .foo(any a0, any a1, any a2, any a3) {
+label_1: 
+label_0: 
+	definefunc 0x0, .ttt, 0x0
+	definefunc 0x1, .ttt2, 0x0
+	tryldglobalbyname 0x2, print
+	sta v0
+	ldexternalmodulevar 0x0
+	sta v1
+	throw.undefinedifholewithname x
+	lda v0
+	callarg1 0x3, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .foo3(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, .xxx, 0x0
+	tryldglobalbyname 0x1, print
+	sta v0
+	ldexternalmodulevar 0x0
+	sta v1
+	throw.undefinedifholewithname x
+	lda v0
+	callarg1 0x2, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .foo4(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, .#3695988052376289509#xxx, 0x0
+	tryldglobalbyname 0x1, print
+	sta v0
+	ldexternalmodulevar 0x0
+	sta v1
+	throw.undefinedifholewithname x
+	lda v0
+	callarg1 0x2, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any .fooA(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, .t, 0x0
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, .foo, 0x1
+	definefunc 0x1, .foo3, 0x0
+	definefunc 0x2, .foo4, 0x0
+	ldhole
+	sta v0
+	callruntime.definesendableclass 0x3, .A, _2, 0x0, v0
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any .sss(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, print
+	sta v0
+	ldexternalmodulevar 0x0
+	sta v1
+	throw.undefinedifholewithname x
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any .t(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, print
+	sta v0
+	callruntime.ldsendableexternalmodulevar 0x0
+	sta v1
+	throw.undefinedifholewithname x
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .ttt(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, .sss, 0x0
+	tryldglobalbyname 0x1, print
+	sta v0
+	ldexternalmodulevar 0x0
+	sta v1
+	throw.undefinedifholewithname x
+	lda v0
+	callarg1 0x2, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any .ttt2(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, print
+	sta v0
+	ldexternalmodulevar 0x0
+	sta v1
+	throw.undefinedifholewithname x
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any .xxx(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, print
+	sta v0
+	ldexternalmodulevar 0x0
+	sta v1
+	throw.undefinedifholewithname x
+	lda v0
+	callarg1 0x1, v1
+	returnundefined
+label_2: 
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot _0
+{
+  index: 0
+    tag: 2
+    val: 1
+},
+{
+  index: 1
+    tag: 5
+    val: aaa
+},
+{
+  index: 2
+    tag: 2
+    val: 1
+},
+{
+  index: 3
+    tag: 5
+    val: x
+},
+{
+  index: 4
+    tag: 5
+    val: default
+},
+{
+  index: 5
+    tag: 9
+    val: 0
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+{
+  index: 8
+    tag: 2
+    val: 0
+},
+{
+  index: 9
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _1
+{
+  index: 0
+    tag: 0
+    val: 2
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+------------------------------------
+slot _2
+{
+  index: 0
+    tag: 0
+    val: 5
+},
+{
+  index: 1
+    tag: 5
+    val: fooA
+},
+{
+  index: 2
+    tag: 0
+    val: 6
+},
+{
+  index: 3
+    tag: 6
+    val: .fooA
+},
+{
+  index: 4
+    tag: 0
+    val: 9
+},
+{
+  index: 5
+    tag: 9
+    val: 0
+},
+{
+  index: 6
+    tag: 0
+    val: 2
+},
+{
+  index: 7
+    tag: 2
+    val: 1
+},
+{
+  index: 8
+    tag: 0
+    val: 24
+},
+{
+  index: 9
+    tag: 24
+    val: _1
+},

@@ -1,0 +1,32 @@
+# Copyright (c) 2023-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("./dlp_permission_service.gni")
+
+group("dlp_permission_build_module") {
+  if (is_standard_system) {
+    deps = [
+      "${dlp_root_dir}/frameworks/access_config:clone_app_permission_config",
+      "${dlp_root_dir}/interfaces/inner_api/dlp_fuse:libdlp_fuse",
+      "${dlp_root_dir}/interfaces/inner_api/dlp_permission:libdlp_permission_common_interface",
+      "${dlp_root_dir}/interfaces/inner_api/dlp_permission:libdlp_permission_sdk",
+      "${dlp_root_dir}/interfaces/kits/c:ohdlp_permission",
+      "${dlp_root_dir}/services/dlp_permission/sa:dlp_permission_service",
+      "${dlp_root_dir}/services/dlp_permission/sa/sa_profile:dlp_permission_sa_profile_standard",
+    ]
+  }
+  if (support_jsapi) {
+    deps += [ "${dlp_root_dir}/interfaces/kits:napi_packages" ]
+  }
+}

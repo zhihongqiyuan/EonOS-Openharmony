@@ -1,0 +1,72 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ /**
+ * @addtogroup HdiLpfenceSafeLocation
+ * @{
+ *
+ * @brief Provides safe location APIs for the safe location service.
+ *
+ * @since 5.0
+ * @version 1.0
+ */
+
+/**
+ * @file ISafeLocationCallback.idl
+ *
+ * @brief Declares the callbacks for the safe location module.
+ *
+ * @since 5.0
+ * @version 1.0
+ */
+
+/**
+ * @brief Declares the path of the safe location module interface package.
+ *
+ * @since 5.0
+ */
+package ohos.hdi.location.lpfence.safe_location.v1_0;
+
+/**
+ * @brief Imports data types of the safe location module.
+ *
+ * @since 5.0
+ */
+import ohos.hdi.location.lpfence.safe_location.v1_0.SafeLocationTypes;
+
+/**
+ * @brief Defines the callback for the safe location module.
+ *
+ * Before enabling the safe location feature, you need to register this callback to report the device has obtained the safe location information.
+ * For details, see {@link ISafeLocationInterface}.
+ *
+ * @since 5.0
+ */
+[callback] interface ISafeLocationCallback {
+    /**
+     * @brief Called to report the safe location request result.
+     *
+     *
+     *
+     * @param ret Indicates the result of getting safe location.
+     *
+     * @return Returns <b>0</b> if the callback is invoked successfully.
+     * @return Returns a negative value if the callback fails to be invoked.
+     *
+     @since 5.0
+     */
+    OnGetSafeLocationCb([in] int res);
+}
+/** @} */

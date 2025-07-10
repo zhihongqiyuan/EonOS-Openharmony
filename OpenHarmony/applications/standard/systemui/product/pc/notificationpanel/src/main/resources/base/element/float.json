@@ -1,0 +1,156 @@
+  {
+  "float": [
+    {
+      "name": "default_border_radius",
+      "value": "18vp"
+    },
+    {
+      "name": "quicklysetting_time_fontsize",
+      "value": "30"
+    },
+    {
+      "name": "quicklysetting_date_fontsize",
+      "value": "20"
+    },
+    {
+      "name": "quicklysetting_textflex_marginleft",
+      "value": "10"
+    },
+    {
+      "name": "quicklysetting_image_width",
+      "value": "50"
+    },
+    {
+      "name": "quicklysetting_image_height",
+      "value": "50"
+    },
+    {
+      "name": "quicklysetting_image_marginright",
+      "value": "10"
+    },
+    {
+      "name": "quicklysetting_borderradius",
+      "value": "20"
+    },
+    {
+      "name": "quicklysetting_marginleft",
+      "value": "10"
+    },
+    {
+      "name": "quicklysetting_marginright",
+      "value": "10"
+    },
+    {
+      "name": "deleteall_image_width",
+      "value": "50"
+    },
+    {
+      "name": "deleteall_image_height",
+      "value": "50"
+    },
+    {
+      "name": "deleteall_image_borderradius",
+      "value": "25"
+    },
+    {
+      "name": "setting_title_fontsize",
+      "value": "20vp"
+    },
+    {
+      "name": "title_font_height",
+      "value": "28vp"
+    },
+    {
+      "name": "title_font_margin_t",
+      "value": "13vp"
+    },
+    {
+      "name": "confirm_button_margin_t",
+      "value": "23vp"
+    },
+    {
+      "name": "message_font_margin_t",
+      "value": "14vp"
+    },
+    {
+      "name": "confirm_title_fontsize",
+      "value": "20fp"
+    },
+    {
+      "name": "title_image_width",
+      "value": "24vp"
+    },
+    {
+      "name": "title_image_height",
+      "value": "24vp"
+    },
+    {
+      "name": "setting_cont_fontsize",
+      "value": "16fp"
+    },
+    {
+      "name": "close_notification_margin_top",
+      "value": "15vp"
+    },
+    {
+      "name": "notification_appname_margin_top",
+      "value": "11vp"
+    },
+    {
+      "name": "notification_cancle_margin_top",
+      "value": "11vp"
+    },
+    {
+      "name": "setting_dialog_dy",
+      "value": "110"
+    },
+    {
+      "name": "confirm_dialog_dy",
+      "value": "140"
+    },
+    {
+      "name": "notification_border_radius",
+      "value": "24vp"
+    },
+    {
+      "name": "applist_hieght",
+      "value": "361vp"
+    },
+    {
+      "name": "setting_dialog_height",
+      "value": "192vp"
+    },
+    {
+      "name": "setting_dialog_width",
+      "value": "362vp"
+    },
+    {
+      "name": "setting_dialog_row_width",
+      "value": "330vp"
+    },
+    {
+      "name": "setting_dialog_row_height",
+      "value": "40vp"
+    },
+    {
+      "name": "confirm_dialog_height",
+      "value": "146vp"
+    },
+    {
+      "name": "confirm_dialog_width",
+      "value": "362vp"
+    },
+    {
+      "name": "confirm_dialog_row_width",
+      "value": "330vp"
+    },
+    {
+      "name": "confirm_dialog_button_width",
+      "value": "181vp"
+    },
+    {
+      "name": "confirm_cont_fontsize",
+      "value": "16fp"
+    }
+  ]
+}

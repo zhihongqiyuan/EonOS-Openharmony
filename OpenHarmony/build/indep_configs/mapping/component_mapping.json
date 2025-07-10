@@ -1,0 +1,9 @@
+{
+    "gni_mapping_file":{
+        "//third_party/musl/musl_config.gni": "//binarys/third_party/musl/musl_config.gni",
+        "//commonlibrary/memory_utils/purgeable_mem_config.gni": "//build/config/components/memory_utils/purgeable_mem_config.gni"
+    },
+    "single_component_path":{
+        "startup_init": "base/startup/init"
+    }
+}

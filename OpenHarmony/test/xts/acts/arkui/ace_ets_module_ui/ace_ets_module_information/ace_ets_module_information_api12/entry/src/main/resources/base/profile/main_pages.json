@@ -1,0 +1,14 @@
+{
+    "src": [
+        "MainAbility/pages/index/index",
+        "MainAbility/pages/Gauge/gauge",
+        "MainAbility/pages/progress/ProgressMask",
+        "MainAbility/pages/progress/progress",
+        "MainAbility/pages/PatternLock/PatternLockActivateCircleStyle1",
+        "MainAbility/pages/SymbolGlyph/SymbolGlyph_API/BounceSymbolEffect",
+        "MainAbility/pages/SymbolGlyph/SymbolGlyph_API/ReplaceSymbolEffect",
+        "MainAbility/pages/Tabs/AnimationMode_API/ACTION_FIRST",
+        "MainAbility/pages/Tabs/AnimationMode_API/CONTENT_FIRST",
+        "MainAbility/pages/Tabs/AnimationMode_API/NO_ANIMATION"
+    ]
+}

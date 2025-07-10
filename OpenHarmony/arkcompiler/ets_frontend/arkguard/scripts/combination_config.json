@@ -1,0 +1,1853 @@
+{
+  "01_export_import_cases": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/01_export_import_cases"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["nsFoo"],
+          "mReservedProperties": []
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["var1", "var3", "addFunc", "reduceFunc", "moduleAlias", "moduleAlias_2", "typeAlias1"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["var1", "var3", "addFunc", "reduceFunc", "moduleAlias", "moduleAlias_2", "typeAlias1"]
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["var1", "var3", "addFunc", "reduceFunc", "typeAlias1", "moduleAlias", "moduleAlias_2",
+            "nsFoo"],
+          "mReservedProperties": []
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["var1", "var3", "addFunc", "reduceFunc", "typeAlias1", "moduleAlias", "moduleAlias_2",
+            "nsFoo"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+export":{
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["nsFoo"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "01_01_export_import_cases": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/01_01_export_import_cases"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": [
+            "readFileSync"
+          ]
+        }
+      },
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": [
+            "readFileSync"
+          ]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": [
+            "readFileSync"
+          ]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": [
+            "readFileSync"
+          ]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": [
+            "readFileSync"
+          ]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": [
+            "readFileSync"
+          ]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": [
+            "readFileSync"
+          ]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": [
+            "readFileSync"
+          ]
+        }
+      }
+    }
+  },
+  "01_02_export_import_cases": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/01_02_export_import_cases"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {}
+  },
+  "01_03_export_import_cases": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/01_03_export_import_cases"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["C3", "I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t"],
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "01_04_export_import_cases": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/01_04_export_import_cases"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N", "E1","A","B","C","A1","NS1","NS2","t","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A"],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A"],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N", "E1","A","B","C","A1","NS1","NS2","a","foo","t","C"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","A1","B","NS1","NS2"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N","E1","B","C","t","A1","NS1","NS2","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N","E1","A1","B","NS1","NS2","t","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","B","A1","NS1","NS2"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "01_06_export_import_cases": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/01_06_export_import_cases"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "property": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["Person"]
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["Person"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["Person"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["Person"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["Person"]
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["Person", "reduce"]
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["Person", "reduce"]
+        }
+      }
+    }
+  },
+  "02_function": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/02_function"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+    }
+  },
+  "03_block_scope": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/03_block_scope"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+    }
+  },
+  "04_class_cases": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/04_class_cases"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["C3"]
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["C3"]
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["C3"]
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["C3"]
+        }
+      }
+    }
+  },
+  "05_interface": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/05_interface"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N", "E1","A","B","C","A1","NS1","NS2","t","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A"],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A"],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N", "E1","A","B","C","A1","NS1","NS2","a","foo","t","C"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","A1","B","NS1","NS2"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N","E1","B","C","t","A1","NS1","NS2","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N","E1","A1","B","NS1","NS2","t","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","B","A1","NS1","NS2"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "06_type": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/06_type"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","up","prop1","t","1243","2134"]
+        }
+      },
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N", "E1","A","B","C","A1","NS1","NS2","t","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A"],
+          "mReservedProperties": ["up","prop1","A","B","1243","2134"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","up","prop1","t","1234","3142","2314","1243","2134"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A"],
+          "mReservedProperties": ["up","prop1","A","B","1234","3142","2314","1243","2134"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","up","prop1","t","1234","3142","2314","1243","2134"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["up","prop1","A","B","1234","3142","2314","1243","2134"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","up","prop1","t","1243","2134"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["up","prop1","A","B","1243","2134"]
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N", "E1","A","B","C","A1","NS1","NS2","a","foo","t","C"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","A1","B","NS1","NS2"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N","E1","B","C","t","A1","NS1","NS2","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N","E1","A1","B","NS1","NS2","t","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","B","A1","NS1","NS2"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "07_namespace": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/07_namespace"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N", "E1","A","B","C","A1","NS1","NS2","t","a","foo","Y","Z","M2","I","temp3","temp5"],
+          "mReservedProperties": []
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A"],
+          "mReservedProperties": ["U","up","prop1","A","B","A1","NS2","NS1"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A"],
+          "mReservedProperties": ["U","up","prop1","A","B","NS1","A1","NS2"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N", "E1","A","B","C","A1","NS1","NS2","a","foo","t","C","Y","Z","M2","I","temp3","temp5","N"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","A1","B","NS1","NS2"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","N","E1","B","C","t","A1","NS1","NS2","a","foo","Y","Z","M2","I","temp3","temp5"],
+          "mReservedProperties": []
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","N","E1","A1","B","NS1","NS2","t","a","foo","Y","Z","M2","I","temp3","temp5","C"],
+          "mReservedProperties": []
+        }
+      },
+      "top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","B","A1","NS1","NS2"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "08_enum": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/08_enum"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N", "E1","A","B","C","A1","NS1","NS2","t","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A"],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A"],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N", "E1","A","B","C","A1","NS1","NS2","a","foo","t","C"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","A1","B","NS1","NS2"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N","E1","B","C","t","A1","NS1","NS2","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N","E1","A1","B","NS1","NS2","t","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","B","A1","NS1","NS2"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "09_shorthand": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/09_shorthand"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+    }
+  },
+  "10_object": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/10_object"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["a01"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["a01"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["a01"],
+          "mReservedProperties": []
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["a01"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "11_deconstruction": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/11_deconstruction"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+    }
+  },
+  "12_decorator": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/12_decorator"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "13_forwhile": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/13_forwhile"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["C3", "I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t"],
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "14_label": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/14_label"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["C3", "I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t"],
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "15_symbol": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/15_symbol"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N", "E1","A","B","C","A1","NS1","NS2","t","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A"],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A"],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["prop","U","up","prop1","t"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [],
+          "mReservedProperties": ["U","up","prop1","A","B"]
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N", "E1","A","B","C","A1","NS1","NS2","a","foo","t","C"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","A1","B","NS1","NS2"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N","E1","B","C","t","A1","NS1","NS2","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["N","E1","A1","B","NS1","NS2","t","a","foo"],
+          "mReservedProperties": []
+        }
+      },
+      "top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["A","B","A1","NS1","NS2"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "16_async_await": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/16_async_await"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["C3", "I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t"],
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "17_declaration": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/17_declaration"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["C3", "I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t"],
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "18_variable_declaration_cases": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/18_variable_declaration_cases"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["C3", "I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t"],
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "19_switch_case": {
+    "enableOptions": {
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+      },
+      "mExportObfuscation": true
+    },
+    "inputDirs": [
+      "../test/combinations/basic_grammar/19_switch_case"
+    ],
+    "outputDir": "../test/local/combinations/basic_grammar",
+    "whitelist": {
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["C3", "I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t"],
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "i3"]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var21", "varr", "ele13", "ele14", "i3"]
+        }
+      },
+      "prop+top+export": {
+        "mNameObfuscation": {
+          "mReservedProperties": ["strictEqual", "var10", "var13", "var16", "i3"]
+        }
+      },
+      "top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+top+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      },
+      "strProp+export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": ["I", "C1", "E2", "t", "var20", "var21", "varr", "ele13", "ele14"],
+          "mReservedProperties": []
+        }
+      }
+    }
+  },
+  "keep_parameter": {
+    "enableOptions": {
+      "mExportObfuscation": true,
+      "mNameObfuscation": {
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true,
+        "mKeepParameterNames": true
+      }
+    },
+    "inputDirs": [
+      "../test/combinations/keep_parameter/01_function_class",
+      "../test/combinations/keep_parameter/02_struct"
+    ],
+    "outputDir": "../test/local/combinations/keep_parameter",
+    "whitelist": {
+      "strProp+top+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "prop+strProp+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "export+top+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "export+strProp": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "prop+strProp+top+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "export+prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "export": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "export+prop+top+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "export+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "export+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "export+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "export+prop+strProp+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "export+prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "prop+top+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "export+prop+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "prop+strProp": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "prop+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "export+prop+strProp+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "prop+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "export+strProp+top+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "export+prop+top": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "top+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      },
+      "export+prop+strProp+top+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "foo1", "foo2", "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "method1", "method2", "method3", "method4", "field5", "method9", "manualKeepMethod1", "111", "222"
+          ]
+        }
+      },
+      "strProp": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "prop": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "manualKeepClassName",
+            "manualKeepFoo1"
+          ],
+          "mReservedProperties": [
+            "manualKeepMethod1"
+          ]
+        }
+      },
+      "export+strProp+keepPara": {
+        "mNameObfuscation": {
+          "mReservedToplevelNames": [
+            "*"
+          ],
+          "mReservedProperties": [
+            "*"
+          ]
+        }
+      }
+    }
+  }
+}

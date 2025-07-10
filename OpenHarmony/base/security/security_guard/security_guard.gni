@@ -1,0 +1,29 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+sg_root_dir = "//base/security/security_guard"
+fuzz_test_output_path = "security_guard/security_guard"
+declare_args() {
+  security_guard_enable = true
+  security_guard_enable_ext = false
+  security_guard_trim_model_analysis = false
+  security_guard_event_cfg_source = "security_guard_event.json"
+  security_guard_model_cfg_source = "security_guard_model.cfg"
+  security_guard_event_group_cfg_source = "security_guard_event_group.json"
+  security_guard_config_update_trust_list_source =
+      "config_update_trust_list.json"
+  security_guard_collector_cfg_source = "security_audit.cfg"
+  security_guard_sa_profile_path = "security_guard.cfg"
+  security_guard_security_collector_sa_profile_path = "security_collector.cfg"
+  security_guard_event_filter_path = "/system/lib/libsg_event_filter.so"
+}

@@ -1,0 +1,49 @@
+{
+    "name": "@ohos/hiview_lite",
+    "description": "DFX services for liteos-m kernel.",
+    "optional": "false",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/hiviewdfx/hiview_lite"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "hiview_lite",
+        "subsystem": "hiviewdfx",
+        "adapted_system_type": [
+            "mini"
+        ],
+        "features": [
+            "hiview_lite_output_option",
+            "hiview_lite_hilog_lite_level",
+            "hiview_lite_hilog_lite_level_release",
+            "hiview_lite_hilog_lite_log_switch",
+            "hiview_lite_dump_lite_dump_switch",
+            "hiview_lite_hievent_lite_event_switch",
+            "hiview_lite_output_module",
+            "hiview_lite_dir",
+            "hiview_lite_stack_size",
+            "hiview_lite_stack_prio",
+            "hiview_lite_customize_implementation",
+            "hiview_lite_disable_core_init"
+        ],
+        "rom": "10KB",
+        "ram": "~10KB",
+        "deps": {
+            "components": [
+                "liteos_m"
+            ],
+            "third_party": [
+                "bounds_checking_function"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/hiviewdfx/hiview_lite:hiview_lite"
+            ]
+        }
+    }
+}

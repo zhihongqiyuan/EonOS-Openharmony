@@ -1,0 +1,40 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the License);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import assert from "assert";
+abstract class i2 {
+    abstract o2(): number;
+    q2(): string {
+        return '22';
+    }
+}
+class j2 extends i2 {
+    o2(): number {
+        return 11;
+    }
+}
+let l2 = new j2();
+assert(l2.o2() === 11, 'success');
+assert(l2.q2() === '22', 'success');
+class m2 extends i2 {
+    o2(): number {
+        return 111;
+    }
+    q2(): string {
+        return '222';
+    }
+}
+let n2 = new m2();
+assert(n2.o2() === 111, 'success');
+assert(n2.q2() === '222', 'success');

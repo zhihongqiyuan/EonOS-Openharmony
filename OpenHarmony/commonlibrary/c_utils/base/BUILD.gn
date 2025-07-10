@@ -1,0 +1,322 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/ohos.gni")
+
+###############################################################################
+declare_args() {
+  c_utils_feature_coverage = false
+  c_utils_debug_refbase = false
+  c_utils_track_all = false
+  c_utils_print_track_at_once = false
+  c_utils_debug_log_enabled = false
+  c_utils_feature_intsan = true
+  c_utils_parcel_object_check = true
+  c_utils_feature_enable_pgo = false
+  c_utils_feature_pgo_path = ""
+}
+
+config("utils_config") {
+  include_dirs = [ "include" ]
+  defines = []
+  if (current_os == "ios") {
+    defines += [ "IOS_PLATFORM" ]
+  }
+  if (current_os == "win" || current_os == "mingw") {
+      defines += [ "WINDOWS_PLATFORM" ]
+  }
+  if (current_os == "mac") {
+      defines += [ "MAC_PLATFORM" ]
+  }
+  if (is_emulator == true) {
+    defines += [ "EMULATOR_PLATFORM" ]
+  }
+  if (current_os == "ohos") {
+    defines += [ "OHOS_PLATFORM" ]
+  }
+}
+
+config("utils_coverage_config") {
+  visibility = [ ":*" ]
+  if (c_utils_feature_coverage) {
+    cflags = [ "--coverage" ]
+    ldflags = [ "--coverage" ]
+  }
+}
+
+config("debug_log_enabled") {
+  visibility = [ ":*" ]
+  defines = [ "DEBUG_UTILS" ]
+}
+
+config("debug_refbase") {
+  visibility = [ ":*" ]
+  defines = [ "DEBUG_REFBASE" ]
+}
+
+config("print_track_at_once") {
+  visibility = [ ":*" ]
+  defines = [ "PRINT_TRACK_AT_ONCE" ]
+}
+
+config("track_all") {
+  visibility = [ ":*" ]
+  defines = [ "TRACK_ALL" ]
+}
+
+config("parcel_object_check") {
+  visibility = [ ":*" ]
+  defines = [ "PARCEL_OBJECT_CHECK" ]
+}
+
+sources_utils = [
+  "src/string_ex.cpp",
+  "src/unicode_ex.cpp",
+  "src/directory_ex.cpp",
+  "src/datetime_ex.cpp",
+  "src/refbase.cpp",
+  "src/parcel.cpp",
+  "src/semaphore_ex.cpp",
+  "src/thread_pool.cpp",
+  "src/file_ex.cpp",
+  "src/mapped_file.cpp",
+  "src/observer.cpp",
+  "src/thread_ex.cpp",
+  "src/io_event_handler.cpp",
+  "src/io_event_reactor.cpp",
+  "src/io_event_epoll.cpp",
+  "src/event_handler.cpp",
+  "src/event_reactor.cpp",
+  "src/event_demultiplexer.cpp",
+  "src/timer.cpp",
+  "src/timer_event_handler.cpp",
+  "src/ashmem.cpp",
+  "src/rwlock.cpp",
+]
+
+if (current_os == "win" || current_os == "mingw" || current_os == "mac") {
+  sources_utils_win_and_mac = [
+    "src/parcel.cpp",
+    "src/refbase.cpp",
+    "src/string_ex.cpp",
+    "src/unicode_ex.cpp",
+  ]
+}
+
+if (current_os == "ios") {
+  sources_utils_ios = [
+    "src/directory_ex.cpp",
+    "src/parcel.cpp",
+    "src/refbase.cpp",
+    "src/rwlock.cpp",
+    "src/string_ex.cpp",
+  ]
+}
+
+ohos_static_library("utilsbase") {
+  if (current_os == "ios") {
+    sources = sources_utils_ios
+    configs = [ ":utils_coverage_config" ]
+    public_configs = [ ":utils_config" ]
+
+    public_external_deps = [ "bounds_checking_function:libsec_static" ]
+
+    subsystem_name = "commonlibrary"
+    part_name = "c_utils"
+  } else {
+    sources = sources_utils
+    configs = [ ":utils_coverage_config" ]
+    public_configs = [ ":utils_config" ]
+    if (current_os != "android" && current_os != "ios") {
+      defines = [ "CONFIG_HILOG" ]
+    }
+    if (c_utils_debug_log_enabled) {
+      configs += [ ":debug_log_enabled" ]
+    }
+    external_deps = [ "hilog:libhilog_base" ]
+
+    public_external_deps = [ "bounds_checking_function:libsec_static" ]
+    subsystem_name = "commonlibrary"
+    part_name = "c_utils"
+  }
+}
+
+ohos_static_library("utilsbase_rtti") {
+  visibility = [ "//foundation/multimedia/media_foundation/engine/plugin/plugins/source/video_capture:std_video_capture" ]
+  sources = sources_utils
+  public_configs = [ ":utils_config" ]
+  if (current_os != "android" && current_os != "ios") {
+    defines = [ "CONFIG_HILOG" ]
+  }
+  external_deps = [ "hilog:libhilog_base" ]
+
+  public_external_deps = [ "bounds_checking_function:libsec_static" ]
+  remove_configs = [ "//build/config/compiler:no_rtti" ]
+  cflags = [ "-frtti" ]
+  subsystem_name = "commonlibrary"
+  part_name = "c_utils"
+}
+
+ohos_shared_library("utils") {
+  innerapi_tags = [
+    "chipsetsdk",
+    "platformsdk",
+    "sasdk",
+  ]
+  if (current_os == "win" || current_os == "mingw" || current_os == "mac") {
+    sources = sources_utils_win_and_mac
+    public_configs = [ ":utils_config" ]
+    public_external_deps = [ "bounds_checking_function:libsec_shared" ]
+
+    subsystem_name = "commonlibrary"
+    part_name = "c_utils"
+  } else if (current_os == "ios") {
+    sources = sources_utils_ios
+    configs = [ ":utils_coverage_config" ]
+    all_dependent_configs = [ ":utils_config" ]
+    public_configs = [ ":utils_config" ]
+    public_external_deps = [ "bounds_checking_function:libsec_shared" ]
+
+    subsystem_name = "commonlibrary"
+    part_name = "c_utils"
+  } else {
+    sources = sources_utils
+    configs = [ ":utils_coverage_config" ]
+
+    if (!is_arkui_x) {
+      if (c_utils_feature_intsan) {
+        sanitize = {
+          integer_overflow = true
+        }
+        branch_protector_ret = "pac_ret"
+      }
+    }
+
+    if (c_utils_debug_refbase) {
+      configs += [ ":debug_refbase" ]
+      if (c_utils_track_all) {
+        configs += [ ":track_all" ]
+      }
+      if (c_utils_print_track_at_once) {
+        configs += [ ":print_track_at_once" ]
+      }
+    }
+    if (c_utils_parcel_object_check) {
+      configs += [ ":parcel_object_check" ]
+    }
+    all_dependent_configs = [ ":utils_config" ]
+    public_configs = [ ":utils_config" ]
+    if (current_os != "android" && current_os != "ios") {
+      defines = [ "CONFIG_HILOG" ]
+    }
+    if (c_utils_debug_log_enabled) {
+      configs += [ ":debug_log_enabled" ]
+    }
+    external_deps = [ "hilog:libhilog_base" ]
+    public_external_deps = [ "bounds_checking_function:libsec_shared" ]
+    subsystem_name = "commonlibrary"
+    part_name = "c_utils"
+    install_images = [
+      "system",
+      "updater",
+    ]
+  }
+  if (is_ohos && is_clang && enhanced_opt &&
+      (target_cpu == "arm" || target_cpu == "arm64")) {
+    if (c_utils_feature_enable_pgo) {
+      cflags = [
+        "-fprofile-use=" +
+            rebase_path("${c_utils_feature_pgo_path}/libutils.profdata",
+                        root_build_dir),
+        "-Wno-error=backend-plugin",
+        "-Wno-profile-instr-out-of-date",
+        "-Wno-profile-instr-unprofiled",
+      ]
+    }
+
+    ldflags = [ "-Wl,-Bsymbolic" ]
+    if (c_utils_feature_enable_pgo && target_cpu == "arm64" &&
+        enable_enhanced_opt) {
+      ldflags += [ "-Wl,--aarch64-inline-plt" ]
+    }
+  }
+}
+
+########## modules for `c_utils` in rust ##########
+# rust compiler is not supportted on mac
+if (host_os == "linux" && host_cpu != "arm64" && !is_arkui_x && current_os != "mac") {
+  import("//build/templates/rust/rust_cxx.gni")  # used for templates rust_cxx()
+  rust_cxx("cxx_rust_gen") {
+    sources = [
+      "src/rust/ashmem.rs",
+      "src/rust/directory_ex.rs",
+      "src/rust/file_ex.rs",
+    ]
+  }
+
+  ohos_static_library("utils_static_cxx_rust") {
+    sources = [
+      "src/ashmem.cpp",
+      "src/directory_ex.cpp",
+      "src/file_ex.cpp",
+      "src/refbase.cpp",
+    ]
+    sources += get_target_outputs(":cxx_rust_gen")
+    defines = [ "UTILS_CXX_RUST" ]
+    include_dirs = [
+      "include",
+      "${target_gen_dir}",
+    ]
+    deps = [
+      ":cxx_rust_gen",
+      "//third_party/rust/crates/cxx:cxx_cppdeps",
+    ]
+    public_external_deps = [ "bounds_checking_function:libsec_shared" ]
+    subsystem_name = "commonlibrary"
+    part_name = "c_utils"
+  }
+}
+
+if (!is_arkui_x && !(host_os == "linux" && host_cpu == "arm64") && current_os != "mac") {
+  ohos_rust_shared_library("utils_rust") {
+    if (host_os == "linux") {
+      sources = [
+        "src/rust/ashmem.rs",
+        "src/rust/directory_ex.rs",
+        "src/rust/file_ex.rs",
+        "src/rust/lib.rs",
+      ]
+      deps = [
+        ":utils_static_cxx_rust",
+        "//third_party/rust/crates/cxx:lib",
+      ]
+      crate_root = "src/rust/lib.rs"
+      crate_name = "utils_rust"
+      crate_type = "dylib"
+      output_extension = "dylib.so"
+      subsystem_name = "commonlibrary"
+      part_name = "c_utils"
+      install_images = [
+        "system",
+        "updater",
+      ]
+    } else {
+      sources = [
+        "src/rust/ashmem.rs",
+        "src/rust/directory_ex.rs",
+        "src/rust/file_ex.rs",
+        "src/rust/lib.rs",
+      ]
+    }
+  }
+}
+###############################################################################

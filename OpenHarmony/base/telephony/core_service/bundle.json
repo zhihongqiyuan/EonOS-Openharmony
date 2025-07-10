@@ -1,0 +1,143 @@
+{
+    "name": "@ohos/core_service",
+    "version": "4.0",
+    "description": "telephony core service",
+    "publishAs": "code-segment",
+    "homePage": "https://gitee.com/openharmony",
+    "repository": "https://gitee.com/openharmony/telephony_core_service",
+    "license": "Apache License 2.0",
+    "language": "",
+    "private": false,
+    "scripts": {},
+    "envs": [],
+    "dirs": [],
+    "author": {},
+    "contributors": [],
+    "segment": {
+        "destPath": "base/telephony/core_service"
+    },
+    "component": {
+        "name": "core_service",
+        "subsystem": "telephony",
+        "syscap": [
+            "SystemCapability.Telephony.CoreService",
+            "SystemCapability.Telephony.CoreService.Esim"
+        ],
+        "features": [
+            "core_service_support_esim"
+        ],
+        "hisysevent_config": [
+            "//base/telephony/core_service/hisysevent.yaml"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "2MB",
+        "ram": "5MB",
+        "deps": {
+            "components": [
+                "ability_base",
+                "ability_runtime",
+                "access_token",
+                "battery_manager",
+                "bundle_framework",
+                "cJSON",
+                "c_utils",
+                "common_event_service",
+                "config_policy",
+                "data_share",
+                "drivers_interface_ril",
+                "eventhandler",
+                "ffrt",
+                "hdf_core",
+                "hicollie",
+                "hilog",
+                "hisysevent",
+                "i18n",
+                "init",
+                "ipc",
+                "location",
+                "napi",
+                "netmanager_base",
+                "netmanager_ext",
+                "power_manager",
+                "preferences",
+                "resource_management",
+                "safwk",
+                "samgr",
+                "telephony_data",
+                "time_service",
+                "huks",
+                "libphonenumber",
+                "libpng",
+                "libxml2",
+                "openssl"
+            ]
+        },
+        "build": {
+            "group_type": {
+                "base_group": [
+                    "//base/telephony/core_service/interfaces/kits/c/telephony_radio:telephony_radio"
+                ],
+                "fwk_group": [
+                    "//base/telephony/core_service/interfaces/innerkits:tel_core_service_api",
+                    "//base/telephony/core_service/frameworks/js/network_search:radio",
+                    "//base/telephony/core_service/frameworks/js/sim:sim",
+                    "//base/telephony/core_service/frameworks/js/vcard:vcard"
+                ],
+                "service_group": [
+                    "//base/telephony/core_service:tel_core_service",
+                    "//base/telephony/core_service/sa_profile:core_service_sa_profile",
+                    "//base/telephony/core_service/services/etc/init:telephony_trust",
+                    "//base/telephony/core_service/services/etc/init:telephony.cfg",
+                    "//base/telephony/core_service/services/etc/carrier:operator_config",
+                    "//base/telephony/core_service/services/etc/operatorname:operator_name",
+                    "//base/telephony/core_service/services/etc/param:telephony.para",
+                    "//base/telephony/core_service/services/etc/param:telephony.para.dac",
+                    "//base/telephony/core_service/telephonyres:telephonyres_hap"
+                ]
+            },
+            "inner_kits": [
+                {
+                    "header": {
+                        "header_base": "//base/telephony/core_service/interfaces/innerkits",
+                        "header_files": []
+                    },
+                    "name": "//base/telephony/core_service/interfaces/innerkits:tel_core_service_api"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/telephony/core_service/utils",
+                        "header_files": []
+                    },
+                    "name": "//base/telephony/core_service/utils:libtel_common"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/telephony/core_service/utils",
+                        "header_files": []
+                    },
+                    "name": "//base/telephony/core_service/utils:libtel_vcard"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/telephony/core_service/frameworks/cj/telephony_radio/src",
+                        "header_files": []
+                    },
+                    "name": "//base/telephony/core_service/frameworks/cj/telephony_radio:cj_radio_ffi"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/telephony/core_service/frameworks/cj/telephony_sim/src",
+                        "header_files": []
+                    },
+                    "name": "//base/telephony/core_service/frameworks/cj/telephony_sim:cj_sim_ffi"
+                }
+            ],
+            "test": [
+                "//base/telephony/core_service/test:unittest",
+                "//base/telephony/core_service/test/fuzztest:fuzztest"
+            ]
+        }
+    }
+}

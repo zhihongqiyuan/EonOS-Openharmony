@@ -1,0 +1,3 @@
+test-ts-decorators-8
+1
+123

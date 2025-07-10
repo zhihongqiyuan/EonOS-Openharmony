@@ -1,0 +1,45 @@
+{
+  "intentName": "ControlPlayback",
+  "intentVersion": "1.0.1",
+  "llmDescription": "播放音乐控制",
+  "keywords": ["ControlPlayback"],
+  "params": {
+    "type": "object",
+    "propertyNames": {
+      "enum": [
+        "playbackSpeed",
+        "playbackProgress"
+      ]
+    },
+    "oneOf": [
+      {
+        "required": [
+          "playbackSpeed"
+        ]
+      },
+      {
+        "required": [
+          "playbackProgress"
+        ]
+      }
+    ],
+    "properties": {
+      "playbackSpeed": {
+        "description": "播放倍速",
+        "type": "number",
+        "enum": [
+          0.5,
+          0.75,
+          1.0,
+          1.25,
+          1.5,
+          2.0
+        ]
+      },
+      "playbackProgress": {
+        "description": "播放进度,单位秒",
+        "type": "number"
+      }
+    }
+  }
+}

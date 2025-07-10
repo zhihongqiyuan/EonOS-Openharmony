@@ -1,0 +1,26 @@
+{
+    "mCompact": false,
+    "mRemoveComments": false,
+    "mOutputDir": "../../../local",
+    "mDisableHilog": false,
+    "mDisableConsole": false,
+    "mSimplify": false,
+    "mNameObfuscation": {
+        "mEnable": false,
+        "mNameGeneratorType": 1,
+        "mDictionaryList": [],
+        "mReservedNames": [],
+        "mRenameProperties": false,
+        "mReservedProperties": [],
+        "mKeepStringProperty": true
+    },
+    "mRemoveDeclarationComments": {
+        "mEnable": true,
+        "mReservedComments": [
+            "Math*",
+            "mul?iple"
+        ]
+    },
+    "mEnableSourceMap": false,
+    "mEnableNameCache": false
+}

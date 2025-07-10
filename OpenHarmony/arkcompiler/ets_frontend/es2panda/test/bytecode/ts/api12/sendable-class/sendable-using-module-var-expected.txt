@@ -1,0 +1,144 @@
+slotNum = 0x4
+.language ECMAScript
+.function any .#~A=#A(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	callruntime.ldsendableexternalmodulevar 0x0
+	throw.undefinedifholewithname a
+	ldhole
+	sta v0
+	callruntime.definesendableclass 0x0, .#~A=A~B=#B, _3, 0x0, v0
+	sta v0
+	definemethod 0x1, .#~A=A~B>#static_initializer, 0x0
+	callthis0 0x2, v0
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~B=#B(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	callruntime.ldsendableexternalmodulevar 0x0
+	throw.undefinedifholewithname a
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A=A~B>#static_initializer(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	callruntime.ldsendableexternalmodulevar 0x0
+	throw.undefinedifholewithname a
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A>#B(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	callruntime.ldsendableexternalmodulevar 0x0
+	throw.undefinedifholewithname a
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x5
+.language ECMAScript
+.function any .#~A>#static_initializer(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	newlexenv 0x2
+	lda a1
+	stlexvar 0x0, 0x0
+	lda a2
+	stlexvar 0x0, 0x1
+	ldlexvar 0x0, 0x1
+	ldexternalmodulevar 0x0
+	throw.undefinedifholewithname a
+	definefunc 0x0, .#~A>@0*#, 0x0
+	ldhole
+	sta v0
+	callruntime.definesendableclass 0x1, .#~A>@0~B=#B, _5, 0x0, v0
+	sta v0
+	definemethod 0x2, .#~A>@0~B>#static_initializer, 0x0
+	callthis0 0x3, v0
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A>@0*#(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldexternalmodulevar 0x0
+	throw.undefinedifholewithname a
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A>@0~B=#B(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	callruntime.ldsendableexternalmodulevar 0x0
+	throw.undefinedifholewithname a
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any .#~A>@0~B>#static_initializer(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	newlexenv 0x2
+	lda a1
+	stlexvar 0x0, 0x0
+	lda a2
+	stlexvar 0x0, 0x1
+	ldlexvar 0x0, 0x1
+	ldexternalmodulevar 0x0
+	throw.undefinedifholewithname a
+	definefunc 0x0, .#~A>@0~B>@0*#, 0x0
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~A>@0~B>@0*#(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldexternalmodulevar 0x0
+	throw.undefinedifholewithname a
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	callruntime.definesendableclass 0x0, .#~A=#A, _7, 0x0, v0
+	sta v0
+	definemethod 0x1, .#~A>#static_initializer, 0x0
+	callthis0 0x2, v0
+	returnundefined
+label_2: 
+}
+
+

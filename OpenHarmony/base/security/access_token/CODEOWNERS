@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+# any change to behind files needs to be reviewed by @leonchan5
+frameworks/accesstoken/include/accesstoken_service_ipc_interface_code.h @leonchan5
+frameworks/accesstoken/include/tokensync_callback_ipc_interface_code.h @leonchan5
+frameworks/privacy/include/privacy_active_change_ipc_interface_code.h @leonchan5
+frameworks/privacy/include/privacy_am_service_ipc_interface_code.h @leonchan5
+frameworks/privacy/include/privacy_service_ipc_interface_code.h @leonchan5
+frameworks/privacy/include/privacy_state_change_ipc_interface_code.h @leonchan5
+frameworks/tokensync/include/token_sync_service_ipc_interface_code.h @leonchan5
+interfaces/inner_api/privacy/include/privacy_permission_record_ipc_interface_code.h @leonchan5
+interfaces/innerkits/token_callback/include/accesstoken_grant_result_ipc_interface_code.h @leonchan5

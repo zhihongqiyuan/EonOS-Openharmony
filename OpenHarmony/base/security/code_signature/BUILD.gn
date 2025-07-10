@@ -1,0 +1,40 @@
+# Copyright (c) 2023-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/ohos/sa_profile/sa_profile.gni")
+import("code_signature.gni")
+
+config("common_public_config") {
+  include_dirs = [ "interfaces/inner_api/common/include" ]
+}
+
+config("common_utils_config") {
+  include_dirs = [ "utils/include" ]
+}
+
+group("subcomponents") {
+  deps = [
+    "${code_signature_root_dir}/interfaces/inner_api/code_sign_attr_utils:libcode_sign_attr_utils",
+    "${code_signature_root_dir}/interfaces/inner_api/code_sign_utils:libcode_sign_utils",
+    "${code_signature_root_dir}/interfaces/inner_api/jit_code_sign:libjit_code_sign",
+    "${code_signature_root_dir}/interfaces/inner_api/local_code_sign:liblocal_code_sign_sdk",
+    "${code_signature_root_dir}/services/local_code_sign:liblocal_code_sign",
+    "${code_signature_root_dir}/services/local_code_sign:local_code_sign_configs",
+  ]
+
+  if (!ohos_indep_compiler_enable) {
+    deps +=
+        [ "${code_signature_root_dir}/services/key_enable:key_enable_targets" ]
+  }
+}

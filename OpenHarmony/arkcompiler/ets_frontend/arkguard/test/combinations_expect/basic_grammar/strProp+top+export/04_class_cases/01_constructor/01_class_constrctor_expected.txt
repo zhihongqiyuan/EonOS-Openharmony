@@ -1,0 +1,53 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the License);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import a from "assert";
+// 单个构造器
+class b {
+    prop1: number;
+    constructor(o: number) {
+        this.prop1 = o;
+    }
+    method1() {
+    }
+}
+let c = new b(1);
+a(c.prop1 === 1);
+// 多个构造器
+class d {
+    prop2: string;
+    constructor(n: 'hello');
+    constructor(m: 'bye');
+    constructor(l: string);
+    constructor(k: any) {
+        this.prop2 = k;
+    }
+    method2() {
+    }
+}
+let e = new d('bee');
+a(e.prop2 === 'bee');
+// class声明 - 两个构造器不连续
+declare namespace f {
+    class i {
+        constructor();
+        str3: string;
+        constructor(j: number);
+    }
+}
+declare class g {
+    constructor();
+    str4: string;
+    constructor(h: number);
+}

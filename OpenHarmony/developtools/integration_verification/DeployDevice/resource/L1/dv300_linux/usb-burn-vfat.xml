@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Partition_Info ProgrammerFile="">
+<Part Sel="1" PartitionName="fastboot" FlashType="emmc" FileSystem="none" Start="0" Length="1M" SelectFile="D:\version_L1dv300_linux\version\\u-boot-hi3516dv300.bin"/>
+<Part Sel="1" PartitionName="" FlashType="emmc" FileSystem="none" Start="1M" Length="9M" SelectFile="D:\version_L1dv300_linux\version\\uImage_hi3516dv300_smp"/>
+<Part Sel="1" PartitionName="" FlashType="emmc" FileSystem="none" Start="10M" Length="30M" SelectFile="D:\version_L1dv300_linux\version\\rootfs_vfat.img"/>
+<Part Sel="1" PartitionName="" FlashType="emmc" FileSystem="none" Start="40M" Length="50M" SelectFile="D:\version_L1dv300_linux\version\\userfs_vfat.img"/>
+</Partition_Info>

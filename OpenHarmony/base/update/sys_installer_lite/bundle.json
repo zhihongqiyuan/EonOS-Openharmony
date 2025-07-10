@@ -1,0 +1,82 @@
+{
+    "name": "@ohos/sys_installer_lite",
+    "version": "4.0.2",
+    "description": "为轻量级设备提供升级写入相关的api",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/update_sys_installer_lite",
+    "supplier": "Organization: OpenHarmony",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "base"
+    ],
+    "keywords": [
+        "update",
+        "ota",
+        "lite"
+    ],
+    "envs": {},
+    "dirs": {},
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [
+        {
+            "name": "",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "segment": {
+        "destPath": "base/update/sys_installer_lite"
+    },
+    "component": {
+        "name": "sys_installer_lite",
+        "subsystem": "updater",
+        "features": [
+            "sys_installer_lite_security_huks_mbedtls_porting_path"
+        ],
+        "adapted_system_type": [ 
+            "mini",
+            "small",
+            "standard"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "init",
+                "utils_lite"
+            ],
+            "third_party": [
+                "bounds_checking_function",
+                "mbedtls"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/update/sys_installer_lite/frameworks:sys_installer_lite"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//base/update/sys_installer_lite/frameworks:update_api",
+                    "header": {
+                        "header_files": [
+                            "hota_partition.h",
+                            "hota_updater.h"
+                        ],
+                        "header_base": "//base/update/sys_installer_lite/interfaces/kits"
+                    }
+                }
+            ],
+            "test": []
+        }
+    }
+}
+

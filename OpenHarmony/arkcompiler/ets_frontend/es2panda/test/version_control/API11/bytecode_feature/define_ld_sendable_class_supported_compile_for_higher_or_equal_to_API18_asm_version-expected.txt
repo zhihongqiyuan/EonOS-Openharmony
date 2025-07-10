@@ -1,0 +1,55 @@
+slotNum = 0x1
+.language ECMAScript
+.function any .#&#X(any a0, any a1, any a2, any a3) {
+label_1: 
+label_0: 
+	newlexenv 0x1
+	ldhole
+	sta v0
+	callruntime.definesendableclass 0x0, .#&X~@0=#TestTypeA, _3, 0x0, v0
+	stlexvar 0x0, 0x0
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x6
+expectedProperty = 0x2
+.language ECMAScript
+.function any .#&X~@0=#TestTypeA(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str A
+	stobjbyname 0x0, name, a2
+	callruntime.ldsendableclass 0x0
+	sta v0
+	mov v1, v0
+	newobjrange 0x2, 0x1, v1
+	stobjbyname 0x4, test, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_4: 
+label_0: 
+	ldundefined
+	sta v0
+	definefunc 0x0, .#&#X, 0x1
+	sta v1
+	lda v0
+	callruntime.istrue 0x1
+	jnez label_3
+label_2: 
+	createemptyobject
+	sta v0
+label_3: 
+	lda v1
+	callarg1 0x2, v0
+	returnundefined
+label_5: 
+}
+
+

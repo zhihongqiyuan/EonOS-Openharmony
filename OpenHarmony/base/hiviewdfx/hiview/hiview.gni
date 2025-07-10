@@ -1,0 +1,137 @@
+# Copyright (c) 2021-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# build type definitions
+is_phone = true
+is_tv = false
+is_watch = false
+
+# hiview path definitions
+hiview_root = "//base/hiviewdfx/hiview"
+hiview_adapter = "//base/hiviewdfx/hiview/adapter"
+hiview_base = "//base/hiviewdfx/hiview/base"
+hiview_core = "//base/hiviewdfx/hiview/core"
+hiview_plugin = "//base/hiviewdfx/hiview/plugins"
+hiview_service = "//base/hiviewdfx/hiview/service"
+hiview_framework = "//base/hiviewdfx/hiview/framework"
+hiview_interfaces = "//base/hiviewdfx/hiview/interfaces"
+hiview_test = "//base/hiviewdfx/hiview/test"
+hiview_ucollection =
+    "//base/hiviewdfx/hiview/framework/native/unified_collection"
+
+# hiview plugin path definitions
+hiview_faultlogger = "//base/hiviewdfx/hiview/plugins/faultlogger"
+hiview_eventlogger = "//base/hiviewdfx/hiview/plugins/eventlogger"
+
+# hiview module
+hiview_module = "hiview/hiview"
+
+declare_args() {
+  device_usage_statistics_enable = true
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.resourceschedule_device_usage_statistics)) {
+    device_usage_statistics_enable = false
+  }
+
+  battery_statistics_enable = true
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.powermgr_battery_statistics)) {
+    battery_statistics_enable = false
+  }
+
+  power_manager_enable = true
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.powermgr_power_manager)) {
+    power_manager_enable = false
+  }
+
+  thermal_manager_enable = true
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.powermgr_thermal_manager)) {
+    thermal_manager_enable = false
+  }
+
+  enable_hiview_usage_event_report_build = true
+
+  has_hiperf = true
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.developtools_hiperf)) {
+    has_hiperf = false
+  }
+  has_hiprofiler = true
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.developtools_hiprofiler)) {
+    has_hiprofiler = false
+  }
+
+  is_wifi_enable = true
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.communication_wifi)) {
+    is_wifi_enable = false
+  }
+
+  window_manager_enable = true
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.window_window_manager)) {
+    window_manager_enable = false
+  }
+
+  multimodalinput_input_enable = true
+  if (defined(global_parts_info) &&
+      !defined(global_parts_info.multimodalinput_input)) {
+    multimodalinput_input_enable = false
+  }
+
+  hiview_enable_performance_monitor = false
+
+  hiview_enable_crash_validator = true
+
+  # hiview dfr feature
+  hiview_feature_bbox_userspace = false
+  hiview_enable_leak_detector = false
+  hiview_freeze_collect_enable = true
+  hiview_eventlogger_window_manager_enable = true
+  hiview_eventlogger_stacktrace_catcher_enable = true
+  hiview_eventlogger_binder_catcher_enable = true
+  hiview_eventlogger_dmesg_catcher_enable = true
+  hiview_eventlogger_hilog_catcher_enable = true
+  hiview_eventlogger_hitrace_catcher_enable = true
+  hiview_eventlogger_usage_catcher_enable = true
+  hiview_eventlogger_scb_catcher_enable = true
+  hiview_eventlogger_other_catcher_enable = true
+  hiview_eventlogger_kernel_catcher_enable = false
+
+  # hiview dft feature
+  hiview_unified_collector_PC_app_state_collect_enable = false
+  hiview_appevent_publish_enable = true
+  hiview_param_update_enable = true
+  hiview_sysevent_store_enable = true
+  hiview_privacy_enable = true
+  hiview_usage_stat_enable = true
+  hiview_usage_fold_stat_enable = true
+  hiview_unified_collector_perf_enable = true
+  hiview_unified_collector_ebpf_enable = true
+  hiview_unified_collector_network_enable = true
+  hiview_unified_collector_graphic_enable = true
+  hiview_unified_collector_gpu_enable = true
+  hiview_unified_collector_cpu_enable = true
+  hiview_unified_collector_mem_profiler_enable = true
+  hiview_unified_collector_io_enable = true
+  hiview_unified_collector_thermal_enable = true
+  hiview_unified_collector_memory_enable = true
+  hiview_unified_collector_hilog_enable = true
+  hiview_unified_collector_wm_enable = true
+  hiview_unified_collector_process_enable = true
+  hiview_unified_collector_trace_enable = true
+  hiview_unified_collector_low_mem_threshold = 0
+  hiview_unified_collector_trace_for_cpu_high_load = true
+}

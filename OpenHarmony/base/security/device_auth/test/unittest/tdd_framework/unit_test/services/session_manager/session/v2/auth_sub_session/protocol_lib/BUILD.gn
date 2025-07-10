@@ -1,0 +1,125 @@
+# Copyright (C) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("../../../../../../../tdd_framework.gni")
+
+module_output_path = "device_auth/device_auth"
+
+ohos_unittest("iso_protocol_test") {
+  module_out_path = module_output_path
+
+  include_dirs = hals_inc_path
+  include_dirs += [
+    "${inner_api_path}",
+    "${frameworks_path}/inc/standard",
+    "${session_manager_path}/inc/session/v2/auth_sub_session/protocol_lib",
+  ]
+
+  include_dirs += [
+    "${tdd_framework_path}/tdd_helper/exception_controller/inc",
+    "${tdd_framework_path}/tdd_helper/memory_mock/inc",
+    "${tdd_framework_path}/tdd_helper/memory_monitor/inc",
+  ]
+
+  sources = iso_protocol_files
+  sources += [ "iso_protocol_test.cpp" ]
+
+  defines = [
+    "ENABLE_ISO",
+    "DEV_AUTH_MEMORY_DEBUG",
+  ]
+
+  deps = [ "${tdd_framework_path}/tdd_helper:device_auth_test_hal" ]
+
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "cJSON:cjson",
+    "googletest:gmock_main",
+    "googletest:gtest_main",
+    "hilog:libhilog",
+    "huks:libhukssdk",
+  ]
+}
+
+ohos_unittest("ec_speke_protocol_test") {
+  module_out_path = module_output_path
+
+  include_dirs = hals_inc_path
+  include_dirs += [
+    "${inner_api_path}",
+    "${frameworks_path}/inc/standard",
+    "${session_manager_path}/inc/session/v2/auth_sub_session/protocol_lib",
+  ]
+
+  include_dirs += [
+    "${tdd_framework_path}/tdd_helper/exception_controller/inc",
+    "${tdd_framework_path}/tdd_helper/memory_mock/inc",
+    "${tdd_framework_path}/tdd_helper/memory_monitor/inc",
+  ]
+
+  sources = ec_speke_protocol_files
+  sources += [ "ec_speke_protocol_test.cpp" ]
+
+  defines = [
+    "ENABLE_EC_SPEKE",
+    "DEV_AUTH_MEMORY_DEBUG",
+  ]
+
+  deps = [ "${tdd_framework_path}/tdd_helper:device_auth_test_hal" ]
+
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "cJSON:cjson",
+    "googletest:gmock_main",
+    "googletest:gtest_main",
+    "hilog:libhilog",
+    "huks:libhukssdk",
+  ]
+}
+
+ohos_unittest("dl_speke_protocol_test") {
+  module_out_path = module_output_path
+
+  include_dirs = hals_inc_path
+  include_dirs += [
+    "${inner_api_path}",
+    "${dev_frameworks_path}/inc",
+    "${frameworks_path}/inc/standard",
+    "${session_manager_path}/inc/session/v2/auth_sub_session/protocol_lib",
+  ]
+
+  include_dirs += [
+    "${tdd_framework_path}/tdd_helper/exception_controller/inc",
+    "${tdd_framework_path}/tdd_helper/memory_mock/inc",
+    "${tdd_framework_path}/tdd_helper/memory_monitor/inc",
+  ]
+
+  sources = dl_speke_protocol_files
+  sources += [ "dl_speke_protocol_test.cpp" ]
+
+  defines = [
+    "ENABLE_P2P_BIND_DL_SPEKE",
+    "DEV_AUTH_MEMORY_DEBUG",
+  ]
+
+  deps = [ "${tdd_framework_path}/tdd_helper:device_auth_test_hal" ]
+
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "cJSON:cjson",
+    "googletest:gmock_main",
+    "googletest:gtest_main",
+    "hilog:libhilog",
+    "huks:libhukssdk",
+  ]
+}

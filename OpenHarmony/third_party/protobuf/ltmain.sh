@@ -9188,4 +9188,2064 @@ func_mode_link ()
 	  *) func_append finalize_rpath " $libdir" ;;
 	  esac
 	done
-	if t
+	if test yes != "$hardcode_into_libs" || test yes = "$build_old_libs"; then
+	  dependency_libs="$temp_xrpath $dependency_libs"
+	fi
+      fi
+
+      # Make sure dlfiles contains only unique files that won't be dlpreopened
+      old_dlfiles=$dlfiles
+      dlfiles=
+      for lib in $old_dlfiles; do
+	case " $dlprefiles $dlfiles " in
+	*" $lib "*) ;;
+	*) func_append dlfiles " $lib" ;;
+	esac
+      done
+
+      # Make sure dlprefiles contains only unique files
+      old_dlprefiles=$dlprefiles
+      dlprefiles=
+      for lib in $old_dlprefiles; do
+	case "$dlprefiles " in
+	*" $lib "*) ;;
+	*) func_append dlprefiles " $lib" ;;
+	esac
+      done
+
+      if test yes = "$build_libtool_libs"; then
+	if test -n "$rpath"; then
+	  case $host in
+	  *-*-cygwin* | *-*-mingw* | *-*-pw32* | *-*-os2* | *-*-beos* | *-cegcc* | *-*-haiku*)
+	    # these systems don't actually have a c library (as such)!
+	    ;;
+	  *-*-rhapsody* | *-*-darwin1.[012])
+	    # Rhapsody C library is in the System framework
+	    func_append deplibs " System.ltframework"
+	    ;;
+	  *-*-netbsd*)
+	    # Don't link with libc until the a.out ld.so is fixed.
+	    ;;
+	  *-*-openbsd* | *-*-freebsd* | *-*-dragonfly*)
+	    # Do not include libc due to us having libc/libc_r.
+	    ;;
+	  *-*-sco3.2v5* | *-*-sco5v6*)
+	    # Causes problems with __ctype
+	    ;;
+	  *-*-sysv4.2uw2* | *-*-sysv5* | *-*-unixware* | *-*-OpenUNIX*)
+	    # Compiler inserts libc in the correct place for threads to work
+	    ;;
+	  *)
+	    # Add libc to deplibs on all other systems if necessary.
+	    if test yes = "$build_libtool_need_lc"; then
+	      func_append deplibs " -lc"
+	    fi
+	    ;;
+	  esac
+	fi
+
+	# Transform deplibs into only deplibs that can be linked in shared.
+	name_save=$name
+	libname_save=$libname
+	release_save=$release
+	versuffix_save=$versuffix
+	major_save=$major
+	# I'm not sure if I'm treating the release correctly.  I think
+	# release should show up in the -l (ie -lgmp5) so we don't want to
+	# add it in twice.  Is that correct?
+	release=
+	versuffix=
+	major=
+	newdeplibs=
+	droppeddeps=no
+	case $deplibs_check_method in
+	pass_all)
+	  # Don't check for shared/static.  Everything works.
+	  # This might be a little naive.  We might want to check
+	  # whether the library exists or not.  But this is on
+	  # osf3 & osf4 and I'm not really sure... Just
+	  # implementing what was already the behavior.
+	  newdeplibs=$deplibs
+	  ;;
+	test_compile)
+	  # This code stresses the "libraries are programs" paradigm to its
+	  # limits. Maybe even breaks it.  We compile a program, linking it
+	  # against the deplibs as a proxy for the library.  Then we can check
+	  # whether they linked in statically or dynamically with ldd.
+	  $opt_dry_run || $RM conftest.c
+	  cat > conftest.c <<EOF
+	  int main() { return 0; }
+EOF
+	  $opt_dry_run || $RM conftest
+	  if $LTCC $LTCFLAGS -o conftest conftest.c $deplibs; then
+	    ldd_output=`ldd conftest`
+	    for i in $deplibs; do
+	      case $i in
+	      -l*)
+		func_stripname -l '' "$i"
+		name=$func_stripname_result
+		if test yes = "$allow_libtool_libs_with_static_runtimes"; then
+		  case " $predeps $postdeps " in
+		  *" $i "*)
+		    func_append newdeplibs " $i"
+		    i=
+		    ;;
+		  esac
+		fi
+		if test -n "$i"; then
+		  libname=`eval "\\$ECHO \"$libname_spec\""`
+		  deplib_matches=`eval "\\$ECHO \"$library_names_spec\""`
+		  set dummy $deplib_matches; shift
+		  deplib_match=$1
+		  if test `expr "$ldd_output" : ".*$deplib_match"` -ne 0; then
+		    func_append newdeplibs " $i"
+		  else
+		    droppeddeps=yes
+		    echo
+		    $ECHO "*** Warning: dynamic linker does not accept needed library $i."
+		    echo "*** I have the capability to make that library automatically link in when"
+		    echo "*** you link to this library.  But I can only do this if you have a"
+		    echo "*** shared version of the library, which I believe you do not have"
+		    echo "*** because a test_compile did reveal that the linker did not use it for"
+		    echo "*** its dynamic dependency list that programs get resolved with at runtime."
+		  fi
+		fi
+		;;
+	      *)
+		func_append newdeplibs " $i"
+		;;
+	      esac
+	    done
+	  else
+	    # Error occurred in the first compile.  Let's try to salvage
+	    # the situation: Compile a separate program for each library.
+	    for i in $deplibs; do
+	      case $i in
+	      -l*)
+		func_stripname -l '' "$i"
+		name=$func_stripname_result
+		$opt_dry_run || $RM conftest
+		if $LTCC $LTCFLAGS -o conftest conftest.c $i; then
+		  ldd_output=`ldd conftest`
+		  if test yes = "$allow_libtool_libs_with_static_runtimes"; then
+		    case " $predeps $postdeps " in
+		    *" $i "*)
+		      func_append newdeplibs " $i"
+		      i=
+		      ;;
+		    esac
+		  fi
+		  if test -n "$i"; then
+		    libname=`eval "\\$ECHO \"$libname_spec\""`
+		    deplib_matches=`eval "\\$ECHO \"$library_names_spec\""`
+		    set dummy $deplib_matches; shift
+		    deplib_match=$1
+		    if test `expr "$ldd_output" : ".*$deplib_match"` -ne 0; then
+		      func_append newdeplibs " $i"
+		    else
+		      droppeddeps=yes
+		      echo
+		      $ECHO "*** Warning: dynamic linker does not accept needed library $i."
+		      echo "*** I have the capability to make that library automatically link in when"
+		      echo "*** you link to this library.  But I can only do this if you have a"
+		      echo "*** shared version of the library, which you do not appear to have"
+		      echo "*** because a test_compile did reveal that the linker did not use this one"
+		      echo "*** as a dynamic dependency that programs can get resolved with at runtime."
+		    fi
+		  fi
+		else
+		  droppeddeps=yes
+		  echo
+		  $ECHO "*** Warning!  Library $i is needed by this library but I was not able to"
+		  echo "*** make it link in!  You will probably need to install it or some"
+		  echo "*** library that it depends on before this library will be fully"
+		  echo "*** functional.  Installing it before continuing would be even better."
+		fi
+		;;
+	      *)
+		func_append newdeplibs " $i"
+		;;
+	      esac
+	    done
+	  fi
+	  ;;
+	file_magic*)
+	  set dummy $deplibs_check_method; shift
+	  file_magic_regex=`expr "$deplibs_check_method" : "$1 \(.*\)"`
+	  for a_deplib in $deplibs; do
+	    case $a_deplib in
+	    -l*)
+	      func_stripname -l '' "$a_deplib"
+	      name=$func_stripname_result
+	      if test yes = "$allow_libtool_libs_with_static_runtimes"; then
+		case " $predeps $postdeps " in
+		*" $a_deplib "*)
+		  func_append newdeplibs " $a_deplib"
+		  a_deplib=
+		  ;;
+		esac
+	      fi
+	      if test -n "$a_deplib"; then
+		libname=`eval "\\$ECHO \"$libname_spec\""`
+		if test -n "$file_magic_glob"; then
+		  libnameglob=`func_echo_all "$libname" | $SED -e $file_magic_glob`
+		else
+		  libnameglob=$libname
+		fi
+		test yes = "$want_nocaseglob" && nocaseglob=`shopt -p nocaseglob`
+		for i in $lib_search_path $sys_lib_search_path $shlib_search_path; do
+		  if test yes = "$want_nocaseglob"; then
+		    shopt -s nocaseglob
+		    potential_libs=`ls $i/$libnameglob[.-]* 2>/dev/null`
+		    $nocaseglob
+		  else
+		    potential_libs=`ls $i/$libnameglob[.-]* 2>/dev/null`
+		  fi
+		  for potent_lib in $potential_libs; do
+		      # Follow soft links.
+		      if ls -lLd "$potent_lib" 2>/dev/null |
+			 $GREP " -> " >/dev/null; then
+			continue
+		      fi
+		      # The statement above tries to avoid entering an
+		      # endless loop below, in case of cyclic links.
+		      # We might still enter an endless loop, since a link
+		      # loop can be closed while we follow links,
+		      # but so what?
+		      potlib=$potent_lib
+		      while test -h "$potlib" 2>/dev/null; do
+			potliblink=`ls -ld $potlib | $SED 's/.* -> //'`
+			case $potliblink in
+			[\\/]* | [A-Za-z]:[\\/]*) potlib=$potliblink;;
+			*) potlib=`$ECHO "$potlib" | $SED 's|[^/]*$||'`"$potliblink";;
+			esac
+		      done
+		      if eval $file_magic_cmd \"\$potlib\" 2>/dev/null |
+			 $SED -e 10q |
+			 $EGREP "$file_magic_regex" > /dev/null; then
+			func_append newdeplibs " $a_deplib"
+			a_deplib=
+			break 2
+		      fi
+		  done
+		done
+	      fi
+	      if test -n "$a_deplib"; then
+		droppeddeps=yes
+		echo
+		$ECHO "*** Warning: linker path does not have real file for library $a_deplib."
+		echo "*** I have the capability to make that library automatically link in when"
+		echo "*** you link to this library.  But I can only do this if you have a"
+		echo "*** shared version of the library, which you do not appear to have"
+		echo "*** because I did check the linker path looking for a file starting"
+		if test -z "$potlib"; then
+		  $ECHO "*** with $libname but no candidates were found. (...for file magic test)"
+		else
+		  $ECHO "*** with $libname and none of the candidates passed a file format test"
+		  $ECHO "*** using a file magic. Last file checked: $potlib"
+		fi
+	      fi
+	      ;;
+	    *)
+	      # Add a -L argument.
+	      func_append newdeplibs " $a_deplib"
+	      ;;
+	    esac
+	  done # Gone through all deplibs.
+	  ;;
+	match_pattern*)
+	  set dummy $deplibs_check_method; shift
+	  match_pattern_regex=`expr "$deplibs_check_method" : "$1 \(.*\)"`
+	  for a_deplib in $deplibs; do
+	    case $a_deplib in
+	    -l*)
+	      func_stripname -l '' "$a_deplib"
+	      name=$func_stripname_result
+	      if test yes = "$allow_libtool_libs_with_static_runtimes"; then
+		case " $predeps $postdeps " in
+		*" $a_deplib "*)
+		  func_append newdeplibs " $a_deplib"
+		  a_deplib=
+		  ;;
+		esac
+	      fi
+	      if test -n "$a_deplib"; then
+		libname=`eval "\\$ECHO \"$libname_spec\""`
+		for i in $lib_search_path $sys_lib_search_path $shlib_search_path; do
+		  potential_libs=`ls $i/$libname[.-]* 2>/dev/null`
+		  for potent_lib in $potential_libs; do
+		    potlib=$potent_lib # see symlink-check above in file_magic test
+		    if eval "\$ECHO \"$potent_lib\"" 2>/dev/null | $SED 10q | \
+		       $EGREP "$match_pattern_regex" > /dev/null; then
+		      func_append newdeplibs " $a_deplib"
+		      a_deplib=
+		      break 2
+		    fi
+		  done
+		done
+	      fi
+	      if test -n "$a_deplib"; then
+		droppeddeps=yes
+		echo
+		$ECHO "*** Warning: linker path does not have real file for library $a_deplib."
+		echo "*** I have the capability to make that library automatically link in when"
+		echo "*** you link to this library.  But I can only do this if you have a"
+		echo "*** shared version of the library, which you do not appear to have"
+		echo "*** because I did check the linker path looking for a file starting"
+		if test -z "$potlib"; then
+		  $ECHO "*** with $libname but no candidates were found. (...for regex pattern test)"
+		else
+		  $ECHO "*** with $libname and none of the candidates passed a file format test"
+		  $ECHO "*** using a regex pattern. Last file checked: $potlib"
+		fi
+	      fi
+	      ;;
+	    *)
+	      # Add a -L argument.
+	      func_append newdeplibs " $a_deplib"
+	      ;;
+	    esac
+	  done # Gone through all deplibs.
+	  ;;
+	none | unknown | *)
+	  newdeplibs=
+	  tmp_deplibs=`$ECHO " $deplibs" | $SED 's/ -lc$//; s/ -[LR][^ ]*//g'`
+	  if test yes = "$allow_libtool_libs_with_static_runtimes"; then
+	    for i in $predeps $postdeps; do
+	      # can't use Xsed below, because $i might contain '/'
+	      tmp_deplibs=`$ECHO " $tmp_deplibs" | $SED "s|$i||"`
+	    done
+	  fi
+	  case $tmp_deplibs in
+	  *[!\	\ ]*)
+	    echo
+	    if test none = "$deplibs_check_method"; then
+	      echo "*** Warning: inter-library dependencies are not supported in this platform."
+	    else
+	      echo "*** Warning: inter-library dependencies are not known to be supported."
+	    fi
+	    echo "*** All declared inter-library dependencies are being dropped."
+	    droppeddeps=yes
+	    ;;
+	  esac
+	  ;;
+	esac
+	versuffix=$versuffix_save
+	major=$major_save
+	release=$release_save
+	libname=$libname_save
+	name=$name_save
+
+	case $host in
+	*-*-rhapsody* | *-*-darwin1.[012])
+	  # On Rhapsody replace the C library with the System framework
+	  newdeplibs=`$ECHO " $newdeplibs" | $SED 's/ -lc / System.ltframework /'`
+	  ;;
+	esac
+
+	if test yes = "$droppeddeps"; then
+	  if test yes = "$module"; then
+	    echo
+	    echo "*** Warning: libtool could not satisfy all declared inter-library"
+	    $ECHO "*** dependencies of module $libname.  Therefore, libtool will create"
+	    echo "*** a static module, that should work as long as the dlopening"
+	    echo "*** application is linked with the -dlopen flag."
+	    if test -z "$global_symbol_pipe"; then
+	      echo
+	      echo "*** However, this would only work if libtool was able to extract symbol"
+	      echo "*** lists from a program, using 'nm' or equivalent, but libtool could"
+	      echo "*** not find such a program.  So, this module is probably useless."
+	      echo "*** 'nm' from GNU binutils and a full rebuild may help."
+	    fi
+	    if test no = "$build_old_libs"; then
+	      oldlibs=$output_objdir/$libname.$libext
+	      build_libtool_libs=module
+	      build_old_libs=yes
+	    else
+	      build_libtool_libs=no
+	    fi
+	  else
+	    echo "*** The inter-library dependencies that have been dropped here will be"
+	    echo "*** automatically added whenever a program is linked with this library"
+	    echo "*** or is declared to -dlopen it."
+
+	    if test no = "$allow_undefined"; then
+	      echo
+	      echo "*** Since this library must not contain undefined symbols,"
+	      echo "*** because either the platform does not support them or"
+	      echo "*** it was explicitly requested with -no-undefined,"
+	      echo "*** libtool will only create a static version of it."
+	      if test no = "$build_old_libs"; then
+		oldlibs=$output_objdir/$libname.$libext
+		build_libtool_libs=module
+		build_old_libs=yes
+	      else
+		build_libtool_libs=no
+	      fi
+	    fi
+	  fi
+	fi
+	# Done checking deplibs!
+	deplibs=$newdeplibs
+      fi
+      # Time to change all our "foo.ltframework" stuff back to "-framework foo"
+      case $host in
+	*-*-darwin*)
+	  newdeplibs=`$ECHO " $newdeplibs" | $SED 's% \([^ $]*\).ltframework% -framework \1%g'`
+	  new_inherited_linker_flags=`$ECHO " $new_inherited_linker_flags" | $SED 's% \([^ $]*\).ltframework% -framework \1%g'`
+	  deplibs=`$ECHO " $deplibs" | $SED 's% \([^ $]*\).ltframework% -framework \1%g'`
+	  ;;
+      esac
+
+      # move library search paths that coincide with paths to not yet
+      # installed libraries to the beginning of the library search list
+      new_libs=
+      for path in $notinst_path; do
+	case " $new_libs " in
+	*" -L$path/$objdir "*) ;;
+	*)
+	  case " $deplibs " in
+	  *" -L$path/$objdir "*)
+	    func_append new_libs " -L$path/$objdir" ;;
+	  esac
+	  ;;
+	esac
+      done
+      for deplib in $deplibs; do
+	case $deplib in
+	-L*)
+	  case " $new_libs " in
+	  *" $deplib "*) ;;
+	  *) func_append new_libs " $deplib" ;;
+	  esac
+	  ;;
+	*) func_append new_libs " $deplib" ;;
+	esac
+      done
+      deplibs=$new_libs
+
+      # All the library-specific variables (install_libdir is set above).
+      library_names=
+      old_library=
+      dlname=
+
+      # Test again, we may have decided not to build it any more
+      if test yes = "$build_libtool_libs"; then
+	# Remove $wl instances when linking with ld.
+	# FIXME: should test the right _cmds variable.
+	case $archive_cmds in
+	  *\$LD\ *) wl= ;;
+        esac
+	if test yes = "$hardcode_into_libs"; then
+	  # Hardcode the library paths
+	  hardcode_libdirs=
+	  dep_rpath=
+	  rpath=$finalize_rpath
+	  test relink = "$opt_mode" || rpath=$compile_rpath$rpath
+	  for libdir in $rpath; do
+	    if test -n "$hardcode_libdir_flag_spec"; then
+	      if test -n "$hardcode_libdir_separator"; then
+		func_replace_sysroot "$libdir"
+		libdir=$func_replace_sysroot_result
+		if test -z "$hardcode_libdirs"; then
+		  hardcode_libdirs=$libdir
+		else
+		  # Just accumulate the unique libdirs.
+		  case $hardcode_libdir_separator$hardcode_libdirs$hardcode_libdir_separator in
+		  *"$hardcode_libdir_separator$libdir$hardcode_libdir_separator"*)
+		    ;;
+		  *)
+		    func_append hardcode_libdirs "$hardcode_libdir_separator$libdir"
+		    ;;
+		  esac
+		fi
+	      else
+		eval flag=\"$hardcode_libdir_flag_spec\"
+		func_append dep_rpath " $flag"
+	      fi
+	    elif test -n "$runpath_var"; then
+	      case "$perm_rpath " in
+	      *" $libdir "*) ;;
+	      *) func_append perm_rpath " $libdir" ;;
+	      esac
+	    fi
+	  done
+	  # Substitute the hardcoded libdirs into the rpath.
+	  if test -n "$hardcode_libdir_separator" &&
+	     test -n "$hardcode_libdirs"; then
+	    libdir=$hardcode_libdirs
+	    eval "dep_rpath=\"$hardcode_libdir_flag_spec\""
+	  fi
+	  if test -n "$runpath_var" && test -n "$perm_rpath"; then
+	    # We should set the runpath_var.
+	    rpath=
+	    for dir in $perm_rpath; do
+	      func_append rpath "$dir:"
+	    done
+	    eval "$runpath_var='$rpath\$$runpath_var'; export $runpath_var"
+	  fi
+	  test -n "$dep_rpath" && deplibs="$dep_rpath $deplibs"
+	fi
+
+	shlibpath=$finalize_shlibpath
+	test relink = "$opt_mode" || shlibpath=$compile_shlibpath$shlibpath
+	if test -n "$shlibpath"; then
+	  eval "$shlibpath_var='$shlibpath\$$shlibpath_var'; export $shlibpath_var"
+	fi
+
+	# Get the real and link names of the library.
+	eval shared_ext=\"$shrext_cmds\"
+	eval library_names=\"$library_names_spec\"
+	set dummy $library_names
+	shift
+	realname=$1
+	shift
+
+	if test -n "$soname_spec"; then
+	  eval soname=\"$soname_spec\"
+	else
+	  soname=$realname
+	fi
+	if test -z "$dlname"; then
+	  dlname=$soname
+	fi
+
+	lib=$output_objdir/$realname
+	linknames=
+	for link
+	do
+	  func_append linknames " $link"
+	done
+
+	# Use standard objects if they are pic
+	test -z "$pic_flag" && libobjs=`$ECHO "$libobjs" | $SP2NL | $SED "$lo2o" | $NL2SP`
+	test "X$libobjs" = "X " && libobjs=
+
+	delfiles=
+	if test -n "$export_symbols" && test -n "$include_expsyms"; then
+	  $opt_dry_run || cp "$export_symbols" "$output_objdir/$libname.uexp"
+	  export_symbols=$output_objdir/$libname.uexp
+	  func_append delfiles " $export_symbols"
+	fi
+
+	orig_export_symbols=
+	case $host_os in
+	cygwin* | mingw* | cegcc*)
+	  if test -n "$export_symbols" && test -z "$export_symbols_regex"; then
+	    # exporting using user supplied symfile
+	    func_dll_def_p "$export_symbols" || {
+	      # and it's NOT already a .def file. Must figure out
+	      # which of the given symbols are data symbols and tag
+	      # them as such. So, trigger use of export_symbols_cmds.
+	      # export_symbols gets reassigned inside the "prepare
+	      # the list of exported symbols" if statement, so the
+	      # include_expsyms logic still works.
+	      orig_export_symbols=$export_symbols
+	      export_symbols=
+	      always_export_symbols=yes
+	    }
+	  fi
+	  ;;
+	esac
+
+	# Prepare the list of exported symbols
+	if test -z "$export_symbols"; then
+	  if test yes = "$always_export_symbols" || test -n "$export_symbols_regex"; then
+	    func_verbose "generating symbol list for '$libname.la'"
+	    export_symbols=$output_objdir/$libname.exp
+	    $opt_dry_run || $RM $export_symbols
+	    cmds=$export_symbols_cmds
+	    save_ifs=$IFS; IFS='~'
+	    for cmd1 in $cmds; do
+	      IFS=$save_ifs
+	      # Take the normal branch if the nm_file_list_spec branch
+	      # doesn't work or if tool conversion is not needed.
+	      case $nm_file_list_spec~$to_tool_file_cmd in
+		*~func_convert_file_noop | *~func_convert_file_msys_to_w32 | ~*)
+		  try_normal_branch=yes
+		  eval cmd=\"$cmd1\"
+		  func_len " $cmd"
+		  len=$func_len_result
+		  ;;
+		*)
+		  try_normal_branch=no
+		  ;;
+	      esac
+	      if test yes = "$try_normal_branch" \
+		 && { test "$len" -lt "$max_cmd_len" \
+		      || test "$max_cmd_len" -le -1; }
+	      then
+		func_show_eval "$cmd" 'exit $?'
+		skipped_export=false
+	      elif test -n "$nm_file_list_spec"; then
+		func_basename "$output"
+		output_la=$func_basename_result
+		save_libobjs=$libobjs
+		save_output=$output
+		output=$output_objdir/$output_la.nm
+		func_to_tool_file "$output"
+		libobjs=$nm_file_list_spec$func_to_tool_file_result
+		func_append delfiles " $output"
+		func_verbose "creating $NM input file list: $output"
+		for obj in $save_libobjs; do
+		  func_to_tool_file "$obj"
+		  $ECHO "$func_to_tool_file_result"
+		done > "$output"
+		eval cmd=\"$cmd1\"
+		func_show_eval "$cmd" 'exit $?'
+		output=$save_output
+		libobjs=$save_libobjs
+		skipped_export=false
+	      else
+		# The command line is too long to execute in one step.
+		func_verbose "using reloadable object file for export list..."
+		skipped_export=:
+		# Break out early, otherwise skipped_export may be
+		# set to false by a later but shorter cmd.
+		break
+	      fi
+	    done
+	    IFS=$save_ifs
+	    if test -n "$export_symbols_regex" && test : != "$skipped_export"; then
+	      func_show_eval '$EGREP -e "$export_symbols_regex" "$export_symbols" > "${export_symbols}T"'
+	      func_show_eval '$MV "${export_symbols}T" "$export_symbols"'
+	    fi
+	  fi
+	fi
+
+	if test -n "$export_symbols" && test -n "$include_expsyms"; then
+	  tmp_export_symbols=$export_symbols
+	  test -n "$orig_export_symbols" && tmp_export_symbols=$orig_export_symbols
+	  $opt_dry_run || eval '$ECHO "$include_expsyms" | $SP2NL >> "$tmp_export_symbols"'
+	fi
+
+	if test : != "$skipped_export" && test -n "$orig_export_symbols"; then
+	  # The given exports_symbols file has to be filtered, so filter it.
+	  func_verbose "filter symbol list for '$libname.la' to tag DATA exports"
+	  # FIXME: $output_objdir/$libname.filter potentially contains lots of
+	  # 's' commands, which not all seds can handle. GNU sed should be fine
+	  # though. Also, the filter scales superlinearly with the number of
+	  # global variables. join(1) would be nice here, but unfortunately
+	  # isn't a blessed tool.
+	  $opt_dry_run || $SED -e '/[ ,]DATA/!d;s,\(.*\)\([ \,].*\),s|^\1$|\1\2|,' < $export_symbols > $output_objdir/$libname.filter
+	  func_append delfiles " $export_symbols $output_objdir/$libname.filter"
+	  export_symbols=$output_objdir/$libname.def
+	  $opt_dry_run || $SED -f $output_objdir/$libname.filter < $orig_export_symbols > $export_symbols
+	fi
+
+	tmp_deplibs=
+	for test_deplib in $deplibs; do
+	  case " $convenience " in
+	  *" $test_deplib "*) ;;
+	  *)
+	    func_append tmp_deplibs " $test_deplib"
+	    ;;
+	  esac
+	done
+	deplibs=$tmp_deplibs
+
+	if test -n "$convenience"; then
+	  if test -n "$whole_archive_flag_spec" &&
+	    test yes = "$compiler_needs_object" &&
+	    test -z "$libobjs"; then
+	    # extract the archives, so we have objects to list.
+	    # TODO: could optimize this to just extract one archive.
+	    whole_archive_flag_spec=
+	  fi
+	  if test -n "$whole_archive_flag_spec"; then
+	    save_libobjs=$libobjs
+	    eval libobjs=\"\$libobjs $whole_archive_flag_spec\"
+	    test "X$libobjs" = "X " && libobjs=
+	  else
+	    gentop=$output_objdir/${outputname}x
+	    func_append generated " $gentop"
+
+	    func_extract_archives $gentop $convenience
+	    func_append libobjs " $func_extract_archives_result"
+	    test "X$libobjs" = "X " && libobjs=
+	  fi
+	fi
+
+	if test yes = "$thread_safe" && test -n "$thread_safe_flag_spec"; then
+	  eval flag=\"$thread_safe_flag_spec\"
+	  func_append linker_flags " $flag"
+	fi
+
+	# Make a backup of the uninstalled library when relinking
+	if test relink = "$opt_mode"; then
+	  $opt_dry_run || eval '(cd $output_objdir && $RM ${realname}U && $MV $realname ${realname}U)' || exit $?
+	fi
+
+	# Do each of the archive commands.
+	if test yes = "$module" && test -n "$module_cmds"; then
+	  if test -n "$export_symbols" && test -n "$module_expsym_cmds"; then
+	    eval test_cmds=\"$module_expsym_cmds\"
+	    cmds=$module_expsym_cmds
+	  else
+	    eval test_cmds=\"$module_cmds\"
+	    cmds=$module_cmds
+	  fi
+	else
+	  if test -n "$export_symbols" && test -n "$archive_expsym_cmds"; then
+	    eval test_cmds=\"$archive_expsym_cmds\"
+	    cmds=$archive_expsym_cmds
+	  else
+	    eval test_cmds=\"$archive_cmds\"
+	    cmds=$archive_cmds
+	  fi
+	fi
+
+	if test : != "$skipped_export" &&
+	   func_len " $test_cmds" &&
+	   len=$func_len_result &&
+	   test "$len" -lt "$max_cmd_len" || test "$max_cmd_len" -le -1; then
+	  :
+	else
+	  # The command line is too long to link in one step, link piecewise
+	  # or, if using GNU ld and skipped_export is not :, use a linker
+	  # script.
+
+	  # Save the value of $output and $libobjs because we want to
+	  # use them later.  If we have whole_archive_flag_spec, we
+	  # want to use save_libobjs as it was before
+	  # whole_archive_flag_spec was expanded, because we can't
+	  # assume the linker understands whole_archive_flag_spec.
+	  # This may have to be revisited, in case too many
+	  # convenience libraries get linked in and end up exceeding
+	  # the spec.
+	  if test -z "$convenience" || test -z "$whole_archive_flag_spec"; then
+	    save_libobjs=$libobjs
+	  fi
+	  save_output=$output
+	  func_basename "$output"
+	  output_la=$func_basename_result
+
+	  # Clear the reloadable object creation command queue and
+	  # initialize k to one.
+	  test_cmds=
+	  concat_cmds=
+	  objlist=
+	  last_robj=
+	  k=1
+
+	  if test -n "$save_libobjs" && test : != "$skipped_export" && test yes = "$with_gnu_ld"; then
+	    output=$output_objdir/$output_la.lnkscript
+	    func_verbose "creating GNU ld script: $output"
+	    echo 'INPUT (' > $output
+	    for obj in $save_libobjs
+	    do
+	      func_to_tool_file "$obj"
+	      $ECHO "$func_to_tool_file_result" >> $output
+	    done
+	    echo ')' >> $output
+	    func_append delfiles " $output"
+	    func_to_tool_file "$output"
+	    output=$func_to_tool_file_result
+	  elif test -n "$save_libobjs" && test : != "$skipped_export" && test -n "$file_list_spec"; then
+	    output=$output_objdir/$output_la.lnk
+	    func_verbose "creating linker input file list: $output"
+	    : > $output
+	    set x $save_libobjs
+	    shift
+	    firstobj=
+	    if test yes = "$compiler_needs_object"; then
+	      firstobj="$1 "
+	      shift
+	    fi
+	    for obj
+	    do
+	      func_to_tool_file "$obj"
+	      $ECHO "$func_to_tool_file_result" >> $output
+	    done
+	    func_append delfiles " $output"
+	    func_to_tool_file "$output"
+	    output=$firstobj\"$file_list_spec$func_to_tool_file_result\"
+	  else
+	    if test -n "$save_libobjs"; then
+	      func_verbose "creating reloadable object files..."
+	      output=$output_objdir/$output_la-$k.$objext
+	      eval test_cmds=\"$reload_cmds\"
+	      func_len " $test_cmds"
+	      len0=$func_len_result
+	      len=$len0
+
+	      # Loop over the list of objects to be linked.
+	      for obj in $save_libobjs
+	      do
+		func_len " $obj"
+		func_arith $len + $func_len_result
+		len=$func_arith_result
+		if test -z "$objlist" ||
+		   test "$len" -lt "$max_cmd_len"; then
+		  func_append objlist " $obj"
+		else
+		  # The command $test_cmds is almost too long, add a
+		  # command to the queue.
+		  if test 1 -eq "$k"; then
+		    # The first file doesn't have a previous command to add.
+		    reload_objs=$objlist
+		    eval concat_cmds=\"$reload_cmds\"
+		  else
+		    # All subsequent reloadable object files will link in
+		    # the last one created.
+		    reload_objs="$objlist $last_robj"
+		    eval concat_cmds=\"\$concat_cmds~$reload_cmds~\$RM $last_robj\"
+		  fi
+		  last_robj=$output_objdir/$output_la-$k.$objext
+		  func_arith $k + 1
+		  k=$func_arith_result
+		  output=$output_objdir/$output_la-$k.$objext
+		  objlist=" $obj"
+		  func_len " $last_robj"
+		  func_arith $len0 + $func_len_result
+		  len=$func_arith_result
+		fi
+	      done
+	      # Handle the remaining objects by creating one last
+	      # reloadable object file.  All subsequent reloadable object
+	      # files will link in the last one created.
+	      test -z "$concat_cmds" || concat_cmds=$concat_cmds~
+	      reload_objs="$objlist $last_robj"
+	      eval concat_cmds=\"\$concat_cmds$reload_cmds\"
+	      if test -n "$last_robj"; then
+	        eval concat_cmds=\"\$concat_cmds~\$RM $last_robj\"
+	      fi
+	      func_append delfiles " $output"
+
+	    else
+	      output=
+	    fi
+
+	    ${skipped_export-false} && {
+	      func_verbose "generating symbol list for '$libname.la'"
+	      export_symbols=$output_objdir/$libname.exp
+	      $opt_dry_run || $RM $export_symbols
+	      libobjs=$output
+	      # Append the command to create the export file.
+	      test -z "$concat_cmds" || concat_cmds=$concat_cmds~
+	      eval concat_cmds=\"\$concat_cmds$export_symbols_cmds\"
+	      if test -n "$last_robj"; then
+		eval concat_cmds=\"\$concat_cmds~\$RM $last_robj\"
+	      fi
+	    }
+
+	    test -n "$save_libobjs" &&
+	      func_verbose "creating a temporary reloadable object file: $output"
+
+	    # Loop through the commands generated above and execute them.
+	    save_ifs=$IFS; IFS='~'
+	    for cmd in $concat_cmds; do
+	      IFS=$save_ifs
+	      $opt_quiet || {
+		  func_quote_for_expand "$cmd"
+		  eval "func_echo $func_quote_for_expand_result"
+	      }
+	      $opt_dry_run || eval "$cmd" || {
+		lt_exit=$?
+
+		# Restore the uninstalled library and exit
+		if test relink = "$opt_mode"; then
+		  ( cd "$output_objdir" && \
+		    $RM "${realname}T" && \
+		    $MV "${realname}U" "$realname" )
+		fi
+
+		exit $lt_exit
+	      }
+	    done
+	    IFS=$save_ifs
+
+	    if test -n "$export_symbols_regex" && ${skipped_export-false}; then
+	      func_show_eval '$EGREP -e "$export_symbols_regex" "$export_symbols" > "${export_symbols}T"'
+	      func_show_eval '$MV "${export_symbols}T" "$export_symbols"'
+	    fi
+	  fi
+
+          ${skipped_export-false} && {
+	    if test -n "$export_symbols" && test -n "$include_expsyms"; then
+	      tmp_export_symbols=$export_symbols
+	      test -n "$orig_export_symbols" && tmp_export_symbols=$orig_export_symbols
+	      $opt_dry_run || eval '$ECHO "$include_expsyms" | $SP2NL >> "$tmp_export_symbols"'
+	    fi
+
+	    if test -n "$orig_export_symbols"; then
+	      # The given exports_symbols file has to be filtered, so filter it.
+	      func_verbose "filter symbol list for '$libname.la' to tag DATA exports"
+	      # FIXME: $output_objdir/$libname.filter potentially contains lots of
+	      # 's' commands, which not all seds can handle. GNU sed should be fine
+	      # though. Also, the filter scales superlinearly with the number of
+	      # global variables. join(1) would be nice here, but unfortunately
+	      # isn't a blessed tool.
+	      $opt_dry_run || $SED -e '/[ ,]DATA/!d;s,\(.*\)\([ \,].*\),s|^\1$|\1\2|,' < $export_symbols > $output_objdir/$libname.filter
+	      func_append delfiles " $export_symbols $output_objdir/$libname.filter"
+	      export_symbols=$output_objdir/$libname.def
+	      $opt_dry_run || $SED -f $output_objdir/$libname.filter < $orig_export_symbols > $export_symbols
+	    fi
+	  }
+
+	  libobjs=$output
+	  # Restore the value of output.
+	  output=$save_output
+
+	  if test -n "$convenience" && test -n "$whole_archive_flag_spec"; then
+	    eval libobjs=\"\$libobjs $whole_archive_flag_spec\"
+	    test "X$libobjs" = "X " && libobjs=
+	  fi
+	  # Expand the library linking commands again to reset the
+	  # value of $libobjs for piecewise linking.
+
+	  # Do each of the archive commands.
+	  if test yes = "$module" && test -n "$module_cmds"; then
+	    if test -n "$export_symbols" && test -n "$module_expsym_cmds"; then
+	      cmds=$module_expsym_cmds
+	    else
+	      cmds=$module_cmds
+	    fi
+	  else
+	    if test -n "$export_symbols" && test -n "$archive_expsym_cmds"; then
+	      cmds=$archive_expsym_cmds
+	    else
+	      cmds=$archive_cmds
+	    fi
+	  fi
+	fi
+
+	if test -n "$delfiles"; then
+	  # Append the command to remove temporary files to $cmds.
+	  eval cmds=\"\$cmds~\$RM $delfiles\"
+	fi
+
+	# Add any objects from preloaded convenience libraries
+	if test -n "$dlprefiles"; then
+	  gentop=$output_objdir/${outputname}x
+	  func_append generated " $gentop"
+
+	  func_extract_archives $gentop $dlprefiles
+	  func_append libobjs " $func_extract_archives_result"
+	  test "X$libobjs" = "X " && libobjs=
+	fi
+
+	save_ifs=$IFS; IFS='~'
+	for cmd in $cmds; do
+	  IFS=$sp$nl
+	  eval cmd=\"$cmd\"
+	  IFS=$save_ifs
+	  $opt_quiet || {
+	    func_quote_for_expand "$cmd"
+	    eval "func_echo $func_quote_for_expand_result"
+	  }
+	  $opt_dry_run || eval "$cmd" || {
+	    lt_exit=$?
+
+	    # Restore the uninstalled library and exit
+	    if test relink = "$opt_mode"; then
+	      ( cd "$output_objdir" && \
+	        $RM "${realname}T" && \
+		$MV "${realname}U" "$realname" )
+	    fi
+
+	    exit $lt_exit
+	  }
+	done
+	IFS=$save_ifs
+
+	# Restore the uninstalled library and exit
+	if test relink = "$opt_mode"; then
+	  $opt_dry_run || eval '(cd $output_objdir && $RM ${realname}T && $MV $realname ${realname}T && $MV ${realname}U $realname)' || exit $?
+
+	  if test -n "$convenience"; then
+	    if test -z "$whole_archive_flag_spec"; then
+	      func_show_eval '${RM}r "$gentop"'
+	    fi
+	  fi
+
+	  exit $EXIT_SUCCESS
+	fi
+
+	# Create links to the real library.
+	for linkname in $linknames; do
+	  if test "$realname" != "$linkname"; then
+	    func_show_eval '(cd "$output_objdir" && $RM "$linkname" && $LN_S "$realname" "$linkname")' 'exit $?'
+	  fi
+	done
+
+	# If -module or -export-dynamic was specified, set the dlname.
+	if test yes = "$module" || test yes = "$export_dynamic"; then
+	  # On all known operating systems, these are identical.
+	  dlname=$soname
+	fi
+      fi
+      ;;
+
+    obj)
+      if test -n "$dlfiles$dlprefiles" || test no != "$dlself"; then
+	func_warning "'-dlopen' is ignored for objects"
+      fi
+
+      case " $deplibs" in
+      *\ -l* | *\ -L*)
+	func_warning "'-l' and '-L' are ignored for objects" ;;
+      esac
+
+      test -n "$rpath" && \
+	func_warning "'-rpath' is ignored for objects"
+
+      test -n "$xrpath" && \
+	func_warning "'-R' is ignored for objects"
+
+      test -n "$vinfo" && \
+	func_warning "'-version-info' is ignored for objects"
+
+      test -n "$release" && \
+	func_warning "'-release' is ignored for objects"
+
+      case $output in
+      *.lo)
+	test -n "$objs$old_deplibs" && \
+	  func_fatal_error "cannot build library object '$output' from non-libtool objects"
+
+	libobj=$output
+	func_lo2o "$libobj"
+	obj=$func_lo2o_result
+	;;
+      *)
+	libobj=
+	obj=$output
+	;;
+      esac
+
+      # Delete the old objects.
+      $opt_dry_run || $RM $obj $libobj
+
+      # Objects from convenience libraries.  This assumes
+      # single-version convenience libraries.  Whenever we create
+      # different ones for PIC/non-PIC, this we'll have to duplicate
+      # the extraction.
+      reload_conv_objs=
+      gentop=
+      # if reload_cmds runs $LD directly, get rid of -Wl from
+      # whole_archive_flag_spec and hope we can get by with turning comma
+      # into space.
+      case $reload_cmds in
+        *\$LD[\ \$]*) wl= ;;
+      esac
+      if test -n "$convenience"; then
+	if test -n "$whole_archive_flag_spec"; then
+	  eval tmp_whole_archive_flags=\"$whole_archive_flag_spec\"
+	  test -n "$wl" || tmp_whole_archive_flags=`$ECHO "$tmp_whole_archive_flags" | $SED 's|,| |g'`
+	  reload_conv_objs=$reload_objs\ $tmp_whole_archive_flags
+	else
+	  gentop=$output_objdir/${obj}x
+	  func_append generated " $gentop"
+
+	  func_extract_archives $gentop $convenience
+	  reload_conv_objs="$reload_objs $func_extract_archives_result"
+	fi
+      fi
+
+      # If we're not building shared, we need to use non_pic_objs
+      test yes = "$build_libtool_libs" || libobjs=$non_pic_objects
+
+      # Create the old-style object.
+      reload_objs=$objs$old_deplibs' '`$ECHO "$libobjs" | $SP2NL | $SED "/\.$libext$/d; /\.lib$/d; $lo2o" | $NL2SP`' '$reload_conv_objs
+
+      output=$obj
+      func_execute_cmds "$reload_cmds" 'exit $?'
+
+      # Exit if we aren't doing a library object file.
+      if test -z "$libobj"; then
+	if test -n "$gentop"; then
+	  func_show_eval '${RM}r "$gentop"'
+	fi
+
+	exit $EXIT_SUCCESS
+      fi
+
+      test yes = "$build_libtool_libs" || {
+	if test -n "$gentop"; then
+	  func_show_eval '${RM}r "$gentop"'
+	fi
+
+	# Create an invalid libtool object if no PIC, so that we don't
+	# accidentally link it into a program.
+	# $show "echo timestamp > $libobj"
+	# $opt_dry_run || eval "echo timestamp > $libobj" || exit $?
+	exit $EXIT_SUCCESS
+      }
+
+      if test -n "$pic_flag" || test default != "$pic_mode"; then
+	# Only do commands if we really have different PIC objects.
+	reload_objs="$libobjs $reload_conv_objs"
+	output=$libobj
+	func_execute_cmds "$reload_cmds" 'exit $?'
+      fi
+
+      if test -n "$gentop"; then
+	func_show_eval '${RM}r "$gentop"'
+      fi
+
+      exit $EXIT_SUCCESS
+      ;;
+
+    prog)
+      case $host in
+	*cygwin*) func_stripname '' '.exe' "$output"
+	          output=$func_stripname_result.exe;;
+      esac
+      test -n "$vinfo" && \
+	func_warning "'-version-info' is ignored for programs"
+
+      test -n "$release" && \
+	func_warning "'-release' is ignored for programs"
+
+      $preload \
+	&& test unknown,unknown,unknown = "$dlopen_support,$dlopen_self,$dlopen_self_static" \
+	&& func_warning "'LT_INIT([dlopen])' not used. Assuming no dlopen support."
+
+      case $host in
+      *-*-rhapsody* | *-*-darwin1.[012])
+	# On Rhapsody replace the C library is the System framework
+	compile_deplibs=`$ECHO " $compile_deplibs" | $SED 's/ -lc / System.ltframework /'`
+	finalize_deplibs=`$ECHO " $finalize_deplibs" | $SED 's/ -lc / System.ltframework /'`
+	;;
+      esac
+
+      case $host in
+      *-*-darwin*)
+	# Don't allow lazy linking, it breaks C++ global constructors
+	# But is supposedly fixed on 10.4 or later (yay!).
+	if test CXX = "$tagname"; then
+	  case ${MACOSX_DEPLOYMENT_TARGET-10.0} in
+	    10.[0123])
+	      func_append compile_command " $wl-bind_at_load"
+	      func_append finalize_command " $wl-bind_at_load"
+	    ;;
+	  esac
+	fi
+	# Time to change all our "foo.ltframework" stuff back to "-framework foo"
+	compile_deplibs=`$ECHO " $compile_deplibs" | $SED 's% \([^ $]*\).ltframework% -framework \1%g'`
+	finalize_deplibs=`$ECHO " $finalize_deplibs" | $SED 's% \([^ $]*\).ltframework% -framework \1%g'`
+	;;
+      esac
+
+
+      # move library search paths that coincide with paths to not yet
+      # installed libraries to the beginning of the library search list
+      new_libs=
+      for path in $notinst_path; do
+	case " $new_libs " in
+	*" -L$path/$objdir "*) ;;
+	*)
+	  case " $compile_deplibs " in
+	  *" -L$path/$objdir "*)
+	    func_append new_libs " -L$path/$objdir" ;;
+	  esac
+	  ;;
+	esac
+      done
+      for deplib in $compile_deplibs; do
+	case $deplib in
+	-L*)
+	  case " $new_libs " in
+	  *" $deplib "*) ;;
+	  *) func_append new_libs " $deplib" ;;
+	  esac
+	  ;;
+	*) func_append new_libs " $deplib" ;;
+	esac
+      done
+      compile_deplibs=$new_libs
+
+
+      func_append compile_command " $compile_deplibs"
+      func_append finalize_command " $finalize_deplibs"
+
+      if test -n "$rpath$xrpath"; then
+	# If the user specified any rpath flags, then add them.
+	for libdir in $rpath $xrpath; do
+	  # This is the magic to use -rpath.
+	  case "$finalize_rpath " in
+	  *" $libdir "*) ;;
+	  *) func_append finalize_rpath " $libdir" ;;
+	  esac
+	done
+      fi
+
+      # Now hardcode the library paths
+      rpath=
+      hardcode_libdirs=
+      for libdir in $compile_rpath $finalize_rpath; do
+	if test -n "$hardcode_libdir_flag_spec"; then
+	  if test -n "$hardcode_libdir_separator"; then
+	    if test -z "$hardcode_libdirs"; then
+	      hardcode_libdirs=$libdir
+	    else
+	      # Just accumulate the unique libdirs.
+	      case $hardcode_libdir_separator$hardcode_libdirs$hardcode_libdir_separator in
+	      *"$hardcode_libdir_separator$libdir$hardcode_libdir_separator"*)
+		;;
+	      *)
+		func_append hardcode_libdirs "$hardcode_libdir_separator$libdir"
+		;;
+	      esac
+	    fi
+	  else
+	    eval flag=\"$hardcode_libdir_flag_spec\"
+	    func_append rpath " $flag"
+	  fi
+	elif test -n "$runpath_var"; then
+	  case "$perm_rpath " in
+	  *" $libdir "*) ;;
+	  *) func_append perm_rpath " $libdir" ;;
+	  esac
+	fi
+	case $host in
+	*-*-cygwin* | *-*-mingw* | *-*-pw32* | *-*-os2* | *-cegcc*)
+	  testbindir=`$ECHO "$libdir" | $SED -e 's*/lib$*/bin*'`
+	  case :$dllsearchpath: in
+	  *":$libdir:"*) ;;
+	  ::) dllsearchpath=$libdir;;
+	  *) func_append dllsearchpath ":$libdir";;
+	  esac
+	  case :$dllsearchpath: in
+	  *":$testbindir:"*) ;;
+	  ::) dllsearchpath=$testbindir;;
+	  *) func_append dllsearchpath ":$testbindir";;
+	  esac
+	  ;;
+	esac
+      done
+      # Substitute the hardcoded libdirs into the rpath.
+      if test -n "$hardcode_libdir_separator" &&
+	 test -n "$hardcode_libdirs"; then
+	libdir=$hardcode_libdirs
+	eval rpath=\" $hardcode_libdir_flag_spec\"
+      fi
+      compile_rpath=$rpath
+
+      rpath=
+      hardcode_libdirs=
+      for libdir in $finalize_rpath; do
+	if test -n "$hardcode_libdir_flag_spec"; then
+	  if test -n "$hardcode_libdir_separator"; then
+	    if test -z "$hardcode_libdirs"; then
+	      hardcode_libdirs=$libdir
+	    else
+	      # Just accumulate the unique libdirs.
+	      case $hardcode_libdir_separator$hardcode_libdirs$hardcode_libdir_separator in
+	      *"$hardcode_libdir_separator$libdir$hardcode_libdir_separator"*)
+		;;
+	      *)
+		func_append hardcode_libdirs "$hardcode_libdir_separator$libdir"
+		;;
+	      esac
+	    fi
+	  else
+	    eval flag=\"$hardcode_libdir_flag_spec\"
+	    func_append rpath " $flag"
+	  fi
+	elif test -n "$runpath_var"; then
+	  case "$finalize_perm_rpath " in
+	  *" $libdir "*) ;;
+	  *) func_append finalize_perm_rpath " $libdir" ;;
+	  esac
+	fi
+      done
+      # Substitute the hardcoded libdirs into the rpath.
+      if test -n "$hardcode_libdir_separator" &&
+	 test -n "$hardcode_libdirs"; then
+	libdir=$hardcode_libdirs
+	eval rpath=\" $hardcode_libdir_flag_spec\"
+      fi
+      finalize_rpath=$rpath
+
+      if test -n "$libobjs" && test yes = "$build_old_libs"; then
+	# Transform all the library objects into standard objects.
+	compile_command=`$ECHO "$compile_command" | $SP2NL | $SED "$lo2o" | $NL2SP`
+	finalize_command=`$ECHO "$finalize_command" | $SP2NL | $SED "$lo2o" | $NL2SP`
+      fi
+
+      func_generate_dlsyms "$outputname" "@PROGRAM@" false
+
+      # template prelinking step
+      if test -n "$prelink_cmds"; then
+	func_execute_cmds "$prelink_cmds" 'exit $?'
+      fi
+
+      wrappers_required=:
+      case $host in
+      *cegcc* | *mingw32ce*)
+        # Disable wrappers for cegcc and mingw32ce hosts, we are cross compiling anyway.
+        wrappers_required=false
+        ;;
+      *cygwin* | *mingw* )
+        test yes = "$build_libtool_libs" || wrappers_required=false
+        ;;
+      *)
+        if test no = "$need_relink" || test yes != "$build_libtool_libs"; then
+          wrappers_required=false
+        fi
+        ;;
+      esac
+      $wrappers_required || {
+	# Replace the output file specification.
+	compile_command=`$ECHO "$compile_command" | $SED 's%@OUTPUT@%'"$output"'%g'`
+	link_command=$compile_command$compile_rpath
+
+	# We have no uninstalled library dependencies, so finalize right now.
+	exit_status=0
+	func_show_eval "$link_command" 'exit_status=$?'
+
+	if test -n "$postlink_cmds"; then
+	  func_to_tool_file "$output"
+	  postlink_cmds=`func_echo_all "$postlink_cmds" | $SED -e 's%@OUTPUT@%'"$output"'%g' -e 's%@TOOL_OUTPUT@%'"$func_to_tool_file_result"'%g'`
+	  func_execute_cmds "$postlink_cmds" 'exit $?'
+	fi
+
+	# Delete the generated files.
+	if test -f "$output_objdir/${outputname}S.$objext"; then
+	  func_show_eval '$RM "$output_objdir/${outputname}S.$objext"'
+	fi
+
+	exit $exit_status
+      }
+
+      if test -n "$compile_shlibpath$finalize_shlibpath"; then
+	compile_command="$shlibpath_var=\"$compile_shlibpath$finalize_shlibpath\$$shlibpath_var\" $compile_command"
+      fi
+      if test -n "$finalize_shlibpath"; then
+	finalize_command="$shlibpath_var=\"$finalize_shlibpath\$$shlibpath_var\" $finalize_command"
+      fi
+
+      compile_var=
+      finalize_var=
+      if test -n "$runpath_var"; then
+	if test -n "$perm_rpath"; then
+	  # We should set the runpath_var.
+	  rpath=
+	  for dir in $perm_rpath; do
+	    func_append rpath "$dir:"
+	  done
+	  compile_var="$runpath_var=\"$rpath\$$runpath_var\" "
+	fi
+	if test -n "$finalize_perm_rpath"; then
+	  # We should set the runpath_var.
+	  rpath=
+	  for dir in $finalize_perm_rpath; do
+	    func_append rpath "$dir:"
+	  done
+	  finalize_var="$runpath_var=\"$rpath\$$runpath_var\" "
+	fi
+      fi
+
+      if test yes = "$no_install"; then
+	# We don't need to create a wrapper script.
+	link_command=$compile_var$compile_command$compile_rpath
+	# Replace the output file specification.
+	link_command=`$ECHO "$link_command" | $SED 's%@OUTPUT@%'"$output"'%g'`
+	# Delete the old output file.
+	$opt_dry_run || $RM $output
+	# Link the executable and exit
+	func_show_eval "$link_command" 'exit $?'
+
+	if test -n "$postlink_cmds"; then
+	  func_to_tool_file "$output"
+	  postlink_cmds=`func_echo_all "$postlink_cmds" | $SED -e 's%@OUTPUT@%'"$output"'%g' -e 's%@TOOL_OUTPUT@%'"$func_to_tool_file_result"'%g'`
+	  func_execute_cmds "$postlink_cmds" 'exit $?'
+	fi
+
+	exit $EXIT_SUCCESS
+      fi
+
+      case $hardcode_action,$fast_install in
+        relink,*)
+	  # Fast installation is not supported
+	  link_command=$compile_var$compile_command$compile_rpath
+	  relink_command=$finalize_var$finalize_command$finalize_rpath
+
+	  func_warning "this platform does not like uninstalled shared libraries"
+	  func_warning "'$output' will be relinked during installation"
+	  ;;
+        *,yes)
+	  link_command=$finalize_var$compile_command$finalize_rpath
+	  relink_command=`$ECHO "$compile_var$compile_command$compile_rpath" | $SED 's%@OUTPUT@%\$progdir/\$file%g'`
+          ;;
+	*,no)
+	  link_command=$compile_var$compile_command$compile_rpath
+	  relink_command=$finalize_var$finalize_command$finalize_rpath
+          ;;
+	*,needless)
+	  link_command=$finalize_var$compile_command$finalize_rpath
+	  relink_command=
+          ;;
+      esac
+
+      # Replace the output file specification.
+      link_command=`$ECHO "$link_command" | $SED 's%@OUTPUT@%'"$output_objdir/$outputname"'%g'`
+
+      # Delete the old output files.
+      $opt_dry_run || $RM $output $output_objdir/$outputname $output_objdir/lt-$outputname
+
+      func_show_eval "$link_command" 'exit $?'
+
+      if test -n "$postlink_cmds"; then
+	func_to_tool_file "$output_objdir/$outputname"
+	postlink_cmds=`func_echo_all "$postlink_cmds" | $SED -e 's%@OUTPUT@%'"$output_objdir/$outputname"'%g' -e 's%@TOOL_OUTPUT@%'"$func_to_tool_file_result"'%g'`
+	func_execute_cmds "$postlink_cmds" 'exit $?'
+      fi
+
+      # Now create the wrapper script.
+      func_verbose "creating $output"
+
+      # Quote the relink command for shipping.
+      if test -n "$relink_command"; then
+	# Preserve any variables that may affect compiler behavior
+	for var in $variables_saved_for_relink; do
+	  if eval test -z \"\${$var+set}\"; then
+	    relink_command="{ test -z \"\${$var+set}\" || $lt_unset $var || { $var=; export $var; }; }; $relink_command"
+	  elif eval var_value=\$$var; test -z "$var_value"; then
+	    relink_command="$var=; export $var; $relink_command"
+	  else
+	    func_quote_for_eval "$var_value"
+	    relink_command="$var=$func_quote_for_eval_result; export $var; $relink_command"
+	  fi
+	done
+	relink_command="(cd `pwd`; $relink_command)"
+	relink_command=`$ECHO "$relink_command" | $SED "$sed_quote_subst"`
+      fi
+
+      # Only actually do things if not in dry run mode.
+      $opt_dry_run || {
+	# win32 will think the script is a binary if it has
+	# a .exe suffix, so we strip it off here.
+	case $output in
+	  *.exe) func_stripname '' '.exe' "$output"
+	         output=$func_stripname_result ;;
+	esac
+	# test for cygwin because mv fails w/o .exe extensions
+	case $host in
+	  *cygwin*)
+	    exeext=.exe
+	    func_stripname '' '.exe' "$outputname"
+	    outputname=$func_stripname_result ;;
+	  *) exeext= ;;
+	esac
+	case $host in
+	  *cygwin* | *mingw* )
+	    func_dirname_and_basename "$output" "" "."
+	    output_name=$func_basename_result
+	    output_path=$func_dirname_result
+	    cwrappersource=$output_path/$objdir/lt-$output_name.c
+	    cwrapper=$output_path/$output_name.exe
+	    $RM $cwrappersource $cwrapper
+	    trap "$RM $cwrappersource $cwrapper; exit $EXIT_FAILURE" 1 2 15
+
+	    func_emit_cwrapperexe_src > $cwrappersource
+
+	    # The wrapper executable is built using the $host compiler,
+	    # because it contains $host paths and files. If cross-
+	    # compiling, it, like the target executable, must be
+	    # executed on the $host or under an emulation environment.
+	    $opt_dry_run || {
+	      $LTCC $LTCFLAGS -o $cwrapper $cwrappersource
+	      $STRIP $cwrapper
+	    }
+
+	    # Now, create the wrapper script for func_source use:
+	    func_ltwrapper_scriptname $cwrapper
+	    $RM $func_ltwrapper_scriptname_result
+	    trap "$RM $func_ltwrapper_scriptname_result; exit $EXIT_FAILURE" 1 2 15
+	    $opt_dry_run || {
+	      # note: this script will not be executed, so do not chmod.
+	      if test "x$build" = "x$host"; then
+		$cwrapper --lt-dump-script > $func_ltwrapper_scriptname_result
+	      else
+		func_emit_wrapper no > $func_ltwrapper_scriptname_result
+	      fi
+	    }
+	  ;;
+	  * )
+	    $RM $output
+	    trap "$RM $output; exit $EXIT_FAILURE" 1 2 15
+
+	    func_emit_wrapper no > $output
+	    chmod +x $output
+	  ;;
+	esac
+      }
+      exit $EXIT_SUCCESS
+      ;;
+    esac
+
+    # See if we need to build an old-fashioned archive.
+    for oldlib in $oldlibs; do
+
+      case $build_libtool_libs in
+        convenience)
+	  oldobjs="$libobjs_save $symfileobj"
+	  addlibs=$convenience
+	  build_libtool_libs=no
+	  ;;
+	module)
+	  oldobjs=$libobjs_save
+	  addlibs=$old_convenience
+	  build_libtool_libs=no
+          ;;
+	*)
+	  oldobjs="$old_deplibs $non_pic_objects"
+	  $preload && test -f "$symfileobj" \
+	    && func_append oldobjs " $symfileobj"
+	  addlibs=$old_convenience
+	  ;;
+      esac
+
+      if test -n "$addlibs"; then
+	gentop=$output_objdir/${outputname}x
+	func_append generated " $gentop"
+
+	func_extract_archives $gentop $addlibs
+	func_append oldobjs " $func_extract_archives_result"
+      fi
+
+      # Do each command in the archive commands.
+      if test -n "$old_archive_from_new_cmds" && test yes = "$build_libtool_libs"; then
+	cmds=$old_archive_from_new_cmds
+      else
+
+	# Add any objects from preloaded convenience libraries
+	if test -n "$dlprefiles"; then
+	  gentop=$output_objdir/${outputname}x
+	  func_append generated " $gentop"
+
+	  func_extract_archives $gentop $dlprefiles
+	  func_append oldobjs " $func_extract_archives_result"
+	fi
+
+	# POSIX demands no paths to be encoded in archives.  We have
+	# to avoid creating archives with duplicate basenames if we
+	# might have to extract them afterwards, e.g., when creating a
+	# static archive out of a convenience library, or when linking
+	# the entirety of a libtool archive into another (currently
+	# not supported by libtool).
+	if (for obj in $oldobjs
+	    do
+	      func_basename "$obj"
+	      $ECHO "$func_basename_result"
+	    done | sort | sort -uc >/dev/null 2>&1); then
+	  :
+	else
+	  echo "copying selected object files to avoid basename conflicts..."
+	  gentop=$output_objdir/${outputname}x
+	  func_append generated " $gentop"
+	  func_mkdir_p "$gentop"
+	  save_oldobjs=$oldobjs
+	  oldobjs=
+	  counter=1
+	  for obj in $save_oldobjs
+	  do
+	    func_basename "$obj"
+	    objbase=$func_basename_result
+	    case " $oldobjs " in
+	    " ") oldobjs=$obj ;;
+	    *[\ /]"$objbase "*)
+	      while :; do
+		# Make sure we don't pick an alternate name that also
+		# overlaps.
+		newobj=lt$counter-$objbase
+		func_arith $counter + 1
+		counter=$func_arith_result
+		case " $oldobjs " in
+		*[\ /]"$newobj "*) ;;
+		*) if test ! -f "$gentop/$newobj"; then break; fi ;;
+		esac
+	      done
+	      func_show_eval "ln $obj $gentop/$newobj || cp $obj $gentop/$newobj"
+	      func_append oldobjs " $gentop/$newobj"
+	      ;;
+	    *) func_append oldobjs " $obj" ;;
+	    esac
+	  done
+	fi
+	func_to_tool_file "$oldlib" func_convert_file_msys_to_w32
+	tool_oldlib=$func_to_tool_file_result
+	eval cmds=\"$old_archive_cmds\"
+
+	func_len " $cmds"
+	len=$func_len_result
+	if test "$len" -lt "$max_cmd_len" || test "$max_cmd_len" -le -1; then
+	  cmds=$old_archive_cmds
+	elif test -n "$archiver_list_spec"; then
+	  func_verbose "using command file archive linking..."
+	  for obj in $oldobjs
+	  do
+	    func_to_tool_file "$obj"
+	    $ECHO "$func_to_tool_file_result"
+	  done > $output_objdir/$libname.libcmd
+	  func_to_tool_file "$output_objdir/$libname.libcmd"
+	  oldobjs=" $archiver_list_spec$func_to_tool_file_result"
+	  cmds=$old_archive_cmds
+	else
+	  # the command line is too long to link in one step, link in parts
+	  func_verbose "using piecewise archive linking..."
+	  save_RANLIB=$RANLIB
+	  RANLIB=:
+	  objlist=
+	  concat_cmds=
+	  save_oldobjs=$oldobjs
+	  oldobjs=
+	  # Is there a better way of finding the last object in the list?
+	  for obj in $save_oldobjs
+	  do
+	    last_oldobj=$obj
+	  done
+	  eval test_cmds=\"$old_archive_cmds\"
+	  func_len " $test_cmds"
+	  len0=$func_len_result
+	  len=$len0
+	  for obj in $save_oldobjs
+	  do
+	    func_len " $obj"
+	    func_arith $len + $func_len_result
+	    len=$func_arith_result
+	    func_append objlist " $obj"
+	    if test "$len" -lt "$max_cmd_len"; then
+	      :
+	    else
+	      # the above command should be used before it gets too long
+	      oldobjs=$objlist
+	      if test "$obj" = "$last_oldobj"; then
+		RANLIB=$save_RANLIB
+	      fi
+	      test -z "$concat_cmds" || concat_cmds=$concat_cmds~
+	      eval concat_cmds=\"\$concat_cmds$old_archive_cmds\"
+	      objlist=
+	      len=$len0
+	    fi
+	  done
+	  RANLIB=$save_RANLIB
+	  oldobjs=$objlist
+	  if test -z "$oldobjs"; then
+	    eval cmds=\"\$concat_cmds\"
+	  else
+	    eval cmds=\"\$concat_cmds~\$old_archive_cmds\"
+	  fi
+	fi
+      fi
+      func_execute_cmds "$cmds" 'exit $?'
+    done
+
+    test -n "$generated" && \
+      func_show_eval "${RM}r$generated"
+
+    # Now create the libtool archive.
+    case $output in
+    *.la)
+      old_library=
+      test yes = "$build_old_libs" && old_library=$libname.$libext
+      func_verbose "creating $output"
+
+      # Preserve any variables that may affect compiler behavior
+      for var in $variables_saved_for_relink; do
+	if eval test -z \"\${$var+set}\"; then
+	  relink_command="{ test -z \"\${$var+set}\" || $lt_unset $var || { $var=; export $var; }; }; $relink_command"
+	elif eval var_value=\$$var; test -z "$var_value"; then
+	  relink_command="$var=; export $var; $relink_command"
+	else
+	  func_quote_for_eval "$var_value"
+	  relink_command="$var=$func_quote_for_eval_result; export $var; $relink_command"
+	fi
+      done
+      # Quote the link command for shipping.
+      relink_command="(cd `pwd`; $SHELL \"$progpath\" $preserve_args --mode=relink $libtool_args @inst_prefix_dir@)"
+      relink_command=`$ECHO "$relink_command" | $SED "$sed_quote_subst"`
+      if test yes = "$hardcode_automatic"; then
+	relink_command=
+      fi
+
+      # Only create the output if not a dry run.
+      $opt_dry_run || {
+	for installed in no yes; do
+	  if test yes = "$installed"; then
+	    if test -z "$install_libdir"; then
+	      break
+	    fi
+	    output=$output_objdir/${outputname}i
+	    # Replace all uninstalled libtool libraries with the installed ones
+	    newdependency_libs=
+	    for deplib in $dependency_libs; do
+	      case $deplib in
+	      *.la)
+		func_basename "$deplib"
+		name=$func_basename_result
+		func_resolve_sysroot "$deplib"
+		eval libdir=`$SED -n -e 's/^libdir=\(.*\)$/\1/p' $func_resolve_sysroot_result`
+		test -z "$libdir" && \
+		  func_fatal_error "'$deplib' is not a valid libtool archive"
+		func_append newdependency_libs " ${lt_sysroot:+=}$libdir/$name"
+		;;
+	      -L*)
+		func_stripname -L '' "$deplib"
+		func_replace_sysroot "$func_stripname_result"
+		func_append newdependency_libs " -L$func_replace_sysroot_result"
+		;;
+	      -R*)
+		func_stripname -R '' "$deplib"
+		func_replace_sysroot "$func_stripname_result"
+		func_append newdependency_libs " -R$func_replace_sysroot_result"
+		;;
+	      *) func_append newdependency_libs " $deplib" ;;
+	      esac
+	    done
+	    dependency_libs=$newdependency_libs
+	    newdlfiles=
+
+	    for lib in $dlfiles; do
+	      case $lib in
+	      *.la)
+	        func_basename "$lib"
+		name=$func_basename_result
+		eval libdir=`$SED -n -e 's/^libdir=\(.*\)$/\1/p' $lib`
+		test -z "$libdir" && \
+		  func_fatal_error "'$lib' is not a valid libtool archive"
+		func_append newdlfiles " ${lt_sysroot:+=}$libdir/$name"
+		;;
+	      *) func_append newdlfiles " $lib" ;;
+	      esac
+	    done
+	    dlfiles=$newdlfiles
+	    newdlprefiles=
+	    for lib in $dlprefiles; do
+	      case $lib in
+	      *.la)
+		# Only pass preopened files to the pseudo-archive (for
+		# eventual linking with the app. that links it) if we
+		# didn't already link the preopened objects directly into
+		# the library:
+		func_basename "$lib"
+		name=$func_basename_result
+		eval libdir=`$SED -n -e 's/^libdir=\(.*\)$/\1/p' $lib`
+		test -z "$libdir" && \
+		  func_fatal_error "'$lib' is not a valid libtool archive"
+		func_append newdlprefiles " ${lt_sysroot:+=}$libdir/$name"
+		;;
+	      esac
+	    done
+	    dlprefiles=$newdlprefiles
+	  else
+	    newdlfiles=
+	    for lib in $dlfiles; do
+	      case $lib in
+		[\\/]* | [A-Za-z]:[\\/]*) abs=$lib ;;
+		*) abs=`pwd`"/$lib" ;;
+	      esac
+	      func_append newdlfiles " $abs"
+	    done
+	    dlfiles=$newdlfiles
+	    newdlprefiles=
+	    for lib in $dlprefiles; do
+	      case $lib in
+		[\\/]* | [A-Za-z]:[\\/]*) abs=$lib ;;
+		*) abs=`pwd`"/$lib" ;;
+	      esac
+	      func_append newdlprefiles " $abs"
+	    done
+	    dlprefiles=$newdlprefiles
+	  fi
+	  $RM $output
+	  # place dlname in correct position for cygwin
+	  # In fact, it would be nice if we could use this code for all target
+	  # systems that can't hard-code library paths into their executables
+	  # and that have no shared library path variable independent of PATH,
+	  # but it turns out we can't easily determine that from inspecting
+	  # libtool variables, so we have to hard-code the OSs to which it
+	  # applies here; at the moment, that means platforms that use the PE
+	  # object format with DLL files.  See the long comment at the top of
+	  # tests/bindir.at for full details.
+	  tdlname=$dlname
+	  case $host,$output,$installed,$module,$dlname in
+	    *cygwin*,*lai,yes,no,*.dll | *mingw*,*lai,yes,no,*.dll | *cegcc*,*lai,yes,no,*.dll)
+	      # If a -bindir argument was supplied, place the dll there.
+	      if test -n "$bindir"; then
+		func_relative_path "$install_libdir" "$bindir"
+		tdlname=$func_relative_path_result/$dlname
+	      else
+		# Otherwise fall back on heuristic.
+		tdlname=../bin/$dlname
+	      fi
+	      ;;
+	  esac
+	  $ECHO > $output "\
+# $outputname - a libtool library file
+# Generated by $PROGRAM (GNU $PACKAGE) $VERSION
+#
+# Please DO NOT delete this file!
+# It is necessary for linking the library.
+
+# The name that we can dlopen(3).
+dlname='$tdlname'
+
+# Names of this library.
+library_names='$library_names'
+
+# The name of the static archive.
+old_library='$old_library'
+
+# Linker flags that cannot go in dependency_libs.
+inherited_linker_flags='$new_inherited_linker_flags'
+
+# Libraries that this one depends upon.
+dependency_libs='$dependency_libs'
+
+# Names of additional weak libraries provided by this library
+weak_library_names='$weak_libs'
+
+# Version information for $libname.
+current=$current
+age=$age
+revision=$revision
+
+# Is this an already installed library?
+installed=$installed
+
+# Should we warn about portability when linking against -modules?
+shouldnotlink=$module
+
+# Files to dlopen/dlpreopen
+dlopen='$dlfiles'
+dlpreopen='$dlprefiles'
+
+# Directory that this library needs to be installed in:
+libdir='$install_libdir'"
+	  if test no,yes = "$installed,$need_relink"; then
+	    $ECHO >> $output "\
+relink_command=\"$relink_command\""
+	  fi
+	done
+      }
+
+      # Do a symbolic link so that the libtool archive can be found in
+      # LD_LIBRARY_PATH before the program is installed.
+      func_show_eval '( cd "$output_objdir" && $RM "$outputname" && $LN_S "../$outputname" "$outputname" )' 'exit $?'
+      ;;
+    esac
+    exit $EXIT_SUCCESS
+}
+
+if test link = "$opt_mode" || test relink = "$opt_mode"; then
+  func_mode_link ${1+"$@"}
+fi
+
+
+# func_mode_uninstall arg...
+func_mode_uninstall ()
+{
+    $debug_cmd
+
+    RM=$nonopt
+    files=
+    rmforce=false
+    exit_status=0
+
+    # This variable tells wrapper scripts just to set variables rather
+    # than running their programs.
+    libtool_install_magic=$magic
+
+    for arg
+    do
+      case $arg in
+      -f) func_append RM " $arg"; rmforce=: ;;
+      -*) func_append RM " $arg" ;;
+      *) func_append files " $arg" ;;
+      esac
+    done
+
+    test -z "$RM" && \
+      func_fatal_help "you must specify an RM program"
+
+    rmdirs=
+
+    for file in $files; do
+      func_dirname "$file" "" "."
+      dir=$func_dirname_result
+      if test . = "$dir"; then
+	odir=$objdir
+      else
+	odir=$dir/$objdir
+      fi
+      func_basename "$file"
+      name=$func_basename_result
+      test uninstall = "$opt_mode" && odir=$dir
+
+      # Remember odir for removal later, being careful to avoid duplicates
+      if test clean = "$opt_mode"; then
+	case " $rmdirs " in
+	  *" $odir "*) ;;
+	  *) func_append rmdirs " $odir" ;;
+	esac
+      fi
+
+      # Don't error if the file doesn't exist and rm -f was used.
+      if { test -L "$file"; } >/dev/null 2>&1 ||
+	 { test -h "$file"; } >/dev/null 2>&1 ||
+	 test -f "$file"; then
+	:
+      elif test -d "$file"; then
+	exit_status=1
+	continue
+      elif $rmforce; then
+	continue
+      fi
+
+      rmfiles=$file
+
+      case $name in
+      *.la)
+	# Possibly a libtool archive, so verify it.
+	if func_lalib_p "$file"; then
+	  func_source $dir/$name
+
+	  # Delete the libtool libraries and symlinks.
+	  for n in $library_names; do
+	    func_append rmfiles " $odir/$n"
+	  done
+	  test -n "$old_library" && func_append rmfiles " $odir/$old_library"
+
+	  case $opt_mode in
+	  clean)
+	    case " $library_names " in
+	    *" $dlname "*) ;;
+	    *) test -n "$dlname" && func_append rmfiles " $odir/$dlname" ;;
+	    esac
+	    test -n "$libdir" && func_append rmfiles " $odir/$name $odir/${name}i"
+	    ;;
+	  uninstall)
+	    if test -n "$library_names"; then
+	      # Do each command in the postuninstall commands.
+	      func_execute_cmds "$postuninstall_cmds" '$rmforce || exit_status=1'
+	    fi
+
+	    if test -n "$old_library"; then
+	      # Do each command in the old_postuninstall commands.
+	      func_execute_cmds "$old_postuninstall_cmds" '$rmforce || exit_status=1'
+	    fi
+	    # FIXME: should reinstall the best remaining shared library.
+	    ;;
+	  esac
+	fi
+	;;
+
+      *.lo)
+	# Possibly a libtool object, so verify it.
+	if func_lalib_p "$file"; then
+
+	  # Read the .lo file
+	  func_source $dir/$name
+
+	  # Add PIC object to the list of files to remove.
+	  if test -n "$pic_object" && test none != "$pic_object"; then
+	    func_append rmfiles " $dir/$pic_object"
+	  fi
+
+	  # Add non-PIC object to the list of files to remove.
+	  if test -n "$non_pic_object" && test none != "$non_pic_object"; then
+	    func_append rmfiles " $dir/$non_pic_object"
+	  fi
+	fi
+	;;
+
+      *)
+	if test clean = "$opt_mode"; then
+	  noexename=$name
+	  case $file in
+	  *.exe)
+	    func_stripname '' '.exe' "$file"
+	    file=$func_stripname_result
+	    func_stripname '' '.exe' "$name"
+	    noexename=$func_stripname_result
+	    # $file with .exe has already been added to rmfiles,
+	    # add $file without .exe
+	    func_append rmfiles " $file"
+	    ;;
+	  esac
+	  # Do a test to see if this is a libtool program.
+	  if func_ltwrapper_p "$file"; then
+	    if func_ltwrapper_executable_p "$file"; then
+	      func_ltwrapper_scriptname "$file"
+	      relink_command=
+	      func_source $func_ltwrapper_scriptname_result
+	      func_append rmfiles " $func_ltwrapper_scriptname_result"
+	    else
+	      relink_command=
+	      func_source $dir/$noexename
+	    fi
+
+	    # note $name still contains .exe if it was in $file originally
+	    # as does the version of $file that was added into $rmfiles
+	    func_append rmfiles " $odir/$name $odir/${name}S.$objext"
+	    if test yes = "$fast_install" && test -n "$relink_command"; then
+	      func_append rmfiles " $odir/lt-$name"
+	    fi
+	    if test "X$noexename" != "X$name"; then
+	      func_append rmfiles " $odir/lt-$noexename.c"
+	    fi
+	  fi
+	fi
+	;;
+      esac
+      func_show_eval "$RM $rmfiles" 'exit_status=1'
+    done
+
+    # Try to remove the $objdir's in the directories where we deleted files
+    for dir in $rmdirs; do
+      if test -d "$dir"; then
+	func_show_eval "rmdir $dir >/dev/null 2>&1"
+      fi
+    done
+
+    exit $exit_status
+}
+
+if test uninstall = "$opt_mode" || test clean = "$opt_mode"; then
+  func_mode_uninstall ${1+"$@"}
+fi
+
+test -z "$opt_mode" && {
+  help=$generic_help
+  func_fatal_help "you must specify a MODE"
+}
+
+test -z "$exec_cmd" && \
+  func_fatal_help "invalid operation mode '$opt_mode'"
+
+if test -n "$exec_cmd"; then
+  eval exec "$exec_cmd"
+  exit $EXIT_FAILURE
+fi
+
+exit $exit_status
+
+
+# The TAGs below are defined such that we never get into a situation
+# where we disable both kinds of libraries.  Given conflicting
+# choices, we go for a static library, that is the most portable,
+# since we can't tell whether shared libraries were disabled because
+# the user asked for that or because the platform doesn't support
+# them.  This is particularly important on AIX, because we don't
+# support having both static and shared libraries enabled at the same
+# time on that platform, so we default to a shared-only configuration.
+# If a disable-shared tag is given, we'll fallback to a static-only
+# configuration.  But we'll never go from static-only to shared-only.
+
+# ### BEGIN LIBTOOL TAG CONFIG: disable-shared
+build_libtool_libs=no
+build_old_libs=yes
+# ### END LIBTOOL TAG CONFIG: disable-shared
+
+# ### BEGIN LIBTOOL TAG CONFIG: disable-static
+build_old_libs=`case $build_libtool_libs in yes) echo no;; *) echo yes;; esac`
+# ### END LIBTOOL TAG CONFIG: disable-static
+
+# Local Variables:
+# mode:shell-script
+# sh-indentation:2
+# End:

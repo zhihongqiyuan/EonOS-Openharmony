@@ -1,0 +1,243 @@
+/*
+ * Copyright (c) 2022-2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+"use strict";
+if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+class TransitionExample extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__btnW = new ObservedPropertySimplePU(50, this, "btnW");
+        this.__btnH = new ObservedPropertySimplePU(50, this, "btnH");
+        this.__btn1 = new ObservedPropertySimplePU(false, this, "btn1");
+        this.__show = new ObservedPropertySimplePU("show", this, "show");
+        this.__color = new ObservedPropertySimplePU(Color.Red, this, "color");
+        this.__width1 = new ObservedPropertySimplePU(100, this, "width1");
+        this.__height1 = new ObservedPropertySimplePU(100, this, "height1");
+        this.__opacity1 = new ObservedPropertySimplePU(1, this, "opacity1");
+        this.__borderRaius1 = new ObservedPropertySimplePU(10, this, "borderRaius1");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.btnW !== undefined) {
+            this.btnW = params.btnW;
+        }
+        if (params.btnH !== undefined) {
+            this.btnH = params.btnH;
+        }
+        if (params.btn1 !== undefined) {
+            this.btn1 = params.btn1;
+        }
+        if (params.show !== undefined) {
+            this.show = params.show;
+        }
+        if (params.color !== undefined) {
+            this.color = params.color;
+        }
+        if (params.width1 !== undefined) {
+            this.width1 = params.width1;
+        }
+        if (params.height1 !== undefined) {
+            this.height1 = params.height1;
+        }
+        if (params.opacity1 !== undefined) {
+            this.opacity1 = params.opacity1;
+        }
+        if (params.borderRaius1 !== undefined) {
+            this.borderRaius1 = params.borderRaius1;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__btnW.purgeDependencyOnElmtId(rmElmtId);
+        this.__btnH.purgeDependencyOnElmtId(rmElmtId);
+        this.__btn1.purgeDependencyOnElmtId(rmElmtId);
+        this.__show.purgeDependencyOnElmtId(rmElmtId);
+        this.__color.purgeDependencyOnElmtId(rmElmtId);
+        this.__width1.purgeDependencyOnElmtId(rmElmtId);
+        this.__height1.purgeDependencyOnElmtId(rmElmtId);
+        this.__opacity1.purgeDependencyOnElmtId(rmElmtId);
+        this.__borderRaius1.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__btnW.aboutToBeDeleted();
+        this.__btnH.aboutToBeDeleted();
+        this.__btn1.aboutToBeDeleted();
+        this.__show.aboutToBeDeleted();
+        this.__color.aboutToBeDeleted();
+        this.__width1.aboutToBeDeleted();
+        this.__height1.aboutToBeDeleted();
+        this.__opacity1.aboutToBeDeleted();
+        this.__borderRaius1.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get btnW() {
+        return this.__btnW.get();
+    }
+    set btnW(newValue) {
+        this.__btnW.set(newValue);
+    }
+    get btnH() {
+        return this.__btnH.get();
+    }
+    set btnH(newValue) {
+        this.__btnH.set(newValue);
+    }
+    get btn1() {
+        return this.__btn1.get();
+    }
+    set btn1(newValue) {
+        this.__btn1.set(newValue);
+    }
+    get show() {
+        return this.__show.get();
+    }
+    set show(newValue) {
+        this.__show.set(newValue);
+    }
+    get color() {
+        return this.__color.get();
+    }
+    set color(newValue) {
+        this.__color.set(newValue);
+    }
+    get width1() {
+        return this.__width1.get();
+    }
+    set width1(newValue) {
+        this.__width1.set(newValue);
+    }
+    get height1() {
+        return this.__height1.get();
+    }
+    set height1(newValue) {
+        this.__height1.set(newValue);
+    }
+    get opacity1() {
+        return this.__opacity1.get();
+    }
+    set opacity1(newValue) {
+        this.__opacity1.set(newValue);
+    }
+    get borderRaius1() {
+        return this.__borderRaius1.get();
+    }
+    set borderRaius1(newValue) {
+        this.__borderRaius1.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Flex.create({ direction: FlexDirection.Column, alignItems: ItemAlign.Center, });
+            Flex.height(400);
+            Flex.width("100%");
+            Flex.padding({ top: 100 });
+        }, Flex);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithLabel(this.show);
+            Button.onClick(() => {
+                Context.animateTo({ duration: 1000 }, () => {
+                    this.btn1 = !this.btn1;
+                    if (this.btn1) {
+                        this.show = "hide";
+                    }
+                    else {
+                        this.show = "show";
+                    }
+                });
+            });
+        }, Button);
+        Button.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            If.create();
+            if (this.btn1) {
+                this.ifElseBranchUpdateFunction(0, () => {
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        Button.createWithLabel();
+                        Button.width("80%");
+                        Button.height(30);
+                        Button.transition({ type: TransitionType.Insert, scale: { x: 0, y: 1.0 } });
+                        Button.transition({ type: TransitionType.Delete, scale: { x: 1.0, y: 0.0 } });
+                    }, Button);
+                    Button.pop();
+                });
+            }
+            else {
+                this.ifElseBranchUpdateFunction(1, () => {
+                });
+            }
+        }, If);
+        If.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithLabel('animation');
+            Context.animation({
+                duration: 1000,
+                curve: Curve.EaseOut,
+                delay: 200,
+                iterations: 1,
+                playMode: PlayMode.Normal // 动画模式
+            });
+            Button.width(this.btnW);
+            Button.height(this.btnH);
+            Button.onClick(() => {
+                this.btnW += 50;
+            });
+            Context.animation(null);
+        }, Button);
+        Button.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create({ space: 5 });
+            Column.width("100%");
+            Column.height("100%");
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+            Context.animation({ duration: 1000 });
+            Column.opacity(this.opacity1);
+            Column.backgroundColor(this.color);
+            Context.animation(null);
+            Context.animation({ duration: 2000 });
+            Column.width(this.width1);
+            Context.animation(null);
+            Context.animation({ duration: 3000 });
+            Column.height(this.height1);
+            Column.borderRadius(this.borderRaius1);
+            Context.animation(null);
+            Column.onClick(() => {
+                this.color = Color.Green;
+                this.borderRaius1 = 20;
+                this.opacity1 = 0.5;
+                this.height1 = 200;
+                this.width1 = 200;
+            });
+        }, Column);
+        Column.pop();
+        Column.pop();
+        Flex.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+        return "TransitionExample";
+    }
+}
+registerNamedRoute(() => new TransitionExample(undefined, {}), "", { bundleName: "com.example.application", moduleName: "application", pagePath: "pages/utForPartialUpdate/inner_component_transform/transition_component/animateTo/animateTo", pageFullPath: "application/entry/src/main/ets/pages/utForPartialUpdate/inner_component_transform/transition_component/animateTo/animateTo", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=animateTo.js.map

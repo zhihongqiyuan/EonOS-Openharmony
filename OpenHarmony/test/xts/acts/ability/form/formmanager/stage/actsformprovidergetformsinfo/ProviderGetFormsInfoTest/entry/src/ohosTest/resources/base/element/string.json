@@ -1,0 +1,32 @@
+{
+  "string": [
+    {
+      "name": "module_test_desc",
+      "value": "test ability description"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "the test ability"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "test label"
+    },
+    {
+      "name": "EntryFormAbility_desc",
+      "value": "form_description"
+    },
+    {
+      "name": "EntryFormAbility_label",
+      "value": "form_label"
+    },
+    {
+      "name": "TestFormAbility_desc",
+      "value": "组件A"
+    },
+    {
+      "name": "TestFormAbility_label",
+      "value": "添加到桌面"
+    }
+  ]
+}

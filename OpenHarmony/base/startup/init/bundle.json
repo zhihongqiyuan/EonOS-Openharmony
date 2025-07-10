@@ -1,0 +1,213 @@
+{
+    "name": "@ohos/init",
+    "description": "ohos init process",
+    "homePage": "https://gitee.com/openharmony",
+    "version": "4.0.2",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/startup_init",
+    "supplier": "Organization: OpenHarmony",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/startup/init"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "init",
+        "subsystem": "startup",
+        "syscap": [
+            "SystemCapability.Startup.SystemInfo",
+            "SystemCapability.Startup.SystemInfo.Lite",
+            "SystemCapability.Base"
+        ],
+        "features": [
+            "init_feature_begetctl_liteos",
+            "init_lite_use_posix_file_api",
+            "init_feature_ab_partition",
+            "init_lite_use_thirdparty_mbedtls",
+            "init_appspawn_client_module",
+            "init_extra_static_modules",
+            "init_begetutil_extra_modules",
+            "init_lite_no_log",
+            "init_lite_memory_size",
+            "init_use_encaps",
+            "init_feature_seccomp_privilege",
+            "init_feature_group_type",
+            "init_feature_enable_lite_process_priority",
+            "init_feature_use_hook_mgr",
+            "init_get_disk_sn",
+            "init_feature_custom_sandbox"
+        ],
+        "adapted_system_type": [
+            "mini",
+            "small",
+            "standard"
+        ],
+        "rom": "3.9MB",
+        "ram": "8356KB",
+        "hisysevent_config": [
+            "//base/startup/init/services/modules/sysevent/init_events.yaml"
+        ],
+        "deps": {
+            "components": [
+                "appspawn",
+                "safwk",
+                "c_utils",
+                "napi",
+                "ipc",
+                "config_policy",
+                "hdf_core",
+                "hilog",
+                "hilog_lite",
+                "samgr",
+                "access_token",
+                "hvb",
+                "hisysevent",
+                "hiprofiler",
+                "bounds_checking_function",
+                "bundle_framework",
+                "selinux",
+                "selinux_adapter",
+                "storage_service",
+                "mbedtls",
+                "zlib",
+                "cJSON",
+                "mksh",
+                "toybox",
+                "hicollie",
+                "drivers_interface_partitionslot"
+            ],
+            "third_party": [
+                "mksh",
+                "e2fsprogs",
+                "f2fs-tools"
+            ]
+        },
+        "build": {
+            "group_type": {
+                "base_group": [
+                ],
+                "fwk_group": [
+                    "//base/startup/init:init_fwk_group"
+                ],
+                "service_group": [
+                    "//base/startup/init:init_service_group"
+                ]
+              },
+            "inner_kits": [
+                {
+                    "header": {
+                        "header_base": "//base/startup/init/interfaces/innerkits/include/",
+                        "header_files": [
+                            "init_socket.h",
+                            "init_file.h",
+                            "init_reboot.h",
+                            "loop_event.h",
+                            "hookmgr.h",
+                            "service_control.h",
+                            "beget_ext.h",
+                            "systemcapability.h",
+                            "syspara/parameter.h",
+                            "syspara/parameters.h",
+                            "syspara/param_wrapper.h",
+                            "syspara/sysparam_errno.h",
+                            "syspara/sysversion.h",
+                            "param/init_param.h"
+                        ]
+                    },
+                    "name": "//base/startup/init/interfaces/innerkits:libbegetutil"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/startup/init/interfaces/innerkits/include/",
+                        "header_files": []
+                    },
+                    "name": "//base/startup/init/interfaces/innerkits:libbegetutil_static",
+                    "visibility": [ "updater" ]
+                },
+                {
+                    "header": {
+                        "header_base": "//base/startup/init/interfaces/innerkits/include/fs_manager/",
+                        "header_files": [
+                            "fs_manager.h"
+                        ]
+                    },
+                    "name": "//base/startup/init/interfaces/innerkits/fs_manager:libfsmanager_static"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/startup/init/interfaces/innerkits/include/fs_manager/",
+                        "header_files": []
+                    },
+                    "name": "//base/startup/init/interfaces/innerkits/fs_manager:libfsmanager_static_real",
+                    "visibility": [ "updater" ]
+                },
+                {
+                    "header": {
+                        "header_base": "//base/startup/init/interfaces/innerkits/include/",
+                        "header_files": [
+                            "service_watcher.h",
+                            "syspara/parameter.h",
+                            "syspara/sysparam_errno.h"
+                        ]
+                    },
+                    "name": "//base/startup/init/interfaces/innerkits:libbeget_proxy"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/startup/init/interfaces/innerkits",
+                        "header_files": [
+                            "init_module_engine/include/init_module_engine.h"
+                        ]
+                    },
+                    "name": "//base/startup/init/interfaces/innerkits/init_module_engine:libinit_module_engine"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/startup/init/interfaces/innerkits/seccomp/include/",
+                        "header_files": [
+                            "seccomp_policy.h"
+                        ]
+                    },
+                    "name": "//base/startup/init/interfaces/innerkits/seccomp:seccomp"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/startup/init/interfaces/innerkits/include/param",
+                        "header_files": [
+                        ]
+                    },
+                    "name": "//base/startup/init/interfaces/innerkits/zh_extral_dir:export_headers_lib"
+                },
+                {
+                    "header": {
+                        "header_base": "//base/startup/init/services/param/base",
+                        "header_files": []
+                    },
+                    "name": "//base/startup/init/services/param/base:parameterbase",
+                    "visibility": [ "musl" ]
+                },
+                {
+                    "header": {
+                        "header_base": "//base/startup/init/services/param/base",
+                        "header_files": []
+                    },
+                    "name": "//base/startup/init/services/param/base:parameterbase_noflto",
+                    "visibility": [ "musl" ]
+                },
+                {
+                    "name": "//base/startup/init/interfaces/kits/syscap_ts:syscap_ts"
+                },
+                {
+                    "name": "//base/startup/init/interfaces/kits/cj:cj_device_info_ffi"
+                },
+                {
+                    "name": "//base/startup/init/interfaces/kits/cj:cj_system_parameter_enhance_ffi"
+                }
+            ],
+            "test": [
+                "//base/startup/init/test:testgroup"
+            ]
+        }
+    }
+}

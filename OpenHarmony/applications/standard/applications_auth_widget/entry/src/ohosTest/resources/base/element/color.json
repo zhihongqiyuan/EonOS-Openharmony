@@ -1,0 +1,16 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "full_screen_background",
+      "value": "#0d0d0d"
+    },
+    {
+      "name": "button_color",
+      "value": "#00FFFFFF"
+    }
+  ]
+}

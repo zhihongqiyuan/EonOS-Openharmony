@@ -1,0 +1,179 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @addtogroup HdfFingerprintAuth
+ * @{
+ *
+ * @brief Provides APIs for the fingerprint auth driver.
+ *
+ * The fingerprint auth driver provides a unified interface for the fingerprint auth service to access the fingerprint auth driver.
+ * After obtaining the fingerprint auth driver proxy, the service can call related APIs to obtain executors.
+ * After obtaining the fingerprint auth executors, the service can call related APIs to get executor info, get
+ * template info, enroll template, authenticate template, delete template, etc.
+ *
+ * @since 4.0
+ */
+
+/**
+ * @file FingerprintAuthTypes.idl
+ *
+ * @brief Defines fingerprint auth driver enumeration and data structure, including AuthType, ExecutorRole, ExecutorSecureLevel,
+ * CommandId, FingerprintTipsCode, ExecutorInfo and TemplateInfo.
+ *
+ * @since 4.0
+ */
+
+package ohos.hdi.fingerprint_auth.v1_1;
+
+/**
+ * Enumerates prompt codes.
+ *
+ * @since 4.0
+ * @version 1.1
+ */
+enum FingerprintTipsCode : int {
+    FINGERPRINT_AUTH_TIP_GOOD = 0, /**< Indicates that the image acquired is good. */
+    FINGERPRINT_AUTH_TIP_DIRTY = 1, /**< Indicates that the fingerprint image is too noisy due to suspected or detected dirt on sensor. */
+    FINGERPRINT_AUTH_TIP_INSUFFICIENT = 2, /**< Indicates that only a partial fingerprint image is detected. */
+    FINGERPRINT_AUTH_TIP_PARTIAL = 3, /**< Indicates that only a partial fingerprint image is detected. */
+    FINGERPRINT_AUTH_TIP_TOO_FAST = 4, /**< Indicates that the fingerprint image is incomplete due to quick motion. */
+    FINGERPRINT_AUTH_TIP_TOO_SLOW = 5, /**< Indicates that the fingerprint image is unreadable due to lack of motion. */
+    FINGERPRINT_AUTH_TIP_FINGER_DOWN = 6, /**< Indicates that the finger is down. */
+    FINGERPRINT_AUTH_TIP_FINGER_UP = 7, /**< Indicates that the finger is up. */
+    VENDOR_FINGERPRINT_AUTH_TIP_BEGIN = 10000 /**< Vendor may add custom fingerprint auth tip after this. */
+};
+
+/**
+ * @brief Enumerates get Property types.
+ *
+ * @since 4.0
+ * @version 1.1
+ */
+enum GetPropertyType : int {
+    /**< Indicates that the property to get is auth sub type. */
+    AUTH_SUB_TYPE = 1,
+    /**< Indicates that the property to get is lockout duration. */
+    LOCKOUT_DURATION = 2,
+    /**< Indicates that the property to get is remain attempts. */
+    REMAIN_ATTEMPTS = 3,
+    /**< Indicates that the property to get is enroll progress. */
+    ENROLL_PROGRESS = 4,
+    /**< Indicates that the property to get is sensor info. */
+    SENSOR_INFO = 5
+};
+
+/**
+ * @brief Indicates executor property.
+ *
+ * @since 4.0
+ * @version 1.1
+ */
+struct Property {
+    /**< Indicates auth sub type. */
+    unsigned long authSubType;
+    /**< Indicates lockout duration. */
+    int lockoutDuration;
+    /**< Indicates remain attempts. */
+    int remainAttempts;
+    /**< Indicates enroll progress. */
+    String enrollmentProgress;
+    /**< Indicates sensor info. */
+    String sensorInfo;
+};
+
+/**
+ * @brief Enumerates sa command ids.
+ *
+ * @since 4.0
+ * @version 1.1
+ */
+enum SaCommandId : int {
+    /**< Indicates that the sa command is enable sensor illumination. */
+    ENABLE_SENSOR_ILLUMINATION = 1,
+    /**< Indicates that the sa command is disable sensor illumination. */
+    DISABLE_SENSOR_ILLUMINATION = 2,
+    /**< Indicates that the sa command is turn on sensor illumination. */
+    TURN_ON_SENSOR_ILLUMINATION = 3,
+    /**< Indicates that the sa command is turn off sensor illumination. */
+    TURN_OFF_SENSOR_ILLUMINATION = 4,
+};
+
+/**
+ * @brief Sa command parameter for enable sensor illumination.
+ *
+ * @since 4.0
+ * @version 1.1
+ */
+struct SaCommandParamEnableSensorIllumination {
+    /**< Indicates that highlight circle center x-coordinate per thousand to screen width. */
+    unsigned int centerX;
+    /**< Indicates that highlight circle center y-coordinate per thousand to screen height. */
+    unsigned int centerY;
+    /**< Indicates that highlight circle radius, in px. */
+    unsigned int radius;
+    /**< Indicates that highlight brightness. */
+    unsigned int brightness;
+    /**< Indicates that highlight color. */
+    unsigned int color;
+};
+
+/**
+ * @brief Indicates sa command parameter none.
+ *
+ * @since 4.0
+ * @version 1.1
+ */
+struct SaCommandParamNone {
+};
+
+/**
+ * @brief Indicates sa command parameter.
+ *
+ * @since 4.0
+ * @version 1.1
+ */
+union SaCommandParam {
+    /**< Indicates that sa command parameter is none. See {@link SaCommandParamNone}. */
+    struct SaCommandParamNone none;
+    /**< Indicates that sa command parameter is enable sensor illumination. See {@link SaCommandParamEnableSensorIllumination}. */
+    struct SaCommandParamEnableSensorIllumination enableSensorIllumination;
+};
+
+/**
+ * @brief Indicates sa command.
+ *
+ * @since 4.0
+ * @version 1.1
+ */
+struct SaCommand {
+    /**< Indicates sa command id. See {@link SaCommandId}. */
+    enum SaCommandId id;
+    /**< Indicates sa command parameter. See {@link SaCommandParam}. */
+    union SaCommandParam param;
+};
+
+/**
+ * Enumerates command id.
+ *
+ * @since 4.0
+ * @version 1.1
+ */
+enum CommandId : int {
+    LOCK_TEMPLATE = 1, /**< Indicates lock template command id. */
+    UNLOCK_TEMPLATE = 2, /**< Indicates unlock template command id. */
+    INIT_ALGORITHM = 3, /**< Indicates init algorithm command id. */
+    VENDOR_COMMAND_BEGIN = 10000 /**< Vendor may add custom command id after this. */
+};

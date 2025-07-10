@@ -1,0 +1,27 @@
+{
+    "mCompact": false,
+    "mRemoveComments": false,
+    "mOutputDir": "../../../local",
+    "mDisableHilog": false,
+    "mDisableConsole": false,
+    "mSimplify": false,
+    "mNameObfuscation": {
+        "mEnable": true,
+        "mNameGeneratorType": 1,
+        "mDictionaryList": [],
+        "mRenameProperties": true,
+        "mKeepStringProperty": false,
+        "mTopLevel": true
+    },
+    "mKeepFileSourceCode": {
+        "mKeepSourceOfPaths": [
+            "./struct_test_keep.d.ets",
+            "./virtualTest_keep1.d.ets",
+            "./virtualTest_keep2.d.ets"
+        ],
+        "mkeepFilesAndDependencies": []
+    },
+    "mEnableSourceMap": false,
+    "mEnableNameCache": false,
+    "mExportObfuscation": true
+}

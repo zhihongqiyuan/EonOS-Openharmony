@@ -1,0 +1,88 @@
+#  Copyright (c) 2022 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+domain: COMMONEVENT
+
+# fault event
+ORDERED_EVENT_PROC_TIMEOUT:
+  __BASE: {type: FAULT, level: MINOR, desc: process ordered event timeout}
+  USER_ID: {type: INT32, desc: userId}
+  BUNDLE_NAME_OF_SUBSCRIBER: {type: STRING, desc: bundle name of subscriber}
+  PID: {type: INT32, desc: subscriber pid}
+  UID: {type: INT32, desc: subscriber uid}
+  EVENT_NAME: {type: STRING, desc: event name}
+
+STATIC_EVENT_PROC_ERROR:
+  __BASE: {type: FAULT, level: MINOR, desc: process static event error}
+  USER_ID: {type: INT32, desc: userId}
+  BUNDLE_NAME_OF_PUBLISHER: {type: STRING, desc: bundle name of publisher}
+  BUNDLE_NAME_OF_SUBSCRIBER: {type: STRING, desc: bundle name of subscriber}
+  EVENT_NAME: {type: STRING, desc: event name}
+
+SUBSCRIBER_EXCEED_MAXIMUM:
+  __BASE: {type: FAULT, level: MINOR, desc: number of subscriber exceed maximum}
+  USER_ID: {type: INT32, desc: userId}
+  EVENT_NAME: {type: STRING, desc: event name}
+  SUBSCRIBER_NUM: {type: UINT32, desc: current subscriber number}
+
+PUBLISH_ERROR:
+  __BASE: {type: FAULT, level: MINOR, desc: publish event error}
+  USER_ID: {type: INT32, desc: userId}
+  BUNDLE_NAME_OF_PUBLISHER: {type: STRING, desc: bundle name of publisher}
+  PID: {type: INT32, desc: publisher pid}
+  UID: {type: INT32, desc: publisher uid}
+  EVENT_NAME: {type: STRING, desc: published event name}
+
+# statistic event
+SUBSCRIBE:
+  __BASE: {type: STATISTIC, level: MINOR, desc: subscribe event}
+  USER_ID: {type: INT32, desc: userId}
+  BUNDLE_NAME_OF_SUBSCRIBER: {type: STRING, desc: bundle name of subscriber}
+  PID: {type: INT32, desc: subscriber pid}
+  UID: {type: INT32, desc: subscriber uid}
+  EVENT_NAME: {type: STRING, desc: subscribed event name}
+
+UNSUBSCRIBE:
+  __BASE: {type: STATISTIC, level: MINOR, desc: unsubscribe event}
+  USER_ID: {type: INT32, desc: userId}
+  BUNDLE_NAME_OF_SUBSCRIBER: {type: STRING, desc: bundle name of subscriber}
+  PID: {type: INT32, desc: subscriber pid}
+  UID: {type: INT32, desc: subscriber uid}
+  EVENT_NAME: {type: STRING, desc: subscribed event name}
+
+PUBLISH:
+  __BASE: {type: STATISTIC, level: MINOR, desc: publish event}
+  USER_ID: {type: INT32, desc: userId}
+  BUNDLE_NAME_OF_PUBLISHER: {type: STRING, desc: bundle name of publisher}
+  PID: {type: INT32, desc: publisher pid}
+  UID: {type: INT32, desc: publisher uid}
+  EVENT_NAME: {type: STRING, desc: published event name}
+
+STATIC_SUBSCRIBER_START:
+  __BASE: {type: STATISTIC, level: MINOR, desc: static subscriber ability start}
+  USER_ID: {type: INT32, desc: userId}
+  BUNDLE_NAME_OF_SUBSCRIBER: {type: STRING, desc: bundle name of subscriber}
+  PID: {type: INT32, desc: subscriber pid}
+  UID: {type: INT32, desc: subscriber uid}
+  EVENT_NAME: {type: STRING, desc: subscribed event name}
+  ABILITY_NAME: {type: STRING, desc: the name of ability}
+
+STATIC_SUBSCRIBER_RUNTIME:
+  __BASE: {type: STATISTIC, level: MINOR, desc: static subscriber ability run time}
+  USER_ID: {type: INT32, desc: userId}
+  BUNDLE_NAME_OF_SUBSCRIBER: {type: STRING, desc: bundle name of subscriber}
+  PID: {type: INT32, desc: subscriber pid}
+  UID: {type: INT32, desc: subscriber uid}
+  EVENT_NAME: {type: STRING, desc: subscribed event name}
+  ABILITY_NAME: {type: STRING, desc: the name of ability}
+  RESULT_CODE: {type: INT32, desc: ability disconnect result}

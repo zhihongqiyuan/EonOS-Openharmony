@@ -1,0 +1,52 @@
+{
+  "float": [
+    {
+      "name": "battery_component_gap",
+      "value": "8.5vp"
+    },
+    {
+      "name": "battery_component_pic_gap",
+      "value": "2vp"
+    },
+    {
+      "name": "battery_component_pic_body_height",
+      "value": "19vp"
+    },
+    {
+      "name": "battery_component_pic_body_width",
+      "value": "34.5vp"
+    },
+    {
+      "name": "battery_component_pic_body_padding",
+      "value": "2vp"
+    },
+    {
+      "name": "battery_component_pic_body_border_width",
+      "value": "1vp"
+    },
+    {
+      "name": "battery_component_pic_border_radius",
+      "value": "2vp"
+    },
+    {
+      "name": "battery_component_pic_head_radius",
+      "value": "2vp"
+    },
+    {
+      "name": "battery_component_pic_head_width",
+      "value": "3vp"
+    },
+    {
+      "name": "battery_component_pic_head_height",
+      "value": "10vp"
+    },
+    {
+      "name": "icon_component_opacity",
+      "value": "1"
+    },
+    {
+      "name": "battery_component_margin",
+      "value": "0vp"
+    }
+  ]
+}

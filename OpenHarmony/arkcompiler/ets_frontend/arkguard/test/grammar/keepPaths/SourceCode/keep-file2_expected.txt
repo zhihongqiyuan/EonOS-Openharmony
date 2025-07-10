@@ -1,0 +1,29 @@
+export class Student {
+    name: string;
+    age: number;
+    grade: number;
+    constructor(name: string, age: number, grade: number) {
+        this.name = name;
+        this.age = age;
+        this.grade = grade;
+    }
+    introduce() {
+    }
+}
+class Classroom {
+    className: string;
+    students: Student[];
+    constructor(className: string, students: Student[]) {
+        this.className = className;
+        this.students = students;
+    }
+    listStudents() {
+        this.students.forEach(student => {
+        });
+    }
+}
+const student1 = new Student('Alice', 15, 9);
+const student2 = new Student('Bob', 14, 8);
+const student3 = new Student('Charlie', 16, 10);
+const classroom = new Classroom('Class A', [student1, student2, student3]);
+classroom.listStudents();

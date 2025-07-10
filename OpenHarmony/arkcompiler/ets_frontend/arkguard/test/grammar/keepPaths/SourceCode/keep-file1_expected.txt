@@ -1,0 +1,23 @@
+import { DependencyClass } from './depency-file1';
+class Animal {
+    constructor(public name: string) {
+    }
+    makeSound(): void {
+    }
+}
+class Cat extends Animal {
+    makeSound(): void {
+    }
+}
+class Dog extends Animal {
+    makeSound(): void {
+    }
+}
+const cat = new Cat('Kitty');
+const dog = new Dog('Buddy');
+cat.makeSound();
+dog.makeSound();
+let depenIns = new DependencyClass();
+depenIns.depencyMethod1();
+depenIns.depencyProp1;
+depenIns.depencyProp2;

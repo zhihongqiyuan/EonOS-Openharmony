@@ -1,0 +1,10 @@
+[
+	"liblbsservice_locator.z.so",
+	"libnetsys_native_manager.z.so",
+	"libavsession_service.z.so",
+	"libsg_collect_service.z.so",
+	"libabnormal_efficiency_mgr_service.z.so",
+	"libquickfix_engine_service.z.so",
+	"libscreenlock_server.z.so",
+	"libdistributedhardwarefwksvr.z.so"
+]

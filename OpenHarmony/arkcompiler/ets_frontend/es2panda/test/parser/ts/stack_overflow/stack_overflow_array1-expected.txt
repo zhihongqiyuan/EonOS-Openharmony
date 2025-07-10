@@ -1,0 +1,1 @@
+SyntaxError: Primary expression expected [stack_overflow_array1.ts:29:1]

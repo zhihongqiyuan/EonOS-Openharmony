@@ -1,0 +1,40 @@
+.language ECMAScript
+
+slotNum = 0x2
+.function any .#~@0=#WideSendableLazyLoading(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	callruntime.wideldlazysendablemodulevar 0xad
+	sta v0
+	throw.undefinedifholewithname a255
+	lda v0
+	stobjbyname 0x0, name1, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x9
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	callruntime.definesendableclass 0x0, .#~@0=#WideSendableLazyLoading, _4, 0x0, v0
+	sta v0
+	mov v2, v0
+	newobjrange 0x1, 0x1, v2
+	sta v0
+	callruntime.wideldlazymodulevar 0xae
+	sta v1
+	throw.undefinedifholewithname a256
+	tryldglobalbyname 0x3, print
+	callarg1 0x4, v0
+	tryldglobalbyname 0x6, print
+	callarg1 0x7, v1
+	ldundefined
+	returnundefined
+label_2: 
+}
+
+

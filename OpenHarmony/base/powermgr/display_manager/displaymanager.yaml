@@ -1,0 +1,38 @@
+# Copyright (c) 2022 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: DISPLAY
+
+SCREEN_STATE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: current screen status information}
+  STATE: {type: INT32, desc: current screen state}
+
+BRIGHTNESS_NIT:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: screen brightness}
+  BRIGHTNESS: {type: INT32, desc: screen brightness value}
+  REASON: {type: STRING, desc: brightness reason}
+  NIT: {type: INT32, desc: brightness nit}
+
+BACKLIGHT_DISCOUNT:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: screen brightness discount information}
+  RATIO: {type: INT32, desc: discount ratio}
+
+AMBIENT_LIGHT:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: ambient light information}
+  TYPE: {type: INT32, desc: ambient light type}
+  LEVEL: {type: INT32, desc: ambient light adjusts screen brightness}
+
+DMS_WAIT_LOCKSCREEN_TIMEOUT:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: dms wait lockscreen timeout information}
+  TYPE: {type: INT32, desc: screen on or off type}
+  TIME: {type: INT32, desc: interface time consuming}

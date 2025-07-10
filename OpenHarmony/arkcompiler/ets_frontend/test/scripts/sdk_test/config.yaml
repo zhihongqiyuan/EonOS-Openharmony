@@ -1,0 +1,315 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http:\www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Description: configs for test suite
+
+# environment settings
+deveco_path: D:\Software\Deveco-0602\DevEco Studio
+deveco_harmonyos_sdk_path: D:\SDK\HarmonyOS_SDK
+deveco_openharmony_sdk_path: D:\SDK\openHarmony_SDK
+node_js_path: D:\Software\nodejs  # The nodejs which is used in Deveco
+# the mapping between API and file name
+api_version_file_name_map:
+  '4.0.0(10)': "HarmonyOS-NEXT-DP0"
+  '4.1.0(11)': "HarmonyOS-NEXT-DP1"
+  '5.0.0(12)': "HarmonyOS-NEXT-DB0"
+
+# output settings
+output_html_file: ./sdk_test_report.html
+log_file: ./sdk_test_log.txt
+pictures_dic: ./pictures
+
+# descriptions about test haps list
+# each hap have the following attributes:
+# -name: name of the hap
+# -path: path of the hap project
+# -type: type of the hap. Available values are: [stage, fa, js, compatible8]
+#        besides, you can also append attributes in [widget, ohosTest, error, exceed_length_error]
+#        -widget: indicates this hap has widget, which has widgets.abc in stage mode
+#        -error: indicates this hap need to test whether compile error is correctly generated as well
+#        -exceed_length_error: indicates this hap need to test whether compile error is correctly generated when path exceed the limit
+#        -ohosTest: indicates this hap needed to compile ohosTest as well
+# -hap_module: specify hap module to build in the test.
+# -hap_module_path: specify hap module path to build in the test,in form of list
+# -har_module: specify har module to build in the test.
+# -har_module_path: specify har module path to build in the test,in form of list
+# -hsp_module: specify hsp module to build in the test.
+# -hsp_module_path: specify hsp module path to build in the test,in form of list
+# -cpp_module: specify cpp module to build in the test.
+# -cpp_module_path: specify cpp module path to build in the test,in form of list
+# -build_path: path to build path, in form of list
+# -preview_path: path to preview build path, in form of list
+# -bundle_name: the bundle name of the project.
+# -ability_name: the ability name of the project
+# -cache_path: path to cache path, in form of list
+# -hap_output_path: path of output hap(unsigned), in form of list
+# -hap_output_signed: path of output hap(signed), in form of list
+# -har_output_path: path of output har(har package), in form of list
+# -hap_output_path: path of output hsp(unsigned), in form of list
+# -hap_output_signed: path of output hsp(signed), in form of list
+# -har_output_path: path of output hsp(har package), in form of list
+# -main_pages_json_path: information of page configuration(when you add a new page)
+# -inc_modify_file: path of modified file in incremental build, in form of list
+# -har_modify_mode_file: path of modified file in har module, in form of list
+# -hsp_modify_mode_file: path of modified file in hsp module, in form of list
+# -cpp_modify_file: path of modified file in cpp module, in form of list
+# -description: description about the hap, this attribute is not used yet.
+haps:
+  # complex haps
+  - calendar:
+    name: Calendar
+    path: D:\haps\calendar
+    type: [stage]
+    hap_module: entry
+    build_path:
+    cache_path:
+    output_hap_path:
+    output_app_path:
+    inc_modify_file:
+    description:
+  # widget haps
+  - widgetdemo:
+    name: WidgetDemo
+    path: D:\haps\WidgetDemo
+    type: [stage, widget]
+    hap_module: entry
+    build_path:
+    cache_path:
+    output_hap_path:
+    output_app_path:
+    inc_modify_file:
+    description:
+  # IDE demo haps
+  - idedemo_00:
+    name: IdeStageDemoEmptyAbility
+    path: D:\sdk-test\DemoApplication_EmptyAbility
+    type: [stage, ohosTest, exceed_length_error, error]
+    hap_module: entry
+    hap_module_path: [ entry ]
+    har_module: har
+    har_module_path: [ har ]
+    hsp_module: hsp
+    hsp_module_path: [ hsp ]
+    cpp_module: cpp
+    cpp_module_path: [ cpp ]
+    build_path: [ build, default ]
+    preview_path: [.preview, default]
+    bundle_name: com.example.stagedemoemptyability
+    ability_name: EntryAbility
+    cache_path: [ cache, default, default@CompileArkTS, esmodule ]
+    preview_cache_path: [ cache, default, default@PreviewArkTS, esmodule ]
+    hap_output_path: [ outputs, default, entry-default-unsigned.hap ]
+    hap_output_path_signed: [ outputs, default, entry-default-signed.hap ]
+    har_output_path: [outputs, default, har.har]
+    hsp_output_path: [ outputs, default, hsp-default-unsigned.hsp]
+    hsp_output_path_signed: [outputs, default, hsp-default-signed.hsp]
+    main_pages_json_path: [ entry, src, main, resources, base, profile, main_pages.json ]
+    inc_modify_file: [ entry, src, main, ets, pages, Index.ets ]
+    har_modify_file: [ har, Index.ets ]
+    hsp_modify_file: [ hsp, Index.ets ]
+    cpp_modify_file: [ cpp, src, main, cpp, types, libcpp, Index.d.ts ]
+    description:
+  - idedemo_01:
+    name: IdeFaDemoEmptyAbility
+    path: D:\sdk-test\DemoApplication_EmptyAbility_fa
+    type: [fa, ohosTest, exceed_length_error, error]
+    hap_module: entry
+    hap_module_path: [ entry ]
+    har_module: har
+    har_module_path: [ har ]
+    hsp_module: hsp
+    hsp_module_path: [ hsp ]
+    cpp_module: cpp
+    cpp_module_path: [ cpp ]
+    build_path: [ build, default ]
+    preview_path: [.preview, default]
+    bundle_name: com.example.idefademoemptyability
+    ability_name: com.example.idefademoemptyability.MainAbility
+    cache_path: [ cache, default, default@LegacyCompileArkTS, jsbundle ]
+    preview_cache_path: [ cache, default, default@PreviewArkTS, esmodule ]
+    hap_output_path: [ outputs, default, entry-default-unsigned.hap ]
+    hap_output_path_signed: [ outputs, default, entry-default-signed.hap ]
+    har_output_path: [outputs, default, har.har]
+    hsp_output_path: [ outputs, default, hsp-default-unsigned.hsp]
+    hsp_output_path_signed: [outputs, default, hsp-default-signed.hsp]
+    main_pages_json_path: [ entry, src, main, resources, base, profile, main_pages.json ]
+    inc_modify_file: [ entry, src, main, ets, pages, Index.ets ]
+    har_modify_file: [ har, Index.ets ]
+    hsp_modify_file: [ hsp, Index.ets ]
+    cpp_modify_file: [ cpp, src, main, cpp, types, libcpp, Index.d.ts ]
+    description:
+  - idedemo_02:
+    name: IdeCompatible8DemoEmptyAbility
+    path: D:\sdk-test\DemoApplication_EmptyAbility_compatible8
+    type: [compatible8, ohosTest, exceed_length_error, error]
+    hap_module: entry
+    hap_module_path: [ entry ]
+    har_module: har
+    har_module_path: [ har ]
+    hsp_module: hsp
+    hsp_module_path: [ hsp ]
+    cpp_module: cpp
+    cpp_module_path: [ cpp ]
+    build_path: [ build, default ]
+    preview_path: [.preview, default]
+    bundle_name: com.example.idecompatible8demoemptyability
+    ability_name: com.example.idecompatible8demoemptyability.MainAbility
+    cache_path: [ cache, default, default@LegacyCompileArkTS, jsbundle ]
+    preview_cache_path: [ cache, default, default@PreviewArkTS, esmodule ]
+    hap_output_path: [ outputs, default, entry-default-unsigned.hap ]
+    hap_output_path_signed: [ outputs, default, entry-default-signed.hap ]
+    har_output_path: [outputs, default, har.har]
+    hsp_output_path: [ outputs, default, hsp-default-unsigned.hsp]
+    hsp_output_path_signed: [outputs, default, hsp-default-signed.hsp]
+    main_pages_json_path: [ entry, src, main, resources, base, profile, main_pages.json ]
+    inc_modify_file: [ entry, src, main, ets, pages, Index.ets ]
+    har_modify_file: [ har, Index.ets ]
+    hsp_modify_file: [ hsp, Index.ets ]
+    cpp_modify_file: [ cpp, src, main, cpp, types, libcpp, Index.d.ts ]
+    description:
+  - idedemo_03:
+    name: IdeJsDemoEmptyAbility
+    path: D:\sdk-test\DemoApplication_EmptyAbility_js
+    type: [js, ohosTest, exceed_length_error, error]
+    hap_module: entry
+    hap_module_path: [ entry ]
+    har_module: har
+    har_module_path: [ har ]
+    hsp_module: hsp
+    hsp_module_path: [ hsp ]
+    cpp_module: cpp
+    cpp_module_path: [ cpp ]
+    build_path: [ build, default ]
+    preview_path: [.preview, default]
+    bundle_name: com.example.idejsdemoemptyability
+    ability_name: com.example.idejsdemoemptyability.MainAbility
+    cache_path: [ cache, default, default@LegacyCompileJS, jsbundle ]
+    preview_cache_path: [ cache, default, default@PreviewArkTS, esmodule ]
+    hap_output_path: [ outputs, default, entry-default-unsigned.hap ]
+    hap_output_path_signed: [ outputs, default, entry-default-signed.hap ]
+    har_output_path: [outputs, default, har.har]
+    hsp_output_path: [ outputs, default, hsp-default-unsigned.hsp]
+    hsp_output_path_signed: [outputs, default, hsp-default-signed.hsp]
+    main_pages_json_path: [ entry, src, main, resources, base, profile, main_pages.json ]
+    inc_modify_file: [ entry, src, main, ets, pages, Index.ets ]
+    har_modify_file: [ har, Index.ets ]
+    hsp_modify_file: [ hsp, Index.ets ]
+    cpp_modify_file: [ cpp, src, main, cpp, types, libcpp, Index.d.ts ]
+    description:
+# external_haps: descriptions about external haps list
+external_haps:
+  - external_demo_00:
+    name: Out
+    path: D:\sdk-test\Out
+    type: [stage, ohosTest, exceed_length_error, error]
+    hap_module: entry
+    hap_module_path: [ entry ]
+    har_module: outHar
+    har_module_path: [ outHar ]
+    hsp_module: outHsp
+    hsp_module_path: [ outHsp ]
+    cpp_module: outCpp
+    cpp_module_path: [ outCpp ]
+    build_path: [ build, default ]
+    preview_path: [ .preview, default ]
+    bundle_name: com.example.out
+    ability_name: EntryAbility
+    cache_path: [ cache, default, default@CompileArkTS, esmodule ]
+    preview_cache_path: [ cache, default, default@PreviewArkTS, esmodule ]
+    hap_output_path: [ outputs, default, entry-default-unsigned.hap ]
+    hap_output_path_signed: [ outputs, default, entry-default-signed.hap ]
+    har_output_path_har: [ outputs, default, outHar.har ]
+    hsp_output_path: [ outputs, default, outHsp-default-unsigned.hsp ]
+    hsp_output_path_signed: [ outputs, default, outHsp-default-signed.hsp ]
+    hsp_output_path_har: [ outputs, default, outHsp.har ]
+    cpp_output_path: [ outputs, default, outCpp-default-unsigned.hap ]
+    cpp_output_path_signed: [ outputs, default, outCpp-default-signed.hap ]
+    main_pages_json_path: [ entry, src, main, resources, base, profile, main_pages.json ]
+    inc_modify_file: [ entry, src, main, ets, pages, Index.ets ]
+    har_modify_file: [ outHar, Index.ets ]
+    hsp_modify_file: [ outHsp, Index.ets ]
+    cpp_modify_file: [ outCpp, src, main, cpp, types, libcpp, Index.d.ts ]
+    description:
+
+# modifications for incremental compilation and other tests
+patch_content:
+  patch_new_file_ets:
+    # This new file will be added to the same directory as 'inc_modify_file' specified in haps
+    name: test.ets
+    path: pages/Test
+    content: "export function a() {return 'a'}\n"
+    component: "@Entry\n@Component\nstruct NewPage {\n@State message: string = 'Hello World';\nbuild() {\n}\n}\n"
+  patch_new_file_js:
+    name: test.js
+    content: "export function a() {return 'a'}\n"
+  patch_new_file_ts:
+    name: test.ts
+    new_name: TEST.ts
+    content: "export function a() {return 'a'}\n"
+  patch_new_file_cpp:
+    name: test.js
+    content: "export function a() {return 'a'}\n"
+  patch_lines_1:
+    js:
+      head: "import {a} from './test'\n"
+      tail: "\nconsole.log(a().toString());\n"
+    ts:
+      head: "import {a} from './test'\n"
+      tail: "\nconsole.log(a().toString());\n"
+    har:
+      head: "import {a} from 'staticlibrary';\n"
+      tail: "\nconsole.log(a().toString());\n"
+    hsp:
+      head: "import {a} from 'sharelibrary';\n"
+      tail: "\nconsole.log(a().toString());\n"
+    cpp:
+      head: "import {a} from 'libcpp.so';\n"
+      tail: "\nconsole.log(a().toString());\n"
+    externalhar:
+      head: "import {a} from 'outHar';\n"
+      tail: "\nconsole.log(a().toString());\n"
+    externalhsp:
+      head: "import {a} from 'outHsp';\n"
+      tail: "\nconsole.log(a().toString());\n"
+    externalcpp:
+      head: "import {a} from 'outCpp';\n"
+      tail: "\nconsole.log(a().toString());\n"
+  patch_lines_2:
+    tail: "\n console.log('This is a new line');\n"
+  patch_lines_error:
+    content: "let a_duplicated_value_for_test_suite = 1; function a_duplicated_value_for_test_suite() {};\n"
+    expected_error: [Duplicate identifier 'a_duplicated_value_for_test_suite',
+                     Function implementation is missing or not immediately following the declaration,
+                     Identifier 'a_duplicated_value_for_test_suite' has already been declared]
+  patch_file_error:
+    expected_error: [Cannot find module './test' or its corresponding type declarations]
+  # Please make sure the module inc modify path is in the dependency path
+  arkui_patch:
+    content: "@Entry\n@Component\nstruct HelloWorld {\n@State message: string = 'Hello World';\nbuild() {\n}\n}\n"
+    component: "Row() {\nColumn() {\nText(this.message)\n.fontSize(50)\n.fontWeight(FontWeight.Bold)\n}\n
+                .width('100%')\n}\n.height('100%')\n"
+    origin_text: "'Hello World';"
+    error_text: "'Hello World'123;"
+    error_component: "Texat('this is a wrong component')\n"
+    expected_errors: [Cannot find name 'Texat'. Did you mean 'Text',
+                      Objects with property names that are not identifiers are not supported, "';' expected"]
+  ohpm_package_patch:
+    ordinary_package:
+      name: dayjs
+      head: "import dayjs from 'dayjs'\n"
+      tail: "\nconsole.log(dayjs().toString());"
+    # The oh-package.json does not contain the fields module/main/borrower
+    special_package:
+      name: bignumber.js
+      head: "import { BigNumber } from 'bignumber.js';\n"
+      tail: "\nBigNumber(123.4567);"

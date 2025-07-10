@@ -1,0 +1,8 @@
+{
+    "app": {
+        "bundleName": "UtTestApplication"
+    },
+    "module": {
+        "name": "entry"
+    }
+}

@@ -1,0 +1,52 @@
+{
+  "string": [
+    {
+      "name": "noticeitem",
+      "value": "noticeitem"
+    },
+    {
+      "name": "nonotification_text",
+      "value": "无通知"
+    },
+    {
+      "name": "closeNotification",
+      "value": "关闭通知"
+    },
+    {
+      "name": "moreSettings",
+      "value": "更多设置"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
+    },
+    {
+      "name": "enter",
+      "value": "回复"
+    },
+    {
+      "name": "Sending",
+      "value": "发送中"
+    },
+    {
+      "name": "close",
+      "value": "关闭"
+    },
+    {
+      "name": "closeNovice",
+      "value": "关闭通知"
+    },
+    {
+      "name": "confirm_message",
+      "value": "是否关掉”%s“的所有通知?"
+    },
+    {
+      "name": "device_dialog_title",
+      "value": "设备选择"
+    },
+    {
+      "name": "distributed_devicename",
+      "value": "来自”%s“设备"
+    }
+  ]
+}

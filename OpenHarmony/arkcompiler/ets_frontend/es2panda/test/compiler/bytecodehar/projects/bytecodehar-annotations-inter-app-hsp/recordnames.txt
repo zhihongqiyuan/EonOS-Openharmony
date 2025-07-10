@@ -1,0 +1,7 @@
+bytecodehar-dynamic-import:&bytecodehar/bytecodehar-dynamic-import&
+bytecodehar-static-import:&bytecodehar/bytecodehar-static-import&
+importfile1:bundle&lib/importfile1&2.0.0
+importfile2:com.inter_app.hsp&@ohos/lib/importfile2&2.0.0
+importfile3:com.inter_app.hsp&lib2/importfile3&
+importfile4:com.inter_app.hsp&@ohos/lib2/importfile4&
+inter-app-hsp-file-exec:com.inter_app.hsp&myapp/inter-app-hsp-file-exec&

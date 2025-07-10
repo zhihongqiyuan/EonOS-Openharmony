@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/ConnectServiceExtensionAbility",
+    "pages/MainPage",
+    "pages/StartAbility",
+    "pages/startAbilityAndStartAbilityForResultBsb",
+    "pages/startAbilityKsb",
+    "pages/targetBundleList"
+  ]
+}

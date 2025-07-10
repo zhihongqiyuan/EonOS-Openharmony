@@ -1,0 +1,231 @@
+/*
+ * Copyright (c) 2022-2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+function __ReusableV2_Inner_Decorator__(BaseClass) { Reflect.defineProperty(BaseClass.prototype, "isReusable_", { get: () => true }); }
+import { V1Child2, V2Child2, ReuseV2Child3 } from './reusableV2_exportComponent';
+class ParentOne extends ViewV2 {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda, extraInfo) {
+        super(parent, elmtId, extraInfo);
+        this.message = 'Hello World';
+        this.finalizeConstruction();
+    }
+    resetStateVarsOnReuse(params) {
+        this.message = 'Hello World';
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+        }, Column);
+        {
+            this.reuseOrCreateNewComponent({
+                componentClass: ReuseV2Child1,
+                getParams: () => ({
+                    a: 'aaa', b: 'bbb', e1: (num) => { this.message += num; }
+                }),
+                getReuseId: () => "ReuseV2Child1",
+                extraInfo: { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/v2_component_decorator/reusableV2/reusableV2_component_nesting.ets", line: 27, col: 7 }
+            });
+        }
+        {
+            this.reuseOrCreateNewComponent({
+                componentClass: ReuseV2Child2,
+                getParams: () => ({}),
+                getReuseId: () => "idOne",
+                extraInfo: { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/v2_component_decorator/reusableV2/reusableV2_component_nesting.ets", line: 28, col: 7 }
+            });
+        }
+        {
+            this.observeComponentCreation2((elmtId, isInitialRender) => {
+                if (isInitialRender) {
+                    let componentCall = new V2Child(this, {}, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/v2_component_decorator/reusableV2/reusableV2_component_nesting.ets", line: 29, col: 7 });
+                    ViewV2.create(componentCall);
+                    let paramsLambda = () => {
+                        return {};
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {});
+                }
+            }, { name: "V2Child" });
+        }
+        {
+            this.observeComponentCreation2((elmtId, isInitialRender) => {
+                if (isInitialRender) {
+                    let componentCall = new V1Child(this, {}, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/v2_component_decorator/reusableV2/reusableV2_component_nesting.ets", line: 30, col: 7 });
+                    ViewPU.create(componentCall);
+                    let paramsLambda = () => {
+                        return {};
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {});
+                }
+            }, { name: "V1Child" });
+        }
+        {
+            this.observeComponentCreation2((elmtId, isInitialRender) => {
+                if (isInitialRender) {
+                    let componentCall = new V1Child2(this, {}, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/v2_component_decorator/reusableV2/reusableV2_component_nesting.ets", line: 31, col: 7 });
+                    ViewPU.create(componentCall);
+                    let paramsLambda = () => {
+                        return {};
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {});
+                }
+            }, { name: "V1Child2" });
+        }
+        {
+            this.observeComponentCreation2((elmtId, isInitialRender) => {
+                if (isInitialRender) {
+                    let componentCall = new V2Child2(this, {}, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/v2_component_decorator/reusableV2/reusableV2_component_nesting.ets", line: 32, col: 7 });
+                    ViewV2.create(componentCall);
+                    let paramsLambda = () => {
+                        return {};
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {});
+                }
+            }, { name: "V2Child2" });
+        }
+        {
+            this.reuseOrCreateNewComponent({
+                componentClass: ReuseV2Child3,
+                getParams: () => ({}),
+                getReuseId: () => "idThree",
+                extraInfo: { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/v2_component_decorator/reusableV2/reusableV2_component_nesting.ets", line: 33, col: 7 }
+            });
+        }
+        Column.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+        return "ParentOne";
+    }
+}
+__decorate([
+    Local
+], ParentOne.prototype, "message", void 0);
+let ReuseV2Child1 = class ReuseV2Child1 extends ViewV2 {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda, extraInfo) {
+        super(parent, elmtId, extraInfo);
+        this.initParam("a", (params && "a" in params) ? params.a : 'a');
+        this.initParam("b", (params && "b" in params) ? params.b : undefined);
+        this.e1 = "e1" in params ? params.e1 : () => { };
+        this.finalizeConstruction();
+    }
+    resetStateVarsOnReuse(params) {
+        this.resetParam("a", (params && "a" in params) ? params.a : 'a');
+        this.resetParam("b", (params && "b" in params) ? params.b : undefined);
+        this.e1 = "e1" in params ? params.e1 : () => { };
+    }
+    initialRender() { }
+    updateStateVars(params) {
+        if (params === undefined) {
+            return;
+        }
+        if ("a" in params) {
+            this.updateParam("a", params.a);
+        }
+        if ("b" in params) {
+            this.updateParam("b", params.b);
+        }
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+};
+__decorate([
+    Param
+], ReuseV2Child1.prototype, "a", void 0);
+__decorate([
+    Once,
+    Param
+], ReuseV2Child1.prototype, "b", void 0);
+__decorate([
+    Event
+], ReuseV2Child1.prototype, "e1", void 0);
+ReuseV2Child1 = __decorate([
+    __ReusableV2_Inner_Decorator__
+], ReuseV2Child1);
+let ReuseV2Child2 = class ReuseV2Child2 extends ViewV2 {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda, extraInfo) {
+        super(parent, elmtId, extraInfo);
+        this.finalizeConstruction();
+    }
+    resetStateVarsOnReuse(params) {
+    }
+    initialRender() { }
+    rerender() {
+        this.updateDirtyElements();
+    }
+};
+ReuseV2Child2 = __decorate([
+    __ReusableV2_Inner_Decorator__
+], ReuseV2Child2);
+class V2Child extends ViewV2 {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda, extraInfo) {
+        super(parent, elmtId, extraInfo);
+        this.finalizeConstruction();
+    }
+    resetStateVarsOnReuse(params) {
+    }
+    initialRender() { }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+class V1Child extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+    }
+    aboutToBeDeleted() {
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    initialRender() { }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+registerNamedRoute(() => new ParentOne(undefined, {}), "", { bundleName: "com.example.application", moduleName: "application", pagePath: "pages/utForPartialUpdate/v2_component_decorator/reusableV2/reusableV2_component_nesting", pageFullPath: "application/entry/src/main/ets/pages/utForPartialUpdate/v2_component_decorator/reusableV2/reusableV2_component_nesting", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=reusableV2_component_nesting.js.map

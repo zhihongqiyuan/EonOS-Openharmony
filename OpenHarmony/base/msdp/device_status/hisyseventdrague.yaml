@@ -1,0 +1,50 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: DRAG_UE
+
+DRAG_START:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: start drag, preserve: true}
+  PNAMEID: {type: STRING, desc: package name}
+  PVERSIONID: {type: STRING, desc: application version}
+  RESULT: {type: INT32, desc: dragging result}
+  HOSTNAME: {type: STRING, desc: invoking application package name}
+  SUMMARYTYPE: {type: STRING, desc: type of the object to be dragged}
+  SUMMARYNUM: {type: INT32, desc: number of objects to be dragged}
+
+DRAG_STOP:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: stop drag, preserve: true}
+  PNAMEID: {type: STRING, desc: package name}
+  PVERSIONID: {type: STRING, desc: application version}
+  ISCROSSING: {type: INT32, desc: cross-end drag}
+  RESULT: {type: INT32, desc: dragging result}
+  HOSTNAME: {type: STRING, desc: invoking application package name}
+  ALLOW_DROP_TYPE: {type: STRING, desc: dragging an app to allow the app to fall into the type}
+  SUMMARYTYPE: {type: STRING, desc: type of the object to be dragged}
+  SUMMARYNUM: {type: INT32, desc: number of objects to be dragged}
+
+START_CROSSING_DRAG:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: Start crossing drag, preserve: true}
+  PNAMEID: {type: STRING, desc: package name}
+  PVERSIONID: {type: STRING, desc: application version}
+  HOSTNAME: {type: STRING, desc: host module name}
+  LOCAL_NET_ID: {type: STRING, desc: local device network id}
+  PEER_NET_ID: {type: STRING, desc: peer device network id}
+
+END_CROSSING_DRAG:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: Stop crossing drag, preserve: true}
+  PNAMEID: {type: STRING, desc: package name}
+  PVERSIONID: {type: STRING, desc: application version}
+  HOSTNAME: {type: STRING, desc: host module name}
+  LOCAL_NET_ID: {type: STRING, desc: local device network id}
+  PEER_NET_ID: {type: STRING, desc: peer device network id}

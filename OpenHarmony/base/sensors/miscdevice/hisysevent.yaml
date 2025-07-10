@@ -1,0 +1,59 @@
+#  Copyright (c) 2021-2025 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+domain: MISCDEVICE
+
+VIBRATOR_PERMISSIONS_EXCEPTION:
+  __BASE: {type: SECURITY, level: MINOR, desc: sensor verify access token fail}
+  PKG_NAME: {type: STRING, desc: package name}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+LIGHT_PERMISSIONS_EXCEPTION:
+  __BASE: {type: SECURITY, level: MINOR, desc: sensor verify access token fail}
+  PKG_NAME: {type: STRING, desc: package name}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+MISC_SERVICE_IPC_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: sensor service ipc exception}
+  PKG_NAME: {type: STRING, desc: package name}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+VIBRATOR_HDF_SERVICE_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: sensor hdf service exception}
+  PKG_NAME: {type: STRING, desc: package name}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+MISC_SERVICE_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: sensor service exception}
+  PKG_NAME: {type: STRING, desc: package name}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+SWITCHES_TOGGLE:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: Switching, preserve: true}
+  SWITCH_TYPE: {type: STRING, desc: Switch Type}
+  STATUS: {type: INT32, desc: Switch status}
+
+DATASHARE_EXCEPTION:
+  __BASE: {type: FAULT, level: CRITICAL, desc: datashare exception, preserve: true}
+  PKG_NAME: {type: STRING, desc: package name}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+WHITELIST_COUNT_EXCEPTION:
+  __BASE: {type: FAULT, level: CRITICAL, desc: whitelist count exception, preserve: true}
+  PKG_NAME: {type: STRING, desc: package name}
+  ACTUAL_COUNT: {type: INT32, desc: actual count}
+
+USER_SWITCHED_EXCEPTION:
+  __BASE: {type: FAULT, level: CRITICAL, desc: user switched exception, preserve: true}
+  PKG_NAME: {type: STRING, desc: package name}
+  ERROR_CODE: {type: INT32, desc: error code}

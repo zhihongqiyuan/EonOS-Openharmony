@@ -1,0 +1,34 @@
+(1) The directories below are licensed under Apache License, Version 2.0.
+./rk3588/hardware/
+
+(2) The directories below are licensed under GNU General Public License, version 2.
+./common/kernel/
+./common/sdk_linux
+./common/vendor
+./rk3588/kernel/
+./rk3566/sdk_linux
+./rk3566/vendor
+
+(3) The directories below are licensed under MIT
+./common/kernel/
+./rk3588/kernel/
+
+(4) The directories below are licensed under BSD-3-Clause
+./common/kernel/
+./rk3588/kernel/
+
+(5) The directories below are licensed under GPL-2.0 OR MIT
+./rk3588/kernel/
+
+(6) The directories below are licensed under GPL-2.0+ OR MIT
+./rk3588/kernel/
+
+(7) The directories below are licensed under GPL-2.0 WITH Linux-syscall-note
+./common/kernel/
+./rk3588/kernel/
+
+(8) The directories below are licensed under GPL-2.0 WITH Linux-syscall-note OR MIT
+./common/kernel/
+./rk3588/kernel/
+
+As for the specific use of the licenses,  please refer to the relevant description in the documents.

@@ -1,0 +1,88 @@
+{
+  "app": {
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "release",
+        "compileSdkVersion": 20,
+        "compatibleSdkVersion": 20,
+        "targetSdkVersion": 20,
+        "runtimeOS": "OpenHarmony"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "phone",
+      "srcPath": "./product/phone",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    //    {
+    //      "name": "wearable",
+    //      "srcPath": "./product/wearable",
+    //      "targets": [
+    //        {
+    //          "name": "default",
+    //          "applyToProducts": [
+    //            "default"
+    //          ]
+    //        }
+    //      ]
+    //    },
+    {
+      "name": "component",
+      "srcPath": "./common/component",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "search",
+      "srcPath": "./common/search",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "settingsBase",
+      "srcPath": "./common/settingsBase",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "utils",
+      "srcPath": "./common/utils",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

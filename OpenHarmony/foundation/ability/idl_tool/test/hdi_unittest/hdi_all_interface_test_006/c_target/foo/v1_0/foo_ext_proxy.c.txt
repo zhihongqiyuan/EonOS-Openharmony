@@ -1,0 +1,503 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include <hdf_base.h>
+#include <hdf_core_log.h>
+#include <hdf_io_service_if.h>
+#include <hdf_sbuf.h>
+#include <osal_mem.h>
+#include <securec.h>
+#include "v1_0/ifoo_ext.h"
+
+#define HDF_LOG_TAG    foo_ext_proxy
+
+struct FooExtProxy {
+    struct IFooExt impl;
+    struct HdfIoService *serv;
+};
+
+
+
+static int32_t FooExtProxyCall(struct IFooExt *self, int32_t id, struct HdfSBuf *data,
+    struct HdfSBuf *reply)
+{
+    struct FooExtProxy *proxy = CONTAINER_OF(self, struct FooExtProxy, impl);
+    struct HdfIoService *serv = proxy->serv;
+    if (serv == NULL ||
+        serv->dispatcher == NULL ||
+        serv->dispatcher->Dispatch == NULL) {
+        HDF_LOGE("%{public}s: Invalid HdfRemoteService obj", __func__);
+        return HDF_ERR_INVALID_OBJECT;
+    }
+
+    return serv->dispatcher->Dispatch((struct HdfObject *)&(serv->object), id, data, reply);
+}
+
+static int32_t FooExtProxyTestFunc13(struct IFooExt *self, unknow type inData, unknow type outData)
+{
+    int32_t fooExtRet = HDF_FAILURE;
+
+    struct HdfSBuf *fooExtData = HdfSbufObtainDefaultSize();
+    struct HdfSBuf *fooExtReply = HdfSbufObtainDefaultSize();
+
+    if (fooExtData == NULL || fooExtReply == NULL) {
+        HDF_LOGE("%{public}s: HdfSubf malloc failed!", __func__);
+        fooExtRet = HDF_ERR_MALLOC_FAIL;
+        goto FINISHED;
+    }
+
+    if (self == NULL) {
+        HDF_LOGE("%{public}s: invalid interface object", __func__);
+        fooExtRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    //Writing "" type of data is not supported
+
+    fooExtRet = FooExtProxyCall(self, CMD_FOO_EXT_TEST_FUNC13, fooExtData, fooExtReply);
+    if (fooExtRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s: call failed! error code is %{public}d", __func__, fooExtRet);
+        goto FINISHED;
+    }
+
+    //Reading "" type of data is not supported
+
+FINISHED:
+    if (fooExtData != NULL) {
+        HdfSbufRecycle(fooExtData);
+    }
+    if (fooExtReply != NULL) {
+        HdfSbufRecycle(fooExtReply);
+    }
+    return fooExtRet;
+}
+
+static int32_t FooExtProxyTestFunc15(struct IFooExt *self, uint8_t inData, uint8_t outData)
+{
+    int32_t fooExtRet = HDF_FAILURE;
+
+    struct HdfSBuf *fooExtData = HdfSbufObtainDefaultSize();
+    struct HdfSBuf *fooExtReply = HdfSbufObtainDefaultSize();
+
+    if (fooExtData == NULL || fooExtReply == NULL) {
+        HDF_LOGE("%{public}s: HdfSubf malloc failed!", __func__);
+        fooExtRet = HDF_ERR_MALLOC_FAIL;
+        goto FINISHED;
+    }
+
+    if (self == NULL) {
+        HDF_LOGE("%{public}s: invalid interface object", __func__);
+        fooExtRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (!HdfSbufWriteUint8(fooExtData, inData)) {
+        HDF_LOGE("%{public}s: write inData failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    if (!HdfSbufWriteUint8(fooExtData, outData)) {
+        HDF_LOGE("%{public}s: write outData failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    fooExtRet = FooExtProxyCall(self, CMD_FOO_EXT_TEST_FUNC15, fooExtData, fooExtReply);
+    if (fooExtRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s: call failed! error code is %{public}d", __func__, fooExtRet);
+        goto FINISHED;
+    }
+
+FINISHED:
+    if (fooExtData != NULL) {
+        HdfSbufRecycle(fooExtData);
+    }
+    if (fooExtReply != NULL) {
+        HdfSbufRecycle(fooExtReply);
+    }
+    return fooExtRet;
+}
+
+static int32_t FooExtProxyTestFunc16(struct IFooExt *self, uint32_t inData, uint8_t outData)
+{
+    int32_t fooExtRet = HDF_FAILURE;
+
+    struct HdfSBuf *fooExtData = HdfSbufObtainDefaultSize();
+    struct HdfSBuf *fooExtReply = HdfSbufObtainDefaultSize();
+
+    if (fooExtData == NULL || fooExtReply == NULL) {
+        HDF_LOGE("%{public}s: HdfSubf malloc failed!", __func__);
+        fooExtRet = HDF_ERR_MALLOC_FAIL;
+        goto FINISHED;
+    }
+
+    if (self == NULL) {
+        HDF_LOGE("%{public}s: invalid interface object", __func__);
+        fooExtRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (!HdfSbufWriteUint32(fooExtData, inData)) {
+        HDF_LOGE("%{public}s: write inData failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    if (!HdfSbufWriteUint8(fooExtData, outData)) {
+        HDF_LOGE("%{public}s: write outData failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    fooExtRet = FooExtProxyCall(self, CMD_FOO_EXT_TEST_FUNC16, fooExtData, fooExtReply);
+    if (fooExtRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s: call failed! error code is %{public}d", __func__, fooExtRet);
+        goto FINISHED;
+    }
+
+FINISHED:
+    if (fooExtData != NULL) {
+        HdfSbufRecycle(fooExtData);
+    }
+    if (fooExtReply != NULL) {
+        HdfSbufRecycle(fooExtReply);
+    }
+    return fooExtRet;
+}
+
+static int32_t FooExtProxyTestFunc17(struct IFooExt *self, uint16_t inData, uint32_t* outData)
+{
+    int32_t fooExtRet = HDF_FAILURE;
+
+    struct HdfSBuf *fooExtData = HdfSbufObtainDefaultSize();
+    struct HdfSBuf *fooExtReply = HdfSbufObtainDefaultSize();
+
+    if (fooExtData == NULL || fooExtReply == NULL) {
+        HDF_LOGE("%{public}s: HdfSubf malloc failed!", __func__);
+        fooExtRet = HDF_ERR_MALLOC_FAIL;
+        goto FINISHED;
+    }
+
+    if (self == NULL) {
+        HDF_LOGE("%{public}s: invalid interface object", __func__);
+        fooExtRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (!HdfSbufWriteUint16(fooExtData, inData)) {
+        HDF_LOGE("%{public}s: write inData failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    fooExtRet = FooExtProxyCall(self, CMD_FOO_EXT_TEST_FUNC17, fooExtData, fooExtReply);
+    if (fooExtRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s: call failed! error code is %{public}d", __func__, fooExtRet);
+        goto FINISHED;
+    }
+
+    if (!HdfSbufReadUint32(fooExtReply, outData)) {
+        HDF_LOGE("%{public}s: read outData failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+FINISHED:
+    if (fooExtData != NULL) {
+        HdfSbufRecycle(fooExtData);
+    }
+    if (fooExtReply != NULL) {
+        HdfSbufRecycle(fooExtReply);
+    }
+    return fooExtRet;
+}
+
+static int32_t FooExtProxyTestFunc18(struct IFooExt *self, uint64_t inData, uint64_t* outData)
+{
+    int32_t fooExtRet = HDF_FAILURE;
+
+    struct HdfSBuf *fooExtData = HdfSbufObtainDefaultSize();
+    struct HdfSBuf *fooExtReply = HdfSbufObtainDefaultSize();
+
+    if (fooExtData == NULL || fooExtReply == NULL) {
+        HDF_LOGE("%{public}s: HdfSubf malloc failed!", __func__);
+        fooExtRet = HDF_ERR_MALLOC_FAIL;
+        goto FINISHED;
+    }
+
+    if (self == NULL) {
+        HDF_LOGE("%{public}s: invalid interface object", __func__);
+        fooExtRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (!HdfSbufWriteUint64(fooExtData, inData)) {
+        HDF_LOGE("%{public}s: write inData failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    fooExtRet = FooExtProxyCall(self, CMD_FOO_EXT_TEST_FUNC18, fooExtData, fooExtReply);
+    if (fooExtRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s: call failed! error code is %{public}d", __func__, fooExtRet);
+        goto FINISHED;
+    }
+
+    if (!HdfSbufReadUint64(fooExtReply, outData)) {
+        HDF_LOGE("%{public}s: read outData failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+FINISHED:
+    if (fooExtData != NULL) {
+        HdfSbufRecycle(fooExtData);
+    }
+    if (fooExtReply != NULL) {
+        HdfSbufRecycle(fooExtReply);
+    }
+    return fooExtRet;
+}
+
+static int32_t FooExtProxyTestFunc19(struct IFooExt *self, const struct FooInfo* inData, enum AudioPortPin* outData)
+{
+    int32_t fooExtRet = HDF_FAILURE;
+
+    struct HdfSBuf *fooExtData = HdfSbufObtainDefaultSize();
+    struct HdfSBuf *fooExtReply = HdfSbufObtainDefaultSize();
+
+    if (fooExtData == NULL || fooExtReply == NULL) {
+        HDF_LOGE("%{public}s: HdfSubf malloc failed!", __func__);
+        fooExtRet = HDF_ERR_MALLOC_FAIL;
+        goto FINISHED;
+    }
+
+    if (self == NULL) {
+        HDF_LOGE("%{public}s: invalid interface object", __func__);
+        fooExtRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (!FooInfoBlockMarshalling(fooExtData, inData)) {
+        HDF_LOGE("%{public}s: write inData failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    fooExtRet = FooExtProxyCall(self, CMD_FOO_EXT_TEST_FUNC19, fooExtData, fooExtReply);
+    if (fooExtRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s: call failed! error code is %{public}d", __func__, fooExtRet);
+        goto FINISHED;
+    }
+
+    {
+        uint64_t enumTmp = 0;
+        if (!HdfSbufReadUint64(fooExtReply, &enumTmp)) {
+            HDF_LOGE("%{public}s: read outData failed!", __func__);
+            fooExtRet = HDF_ERR_INVALID_PARAM;
+            goto FINISHED;
+        }
+
+        if (outData == NULL) {
+            HDF_LOGE("%{public}s: invlid parameter outData", __func__);
+            fooExtRet = HDF_ERR_INVALID_PARAM;
+            goto FINISHED;
+        }
+
+        *outData = (enum AudioPortPin)enumTmp;
+    }
+
+FINISHED:
+    if (fooExtData != NULL) {
+        HdfSbufRecycle(fooExtData);
+    }
+    if (fooExtReply != NULL) {
+        HdfSbufRecycle(fooExtReply);
+    }
+    return fooExtRet;
+}
+
+static int32_t FooExtProxyTestFunc20(struct IFooExt *self, const struct AudioSceneDescriptor* inData,
+     union SceneDesc* outData)
+{
+    int32_t fooExtRet = HDF_FAILURE;
+
+    struct HdfSBuf *fooExtData = HdfSbufObtainDefaultSize();
+    struct HdfSBuf *fooExtReply = HdfSbufObtainDefaultSize();
+
+    if (fooExtData == NULL || fooExtReply == NULL) {
+        HDF_LOGE("%{public}s: HdfSubf malloc failed!", __func__);
+        fooExtRet = HDF_ERR_MALLOC_FAIL;
+        goto FINISHED;
+    }
+
+    if (self == NULL) {
+        HDF_LOGE("%{public}s: invalid interface object", __func__);
+        fooExtRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    if (!AudioSceneDescriptorBlockMarshalling(fooExtData, inData)) {
+        HDF_LOGE("%{public}s: write inData failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    fooExtRet = FooExtProxyCall(self, CMD_FOO_EXT_TEST_FUNC20, fooExtData, fooExtReply);
+    if (fooExtRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s: call failed! error code is %{public}d", __func__, fooExtRet);
+        goto FINISHED;
+    }
+
+    union SceneDesc *outDataCp = NULL;
+    uint32_t len = 0;
+    if (!HdfSbufReadBuffer(fooExtReply, (const void **)&outDataCp, &len)) {
+        HDF_LOGE("%{public}s: read outDataCp failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    if (outDataCp == NULL || sizeof(union SceneDesc) != len) {
+        HDF_LOGE("%{public}s: read outDataCp failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+    if (memcpy_s(outData, sizeof(union SceneDesc), outDataCp, sizeof(union SceneDesc)) != EOK) {
+        HDF_LOGE("%{public}s: failed to memcpy outData", __func__);
+        return HDF_ERR_INVALID_PARAM;
+    }
+
+FINISHED:
+    if (fooExtData != NULL) {
+        HdfSbufRecycle(fooExtData);
+    }
+    if (fooExtReply != NULL) {
+        HdfSbufRecycle(fooExtReply);
+    }
+    return fooExtRet;
+}
+
+static int32_t FooExtProxyGetVersion(struct IFooExt *self, uint32_t* majorVer, uint32_t* minorVer)
+{
+    int32_t fooExtRet = HDF_FAILURE;
+
+    struct HdfSBuf *fooExtData = HdfSbufObtainDefaultSize();
+    struct HdfSBuf *fooExtReply = HdfSbufObtainDefaultSize();
+
+    if (fooExtData == NULL || fooExtReply == NULL) {
+        HDF_LOGE("%{public}s: HdfSubf malloc failed!", __func__);
+        fooExtRet = HDF_ERR_MALLOC_FAIL;
+        goto FINISHED;
+    }
+
+    if (self == NULL) {
+        HDF_LOGE("%{public}s: invalid interface object", __func__);
+        fooExtRet = HDF_ERR_INVALID_OBJECT;
+        goto FINISHED;
+    }
+
+    fooExtRet = FooExtProxyCall(self, CMD_FOO_EXT_GET_VERSION, fooExtData, fooExtReply);
+    if (fooExtRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s: call failed! error code is %{public}d", __func__, fooExtRet);
+        goto FINISHED;
+    }
+
+    if (!HdfSbufReadUint32(fooExtReply, majorVer)) {
+        HDF_LOGE("%{public}s: read majorVer failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+    if (!HdfSbufReadUint32(fooExtReply, minorVer)) {
+        HDF_LOGE("%{public}s: read minorVer failed!", __func__);
+        fooExtRet = HDF_ERR_INVALID_PARAM;
+        goto FINISHED;
+    }
+
+FINISHED:
+    if (fooExtData != NULL) {
+        HdfSbufRecycle(fooExtData);
+    }
+    if (fooExtReply != NULL) {
+        HdfSbufRecycle(fooExtReply);
+    }
+    return fooExtRet;
+}
+
+static void FooExtProxyConstruct(struct IFooExt *impl)
+{
+    impl->TestFunc13 = FooExtProxyTestFunc13;
+    impl->TestFunc15 = FooExtProxyTestFunc15;
+    impl->TestFunc16 = FooExtProxyTestFunc16;
+    impl->TestFunc17 = FooExtProxyTestFunc17;
+    impl->TestFunc18 = FooExtProxyTestFunc18;
+    impl->TestFunc19 = FooExtProxyTestFunc19;
+    impl->TestFunc20 = FooExtProxyTestFunc20;
+    impl->GetVersion = FooExtProxyGetVersion;
+}
+
+struct IFooExt *IFooExtGet()
+{
+    return IFooExtGetInstance("foo_ext_service");
+}
+
+struct IFooExt *IFooExtGetInstance(const char* serviceName)
+{
+    struct HdfIoService *serv = HdfIoServiceBind(serviceName);
+    if (serv == NULL) {
+        HDF_LOGE("%{public}s: failed to get io service!", __func__);
+        return NULL;
+    }
+
+    struct FooExtProxy *proxy = (struct FooExtProxy *)OsalMemCalloc(sizeof(struct FooExtProxy));
+    if (proxy == NULL) {
+        HDF_LOGE("%{public}s: malloc IFooExt proxy failed!", __func__);
+        HdfIoServiceRecycle(serv);
+        return NULL;
+    }
+
+    proxy->serv = serv;
+    FooExtProxyConstruct(&proxy->impl);
+    struct IFooExt *client = &proxy->impl;
+
+    uint32_t serMajorVer = 0;
+    uint32_t serMinorVer = 0;
+    int32_t fooExtRet = client->GetVersion(client, &serMajorVer, &serMinorVer);
+    if (fooExtRet != HDF_SUCCESS) {
+        HDF_LOGE("%{public}s: get version failed!", __func__);
+        IFooExtRelease(client);
+        return NULL;
+    }
+
+    if (serMajorVer != IFOO_EXT_MAJOR_VERSION) {
+        HDF_LOGE("%{public}s:check version failed! version of service:%u.%u, version of client:%u.%u", __func__,
+            serMajorVer, serMinorVer, IFOO_EXT_MAJOR_VERSION, IFOO_EXT_MINOR_VERSION);
+        IFooExtRelease(client);
+        return NULL;
+    }
+
+    return client;
+}
+
+void IFooExtRelease(struct IFooExt *instance)
+{
+    if (instance == NULL) {
+        return;
+    }
+    struct FooExtProxy *proxy = CONTAINER_OF(instance, struct FooExtProxy, impl);
+    HdfIoServiceRecycle(proxy->serv);
+    OsalMemFree(proxy);
+}

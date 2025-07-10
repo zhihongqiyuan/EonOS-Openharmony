@@ -1,0 +1,17 @@
+{
+    "compileEntries": [
+        "com.inter_app.hsp&myapp/inter-app-hsp-file-exec&"
+    ],
+    "hspPkgNames": [
+        "lib",
+        "@ohos/lib"
+    ],
+    "updateVersionInfo": {
+        "bytecodehar": {
+            "lib": "2.0.0",
+            "@ohos/lib": "2.0.0"
+        }
+    },
+    "needModifyRecord": true,
+    "bundleName": "com.inter_app.hsp"
+}

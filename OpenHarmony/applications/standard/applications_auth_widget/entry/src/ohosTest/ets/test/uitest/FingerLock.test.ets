@@ -1,0 +1,82 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License")
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { Driver, ON } from '@ohos.UiTest';
+import { beforeAll, describe, expect, it } from '@ohos/hypium';
+import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { WantParams } from '../../../../main/ets/common/vm/Constants';
+import Want from '@ohos.app.ability.Want';
+
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
+const bundleName = abilityDelegatorRegistry.getArguments().bundleName;
+
+const delayTime: number = 1000;
+
+export default function FingerLock() {
+  describe('FingerLock', () => {
+    beforeAll(async () => {
+      const data: WantParams = {
+        "cmd": [{
+          "event": "CMD_NOTIFY_AUTH_START",
+          "payload": {
+            "lockoutDuration": 0,
+            "remainAttempts": 0,
+            "type": "PIN_NUM",
+            "result": 0
+          },
+        }, {
+          "event": "CMD_NOTIFY_AUTH_START",
+          "payload": {
+            "lockoutDuration": 0,
+            "remainAttempts": 0,
+            "type": "123",
+            "result": 0
+          },
+        }, {
+          "event": "CMD_NOTIFY_AUTH_START",
+          "payload": {
+            "lockoutDuration": 0,
+            "remainAttempts": 0,
+            "sensorInfo": "{\"sensorType\":\"OUT_OF_SCREEN_SENSOR\",\"udSensorCenterXInThousandth\":500,\"udSensorCenterYInThousandth\":500,\"udSensorRadiusInPx\":30}",
+            "type": "fingerprint",
+            "result": 0
+          },
+        }],
+        "pinSubType": "PIN_SIX",
+        "title": "",
+        "type": ["pin", "fingerprint"],
+        "widgetContextId": 10234972519197798000,
+        "windowModeType": "DIALOG_BOX"
+      }
+
+      let want: Want = {
+        bundleName: bundleName,
+        abilityName: 'FingerprintLockAbility',
+        parameters: {
+          useriamCmdData: data
+        }
+      }
+      await delegator.startAbility(want);
+    })
+
+    it('cancelBth_state3_fingerprintLock_test', 0, async (done: Function) => {
+      let driver = Driver.create();
+      await driver.delayMs(delayTime);
+      await driver.findComponent(ON.id('cancelBthState3FingerprintLock'));
+      expect(true).assertTrue();
+      done();
+    })
+  })
+}

@@ -1,0 +1,54 @@
+{
+    "name": "@ohos/media_utils_lite",
+    "description": "Definition of public information such as media error code, and data types required for recording and playing audio and video.",
+    "version": "3.2",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "foundation/multimedia/media_utils_lite"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "media_utils_lite",
+        "subsystem": "multimedia",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [
+            "mini",
+            "small"
+        ],
+        "rom": "1024kB",
+        "ram": "500kB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [],
+            "inner_kits": [
+                {
+                    "type": "none",
+                    "name": "//foundation/multimedia/media_utils_lite:media_common" ,
+                    "header": {
+                      "header_files": [
+                        "hal_camera.h",
+                        "hal_display.h",
+                        "data_stream.h",
+                        "format.h",
+                        "media_errors.h",
+                        "media_info.h",
+                        "media_log.h",
+                        "source.h"
+                      ],
+                      "header_base": [
+                          "//foundation/multimedia/media_utils_lite/hals",
+                          "//foundation/multimedia/media_utils_lite/interfaces/kits"
+                      ]
+                    }
+                }                
+            ],
+            "test": []
+        }
+    }
+}

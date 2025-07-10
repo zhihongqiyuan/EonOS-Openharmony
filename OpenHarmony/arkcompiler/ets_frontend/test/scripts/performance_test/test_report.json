@@ -1,0 +1,89 @@
+// Copyright (c) 2024 Huawei Device Co., Ltd.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// This file is only used when you want to fast test the script in build succeed case
+
+{
+    "events": [
+        {
+            "head": {
+                "id": "1",
+                "name": "createProgram",
+                "type": "continual"
+            },
+
+            "body":{
+                "startTime": 555,
+                "endTime":666,
+                "tid": "Worker0"
+            },
+            "additional":{
+                "parent":"22",
+                "frequency": 1,
+                "totalTime": 73456789012
+            }
+        },
+        {
+            "head": {
+                "id": "22",
+                "name": "hap",
+                "type": "mark"
+            },
+
+            "body":{
+                "startTime": 51383730339300,
+                "endTime":51460186916900,
+                "tid": "Worker0"
+            },
+            "additional":{
+                "markType":"history"
+            }
+        },
+        {
+            "head": {
+                "id": "22",
+                "name": "(etsChecker) - execute hook function when build starts",
+                "type": "continual"
+            },
+
+            "body":{
+                "startTime": 123456789012,
+                "endTime":133456789012,
+                "tid": "Worker0"
+            },
+            "additional":{
+                "parent":"",
+                "frequency": 1,
+                "totalTime": 33069526400
+            }
+        },
+        {
+            "head": {
+                "id": "33",
+                "name": "other",
+                "type": "continual"
+            },
+
+            "body":{
+                "startTime": 123456789012,
+                "endTime":133456789012,
+                "tid": "Worker0"
+            },
+            "additional":{
+                "parent":"",
+                "frequency": 1,
+                "totalTime": 33069526400
+            }
+        }
+    ]
+}

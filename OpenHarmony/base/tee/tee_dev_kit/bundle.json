@@ -1,0 +1,31 @@
+{
+    "name": "@openharmony/tee_dev_kit",
+    "version": "1.0.0",
+    "description": "tee_dev_kit",
+    "private": false,
+    "scripts": {},
+    "author": {},
+    "repository": "",
+    "license": "Mulan PSL v2",
+    "component": {
+      "name": "tee_dev_kit",
+      "subsystem": "tee",
+      "syscap": [],
+      "features": [],
+      "adapted_system_type": [ "small", "standard" ],
+      "rom":"0",
+      "ram":"0",
+      "deps": {
+        "components": [ ],
+        "third_party": [
+          "musl",
+          "bounds_checking_function"
+        ]
+      },
+      "build": {
+        "sub_component": [ ],
+        "inner_kits": [ ],
+        "test": [ ]
+      }
+    }
+  }

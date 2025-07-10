@@ -1,0 +1,44 @@
+# Code owners for ArkUI ace_ets2bundle
+
+[编译工具链]
+compiler/main.js @lixingchi1
+compiler/src/fast_build/common/ @lixingchi1
+compiler/src/fast_build/ets_ui/ @lixingchi1
+compiler/src/compile_info.ts @lixingchi1
+compiler/src/component_map.ts @lixingchi1
+compiler/src/constant_define.ts @lixingchi1
+compiler/src/create_ast_node_utils.ts @lixingchi1
+compiler/src/ets_checker.ts @lixingchi1
+compiler/src/pre_define.ts @lixingchi1
+compiler/src/pre_process.ts @lixingchi1
+compiler/src/process_component_build.ts @lixingchi1
+compiler/src/process_component_class.ts @lixingchi1
+compiler/src/process_component_constructor.ts @lixingchi1
+compiler/src/process_component_member.ts @lixingchi1
+compiler/src/process_custom_component.ts @lixingchi1
+compiler/src/process_import.ts @lixingchi1
+compiler/src/process_struct_componentV2.ts @lixingchi1
+compiler/src/process_ui_syntax.ts @lixingchi1
+compiler/src/result_process.ts @lixingchi1
+compiler/src/utils.ts @lixingchi1
+compiler/src/validate_ui_syntax.ts @lixingchi1
+compiler/test/ut/ @lixingchi1
+compiler/test/utForPartialUpdate/ @lixingchi1
+compiler/test/utForValidate/ @lixingchi1
+compiler/test/transform_ut/ @lixingchi1
+
+# Code owners for ArkCompiler ace_ets2bundle
+
+[arkcompiler]
+compiler/src/fast_build/ark_compiler/ @klooer
+compiler/src/ark_utils.ts @klooer
+compiler/src/gen_abc_plugin.ts @klooer
+compiler/src/gen_abc.ts @klooer
+compiler/src/gen_merged_abc.ts @klooer
+compiler/src/gen_module_abc.ts @klooer
+compiler/src/process_kit_import.ts @klooer
+compiler/src/process_module_files.ts @klooer
+compiler/src/process_sendable.ts @klooer
+compiler/src/process_source_file.ts @klooer
+compiler/src/resolve_ohm_url.ts @klooer
+compiler/test/ark_compiler_ut/ @klooer

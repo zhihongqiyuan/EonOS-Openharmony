@@ -1,0 +1,14 @@
+do_sys_openat2(openat2, int, dfd, const char __user*, filename, struct open_how*, how)
+ksys_read(read, unsigned int, fd, char __user*, buf, size_t, count)
+ksys_write(write, unsigned int, fd, const char __user*, buf, size_t, count)
+ksys_pread64(pread64, unsigned int, fd, char __user*, buf, size_t, count, loff_t, pos)
+ksys_pwrite64(pwrite64, unsigned int, fd, const char __user*, buf, size_t, count, loff_t, pos)
+"do_readv(readv, unsigned long, fd, const struct iovec __user*, vec,
+   unsigned long, vlen, rwf_t, flags)"
+"do_writev(writev, unsigned long, fd, const struct iovec __user*, vec,
+    unsigned long, vlen, rwf_t, flags)"
+"do_preadv(preadv, unsigned long, fd, const struct iovec __user*, vec,
+    unsigned long, vlen, loff_t, pos, rwf_t, flags)"
+"do_pwritev(pwritev, unsigned long, fd, const struct iovec __user*, vec,
+     unsigned long, vlen, loff_t, pos, rwf_t, flags)"
+__close_fd(close, struct files_struct*, files, unsigned, fd)

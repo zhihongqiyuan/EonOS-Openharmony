@@ -1,0 +1,249 @@
+# Copyright (c) 2021-2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: MSDP
+
+SUBSCRIBE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: deviceStatus, desc: subscribes to the device status}
+  UID: {type: INT32, desc: subscribes to the device status uid}
+  PACKAGE_NAME: {type: STRING, desc: devicestatus pkgname}
+  TYPE: {type: INT32, desc: deviceStatus type}
+
+UNSUBSCRIBE:
+  __BASE: {type: STATISTIC, level: MINOR, tag: deviceStatus, desc: unsubscribes from the device status}
+  UID: {type: INT32, desc: unsubscribes from the device status uid}
+  PACKAGE_NAME: {type: STRING, desc: devicestatus pkgname}
+  TYPE: {type: INT32, desc: deviceStatus type}
+
+PREPARE_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: prepare coordination}
+  MONITOR_ID: {type: INT32, desc: Monitor_Id}
+  ISOPEN: {type: BOOL, desc: IsOpen}
+  MSG: {type: STRING, desc: Prepare Coordination Successfully}
+
+PREPARE_FAILED:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: prepare coordination}
+  MONITOR_ID: {type: INT32, desc: Monitor_Id}
+  ISOPEN: {type: BOOL, desc: IsOpen}
+  MSG: {type: STRING, desc: Prepare Coordination Failed}
+
+UNPREPARE_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: unprepare coordination}
+  ISCLOSE: {type: BOOL, desc: IsClose}
+  MSG: {type: STRING, desc: Unprepare Coordination Successfully}
+
+UNPREPARE_FAILED:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: unprepare coordination}
+  ISCLOSE: {type: BOOL, desc: IsClose}
+  MSG: {type: STRING, desc: Unprepare Coordination Failed}
+
+ACTIVATE_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: start remote coordination}
+  LOCALNETWORKID: {type: STRING, desc: localNetworkId}
+  REMOTENETWORKID: {type: STRING, desc: remoteNetworkId}
+  MSG: {type: STRING, desc: Start Remote Coordination Successfully}
+
+ACTIVATE_FAILED:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: start remote coordination}
+  LOCALNETWORKID: {type: STRING, desc: localNetworkId}
+  REMOTENETWORKID: {type: STRING, desc: remoteNetworkId}
+  MSG: {type: STRING, desc: Start Remote Coordination Failed}
+
+ACTIVATE_RESULT:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: Start Remote Accordination Result}
+  REMOTENETWORKID: {type: STRING, desc: remoteNetWorkId}
+  ISSUCCESS: {type: BOOL, desc: IsSuccess}
+  MSG: {type: STRING, desc: Start Remote Accordination Result Failed}
+
+DEACTIVATE_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: stop remote coordination}
+  REMOTENETWORKID: {type: STRING, desc: remoteNetWorkId}
+  SESSIONID: {type: INT32, desc: sessionId}
+  MSG: {type: STRING, desc: Stop Remote Accordination Successfully}
+
+DEACTIVATE_FAILED:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: stop remote coordination}
+  REMOTENETWORKID: {type: STRING, desc: remoteNetWorkId}
+  SESSIONID: {type: INT32, desc: sessionId}
+  MSG: {type: STRING, desc: Stop Remote Accordination Failed}
+
+DEACTIVATE_RESULT:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: stop remote coordination result}
+  REMOTENETWORKID: {type: STRING, desc: remoteNetWorkId}
+  SESSIONID: {type: INT32, desc: sessionId}
+  MSG: {type: STRING, desc: Stop Remote Accordination Result Failed}
+
+D_INPUT_START_REMOTE_INPUT:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: distributed input start remote input}
+  REMOTENETWORKID: {type: STRING, desc: remoteNetWorkId}
+  ORIGINNETWORKID: {type: STRING, desc: originNetWorkId}
+  MSG: {type: STRING, desc: D_input Start Remote Input Failed}
+
+D_INPUT_STOP_REMOTE_INPUT_O:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: distributed input stop remote input}
+  REMOTENETWORKID: {type: STRING, desc: remoteNetWorkId}
+  ORIGINNETWORKID: {type: STRING, desc: originNetWorkId}
+  MSG: {type: STRING, desc: D_input Stop Remote Input Failed}
+
+D_INPUT_STOP_REMOTE_INPUT_T:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: distributed input stop remote input}
+  ORIGINNETWORKID: {type: STRING, desc: originNetWorkId}
+  MSG: {type: STRING, desc: D_input Stop Remote Input Failed}
+
+D_INPUT_PREPARE_REMOTE_INPUT_O:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: distributed input prepare remote input}
+  DEVICEID: {type: STRING, desc: deviceId}
+  MSG: {type: STRING, desc: D_input Prepare Remote Input Failed}
+
+D_INPUT_PREPARE_REMOTE_INPUT_T:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: distributed input prepare remote input}
+  REMOTENETWORKID: {type: STRING, desc: remoteNetWorkId}
+  ORIGINNETWORKID: {type: STRING, desc: originNetWorkId}
+  MSG: {type: STRING, desc: D_input Prepare Remote Input Failed}
+
+D_INPUT_UNPREPARE_REMOTE_INPUT_O:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: distributed input unprepare remote input}
+  DEVICEID: {type: STRING, desc: deviceId}
+  MSG: {type: STRING, desc: D_input Unprepare Remote Input Failed}
+
+D_INPUT_UNPREPARE_REMOTE_INPUT_T:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: distributed input unprepare remote input}
+  REMOTENETWORKID: {type: STRING, desc: remoteNetWorkId}
+  ORIGINNETWORKID: {type: STRING, desc: originNetWorkId}
+  MSG: {type: STRING, desc: D_input Unprepare Remote Input Failed}
+
+OPEN_SOFUBUS_RESULT:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: open softbus result}
+  REMOTENETWORKID: {type: STRING, desc: remoteNetWorkId}
+  PARA: {type: INT32, desc: tag information}
+  MSG: {type: STRING, desc: Open SoftBus Result Failed}
+
+START_DRAG_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: start drag}
+  MSG: {type: STRING, desc: Start Drag Successfully}
+  CURDRAGSTATE: {type: STRING, desc: dragstate}
+
+START_DRAG_FAILED:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: start drag}
+  MSG: {type: STRING, desc: Start Drag Failed}
+  CURDRAGSTATE: {type: STRING, desc: dragstate}
+
+SET_DRAG_WINDOW_VISIBLE_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: Set Drag Window Visible}
+  MSG: {type: STRING, desc: Set Drag Window Visible Successfully}
+  ISVISBLE: {type: BOOL, desc: IsVisible}
+  CURDRAGSTATE: {type: STRING, desc: dragstate}
+
+SET_DRAG_WINDOW_VISIBLE_FAILED:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: Set Drag Window Visible}
+  MSG: {type: STRING, desc: Set Drag Window Visible Failed}
+  ISVISBLE: {type: BOOL, desc: IsVisible}
+  CURDRAGSTATE: {type: STRING, desc: dragstate}
+
+UPDATE_DRAG_STYLE_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: Update Drag Style}
+  MSG: {type: STRING, desc: Update Drag Style Successfully}
+  DRAGSTYLE: {type: STRING, desc: dragstyle}
+
+
+UPDATE_DRAG_STYLE_FAILED:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: Update Drag Style}
+  MSG: {type: STRING, desc: Update Drag Style Failed}
+  DRAGSTYLE: {type: STRING, desc: dragstyle}
+
+SEND_TOKENID:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: Send Drag Data}
+  MSG: {type: STRING, desc: Send Token Id Failed}
+  TARGETID: {type: INT32, desc: targetTid}
+  UDKEY: {type: STRING, desc: udkey}
+
+STOP_DRAG_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: Stop Drag}
+  MSG: {type: STRING, desc: Stop Drag Successfully}
+  CURDRAGSTATE: {type: STRING, desc: dragstate}
+  ANIMATE: {type: BOOL, desc: animate}
+
+STOP_DRAG_FAILED:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: Stop Drag}
+  MSG: {type: STRING, desc: Stop Drag Failed}
+  CURDRAGSTATE: {type: STRING, desc: dragstate}
+  ANIMATE: {type: BOOL, desc: animate}
+
+NOTIFY_DRAG_RESULT_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: Notify Drag Result}
+  MSG: {type: STRING, desc: Notify Drag Result Successfully}
+  DRAGRESULT: {type: STRING, desc: DragResult}
+
+NOTIFY_DRAG_RESULT_FAILED:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: Notify Drag Result}
+  MSG: {type: STRING, desc: Notify Drag Result Failed}
+  DRAGRESULT: {type: STRING, desc: DragResult}
+
+COOPERATE_DRAG_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: Cooperate Drag}
+  MSG: {type: STRING, desc: On Coordination And The State Change Successfully}
+  PRESTATE: {type: STRING, desc: PreviousState}
+  UPDATESTATE: {type: STRING, desc: UpdateState}
+
+COOPERATE_DRAG_FAILED:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: Cooperate Drag}
+  MSG: {type: STRING, desc: The Current Coordination State Is Out}
+  CURSTATE: {type: STRING, desc: CurrentState}
+
+COOPERATE_DRAG_RESULT_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, tag: deviceStatus, desc: Cooperate Drag Result}
+  MSG: {type: STRING, desc: Coordination Drag Result Successfully}
+  DEVICEID: {type: STRING, desc: remotedeviceId}
+  SESSIONID: {type: STRING, desc: sessionId}
+  CURSTATE: {type: STRING, desc: CurCoordinationState}
+
+COOPERATE_DRAG_RESULT_FAILED:
+  __BASE: {type: FAULT, level: MINOR, tag: deviceStatus, desc: Cooperate Drag Result}
+  MSG: {type: STRING, desc: Coordination Drag Result Failed}
+  DEVICEID: {type: STRING, desc: remotedeviceId}
+  SESSIONID: {type: STRING, desc: sessionId}
+  CURSTATE: {type: STRING, desc: CurCoordinationState}
+
+DRAG_BEHAVIOR:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: Drag behavior, preserve: false}
+  ORG_PKG: {type: STRING, desc: business pkg name}
+  FUNC: {type: STRING, desc: current function name}
+  BIZ_STATE: {type: INT32, desc: business state}
+  BIZ_STAGE: {type: INT32, desc: business stage}
+  BIZ_SCENE: {type: INT32, desc: business scene}
+  STAGE_RES: {type: INT32, desc: stage result}
+  ERROR_CODE: {type: INT32, desc: error code}
+  HOST_PKG: {type: STRING, desc: host module name}
+  LOCAL_NET_ID: {type: STRING, desc: local device network id}
+  PEER_NET_ID: {type: STRING, desc: peer device network id}
+  DRAG_SUMMARY: {type: STRING, desc: drag summary}
+  PACKAGE_NAME: {type: STRING, desc: package name}
+  APP_CALLEE: {type: STRING, desc: app callee}
+  APP_CALLER: {type: STRING, desc: app caller}
+  DRAG_NUM: {type: INT32, desc: drag number}
+
+COOPERTATE_BEHAVIOR:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: Cooperate, preserve: false}
+  ORG_PKG: {type: STRING, desc: business pkg name}
+  FUNC: {type: STRING, desc: current function name}
+  BIZ_STATE: {type: INT32, desc: business state}
+  BIZ_STAGE: {type: INT32, desc: business stage}
+  STAGE_RES: {type: INT32, desc: stage result}
+  BIZ_SCENE: {type: INT32, desc: business scene}
+  ERROR_CODE: {type: INT32, desc: error code}
+  HOST_PKG: {type: STRING, desc: host module name}
+  LOCAL_NET_ID: {type: STRING, desc: local device network id}
+  PEER_NET_ID: {type: STRING, desc: peer device network id}
+  TO_CALL_PKG: {type: STRING, desc: to call package}
+  LOCAL_DEV_TYPE: {type: STRING, desc: local device type}
+  PEER_DEV_TYPE: {type: STRING, desc: peer device type}

@@ -1,0 +1,30 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import assert from 'assert';
+import lazy { j } from './export_api_01';
+import lazy { j as g2 } from './export_api_01';
+import lazy { default as j1 } from './export_api_01';
+import lazy { k, l, } from './export_api_01';
+import lazy { k as h2, l as i2, } from './export_api_01';
+import lazy { type v } from './export_type_03';
+import lazy { type a1 as j2 } from './export_type_03';
+import lazy { type default as s1 } from './export_type_03';
+import lazy { as, type b1 } from './export_type_03';
+import lazy { c1, type f1 as l2 } from './export_type_03';
+import m2 from './export_api_01';
+import { m2 } from './export_api_01';
+import "";
+import '';
+import './export_api_01';

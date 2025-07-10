@@ -1,0 +1,75 @@
+{
+  "name": "@ohos/hiappevent",
+  "description": "Event logging provided for application",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/hiviewdfx/hiappevent"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "hiappevent",
+    "subsystem": "hiviewdfx",
+    "syscap": [
+      "SystemCapability.HiviewDFX.HiAppEvent"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "",
+    "ram": "",
+    "deps": {
+      "components": [
+        "ability_runtime",
+        "bundle_framework",
+        "c_utils",
+        "ffrt",
+        "hitrace",
+        "hilog",
+        "hicollie",
+        "hisysevent",
+        "init",
+        "ipc",
+        "napi",
+        "relational_store",
+        "samgr",
+        "storage_service",
+        "jsoncpp"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//base/hiviewdfx/hiappevent/frameworks/native/libhiappevent:libhiappevent_base",
+        "//base/hiviewdfx/hiappevent/frameworks/native/ndk:hiappevent_ndk",
+        "//base/hiviewdfx/hiappevent/frameworks/js/napi:hiappevent",
+        "//base/hiviewdfx/hiappevent/frameworks/js/napi:hiappevent_v9",
+        "//base/hiviewdfx/hiappevent/frameworks/cj/ffi:cj_hiappevent_ffi",
+        "//base/hiviewdfx/hiappevent/interfaces/native/inner_api:hiappevent_innerapi"
+      ],
+      "inner_kits": [
+        {
+          "name": "//base/hiviewdfx/hiappevent/interfaces/native/inner_api:hiappevent_innerapi",
+          "header": {
+              "header_base": "//base/hiviewdfx/hiappevent/interfaces/native/inner_api/include",
+              "header_files": [
+                  "app_event.h",
+                  "app_event_processor.h",
+                  "app_event_processor_mgr.h",
+                  "base_type.h"
+              ]
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/hiappevent/frameworks/cj/ffi:cj_hiappevent_ffi",
+          "header": {
+              "header_base": "//base/hiviewdfx/hiappevent/frameworks/cj/ffi/include",
+              "header_files": []
+          }
+        }
+      ],
+      "test": [ "//base/hiviewdfx/hiappevent/test:unittest" ]
+    }
+  }
+}

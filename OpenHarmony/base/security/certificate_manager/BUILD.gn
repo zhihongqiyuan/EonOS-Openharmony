@@ -1,0 +1,207 @@
+# Copyright (C) 2022-2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/security/certificate_manager/cert_manager.gni")
+
+group("cert_manager_sdk_test") {
+  testonly = true
+  if (os_level == "standard") {
+    deps = [
+      "./test:module_test",
+      "./test:multi_thread_test",
+      "./test:permission_test",
+      "./test:unittest",
+    ]
+  } else {
+  }
+}
+
+group("cert_manager_napi") {
+  if (os_level == "standard") {
+    if (support_jsapi) {
+      deps = [ "./interfaces/kits/napi:certmanager" ]
+      if (certificate_manager_feature_dialog_enabled) {
+        deps += [ "./interfaces/kits/napi:certmanagerdialog" ]
+      }
+    }
+  }
+}
+
+group("cert_manager_cjapi") {
+  if (os_level == "standard") {
+    deps = [ "./interfaces/kits/cj:cj_cert_manager_ffi" ]
+  }
+}
+
+group("cipher_napi") {
+  if (os_level == "standard") {
+    if (support_jsapi) {
+      deps = []
+    }
+  }
+}
+
+group("cert_manager_type_base") {
+  if (os_level == "standard") {
+    deps = [
+      ":cert_manager_cjapi",
+      ":cert_manager_napi",
+      "./config:trusted_system_certificate0",
+      "./config:trusted_system_certificate1",
+      "./config:trusted_system_certificate10",
+      "./config:trusted_system_certificate100",
+      "./config:trusted_system_certificate101",
+      "./config:trusted_system_certificate102",
+      "./config:trusted_system_certificate103",
+      "./config:trusted_system_certificate104",
+      "./config:trusted_system_certificate105",
+      "./config:trusted_system_certificate106",
+      "./config:trusted_system_certificate107",
+      "./config:trusted_system_certificate108",
+      "./config:trusted_system_certificate109",
+      "./config:trusted_system_certificate11",
+      "./config:trusted_system_certificate110",
+      "./config:trusted_system_certificate12",
+      "./config:trusted_system_certificate13",
+      "./config:trusted_system_certificate14",
+      "./config:trusted_system_certificate15",
+      "./config:trusted_system_certificate16",
+      "./config:trusted_system_certificate17",
+      "./config:trusted_system_certificate18",
+      "./config:trusted_system_certificate19",
+      "./config:trusted_system_certificate2",
+      "./config:trusted_system_certificate20",
+      "./config:trusted_system_certificate21",
+      "./config:trusted_system_certificate22",
+      "./config:trusted_system_certificate23",
+      "./config:trusted_system_certificate24",
+      "./config:trusted_system_certificate25",
+      "./config:trusted_system_certificate26",
+      "./config:trusted_system_certificate27",
+      "./config:trusted_system_certificate28",
+      "./config:trusted_system_certificate29",
+      "./config:trusted_system_certificate3",
+      "./config:trusted_system_certificate30",
+      "./config:trusted_system_certificate31",
+      "./config:trusted_system_certificate32",
+      "./config:trusted_system_certificate33",
+      "./config:trusted_system_certificate34",
+      "./config:trusted_system_certificate35",
+      "./config:trusted_system_certificate36",
+      "./config:trusted_system_certificate37",
+      "./config:trusted_system_certificate38",
+      "./config:trusted_system_certificate39",
+      "./config:trusted_system_certificate4",
+      "./config:trusted_system_certificate40",
+      "./config:trusted_system_certificate41",
+      "./config:trusted_system_certificate42",
+      "./config:trusted_system_certificate43",
+      "./config:trusted_system_certificate44",
+      "./config:trusted_system_certificate45",
+      "./config:trusted_system_certificate46",
+      "./config:trusted_system_certificate47",
+      "./config:trusted_system_certificate48",
+      "./config:trusted_system_certificate49",
+      "./config:trusted_system_certificate5",
+      "./config:trusted_system_certificate50",
+      "./config:trusted_system_certificate51",
+      "./config:trusted_system_certificate52",
+      "./config:trusted_system_certificate53",
+      "./config:trusted_system_certificate54",
+      "./config:trusted_system_certificate55",
+      "./config:trusted_system_certificate56",
+      "./config:trusted_system_certificate57",
+      "./config:trusted_system_certificate58",
+      "./config:trusted_system_certificate59",
+      "./config:trusted_system_certificate6",
+      "./config:trusted_system_certificate60",
+      "./config:trusted_system_certificate61",
+      "./config:trusted_system_certificate62",
+      "./config:trusted_system_certificate63",
+      "./config:trusted_system_certificate64",
+      "./config:trusted_system_certificate65",
+      "./config:trusted_system_certificate66",
+      "./config:trusted_system_certificate67",
+      "./config:trusted_system_certificate68",
+      "./config:trusted_system_certificate69",
+      "./config:trusted_system_certificate7",
+      "./config:trusted_system_certificate70",
+      "./config:trusted_system_certificate71",
+      "./config:trusted_system_certificate72",
+      "./config:trusted_system_certificate73",
+      "./config:trusted_system_certificate74",
+      "./config:trusted_system_certificate75",
+      "./config:trusted_system_certificate76",
+      "./config:trusted_system_certificate77",
+      "./config:trusted_system_certificate78",
+      "./config:trusted_system_certificate79",
+      "./config:trusted_system_certificate8",
+      "./config:trusted_system_certificate80",
+      "./config:trusted_system_certificate81",
+      "./config:trusted_system_certificate82",
+      "./config:trusted_system_certificate83",
+      "./config:trusted_system_certificate84",
+      "./config:trusted_system_certificate85",
+      "./config:trusted_system_certificate86",
+      "./config:trusted_system_certificate87",
+      "./config:trusted_system_certificate88",
+      "./config:trusted_system_certificate89",
+      "./config:trusted_system_certificate9",
+      "./config:trusted_system_certificate90",
+      "./config:trusted_system_certificate91",
+      "./config:trusted_system_certificate92",
+      "./config:trusted_system_certificate93",
+      "./config:trusted_system_certificate94",
+      "./config:trusted_system_certificate95",
+      "./config:trusted_system_certificate96",
+      "./config:trusted_system_certificate97",
+      "./config:trusted_system_certificate98",
+      "./config:trusted_system_certificate99",
+    ]
+  } else if (os_level == "small") {
+    deps = []
+  } else {
+    deps = []
+  }
+}
+
+group("cert_manager_type_fwk") {
+  if (os_level == "standard") {
+    deps =
+        [ "./interfaces/innerkits/cert_manager_standard/main:cert_manager_sdk" ]
+  } else if (os_level == "small") {
+    deps = []
+  } else {
+    deps = []
+  }
+}
+
+group("cert_manager_typer_services") {
+  if (os_level == "standard") {
+    deps = [
+      "./services/cert_manager_standard:cert_manager_service",
+      "./services/cert_manager_standard/cert_manager_service/main/os_dependency/sa/sa_profile:cert_manager_sa_profile",
+    ]
+  } else if (os_level == "small") {
+    deps = []
+  } else {
+    deps = []
+  }
+}
+
+group("cert_manager_components") {
+  deps = [
+    ":cert_manager_type_base",
+    ":cert_manager_typer_services",
+  ]
+}

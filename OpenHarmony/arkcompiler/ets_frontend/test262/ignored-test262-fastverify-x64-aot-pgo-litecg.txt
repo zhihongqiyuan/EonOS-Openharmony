@@ -1,0 +1,2 @@
+#19208
+test262/data/test_es2021/language/module-code/instn-iee-err-circular-as.js

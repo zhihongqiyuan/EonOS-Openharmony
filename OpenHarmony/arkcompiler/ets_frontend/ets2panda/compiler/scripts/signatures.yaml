@@ -1,0 +1,1584 @@
+# Copyright (c) 2021-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+defines:
+  - name: '-'
+    ref: LAMBDA_SEPARATOR
+  - name: <ctor>
+    ref: CTOR
+  - name: <cctor>
+    ref: CCTOR
+  - name: ETSGLOBAL
+    ref: ETS_GLOBAL
+  - name: _$init$_
+    ref: INIT_METHOD
+  - name: $_get
+    ref: GET_INDEX_METHOD
+  - name: $_set
+    ref: SET_INDEX_METHOD
+  - name: $_iterator
+    ref: ITERATOR_METHOD
+  - name: 'ambient_indexer'
+    ref: AMBIENT_INDEXER
+  - name: 'ETSGLOBAL.main:'
+    ref: ETS_MAIN_WITH_MANGLE_BEGIN
+  - name: 'main'
+    ref: MAIN
+  - name: ':'
+    ref: MANGLE_BEGIN
+  - name: ';'
+    ref: MANGLE_SEPARATOR
+  - name: '.'
+    ref: METHOD_SEPARATOR
+  - name: '/'
+    ref: NAMESPACE_SEPARATOR
+  - name: any
+    ref: ANY
+  - name: external
+    ref: EXTERNAL
+  - name: ets.extends
+    ref: EXTENDS_ATTRIBUTE
+    comment: ETS annotation type
+  - name: ets.implements
+    ref: IMPLEMENTS_ATTRIBUTE
+    comment: ETS annotation type
+  - name: ets.annotation
+    ref: ANNOTATION_ATTRIBUTE
+    comment: ETS annotation type
+  - name: ets.annotation.type
+    ref: ANNOTATION_ATTRIBUTE_TYPE
+    comment: ETS annotation type
+  - name: ets.debug.import
+    ref: DEBUG_IMPORT_ATTRIBUTE
+    comment: ETS annotation type
+  - name: ets.debug.export
+    ref: DEBUG_EXPORT_ATTRIBUTE
+    comment: ETS annotation type
+  - name: value
+    ref: ANNOTATION_KEY_VALUE
+    comment: ETS annotation key
+  - name: name
+    ref: ANNOTATION_KEY_NAME
+    comment: ETS annotation key
+  - name: accessFlags
+    ref: ANNOTATION_KEY_ACCESS_FLAGS
+    comment: ETS annotation key
+  - name: runtime
+    ref: RUNTIME_ANNOTATION
+    comment: Annotation retention type
+  - name: type
+    ref: TYPE_ANNOTATION
+    comment: Annotation retention type
+  - name: runtime_type
+    ref: RUNTIME_TYPE_ANNOTATION
+    comment: Annotation retention type
+  - name: ets/annotation/InnerClass
+    ref: ETS_ANNOTATION_INNER_CLASS
+    comment: Ets record
+  - name: ets/annotation/EnclosingClass
+    ref: ETS_ANNOTATION_ENCLOSING_CLASS
+    comment: Ets record
+  - name: ets/annotation/EnclosingMethod
+    ref: ETS_ANNOTATION_ENCLOSING_METHOD
+    comment: Ets record
+  - name: ets/annotation/Signature
+    ref: ETS_ANNOTATION_SIGNATURE
+    comment: Ets record
+  - name: ets/coroutine/Async
+    ref: ETS_COROUTINE_ASYNC
+  - name: ets/annotation/DynamicCall
+    ref: ETS_ANNOTATION_DYNAMIC_CALL
+  - name: 'L'
+    ref: CLASS_REF_BEGIN
+  - name: '<'
+    ref: GENERIC_BEGIN
+  - name: '>'
+    ref: GENERIC_END
+  - name: ctor
+    ref: CONSTRUCTOR
+  - name: <get>
+    ref: GETTER_BEGIN
+  - name: <set>
+    ref: SETTER_BEGIN
+  - name: param0
+    ref: CTOR_PARAM0
+  - name: param1
+    ref: CTOR_PARAM1
+  - name: $jscall
+    ref: JSCALL_CLASS
+  - name: $jsnew
+    ref: JSNEW_CLASS
+  - name: $dynmodule
+    ref: DYNAMIC_MODULE_CLASS
+  - name: init
+    ref: DYNAMIC_MODULE_CLASS_INIT
+  - name: $lambdaobject
+    ref: LAMBDA_OBJECT
+  - name: invoke
+    ref: LAMBDA_OBJECT_INVOKE
+  - name: invoke
+    ref: STATIC_INVOKE_METHOD
+  - name: instantiate
+    ref: STATIC_INSTANTIATE_METHOD
+  - name: undefined
+    ref: UNDEFINED
+  - name: 'null'
+    ref: NULL_LITERAL
+  - name: 'Readonly'
+    ref: READONLY_TYPE_NAME
+  - name: 'Partial'
+    ref: PARTIAL_TYPE_NAME
+  - name: 'Required'
+    ref: REQUIRED_TYPE_NAME
+  - name: '<property>'
+    ref: PROPERTY
+  - name: 'never'
+    ref: NEVER_TYPE_NAME
+
+packages:
+  - name: 'std.core'
+    ref: PKG_STD_CORE
+  - name: 'std.math'
+    ref: PKG_STD_MATH
+  - name: 'std.interop.js'
+    ref: PKG_STD_INTEROP_JS
+  - name: 'escompat'
+    ref: PKG_ESCOMPAT
+
+primitives:
+  - name: u1
+    ref: PRIMITIVE_BOOLEAN
+
+  - name: u16
+    ref: PRIMITIVE_CHAR
+
+  - name: i8
+    ref: PRIMITIVE_BYTE
+
+  - name: i16
+    ref: PRIMITIVE_SHORT
+
+  - name: i32
+    ref: PRIMITIVE_INT
+
+  - name: i64
+    ref: PRIMITIVE_LONG
+
+  - name: f32
+    ref: PRIMITIVE_FLOAT
+
+  - name: f64
+    ref: PRIMITIVE_DOUBLE
+
+  - name: void
+    ref: PRIMITIVE_VOID
+
+typedescriptors:
+  - name: 'Z'
+    ref: TYPE_DESCRIPTOR_BOOLEAN
+
+  - name: 'B'
+    ref: TYPE_DESCRIPTOR_BYTE
+
+  - name: 'H'
+    ref: TYPE_DESCRIPTOR_UBYTE
+
+  - name: 'S'
+    ref: TYPE_DESCRIPTOR_SHORT
+
+  - name: 'C'
+    ref: TYPE_DESCRIPTOR_CHAR
+
+  - name: 'I'
+    ref: TYPE_DESCRIPTOR_INT
+
+  - name: 'U'
+    ref: TYPE_DESCRIPTOR_UINT
+
+  - name: 'F'
+    ref: TYPE_DESCRIPTOR_FLOAT
+
+  - name: 'D'
+    ref: TYPE_DESCRIPTOR_DOUBLE
+
+  - name: 'J'
+    ref: TYPE_DESCRIPTOR_LONG
+
+  - name: 'Q'
+    ref: TYPE_DESCRIPTOR_ULONG
+
+  - name: 'A'
+    ref: TYPE_DESCRIPTOR_ANY
+
+  - name: 'V'
+    ref: TYPE_DESCRIPTOR_VOID
+
+builtins:
+  - name: Object
+    package: PKG_STD_CORE
+    ref: BUILTIN_OBJECT
+  - name: Class
+    package: PKG_STD_CORE
+    ref: BUILTIN_CLASS
+  - name: String
+    package: PKG_STD_CORE
+    ref: BUILTIN_STRING
+  - name: Exception
+    package: PKG_STD_CORE
+    ref: BUILTIN_EXCEPTION
+  - name: Throwable
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWABLE
+  - name: NullPointerError
+    package: PKG_STD_CORE
+    ref: BUILTIN_NULLPOINTER_ERROR
+  - name: ClassCastError
+    package: PKG_STD_CORE
+    ref: BUILTIN_CLASS_CAST_ERROR
+  - name: StringBuilder
+    package: PKG_STD_CORE
+    ref: BUILTIN_STRING_BUILDER
+  - name: Type
+    package: PKG_STD_CORE
+    ref: BUILTIN_TYPE
+  - name: Boolean
+    package: PKG_STD_CORE
+    ref: BUILTIN_BOOLEAN
+  - name: Char
+    package: PKG_STD_CORE
+    ref: BUILTIN_CHAR
+  - name: Byte
+    package: PKG_STD_CORE
+    ref: BUILTIN_BYTE
+  - name: Short
+    package: PKG_STD_CORE
+    ref: BUILTIN_SHORT
+  - name: Int
+    package: PKG_STD_CORE
+    ref: BUILTIN_INT
+  - name: Long
+    package: PKG_STD_CORE
+    ref: BUILTIN_LONG
+  - name: Float
+    package: PKG_STD_CORE
+    ref: BUILTIN_FLOAT
+  - name: Double
+    package: PKG_STD_CORE
+    ref: BUILTIN_DOUBLE
+  - name: Promise
+    package: PKG_STD_CORE
+    ref: BUILTIN_PROMISE
+  - name: Error
+    package: PKG_ESCOMPAT
+    ref: BUILTIN_ERROR
+  - name: BigInt
+    package: PKG_ESCOMPAT
+    ref: BUILTIN_BIGINT
+  - name: AssertionError
+    package: PKG_STD_CORE
+    ref: BUILTIN_ASSERTION_ERROR
+  - name: Runtime
+    package: PKG_STD_CORE
+    ref: BUILTIN_RUNTIME
+  - name: JSRuntime
+    package: PKG_STD_INTEROP_JS
+    ref: BUILTIN_JSRUNTIME
+  - name: JSValue
+    package: PKG_STD_INTEROP_JS
+    ref: BUILTIN_JSVALUE
+  - name: Box
+    package: PKG_STD_CORE
+    ref: BUILTIN_BOX
+  - name: BooleanBox
+    package: PKG_STD_CORE
+    ref: BUILTIN_BOOLEAN_BOX
+  - name: ByteBox
+    package: PKG_STD_CORE
+    ref: BUILTIN_BYTE_BOX
+  - name: CharBox
+    package: PKG_STD_CORE
+    ref: BUILTIN_CHAR_BOX
+  - name: ShortBox
+    package: PKG_STD_CORE
+    ref: BUILTIN_SHORT_BOX
+  - name: IntBox
+    package: PKG_STD_CORE
+    ref: BUILTIN_INT_BOX
+  - name: LongBox
+    package: PKG_STD_CORE
+    ref: BUILTIN_LONG_BOX
+  - name: FloatBox
+    package: PKG_STD_CORE
+    ref: BUILTIN_FLOAT_BOX
+  - name: DoubleBox
+    package: PKG_STD_CORE
+    ref: BUILTIN_DOUBLE_BOX
+  - name: Function0
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION0
+  - name: Function1
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION1
+  - name: Function2
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION2
+  - name: Function3
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION3
+  - name: Function4
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION4
+  - name: Function5
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION5
+  - name: Function6
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION6
+  - name: Function7
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION7
+  - name: Function8
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION8
+  - name: Function9
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION9
+  - name: Function10
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION10
+  - name: Function11
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION11
+  - name: Function12
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION12
+  - name: Function13
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION13
+  - name: Function14
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION14
+  - name: Function15
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION15
+  - name: Function16
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTION16
+  - name: FunctionN
+    package: PKG_STD_CORE
+    ref: BUILTIN_FUNCTIONN
+  - name: ThrowingFunction0
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION0
+  - name: ThrowingFunction1
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION1
+  - name: ThrowingFunction2
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION2
+  - name: ThrowingFunction3
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION3
+  - name: ThrowingFunction4
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION4
+  - name: ThrowingFunction5
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION5
+  - name: ThrowingFunction6
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION6
+  - name: ThrowingFunction7
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION7
+  - name: ThrowingFunction8
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION8
+  - name: ThrowingFunction9
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION9
+  - name: ThrowingFunction10
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION10
+  - name: ThrowingFunction11
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION11
+  - name: ThrowingFunction12
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION12
+  - name: ThrowingFunction13
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION13
+  - name: ThrowingFunction14
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION14
+  - name: ThrowingFunction15
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION15
+  - name: ThrowingFunction16
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTION16
+  - name: ThrowingFunctionN
+    package: PKG_STD_CORE
+    ref: BUILTIN_THROWING_FUNCTIONN
+  - name: RethrowingFunction0
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION0
+  - name: RethrowingFunction1
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION1
+  - name: RethrowingFunction2
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION2
+  - name: RethrowingFunction3
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION3
+  - name: RethrowingFunction4
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION4
+  - name: RethrowingFunction5
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION5
+  - name: RethrowingFunction6
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION6
+  - name: RethrowingFunction7
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION7
+  - name: RethrowingFunction8
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION8
+  - name: RethrowingFunction9
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION9
+  - name: RethrowingFunction10
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION10
+  - name: RethrowingFunction11
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION11
+  - name: RethrowingFunction12
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION12
+  - name: RethrowingFunction13
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION13
+  - name: RethrowingFunction14
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION14
+  - name: RethrowingFunction15
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION15
+  - name: RethrowingFunction16
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTION16
+  - name: RethrowingFunctionN
+    package: PKG_STD_CORE
+    ref: BUILTIN_RETHROWING_FUNCTIONN
+
+signatures:
+  - callee: BUILTIN_OBJECT
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_OBJECT_CTOR
+
+  - callee: BUILTIN_STRING
+    method_name: $CTOR
+    params: [BUILTIN_STRING]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_STRING_FROM_STRING_CTOR
+
+  - callee: BUILTIN_STRING
+    method_name: $CTOR
+    params: [BUILTIN_OBJECT]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_STRING_FROM_NULLISH_CTOR
+
+  - callee: BUILTIN_OBJECT
+    method_name: toString
+    params: []
+    return_type: BUILTIN_STRING
+    ref: BUILTIN_OBJECT_TO_STRING
+
+  - callee: BUILTIN_OBJECT
+    method_name: equals
+    params: [BUILTIN_OBJECT]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_OBJECT_EQUALS
+
+  - callee: BUILTIN_STRING
+    method_name: equals
+    params: [BUILTIN_OBJECT]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_STRING_EQUALS
+
+  - callee: BUILTIN_STRING
+    method_name: getLength
+    params: []
+    return_type: PRIMITIVE_INT
+    ref: BUILTIN_STRING_LENGTH
+
+  - callee: BUILTIN_STRING
+    method_name: charAt
+    params: [PRIMITIVE_INT]
+    return_type: PRIMITIVE_CHAR
+    ref: BUILTIN_STRING_CHAR_AT
+
+  - callee: BUILTIN_ASSERTION_ERROR
+    method_name: $CTOR
+    params: [BUILTIN_STRING]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_ASSERTION_ERROR_CTOR
+
+  - callee: BUILTIN_RUNTIME
+    method_name: failedTypeCastException
+    params: [BUILTIN_OBJECT, BUILTIN_STRING]
+    return_type: BUILTIN_CLASS_CAST_ERROR
+    ref: BUILTIN_RUNTIME_FAILED_TYPE_CAST_EXCEPTION
+
+  - callee: BUILTIN_ERROR
+    method_name: $CTOR
+    params: [BUILTIN_OBJECT]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_ERROR_CTOR
+
+  - callee: BUILTIN_BIGINT
+    method_name: $CTOR
+    params: [BUILTIN_STRING]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_BIGINT_CTOR
+
+  - callee: BUILTIN_BIGINT
+    method_name: $CTOR
+    params: [BUILTIN_BIGINT]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_BIGINT_CTOR_BIGINT
+
+  - callee: BUILTIN_BIGINT
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_BIGINT_CTOR_EMPTY
+
+  - callee: BUILTIN_BIGINT
+    method_name: equals
+    params: [BUILTIN_BIGINT]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_BIGINT_EQUALS
+
+  - callee: BUILTIN_BIGINT
+    method_name: negate
+    params: []
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_NEGATE
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorAdd
+    params: [BUILTIN_BIGINT]
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_ADD
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorSubtract
+    params: [BUILTIN_BIGINT]
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_SUBTRACT
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorMultiply
+    params: [BUILTIN_BIGINT]
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_MULTIPLY
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorDivide
+    params: [BUILTIN_BIGINT]
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_DIVIDE
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorModule
+    params: [BUILTIN_BIGINT]
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_MODULE
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorBitwiseOr
+    params: [BUILTIN_BIGINT]
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_BITWISE_OR
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorBitwiseAnd
+    params: [BUILTIN_BIGINT]
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_BITWISE_AND
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorBitwiseXor
+    params: [BUILTIN_BIGINT]
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_BITWISE_XOR
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorGreaterThan
+    params: [BUILTIN_BIGINT]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_BIGINT_OPERATOR_GREATER_THAN
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorLessThan
+    params: [BUILTIN_BIGINT]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_BIGINT_OPERATOR_LESS_THAN
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorGreaterThanEqual
+    params: [BUILTIN_BIGINT]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_BIGINT_OPERATOR_GREATER_THAN_EQUAL
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorLessThanEqual
+    params: [BUILTIN_BIGINT]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_BIGINT_OPERATOR_LESS_THAN_EQUAL
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorLeftShift
+    params: [BUILTIN_BIGINT]
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_LEFT_SHIFT
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorRightShift
+    params: [BUILTIN_BIGINT]
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_RIGHT_SHIFT
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorIncrement
+    params: []
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_INCREMENT
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorDecrement
+    params: []
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_DECREMENT
+
+  - callee: BUILTIN_BIGINT
+    method_name: operatorBitwiseNot
+    params: []
+    return_type: BUILTIN_BIGINT
+    ref: BUILTIN_BIGINT_OPERATOR_BITWISE_NOT
+
+  - callee: BUILTIN_THROWABLE
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_THROWABLE_CTOR
+
+  - callee: BUILTIN_RUNTIME
+    method_name: typeOf
+    params: [BUILTIN_OBJECT]
+    return_type: BUILTIN_STRING
+    ref: BUILTIN_RUNTIME_TYPEOF
+
+  - callee: BUILTIN_NULLPOINTER_ERROR
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_NULLPOINTER_ERROR_CTOR
+
+  - callee: BUILTIN_CLASS_CAST_ERROR
+    method_name: $CTOR
+    params: [BUILTIN_STRING]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_CLASS_CAST_ERROR_CTOR
+
+  - callee: BUILTIN_STRING_BUILDER
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_STRING_BUILDER_CTOR
+
+  - callee: BUILTIN_STRING_BUILDER
+    method_name: append
+    params: [PRIMITIVE_BOOLEAN]
+    return_type: BUILTIN_STRING_BUILDER
+    ref: BUILTIN_STRING_BUILDER_APPEND_BOOLEAN
+
+  - callee: BUILTIN_STRING_BUILDER
+    method_name: append
+    params: [PRIMITIVE_CHAR]
+    return_type: BUILTIN_STRING_BUILDER
+    ref: BUILTIN_STRING_BUILDER_APPEND_CHAR
+
+  - callee: BUILTIN_STRING_BUILDER
+    method_name: append
+    params: [PRIMITIVE_INT]
+    return_type: BUILTIN_STRING_BUILDER
+    ref: BUILTIN_STRING_BUILDER_APPEND_INT
+
+  - callee: BUILTIN_STRING_BUILDER
+    method_name: append
+    params: [PRIMITIVE_LONG]
+    return_type: BUILTIN_STRING_BUILDER
+    ref: BUILTIN_STRING_BUILDER_APPEND_LONG
+
+  - callee: BUILTIN_STRING_BUILDER
+    method_name: append
+    params: [PRIMITIVE_FLOAT]
+    return_type: BUILTIN_STRING_BUILDER
+    ref: BUILTIN_STRING_BUILDER_APPEND_FLOAT
+
+  - callee: BUILTIN_STRING_BUILDER
+    method_name: append
+    params: [PRIMITIVE_DOUBLE]
+    return_type: BUILTIN_STRING_BUILDER
+    ref: BUILTIN_STRING_BUILDER_APPEND_DOUBLE
+
+  - callee: BUILTIN_STRING_BUILDER
+    method_name: append
+    params: [BUILTIN_STRING]
+    return_type: BUILTIN_STRING_BUILDER
+    ref: BUILTIN_STRING_BUILDER_APPEND_BUILTIN_STRING
+
+  - callee: BUILTIN_STRING_BUILDER
+    method_name: toString
+    params: []
+    return_type: BUILTIN_STRING
+    ref: BUILTIN_STRING_BUILDER_TO_STRING
+
+  - callee: BUILTIN_BOOLEAN
+    method_name: valueOf
+    params: [PRIMITIVE_BOOLEAN]
+    return_type: BUILTIN_BOOLEAN
+    ref: BUILTIN_BOOLEAN_VALUE_OF
+
+  - callee: BUILTIN_CHAR
+    method_name: valueOf
+    params: [PRIMITIVE_CHAR]
+    return_type: BUILTIN_CHAR
+    ref: BUILTIN_CHAR_VALUE_OF
+
+  - callee: BUILTIN_BYTE
+    method_name: valueOf
+    params: [PRIMITIVE_BYTE]
+    return_type: BUILTIN_BYTE
+    ref: BUILTIN_BYTE_VALUE_OF
+
+  - callee: BUILTIN_SHORT
+    method_name: valueOf
+    params: [PRIMITIVE_SHORT]
+    return_type: BUILTIN_SHORT
+    ref: BUILTIN_SHORT_VALUE_OF
+
+  - callee: BUILTIN_INT
+    method_name: valueOf
+    params: [PRIMITIVE_INT]
+    return_type: BUILTIN_INT
+    ref: BUILTIN_INT_VALUE_OF
+
+  - callee: BUILTIN_LONG
+    method_name: valueOf
+    params: [PRIMITIVE_LONG]
+    return_type: BUILTIN_LONG
+    ref: BUILTIN_LONG_VALUE_OF
+
+  - callee: BUILTIN_FLOAT
+    method_name: valueOf
+    params: [PRIMITIVE_FLOAT]
+    return_type: BUILTIN_FLOAT
+    ref: BUILTIN_FLOAT_VALUE_OF
+
+  - callee: BUILTIN_DOUBLE
+    method_name: valueOf
+    params: [PRIMITIVE_DOUBLE]
+    return_type: BUILTIN_DOUBLE
+    ref: BUILTIN_DOUBLE_VALUE_OF
+
+  - callee: BUILTIN_FLOAT
+    method_name: isNaN
+    params: [PRIMITIVE_FLOAT]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_FLOAT_IS_NAN
+
+  - callee: BUILTIN_DOUBLE
+    method_name: isNaN
+    params: [PRIMITIVE_DOUBLE]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_DOUBLE_IS_NAN
+
+  - callee: BUILTIN_BOOLEAN
+    method_name: unboxed
+    params: []
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_BOOLEAN_UNBOXED
+
+  - callee: BUILTIN_CHAR
+    method_name: unboxed
+    params: []
+    return_type: PRIMITIVE_CHAR
+    ref: BUILTIN_CHAR_UNBOXED
+
+  - callee: BUILTIN_BYTE
+    method_name: unboxed
+    params: []
+    return_type: PRIMITIVE_BYTE
+    ref: BUILTIN_BYTE_UNBOXED
+
+  - callee: BUILTIN_SHORT
+    method_name: unboxed
+    params: []
+    return_type: PRIMITIVE_SHORT
+    ref: BUILTIN_SHORT_UNBOXED
+
+  - callee: BUILTIN_INT
+    method_name: unboxed
+    params: []
+    return_type: PRIMITIVE_INT
+    ref: BUILTIN_INT_UNBOXED
+
+  - callee: BUILTIN_LONG
+    method_name: unboxed
+    params: []
+    return_type: PRIMITIVE_LONG
+    ref: BUILTIN_LONG_UNBOXED
+
+  - callee: BUILTIN_FLOAT
+    method_name: unboxed
+    params: []
+    return_type: PRIMITIVE_FLOAT
+    ref: BUILTIN_FLOAT_UNBOXED
+
+  - callee: BUILTIN_DOUBLE
+    method_name: unboxed
+    params: []
+    return_type: PRIMITIVE_DOUBLE
+    ref: BUILTIN_DOUBLE_UNBOXED
+
+  # BUILTIN_JSRUNTIME_NEW_JSVALUE_<TYPE>
+  - callee: BUILTIN_JSRUNTIME
+    method_name: newJSValueBoolean
+    params: [PRIMITIVE_BOOLEAN]
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_NEW_JSVALUE_BOOLEAN
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: newJSValueByte
+    params: [PRIMITIVE_BYTE]
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_NEW_JSVALUE_BYTE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: newJSValueChar
+    params: [PRIMITIVE_CHAR]
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_NEW_JSVALUE_CHAR
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: newJSValueShort
+    params: [PRIMITIVE_SHORT]
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_NEW_JSVALUE_SHORT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: newJSValueInt
+    params: [PRIMITIVE_INT]
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_NEW_JSVALUE_INT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: newJSValueLong
+    params: [PRIMITIVE_LONG]
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_NEW_JSVALUE_LONG
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: newJSValueFloat
+    params: [PRIMITIVE_FLOAT]
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_NEW_JSVALUE_FLOAT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: newJSValueDouble
+    params: [PRIMITIVE_DOUBLE]
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_NEW_JSVALUE_DOUBLE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: newJSValueString
+    params: [BUILTIN_STRING]
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_NEW_JSVALUE_STRING
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: newJSValueObject
+    params: [BUILTIN_OBJECT]
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_NEW_JSVALUE_OBJECT
+
+  # BUILTIN_JSRUNTIME_GET_VALUE_<TYPE>
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getValueBoolean
+    params: [BUILTIN_JSVALUE]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_JSRUNTIME_GET_VALUE_BOOLEAN
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getValueByte
+    params: [BUILTIN_JSVALUE]
+    return_type: PRIMITIVE_BYTE
+    ref: BUILTIN_JSRUNTIME_GET_VALUE_BYTE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getValueChar
+    params: [BUILTIN_JSVALUE]
+    return_type: PRIMITIVE_CHAR
+    ref: BUILTIN_JSRUNTIME_GET_VALUE_CHAR
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getValueShort
+    params: [BUILTIN_JSVALUE]
+    return_type: PRIMITIVE_SHORT
+    ref: BUILTIN_JSRUNTIME_GET_VALUE_SHORT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getValueInt
+    params: [BUILTIN_JSVALUE]
+    return_type: PRIMITIVE_INT
+    ref: BUILTIN_JSRUNTIME_GET_VALUE_INT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getValueLong
+    params: [BUILTIN_JSVALUE]
+    return_type: PRIMITIVE_LONG
+    ref: BUILTIN_JSRUNTIME_GET_VALUE_LONG
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getValueFloat
+    params: [BUILTIN_JSVALUE]
+    return_type: PRIMITIVE_FLOAT
+    ref: BUILTIN_JSRUNTIME_GET_VALUE_FLOAT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getValueDouble
+    params: [BUILTIN_JSVALUE]
+    return_type: PRIMITIVE_DOUBLE
+    ref: BUILTIN_JSRUNTIME_GET_VALUE_DOUBLE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getValueString
+    params: [BUILTIN_JSVALUE]
+    return_type: BUILTIN_STRING
+    ref: BUILTIN_JSRUNTIME_GET_VALUE_STRING
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getValueObject
+    params: [BUILTIN_JSVALUE, BUILTIN_CLASS]
+    return_type: BUILTIN_OBJECT
+    ref: BUILTIN_JSRUNTIME_GET_VALUE_OBJECT
+
+  # BUILTIN_JSRUNTIME_GET_PROPERTY_<TYPE>
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getPropertyBoolean
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_JSRUNTIME_GET_PROPERTY_BOOLEAN
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getPropertyByte
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING]
+    return_type: PRIMITIVE_BYTE
+    ref: BUILTIN_JSRUNTIME_GET_PROPERTY_BYTE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getPropertyChar
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING]
+    return_type: PRIMITIVE_CHAR
+    ref: BUILTIN_JSRUNTIME_GET_PROPERTY_CHAR
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getPropertyShort
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING]
+    return_type: PRIMITIVE_SHORT
+    ref: BUILTIN_JSRUNTIME_GET_PROPERTY_SHORT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getPropertyInt
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING]
+    return_type: PRIMITIVE_INT
+    ref: BUILTIN_JSRUNTIME_GET_PROPERTY_INT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getPropertyLong
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING]
+    return_type: PRIMITIVE_LONG
+    ref: BUILTIN_JSRUNTIME_GET_PROPERTY_LONG
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getPropertyFloat
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING]
+    return_type: PRIMITIVE_FLOAT
+    ref: BUILTIN_JSRUNTIME_GET_PROPERTY_FLOAT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getPropertyDouble
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING]
+    return_type: PRIMITIVE_DOUBLE
+    ref: BUILTIN_JSRUNTIME_GET_PROPERTY_DOUBLE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getPropertyString
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING]
+    return_type: BUILTIN_STRING
+    ref: BUILTIN_JSRUNTIME_GET_PROPERTY_STRING
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getPropertyJSValue
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING]
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_GET_PROPERTY_JSVALUE
+
+  # BUILTIN_JSRUNTIME_SET_PROPERTY_<TYPE>
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setPropertyBoolean
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING, PRIMITIVE_BOOLEAN]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_PROPERTY_BOOLEAN
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setPropertyByte
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING, PRIMITIVE_BYTE]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_PROPERTY_BYTE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setPropertyChar
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING, PRIMITIVE_CHAR]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_PROPERTY_CHAR
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setPropertyShort
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING, PRIMITIVE_SHORT]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_PROPERTY_SHORT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setPropertyInt
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING, PRIMITIVE_INT]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_PROPERTY_INT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setPropertyLong
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING, PRIMITIVE_LONG]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_PROPERTY_LONG
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setPropertyFloat
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING, PRIMITIVE_FLOAT]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_PROPERTY_FLOAT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setPropertyDouble
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING, PRIMITIVE_DOUBLE]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_PROPERTY_DOUBLE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setPropertyString
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING, BUILTIN_STRING]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_PROPERTY_STRING
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setPropertyJSValue
+    params: [BUILTIN_JSVALUE, BUILTIN_STRING, BUILTIN_JSVALUE]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_PROPERTY_JSVALUE
+
+  - callee: BUILTIN_PROMISE
+    method_name: awaitResolution
+    params: []
+    return_type: BUILTIN_OBJECT
+    ref: BUILTIN_PROMISE_AWAIT_RESOLUTION
+
+  # BUILTIN_JSRUNTIME_GET_ELEMENT_<TYPE>
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getElementBoolean
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_JSRUNTIME_GET_ELEMENT_BOOLEAN
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getElementByte
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT]
+    return_type: PRIMITIVE_BYTE
+    ref: BUILTIN_JSRUNTIME_GET_ELEMENT_BYTE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getElementChar
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT]
+    return_type: PRIMITIVE_CHAR
+    ref: BUILTIN_JSRUNTIME_GET_ELEMENT_CHAR
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getElementShort
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT]
+    return_type: PRIMITIVE_SHORT
+    ref: BUILTIN_JSRUNTIME_GET_ELEMENT_SHORT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getElementInt
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT]
+    return_type: PRIMITIVE_INT
+    ref: BUILTIN_JSRUNTIME_GET_ELEMENT_INT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getElementLong
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT]
+    return_type: PRIMITIVE_LONG
+    ref: BUILTIN_JSRUNTIME_GET_ELEMENT_LONG
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getElementFloat
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT]
+    return_type: PRIMITIVE_FLOAT
+    ref: BUILTIN_JSRUNTIME_GET_ELEMENT_FLOAT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getElementDouble
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT]
+    return_type: PRIMITIVE_DOUBLE
+    ref: BUILTIN_JSRUNTIME_GET_ELEMENT_DOUBLE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getElementJSValue
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT]
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_GET_ELEMENT_JSVALUE
+
+  # BUILTIN_JSRUNTIME_SET_PROPERTY_<TYPE>
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setElementBoolean
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT, PRIMITIVE_BOOLEAN]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_ELEMENT_BOOLEAN
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setElementByte
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT, PRIMITIVE_BYTE]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_ELEMENT_BYTE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setElementChar
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT, PRIMITIVE_CHAR]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_ELEMENT_CHAR
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setElementShort
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT, PRIMITIVE_SHORT]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_ELEMENT_SHORT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setElementInt
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT, PRIMITIVE_INT]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_ELEMENT_INT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setElementLong
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT, PRIMITIVE_LONG]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_ELEMENT_LONG
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setElementFloat
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT, PRIMITIVE_FLOAT]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_ELEMENT_FLOAT
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setElementDouble
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT, PRIMITIVE_DOUBLE]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_ELEMENT_DOUBLE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: setElementJSValue
+    params: [BUILTIN_JSVALUE, PRIMITIVE_INT, BUILTIN_JSVALUE]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_SET_ELEMENT_JSVALUE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: __initJSCallClass
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_INIT_DYNAMIC_CALL_CLASS
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: __initJSNewClass
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_INIT_DYNAMIC_NEW_CLASS
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: loadModule
+    params: [BUILTIN_STRING]
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_JSRUNTIME_LOAD_MODULE
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: getUndefined
+    params: []
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_GET_UNDEFINED
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: strictEqual
+    params: [BUILTIN_JSVALUE, BUILTIN_JSVALUE]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_JSRUNTIME_STRICT_EQUAL
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: instanceOfDynamic
+    params: [BUILTIN_JSVALUE, BUILTIN_JSVALUE]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_JSRUNTIME_INSTANCE_OF_DYNAMIC
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: instanceOfStatic
+    params: [BUILTIN_JSVALUE, BUILTIN_CLASS]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_JSRUNTIME_INSTANCE_OF_STATIC
+
+  - callee: BUILTIN_JSVALUE
+    method_name: toString
+    params: []
+    return_type: PRIMITIVE_STRING
+    ref: BUILTIN_JSVALUE_TO_STRING
+
+  - callee: BUILTIN_BOX
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_BOX_CTOR
+
+  - callee: BUILTIN_BOX
+    method_name: get
+    params: []
+    return_type: BUILTIN_OBJECT
+    ref: BUILTIN_BOX_GET
+
+  - callee: BUILTIN_BOX
+    method_name: set
+    params: [BUILTIN_OBJECT]
+    return_type: BUILTIN_OBJECT
+    ref: BUILTIN_BOX_SET
+
+  - callee: BUILTIN_BOOLEAN_BOX
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_BOOLEAN_BOX_CTOR
+
+  - callee: BUILTIN_BOOLEAN_BOX
+    method_name: get
+    params: []
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_BOOLEAN_BOX_GET
+
+  - callee: BUILTIN_BOOLEAN_BOX
+    method_name: set
+    params: [PRIMITIVE_BOOLEAN]
+    return_type: PRIMITIVE_BOOLEAN
+    ref: BUILTIN_BOOLEAN_BOX_SET
+
+  - callee: BUILTIN_BYTE_BOX
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_BYTE_BOX_CTOR
+
+  - callee: BUILTIN_BYTE_BOX
+    method_name: get
+    params: []
+    return_type: PRIMITIVE_BYTE
+    ref: BUILTIN_BYTE_BOX_GET
+
+  - callee: BUILTIN_BYTE_BOX
+    method_name: set
+    params: [PRIMITIVE_BYTE]
+    return_type: PRIMITIVE_BYTE
+    ref: BUILTIN_BYTE_BOX_SET
+
+  - callee: BUILTIN_CHAR_BOX
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_CHAR_BOX_CTOR
+
+  - callee: BUILTIN_CHAR_BOX
+    method_name: get
+    params: []
+    return_type: PRIMITIVE_CHAR
+    ref: BUILTIN_CHAR_BOX_GET
+
+  - callee: BUILTIN_CHAR_BOX
+    method_name: set
+    params: [PRIMITIVE_CHAR]
+    return_type: PRIMITIVE_CHAR
+    ref: BUILTIN_CHAR_BOX_SET
+
+  - callee: BUILTIN_SHORT_BOX
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_SHORT_BOX_CTOR
+
+  - callee: BUILTIN_SHORT_BOX
+    method_name: get
+    params: []
+    return_type: PRIMITIVE_SHORT
+    ref: BUILTIN_SHORT_BOX_GET
+
+  - callee: BUILTIN_SHORT_BOX
+    method_name: set
+    params: [PRIMITIVE_SHORT]
+    return_type: PRIMITIVE_SHORT
+    ref: BUILTIN_SHORT_BOX_SET
+
+  - callee: BUILTIN_INT_BOX
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_INT_BOX_CTOR
+
+  - callee: BUILTIN_INT_BOX
+    method_name: get
+    params: []
+    return_type: PRIMITIVE_INT
+    ref: BUILTIN_INT_BOX_GET
+
+  - callee: BUILTIN_INT_BOX
+    method_name: set
+    params: [PRIMITIVE_INT]
+    return_type: PRIMITIVE_INT
+    ref: BUILTIN_INT_BOX_SET
+
+  - callee: BUILTIN_LONG_BOX
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_LONG_BOX_CTOR
+
+  - callee: BUILTIN_LONG_BOX
+    method_name: get
+    params: []
+    return_type: PRIMITIVE_LONG
+    ref: BUILTIN_LONG_BOX_GET
+
+  - callee: BUILTIN_LONG_BOX
+    method_name: set
+    params: [PRIMITIVE_LONG]
+    return_type: PRIMITIVE_LONG
+    ref: BUILTIN_LONG_BOX_SET
+
+  - callee: BUILTIN_FLOAT_BOX
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_FLOAT_BOX_CTOR
+
+  - callee: BUILTIN_FLOAT_BOX
+    method_name: get
+    params: []
+    return_type: PRIMITIVE_FLOAT
+    ref: BUILTIN_FLOAT_BOX_GET
+
+  - callee: BUILTIN_FLOAT_BOX
+    method_name: set
+    params: [PRIMITIVE_FLOAT]
+    return_type: PRIMITIVE_FLOAT
+    ref: BUILTIN_FLOAT_BOX_SET
+
+  - callee: BUILTIN_DOUBLE_BOX
+    method_name: $CTOR
+    params: []
+    return_type: PRIMITIVE_VOID
+    ref: BUILTIN_DOUBLE_BOX_CTOR
+
+  - callee: BUILTIN_DOUBLE_BOX
+    method_name: get
+    params: []
+    return_type: PRIMITIVE_DOUBLE
+    ref: BUILTIN_DOUBLE_BOX_GET
+
+  - callee: BUILTIN_DOUBLE_BOX
+    method_name: set
+    params: [PRIMITIVE_DOUBLE]
+    return_type: PRIMITIVE_DOUBLE
+    ref: BUILTIN_DOUBLE_BOX_SET
+
+  - callee: BUILTIN_JSRUNTIME
+    method_name: createObject
+    params: []
+    return_type: BUILTIN_JSVALUE
+    ref: BUILTIN_JSRUNTIME_CREATE_OBJECT
+
+dynamiclangs:
+  - name: js
+    dynamic_class: BUILTIN_JSVALUE
+    call_class:
+      name: JSCALL_CLASS
+      init_builtin: BUILTIN_JSRUNTIME_INIT_DYNAMIC_CALL_CLASS
+    new_class:
+      name: JSNEW_CLASS
+      init_builtin: BUILTIN_JSRUNTIME_INIT_DYNAMIC_NEW_CLASS
+    module_class:
+      load_builtin: BUILTIN_JSRUNTIME_LOAD_MODULE
+    builtins:
+      new:
+        - type: boolean
+          builtin: BUILTIN_JSRUNTIME_NEW_JSVALUE_BOOLEAN
+        - type: byte
+          builtin: BUILTIN_JSRUNTIME_NEW_JSVALUE_BYTE
+        - type: char
+          builtin: BUILTIN_JSRUNTIME_NEW_JSVALUE_CHAR
+        - type: short
+          builtin: BUILTIN_JSRUNTIME_NEW_JSVALUE_SHORT
+        - type: int
+          builtin: BUILTIN_JSRUNTIME_NEW_JSVALUE_INT
+        - type: long
+          builtin: BUILTIN_JSRUNTIME_NEW_JSVALUE_LONG
+        - type: float
+          builtin: BUILTIN_JSRUNTIME_NEW_JSVALUE_FLOAT
+        - type: double
+          builtin: BUILTIN_JSRUNTIME_NEW_JSVALUE_DOUBLE
+        - type: string
+          builtin: BUILTIN_JSRUNTIME_NEW_JSVALUE_STRING
+        - type: object
+          builtin: BUILTIN_JSRUNTIME_NEW_JSVALUE_OBJECT
+      get_value:
+        - type: boolean
+          builtin: BUILTIN_JSRUNTIME_GET_VALUE_BOOLEAN
+        - type: byte
+          builtin: BUILTIN_JSRUNTIME_GET_VALUE_BYTE
+        - type: char
+          builtin: BUILTIN_JSRUNTIME_GET_VALUE_CHAR
+        - type: short
+          builtin: BUILTIN_JSRUNTIME_GET_VALUE_SHORT
+        - type: int
+          builtin: BUILTIN_JSRUNTIME_GET_VALUE_INT
+        - type: long
+          builtin: BUILTIN_JSRUNTIME_GET_VALUE_LONG
+        - type: float
+          builtin: BUILTIN_JSRUNTIME_GET_VALUE_FLOAT
+        - type: double
+          builtin: BUILTIN_JSRUNTIME_GET_VALUE_DOUBLE
+        - type: string
+          builtin: BUILTIN_JSRUNTIME_GET_VALUE_STRING
+        - type: object
+          builtin: BUILTIN_JSRUNTIME_GET_VALUE_OBJECT
+      get_property:
+        - type: boolean
+          builtin: BUILTIN_JSRUNTIME_GET_PROPERTY_BOOLEAN
+        - type: byte
+          builtin: BUILTIN_JSRUNTIME_GET_PROPERTY_BYTE
+        - type: char
+          builtin: BUILTIN_JSRUNTIME_GET_PROPERTY_CHAR
+        - type: short
+          builtin: BUILTIN_JSRUNTIME_GET_PROPERTY_SHORT
+        - type: int
+          builtin: BUILTIN_JSRUNTIME_GET_PROPERTY_INT
+        - type: long
+          builtin: BUILTIN_JSRUNTIME_GET_PROPERTY_LONG
+        - type: float
+          builtin: BUILTIN_JSRUNTIME_GET_PROPERTY_FLOAT
+        - type: double
+          builtin: BUILTIN_JSRUNTIME_GET_PROPERTY_DOUBLE
+        - type: string
+          builtin: BUILTIN_JSRUNTIME_GET_PROPERTY_STRING
+        - type: dynamic
+          builtin: BUILTIN_JSRUNTIME_GET_PROPERTY_JSVALUE
+      set_property:
+        - type: boolean
+          builtin: BUILTIN_JSRUNTIME_SET_PROPERTY_BOOLEAN
+        - type: byte
+          builtin: BUILTIN_JSRUNTIME_SET_PROPERTY_BYTE
+        - type: char
+          builtin: BUILTIN_JSRUNTIME_SET_PROPERTY_CHAR
+        - type: short
+          builtin: BUILTIN_JSRUNTIME_SET_PROPERTY_SHORT
+        - type: int
+          builtin: BUILTIN_JSRUNTIME_SET_PROPERTY_INT
+        - type: long
+          builtin: BUILTIN_JSRUNTIME_SET_PROPERTY_LONG
+        - type: float
+          builtin: BUILTIN_JSRUNTIME_SET_PROPERTY_FLOAT
+        - type: double
+          builtin: BUILTIN_JSRUNTIME_SET_PROPERTY_DOUBLE
+        - type: string
+          builtin: BUILTIN_JSRUNTIME_SET_PROPERTY_STRING
+        - type: dynamic
+          builtin: BUILTIN_JSRUNTIME_SET_PROPERTY_JSVALUE
+      get_element:
+        - type: boolean
+          builtin: BUILTIN_JSRUNTIME_GET_ELEMENT_BOOLEAN
+        - type: byte
+          builtin: BUILTIN_JSRUNTIME_GET_ELEMENT_BYTE
+        - type: char
+          builtin: BUILTIN_JSRUNTIME_GET_ELEMENT_CHAR
+        - type: short
+          builtin: BUILTIN_JSRUNTIME_GET_ELEMENT_SHORT
+        - type: int
+          builtin: BUILTIN_JSRUNTIME_GET_ELEMENT_INT
+        - type: long
+          builtin: BUILTIN_JSRUNTIME_GET_ELEMENT_LONG
+        - type: float
+          builtin: BUILTIN_JSRUNTIME_GET_ELEMENT_FLOAT
+        - type: double
+          builtin: BUILTIN_JSRUNTIME_GET_ELEMENT_DOUBLE
+        - type: dynamic
+          builtin: BUILTIN_JSRUNTIME_GET_ELEMENT_JSVALUE
+      set_element:
+        - type: boolean
+          builtin: BUILTIN_JSRUNTIME_SET_ELEMENT_BOOLEAN
+        - type: byte
+          builtin: BUILTIN_JSRUNTIME_SET_ELEMENT_BYTE
+        - type: char
+          builtin: BUILTIN_JSRUNTIME_SET_ELEMENT_CHAR
+        - type: short
+          builtin: BUILTIN_JSRUNTIME_SET_ELEMENT_SHORT
+        - type: int
+          builtin: BUILTIN_JSRUNTIME_SET_ELEMENT_INT
+        - type: long
+          builtin: BUILTIN_JSRUNTIME_SET_ELEMENT_LONG
+        - type: float
+          builtin: BUILTIN_JSRUNTIME_SET_ELEMENT_FLOAT
+        - type: double
+          builtin: BUILTIN_JSRUNTIME_SET_ELEMENT_DOUBLE
+        - type: dynamic
+          builtin: BUILTIN_JSRUNTIME_SET_ELEMENT_JSVALUE
+      get_undefined: BUILTIN_JSRUNTIME_GET_UNDEFINED

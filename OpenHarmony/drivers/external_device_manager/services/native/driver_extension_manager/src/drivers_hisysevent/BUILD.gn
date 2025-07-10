@@ -1,0 +1,42 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//drivers/external_device_manager/extdevmgr.gni")
+
+ohos_shared_library("report_sys_event") {
+  sources = [ "driver_report_sys_event.cpp" ]
+  include_dirs = [
+    "../../include/bus_extension/usb",
+    "../../include/drivers_hisysevent",
+    "../../include/drivers_pkg_manager",
+    "${ext_mgr_path}/interfaces/ddk/usb",
+  ]
+  configs = [ "${utils_path}:utils_config" ]
+
+  external_deps = [
+    "cJSON:cjson",
+    "c_utils:utils",
+    "hilog:libhilog",
+    "hisysevent:libhisysevent",
+    "ipc:ipc_core",
+    "os_account:os_account_innerkits",
+  ]
+  cflags_cc = [
+    "-fno-asynchronous-unwind-tables",
+    "-fno-unwind-tables",
+    "-Os",
+  ]
+  install_enable = true
+  subsystem_name = "hdf"
+  part_name = "external_device_manager"
+}

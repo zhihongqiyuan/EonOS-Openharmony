@@ -1,0 +1,186 @@
+# Copyright (c) 2023-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/test.gni")
+
+module_output_path = "certificate_framework/certificate_framework"
+
+ohos_unittest("cf_version1_test") {
+  testonly = true
+  module_out_path = module_output_path
+  configs = [
+    "../../../config/build:coverage_flag",
+    "../../../config/build:coverage_flag_cc",
+  ]
+
+  include_dirs = [
+    "./include",
+    "../../../interfaces/inner_api/certificate",
+    "../../../interfaces/inner_api/common",
+    "../../../interfaces/inner_api/include",
+    "../../../frameworks/common/v1.0/inc",
+    "../../../frameworks/core/v1.0/spi",
+    "../../../frameworks/adapter/v1.0/inc",
+    "../../../frameworks/ability/inc",
+    "../../../frameworks/core/life/inc",
+    "../../../frameworks/core/cert/inc",
+    "../../../frameworks/core/param/inc",
+  ]
+
+  sources = [
+    "src/cf_mock.cpp",
+    "src/crypto_x509_cert_chain_test.cpp",
+    "src/crypto_x509_cert_chain_test_ex.cpp",
+    "src/crypto_x509_cert_chain_test_part2.cpp",
+    "src/crypto_x509_cert_chain_validator_test.cpp",
+    "src/crypto_x509_cert_cms_generator_test.cpp",
+    "src/crypto_x509_cert_crl_collection_test.cpp",
+    "src/crypto_x509_certificate_test.cpp",
+    "src/crypto_x509_certificate_test_part2.cpp",
+    "src/crypto_x509_certificate_test_part3.cpp",
+    "src/crypto_x509_crl_test.cpp",
+    "src/crypto_x509_crl_test_part2.cpp",
+    "src/crypto_x509_csr_test.cpp",
+    "src/crypto_x509_test_common.cpp",
+    "src/x509_distinguished_name_test.cpp",
+  ]
+
+  sources += [
+    "../../../frameworks/ability/src/cf_ability.c",
+    "../../../frameworks/core/cert/src/cf_cert_ability.c",
+    "../../../frameworks/core/cert/src/cf_object_cert.c",
+    "../../../frameworks/core/param/src/cf_param.c",
+    "../../../frameworks/core/param/src/cf_param_parse.c",
+  ]
+
+  sources += [
+    "../../../frameworks/core/v1.0/certificate/cert_chain_validator.c",
+    "../../../frameworks/core/v1.0/certificate/cert_cms_generator.c",
+    "../../../frameworks/core/v1.0/certificate/cert_crl_collection.c",
+    "../../../frameworks/core/v1.0/certificate/cert_crl_common.c",
+    "../../../frameworks/core/v1.0/certificate/x509_cert_chain.c",
+    "../../../frameworks/core/v1.0/certificate/x509_certificate.c",
+    "../../../frameworks/core/v1.0/certificate/x509_crl.c",
+    "../../../frameworks/core/v1.0/certificate/x509_distinguished_name.c",
+  ]
+  sources += [
+    "../../../frameworks/adapter/v1.0/src/certificate_openssl_common.c",
+    "../../../frameworks/adapter/v1.0/src/x509_cert_chain_openssl.c",
+    "../../../frameworks/adapter/v1.0/src/x509_cert_chain_openssl_ex.c",
+    "../../../frameworks/adapter/v1.0/src/x509_cert_chain_validator_openssl.c",
+    "../../../frameworks/adapter/v1.0/src/x509_cert_cms_generator_openssl.c",
+    "../../../frameworks/adapter/v1.0/src/x509_certificate_create.c",
+    "../../../frameworks/adapter/v1.0/src/x509_certificate_openssl.c",
+    "../../../frameworks/adapter/v1.0/src/x509_crl_entry_openssl.c",
+    "../../../frameworks/adapter/v1.0/src/x509_crl_openssl.c",
+    "../../../frameworks/adapter/v1.0/src/x509_csr_openssl.c",
+    "../../../frameworks/adapter/v1.0/src/x509_distinguished_name_openssl.c",
+  ]
+
+  sources += [
+    "../../../frameworks/common/v1.0/src/cf_blob.c",
+    "../../../frameworks/common/v1.0/src/cf_object_base.c",
+    "../../../frameworks/common/v1.0/src/utils.c",
+    "src/memory_mock.c",
+  ]
+  cflags = [ "-DHILOG_ENABLE" ]
+
+  ldflags = [
+    "-fPIC",
+    "-Wl,-E",
+    "-Wl,-rpath=/vendor/lib64/hw",
+    "-Wl,--whole-archive",
+    "-Wl,--wrap=ASN1_INTEGER_get",
+    "-Wl,--wrap=ASN1_STRING_get0_data",
+    "-Wl,--wrap=ASN1_STRING_length",
+    "-Wl,--wrap=ASN1_TIME_new",
+    "-Wl,--wrap=ASN1_TIME_normalize",
+    "-Wl,--wrap=ASN1_TYPE_new",
+    "-Wl,--wrap=ASN1_TYPE_set1",
+    "-Wl,--wrap=BIO_ctrl",
+    "-Wl,--wrap=BIO_new",
+    "-Wl,--wrap=BIO_new_mem_buf",
+    "-Wl,--wrap=BN_bin2bn",
+    "-Wl,--wrap=CRYPTO_strdup",
+    "-Wl,--wrap=DeepCopyBlobToBlob",
+    "-Wl,--wrap=DeepCopyDataToBlob",
+    "-Wl,--wrap=DeepCopyDataToOut",
+    "-Wl,--wrap=GENERAL_NAME_get0_value",
+    "-Wl,--wrap=HcfX509CertificateCreate",
+    "-Wl,--wrap=i2d_AUTHORITY_KEYID",
+    "-Wl,--wrap=i2d_ASN1_INTEGER",
+    "-Wl,--wrap=i2d_ASN1_OCTET_STRING",
+    "-Wl,--wrap=i2d_ASN1_TYPE",
+    "-Wl,--wrap=i2d_GENERAL_NAME",
+    "-Wl,--wrap=i2d_X509",
+    "-Wl,--wrap=i2d_X509_bio",
+    "-Wl,--wrap=i2d_X509_CRL",
+    "-Wl,--wrap=i2d_X509_EXTENSIONS",
+    "-Wl,--wrap=i2d_X509_REVOKED",
+    "-Wl,--wrap=i2d_PUBKEY",
+    "-Wl,--wrap=OBJ_obj2nid",
+    "-Wl,--wrap=OBJ_nid2obj",
+    "-Wl,--wrap=OBJ_nid2sn",
+    "-Wl,--wrap=OBJ_obj2txt",
+    "-Wl,--wrap=OCSP_REQUEST_new",
+    "-Wl,--wrap=OSSL_HTTP_parse_url",
+    "-Wl,--wrap=OBJ_txt2nid",
+    "-Wl,--wrap=OPENSSL_sk_deep_copy",
+    "-Wl,--wrap=OPENSSL_sk_num",
+    "-Wl,--wrap=OPENSSL_sk_value",
+    "-Wl,--wrap=OPENSSL_sk_new_null",
+    "-Wl,--wrap=OPENSSL_sk_push",
+    "-Wl,--wrap=X509_ALGOR_get0",
+    "-Wl,--wrap=X509_check_host",
+    "-Wl,--wrap=X509_CRL_load_http",
+    "-Wl,--wrap=X509_dup",
+    "-Wl,--wrap=X509_get_pubkey",
+    "-Wl,--wrap=X509_get_ext",
+    "-Wl,--wrap=X509_get_ext_d2i",
+    "-Wl,--wrap=X509_get0_serialNumber",
+    "-Wl,--wrap=X509_get1_ocsp",
+    "-Wl,--wrap=X509_getm_notBefore",
+    "-Wl,--wrap=X509_getm_notAfter",
+    "-Wl,--wrap=X509_NAME_add_entry_by_NID",
+    "-Wl,--wrap=X509_NAME_get0_der",
+    "-Wl,--wrap=X509_NAME_new",
+    "-Wl,--wrap=X509_NAME_oneline",
+    "-Wl,--wrap=X509_print",
+    "-Wl,--wrap=X509_STORE_add_cert",
+    "-Wl,--wrap=X509_STORE_CTX_new",
+    "-Wl,--wrap=X509_STORE_new",
+    "-Wl,--wrap=X509_STORE_CTX_init",
+    "-Wl,--wrap=X509_verify",
+    "-Wl,--wrap=X509_verify_cert",
+    "-Wl,--wrap=X509V3_EXT_d2i",
+    "-Wl,--wrap=PKCS12_parse",
+    "-Wl,--wrap=CheckIsSelfSigned",
+  ]
+
+  if (target_cpu == "arm") {
+    cflags += [ "-DBINDER_IPC_32BIT" ]
+  }
+
+  defines = [ "HILOG_ENABLE" ]
+
+  deps = []
+
+  external_deps = [
+    "c_utils:utils",
+    "crypto_framework:crypto_framework_lib",
+    "googletest:gmock",
+    "hilog:libhilog",
+    "openssl:libcrypto_shared",
+    "openssl:libssl_shared",
+  ]
+}

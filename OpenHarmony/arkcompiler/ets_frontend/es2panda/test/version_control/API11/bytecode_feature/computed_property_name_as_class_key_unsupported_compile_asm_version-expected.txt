@@ -1,0 +1,44 @@
+slotNum = 0x0
+.language ECMAScript
+.function any .A(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0xb
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	newlexenv 0x1
+	lda.str a
+	sta v0
+	lda.str b
+	add2 0x0, v0
+	stlexvar 0x0, 0x0
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x1, .A, _1, 0x0, v0
+	sta v0
+	ldobjbyname 0x2, prototype
+	mov v3, v0
+	newobjrange 0x4, 0x1, v3
+	sta v0
+	tryldglobalbyname 0x6, print
+	sta v1
+	ldlexvar 0x0, 0x0
+	sta v2
+	throw.undefinedifholewithname a
+	lda v2
+	ldobjbyvalue 0x7, v0
+	sta v0
+	lda v1
+	callarg1 0x9, v0
+	returnundefined
+label_2: 
+}
+
+

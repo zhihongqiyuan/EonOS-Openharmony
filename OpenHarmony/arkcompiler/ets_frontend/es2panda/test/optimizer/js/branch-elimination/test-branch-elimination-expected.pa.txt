@@ -1,0 +1,294 @@
+slotNum = 0x1d
+.language ECMAScript
+.function any .#*#testBBStruct(any a0, any a1, any a2) {
+label_18: 
+label_1: 
+	tryldglobalbyname 0x2, print
+	sta v0
+	lda.str good
+	sta v1
+	lda v0
+	callarg1 0x3, v1
+	returnundefined
+label_19: 
+}
+
+slotNum = 0x13
+.language ECMAScript
+.function any .#*#testBool(any a0, any a1, any a2) {
+label_19: 
+label_17: 
+	tryldglobalbyname 0x10, print
+	sta v0
+	lda.str good
+	sta v1
+	lda v0
+	callarg1 0x11, v1
+	returnundefined
+label_20: 
+}
+
+slotNum = 0x17
+.language ECMAScript
+.function any .#*#testFloatNumber(any a0, any a1, any a2) {
+label_25: 
+label_23: 
+	tryldglobalbyname 0x14, print
+	sta v0
+	lda.str good
+	sta v1
+	lda v0
+	callarg1 0x15, v1
+	returnundefined
+label_26: 
+}
+
+slotNum = 0x17
+.language ECMAScript
+.function any .#*#testIntNumber(any a0, any a1, any a2) {
+label_25: 
+label_23: 
+	tryldglobalbyname 0x14, print
+	sta v0
+	lda.str good
+	sta v1
+	lda v0
+	callarg1 0x15, v1
+	returnundefined
+label_26: 
+}
+
+slotNum = 0x1d
+.language ECMAScript
+.function any .#*#testString(any a0, any a1, any a2) {
+label_23: 
+label_0: 
+	lda.str 0
+	sta v0
+	tryldglobalbyname 0xc, print
+	sta v1
+	lda.str good
+	sta v2
+	lda v1
+	callarg1 0xd, v2
+	lda.str 0
+	lesseq 0xf, v0
+	sta v1
+	callruntime.istrue 0x10
+	jnez label_15
+label_14: 
+	lda.str 1
+	greatereq 0x11, v0
+	sta v1
+label_15: 
+	lda v1
+	callruntime.istrue 0x12
+	jnez label_18
+label_17: 
+	lda.str 0
+	less 0x13, v0
+	sta v1
+label_18: 
+	lda v1
+	callruntime.istrue 0x14
+	jnez label_19
+label_20: 
+	lda.str 1
+	greater 0x15, v0
+	callruntime.isfalse 0x16
+	jnez label_21
+label_19: 
+	tryldglobalbyname 0x17, print
+	sta v0
+	lda.str good2
+	sta v1
+	lda v0
+	callarg1 0x18, v1
+	jmp label_22
+label_21: 
+	tryldglobalbyname 0x1a, print
+	sta v0
+	lda.str good3
+	sta v1
+	lda v0
+	callarg1 0x1b, v1
+label_22: 
+	returnundefined
+label_24: 
+}
+
+slotNum = 0x34
+.language ECMAScript
+.function any .#*#testTypeConvert(any a0, any a1, any a2) {
+label_35: 
+label_3: 
+	ldai 0x0
+	sta v0
+	tryldglobalbyname 0x4, print
+	sta v1
+	lda.str good
+	sta v2
+	lda v1
+	callarg1 0x5, v2
+	lda.str 0
+	eq 0xa, v0
+	sta v1
+	callruntime.istrue 0xb
+	jnez label_7
+label_6: 
+	lda.str 0
+	stricteq 0xc, v0
+	sta v1
+label_7: 
+	lda v1
+	callruntime.istrue 0xd
+	jnez label_10
+label_9: 
+	ldfalse
+	eq 0xe, v0
+	sta v1
+label_10: 
+	lda v1
+	callruntime.istrue 0xf
+	jnez label_11
+label_12: 
+	ldfalse
+	stricteq 0x10, v0
+	callruntime.isfalse 0x11
+	jnez label_13
+label_11: 
+	tryldglobalbyname 0x12, print
+	sta v1
+	lda.str good1
+	sta v2
+	lda v1
+	callarg1 0x13, v2
+	jmp label_14
+label_13: 
+	tryldglobalbyname 0x15, print
+	sta v1
+	lda.str good2
+	sta v2
+	lda v1
+	callarg1 0x16, v2
+label_14: 
+	lda.str 0
+	lesseq 0x18, v0
+	sta v1
+	callruntime.istrue 0x19
+	jnez label_17
+label_16: 
+	lda.str 0
+	greatereq 0x1a, v0
+	sta v1
+label_17: 
+	lda v1
+	callruntime.istrue 0x1b
+	jnez label_20
+label_19: 
+	ldfalse
+	lesseq 0x1c, v0
+	sta v1
+label_20: 
+	lda v1
+	callruntime.istrue 0x1d
+	jnez label_21
+label_22: 
+	ldfalse
+	greatereq 0x1e, v0
+	callruntime.isfalse 0x1f
+	jnez label_23
+label_21: 
+	tryldglobalbyname 0x20, print
+	sta v1
+	lda.str good3
+	sta v2
+	lda v1
+	callarg1 0x21, v2
+	jmp label_24
+label_23: 
+	tryldglobalbyname 0x23, print
+	sta v1
+	lda.str good4
+	sta v2
+	lda v1
+	callarg1 0x24, v2
+label_24: 
+	lda.str 0
+	less 0x26, v0
+	sta v1
+	callruntime.istrue 0x27
+	jnez label_27
+label_26: 
+	lda.str 0
+	greater 0x28, v0
+	sta v1
+label_27: 
+	lda v1
+	callruntime.istrue 0x29
+	jnez label_30
+label_29: 
+	ldfalse
+	less 0x2a, v0
+	sta v1
+label_30: 
+	lda v1
+	callruntime.istrue 0x2b
+	jnez label_31
+label_32: 
+	ldfalse
+	greater 0x2c, v0
+	callruntime.isfalse 0x2d
+	jnez label_33
+label_31: 
+	tryldglobalbyname 0x2e, print
+	sta v0
+	lda.str good5
+	sta v1
+	lda v0
+	callarg1 0x2f, v1
+	jmp label_34
+label_33: 
+	tryldglobalbyname 0x31, print
+	sta v0
+	lda.str good6
+	sta v1
+	lda v0
+	callarg1 0x32, v1
+label_34: 
+	returnundefined
+label_36: 
+}
+
+slotNum = 0x12
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, .#*#testBBStruct, 0x0
+	sta v0
+	definefunc 0x1, .#*#testBool, 0x0
+	sta v1
+	definefunc 0x2, .#*#testFloatNumber, 0x0
+	sta v2
+	definefunc 0x3, .#*#testIntNumber, 0x0
+	sta v3
+	definefunc 0x4, .#*#testString, 0x0
+	sta v4
+	definefunc 0x5, .#*#testTypeConvert, 0x0
+	callarg0 0x6
+	lda v3
+	callarg0 0x8
+	lda v2
+	callarg0 0xa
+	lda v1
+	callarg0 0xc
+	lda v4
+	callarg0 0xe
+	lda v0
+	callarg0 0x10
+	returnundefined
+label_2: 
+}
+
+

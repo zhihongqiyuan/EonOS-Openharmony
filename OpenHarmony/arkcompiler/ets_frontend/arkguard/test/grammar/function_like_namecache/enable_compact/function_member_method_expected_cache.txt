@@ -1,0 +1,9 @@
+{
+  "IdentifierCache": {
+    "#Person3": "a1",
+    "#per": "b1"
+  },
+  "MemberMethodCache": {
+    "memberFunc:20:22": "c1"
+  }
+}

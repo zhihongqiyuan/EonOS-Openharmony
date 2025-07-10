@@ -1,0 +1,8 @@
+.idea/*
+.hvigor/*
+local.properties
+.preview/*
+build/*
+oh_modules/*
+signature/hap-sign-tool.jar
+signature/hapsign-online-plugin.jar

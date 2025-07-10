@@ -1,0 +1,11 @@
+{
+  "module": {
+    "name": "dataprovider",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ],
+    "installationFree": false
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "name": "@ohos/sandbox_manager",
+  "description": "SandboxManager",
+  "version": "0.0.0",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+      "destPath": "base/accesscontrol/sandbox_manager"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "sandbox_manager",
+    "subsystem": "accesscontrol",
+    "syscap": [],
+    "features": [
+      "sandbox_manager_feature_coverage",
+      "sandbox_manager_process_resident",
+      "sandbox_manager_with_dec"
+    ],
+    "adapted_system_type": [ "standard" ],
+    "rom": "10000KB",
+    "ram": "5000KB",
+    "hisysevent_config": [
+      "//base/accesscontrol/sandbox_manager/hisysevent.yaml"
+    ],
+    "deps": {
+      "components": [
+        "ability_base",
+        "access_token",
+        "cJSON",
+        "c_utils",
+        "common_event_service",
+        "config_policy",
+        "data_share",
+        "eventhandler",
+        "hilog",
+        "hisysevent",
+        "ipc",
+        "media_library",
+        "os_account",
+        "relational_store",
+        "safwk",
+        "samgr"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "group_type":{
+        "service_group": [
+          "//base/accesscontrol/sandbox_manager/services/sandbox_manager:sandbox_manager_service",
+          "//base/accesscontrol/sandbox_manager/services/sandbox_manager/main/sa_profile:sandbox_manager_sa_profile_standard"
+        ]
+      },
+      "inner_kits": [
+        {
+          "name": "//base/accesscontrol/sandbox_manager/frameworks/inner_api/sandbox_manager:libsandbox_manager_sdk",
+          "header": {
+            "header_base": "//base/accesscontrol/sandbox_manager/interfaces/inner_api/sandbox_manager/include",
+            "header_files": [
+              "sandbox_manager_kit.h",
+              "sandbox_manager_err_code.h",
+              "policy_info.h"
+            ]
+          }
+        }
+      ],
+      "test": [
+        "//base/accesscontrol/sandbox_manager:sandbox_manager_build_module_test",
+        "//base/accesscontrol/sandbox_manager:sandbox_manager_build_fuzz_test"
+      ]
+    }
+  }
+}

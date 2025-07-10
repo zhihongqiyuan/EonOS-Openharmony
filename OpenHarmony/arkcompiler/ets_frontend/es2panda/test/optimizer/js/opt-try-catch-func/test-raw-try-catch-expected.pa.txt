@@ -1,0 +1,571 @@
+slotNum = 0x1a
+.language ECMAScript
+.function any .#*#testComplexThrow(any a0, any a1, any a2) {
+	nop
+label_21: 
+	ldai 0x8
+	sta v0
+	ldai 0x9
+	sta v1
+label_12: 
+label_14: 
+	ldai 0x1
+	sta v4
+	mov v2, v4
+	ldundefined
+	sta v4
+label_10: 
+label_8: 
+label_16: 
+	ldai 0x2
+	sta v8
+	mov v5, v8
+	mov v2, v8
+	tryldglobalbyname 0x0, print
+	callarg1 0x1, v8
+	lda v8
+	throw
+label_9: 
+end_label_9: 
+label_23: 
+	sta v7
+label_18: 
+	ldai 0x4
+	sta v9
+	mov v5, v8
+	mov v2, v8
+	tryldglobalbyname 0x3, print
+	callarg1 0x4, v7
+	tryldglobalbyname 0x6, print
+	callarg1 0x7, v8
+	mov v5, v9
+	mov v2, v9
+	lda v9
+	throw
+label_11: 
+end_label_11: 
+label_24: 
+	sta v6
+label_2: 
+	mov v2, v5
+	ldundefined
+	eq 0x9, v4
+	jeqz label_3
+label_4: 
+	ldai 0x6
+	sta v0
+	tryldglobalbyname 0xa, print
+	callarg1 0xb, v5
+	mov v2, v0
+	lda v0
+	throw
+label_3: 
+	ldhole
+	sta v4
+	lda v6
+	noteq 0xd, v4
+	jeqz label_5
+label_6: 
+	lda v6
+	throw
+label_5: 
+	tryldglobalbyname 0xe, print
+	callarg1 0xf, v5
+label_13: 
+end_label_13: 
+	jmp label_7
+label_25: 
+	sta v3
+label_20: 
+	tryldglobalbyname 0x11, print
+	callarg1 0x12, v3
+	tryldglobalbyname 0x14, print
+	callarg1 0x15, v2
+	mov v0, v1
+label_7: 
+	tryldglobalbyname 0x17, print
+	callarg1 0x18, v0
+	returnundefined
+label_22: 
+}
+
+.catchall label_8, end_label_9, label_23
+
+.catchall label_10, end_label_11, label_24
+
+.catchall label_12, end_label_13, label_25
+
+slotNum = 0x6
+.language ECMAScript
+.function any .#*#testSimpleThrow(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	tryldglobalbyname 0x0, print
+	sta v0
+	ldai 0x1
+	sta v1
+	lda v0
+	callarg1 0x1, v1
+	lda v1
+	throw
+label_2: 
+}
+
+slotNum = 0x22
+.language ECMAScript
+.function any .#*#testThrowInTry(any a0, any a1, any a2) {
+	nop
+label_35: 
+label_18: 
+label_24: 
+	ldai 0x2
+	sta v1
+	lda v1
+	throw
+label_19: 
+end_label_19: 
+label_37: 
+	sta v0
+label_30: 
+	tryldglobalbyname 0x0, print
+	callarg1 0x1, v0
+	tryldglobalbyname 0x3, print
+	callarg1 0x4, v1
+	tryldglobalbyname 0x6, print
+	sta v0
+	ldai 0x4
+	sta v1
+	lda v0
+	callarg1 0x7, v1
+	ldundefined
+	sta v0
+label_20: 
+label_14: 
+label_26: 
+	ldai 0x5
+	sta v3
+	lda v3
+	throw
+label_15: 
+end_label_15: 
+label_38: 
+	sta v2
+label_31: 
+	lda v2
+	throw
+label_21: 
+end_label_21: 
+label_39: 
+	sta v1
+label_3: 
+	ldai 0x7
+	sta v2
+	ldundefined
+	eq 0x9, v0
+	jeqz label_4
+label_5: 
+	tryldglobalbyname 0xa, print
+	callarg1 0xb, v3
+	mov v3, v2
+label_4: 
+	ldhole
+	sta v0
+	lda v1
+	noteq 0xd, v0
+	jeqz label_6
+label_7: 
+	lda v1
+	throw
+label_6: 
+	ldai 0xa
+	sta v0
+	tryldglobalbyname 0xe, print
+	callarg1 0xf, v3
+	ldundefined
+	sta v1
+label_22: 
+label_16: 
+label_28: 
+	ldai 0x8
+	sta v4
+	lda v4
+	throw
+label_17: 
+end_label_17: 
+label_40: 
+	sta v3
+label_33: 
+	tryldglobalbyname 0x11, print
+	callarg1 0x12, v3
+	tryldglobalbyname 0x14, print
+	callarg1 0x15, v4
+label_23: 
+end_label_23: 
+label_8: 
+	ldhole
+	sta v3
+	mov v2, v3
+	jmp label_9
+label_41: 
+	sta v2
+	mov v0, v4
+label_9: 
+	ldai 0xb
+	sta v3
+	ldundefined
+	eq 0x17, v1
+	jeqz label_10
+label_11: 
+	tryldglobalbyname 0x18, print
+	callarg1 0x19, v0
+	mov v0, v3
+label_10: 
+	ldhole
+	sta v1
+	lda v2
+	noteq 0x1b, v1
+	jeqz label_12
+label_13: 
+	lda v2
+	throw
+label_12: 
+	tryldglobalbyname 0x1c, print
+	callarg1 0x1d, v0
+	tryldglobalbyname 0x1f, print
+	sta v0
+	ldai 0xc
+	sta v1
+	lda v0
+	callarg1 0x20, v1
+	returnundefined
+label_36: 
+}
+
+.catchall label_14, end_label_15, label_38
+
+.catchall label_16, end_label_17, label_40
+
+.catchall label_18, end_label_19, label_37
+
+.catchall label_20, end_label_21, label_39
+
+.catchall label_22, end_label_23, label_41
+
+slotNum = 0x1f
+.language ECMAScript
+.function any .#*#testTryCatchFinally(any a0, any a1, any a2) {
+	nop
+label_35: 
+	ldai 0x2
+	sta v0
+	ldai 0x3
+	sta v1
+label_18: 
+label_19: 
+end_label_19: 
+	jmp label_1
+label_37: 
+	sta v3
+label_30: 
+	tryldglobalbyname 0x0, print
+	callarg1 0x1, v3
+	tryldglobalbyname 0x3, print
+	callarg1 0x4, v2
+	mov v0, v1
+label_1: 
+	ldai 0x4
+	sta v1
+	tryldglobalbyname 0x6, print
+	callarg1 0x7, v0
+	ldundefined
+	sta v0
+label_20: 
+label_14: 
+label_15: 
+end_label_15: 
+	jmp label_2
+label_38: 
+	sta v7
+label_31: 
+	mov v2, v5
+	mov v3, v6
+	lda v7
+	throw
+label_21: 
+end_label_21: 
+label_2: 
+	ldhole
+	sta v5
+	mov v4, v5
+	jmp label_3
+label_39: 
+	sta v4
+	mov v1, v2
+	mov v0, v3
+label_3: 
+	ldai 0x5
+	sta v2
+	ldundefined
+	eq 0x9, v0
+	jeqz label_4
+label_5: 
+	tryldglobalbyname 0xa, print
+	callarg1 0xb, v1
+	mov v1, v2
+label_4: 
+	ldhole
+	sta v0
+	lda v4
+	noteq 0xd, v0
+	jeqz label_6
+label_7: 
+	lda v4
+	throw
+label_6: 
+	ldai 0x7
+	sta v0
+	ldai 0x6
+	sta v2
+	tryldglobalbyname 0xe, print
+	callarg1 0xf, v1
+	ldundefined
+	sta v1
+label_22: 
+label_16: 
+label_17: 
+end_label_17: 
+	jmp label_42
+label_40: 
+	sta v8
+label_33: 
+	mov v3, v6
+	mov v4, v7
+	tryldglobalbyname 0x11, print
+	mov v3, v6
+	mov v4, v7
+	callarg1 0x12, v8
+	mov v3, v6
+	mov v4, v7
+	tryldglobalbyname 0x14, print
+	mov v3, v6
+	mov v4, v7
+	callarg1 0x15, v6
+label_23: 
+end_label_23: 
+label_43: 
+	mov v1, v7
+	jmp label_8
+label_42: 
+	mov v0, v2
+label_8: 
+	ldhole
+	sta v2
+	mov v5, v2
+	jmp label_9
+label_41: 
+	sta v5
+	mov v0, v3
+	mov v1, v4
+label_9: 
+	ldai 0x8
+	sta v2
+	ldundefined
+	eq 0x17, v1
+	jeqz label_10
+label_11: 
+	tryldglobalbyname 0x18, print
+	callarg1 0x19, v0
+	mov v0, v2
+label_10: 
+	ldhole
+	sta v1
+	lda v5
+	noteq 0x1b, v1
+	jeqz label_12
+label_13: 
+	lda v5
+	throw
+label_12: 
+	tryldglobalbyname 0x1c, print
+	callarg1 0x1d, v0
+	returnundefined
+label_36: 
+}
+
+.catchall label_14, end_label_15, label_38
+
+.catchall label_16, end_label_17, label_40
+
+.catchall label_18, end_label_19, label_37
+
+.catchall label_20, end_label_21, label_39
+
+.catchall label_22, end_label_23, label_41
+
+slotNum = 0x23
+.language ECMAScript
+.function any .#*#testTryCatchFinallyWithReturn(any a0, any a1, any a2) {
+	nop
+label_15: 
+label_0: 
+	ldai 0x6
+	sta v0
+	ldundefined
+	sta v1
+label_9: 
+label_7: 
+label_11: 
+	ldai 0x3
+	sta v6
+	ldai 0x2
+	sta v7
+	mov v4, v7
+	mov v2, v7
+	tryldglobalbyname 0x0, print
+	callarg1 0x1, v7
+	mov v4, v6
+	mov v2, v6
+	lda v6
+	throw
+label_8: 
+end_label_8: 
+label_17: 
+	sta v5
+label_13: 
+	mov v2, v4
+	tryldglobalbyname 0xc, print
+	callarg1 0xd, v5
+	tryldglobalbyname 0xf, print
+	callarg1 0x10, v4
+	tryldglobalbyname 0x12, print
+	callarg1 0x13, v4
+	mov v2, v0
+	tryldglobalbyname 0x15, print
+	callarg1 0x16, v0
+	lda v0
+	return
+label_10: 
+end_label_10: 
+label_18: 
+	sta v3
+label_2: 
+	ldundefined
+	eq 0x18, v1
+	jeqz label_3
+label_4: 
+	tryldglobalbyname 0x19, print
+	callarg1 0x1a, v2
+	tryldglobalbyname 0x1c, print
+	callarg1 0x1d, v0
+	lda v0
+	return
+label_3: 
+	ldhole
+	sta v0
+	lda v3
+	noteq 0x1f, v0
+	jeqz label_5
+label_6: 
+	lda v3
+	throw
+label_5: 
+	tryldglobalbyname 0x20, print
+	sta v0
+	ldai 0x7
+	sta v1
+	lda v0
+	callarg1 0x21, v1
+	lda v1
+	return
+label_16: 
+}
+
+.catchall label_7, end_label_8, label_17
+
+.catchall label_9, end_label_10, label_18
+
+slotNum = 0x1e
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+	nop
+label_22: 
+label_0: 
+	definefunc 0x0, .#*#testComplexThrow, 0x0
+	sta v0
+	definefunc 0x1, .#*#testSimpleThrow, 0x0
+	sta v1
+	definefunc 0x2, .#*#testThrowInTry, 0x0
+	sta v2
+	definefunc 0x3, .#*#testTryCatchFinally, 0x0
+	sta v3
+	definefunc 0x4, .#*#testTryCatchFinallyWithReturn, 0x0
+	sta v4
+	lda v3
+	callarg0 0x5
+label_5: 
+label_13: 
+	lda v1
+	callarg0 0x7
+label_6: 
+end_label_6: 
+	jmp label_7
+label_24: 
+	sta v3
+label_18: 
+	tryldglobalbyname 0x9, print
+	callarg1 0xa, v3
+label_7: 
+label_1: 
+	lda v2
+	callarg0 0xc
+label_8: 
+end_label_8: 
+	jmp label_9
+label_25: 
+	sta v1
+label_19: 
+	tryldglobalbyname 0xe, print
+	callarg1 0xf, v1
+label_9: 
+label_2: 
+	lda v0
+	callarg0 0x11
+label_10: 
+end_label_10: 
+	jmp label_11
+label_26: 
+	sta v1
+label_20: 
+	tryldglobalbyname 0x13, print
+	callarg1 0x14, v1
+label_11: 
+label_3: 
+	tryldglobalbyname 0x16, print
+	sta v1
+	lda v4
+	callarg0 0x17
+	sta v2
+	lda v1
+	callarg1 0x19, v2
+label_12: 
+end_label_12: 
+	jmp label_4
+label_27: 
+	sta v0
+label_21: 
+	tryldglobalbyname 0x1b, print
+	callarg1 0x1c, v0
+label_4: 
+	returnundefined
+label_23: 
+}
+
+.catchall label_5, end_label_6, label_24
+
+.catchall label_7, end_label_8, label_25
+
+.catchall label_9, end_label_10, label_26
+
+.catchall label_11, end_label_12, label_27
+
+

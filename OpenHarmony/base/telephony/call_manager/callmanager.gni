@@ -1,0 +1,293 @@
+# Copyright (C) 2024-2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+call_manager_path = "//base/telephony/call_manager"
+
+call_manager_sources = [
+  "${call_manager_path}/services/antifraud/src/anonymize_adapter.cpp",
+  "${call_manager_path}/services/antifraud/src/antifraud_adapter.cpp",
+  "${call_manager_path}/services/antifraud/src/antifraud_cloud_service.cpp",
+  "${call_manager_path}/services/antifraud/src/antifraud_hsdr_helper.cpp",
+  "${call_manager_path}/services/antifraud/src/antifraud_service.cpp",
+  "${call_manager_path}/services/audio/src/audio_control_manager.cpp",
+  "${call_manager_path}/services/audio/src/audio_device_manager.cpp",
+  "${call_manager_path}/services/audio/src/audio_player.cpp",
+  "${call_manager_path}/services/audio/src/audio_proxy.cpp",
+  "${call_manager_path}/services/audio/src/audio_scene_processor.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/alerting_state.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/bluetooth_device_state.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/cs_call_state.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/dialing_state.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/earpiece_device_state.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/holding_state.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/ims_call_state.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/inactive_device_state.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/inactive_state.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/incoming_state.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/ott_call_state.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/speaker_device_state.cpp",
+  "${call_manager_path}/services/audio/src/audio_state/wired_headset_device_state.cpp",
+  "${call_manager_path}/services/audio/src/call_state_processor.cpp",
+  "${call_manager_path}/services/audio/src/ring.cpp",
+  "${call_manager_path}/services/audio/src/sound.cpp",
+  "${call_manager_path}/services/audio/src/tone.cpp",
+  "${call_manager_path}/services/bluetooth/src/bluetooth_call_manager.cpp",
+  "${call_manager_path}/services/bluetooth/src/bluetooth_call_policy.cpp",
+  "${call_manager_path}/services/bluetooth/src/bluetooth_call_service.cpp",
+  "${call_manager_path}/services/bluetooth/src/bluetooth_call_stub.cpp",
+  "${call_manager_path}/services/bluetooth/src/bluetooth_connection.cpp",
+  "${call_manager_path}/services/call/call_state_observer/src/call_data_base_helper.cpp",
+  "${call_manager_path}/services/call/call_state_observer/src/call_records_handler.cpp",
+  "${call_manager_path}/services/call/call_state_observer/src/call_records_manager.cpp",
+  "${call_manager_path}/services/call/call_state_observer/src/incoming_call_notification.cpp",
+  "${call_manager_path}/services/call/call_state_observer/src/incoming_call_wake_up.cpp",
+  "${call_manager_path}/services/call/call_state_observer/src/missed_call_notification.cpp",
+  "${call_manager_path}/services/call/call_state_observer/src/proximity_sensor.cpp",
+  "${call_manager_path}/services/call/call_state_observer/src/reject_call_sms.cpp",
+  "${call_manager_path}/services/call/call_state_observer/src/status_bar.cpp",
+  "${call_manager_path}/services/call/call_state_observer/src/wired_headset.cpp",
+  "${call_manager_path}/services/call/src/bluetooth_call.cpp",
+  "${call_manager_path}/services/call/src/bluetooth_call_state.cpp",
+  "${call_manager_path}/services/call/src/call_ability_connect_callback.cpp",
+  "${call_manager_path}/services/call/src/call_base.cpp",
+  "${call_manager_path}/services/call/src/call_broadcast_subscriber.cpp",
+  "${call_manager_path}/services/call/src/call_connect_ability.cpp",
+  "${call_manager_path}/services/call/src/call_control_manager.cpp",
+  "${call_manager_path}/services/call/src/call_incoming_filter_manager.cpp",
+  "${call_manager_path}/services/call/src/call_object_manager.cpp",
+  "${call_manager_path}/services/call/src/call_policy.cpp",
+  "${call_manager_path}/services/call/src/call_request_event_handler_helper.cpp",
+  "${call_manager_path}/services/call/src/call_request_handler.cpp",
+  "${call_manager_path}/services/call/src/call_request_process.cpp",
+  "${call_manager_path}/services/call/src/call_state_listener.cpp",
+  "${call_manager_path}/services/call/src/call_status_manager.cpp",
+  "${call_manager_path}/services/call/src/call_status_policy.cpp",
+  "${call_manager_path}/services/call/src/call_superprivacy_control_manager.cpp",
+  "${call_manager_path}/services/call/src/call_wired_headset.cpp",
+  "${call_manager_path}/services/call/src/carrier_call.cpp",
+  "${call_manager_path}/services/call/src/conference_base.cpp",
+  "${call_manager_path}/services/call/src/cs_call.cpp",
+  "${call_manager_path}/services/call/src/cs_conference.cpp",
+  "${call_manager_path}/services/call/src/ims_call.cpp",
+  "${call_manager_path}/services/call/src/ims_conference.cpp",
+  "${call_manager_path}/services/call/src/net_call_base.cpp",
+  "${call_manager_path}/services/call/src/ott_call.cpp",
+  "${call_manager_path}/services/call/src/ott_call_connection.cpp",
+  "${call_manager_path}/services/call/src/ott_conference.cpp",
+  "${call_manager_path}/services/call/src/satellite_call.cpp",
+  "${call_manager_path}/services/call/src/video_call_state.cpp",
+  "${call_manager_path}/services/call/src/voip_call.cpp",
+  "${call_manager_path}/services/call_earthquake_alarm/src/call_earthquake_alarm_locator.cpp",
+  "${call_manager_path}/services/call_earthquake_alarm/src/call_earthquake_alarm_subscriber.cpp",
+  "${call_manager_path}/services/call_manager_service/src/call_manager_service.cpp",
+  "${call_manager_path}/services/call_manager_service/src/call_manager_service_stub.cpp",
+  "${call_manager_path}/services/call_manager_service/src/telephony_cust_wrapper.cpp",
+  "${call_manager_path}/services/call_report/src/app_state_observer.cpp",
+  "${call_manager_path}/services/call_report/src/call_ability_callback_death_recipient.cpp",
+  "${call_manager_path}/services/call_report/src/call_ability_callback_proxy.cpp",
+  "${call_manager_path}/services/call_report/src/call_ability_report_proxy.cpp",
+  "${call_manager_path}/services/call_report/src/call_state_report_proxy.cpp",
+  "${call_manager_path}/services/call_setting/src/call_setting_manager.cpp",
+  "${call_manager_path}/services/call_voice_assistant/src/call_voice_assistant_manager.cpp",
+  "${call_manager_path}/services/display/src/fold_status_manager.cpp",
+  "${call_manager_path}/services/distributed_call/src/distributed_call_manager.cpp",
+  "${call_manager_path}/services/distributed_call/src/distributed_call_proxy.cpp",
+  "${call_manager_path}/services/distributed_call/src/distributed_communication/distributed_communication_manager.cpp",
+  "${call_manager_path}/services/distributed_call/src/distributed_communication/distributed_data_controller.cpp",
+  "${call_manager_path}/services/distributed_call/src/distributed_communication/distributed_data_sink_controller.cpp",
+  "${call_manager_path}/services/distributed_call/src/distributed_communication/distributed_data_source_controller.cpp",
+  "${call_manager_path}/services/distributed_call/src/distributed_communication/distributed_device_observer.cpp",
+  "${call_manager_path}/services/distributed_call/src/distributed_communication/distributed_sink_switch_controller.cpp",
+  "${call_manager_path}/services/distributed_call/src/distributed_communication/distributed_source_switch_controller.cpp",
+  "${call_manager_path}/services/distributed_call/src/transmission/client_session.cpp",
+  "${call_manager_path}/services/distributed_call/src/transmission/server_session.cpp",
+  "${call_manager_path}/services/distributed_call/src/transmission/session_adapter.cpp",
+  "${call_manager_path}/services/distributed_call/src/transmission/transmission_manager.cpp",
+  "${call_manager_path}/services/hisysevent/src/call_manager_dump_helper.cpp",
+  "${call_manager_path}/services/hisysevent/src/call_manager_hisysevent.cpp",
+  "${call_manager_path}/services/interoperable_call/src/interoperable_client_manager.cpp",
+  "${call_manager_path}/services/interoperable_call/src/interoperable_communication_manager.cpp",
+  "${call_manager_path}/services/interoperable_call/src/interoperable_data_controller.cpp",
+  "${call_manager_path}/services/interoperable_call/src/interoperable_device_observer.cpp",
+  "${call_manager_path}/services/interoperable_call/src/interoperable_server_manager.cpp",
+  "${call_manager_path}/services/number_identity_proxy/src/number_identity_service.cpp",
+  "${call_manager_path}/services/satellite_call/src/satellite_call_control.cpp",
+  "${call_manager_path}/services/spam_call/src/callback_stub_helper.cpp",
+  "${call_manager_path}/services/spam_call/src/reminder_callback_stub_helper.cpp",
+  "${call_manager_path}/services/spam_call/src/spam_call_adapter.cpp",
+  "${call_manager_path}/services/spam_call/src/spam_call_connection.cpp",
+  "${call_manager_path}/services/spam_call/src/spam_call_proxy.cpp",
+  "${call_manager_path}/services/spam_call/src/spam_call_stub.cpp",
+  "${call_manager_path}/services/spam_call/src/time_wait_helper.cpp",
+  "${call_manager_path}/services/telephony_interaction/src/bluetooth_call_connection.cpp",
+  "${call_manager_path}/services/telephony_interaction/src/call_status_callback.cpp",
+  "${call_manager_path}/services/telephony_interaction/src/call_status_callback_stub.cpp",
+  "${call_manager_path}/services/telephony_interaction/src/cellular_call_connection.cpp",
+  "${call_manager_path}/services/telephony_interaction/src/core_service_connection.cpp",
+  "${call_manager_path}/services/telephony_interaction/src/report_call_info_handler.cpp",
+  "${call_manager_path}/services/telephony_interaction/src/voip_call_connection.cpp",
+  "${call_manager_path}/services/video/src/video_control_manager.cpp",
+  "${call_manager_path}/utils/src/call_ability_connection.cpp",
+  "${call_manager_path}/utils/src/call_dialog.cpp",
+  "${call_manager_path}/utils/src/call_manager_utils.cpp",
+  "${call_manager_path}/utils/src/call_number_utils.cpp",
+  "${call_manager_path}/utils/src/call_setting_ability_connection.cpp",
+  "${call_manager_path}/utils/src/motion_recognition.cpp",
+  "${call_manager_path}/utils/src/number_identity_data_base_helper.cpp",
+  "${call_manager_path}/utils/src/screen_sensor_plugin.cpp",
+  "${call_manager_path}/utils/src/settings_datashare_helper.cpp",
+]
+
+call_manager_include_dirs = [
+  "${call_manager_path}/services/antifraud/antiinclude",
+  "${call_manager_path}/services/antifraud/include",
+  "${call_manager_path}/services/audio/include",
+  "${call_manager_path}/services/audio/include/audio_state",
+  "${call_manager_path}/services/bluetooth/include",
+  "${call_manager_path}/services/call/call_state_observer/include",
+  "${call_manager_path}/services/call/include",
+  "${call_manager_path}/services/call_earthquake_alarm/include",
+  "${call_manager_path}/services/call_manager_service/include",
+  "${call_manager_path}/services/call_report/include",
+  "${call_manager_path}/services/call_setting/include",
+  "${call_manager_path}/services/call_voice_assistant/include",
+  "${call_manager_path}/services/display/include",
+  "${call_manager_path}/services/distributed_call/include",
+  "${call_manager_path}/services/distributed_call/include/dcall",
+  "${call_manager_path}/services/distributed_call/include/transmission",
+  "${call_manager_path}/services/distributed_call/include/distributed_communication",
+  "${call_manager_path}/services/hisysevent/include",
+  "${call_manager_path}/services/interoperable_call/include",
+  "${call_manager_path}/services/number_identity_proxy/include",
+  "${call_manager_path}/services/satellite_call/include",
+  "${call_manager_path}/services/spam_call/include",
+  "${call_manager_path}/services/telephony_interaction/include",
+  "${call_manager_path}/services/video/include",
+  "${call_manager_path}/utils/include",
+]
+
+call_manager_external_deps = [
+  "ability_base:base",
+  "ability_base:want",
+  "ability_base:zuri",
+  "ability_runtime:ability_connect_callback_stub",
+  "ability_runtime:ability_deps_wrapper",
+  "ability_runtime:ability_manager",
+  "ability_runtime:abilitykit_native",
+  "ability_runtime:app_manager",
+  "ability_runtime:dataobs_manager",
+  "ability_runtime:extension_manager",
+  "access_token:libaccesstoken_sdk",
+  "access_token:libprivacy_sdk",
+  "audio_framework:audio_capturer",
+  "audio_framework:audio_client",
+  "audio_framework:audio_foundation",
+  "audio_framework:audio_renderer",
+  "audio_framework:audio_toneplayer",
+  "c_utils:utils",
+  "common_event_service:cesfwk_innerkits",
+  "core_service:libtel_common",
+  "core_service:tel_core_service_api",
+  "data_share:datashare_consumer",
+  "device_manager:devicemanagersdk",
+  "distributed_notification_service:ans_innerkits",
+  "dsoftbus:softbus_client",
+  "eventhandler:libeventhandler",
+  "ffrt:libffrt",
+  "graphic_surface:surface",
+  "hilog:libhilog",
+  "hisysevent:libhisysevent",
+  "hitrace:hitrace_meter",
+  "init:libbegetutil",
+  "input:libmmi-client",
+  "ipc:ipc_single",
+  "location:lbsservice_common",
+  "location:locator_sdk",
+  "openssl:libcrypto_shared",
+  "openssl:libssl_shared",
+  "os_account:os_account_innerkits",
+  "player_framework:system_sound_client",
+  "safwk:system_ability_fwk",
+  "samgr:samgr_proxy",
+]
+
+call_manager_defines = []
+if (defined(global_parts_info) &&
+    defined(global_parts_info.communication_bluetooth) &&
+    global_parts_info.communication_bluetooth) {
+  call_manager_external_deps += [ "bluetooth:btframework" ]
+  call_manager_defines += [ "ABILITY_BLUETOOTH_SUPPORT" ]
+}
+
+if (defined(global_parts_info) &&
+    defined(global_parts_info.telephony_sms_mms) &&
+    global_parts_info.telephony_sms_mms) {
+  call_manager_external_deps += [ "sms_mms:tel_sms_mms_api" ]
+  call_manager_defines += [ "ABILITY_SMS_SUPPORT" ]
+}
+
+if (defined(global_parts_info) &&
+    defined(global_parts_info.telephony_cellular_call) &&
+    global_parts_info.telephony_cellular_call) {
+  call_manager_defines += [ "ABILITY_CELLULAR_SUPPORT" ]
+}
+
+if (defined(global_parts_info) &&
+    defined(global_parts_info.powermgr_power_manager) &&
+    global_parts_info.powermgr_power_manager) {
+  call_manager_external_deps += [ "power_manager:powermgr_client" ]
+  call_manager_defines += [ "ABILITY_POWER_SUPPORT" ]
+}
+
+if (defined(global_parts_info) &&
+    defined(global_parts_info.sensors_miscdevice) &&
+    global_parts_info.sensors_miscdevice) {
+  call_manager_external_deps += [ "miscdevice:vibrator_interface_native" ]
+  call_manager_defines += [ "SUPPORT_VIBRATOR" ]
+}
+
+if (defined(global_parts_info) &&
+    defined(global_parts_info.telephony_cellular_data) &&
+    global_parts_info.telephony_cellular_data) {
+  call_manager_external_deps += [ "cellular_data:tel_cellular_data_api" ]
+  call_manager_defines += [ "CELLULAR_DATA_SUPPORT" ]
+}
+
+if (defined(global_parts_info) &&
+    defined(global_parts_info.hiviewdfx_hicollie) &&
+    global_parts_info.hiviewdfx_hicollie) {
+  call_manager_external_deps += [ "hicollie:libhicollie" ]
+  call_manager_defines += [ "HICOLLIE_ENABLE" ]
+}
+
+if (defined(global_parts_info) &&
+    defined(global_parts_info.telephony_telephony_enhanced) &&
+    global_parts_info.telephony_telephony_enhanced) {
+  call_manager_defines += [ "TELEPHONY_CUST_SUPPORT" ]
+}
+
+if (defined(global_parts_info) &&
+    defined(global_parts_info.telephony_telephony_cust) &&
+    global_parts_info.telephony_telephony_cust) {
+  call_manager_defines += [ "OHOS_BUILD_ENABLE_TELEPHONY_CUST" ]
+}
+
+if (defined(global_parts_info) && defined(global_parts_info.msdp_motion) &&
+    global_parts_info.msdp_motion) {
+  call_manager_defines += [ "OHOS_SUBSCRIBE_MOTION_ENABLE" ]
+}
+
+if (target_platform == "watch") {
+  call_manager_defines += [ "SUPPORT_MUTE_BY_DATABASE" ]
+  call_manager_sources += [ "${call_manager_path}/services/interoperable_call/src/interoperable_settings_handler.cpp" ]
+}

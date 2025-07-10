@@ -1,0 +1,56 @@
+.language ECMAScript
+
+# ====================
+# LITERALS
+
+
+
+{ 6 [ i32:0, i32:0, i32:0, i32:0, i32:0, i32:0, ]}
+
+
+
+# ====================
+# RECORDS
+
+.record _ESModuleRecord {
+	u32 abc { 6 [ i32:0, i32:0, i32:0, i32:0, i32:0, i32:0, ]}
+}
+.record.source_file 
+
+.record _ESScopeNamesRecord {
+	u32 abc 
+}
+.record.source_file 
+
+.record _ESSlotNumberAnnotation {
+}
+.record.source_file 
+
+
+# ====================
+# METHODS
+
+.function_kind FunctionKind::FUNCTION
+ _ESSlotNumberAnnotation
+ SlotNumber 3
+.function any .#*#A(any a0, any a1, any a2) {
+	label@0: tryldglobalbyname 0x0, print    # line: 16           # column: 0
+	label@1: sta v0                          # line: 16           # column: 0
+	label@2: ldai 0x1                        # line: 16           # column: 0
+	label@3: sta v1                          # line: 16           # column: 0
+	label@4: lda v0                          # line: 16           # column: 0
+	label@5: callarg1 0x1, v1                # line: 16           # column: 0
+	label@6: ldundefined                     # line: 18446744073709551615           # column: 0
+	label@7: returnundefined                 # line: 17           # column: 0
+}
+
+.function_kind FunctionKind::FUNCTION
+ _ESSlotNumberAnnotation
+ SlotNumber 3
+.function any .func_main_0(any a0, any a1, any a2) {
+	label@0: definefunc 0x0, .#*#A, 0x0      # line: 18446744073709551615           # column: 0
+	label@1: callarg0 0x1                    # line: 18           # column: 0
+	label@2: ldundefined                     # line: 18446744073709551615           # column: 0
+	label@3: returnundefined                 # line: 18446744073709551615           # column: 0
+}
+

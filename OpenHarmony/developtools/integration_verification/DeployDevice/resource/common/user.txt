@@ -1,0 +1,5 @@
+ git clone https://yangbin148%40huawei.com:sh%2C%2E%2F123@gitee.com/wenjun_HW/DeployDevice
+ git config --global user.email "yangbin148@huawei.com" | git config --global user.name "ywx1018148"
+ git add .
+ git commit -m ''
+ git push

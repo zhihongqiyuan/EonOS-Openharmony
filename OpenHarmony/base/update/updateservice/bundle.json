@@ -1,0 +1,97 @@
+{
+  "name": "@ohos/update_service",
+  "description": "A system ability started by the init process of OHOS to implement an update",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/update/updateservice"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "update_service",
+    "subsystem": "updater",
+    "syscap": [
+      "SystemCapability.Update.UpdateService"
+    ],
+    "features": [
+      "update_service_dupdate_config_path",
+      "update_service_enable_run_on_demand_qos",
+      "update_service_updater_sa_cfg_path",
+      "update_service_sa_profile_path"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "deps": {
+      "components": [
+        "ability_runtime",
+        "bounds_checking_function",
+        "bundle_framework",
+        "c_utils",
+        "cJSON",
+        "curl",
+        "eventhandler",
+        "hilog",
+        "ipc",
+        "safwk",
+        "samgr",
+        "napi",
+        "access_token",
+        "hisysevent",
+        "init",
+        "libxml2",
+        "updater",
+        "ability_base",
+        "netmanager_base",
+        "openssl",
+        "preferences",
+        "sys_installer",
+        "time_service",
+        "relational_store"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "modules": [
+        "//base/update/updateservice/frameworks/js/napi/update:update",
+        "//base/update/updateservice/interfaces/inner_api/engine:updateservicekits",
+        "//base/update/updateservice/interfaces/inner_api/modulemgr:update_module_mgr",
+        "//base/update/updateservice/services/engine:dupdate_config.json",
+        "//base/update/updateservice/services/engine:updater_sa.cfg",
+        "//base/update/updateservice/services/engine:updateservice",
+        "//base/update/updateservice/services/engine/sa_profile:updater_sa_profile"
+      ],
+      "inner_api": [
+        {
+          "header": {
+            "header_base": "//base/update/updateservice/foundations",
+            "header_files": []
+          },
+          "name": "//base/update/updateservice/foundations:update_foundations"
+        },
+        {
+          "header": {
+            "header_base": "//base/update/updateservice/interfaces/inner_api/include",
+            "header_files": []
+          },
+          "name": "//base/update/updateservice/interfaces/inner_api/engine:updateservicekits"
+        },
+        {
+          "header": {
+            "header_base": "//base/update/updateservice/interfaces/inner_api/modulemgr/include",
+            "header_files": []
+          },
+          "name": "//base/update/updateservice/interfaces/inner_api/modulemgr:update_module_mgr"
+        }
+      ],
+      "test": [
+        "//base/update/updateservice/test/unittest:unittest"
+      ]
+    },
+    "hisysevent_config": [
+      "//base/update/updateservice/hisysevent.yaml"
+    ]
+  }
+}

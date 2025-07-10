@@ -1,0 +1,26 @@
+{
+    "name": "@openharmony/tee_os_kernel",
+    "description": "tee_os_kernel",
+    "version": "1.0.0",
+    "license": "Mulan PSL v2",
+    "component": {
+      "name": "tee_os_kernel",
+      "subsystem": "tee",
+      "syscap": [],
+      "features": [],
+      "adapted_system_type": [ "standard" ],
+      "rom":"2048KB",
+      "ram":"8M",
+      "deps": {
+        "components": [],
+        "third_party": []
+      },
+      "build": {
+        "sub_component": [
+            "//base/tee/tee_os_kernel/build:tee_os"
+	],
+        "inner_kits": [],
+        "test": []
+      }
+    }
+  }

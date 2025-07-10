@@ -1,0 +1,512 @@
+# Copyright (C) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+import("//build/test.gni")
+import("//developtools/hdc/hdc.gni")
+hdc_path = "//developtools/hdc/"
+module_output_path = "developtools/hdc/"
+declare_args() {
+  hdc_unit_test = true
+  hdc_fuzz_test = true
+}
+
+hdc_common_sources = [
+  "${hdc_path}/src/common/async_cmd.cpp",
+  "${hdc_path}/src/common/auth.cpp",
+  "${hdc_path}/src/common/base.cpp",
+  "${hdc_path}/src/common/channel.cpp",
+  "${hdc_path}/src/common/circle_buffer.cpp",
+  "${hdc_path}/src/common/debug.cpp",
+  "${hdc_path}/src/common/file.cpp",
+  "${hdc_path}/src/common/file_descriptor.cpp",
+  "${hdc_path}/src/common/forward.cpp",
+  "${hdc_path}/src/common/heartbeat.cpp",
+  "${hdc_path}/src/common/session.cpp",
+  "${hdc_path}/src/common/task.cpp",
+  "${hdc_path}/src/common/tcp.cpp",
+  "${hdc_path}/src/common/tlv.cpp",
+  "${hdc_path}/src/common/transfer.cpp",
+  "${hdc_path}/src/common/usb.cpp",
+  "${hdc_path}/src/common/uv_status.cpp",
+]
+
+hdc_daemon_sources = [
+  "${hdc_path}/src/daemon/daemon.cpp",
+  "${hdc_path}/src/daemon/daemon_app.cpp",
+  "${hdc_path}/src/daemon/daemon_forward.cpp",
+  "${hdc_path}/src/daemon/daemon_tcp.cpp",
+  "${hdc_path}/src/daemon/daemon_unity.cpp",
+  "${hdc_path}/src/daemon/daemon_usb.cpp",
+  "${hdc_path}/src/daemon/jdwp.cpp",
+  "${hdc_path}/src/daemon/shell.cpp",
+  "${hdc_path}/src/daemon/system_depend.cpp",
+]
+
+hdc_host_sources = [
+  "${hdc_path}/src/host/client.cpp",
+  "${hdc_path}/src/host/host_app.cpp",
+  "${hdc_path}/src/host/host_forward.cpp",
+  "${hdc_path}/src/host/host_tcp.cpp",
+  "${hdc_path}/src/host/host_unity.cpp",
+  "${hdc_path}/src/host/host_updater.cpp",
+  "${hdc_path}/src/host/host_usb.cpp",
+  "${hdc_path}/src/host/server.cpp",
+  "${hdc_path}/src/host/server_for_client.cpp",
+  "${hdc_path}/src/host/translate.cpp",
+]
+
+common_external_deps = [
+  "bounds_checking_function:libsec_static",
+  "libuv:uv",
+  "lz4:liblz4_static",
+  "openssl:libcrypto_static",
+]
+
+config("hdc_ut_code_flag") {
+  cflags = code_check_flag
+}
+
+config("hdc_ut_config") {
+  defines = [
+    "TEST_HASH",
+    "HDC_MSG_HASH=\"TEST\"",
+  ]
+  include_dirs = [ "${hdc_path}/src/common" ]
+
+  cflags = [
+    "-std=c++17",
+    "-fno-access-control",
+    "-g",
+  ]
+  ldflags = []
+
+  if (hdc_test_coverage && is_ohos) {
+    cflags += [
+      "-fprofile-arcs",
+      "-ftest-coverage",
+    ]
+    ldflags += [ "--coverage" ]
+  }
+}
+
+config("hdc_common_config") {
+  defines = [ "HDC_UT" ]
+  include_dirs = [
+    "${hdc_path}/src/common",
+    "${hdc_path}/src/daemon",
+    "${hdc_path}/src/host",
+    "${hdc_path}/test/unittest/common/include",
+  ]
+
+  if (hdc_support_uart) {
+    defines += [ "HDC_SUPPORT_UART" ]
+  }
+}
+
+config("hdc_host_common_config") {
+  defines = [ "HDC_HOST" ]
+
+  # both linux and ohos is same linux syscall
+  defines += [ "HOST_LINUX" ]
+  defines += [ "HARMONY_PROJECT" ]
+
+  include_dirs = [
+    "${hdc_path}/src/common",
+    "${hdc_path}/src/daemon",
+    "${hdc_path}/src/host",
+    "${hdc_path}/test/unittest/common/include",
+  ]
+}
+
+ohos_source_set("hdc_common") {
+  use_exceptions = true
+  testonly = true
+  sources = hdc_common_sources
+  if (hdc_support_uart) {
+    sources += [ "${hdc_path}/src/common/uart.cpp" ]
+  }
+  external_deps = common_external_deps
+  external_deps += [ "init:libbegetutil" ]
+  public_configs = [
+    ":hdc_common_config",
+    ":hdc_ut_config",
+  ]
+  defines = [ "OPENSSL_SUPPRESS_DEPRECATED" ]
+  if (hdc_fuzz_test) {
+    defines += [
+      "FUZZ_TEST",
+      "HDC_HILOG",
+    ]
+    external_deps += [ "hilog:libhilog" ]
+  }
+}
+
+ohos_source_set("hdc_daemon") {
+  use_exceptions = true
+  sources = hdc_common_sources
+  sources += hdc_daemon_sources
+  subsystem_name = "developtools"
+  part_name = "hdc"
+  if (hdc_support_uart) {
+    sources += [ "${hdc_path}/src/common/uart.cpp" ]
+    sources += [ "${hdc_path}/src/daemon/daemon_uart.cpp" ]
+  }
+  external_deps = common_external_deps
+  external_deps += [
+    "init:libbegetutil",
+    "c_utils:utils",
+  ]
+  public_configs = [
+    ":hdc_common_config",
+    ":hdc_ut_config",
+  ]
+  defines = [
+    "HARMONY_PROJECT",
+    "OPENSSL_SUPPRESS_DEPRECATED",
+  ]
+}
+
+ohos_source_set("hdc_host") {
+  use_exceptions = true
+  sources = hdc_common_sources
+  sources += hdc_host_sources
+  subsystem_name = "developtools"
+  part_name = "hdc"
+  if (hdc_support_uart) {
+    sources += [ "${hdc_path}/src/common/uart.cpp" ]
+    sources += [ "${hdc_path}/src/host/host_uart.cpp" ]
+  }
+  external_deps = common_external_deps
+  external_deps += [ "libusb:libusb" ]
+  public_configs = [
+    ":hdc_common_config",
+    ":hdc_host_common_config",
+    ":hdc_ut_config",
+  ]
+  defines = [
+    "HARMONY_PROJECT",
+    "OPENSSL_SUPPRESS_DEPRECATED",
+  ]
+}
+
+ohos_source_set("hdc_daemon_platform") {
+  testonly = true
+  public_configs = [ ":hdc_ut_config" ]
+
+  #defines = [ "HARMONY_PROJECT" ]
+  defines = []
+  if (hdc_test_coverage && is_ohos) {
+    defines += [ "TEST_COVERAGE" ]
+  }
+
+  if (hdc_unit_test) {
+    defines += [ "HDC_UNIT_TEST" ]
+  }
+  if (js_jdwp_connect) {
+    defines += [ "JS_JDWP_CONNECT" ]
+  }
+
+  sources = [
+    "${hdc_path}/src/daemon/daemon_unity.cpp",
+    "${hdc_path}/src/daemon/jdwp.cpp",
+  ]
+
+  external_deps = [
+    "bounds_checking_function:libsec_static",
+    "googletest:gtest",
+    "libuv:uv",
+    "openssl:libcrypto_static",
+  ]
+
+  include_dirs = [ "${hdc_path}/daemon" ]
+}
+
+ohos_unittest("hdc_jdwp_unittest") {
+  module_out_path = module_output_path
+  public_configs = [ ":hdc_ut_config" ]
+  defines = [ "HARMONY_PROJECT" ]
+  if (hdc_test_coverage && is_ohos) {
+    defines += [ "TEST_COVERAGE" ]
+  }
+  if (hdc_unit_test) {
+    defines += [ "HDC_UNIT_TEST" ]
+  }
+  if (js_jdwp_connect) {
+    defines += [ "JS_JDWP_CONNECT" ]
+  }
+  public_deps = [ ":hdc_daemon_platform" ]
+
+  sources = [
+    "${hdc_path}/src/daemon/system_depend.cpp",
+    "unittest/common/HdcJdwpTest.cpp",
+  ]
+  deps = [ ":hdc_common" ]
+
+  include_dirs = [
+    "${hdc_path}/test/unittest/common/include",
+    "${hdc_path}/src/daemon",
+    "${hdc_path}/src/common",
+  ]
+
+  external_deps = common_external_deps
+  external_deps += [
+    "googletest:gmock_main",
+    "init:libbegetutil",
+    "hilog:libhilog",
+  ]
+
+  if (is_linux) {
+    static_link = false
+  }
+  subsystem_name = "developtools"
+  defines += [ "OPENSSL_SUPPRESS_DEPRECATED" ]
+}
+
+ohos_unittest("hdc_uart_unittest") {
+  use_exceptions = true
+  module_out_path = module_output_path
+  resource_config_file = "unittest/resource/ohos_test.xml"
+  public_configs = [ ":hdc_ut_config" ]
+  sources = [
+    "${hdc_path}/src/common/header.cpp",
+    "${hdc_path}/src/common/entry.cpp",
+    "${hdc_path}/src/common/decompress.cpp",
+    "unittest/common/daemon_uart_test.cpp",
+    "unittest/common/uart_test.cpp",
+  ]
+
+  configs = [
+    ":hdc_common_config",
+    ":hdc_ut_code_flag",
+    ":hdc_ut_config",
+  ]
+  deps = [ ":hdc_daemon" ]
+  external_deps = common_external_deps
+  external_deps += [
+    "libusb:libusb",
+    "googletest:gmock_main",
+  ]
+}
+
+ohos_unittest("hdc_host_base_unittest") {
+  use_exceptions = true
+  module_out_path = module_output_path
+  resource_config_file = "unittest/resource/ohos_test.xml"
+  defines = [ "HDC_HOST" ]
+  sources = hdc_common_sources
+  sources += [ "unittest/common/define_test.cpp" ]
+
+  configs = [
+    ":hdc_host_common_config",
+    ":hdc_ut_code_flag",
+    ":hdc_ut_config",
+  ]
+
+  external_deps = common_external_deps
+  external_deps += [
+    "googletest:gmock_main",
+    "init:libbegetutil",
+    "libusb:libusb",
+  ]
+}
+
+ohos_unittest("hdc_host_uart_unittest") {
+  use_exceptions = true
+  module_out_path = module_output_path
+  resource_config_file = "unittest/resource/ohos_test.xml"
+  sources = [
+    "${hdc_path}/src/common/header.cpp",
+    "${hdc_path}/src/common/entry.cpp",
+    "${hdc_path}/src/common/compress.cpp",
+    "unittest/common/host_uart_test.cpp",
+    "unittest/common/uart_test.cpp",
+  ]
+
+  configs = [
+    ":hdc_common_config",
+    ":hdc_host_common_config",
+    ":hdc_ut_code_flag",
+  ]
+
+  deps = [ ":hdc_host" ]
+
+  defines = [ "OPENSSL_SUPPRESS_DEPRECATED" ]
+  external_deps = common_external_deps
+  external_deps += [
+    "libusb:libusb",
+    "googletest:gmock_main",
+  ]
+}
+
+ohos_unittest("hdc_base_unittest") {
+  use_exceptions = true
+  module_out_path = module_output_path
+  resource_config_file = "unittest/resource/ohos_test.xml"
+  sources = hdc_common_sources
+  sources += [
+    "${hdc_path}/src/common/server_cmd_log.cpp",
+    "${hdc_path}/src/common/uart.cpp",
+    "${hdc_path}/src/common/password.cpp",
+    "${hdc_path}/src/common/hdc_huks.cpp",
+    "unittest/common/base_ut.cpp",
+    "unittest/common/file_ut.cpp",
+    "unittest/common/heartbeat_ut.cpp",
+    "unittest/common/hdc_huks_ut.cpp",
+    "unittest/common/password_ut.cpp",
+    "unittest/common/server_cmd_log_ut.cpp",
+    "unittest/common/transfer_ut.cpp",
+    "unittest/common/tlv_ut.cpp",
+    "unittest/common/uv_status_ut.cpp",
+  ]
+
+  configs = [
+    ":hdc_common_config",
+    ":hdc_ut_code_flag",
+    ":hdc_ut_config",
+  ]
+  external_deps = common_external_deps
+  external_deps += [
+    "googletest:gmock_main",
+    "init:libbegetutil",
+    "huks:libhukssdk",
+  ]
+  defines = [ "HDC_SUPPORT_ENCRYPT_PRIVATE_KEY" ]
+}
+
+group("HdcJdwpTest") {
+  testonly = true
+  deps = [ ":hdc_jdwp_unittest" ]
+}
+
+group("hdc_unittest") {
+  testonly = true
+  deps = [
+    ":hdc_base_unittest",
+    ":hdc_host_uart_unittest",
+    ":hdc_jdwp_unittest",
+    ":hdc_register_unittest",
+    ":hdc_uart_unittest",
+    ":hdc_host_base_unittest",
+  ]
+}
+
+config("hdc_test_config") {
+  cflags = code_check_flag
+  ldflags = []
+  defines = [ "HARMONY_PROJECT" ]
+
+  if (hdc_test_coverage && is_ohos) {
+    defines += [ "TEST_COVERAGE" ]
+    cflags += [
+      "-fprofile-arcs",
+      "-ftest-coverage",
+    ]
+    ldflags += [ "--coverage" ]
+  }
+  if (js_jdwp_connect) {
+    defines += [ "JS_JDWP_CONNECT" ]
+  }
+  include_dirs = [
+    "${hdc_path}/test/fuzztest/jdwpreadstream_fuzzer",
+    "${hdc_path}/test/fuzztest/forwardreadstream_fuzzer",
+    "${hdc_path}/src/daemon",
+    "${hdc_path}/src/common",
+  ]
+}
+
+config("hdc_register_config") {
+  cflags = code_check_flag
+  ldflags = []
+  defines = [ "HDC_HILOG" ]
+
+  if (hdc_test_coverage && is_ohos) {
+    defines += [ "TEST_COVERAGE" ]
+    cflags += [
+      "-fprofile-arcs",
+      "-ftest-coverage",
+    ]
+    ldflags += [ "--coverage" ]
+  }
+  if (js_jdwp_connect) {
+    defines += [ "JS_JDWP_CONNECT" ]
+  }
+}
+
+fuzz_cflags = [
+  "-O0",
+  "-Wno-unused-variable",
+  "-fno-omit-frame-pointer",
+]
+
+ohos_fuzztest("JdwpReadStreamFuzzTest") {
+  module_out_path = FUZZ_OUTPUT_PATH
+  fuzz_config_file = "${hdc_path}/test/fuzztest/jdwpreadstream_fuzzer"
+  configs = [ ":hdc_test_config" ]
+  cflags = fuzz_cflags
+  sources = [
+    "${hdc_path}/src/daemon/jdwp.cpp",
+    "${hdc_path}/src/daemon/system_depend.cpp",
+    "fuzztest/jdwpreadstream_fuzzer/JdwpReadStream_fuzzer.cpp",
+  ]
+  deps = [ ":hdc_common" ]
+  external_deps = common_external_deps
+  external_deps += [
+    "hilog:libhilog",
+    "init:libbeget_proxy",
+    "init:libbegetutil",
+  ]
+}
+
+ohos_fuzztest("ForwardReadStreamFuzzTest") {
+  module_out_path = FUZZ_OUTPUT_PATH
+  fuzz_config_file = "${hdc_path}/test/fuzztest/forwardreadstream_fuzzer"
+  configs = [ ":hdc_test_config" ]
+  cflags = fuzz_cflags
+  sources = [ "fuzztest/forwardreadstream_fuzzer/ForwardReadStream_fuzzer.cpp" ]
+  deps = [ ":hdc_common" ]
+  subsystem_name = "developtools"
+  part_name = "hdc"
+  external_deps = common_external_deps
+  external_deps += [ "hilog:libhilog" ]
+}
+
+group("hdc_fuzztest") {
+  testonly = true
+  deps = [
+    ":ForwardReadStreamFuzzTest",
+    ":JdwpReadStreamFuzzTest",
+  ]
+}
+
+ohos_unittest("hdc_register_unittest") {
+  module_out_path = module_output_path
+  resource_config_file = "unittest/resource/ohos_test.xml"
+  subsystem_name = "developtools"
+  part_name = "hdc"
+  sources = [
+    "${hdc_path}/src/register/hdc_connect.cpp",
+    "${hdc_path}/src/register/hdc_jdwp.cpp",
+    "unittest/register/register_test.cpp",
+  ]
+
+  include_dirs = [ "${hdc_path}/src/register/" ]
+
+  configs = [ ":hdc_register_config" ]
+  external_deps = common_external_deps
+  external_deps += [
+    "c_utils:utils",
+    "googletest:gmock_main",
+    "hilog:libhilog",
+    "init:libbeget_proxy",
+    "init:libbegetutil",
+  ]
+}

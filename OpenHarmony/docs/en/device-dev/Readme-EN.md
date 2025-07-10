@@ -1,0 +1,66 @@
+# Device
+
+- [Device Development Overview](device-dev-guide.md)
+- Learn About OpenHarmony
+  - [OpenHarmony Project](../OpenHarmony-Overview.md) 
+  - [Glossary](../glossary.md) 
+  - [Release Notes](../release-notes/Readme.md) 
+- Quick Start
+  - [Getting Started](quick-start/Readme-EN.md)
+- Compatibility and Security
+  - [Privacy and Security](security/Readme-EN.md)
+- Porting
+  - Porting Guide
+      - [Third-Party Library Porting Guide for Mini and Small Systems](porting/porting-thirdparty-overview.md)
+      - [Mini System SoC Porting Guide](porting/porting-minichip-overview.md)
+      - [Small System SoC Porting Guide](porting/porting-smallchip-prepare-needs.md)
+      - [Standard System SoC Porting Guide](porting/standard-system-porting-guide.md)
+  - Porting Cases
+      - Mini System SoC Porting Cases
+          - [Mini-System Devices with Screens — Bestechnic SoC Porting Case](porting/porting-bes2600w-on-minisystem-display-demo.md) 
+          - [Combo Solution — ASR Chip Porting Case](porting/porting-asr582x-combo-demo.md)    
+          - [IoT Solution - Chipsea CST85 Chip Porting Case](porting/porting-cst85f01-combo-demo.md)    
+          - [Mini System STM32F407 SoC Porting Case](porting/porting-stm32f407-on-minisystem-eth.md)    
+          - [Combo Solution – W800 Chip Porting Case](porting/porting-w800-combo-demo.md)
+      - Small System SoC Porting Cases
+          - [Small System STM32MP1 SoC Porting Case](porting/porting-stm32mp15xx-on-smallsystem.md)
+      - Standard System SoC Porting Cases
+          - [Standard System Solution – Rockchip RK3568 Porting Case](porting/porting-dayu200-on_standard-demo.md) 
+
+- Subsystem Development
+  - Kernel
+    - [Kernel for the Mini System](kernel/kernel-mini-overview.md)
+    - [Kernel for the Small System](kernel/kernel-small-overview.md)
+    - [Kernel for the Standard System](kernel/kernel-standard-overview.md)
+  - [Driver](driver/Readme-EN.md)	
+  - [Compilation and Building](subsystems/subsys-build-all.md)
+  - [ArkUI](subsystems/subsys-arkui-customize-titlebar-arkts.md) 
+  - [Graphics](subsystems/subsys-graphics-overview.md)	
+  - [Multimedia](subsystems/subsys-multimedia-camera-overview.md)	
+  - [Utils](subsystems/subsys-utils-guide.md)
+  - [AI Framework](subsystems/subsys-ai-aiframework-devguide.md)	
+  - [Sensor](subsystems/subsys-sensor-overview.md)
+  - [Application Framework](subsystems/subsys-application-framework-overview.md)
+  - [OTA Update](subsystems/subsys-ota-guide.md)
+  - [Telephony](subsystems/subsys-tel-overview.md)
+  - [Security](subsystems/subsys-security-overview.md)
+  - [Startup](subsystems/subsys-boot-overview.md)
+  - [DFX](subsystems/subsys-dfx-overview.md)
+- Featured Topics
+  - [HPM Part](hpm-part/Readme-EN.md) 	 	
+  - Device Development Examples	 
+    - [Mini- and Small-System Devices](guide/device-wlan-led-control.md)	
+    - [Standard-System Devices](guide/device-clock-guide.md)
+- Debugging
+  - [Device Test](device-test/Readme-EN.md)	
+  - [R&D Tools](subsystems/subsys-toolchain-hdc-guide.md)
+- Tools
+  - [Docker Environment](get-code/gettools-acquire.md)
+  - [IDE](get-code/gettools-ide.md)
+- Hands-On Tutorials	
+  - [Codelabs](https://gitee.com/openharmony/codelabs/blob/master/README.md) 
+- References
+  - [FAQs](faqs/Readme-EN.md)
+- [Disclaimer Notice](disclaimer.md)
+- Contribution
+  - [How to Contribute](../contribute/documentation-contribution.md)

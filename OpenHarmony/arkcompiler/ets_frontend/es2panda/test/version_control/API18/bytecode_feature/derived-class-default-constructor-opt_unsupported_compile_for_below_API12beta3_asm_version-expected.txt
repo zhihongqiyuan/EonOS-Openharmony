@@ -1,0 +1,57 @@
+slotNum = 0x0
+.language ECMAScript
+.function any .A(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x2
+.language ECMAScript
+.function any .B(any a0, any a1, any a2, any a3) {
+label_1: 
+label_0: 
+	copyrestargs 0x0
+	sta v0
+	lda a0
+	supercallspread 0x0, v0
+	sta v0
+	lda a2
+	throw.ifsupernotcorrectcall 0x1
+	lda v0
+	throw.ifsupernotcorrectcall 0x0
+	lda v0
+	return
+label_2: 
+}
+
+slotNum = 0xc
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, .A, _0, 0x0, v0
+	sta v0
+	ldobjbyname 0x1, prototype
+	lda v0
+	sttoglobalrecord 0x3, A
+	tryldglobalbyname 0x4, A
+	sta v0
+	defineclasswithbuffer 0x5, .B, _1, 0x0, v0
+	sta v0
+	ldobjbyname 0x6, prototype
+	lda v0
+	sttoglobalrecord 0x8, B
+	tryldglobalbyname 0x9, B
+	sta v0
+	mov v1, v0
+	newobjrange 0xa, 0x1, v1
+	returnundefined
+label_2: 
+}
+
+

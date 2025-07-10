@@ -1,0 +1,11 @@
+{
+  "apiType": 'stageMode',
+  "buildOption": {
+  },
+  "targets": [
+    {
+      "name": "default",
+    }
+  ],
+  "entryModules": ["pad_launcher", "phone_launcher"]
+}

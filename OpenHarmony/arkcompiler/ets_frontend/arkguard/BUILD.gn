@@ -1,0 +1,62 @@
+#!/usr/bin/env python
+# coding: utf-8
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+typescript_dir = get_label_info("//third_party/typescript:build_typescript",
+                                "target_out_dir")
+
+action("build_arkguard") {
+  sources = [
+    "package.json",
+    "src/ArkObfuscator.ts",
+    "src/ArkObfuscatorForTest.ts",
+    "src/IObfuscator.ts",
+    "src/cli/SecHarmony.ts",
+    "src/common/ApiExtractor.ts",
+    "src/common/ApiReader.ts",
+    "src/common/type.ts",
+    "src/configs/INameObfuscationOption.ts",
+    "src/configs/IOptions.ts",
+    "src/configs/preset/es_reserved_properties.json",
+    "src/generator/INameGenerator.ts",
+    "src/generator/NameFactory.ts",
+    "src/generator/OrderedNameGenerator.ts",
+    "src/transformers/TransformPlugin.ts",
+    "src/transformers/TransformerManager.ts",
+    "src/transformers/layout/DisableConsoleTransformer.ts",
+    "src/transformers/rename/RenameFileNameTransformer.ts",
+    "src/transformers/rename/RenameIdentifierTransformer.ts",
+    "src/transformers/rename/RenamePropertiesTransformer.ts",
+    "src/transformers/rename/ShorthandPropertyTransformer.ts",
+    "src/utils/FileUtils.ts",
+    "src/utils/ListUtil.ts",
+    "src/utils/NameCacheUtil.ts",
+    "src/utils/NodeUtils.ts",
+    "src/utils/OhsUtil.ts",
+    "src/utils/ScopeAnalyzer.ts",
+    "src/utils/SourceMapUtil.ts",
+    "src/utils/TransformUtil.ts",
+    "src/utils/TypeUtils.ts",
+  ]
+
+  deps = [ "//third_party/typescript:build_typescript" ]
+  script = "compile_arkguard.py"
+  args = [
+    rebase_path(get_path_info("./", "abspath")),
+    rebase_path("${typescript_dir}/ohos-typescript-4.9.5-r4.tgz"),
+    rebase_path("${target_out_dir}"),
+  ]
+
+  outputs = [ "${target_out_dir}/arkguard-1.1.3.tgz" ]
+}

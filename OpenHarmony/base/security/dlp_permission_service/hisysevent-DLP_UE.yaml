@@ -1,0 +1,57 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: DLP_UE
+
+DLP_FILE_CREATE_EVENT:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: security_dlp_file_generate, preserve: true}
+  PNAMEID: {type: STRING, desc: Application Package Name}
+  PVERSIONID: {type: STRING, desc: Application Version}
+  CODE: {type: INT32, desc: Return value of file generation}
+  FILE_SIZE: {type: INT64, desc: Size of the file for which permissions are to be set}
+  FILE_TYPE: {type: STRING, desc: File type for which permissions are to be set}
+  POLICY_SIZE_ENC: {type: INT64, desc: Encrypted Permission File Size}
+  PKG_NAME: {type: STRING, desc: Name of the invoked application package}
+
+DLP_FILE_OPEN_EVENT:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: security_dlp_file_open, preserve: true}
+  PNAMEID: {type: STRING, desc: Application Package Name}
+  PVERSIONID: {type: STRING, desc: Application Version}
+  CODE: {type: INT32, desc: Return value when the file is opened}
+  SANDBOX_PKGNAME: {type: STRING, desc: Open the dlp file and apply the package name}
+  SANDBOX_INDEX: {type: INT32, desc: ID of the application for opening the dlp file}
+  ACCOUNT_TYPE: {type: STRING, desc: Account Type}
+  FILE_SIZE: {type: INT64, desc: Size of the file to be opened}
+  POLICY_SIZE_ENC: {type: INT64, desc: Size with Decryption Policy}
+
+DLP_MANAGER_ACCOUNT_LOGIN:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: security_dlp_account_stat, preserve: true}
+  PNAMEID: {type: STRING, desc: Application Package Name}
+  PVERSIONID: {type: STRING, desc: Application Version}
+  ACCOUNT_TYPE: {type: STRING, desc: Account Type}
+  ACCOUNT_STATUS: {type: INT32, desc: Account status}
+  LOGIN_FAIL_CODE: {type: INT32, desc: No login event}
+  PKG_NAME: {type: STRING, desc: Invoking application package name}
+
+DLP_MANAGER_FILE_CONFIGURATION:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: security_dlp_file_configuration, preserve: true}
+  PNAMEID: {type: STRING, desc: Application Package Name}
+  PVERSIONID: {type: STRING, desc: Application Version}
+  OPERATION: {type: STRING, desc: Operation type}
+  READ_SCOPE: {type: STRING, desc: Authorization scope}
+  WRITE_SCOPE: {type: STRING, desc: Authorization scope}
+  ADVANCED_SETTINGS: {type: BOOL, desc: Whether to use advanced settings}
+  STORE_PATH: {type: BOOL, desc: Indicates whether to use the storage path}
+  ACCOUNT_VERIFY_SUCC: {type: INT32, desc: Number of successful account input verification times}
+  ACCOUNT_VERIFY_FAIL: {type: INT32, desc: Number of account input verification failures}
+  VALID_DATE: {type: BOOL, desc: Whether to use the validity period}

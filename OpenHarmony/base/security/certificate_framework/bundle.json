@@ -1,0 +1,77 @@
+{
+    "name": "@ohos/certificate_framework",
+    "version": "4.0",
+    "description": "Openharmony's certificate framework.",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/security/certificate_framework"
+    },
+    "dirs": {},
+    "scripts": {},
+    "author": {},
+    "repository": "",
+    "license": "Apache License 2.0",
+    "component": {
+      "name": "certificate_framework",
+      "subsystem": "security",
+      "syscap": [ "SystemCapability.Security.Cert" ],
+      "features": [ "certificate_framework_enabled" ],
+      "adapted_system_type": [ "standard" ],
+      "rom": "1024KB",
+      "ram": "5120KB",
+      "deps": {
+        "components": [
+          "c_utils",
+          "crypto_framework",
+          "hilog",
+          "napi",
+          "openssl"
+        ],
+        "third_party": [
+        ]
+      },
+      "build": {
+        "sub_component": [
+          "//base/security/certificate_framework:certificate_framework_component"
+        ],
+        "inner_kits": [
+          {
+            "name": "//base/security/certificate_framework/frameworks/core:certificate_framework_core",
+            "header": {
+              "header_files": [
+                "certificate/cert_chain_validator.h",
+                "certificate/certificate.h",
+                "certificate/crl.h",
+                "certificate/cert_crl_collection.h",
+                "certificate/x509_cert_match_parameters.h",
+                "certificate/x509_crl_match_parameters.h",
+                "certificate/x509_certificate.h",
+                "certificate/x509_cert_chain.h",
+                "certificate/x509_distinguished_name.h",
+                "certificate/x509_trust_anchor.h",
+                "certificate/x509_cert_chain_validate_params.h",
+                "certificate/x509_cert_chain_validate_result.h",
+                "certificate/x509_crl_entry.h",
+                "certificate/x509_crl.h",
+                "certificate/cert_crl_common.h",
+                "common/cf_blob.h",
+                "common/cf_object_base.h",
+                "common/cf_result.h",
+                "include/cf_api.h",
+                "include/cf_param.h",
+                "include/cf_type.h"
+              ],
+              "header_base": "//base/security/certificate_framework/interfaces/inner_api"
+            }
+          },
+          {
+            "name": "//base/security/certificate_framework/frameworks/cj:cj_cert_ffi"
+          }
+        ],
+        "test": [
+            "//base/security/certificate_framework:certificate_framework_test",
+            "//base/security/certificate_framework:certificate_framework_fuzztest"
+        ]
+      }
+    }
+}

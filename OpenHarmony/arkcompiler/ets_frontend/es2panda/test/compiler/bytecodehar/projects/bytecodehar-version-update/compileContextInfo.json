@@ -1,0 +1,53 @@
+{
+    "compileEntries": [
+        "&myapp/hap-file-exec&"
+    ],
+    "hspPkgNames": [],
+    "pkgContextInfo": {
+        "myapp": {
+            "packageName": "myapp",
+            "bundleName": "",
+            "moduleName": "",
+            "version": "",
+            "entryPath": "",
+            "isSo": false,
+            "dependencyAlias": ""
+        },
+        "lib": {
+            "packageName": "lib",
+            "bundleName": "bundle",
+            "moduleName": "module",
+            "version": "2.0.0",
+            "entryPath": "",
+            "isSo": false,
+            "dependencyAlias": ""
+        },
+        "@ohos/lib": {
+            "packageName": "@ohos/lib",
+            "bundleName": "",
+            "moduleName": "module",
+            "version": "2.0.0",
+            "entryPath": "",
+            "isSo": false,
+            "dependencyAlias": ""
+        },
+        "lib2": {
+            "packageName": "lib2",
+            "bundleName": "",
+            "moduleName": "",
+            "version": "",
+            "entryPath": "",
+            "isSo": false,
+            "dependencyAlias": ""
+        },
+        "@ohos/lib2": {
+            "packageName": "@ohos/lib2",
+            "bundleName": "",
+            "moduleName": "",
+            "version": "",
+            "entryPath": "",
+            "isSo": false,
+            "dependencyAlias": ""
+        }
+    }
+}

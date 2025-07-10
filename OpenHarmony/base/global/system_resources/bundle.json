@@ -1,0 +1,63 @@
+{
+    "name": "@ohos/system_resources",
+    "version": "4.0",
+    "description": "global resources at the system level",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache V2",
+    "repository": "https://gitee.com/openharmony/resources",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "resources"
+    ],
+    "keywords": [
+        "global",
+        "resources"
+    ],
+    "envs": [],
+    "dirs": [],
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [
+        {
+            "name": "",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "segment": {
+        "destPath": "base/global/system_resources"
+    },
+    "component": {
+        "name": "system_resources",
+        "subsystem": "global",
+        "syscap": [],
+        "features": [
+            "system_resources_support_ext",
+            "system_resources_font_feature_product"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "rom": "792KB",
+        "ram": "700KB",
+        "deps": {
+            "components": [],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+              "//base/global/system_resources/systemres:systemres_hap",
+              "//base/global/system_resources:ohos_fonts"
+            ],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}

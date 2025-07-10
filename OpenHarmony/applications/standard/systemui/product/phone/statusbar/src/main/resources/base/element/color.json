@@ -1,0 +1,40 @@
+{
+  "color": [
+    {
+      "name": "default_background",
+      "value": "#66000000"
+    },
+    {
+      "name": "default_font_color",
+      "value": "#ffffffff"
+    },
+    {
+      "name": "battery_component_pic_level_low_color",
+      "value": "#ff0000"
+    },
+    {
+      "name": "battery_component_pic_charging_color",
+      "value": "#00ff21"
+    },
+    {
+      "name": "battery_background",
+      "value": "#00000000"
+    },
+    {
+      "name": "capsule_background_color",
+      "value": "#64BB5C"
+    },
+    {
+      "name" : "green_capsule_text_color",
+      "value" : "#ccFFFFFF"
+    },
+    {
+      "name": "background_color",
+      "value": "#DCDCDC"
+    },
+    {
+      "name": "control_center_complex_toggle_ring_mode_on_bg_color",
+      "value": "#FFFF9800"
+    }
+  ]
+}

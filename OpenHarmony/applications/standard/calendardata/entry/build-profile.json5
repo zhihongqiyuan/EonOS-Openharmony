@@ -1,0 +1,11 @@
+{
+  apiType: 'stageMode',
+  showInServiceCenter: false,
+  buildOption: {
+  },
+  "targets": [
+    {
+      "name": "default",
+    }
+  ]
+}

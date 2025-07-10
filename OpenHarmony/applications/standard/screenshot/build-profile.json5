@@ -1,0 +1,29 @@
+{
+  "app": {
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "release",
+        "compileSdkVersion": 20,
+        "compatibleSdkVersion": 20,
+        "targetSdkVersion": 20,
+        "runtimeOS": "OpenHarmony",
+      }
+    ],
+    "signingConfigs": []
+  },
+  "modules": [
+    {
+      "name": "phone",
+      "srcPath": "./product/phone",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default",
+          ],
+        },
+      ],
+    }
+  ],
+}

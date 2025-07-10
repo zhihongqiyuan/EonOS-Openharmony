@@ -1,0 +1,65 @@
+{
+  "name": "@ohos/ylong_runtime",
+  "version": "4.0",
+  "description": "Rust runtime implementation",
+  "publishAs": "code-segment",
+  "homePage": "https://gitee.com/openharmony",
+  "repository": "https://gitee.com/openharmony/commonlibrary_rust_ylong_runtime",
+  "license": "Apache License 2.0",
+  "language": "Rust",
+  "segment": {
+    "destPath": "commonlibrary/rust/ylong_runtime"
+  },
+  "licensePath": "COPYING",
+  "readmePath": {
+    "en": "README.md",
+    "zh": "README_zh.md"
+  },
+  "component": {
+    "name": "ylong_runtime",
+    "subsystem": "commonlibrary",
+    "features": [],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "100KB",
+    "ram": "~200KB",
+    "deps": {
+      "components": [
+        "ffrt"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "sub_component": [
+        "//commonlibrary/rust/ylong_runtime/ylong_io:ylong_io",
+        "//commonlibrary/rust/ylong_runtime/ylong_signal:ylong_signal"
+      ],
+      "inner_kits": [
+        {
+          "name": "//commonlibrary/rust/ylong_runtime/ylong_runtime:ylong_runtime",
+          "header": {
+            "header_base": [],
+            "header_files": []
+          }
+        },
+        {
+          "name": "//commonlibrary/rust/ylong_runtime/ylong_runtime:ylong_runtime_static"
+        },
+        {
+          "name": "//commonlibrary/rust/ylong_runtime/ylong_runtime_macros:ylong_runtime_macros"
+        },
+        {
+          "name": "//commonlibrary/rust/ylong_runtime/ylong_signal:ylong_signal"
+        },
+        {
+          "name": "//commonlibrary/rust/ylong_runtime/ylong_io:ylong_io"
+        }
+      ],
+      "test": [
+        "//commonlibrary/rust/ylong_runtime/test:unittest",
+        "//commonlibrary/rust/ylong_runtime/test:sdvtest"
+      ]
+    }
+  }
+}

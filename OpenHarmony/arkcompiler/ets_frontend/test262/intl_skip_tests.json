@@ -1,0 +1,37 @@
+[
+    {
+        "reason": "Not support eval",
+        "files": [
+            "intl402/RelativeTimeFormat/constructor/constructor/proto-from-ctor-realm.js",
+            "intl402/Collator/proto-from-ctor-realm.js",
+            "intl402/DisplayNames/proto-from-ctor-realm.js",
+            "intl402/DateTimeFormat/proto-from-ctor-realm.js",
+            "intl402/ListFormat/constructor/constructor/proto-from-ctor-realm.js",
+            "intl402/Segmenter/constructor/constructor/proto-from-ctor-realm.js",
+            "intl402/Segmenter/proto-from-ctor-realm.js",
+            "intl402/NumberFormat/proto-from-ctor-realm.js",
+            "intl402/Locale/proto-from-ctor-realm.js",
+            "intl402/PluralRules/proto-from-ctor-realm.js",
+            "intl402/DisplayNames/ctor-custom-get-prototype-poison-throws.js",
+            "intl402/DisplayNames/ctor-custom-prototype.js",
+            "intl402/Segmenter/ctor-custom-get-prototype-poison-throws.js",
+            "intl402/Segmenter/ctor-custom-prototype.js",
+            "intl402/NumberFormat/prototype/resolvedOptions/basic.js",
+            "intl402/NumberFormat/test-option-useGrouping.js"
+        ]
+    },
+    {
+        "reason": "Current ICU version not support yet",
+        "files": [
+            "intl402/language-tags-canonicalized.js",
+            "intl402/language-tags-valid.js",
+            "intl402/NumberFormat/prototype/formatToParts/main.js",
+            "intl402/NumberFormat/currency-digits.js",
+            "intl402/NumberFormat/prototype/format/numbering-systems.js",
+            "intl402/NumberFormat/prototype/formatToParts/unit.js",
+            "intl402/Intl/getCanonicalLocales/unicode-ext-canonicalize-timezone.js",
+            "intl402/Intl/getCanonicalLocales/unicode-ext-canonicalize-yes-to-true.js",
+            "intl402/Intl/getCanonicalLocales/canonicalized-tags.js"
+        ]
+    }
+]

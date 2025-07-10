@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px"
+     height="12px"
+     viewBox="0 0 12 12"
+     version="1.1"
+     xmlns="http://www.w3.org/2000/svg"
+    >
+    <title>Rectangle 9 Copy 5</title>
+    <g
+        id="password"
+        stroke="none"
+        stroke-width="1"
+        fill="none"
+        fill-rule="evenodd"
+        opacity="0.9">
+        <g
+            id="Lockscreen_password_six-digit-number"
+            transform="translate(-376.000000, -728.000000)"
+            fill="#FFFFFF">
+            <g
+                id="Group"
+                transform="translate(304.000000, 728.000000)">
+                <g id="Group-2">
+                    <rect
+                        id="Rectangle-9-Copy-5"
+                        x="72"
+                        y="0"
+                        width="12"
+                        height="12"
+                        rx="6"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

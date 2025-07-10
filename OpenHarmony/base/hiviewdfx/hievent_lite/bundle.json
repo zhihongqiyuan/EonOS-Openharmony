@@ -1,0 +1,42 @@
+{
+    "name": "@ohos/hievent_lite",
+    "description": "event log for liteos-m kernel",
+    "optional": "false",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/hiviewdfx/hievent_lite"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "hievent_lite",
+        "subsystem": "hiviewdfx",
+        "adapted_system_type": [
+            "mini"
+        ],
+        "features": [
+            "hievent_lite_fault_file_size",
+            "hievent_lite_ue_file_size",
+            "hievent_lite_stat_file_size",
+            "hievent_lite_cache_size",
+            "hievent_lite_file_buffer_size",
+            "hievent_lite_customize_implementation"
+        ],
+        "rom": "26KB",
+        "ram": "~10KB",
+        "deps": {
+            "components": [
+                "hiview_lite",
+                "samgr_lite"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//base/hiviewdfx/hievent_lite:hievent_lite"
+            ]
+        }
+    }
+}

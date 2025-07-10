@@ -1,0 +1,17 @@
+include/
+libs/
+lib/
+build/
+jsoncpp/
+*.user
+ui_*
+/cmake-build-debug/
+.idea
+.vscode/
+automock/.babelrc
+automock/.eslintrc
+automock/dist/
+automock/package.json
+automock/runtime/
+automock/tsconfig.json
+automock/mock-generate/src/test/report

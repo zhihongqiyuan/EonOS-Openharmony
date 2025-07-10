@@ -1,0 +1,162 @@
+/*
+ * Copyright (c) 2022-2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+"use strict";
+if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+class ChildComponent extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.trailing = undefined;
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.trailing !== undefined) {
+            this.trailing = params.trailing;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+    }
+    aboutToBeDeleted() {
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    updateRecycleElmtId(oldElmtId, newElmtId) {
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+        }, Column);
+        this.trailing?.bind(this)?.();
+        Column.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+class Index extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__message = new ObservedPropertySimplePU('Hello World', this, "message");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.message !== undefined) {
+            this.message = params.message;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__message.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__message.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get message() {
+        return this.__message.get();
+    }
+    set message(newValue) {
+        this.__message.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Row.create();
+            Row.height('100%');
+        }, Row);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+            Column.width('100%');
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create(this.message);
+            Text.fontSize(50);
+            Text.fontWeight(FontWeight.Bold);
+        }, Text);
+        Text.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            __Recycle__.create();
+        }, __Recycle__);
+        {
+            this.observeRecycleComponentCreation("ChildComponent", (elmtId, isInitialRender, recycleNode = null) => {
+                ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                if (isInitialRender) {
+                    let componentCall = recycleNode ? recycleNode : new ChildComponent(this, {
+                        trailing: () => {
+                            this.observeComponentCreation2((elmtId, isInitialRender) => {
+                                Row.create();
+                            }, Row);
+                            Row.pop();
+                        }
+                    }, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/render_decorator/@builderParam/@builderParam1.ets", line: 40, col: 9 });
+                    ViewPU.createRecycle(componentCall, recycleNode !== null, "ChildComponent", () => {
+                        if (recycleNode && typeof recycleNode.aboutToReuseInternal === "function") {
+                            recycleNode.aboutToReuseInternal();
+                        }
+                        else {
+                            if (recycleNode.aboutToReuse && typeof recycleNode.aboutToReuse === "function") {
+                                recycleNode.aboutToReuse({ trailing: () => {
+                                        this.observeComponentCreation2((elmtId, isInitialRender) => {
+                                            Row.create();
+                                        }, Row);
+                                        Row.pop();
+                                    } });
+                            }
+                            recycleNode.rerender();
+                        }
+                    });
+                    let paramsLambda = () => {
+                        return {
+                            trailing: () => {
+                                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                                    Row.create();
+                                }, Row);
+                                Row.pop();
+                            }
+                        };
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {});
+                }
+                ViewStackProcessor.StopGetAccessRecording();
+            });
+        }
+        __Recycle__.pop();
+        Column.pop();
+        Row.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+      return "Index";
+    }
+}
+registerNamedRoute(() => new Index(undefined, {}), "", { bundleName: "com.example.application", moduleName: "application", pagePath: "pages/utForPartialUpdate/render_decorator/@builderParam/@builderParam1", pageFullPath: "application/entry/src/main/ets/pages/utForPartialUpdate/render_decorator/@builderParam/@builderParam1", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=@builderParam1.js.map

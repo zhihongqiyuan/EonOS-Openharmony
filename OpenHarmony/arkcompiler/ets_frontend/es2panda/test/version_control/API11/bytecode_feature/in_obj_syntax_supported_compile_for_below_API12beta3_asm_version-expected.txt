@@ -1,0 +1,94 @@
+slotNum = 0x4
+.language ECMAScript
+.function any .InObjSyntax(any a0, any a1, any a2, any a3) {
+label_1: 
+label_0: 
+	ldlexvar 0x0, 0x1
+	callruntime.callinit 0x0, a2
+	lda a3
+	stprivateproperty 0x2, 0x0, 0x0, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0xd
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+	nop
+label_7: 
+label_0: 
+	newlexenv 0x2
+label_2: 
+label_4: 
+	ldhole
+	sta v1
+	defineclasswithbuffer 0x0, .InObjSyntax, _1, 0x1, v1
+	sta v1
+	ldobjbyname 0x1, prototype
+	definemethod 0x3, .instance_initializer, 0x0
+	stlexvar 0x0, 0x1
+	callruntime.createprivateproperty 0x1, _2
+label_3: 
+end_label_3: 
+	jmp label_1
+label_9: 
+	sta v0
+label_6: 
+	poplexenv
+	lda v0
+	throw
+label_1: 
+	poplexenv
+	tryldglobalbyname 0x4, print
+	sta v0
+	lda v1
+	ldobjbyname 0x5, getPrivateProperty
+	sta v2
+	lda.str foo
+	sta v3
+	mov v4, v1
+	mov v5, v3
+	newobjrange 0x7, 0x2, v4
+	sta v3
+	lda v2
+	callthis1 0x9, v1, v3
+	sta v1
+	lda v0
+	callarg1 0xb, v1
+	returnundefined
+label_8: 
+}
+
+.catchall label_2, end_label_3, label_9
+
+slotNum = 0x2
+.language ECMAScript
+.function any .getPrivateProperty(any a0, any a1, any a2, any a3) {
+label_3: 
+label_0: 
+	lda a3
+	testin 0x0, 0x0, 0x0
+	isfalse
+	jnez label_1
+label_2: 
+	ldtrue
+	return
+label_1: 
+	ldfalse
+	return
+label_4: 
+}
+
+slotNum = 0x2
+.language ECMAScript
+.function any .instance_initializer(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str private
+	callruntime.defineprivateproperty 0x0, 0x0, 0x0, a2
+	returnundefined
+label_2: 
+}
+
+

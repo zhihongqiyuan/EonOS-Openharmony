@@ -1,0 +1,4 @@
+src:*base/security/security_guard/test/unittest/*
+src:*base/security/security_guard/test/fuzztest/*
+src:*third_party/googletest/googlemock/include/gmock/*
+src:*third_party/googletest/googletest/include/gtest/*

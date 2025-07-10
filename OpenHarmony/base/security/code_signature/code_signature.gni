@@ -1,0 +1,39 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+fuzz_module_output_path = "code_signature/code_signature"
+code_signature_root_dir = "//base/security/code_signature"
+fsverity_utils_dir = "//third_party/fsverity-utils"
+openssl_dir = "//third_party/openssl"
+rust_openssl_dir = "//third_party/rust/crates/rust-openssl"
+third_party_securec_dir = "//third_party/bounds_checking_function"
+selinux_dir = "//third_party/selinux"
+
+declare_args() {
+  code_signature_support_openharmony_ca = true
+  code_signature_support_oh_code_sign = false
+  code_signature_enable_xpm_mode = 0
+  code_signature_support_oh_release_app = false
+  code_signature_support_app_allow_list = false
+  code_signature_screenlock_mgr_enable = false
+  if (defined(global_parts_info) &&
+      defined(global_parts_info.theme_screenlock_mgr)) {
+    code_signature_screenlock_mgr_enable = true
+  }
+  jit_code_sign_enable = false
+}
+
+if (defined(target_cpu) && target_cpu == "arm64" &&
+    code_signature_support_oh_code_sign && !is_emulator) {
+  jit_code_sign_enable = true
+}

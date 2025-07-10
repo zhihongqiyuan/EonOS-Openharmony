@@ -1,0 +1,8 @@
+#21819
+test262/data/other_tests/built-ins/Array/prototype/reduce/callbackfn-resize-arraybuffer.js
+test262/data/other_tests/built-ins/TypedArray/prototype/with/index-casted-to-number.js
+test262/data/other_tests/built-ins/TypedArray/prototype/reduce/callbackfn-resize.js
+
+#23295
+test262/data/other_tests/built-ins/Array/prototype/reduceRight/callbackfn-resize-arraybuffer.js
+

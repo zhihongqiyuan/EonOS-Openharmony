@@ -1,0 +1,112 @@
+slotNum = 0x2
+expectedProperty = 0x1
+.language ECMAScript
+.function any .#~@0=#HelloWorld(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str HelloWorld
+	stobjbyname 0x0, str, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x4
+expectedProperty = 0x1
+.language ECMAScript
+.function any .#~@1=#HelloWorld2(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str 1
+	stobjbyname 0x0, str2, a2
+	lda.str HelloWorld2
+	stobjbyname 0x2, str2, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0xf
+expectedProperty = 0x3
+.language ECMAScript
+.function any .#~@2=#AAA(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, .#~@2=@2~=#, _2, 0x0, v0
+	sta v0
+	ldobjbyname 0x1, prototype
+	lda v0
+	stobjbyname 0x3, BBB, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x5, .#~@2=@2~^1=#, _3, 0x0, v0
+	sta v0
+	ldobjbyname 0x6, prototype
+	lda v0
+	stobjbyname 0x8, CCC, a2
+	ldhole
+	sta v0
+	defineclasswithbuffer 0xa, .#~@2=@2~^2=#, _4, 0x0, v0
+	sta v0
+	ldobjbyname 0xb, prototype
+	lda v0
+	stobjbyname 0xd, DDD, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@2=@2~=#(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@2=@2~^1=#(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~@2=@2~^2=#(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x9
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, .#~@0=#HelloWorld, _5, 0x0, v0
+	ldobjbyname 0x1, prototype
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x3, .#~@1=#HelloWorld2, _6, 0x0, v0
+	ldobjbyname 0x4, prototype
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x6, .#~@2=#AAA, _7, 0x0, v0
+	ldobjbyname 0x7, prototype
+	returnundefined
+label_2: 
+}
+
+

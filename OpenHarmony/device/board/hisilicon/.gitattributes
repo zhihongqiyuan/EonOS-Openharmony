@@ -1,0 +1,7 @@
+hispark_phoenix/linux/boot/atf.bin filter=lfs diff=lfs merge=lfs -text
+hispark_phoenix/linux/boot/bootargs.bin filter=lfs diff=lfs merge=lfs -text
+hispark_phoenix/linux/boot/fastboot.bin filter=lfs diff=lfs merge=lfs -text
+hispark_phoenix/linux/boot/slaveboot.bin filter=lfs diff=lfs merge=lfs -text
+hispark_phoenix/linux/boot/dtbo.img filter=lfs diff=lfs merge=lfs -text
+hispark_phoenix/linux/boot/logo.img filter=lfs diff=lfs merge=lfs -text
+hispark_phoenix/linux/boot/panel.img filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,34 @@
+{
+  "shortcuts": [
+    {
+      "icon": "$media:16777224",
+      "label": "$string:16777223",
+      "shortcutId": "id_test1",
+      "wants": [
+        {
+          "abilityName": "MainAbility001",
+          "bundleName": "com.ohos.hello"
+        },
+        {
+          "abilityName": "MainAbility002",
+          "bundleName": "com.ohos.world"
+        }
+      ]
+    },
+    {
+      "icon": "$media:icon",
+      "label": "$string:entry_label",
+      "shortcutId": "id002",
+      "wants": [
+        {
+          "abilityName": "MainAbility001",
+          "bundleName": "com.ohos.hello"
+        },
+        {
+          "abilityName": "MainAbility002",
+          "bundleName": "com.ohos.world"
+        }
+      ]
+    }
+  ]
+}

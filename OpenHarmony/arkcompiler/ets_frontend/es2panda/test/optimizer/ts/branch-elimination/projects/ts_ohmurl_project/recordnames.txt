@@ -1,0 +1,8 @@
+test-export-bundle:myapp/test-export-bundle
+test-export-non-ohmurl:test-export-non-ohmurl
+test-export-normalized:&myapp/test-export-normalized&
+test-export-normalized-bundlename:bundlename&myapp/test-export-normalized-bundlename&
+test-export-package:myapp/test-export-package
+test-import-datatypes:&myapp/test-import-datatypes&
+test-import-exec:&myapp/test-import-exec&
+test-import-namespace:&myapp/test-import-namespace&

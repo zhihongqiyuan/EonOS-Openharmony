@@ -1,0 +1,110 @@
+slotNum = 0x23
+.language ECMAScript
+.function any .#*#foo(any a0, any a1, any a2) {
+label_16: 
+label_5: 
+	ldai 0x1
+	sta v0
+	ldlexvar 0x0, 0x0
+	throw.undefinedifholewithname lexVar
+	lda v0
+	stlexvar 0x0, 0x0
+	ldlexvar 0x0, 0x0
+	sta v1
+	throw.undefinedifholewithname lexVar
+	lda v0
+	greater 0x9, v1
+	jeqz label_7
+label_8: 
+	tryldglobalbyname 0xa, print
+	sta v1
+	lda.str good1
+	sta v2
+	lda v1
+	callarg1 0xb, v2
+	jmp label_9
+label_7: 
+	tryldglobalbyname 0xd, print
+	sta v1
+	lda.str good2
+	sta v2
+	lda v1
+	callarg1 0xe, v2
+label_9: 
+	ldlocalmodulevar 0x0
+	throw.undefinedifholewithname moduleVar
+	lda v0
+	stmodulevar 0x0
+	ldlocalmodulevar 0x0
+	sta v1
+	throw.undefinedifholewithname moduleVar
+	lda v0
+	greater 0x10, v1
+	jeqz label_10
+label_11: 
+	tryldglobalbyname 0x11, print
+	sta v1
+	lda.str good3
+	sta v2
+	lda v1
+	callarg1 0x12, v2
+	jmp label_12
+label_10: 
+	tryldglobalbyname 0x14, print
+	sta v1
+	lda.str good4
+	sta v2
+	lda v1
+	callarg1 0x15, v2
+label_12: 
+	createobjectwithbuffer 0x17, _2
+	sta v1
+	lda v0
+	definepropertybyname 0x18, fa, v1
+	lda v1
+	ldobjbyname 0x1a, fa
+	sta v1
+	lda v0
+	greater 0x1c, v1
+	jeqz label_13
+label_14: 
+	tryldglobalbyname 0x1d, print
+	sta v0
+	lda.str good5
+	sta v1
+	lda v0
+	callarg1 0x1e, v1
+	jmp label_15
+label_13: 
+	tryldglobalbyname 0x20, print
+	sta v0
+	lda.str good6
+	sta v1
+	lda v0
+	callarg1 0x21, v1
+label_15: 
+	returnundefined
+label_17: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	newlexenv 0x1
+	definefunc 0x0, .#*#foo, 0x0
+	sta v0
+	ldai 0x1
+	sta v1
+	lda v1
+	stmodulevar 0x0
+	lda v1
+	stlexvar 0x0, 0x0
+	lda v0
+	callarg0 0x1
+	returnundefined
+label_2: 
+}
+
+

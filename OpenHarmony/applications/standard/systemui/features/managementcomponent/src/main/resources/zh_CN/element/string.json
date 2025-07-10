@@ -1,0 +1,132 @@
+{
+  "string": [
+    {
+      "name": "notification",
+      "value": "通知"
+    },
+    {
+      "name": "notificationManagement",
+      "value": "通知管理"
+    },
+    {
+      "name": "batch_Management",
+      "value": "批量管理"
+    },
+    {
+      "name": "version",
+      "value": "版本 "
+    },
+    {
+      "name": "allowNotification",
+      "value": "允许通知"
+    },
+    {
+      "name": "noDisturb",
+      "value": "免打扰"
+    },
+    {
+      "name": "noDisturb_closed",
+      "value": "已关闭"
+    },
+    {
+      "name": "noDisturb_opened",
+      "value": "已启动"
+    },
+    {
+      "name": "slotType",
+      "value": "类别"
+    },
+    {
+      "name": "slot_unknown",
+      "value": "此应用未发布任何通知"
+    },
+    {
+      "name": "slot_social_communication",
+      "value": "社会交往"
+    },
+    {
+      "name": "slot_service_information",
+      "value": "服务信息"
+    },
+    {
+      "name": "slot_content_information",
+      "value": "内容信息"
+    },
+    {
+      "name": "slot_other",
+      "value": "其他"
+    },
+    {
+      "name": "startDate",
+      "value": "开始日期"
+    },
+    {
+      "name": "endDate",
+      "value": "结束日期"
+    },
+    {
+      "name": "startTime",
+      "value": "开始时间"
+    },
+    {
+      "name": "endTime",
+      "value": "结束时间"
+    },
+    {
+      "name": "repeat",
+      "value": "重复"
+    },
+    {
+      "name": "noDisturb_once_label",
+      "value": "仅一次："
+    },
+    {
+      "name": "noDisturb_daily_label",
+      "value": "每天："
+    },
+    {
+      "name": "noDisturb_clearly_label",
+      "value": "自定义："
+    },
+    {
+      "name": "noDisturb_none",
+      "value": "关闭"
+    },
+    {
+      "name": "noDisturb_once",
+      "value": "仅一次"
+    },
+    {
+      "name": "noDisturb_daily",
+      "value": "每天"
+    },
+    {
+      "name": "noDisturb_clearly",
+      "value": "自定义"
+    },
+    {
+      "name": "noDisturb_nextDay",
+      "value": "次日"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
+    },
+    {
+      "name": "confirm",
+      "value": "确定"
+    },
+    {
+      "name": "notificationStyle",
+      "value": "提醒方式"
+    },
+    {
+      "name": "notificationStyle_banner",
+      "value": "横幅通知"
+    },
+    {
+      "name": "notificationSound",
+      "value": "通知铃声"
+    }
+  ]
+}

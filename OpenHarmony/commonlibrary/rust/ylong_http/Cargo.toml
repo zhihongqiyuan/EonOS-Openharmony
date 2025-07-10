@@ -1,0 +1,6 @@
+[workspace]
+resolver = "2"
+members = [
+    "ylong_http",
+    "ylong_http_client",
+]

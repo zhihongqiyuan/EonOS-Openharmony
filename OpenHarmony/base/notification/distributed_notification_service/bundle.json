@@ -1,0 +1,217 @@
+{
+  "name": "@ohos/distributed_notification_service",
+  "version": "",
+  "description": "为应用程序提供发布通知的能力",
+  "homePage": "https://gitee.com/openharmony",
+  "license": "Apache-2.0",
+  "repository": "https://gitee.com/openharmony/notification_ans_standard",
+  "domain": "os",
+  "language": "",
+  "publishAs": "code-segment",
+  "private": false,
+  "scripts": {},
+  "tags": [
+    "base"
+  ],
+  "keywords": [
+    "notification",
+    "ans",
+    "distributed_notification_service"
+  ],
+  "envs": [],
+  "dirs": [],
+  "author": {
+    "name": "",
+    "email": "",
+    "url": ""
+  },
+  "contributors": [
+    {
+      "name": "",
+      "email": "",
+      "url": ""
+    }
+  ],
+  "segment": {
+    "destPath": "base/notification/distributed_notification_service"
+  },
+  "component": {
+    "name": "distributed_notification_service",
+    "subsystem": "notification",
+    "syscap": [
+      "SystemCapability.Notification.Notification",
+      "SystemCapability.Notification.ReminderAgent",
+      "SystemCapability.Notification.NotificationSettings"
+    ],
+    "features": [
+      "distributed_notification_service_feature_summary",
+      "distributed_notification_service_feature_additional_control",
+      "distributed_notification_service_feature_disable_fa_model",
+      "distributed_notification_service_feature_privileged_message",
+      "distributed_notification_service_disable_control",
+      "distributed_notification_service_feature_badge_manager",
+      "distributed_notification_service_feature_local_liveview",
+      "distributed_notification_service_feature_distributed_db",
+      "distributed_notification_service_feature_disturb_manager",
+      "distributed_notification_service_feature_slot_manager",
+      "distributed_notification_service_feature_additional_config",
+      "distributed_notification_service_feature_open_notification_settings",
+      "distributed_notification_service_feature_all_scenario_collaboration",
+      "distributed_notification_service_feature_phone_collaboration"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "3000KB",
+    "ram": "16000KB",
+    "hisysevent_config":[
+      "//base/notification/distributed_notification_service/hisysevent.yaml"
+    ],
+    "deps": {
+      "components": [
+        "samgr",
+        "hitrace",
+        "napi",
+        "hilog",
+        "relational_store",
+        "data_share",
+        "device_usage_statistics",
+        "bundle_framework",
+        "time_service",
+        "safwk",
+        "ability_runtime",
+        "ability_base",
+        "audio_framework",
+        "common_event_service",
+        "os_account",
+        "hisysevent",
+        "hicollie",
+        "access_token",
+        "ipc",
+        "player_framework",
+        "image_framework",
+        "init",
+        "eventhandler",
+        "c_utils",
+        "i18n",
+        "device_manager",
+        "kv_store",
+        "ffrt",
+        "device_standby",
+        "resource_management",
+        "config_policy",
+        "screenlock_mgr",
+        "ace_engine",
+        "openssl",
+        "power_manager",
+        "dsoftbus",
+        "zlib",
+        "libuv",
+        "json",
+        "libxml2",
+        "node",
+        "googletest",
+        "icu",
+        "node",
+        "cJSON",
+        "selinux_adapter"
+      ],
+      "third_party": [
+        "libuv",
+        "libxml2",
+        "icu",
+        "json",
+        "node"
+      ]
+    },
+    "build": {
+      "group_type": {
+        "base_group": [
+
+        ],
+        "fwk_group": [
+          "//base/notification/distributed_notification_service/frameworks/ans:ans_client",
+          "//base/notification/distributed_notification_service/frameworks/js/napi:napi_notification",
+          "//base/notification/distributed_notification_service/frameworks/js/napi:napi_reminder",
+          "//base/notification/distributed_notification_service/interfaces/ndk:ohnotification",
+          "//base/notification/distributed_notification_service/frameworks/reminder:reminder_client"
+        ],
+        "service_group": [
+          "//base/notification/distributed_notification_service/sa_profile:ans_sa_profile",
+          "//base/notification/distributed_notification_service/services:ans_service",
+          "//base/notification/distributed_notification_service/services/dialog_ui/enable_notification_dialog:dialog_hap",
+          "//base/notification/distributed_notification_service/services/reminder/sa_profile:reminder_sa_profile",
+          "//base/notification/distributed_notification_service/services/reminder:reminder_service",
+          "//base/notification/distributed_notification_service/tools:tools_shell"
+        ]
+      },
+      "inner_kits": [
+        {
+          "header": {
+            "header_base": "//base/notification/distributed_notification_service/interfaces/inner_api",
+            "header_files": [
+                "badge_number_callback_data.h",
+                "enabled_notification_callback_data.h",
+                "message_user.h",
+                "notification.h",
+                "notification_action_button.h",
+                "notification_basic_content.h",
+                "notification_bundle_option.h",
+                "notification_content.h",
+                "notification_conversational_content.h",
+                "notification_conversational_message.h",
+                "notification_disable.h",
+                "notification_distributed_options.h",
+                "notification_do_not_disturb_date.h",
+                "notification_flags.h",
+                "notification_helper.h",
+                "notification_long_text_content.h",
+                "notification_media_content.h",
+                "notification_multiline_content.h",
+                "notification_normal_content.h",
+                "notification_picture_content.h",
+                "notification_request.h",
+                "notification_slot.h",
+                "notification_sorting.h",
+                "notification_sorting_map.h",
+                "notification_subscribe_info.h",
+                "notification_subscriber.h",
+                "notification_template.h",
+                "notification_user_input.h"
+            ]
+          },
+          "name": "//base/notification/distributed_notification_service/frameworks/ans:ans_innerkits"
+        },
+        {
+          "header": {
+            "header_base": "//base/notification/distributed_notification_service/frameworks/cj/ffi/include",
+            "header_files": [
+              "inner_errors.h",
+              "macro.h",
+              "notification_enable.h",
+              "notification_manager_ffi.h",
+              "notification_manager_impl.h",
+              "notification_manager_log.h",
+              "notification_utils.h"
+            ]
+          },
+          "name": "//base/notification/distributed_notification_service/frameworks/cj/ffi:cj_notification_manager_ffi"
+        }
+      ],
+      "test": [
+        "//base/notification/distributed_notification_service/services/reminder/test/unittest:unittest",
+        "//base/notification/distributed_notification_service/services/ans/test/unittest:unittest",
+        "//base/notification/distributed_notification_service/services/distributed/test/unittest:ans_unit_test",
+        "//base/notification/distributed_notification_service/services/test/moduletest:moduletest",
+        "//base/notification/distributed_notification_service/frameworks/test/moduletest:moduletest",
+        "//base/notification/distributed_notification_service/frameworks/reminder/test/unittest:unittest",
+        "//base/notification/distributed_notification_service/frameworks/ans/test/unittest:unittest",
+        "//base/notification/distributed_notification_service/frameworks/core/test/unittest:unittest",
+        "//base/notification/distributed_notification_service/test:systemtest",
+        "//base/notification/distributed_notification_service/tools:unittest",
+        "//base/notification/distributed_notification_service/test/bechmarktest:benchmarktest",
+        "//base/notification/distributed_notification_service/test/fuzztest:fuzztest"
+      ]
+    }
+  }
+}

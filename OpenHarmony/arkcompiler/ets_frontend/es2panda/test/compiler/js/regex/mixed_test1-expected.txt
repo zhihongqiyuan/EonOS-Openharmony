@@ -1,0 +1,6 @@
+[
+  "Abcd # 😊 𝒜𝓑, 🎉🎊ef\ngHIjKL",
+  "ghi\nopQrstu % 🚀🚁 𝒟💻, 😄😁jkl",
+  "zabCde !&* 📝💡 𝓢🎉, 🐱‍👓👨‍💻rstuv",
+  "vW  $ ✨👋 𝓑🚀, 🥳🥸vwxyz"
+]

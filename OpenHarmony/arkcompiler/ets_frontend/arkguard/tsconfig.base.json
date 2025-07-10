@@ -1,0 +1,26 @@
+{
+  /* Visit https://aka.ms/tsconfig.json to read more about this file */
+  "compilerOptions": {
+    /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "target": "ES2015",
+    /* Specify what module code is generated. */
+    "module": "commonjs",
+    /* use strict mode to upscale security */
+    "alwaysStrict": false,
+    /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    "declaration": false,
+    /* Create source map files for emitted JavaScript files. */
+    "sourceMap": true,
+    // remove comments
+    "removeComments": false,
+    /* Set the newline character for emitting files. */
+    "newLine": "crlf",
+    // 编译后的js代码遵循何种规范
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    // 用于debug调试
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
+  }
+}

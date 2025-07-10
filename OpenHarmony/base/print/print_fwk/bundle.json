@@ -1,0 +1,166 @@
+{
+  "name": "@ohos/print_fwk",
+  "description": "Provide printer management and print ability for 3rd party app",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/print/print_fwk"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "print_fwk",
+    "subsystem": "print",
+    "syscap": [
+      "SystemCapability.Print.PrintFramework"
+    ],
+    "features": [
+      "print_fwk_feature_bsuni_driver",
+      "print_fwk_feature_bsuni_ghostscript"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom":"2MB",
+    "ram":"10MB",
+    "deps": {
+      "components": [
+        "ability_base",
+        "ability_runtime",
+        "access_token",
+        "backends",
+        "bundle_framework",
+        "c_utils",
+        "common_event_service",
+        "cups",
+        "cups-filters",
+        "drivers_interface_usb",
+        "eventhandler",
+        "hisysevent",
+        "hilog",
+        "init",
+        "ipc",
+        "jsoncpp",
+        "napi",
+        "netmanager_ext",
+        "os_account",
+        "safwk",
+        "samgr",
+        "security_guard",
+        "time_service",
+        "usb_manager",
+        "wifi",
+        "cJSON",
+        "ace_engine",
+        "libjpeg-turbo",
+        "input"
+      ],
+      "third_party": [
+        "zlib"
+      ]
+    },
+    "build": {
+    "group_type":{
+       "base_group": [],
+       "fwk_group":[
+          "//base/print/print_fwk/interfaces/kits/napi/print_napi:print_napi",
+          "//base/print/print_fwk/interfaces/kits/napi/scan_napi:scan_napi",
+          "//base/print/print_fwk/interfaces/kits/jsnapi/print_extension:printextensionability_napi",
+          "//base/print/print_fwk/interfaces/kits/jsnapi/print_extensionctx:printextensioncontext_napi",
+          "//base/print/print_fwk/frameworks/kits/extension:print_extension_framework",
+          "//base/print/print_fwk/frameworks/kits/extension:print_extension_module",
+          "//base/print/print_fwk/frameworks/innerkitsimpl/print_impl:print_client",
+          "//base/print/print_fwk/frameworks/innerkitsimpl/scan_impl:scan_client",
+          "//base/print/print_fwk/frameworks/ISaneBackends:sane_backends",
+          "//base/print/print_fwk/frameworks/helper/print_helper:print_helper",
+          "//base/print/print_fwk/frameworks/helper/scan_helper:scan_helper",
+          "//base/print/print_fwk/frameworks/models/print_models:print_models",
+          "//base/print/print_fwk/frameworks/ohprint:ohprint",
+          "//base/print/print_fwk/frameworks/ohscan:ohscan"
+      ],
+      "service_group":[
+         "//base/print/print_fwk/services/print_service:print_service",
+         "//base/print/print_fwk/services/scan_service:scan_service",
+         "//base/print/print_fwk/services/sane_service:sane_service",
+         "//base/print/print_fwk/etc/init:printservice.rc",
+         "//base/print/print_fwk/etc/init:scanservice.rc",
+         "//base/print/print_fwk/etc/init:saneservice.rc",
+         "//base/print/print_fwk/profile:print_sa_profiles",
+         "//base/print/print_fwk/profile:scan_sa_profiles",
+         "//base/print/print_fwk/profile:sane_sa_profiles",
+         "//base/print/print_fwk/etc/init:cups-files.conf",
+         "//base/print/print_fwk/etc/init:cupsd.conf",
+         "//base/print/print_fwk/etc/init:cups_service.cfg",
+         "//base/print/print_fwk/etc/param:print.para",
+         "//base/print/print_fwk/etc/param:print.para.dac",
+         "//base/print/print_fwk/etc/init:scanservice.cfg",
+         "//base/print/print_fwk/etc/init:saneservice.cfg"
+      ]
+    },
+    "inner_kits": [
+    {
+      "name": "//base/print/print_fwk/frameworks/innerkitsimpl/print_impl:print_client",
+        "header": {
+          "header_files": [
+          ],
+          "header_base":"//base/print/print_fwk/frameworks/innerkitsimpl/print_impl/include"
+        }
+      },
+      {
+        "name": "//base/print/print_fwk/frameworks/innerkitsimpl/scan_impl:scan_client",
+        "header": {
+          "header_files": [
+          ],
+          "header_base":"//base/print/print_fwk/frameworks/innerkitsimpl/scan_impl/include"
+        }
+      },
+      {
+        "name": "//base/print/print_fwk/frameworks/helper/print_helper:print_helper",
+        "header": {
+          "header_files": [
+          ],
+          "header_base":"//base/print/print_fwk/frameworks/helper/print_helper/include"
+        }
+      },
+      {
+        "name": "//base/print/print_fwk/frameworks/helper/scan_helper:scan_helper",
+        "header": {
+          "header_files": [
+          ],
+          "header_base":"//base/print/print_fwk/frameworks/helper/scan_helper/include"
+        }
+      },
+      {
+        "name": "//base/print/print_fwk/frameworks/models/print_models:print_models",
+        "header": {
+          "header_files": [
+          ],
+          "header_base":"//base/print/print_fwk/frameworks/models/print_models/include"
+        }
+      },
+      {
+        "name": "//base/print/print_fwk/frameworks/kits/extension:print_extension_framework",
+        "header": {
+          "header_files": [
+          ],
+          "header_base":"//base/print/print_fwk/frameworks/kits/extension/include"
+        }
+      }
+    ],
+    "test": [
+      "//base/print/print_fwk/test/unittest/fwk_inner_napi_test:print_fwk_inner_napi_test",
+      "//base/print/print_fwk/test/unittest/fwk_print_cups_client_test:fwk_print_cups_client_test",
+      "//base/print/print_fwk/test/unittest/fwk_print_helper_test:fwk_print_helper_test",
+      "//base/print/print_fwk/test/unittest/fwk_print_service_ability_test:fwk_print_service_ability_test",
+      "//base/print/print_fwk/test/unittest/service_test:print_service_test",
+      "//base/print/print_fwk/test/unittest/extension_test:print_ext_test",
+      "//base/print/print_fwk/test/unittest/fwk_vendor_manager_test:fwk_vendor_manager_test",
+      "//base/print/print_fwk/test/fuzztest:fuzztest"
+    ]
+    },
+    "hisysevent_config": [
+      "//base/print/print_fwk/hisysevent.yaml"
+    ]
+  }
+}

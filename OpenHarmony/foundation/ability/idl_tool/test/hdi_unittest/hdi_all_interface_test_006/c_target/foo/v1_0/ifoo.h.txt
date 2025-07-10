@@ -1,0 +1,95 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef OHOS_HDI_FOO_V1_0_IFOO_H
+#define OHOS_HDI_FOO_V1_0_IFOO_H
+
+#include <hdf_base.h>
+#include "foo/v1_0/types.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+struct HdfRemoteService;
+
+#define IFOO_INTERFACE_DESC "ohos.hdi.foo.v1_0.IFoo"
+
+#define IFOO_MAJOR_VERSION 1
+#define IFOO_MINOR_VERSION 0
+
+#ifndef HDI_BUFF_MAX_SIZE
+#define HDI_BUFF_MAX_SIZE (1024 * 200)
+#endif
+
+#ifndef HDI_CHECK_VALUE_RETURN
+#define HDI_CHECK_VALUE_RETURN(lv, compare, rv, ret) do { \
+    if ((lv) compare (rv)) { \
+        return ret; \
+    } \
+} while (false)
+#endif
+
+#ifndef HDI_CHECK_VALUE_RET_GOTO
+#define HDI_CHECK_VALUE_RET_GOTO(lv, compare, rv, ret, value, table) do { \
+    if ((lv) compare (rv)) { \
+        ret = value; \
+        goto table; \
+    } \
+} while (false)
+#endif
+
+enum {
+    CMD_FOO_GET_VERSION = 0,
+    CMD_FOO_PING = 1,
+    CMD_FOO_GET_DATA = 2,
+    CMD_FOO_TEST_FUNC1 = 3,
+    CMD_FOO_TEST_FUNC2 = 4,
+    CMD_FOO_TEST_FUNC3 = 5,
+    CMD_FOO_TEST_FUNC4 = 6,
+    CMD_FOO_TEST_FUNC5 = 7,
+    CMD_FOO_TEST_FUNC6 = 8,
+};
+
+struct IFoo {
+    int32_t (*Ping)(struct IFoo *self, const char* sendMsg, char* recvMsg, uint32_t recvMsgLen);
+
+    int32_t (*GetData)(struct IFoo *self, struct FooInfo* info);
+
+    int32_t (*TestFunc1)(struct IFoo *self, bool inData, bool* outData);
+
+    int32_t (*TestFunc2)(struct IFoo *self, int8_t inData);
+
+    int32_t (*TestFunc3)(struct IFoo *self, int16_t inData, int16_t* outData);
+
+    int32_t (*TestFunc4)(struct IFoo *self, int32_t inData, int32_t* outData);
+
+    int32_t (*TestFunc5)(struct IFoo *self, int64_t inData, int64_t* outData);
+
+    int32_t (*TestFunc6)(struct IFoo *self, const char* inData);
+
+    int32_t (*GetVersion)(struct IFoo *self, uint32_t* majorVer, uint32_t* minorVer);
+};
+
+struct IFoo *IFooGet(void);
+
+struct IFoo *IFooGetInstance(const char *instanceName);
+
+void IFooRelease(struct IFoo *instance);
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif // OHOS_HDI_FOO_V1_0_IFOO_H

@@ -1,0 +1,2 @@
+# Known failures list for test262-other - fastverify-x64-aot-pgo
+

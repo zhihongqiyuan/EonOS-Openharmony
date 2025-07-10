@@ -1,0 +1,78 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the License);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import assert from "assert";
+// 单实现interface
+interface g {
+    f1: number;
+}
+class h implements g {
+    f1: number = 2;
+}
+let i = new h();
+assert(i.f1 === 2);
+// 多实现interface
+interface j {
+    g1(): string;
+}
+interface k<T> {
+    h1(): void;
+}
+class l<U> implements j, k<number> {
+    h1(): void {
+        let e1 = 'i can swim';
+        return;
+    }
+    g1<d1>(): string {
+        return 'i can fly';
+    }
+    i1: number;
+}
+let m = new l();
+assert(m.g1() === 'i can fly');
+// 单实现class
+class o {
+    j1() { return 4; }
+}
+class p implements o {
+    j1(): number {
+        return 1;
+    }
+}
+let q = new p();
+assert(q.j1() === 1);
+// 多实现class
+class t {
+    l1: number;
+    m1(): number {
+        return 1;
+    }
+}
+class u {
+    n1(c1: string): string {
+        return 'hello 4' + c1;
+    }
+}
+class v implements t, u {
+    n1(b1: string): string {
+        return 'hello 44' + b1;
+    }
+    l1: number;
+    m1(): number {
+        return 33;
+    }
+}
+let a1 = new v();
+assert(a1.m1() === 33);
+assert(a1.n1('55') === 'hello 4455');

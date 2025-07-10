@@ -1,0 +1,93 @@
+{
+    "name": "@ohos/wallpaper_mgr",
+    "description": "Allowing apps to use OS wallpaper get/set functions",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+      "destPath": "base/theme/wallpaper_mgr"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+      "name": "wallpaper_mgr",
+      "subsystem": "theme",
+      "syscap": [
+        "SystemCapability.MiscServices.Wallpaper"
+      ],
+      "features": [
+      ],
+      "adapted_system_type": [
+        "standard"
+      ],
+      "rom":"930KB",
+      "ram":"2895KB",
+      "deps": {
+        "components": [
+          "graphic_2d",
+          "samgr",
+          "common_event_service",
+          "hiview",
+          "ipc",
+          "hitrace",
+          "hisysevent",
+          "ability_runtime",
+          "safwk",
+          "access_token",
+          "napi",
+          "ability_base",
+          "hilog",
+          "c_utils",
+          "bundle_framework",
+          "os_account",
+          "window_manager",
+          "image_framework",
+          "player_framework",
+          "eventhandler",
+          "init",
+          "memmgr",
+          "config_policy",
+          "json"
+        ],
+        "third_party": []
+      },
+      "build": {
+        "group_type": {
+          "base_group": [],
+          "fwk_group": [
+            "//base/theme/wallpaper_mgr/frameworks/native:wallpapermanager",
+            "//base/theme/wallpaper_mgr/frameworks/kits/extension:wallpaperextensionability",
+            "//base/theme/wallpaper_mgr/frameworks/kits/extension:wallpaper_extension_module",
+            "//base/theme/wallpaper_mgr/frameworks/js/napi/wallpaperextensionability:wallpaperextensionability_napi",
+            "//base/theme/wallpaper_mgr/frameworks/js/napi/wallpaper_extension_context:wallpaperextensioncontext_napi",
+            "//base/theme/wallpaper_mgr/frameworks/js/napi:wallpaper",
+            "//base/theme/wallpaper_mgr/utils:wallpaper_utils",
+            "//base/theme/wallpaper_mgr/frameworks/native:wallpaperdefault.jpeg",
+            "//base/theme/wallpaper_mgr/frameworks/native:wallpaperlockdefault.jpeg"
+          ],
+          "service_group": [
+            "//base/theme/wallpaper_mgr:wallpaper_mgr_packages"
+          ]
+        },
+        "inner_api": [
+          {
+            "name":"//base/theme/wallpaper_mgr/frameworks/native:wallpapermanager",
+            "header":{
+              "header_files":[
+                "wallpaper_manager_client.h"
+              ],
+              "header_base":"//base/theme/wallpaper_mgr/interfaces/inner_api/include"
+            }
+          }
+        ],
+        "test": [
+          "//base/theme/wallpaper_mgr/test:unittest",
+          "//base/theme/wallpaper_mgr/test/fuzztest:fuzztest",
+          "//base/theme/wallpaper_mgr/frameworks/js/napi/test:unittest"
+        ]
+      },
+      "hisysevent_config": [
+        "//base/theme/wallpaper_mgr/hisysevent.yaml"
+      ]
+    }
+  }

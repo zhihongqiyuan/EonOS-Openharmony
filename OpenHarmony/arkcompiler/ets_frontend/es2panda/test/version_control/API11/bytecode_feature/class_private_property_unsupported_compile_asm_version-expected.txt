@@ -1,0 +1,2 @@
+SyntaxError: Unexpected token in class property [class_private_property.js:17:5]
+The size of programs is expected to be 1, but is 0

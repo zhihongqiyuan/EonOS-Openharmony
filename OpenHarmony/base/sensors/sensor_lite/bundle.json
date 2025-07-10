@@ -1,0 +1,37 @@
+{
+  "name": "@ohos/sensor_lite",
+  "description": "Obtaining sensor data",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "segment": {
+    "destPath": "base/sensors/sensor_lite"
+  },
+  "component": {
+    "name": "sensor_lite",
+    "subsystem": "sensors",
+    "syscap": [],
+    "features": [],
+    "adapted_system_type": [ "mini" ],
+    "rom": "92KB",
+    "ram": "~200KB",
+    "deps": {
+      "components": [
+        "drivers_peripheral_sensor",
+        "hilog_lite",
+        "ipc",
+        "samgr_lite",
+        "utils_lite"
+      ],
+      "third_party": [ "bounds_checking_function" ]
+    },
+    "build": {
+      "sub_component": [
+        "//base/sensors/sensor_lite/services:sensor_service",
+        "//base/sensors/sensor_lite/frameworks:sensor_lite"
+      ],
+      "test": [
+        "//base/sensors/sensor_lite/interfaces/kits/native:unittest"
+      ]
+    }
+  }
+}

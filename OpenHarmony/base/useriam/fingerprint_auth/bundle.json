@@ -1,0 +1,66 @@
+{
+    "name": "@ohos/fingerprint_auth",
+    "version": "4.0",
+    "description": "fingerprint authentication capability",
+    "homePage": "https://gitee.com/openharmony",
+    "author": {},
+    "repository": "",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+      "destPath" : "base/useriam/fingerprint_auth"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+      "name": "fingerprint_auth",
+      "subsystem": "useriam",
+      "adapted_system_type": [ "standard" ],
+      "syscap": ["SystemCapability.UserIAM.UserAuth.FingerprintAuth"],
+      "features": ["fingerprint_auth_enabled"],
+      "rom": "1024KB",
+      "ram": "1306KB",
+      "deps": {
+        "components": [
+          "ability_base",
+          "c_utils",
+          "common_event_service",
+          "display_manager",
+          "drivers_interface_fingerprint_auth",
+          "egl",
+          "graphic_2d",
+          "graphic_surface",
+          "hilog",
+          "ipc",
+          "miscdevice",
+          "opengles",
+          "power_manager",
+          "safwk",
+          "samgr",
+          "user_auth_framework",
+          "window_manager",
+          "hdf_core",
+          "skia"
+        ]
+      },
+      "build": {
+        "group_type": {
+          "base_group": [
+          ],
+          "fwk_group": [
+          ],
+          "service_group": [
+            "//base/useriam/fingerprint_auth/services:fingerprintauthservice",
+            "//base/useriam/fingerprint_auth/services_ex:fingerprintauthservice_ex",
+            "//base/useriam/fingerprint_auth/sa_profile:fingerprintauth_sa_profile"
+          ]
+        },
+        "inner_kits": [
+        ],
+        "test": [
+          "//base/useriam/fingerprint_auth/test/fuzztest:fingerprintauth_fuzztest",
+          "//base/useriam/fingerprint_auth/test/unittest:fingerprintauth_unittest"
+        ]
+      }
+    }
+  }

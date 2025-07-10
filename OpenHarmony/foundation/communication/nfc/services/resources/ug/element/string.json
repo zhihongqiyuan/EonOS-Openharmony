@@ -1,0 +1,165 @@
+{
+    "string":[
+        {
+            "name":"NfcBtButtonName",
+            "value":"جۈپلەش",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"DefaultTitle",
+            "value":"چېكىپ ئەپنى ئېچىڭ، NFC بەلگىسى بايقالدى",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"DefaultText",
+            "value":"بەزى ئەپلەرنىڭ ئۆزىدە NFC تىزگىنى بولۇشى مۇمكىن.",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"LingNanTong",
+            "value":"لىڭنەنتۇڭ",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"NfcWifiNtfTitle",
+            "value":"تور ئۇلاش",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"NfcWifiNtfText",
+            "value":"بۇ تورغا ئۇلامسىز: %s؟",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"ShenZhenTong",
+            "value":"شېنجېنتۇڭ",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"NfcWifiButtonName",
+            "value":"ئۇلاش",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"TransportCardText",
+            "value":"\u200f%s بايقالدى، قالدۇق: %.2f يۈەن",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"GuiMinHuLianHuTongKa",
+            "value":"گۇيمىن تور كارتىسى",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"ActionButtonName",
+            "value":"چېكىپ كارتا مەلۇماتىنى بىر تەرەپ قىلىڭ",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"NfcBtNtfTitle",
+            "value":"\u200fNFC جۈپلەش تەلىپى",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"BeiJingYiKaTong",
+            "value":"بېيجىڭ ھەممىباب كارتىسى",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"NfcOpenLinkButtonName",
+            "value":"ئۇلانمىنى ئېچىش",
+            "attr":{
+                "priority":"translate"
+            }
+        },
+        {
+            "name":"NfcOpenLinkTextHead",
+            "value":"ئۇلانما: %s",
+            "attr":{
+                "priority":"translate"
+            }
+        },
+        {
+            "name":"NfcHceAidConflictedTitle",
+            "value":"\u200fNFC كارتا سۈرۈش",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"NoHapSupportedNtfButtonName",
+            "value":"ئەپ بازىرى",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"NoHapSupportedNtfTitle",
+            "value":"\u200fNFC ئۇقتۇرۇشى",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"NoHapSupportedNtfText",
+            "value":"قوللايدىغان ئەپ يوق، ئەپ بازىرىدىن چۈشۈرۈڭ.",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"NfcBtNtfText",
+            "value":"\u200f%s بىلەن جۈپلەمسىز؟",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"ShangHaiJiaoTongKa",
+            "value":"شاڭخەي قاتناش كارتىسى",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"TransportCardTitle",
+            "value":"قاتناش كارتىسى بايقالدى",
+            "attr":{
+                "priority":"LT"
+            }
+        },
+        {
+            "name":"NfcHceAidConflictedText",
+            "value":"كۆپ ئەپ توقۇنۇشىدۇ، كارتا سۈرىدىغان ئەپنى ئۆزىڭىز ئېچىڭ.",
+            "attr":{
+                "priority":"LT"
+            }
+        }
+    ]
+}

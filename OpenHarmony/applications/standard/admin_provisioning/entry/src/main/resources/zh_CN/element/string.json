@@ -1,0 +1,188 @@
+{
+  "string": [
+    {
+      "name": "entry_MainAbility",
+      "value": "设备管理配置"
+    },
+    {
+      "name": "description_mainability",
+      "value": "激活设备管理器"
+    },
+    {
+      "name": "description_autoManagerAbility",
+      "value": "激活超级设备管理器"
+    },
+    {
+      "name": "description_adminProvisioning",
+      "value": "支撑企业设备管理下发业务"
+    },
+    {
+      "name": "adminprovisioning",
+      "value": "是否激活设备管理器？"
+    },
+    {
+      "name": "activation",
+      "value": "激活"
+    },
+    {
+      "name": "deActivate",
+      "value": "解除激活"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
+    },
+    {
+      "name": "enterprise_name",
+      "value": "企业名称：%s"
+    },
+    {
+      "name": "enterprise_description",
+      "value": "企业描述：%s"
+    },
+    {
+      "name": "permissionLabel",
+      "value": "设置系统时间"
+    },
+    {
+      "name": "permissionDescription",
+      "value": "允许应用设置系统时间"
+    },
+    {
+      "name": "device_mgr_info_content",
+      "value": "您的单位管理员可以监控此设备的设置、应用、权限以及数据 (其中包括您的网络活动以及您设备的位置信息、通话记录和联系人搜索记录)。"
+    },
+    {
+      "name": "returnVal",
+      "value": "返回"
+    },
+    {
+      "name": "nextVal",
+      "value": "下一步"
+    },
+    {
+      "name": "tips",
+      "value": "提示"
+    },
+    {
+      "name": "tipsInfo",
+      "value": "当前设置未完成，取消设置后将重置设备，是否继续？"
+    },
+    {
+      "name": "CancelSetting",
+      "value": "取消设置"
+    },
+    {
+      "name": "deviceManageInfo",
+      "value": "设备管理信息"
+    },
+    {
+      "name": "unitManageDevice",
+      "value": "您的单位将管理此设备"
+    },
+    {
+      "name": "unitManage",
+      "value": "单位管理员"
+    },
+    {
+      "name": "textManagerBefore",
+      "value": "，如有疑问，请与您的"
+    },
+    {
+      "name": "textManagerAfter",
+      "value": "联系。"
+    },
+    {
+      "name": "textTerms",
+      "value": "查看条款"
+    },
+    {
+      "name": "textTermsBefore",
+      "value": "您可以"
+    },
+    {
+      "name": "buttonAcceptAndContinue",
+      "value": "接受并继续"
+    },
+    {
+      "name": "loadingSearch",
+      "value": "正在设置设备…"
+    },
+    {
+      "name": "terms",
+      "value": "条款"
+    },
+    {
+      "name": "manageInfo",
+      "value": "管理信息"
+    },
+    {
+      "name": "settingFailed",
+      "value": "设置失败"
+    },
+    {
+      "name": "settingFailedInfo",
+      "value": "您的应用设置失败，请恢复出厂后重新设置。"
+    },
+    {
+      "name": "resetFactorySet",
+      "value": "恢复出厂设置"
+    },
+    {
+      "name": "setupComplete",
+      "value": "设置完成"
+    },
+    {
+      "name": "AutoDeployText",
+      "value": "此设备由您所属的单位配置和管理，如有疑问，请联系您的单位处理。"
+    },
+    {
+      "name": "continue",
+      "value": "继续"
+    },
+    {
+      "name": "PreviousStep",
+      "value": "上一步"
+    },
+    {
+      "name": "textManageSuccessContent",
+      "value": "如有疑问，请与您的%s联系。"
+    },
+    {
+      "name": "textApplicationInfoActive",
+      "value": "此管理器已激活，允许应用“%s”执行以下操作："
+    },
+    {
+      "name": "textApplicationInfoInactive",
+      "value": "激活此管理器可允许应用“%s”执行以下操作："
+    },
+    {
+      "name": "description_ByodAdminProvisionAbility",
+      "value": "激活Byod设备管理器"
+    },
+    {
+      "name": "byodActivationPageTitle",
+      "value": "是否激活您的设备？"
+    },
+    {
+      "name": "byodDisagree",
+      "value": "不同意"
+    },
+    {
+      "name": "byodAgree",
+      "value": "同意"
+    },
+    {
+      "name": "canNotActivate",
+      "value": "无法激活"
+    },
+    {
+      "name": "doNotSupport",
+      "value": "暂不支持此功能"
+    },
+    {
+      "name": "gotIt",
+      "value": "知道了"
+    }
+  ]
+}

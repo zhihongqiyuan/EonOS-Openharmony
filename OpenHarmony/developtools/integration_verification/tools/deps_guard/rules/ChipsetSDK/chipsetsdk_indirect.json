@@ -1,0 +1,273 @@
+[
+    {
+        "name": "drivers_interface_display:libdisplay_buffer_proxy_1.0",
+        "so_file_name": "libdisplay_buffer_proxy_1.0.z.so",
+        "path": "//drivers/interface/display/buffer/v1_0:libdisplay_buffer_proxy_1.0",
+        "headers": [
+            "//drivers/hdf_core/adapter/uhdf2/include/hdi/",
+            "//drivers/hdf_core/adapter/uhdf2/osal/include/",
+            "//drivers/hdf_core/adapter/uhdf2/ipc/include/",
+            "//drivers/hdf_core/framework/include/utils/",
+            "//drivers/hdf_core/interfaces/inner_api/utils/",
+            "//drivers/hdf_core/interfaces/inner_api/osal/uhdf/",
+            "//drivers/hdf_core/interfaces/inner_api/hdi/"
+        ]
+    },
+    {
+        "name": "drivers_interface_display:libdisplay_buffer_proxy_1.2",
+        "so_file_name": "libdisplay_buffer_proxy_1.2.z.so",
+        "path": "//drivers/interface/display/buffer/v1_2:libdisplay_buffer_proxy_1.2",
+        "headers": [
+            "//drivers/hdf_core/adapter/uhdf2/include/hdi/",
+            "//drivers/hdf_core/adapter/uhdf2/osal/include/",
+            "//drivers/hdf_core/adapter/uhdf2/ipc/include/",
+            "//drivers/hdf_core/framework/include/utils/",
+            "//drivers/hdf_core/interfaces/inner_api/utils/",
+            "//drivers/hdf_core/interfaces/inner_api/osal/uhdf/",
+            "//drivers/hdf_core/interfaces/inner_api/hdi/"
+        ]
+    },
+    {
+        "name": "eventhandler:libeventhandler",
+        "so_file_name": "libeventhandler.z.so",
+        "path": "//base/notification/eventhandler/frameworks/eventhandler:libeventhandler",
+        "headers": [
+            "//base/notification/eventhandler/interfaces/inner_api/"
+        ]
+    },
+    {
+        "name": "selinux:libselinux",
+        "so_file_name": "libselinux.z.so",
+        "path": "//third_party/selinux:libselinux",
+        "headers": [
+            "//third_party/selinux/libselinux/include/",
+            "//third_party/selinux/libselinux/",
+            "//third_party/pcre2/pcre2/src/",
+            "//third_party/FreeBSD/"
+        ]
+    },
+    {
+        "name": "pcre2:libpcre2",
+        "so_file_name": "libpcre2.z.so",
+        "path": "//third_party/pcre2:libpcre2",
+        "headers": []
+    },
+    {
+        "name": "drivers_interface_display:libdisplay_buffer_hdi_impl",
+        "so_file_name": "libdisplay_buffer_hdi_impl.z.so",
+        "path": "//drivers/interface/display/buffer/v1_0:libdisplay_buffer_hdi_impl",
+        "headers": [
+            "//drivers/interface/display/buffer/"
+        ]
+    },
+    {
+        "name": "drivers_interface_display:libdisplay_buffer_hdi_impl_v1_2",
+        "so_file_name": "libdisplay_buffer_hdi_impl_v1_2.z.so",
+        "path": "//drivers/interface/display/buffer/v1_2:libdisplay_buffer_hdi_impl_v1_2",
+        "headers": [
+            "//drivers/interface/display/buffer/"
+        ]
+    },
+    {
+        "name": "ipc:ipc_common",
+        "so_file_name": "libipc_common.z.so",
+        "path": "//foundation/communication/ipc/ipc/native/src/core:ipc_common",
+        "headers": [
+            "//commonlibrary/c_utils/base/include/",
+            "//third_party/bounds_checking_function/include/"
+        ]
+    },
+    {
+        "name": "nghttp2:libnghttp2_shared",
+        "so_file_name": "libnghttp2_shared.z.so",
+        "path": "//third_party/nghttp2/lib:libnghttp2_shared",
+        "headers": []
+    },
+    {
+        "name": "brotli:brotli_shared",
+        "so_file_name": "libbrotli_shared.z.so",
+        "path": "//third_party/brotli:brotli_shared",
+        "headers": []
+    },
+    {
+        "name": "access_token:libtokenid_sdk",
+        "so_file_name": "libtokenid_sdk.z.so",
+        "path": "//base/security/access_token/interfaces/innerkits/accesstoken:libtokenid_sdk",
+        "headers": [
+            "//base/security/access_token/interfaces/innerkits/accesstoken/include/"
+        ]
+    },
+    {
+        "name": "access_token:accesstoken_communication_adapter_cxx",
+        "so_file_name": "libaccesstoken_communication_adapter_cxx.z.so",
+        "path": "//base/security/access_token/frameworks/accesstoken:accesstoken_communication_adapter_cxx",
+        "headers": [
+            "//base/security/access_token/frameworks/accesstoken/include/",
+            "//base/security/access_token/frameworks/common/include/",
+            "//base/security/access_token/interfaces/innerkits/accesstoken/include/"
+        ]
+    },
+    {
+        "name": "access_token:accesstoken_common_cxx",
+        "so_file_name": "libaccesstoken_common_cxx.z.so",
+        "path": "//base/security/access_token/frameworks/common:accesstoken_common_cxx",
+        "headers": [
+            "//base/security/access_token/frameworks/common/include/"
+        ]
+    },
+    {
+        "name": "dsoftbus:softbus_client",
+        "so_file_name": "libsoftbus_client.z.so",
+        "path": "//foundation/communication/dsoftbus/sdk:softbus_client",
+        "headers": [
+            "//foundation/communication/dsoftbus/interfaces/kits/",
+            "//foundation/communication/dsoftbus/interfaces/kits/bus_center/",
+            "//foundation/communication/dsoftbus/interfaces/kits/common/",
+            "//foundation/communication/dsoftbus/interfaces/kits/discovery/",
+            "//foundation/communication/dsoftbus/interfaces/kits/transport/",
+            "//foundation/communication/dsoftbus/sdk/transmission/session/cpp/include/",
+            "//foundation/communication/dsoftbus/interfaces/inner_kits/transport/",
+            "//foundation/communication/dsoftbus/core/common/dfx/hisysevent_adapter/include/",
+            "//third_party/bounds_checking_function/include/",
+            "//commonlibrary/c_utils/base/include/",
+            "//base/hiviewdfx/hisysevent/interfaces/native/innerkits/hisysevent/include/",
+            "//base/hiviewdfx/hisysevent/interfaces/native/innerkits/hisysevent/encode/include/",
+            "//third_party/bounds_checking_function/include/"
+        ]
+    },
+    {
+        "name": "samgr:samgr_common",
+        "so_file_name": "libsamgr_common.z.so",
+        "path": "//foundation/systemabilitymgr/samgr/interfaces/innerkits/common:samgr_common",
+        "headers": [
+            "//foundation/systemabilitymgr/samgr/interfaces/innerkits/common/include/",
+            "//foundation/systemabilitymgr/samgr/interfaces/innerkits/samgr_proxy/include/",
+            "//foundation/systemabilitymgr/samgr/services/dfx/include/"
+        ]
+    },
+    {
+        "name": "mbedtls:mbedtls_shared",
+        "so_file_name": "libmbedtls.z.so",
+        "path": "//third_party/mbedtls:mbedtls_shared",
+        "headers": [
+            "//third_party/mbedtls/include/",
+            "//third_party/mbedtls/library/",
+            "//third_party/mbedtls/include/mbedtls/",
+            "//third_party/mbedtls/tests/include/",
+            "//third_party/mbedtls/port/config/compat_posix/"
+        ]
+    },
+    {
+        "name": "dsoftbus:FillpSo",
+        "so_file_name": "libFillpSo.z.so",
+        "path": "//foundation/communication/dsoftbus/components/nstackx_enhanced/fillp:FillpSo",
+        "headers": []
+    },
+    {
+        "name": "dsoftbus:nstackx_dfile",
+        "so_file_name": "libnstackx_dfile.z.so",
+        "path": "//foundation/communication/dsoftbus/components/nstackx_enhanced/nstackx_core:nstackx_dfile",
+        "headers": []
+    },
+    {
+        "name": "dsoftbus:softbus_adapter",
+        "so_file_name": "libsoftbus_adapter.z.so",
+        "path": "//foundation/communication/dsoftbus/adapter:softbus_adapter",
+        "headers": [
+            "//foundation/communication/dsoftbus/adapter/common/include/",
+            "//foundation/communication/dsoftbus/adapter/common/include/OS_adapter_define/linux/",
+            "//foundation/communication/dsoftbus/adapter/default_config/spec_config/",
+            "//foundation/communication/dsoftbus/core/common/include/",
+            "//base/hiviewdfx/hitrace/interfaces/native/innerkits/include/",
+            "//third_party/openssl/include/"
+        ]
+    },
+    {
+        "name": "dsoftbus:softbus_utils",
+        "so_file_name": "libsoftbus_utils.z.so",
+        "path": "//foundation/communication/dsoftbus/core/common:softbus_utils",
+        "headers": [
+            "//foundation/communication/dsoftbus/core/common/include/",
+            "//foundation/communication/dsoftbus/core/common/dfx/hidumper_adapter/include/",
+            "//foundation/communication/dsoftbus/core/common/dfx/hisysevent_adapter/include/",
+            "//foundation/communication/dsoftbus/interfaces/kits/common/",
+            "//foundation/communication/dsoftbus/adapter/common/include/",
+            "//foundation/communication/dsoftbus/components/nstackx/nstackx_core/dfile/interface/",
+            "//foundation/communication/dsoftbus/core/connection/interface/",
+            "//foundation/communication/dsoftbus/core/connection/common/include/",
+            "//foundation/communication/dsoftbus/core/connection/manager/",
+            "//foundation/communication/dsoftbus/core/transmission/trans_channel/proxy/include/",
+            "//foundation/communication/dsoftbus/core/transmission/common/include/",
+            "//foundation/communication/dsoftbus/interfaces/kits/transport/",
+            "//foundation/communication/dsoftbus/adapter/common/include/",
+            "//foundation/communication/dsoftbus/adapter/common/include/OS_adapter_define/linux/",
+            "//foundation/communication/dsoftbus/adapter/default_config/spec_config/",
+            "//foundation/communication/dsoftbus/core/common/include/",
+            "//base/hiviewdfx/hitrace/interfaces/native/innerkits/include/",
+            "//third_party/openssl/include/",
+            "//third_party/cJSON/",
+            "//third_party/sqlite/include/",
+            "//commonlibrary/c_utils/base/include/",
+            "//foundation/communication/dsoftbus/components/nstackx/nstackx_ctrl/interface/",
+            "//foundation/communication/dsoftbus/components/nstackx/nstackx_util/interface/",
+            "//foundation/communication/dsoftbus/components/nstackx/nstackx_util/platform/unix/"
+        ]
+    },
+    {
+        "name": "dsoftbus:nstackx_congestion",
+        "so_file_name": "libnstackx_congestion.z.so",
+        "path": "//foundation/communication/dsoftbus/components/nstackx_enhanced/nstackx_congestio:nstackx_congestionn",
+        "headers": []
+    },
+    {
+        "name": "algorithm:msdp_ble_range",
+        "so_file_name": "libmsdp_ble_range.z.so",
+        "path": "//base/msdp/algorithm/ble_range:msdp_ble_range",
+        "headers": []
+    },
+    {
+        "name": "sqlite:sqlite",
+        "so_file_name": "libsqlite.z.so",
+        "path": "//third_party/sqlite:sqlite",
+        "headers": [
+            "//third_party/sqlite/include/",
+            "//commonlibrary/c_utils/base/include/"
+        ]
+    },
+    {
+        "name": "dsoftbus:nstackx_util",
+        "so_file_name": "libnstackx_util.z.so",
+        "path": "//foundation/communication/dsoftbus/componets/nstackx_enhanced/nstackx_util:nstackx_util",
+        "headers": []
+    },
+    {
+        "name": "faultloggerd:libdfx_dumpcatcher",
+        "so_file_name": "libdfx_dumpcatcher.z.so",
+        "path": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/dump_catcher:libdfx_dumpcatcher",
+        "headers": [
+            "//base/hiviewdfx/faultloggerd/interfaces/innerkits/dump_catcher/include/"
+        ]
+    },
+    {
+        "name": "faultloggerd:libdfx_procinfo",
+        "so_file_name": "libdfx_procinfo.z.so",
+        "path": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/procinfo:libdfx_proinfo",
+        "headers": []
+    },
+    {
+        "name": "hiview:libucollection_client",
+        "so_file_name": "libucollection_client.z.so",
+        "path": "//base/hiviewdfx/hiview/interfaces/inner_api/unified_collection/client:libucollection_client",
+        "headers": [
+            "//base/hiviewdfx/hiview/interfaces/inner_api/unified_collection/"
+        ]
+    },
+    {
+        "name": "storage_service:storage_manager_acl",
+        "so_file_name": "libstorage_manager_acl.z.so",
+        "path": "//foundation/filemanagement/storage_service/interfaces/innerkits/acl/native:storage_manager_acl",
+        "headers": [
+            "//foundation/filemanagement/storage_service/interfaces/innerkits/acl/native/"
+        ]
+    }
+]

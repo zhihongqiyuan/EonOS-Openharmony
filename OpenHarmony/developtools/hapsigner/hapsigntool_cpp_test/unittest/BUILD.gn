@@ -1,0 +1,101 @@
+# Copyright (c) 2024-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("//build/test.gni")
+import("../../hapsigntool_cpp/signature_tools.gni")
+
+module_out_path = "hapsigner/hapsigner_pc"
+
+ohos_unittest("hapsigntool_pc_unittest") {
+  testonly = true
+  module_out_path = module_out_path
+  resource_config_file = "ohos_test.xml"
+
+  configs = [ "${signature_tools_test}:service_include" ]
+
+  sources = [
+    "./byteBuffer/byte_buffer_test.cpp",
+    "./codeSigning/datastructure/code_sign_block_header_test.cpp",
+    "./codeSigning/datastructure/code_sign_block_test.cpp",
+    "./codeSigning/datastructure/elf_sign_block_test.cpp",
+    "./codeSigning/datastructure/extension_test.cpp",
+    "./codeSigning/datastructure/fs_verity_info_segment_test.cpp",
+    "./codeSigning/datastructure/hap_info_segment_test.cpp",
+    "./codeSigning/datastructure/merkle_tree_extension_test.cpp",
+    "./codeSigning/datastructure/native_lib_info_segment_test.cpp",
+    "./codeSigning/datastructure/segment_header_test.cpp",
+    "./codeSigning/datastructure/sign_info_test.cpp",
+    "./codeSigning/datastructure/signed_file_pos_test.cpp",
+    "./codeSigning/fsverity/fs_verity_descriptor_test.cpp",
+    "./codeSigning/fsverity/fs_verity_descriptor_with_sign_test.cpp",
+    "./codeSigning/fsverity/fs_verity_digest_test.cpp",
+    "./codeSigning/fsverity/fs_verity_generator_test.cpp",
+    "./codeSigning/fsverity/fs_verity_hash_algorithm_test.cpp",
+    "./codeSigning/fsverity/merkle_tree_builder_test.cpp",
+    "./codeSigning/sign/bc_signeddata_generator_test.cpp",
+    "./codeSigning/sign/code_signing_test.cpp",
+    "./codeSigning/sign/verify_code_signature_test.cpp",
+    "./codeSigning/utils/cms_utils_test.cpp",
+    "./codeSigning/utils/fs_digest_utils_test.cpp",
+    "./elfVerify/hap_utils_test.cpp",
+    "./elfVerify/sign_block_info_test.cpp",
+    "./elfVerify/sign_content_info_test.cpp",
+    "./elfVerify/signature_block_types_test.cpp",
+    "./elfVerify/signing_block_test.cpp",
+    "./elfVerify/verify_bin_test.cpp",
+    "./elfVerify/verify_elf_test.cpp",
+    "./generateCA/generate_ca_test.cpp",
+    "./generateCA/generate_general_ca_test.cpp",
+    "./generateCA/generate_sub_ca_test.cpp",
+    "./generateCsr/generate_csr_test.cpp",
+    "./generateKeyPair/generate_keypair_test.cpp",
+    "./generateKeyPair/hap_sign_cmd_test.cpp",
+    "./generateKeyPair/hap_sign_tool_test.cpp",
+    "./generateKeyPair/options_test.cpp",
+    "./generateKeyPair/process_cmd_expansion_test.cpp",
+    "./generateKeyPair/process_cmd_test.cpp",
+    "./hapSign/block_data_test.cpp",
+    "./hapSign/block_head_test.cpp",
+    "./hapSign/hap_openssl_utils_test.cpp",
+    "./hapSign/hap_sign_test.cpp",
+    "./hapSign/sign_bin_test.cpp",
+    "./hapSign/sign_block_data_test.cpp",
+    "./hapSign/sign_elf_test.cpp",
+    "./hapSign/sign_head_test.cpp",
+    "./hapSign/sign_provider_test.cpp",
+    "./hapVerify/hap_cert_verify_openssl_utils_test.cpp",
+    "./hapVerify/hap_signer_block_utils_test.cpp",
+    "./hapVerify/hap_verify_test.cpp",
+    "./hapVerify/provision_verify_test.cpp",
+    "./hapVerify/random_access_file_test.cpp",
+    "./signProfile/pkcs7_data_test.cpp",
+    "./signProfile/profile_test.cpp",
+    "./signProfile/provision_test.cpp",
+    "./signProfile/sign_profile_test.cpp",
+    "./utils/byte_array_utils_test.cpp",
+    "./utils/cert_tools_test.cpp",
+    "./utils/file_utils_test.cpp",
+    "./zip/random_access_file_input_output_test.cpp",
+    "./zip/zip_signer_test.cpp",
+  ]
+
+  remove_configs = [ "//build/config/compiler:no_exceptions" ]
+
+  deps = [ "${signature_tools_test}:service_target" ]
+
+  install_images = [ "system" ]
+  install_enable = true
+  part_name = "hapsigner"
+  subsystem_name = "developtools"
+}

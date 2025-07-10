@@ -1,0 +1,20 @@
+{
+    "string":  [
+        {
+            "name": "entry_desc",
+            "value": "entry_desc"
+        },
+        {
+            "name": "entry_label",
+            "value": "entry_label"
+        },
+        {
+            "name": "MainAbility_desc",
+            "value": "MainAbility_desc"
+        },
+        {
+            "name": "MainAbility_label",
+            "value": "MainAbility_label"
+        }
+    ]
+}

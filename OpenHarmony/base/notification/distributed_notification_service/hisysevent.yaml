@@ -1,0 +1,124 @@
+#  Copyright (c) 2022 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+domain: NOTIFICATION
+
+# fault event
+SUBSCRIBE_ERROR:
+  __BASE: {type: FAULT, level: MINOR, desc: subscribe notification error}
+  PID: {type: INT32, desc: subscriber pid}
+  UID: {type: INT32, desc: subscriber uid}
+  USER_ID: {type: INT32, desc: subscribe notification published from this userId}
+  BUNDLE_NAME: {type: STRING, desc: subscribe notification published from this bundle names}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+ENABLE_NOTIFICATION_ERROR:
+  __BASE: {type: FAULT, level: MINOR, desc: enable notification error}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  UID: {type: INT32, desc: uid of application}
+  ENABLE: {type: BOOL, desc: enable state}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+ENABLE_NOTIFICATION_SLOT_ERROR:
+  __BASE: {type: FAULT, level: MINOR, desc: enable notification slot error}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  UID: {type: INT32, desc: uid of application}
+  SLOT_TYPE: {type: INT32, desc: slot type}
+  ENABLE: {type: BOOL, desc: enable state}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+PUBLISH_ERROR:
+  __BASE: {type: STATISTIC, level: MINOR, desc: publish notification error}
+  NOTIFICATION_ID: {type: INT32, desc: notification Id}
+  CONTENT_TYPE: {type: INT32, desc: notification content type}
+  BUNDLE_NAME: {type: STRING, desc: bundle name of notification creater}
+  USER_ID: {type: INT32, desc: userId of notification creater}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+EVENT_NOTIFICATION_ERROR:
+  __BASE: {type: FAULT, level: MINOR, desc: enable notification system error}
+  MESSAGE_TYPE: {type: INT32, desc: message type}
+  ERROR_CODE: {type: INT32, desc: error code}
+  REASON: {type: STRING, desc: err position and data type}
+
+FLOW_CONTROL_OCCUR:
+  __BASE: {type: FAULT, level: MINOR, desc: flow control occured}
+  NOTIFICATION_ID: {type: INT32, desc: notification Id}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  UID: {type: INT32, desc: uid of application}
+
+# behavior event
+SUBSCRIBE:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: subscribe notification}
+  PID: {type: INT32, desc: subscriber pid}
+  UID: {type: INT32, desc: subscriber uid}
+  USER_ID: {type: INT32, desc: subscribe notification published from this userId}
+  BUNDLE_NAME: {type: STRING, desc: subscribe notification published from this bundle names}
+
+UNSUBSCRIBE:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: unsubscribe notification}
+  PID: {type: INT32, desc: subscriber pid}
+  UID: {type: INT32, desc: subscriber uid}
+  USER_ID: {type: INT32, desc: unsubscribe notification published from this userId}
+  BUNDLE_NAME: {type: STRING, desc: unsubscribe notification published from this bundle names}
+
+ENABLE_NOTIFICATION:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: enable notification}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  UID: {type: INT32, desc: uid of application}
+  ENABLE: {type: BOOL, desc: enable state}
+
+ENABLE_NOTIFICATION_SLOT:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: enable notification slot}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  UID: {type: INT32, desc: uid of application}
+  SLOT_TYPE: {type: INT32, desc: slot type}
+  ENABLE: {type: BOOL, desc: enable state}
+
+# statistic event
+PUBLISH:
+  __BASE: {type: STATISTIC, level: MINOR, desc: publish notification}
+  NOTIFICATION_ID: {type: INT32, desc: notification Id}
+  CONTENT_TYPE: {type: INT32, desc: notification content type}
+  BUNDLE_NAME: {type: STRING, desc: bundle name of notification creater}
+  USER_ID: {type: INT32, desc: userId of notification creater}
+
+CANCEL:
+  __BASE: {type: STATISTIC, level: MINOR, desc: cancel notification}
+  NOTIFICATION_ID: {type: INT32, desc: notification Id}
+  NOTIFICATION_LABEL: {type: STRING, desc: notification label}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  UID: {type: INT32, desc: uid of application}
+
+REMOVE:
+  __BASE: {type: STATISTIC, level: MINOR, desc: cancel notification}
+  NOTIFICATION_ID: {type: INT32, desc: notification Id}
+  NOTIFICATION_LABEL: {type: STRING, desc: notification label}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  UID: {type: INT32, desc: uid of application}
+
+ALARM_TRIGGER:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: alarm trigger}
+  UID: {type: INT32, desc: package uid}
+  NAME: {type: STRING, desc: call package name}
+  TYPE: {type: INT32, desc: reminder type}
+  REPEAT: {type: INT32, desc: reminder is repeat}
+  TRIGGER_TIME: {type: UINT64, desc: reminder trigger time}
+  RING_TIME: {type: INT32, desc: reminder ring time}
+
+STATIC_LIVE_VIEW_UPLOAD:
+  __BASE: {type: STATISTIC, level: MINOR, desc: publish download liveview state}
+  NOTIFICATION_ID: {type: INT32, desc: notification Id}
+  BUNDLE_NAME: {type: STRING, desc: bundle name}
+  CONTENT_TYPE: {type: INT32, desc: notification content type}
+  OPERATE_FLAG: {type: INT32, desc: download liveview operate flag}

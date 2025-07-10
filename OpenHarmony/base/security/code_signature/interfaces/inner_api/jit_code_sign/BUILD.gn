@@ -1,0 +1,75 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+import("../../../code_signature.gni")
+
+config("public_jit_code_sign_configs") {
+  include_dirs = [ "include" ]
+}
+
+config("private_jit_code_sign_configs") {
+  cflags = [ "-march=armv8.4-a" ]
+  defines = [ "ARCH_PAC_SUPPORT" ]
+}
+
+ohos_source_set("pac_sign_feature") {
+  sources = [ "src/pac_sign_ctx.cpp" ]
+  sanitize = {
+    cfi = true
+    cfi_cross_dso = true
+    debug = false
+  }
+  branch_protector_ret = "pac_ret"
+  public_configs = [
+    ":public_jit_code_sign_configs",
+    "${code_signature_root_dir}:common_public_config",
+  ]
+  configs = [ "${code_signature_root_dir}:common_utils_config" ]
+  if (jit_code_sign_enable) {
+    configs += [ ":private_jit_code_sign_configs" ]
+  }
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "hilog:libhilog",
+  ]
+  part_name = "code_signature"
+  subsystem_name = "security"
+}
+
+ohos_shared_library("libjit_code_sign") {
+  sources = [ "src/jit_code_signer.cpp" ]
+  deps = [ ":pac_sign_feature" ]
+  cflags_cc = [
+    "-Os",
+    "-fno-asynchronous-unwind-tables",
+    "-fno-unwind-tables",
+  ]
+  branch_protector_ret = "pac_ret"
+  sanitize = {
+    cfi = true
+    cfi_cross_dso = true
+    debug = false
+  }
+  public_configs = [
+    ":public_jit_code_sign_configs",
+    "${code_signature_root_dir}:common_public_config",
+  ]
+  configs = [ "${code_signature_root_dir}:common_utils_config" ]
+  external_deps = [
+    "bounds_checking_function:libsec_shared",
+    "hilog:libhilog",
+  ]
+  part_name = "code_signature"
+  subsystem_name = "security"
+}

@@ -1,0 +1,178 @@
+{
+  "name": "@ohos/faultloggerd",
+  "description": "Collecting c/c++ runtime crash log",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+      "destPath": "base/hiviewdfx/faultloggerd"
+  },
+  "component": {
+    "name": "faultloggerd",
+    "subsystem": "hiviewdfx",
+    "syscap": [],
+    "features": [
+      "faultloggerd_feature_coverage",
+      "faultloggerd_enable_build_targets"
+    ],
+    "adapted_system_type": [
+      "small",
+      "standard"
+    ],
+    "rom": "1024KB",
+    "ram": "~1024KB",
+    "deps": {
+      "components": [
+        "ability_base",
+        "bounds_checking_function",
+        "cJSON",
+        "c_utils",
+        "ffrt",
+        "hilog",
+        "hisysevent",
+        "hitrace",
+        "init",
+        "ipc",
+        "jsoncpp",
+        "libuv",
+        "lzma",
+        "selinux"
+      ]
+    },
+    "build": {
+      "sub_component": [
+        "//base/hiviewdfx/faultloggerd:faultloggerd_targets"
+      ],
+      "inner_kits": [
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/backtrace:libbacktrace_local",
+          "header": {
+            "header_files": [
+              "backtrace_local.h"
+            ],
+            "header_base": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/backtrace/include"
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/backtrace:backtrace_local",
+          "header": {
+            "header_files": [
+              "backtrace_local.h"
+            ],
+            "header_base": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/backtrace/include"
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/dump_catcher:libdfx_dumpcatcher",
+          "header": {
+            "header_files": [
+              "dfx_dump_catcher.h"
+            ],
+            "header_base": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/dump_catcher/include"
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/faultloggerd_client:libfaultloggerd",
+          "header": {
+            "header_files": [
+              "faultloggerd_client.h"
+            ],
+            "header_base": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/faultloggerd_client/include"
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/formatter:libjson_stack_formatter",
+          "header": {
+            "header_files": [
+              "dfx_json_formatter.h"
+            ],
+            "header_base": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/formatter/include"
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/rust/panic_handler:panic_handler",
+          "header": {
+            "header_files": [],
+            "header_base": []
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/procinfo:libdfx_procinfo",
+          "header": {
+            "header_files": [
+              "procinfo.h"
+            ],
+            "header_base": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/procinfo/include"
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/signal_handler:dfxsignalhandler"
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/signal_handler:dfxsignalhandler_noflto"
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/unwinder:libunwinder",
+          "header": {
+            "header_files": [
+              "unwinder.h"
+            ],
+            "header_base": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/unwinder/include"
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/unwinder:libunwinder_static",
+          "header": {
+            "header_files": [
+              "unwinder.h"
+            ],
+            "header_base": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/unwinder/include"
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/unwinder:unwinder_host",
+          "header": {
+            "header_files": [
+              "dfx_map.h",
+              "dfx_maps.h",
+              "dfx_elf.h",
+              "dfx_symbol.h"
+            ],
+            "header_base": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/unwinder/include"
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/async_stack:libasync_stack",
+          "header": {
+            "header_files": [
+              "async_stack.h",
+              "unique_stack_table.h"
+            ],
+            "header_base": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/async_stack/include"
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/crash_exception:crash_exception",
+          "header": {
+            "header_files": [
+              "crash_exception.h"
+            ],
+            "header_base": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/crash_exception"
+          }
+        },
+        {
+          "name": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/sigdump_handler:dfx_sigdump_handler",
+          "header": {
+            "header_files": [
+              "dfx_sigdump_handler.h"
+            ],
+            "header_base": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/sigdump_handler/include"
+          }
+        }
+      ],
+      "test": [
+        "//base/hiviewdfx/faultloggerd:faultloggerd_tests"
+      ]
+    }
+  }
+}

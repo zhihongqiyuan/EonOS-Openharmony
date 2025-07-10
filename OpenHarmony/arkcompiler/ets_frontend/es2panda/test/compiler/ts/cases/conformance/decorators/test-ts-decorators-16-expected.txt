@@ -1,0 +1,28 @@
+propDec- prop1
+inner-propDec- prop1
+propDec- prop3
+inner-propDec- prop3
+methodDec- classMethod2
+methodDec- classMethod22
+paramDec- start2
+paramDec- start22
+paramDec- end2
+inner-paramDec-idx= 1
+inner-paramDec-idx= 0
+inner-paramDec-idx= 0
+inner-methodDec- classMethod2
+inner-methodDec- classMethod2
+propDec- prop2
+inner-propDec- prop2
+methodDec- classMethod1
+paramDec- start1
+paramDec- end1
+inner-paramDec-idx= 1
+inner-paramDec-idx= 0
+inner-methodDec- classMethod1
+classDec
+paramDec- start3
+paramDec- end3
+inner-paramDec-idx= 1
+inner-paramDec-idx= 0
+inner-classDec

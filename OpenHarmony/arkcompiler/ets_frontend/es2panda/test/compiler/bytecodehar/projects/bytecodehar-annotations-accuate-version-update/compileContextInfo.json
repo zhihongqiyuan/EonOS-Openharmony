@@ -1,0 +1,12 @@
+{
+    "compileEntries": [
+        "&myapp/hap-file-exec&"
+    ],
+    "hspPkgNames": [],
+    "updateVersionInfo": {
+        "bytecodehar": {
+            "lib": "2.0.0",
+            "@ohos/lib": "2.0.0"
+        }
+    }
+}

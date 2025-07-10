@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021-2023 Huawei Device Co., Ltd.
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<configuration ver="2.0">
+  <target name="GenerateCa001FuzzTest">
+      <preparer>
+        <option name="push" value="generate_ca/OpenHarmony.p12 -> /data/test/generateCA/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="GenerateCa002FuzzTest">
+      <preparer>
+        <option name="push" value="generate_ca/root-ca1.cer -> /data/test/generateCA/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="GenerateCa004FuzzTest">
+      <preparer>
+        <option name="push" value="generate_ca/OpenHarmony.p12 -> /data/test/generateCA/" src="res" />
+        <option name="push" value="generate_ca/root-ca1.cer -> /data/test/generateCA/" src="res" />
+        <option name="push" value="generate_ca/app-sign-srv-ca1.cer -> /data/test/generateCA/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="GenerateCa009FuzzTest">
+      <preparer>
+        <option name="push" value="generate_ca/OpenHarmony.p12 -> /data/test/generateCA/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="GenerateCa010FuzzTest">
+      <preparer>
+        <option name="push" value="generate_ca/OpenHarmony.p12 -> /data/test/generateCA/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="GenerateCa011FuzzTest">
+      <preparer>
+        <option name="push" value="generate_ca/OpenHarmony.p12 -> /data/test/generateCA/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd001FuzzTest">
+      <preparer>
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd002FuzzTest">
+      <preparer>
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd003FuzzTest">
+      <preparer>
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd004FuzzTest">
+      <preparer>
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd005FuzzTest">
+      <preparer>
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd006FuzzTest">
+      <preparer>
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd007FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd008FuzzTest">
+      <preparer>
+
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd009FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd010FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd011FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/root-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd012FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/root-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd013FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/app-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/root-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app1.cer -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd014FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/app-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/root-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app1.cer -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd015FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/app-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/root-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app1.cer -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd016FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/VerifyResult.json -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-profile.p7b -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile.json -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/root-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/signed-profile.p7b -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app1.cer -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd017FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/VerifyResult.json -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-profile.p7b -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile.json -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/root-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/signed-profile.p7b -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app1.cer -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd018FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/VerifyResult.json -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-profile.p7b -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile.json -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/root-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/signed-profile.p7b -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/phone-default-unsigned.txt -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/entry-default-unsigned-so.txt -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd019FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/VerifyResult.json -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-profile.p7b -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile.json -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/root-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/signed-profile.p7b -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/entry-default-signed-so.txt -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/signed-elf.txt -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/signed-bin.txt -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd020FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/app-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/root-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd021FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/app-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/root-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app1.cer -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ProcessCmd022FuzzTest">
+      <preparer>
+        <option name="push" value="generate_keypair/app-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/OpenHarmony.p12 -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-sign-srv-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/profile-release1.pem -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/root-ca1.cer -> /data/test/generateKeyPair/" src="res" />
+        <option name="push" value="generate_keypair/app1.cer -> /data/test/generateKeyPair/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="Profile001FuzzTest">
+		<preparer>
+			<option name="push" value="sign_profile/app-release1.pem -> /data/test/signProfile/" src="res"/>
+			<option name="push" value="sign_profile/ohtest.p12 -> /data/test/signProfile/" src="res"/>
+			<option name="push" value="sign_profile/profile-release1.pem -> /data/test/signProfile/" src="res"/>
+			<option name="push" value="sign_profile/profile.json -> /data/test/signProfile/" src="res"/>
+			<option name="push" value="sign_profile/signed-profile.p7b -> /data/test/signProfile/" src="res"/>
+			<option name="push" value="sign_profile/VerifyResult.json -> /data/test/signProfile/" src="res"/>
+			<option name="push" value="sign_profile/profile-release1-reverse.pem -> /data/test/signProfile/" src="res"/>
+			<option name="push" value="sign_profile/profile-release1-cert.pem -> /data/test/signProfile/" src="res"/>
+			<option name="push" value="sign_profile/profile-release1-invalid_cert_chain.pem -> /data/test/signProfile/" src="res"/>
+		</preparer>
+		<cleaner>
+		</cleaner>
+	</target>
+	<target name="HapSign001FuzzTest" timeout="3000">
+      <preparer>
+        <option name="push" value="hap_sign/app-release1.pem -> /data/test/hapSign/" src="res"/>
+        <option name="push" value="hap_sign/app1-profile1.p7b -> /data/test/hapSign/" src="res"/>
+        <option name="push" value="hap_sign/signed-profile.p7b -> /data/test/hapSign/" src="res"/>
+        <option name="push" value="hap_sign/ohtest.p12 -> /data/test/hapSign/" src="res"/>
+        <option name="push" value="hap_sign/ohtest.jks -> /data/test/hapSign/" src="res"/>
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="ZipSignerFuzzTest">
+      <preparer>
+        <option name="push" value="zip/data_descriptor_hap.txt -> /data/test/zip/" src="res" />
+        <option name="push" value="zip/unsigned.txt -> /data/test/zip/" src="res" />
+        <option name="push" value="zip/signed.txt -> /data/test/zip/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  <target name="RandomAccessFileInputOutputFuzzTest">
+      <preparer>
+        <option name="push" value="zip/unsigned.txt -> /data/test/zip/" src="res" />
+      </preparer>
+      <cleaner>
+      </cleaner>
+  </target>
+  
+</configuration>
+

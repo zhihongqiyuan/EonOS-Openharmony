@@ -1,0 +1,12 @@
+{
+  "float": [
+    {
+      "name": "status_bar_padding_start",
+      "value": "24vp"
+    },
+    {
+      "name": "status_bar_padding_end",
+      "value": "24vp"
+    }
+  ]
+}

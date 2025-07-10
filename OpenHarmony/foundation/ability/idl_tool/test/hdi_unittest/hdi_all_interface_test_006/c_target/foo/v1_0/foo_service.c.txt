@@ -1,0 +1,103 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include "v1_0/foo_service.h"
+#include <hdf_base.h>
+#include <hdf_core_log.h>
+#include <osal_mem.h>
+#include <securec.h>
+
+#define HDF_LOG_TAG    foo_service
+
+static int32_t FooPing(struct IFoo *self, const char* sendMsg, char* recvMsg, uint32_t recvMsgLen)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooGetData(struct IFoo *self, struct FooInfo* info)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooTestFunc1(struct IFoo *self, bool inData, bool* outData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooTestFunc2(struct IFoo *self, int8_t inData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooTestFunc3(struct IFoo *self, int16_t inData, int16_t* outData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooTestFunc4(struct IFoo *self, int32_t inData, int32_t* outData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooTestFunc5(struct IFoo *self, int64_t inData, int64_t* outData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooTestFunc6(struct IFoo *self, const char* inData)
+{
+    return HDF_SUCCESS;
+}
+
+static int32_t FooGetVersion(struct IFoo *self, uint32_t* majorVer, uint32_t* minorVer)
+{
+    *majorVer = IFOO_MAJOR_VERSION;
+    *minorVer = IFOO_MINOR_VERSION;
+    return HDF_SUCCESS;
+}
+
+struct FooService *FooServiceGet(void)
+{
+    struct FooService *service = (struct FooService *)OsalMemCalloc(sizeof(struct FooService));
+    if (service == NULL) {
+        HDF_LOGE("%{public}s: malloc FooService obj failed!", __func__);
+        return NULL;
+    }
+
+    if (!FooStubConstruct(&service->stub)) {
+        HDF_LOGE("%{public}s: construct FooStub obj failed!", __func__);
+        OsalMemFree(service);
+        return NULL;
+    }
+
+    service->stub.interface.Ping = FooPing;
+    service->stub.interface.GetData = FooGetData;
+    service->stub.interface.TestFunc1 = FooTestFunc1;
+    service->stub.interface.TestFunc2 = FooTestFunc2;
+    service->stub.interface.TestFunc3 = FooTestFunc3;
+    service->stub.interface.TestFunc4 = FooTestFunc4;
+    service->stub.interface.TestFunc5 = FooTestFunc5;
+    service->stub.interface.TestFunc6 = FooTestFunc6;
+    return service;
+}
+
+void FooServiceRelease(struct FooService *instance)
+{
+    if (instance == NULL) {
+        return;
+    }
+
+    OsalMemFree(instance);
+}

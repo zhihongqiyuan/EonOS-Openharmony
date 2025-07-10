@@ -1,0 +1,12 @@
+{
+  "entry/src/main/entryability/EntryAbility.js": {
+    "version": 3,
+    "file": "EntryAbility.ets",
+    "sourceRoot": "",
+    "sources": [
+      "entry/src/main/entryability/EntryAbility.js"
+    ],
+    "names": [],
+    "mappings": "AAAA,CAAY;"
+  }
+}

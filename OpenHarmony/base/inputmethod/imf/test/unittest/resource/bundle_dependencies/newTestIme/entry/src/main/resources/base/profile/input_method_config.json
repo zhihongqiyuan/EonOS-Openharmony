@@ -1,0 +1,25 @@
+{
+  "subtypes": [
+    {
+      "icon": "$media:icon",
+      "id": "lowerInput",
+      "label": "$string:en_lower",
+      "locale": "en-US",
+      "mode": "lower"
+    },
+    {
+      "icon": "$media:icon",
+      "id": "upperInput",
+      "label": "$string:en_upper",
+      "locale": "en-US",
+      "mode": "upper"
+    },
+    {
+      "icon": "$media:icon",
+      "id": "chineseInput",
+      "label": "$string:chinese",
+      "locale": "zh-CN",
+      "mode": "lower"
+    }
+  ]
+}

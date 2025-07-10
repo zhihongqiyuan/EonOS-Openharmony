@@ -1,0 +1,44 @@
+{
+    "compileEntries": [
+        "&myapp/hap-file-exec&"
+    ],
+    "hspPkgNames": [],
+    "pkgContextInfo": {
+        "myapp": {
+            "packageName": "myapp",
+            "bundleName": "",
+            "moduleName": "",
+            "version": "",
+            "entryPath": "",
+            "isSo": false,
+            "dependencyAlias": ""
+        },
+        "bytecodehar1": {
+            "packageName": "bytecodehar1",
+            "bundleName": "",
+            "moduleName": "",
+            "version": "2.0.0",
+            "entryPath": "",
+            "isSo": false,
+            "dependencyAlias": ""
+        },
+        "@ohos/bytecodehar2": {
+            "packageName": "@ohos/bytecodehar2",
+            "bundleName": "",
+            "moduleName": "",
+            "version": "2.0.0",
+            "entryPath": "",
+            "isSo": false,
+            "dependencyAlias": ""
+        },
+        "sourcehar": {
+            "packageName": "sourcehar",
+            "bundleName": "",
+            "moduleName": "",
+            "version": "2.0.0",
+            "entryPath": "",
+            "isSo": false,
+            "dependencyAlias": ""
+        }
+    }
+}

@@ -1,0 +1,7 @@
+[
+	"libhril_hdf.z.so",
+	"libhril_hdf_ext.z.so",
+	"libusb_pnp_manager.z.so",
+	"libcamera_daemon.so",
+	"libril_driver.z.so"
+]

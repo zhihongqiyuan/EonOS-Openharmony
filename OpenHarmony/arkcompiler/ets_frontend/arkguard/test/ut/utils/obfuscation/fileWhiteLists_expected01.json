@@ -1,0 +1,115 @@
+{
+  "testPath1": {
+    "fileKeepInfo": {
+      "keepSymbol": {
+        "propertyNames": [
+          "test2"
+        ],
+        "globalNames": [
+          "test1"
+        ]
+      },
+      "keepAsConsumer": {
+        "propertyNames": [
+          "test4"
+        ],
+        "globalNames": [
+          "test3"
+        ]
+      },
+      "structProperties": [
+        "test01",
+        "test5"
+      ],
+      "exported": {
+        "propertyNames": [
+          "test8"
+        ],
+        "globalNames": [
+          "test7"
+        ]
+      },
+      "enumProperties": [
+        "test02",
+        "test6"
+      ],
+      "stringProperties": [
+        "test9"
+      ],
+      "arkUIKeepInfo": {
+        "propertyNames": [
+          "test112"
+        ],
+        "globalNames": [
+          "test111"
+        ]
+      }
+    },
+    "fileReservedInfo": {
+      "enumProperties": [
+        "test10"
+      ],
+      "propertyParams": [
+        "test11"
+      ]
+    }
+  },
+  "testPath2": {
+    "fileKeepInfo": {
+      "keepSymbol": {
+        "propertyNames": [],
+        "globalNames": []
+      },
+      "keepAsConsumer": {
+        "propertyNames": [],
+        "globalNames": []
+      },
+      "structProperties": [],
+      "exported": {
+        "propertyNames": [
+          "test12"
+        ],
+        "globalNames": []
+      },
+      "enumProperties": [],
+      "stringProperties": [],
+      "arkUIKeepInfo": {
+        "propertyNames": [],
+        "globalNames": []
+      }
+    },
+    "fileReservedInfo": {
+      "enumProperties": [],
+      "propertyParams": []
+    }
+  },
+  "testPath3": {
+    "fileKeepInfo": {
+      "keepSymbol": {
+        "propertyNames": [],
+        "globalNames": []
+      },
+      "keepAsConsumer": {
+        "propertyNames": [],
+        "globalNames": []
+      },
+      "structProperties": [],
+      "exported": {
+        "propertyNames": [],
+        "globalNames": [
+          "test13"
+        ]
+      },
+      "enumProperties": [],
+      "stringProperties": [],
+      "arkUIKeepInfo": {
+        "propertyNames": [],
+        "globalNames": []
+      }
+    },
+    "fileReservedInfo": {
+      "enumProperties": [],
+      "propertyParams": []
+    }
+  }
+}

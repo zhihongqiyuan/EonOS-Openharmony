@@ -1,0 +1,66 @@
+{
+  "name": "@ohos/config_policy",
+  "description": "The customization framework, namely, cust, provides APIs for each service module to obtain the configuration directories at different levels or the configuration file paths.",
+  "version": "3.2",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/customization/config_policy"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "config_policy",
+    "subsystem": "customization",
+    "syscap": [
+      "SystemCapability.Customization.ConfigPolicy",
+      "SystemCapability.Customization.CustomConfig"
+    ],
+    "features": [
+      "config_policy_api_support",
+      "config_policy_fs_prefix"
+    ],
+    "adapted_system_type": [ "standard", "small" ],
+    "hisysevent_config": [
+      "//base/customization/config_policy/frameworks/dfx/hisysevent.yaml"
+    ],
+    "rom": "100KB",
+    "ram": "50KB",
+    "deps": {
+      "components": [
+        "ability_runtime",
+        "c_utils",
+        "hisysevent",
+        "hilog",
+        "napi",
+        "init",
+        "bounds_checking_function"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "sub_component": [
+        "//base/customization/config_policy:config_policy_components"
+      ],
+      "inner_kits": [
+        {
+          "header": {
+            "header_base": "//base/customization/config_policy/interfaces/inner_api/include",
+            "header_files": [
+              "config_policy_utils.h"
+            ]
+          },
+          "name": "//base/customization/config_policy/frameworks/config_policy:configpolicy_util"
+        },
+        {
+          "name": "//base/customization/config_policy/frameworks/config_policy:configpolicy_util_for_init_static",
+          "visibility": ["init"]
+        }
+      ],
+      "test": [
+        "//base/customization/config_policy/test/unittest:ConfigPolicyUtilsTest",
+        "//base/customization/config_policy/test/fuzztest:fuzztest"
+      ]
+    }
+  }
+}

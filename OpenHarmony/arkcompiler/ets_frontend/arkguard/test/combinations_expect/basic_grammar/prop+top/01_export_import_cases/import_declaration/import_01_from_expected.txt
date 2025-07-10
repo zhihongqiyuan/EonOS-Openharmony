@@ -1,0 +1,44 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import assert from 'assert';
+import h from './export_api_01';
+import * as i from './export_api_01';
+import {} from './export_api_01';
+import { var1 } from './export_api_01';
+import { var2, var3, } from './export_api_01';
+import { default as maxFunc1 } from './export_api_01';
+import j, * as k from './export_api_01';
+import l, { reduceFunc, } from './export_api_01';
+assert(h(2, 3) === 3);
+assert(i.var1 === 1);
+assert(var1 === 1);
+assert(var2 === 2);
+assert(var3 === 3);
+assert(maxFunc1(3, 4) === 4);
+assert(j(7, 8) === 8);
+assert(k.var3 === 3);
+assert(l(3, 4) === 4);
+assert(reduceFunc(5, 4) === 1);
+// import ""; TypeError: The argument 'id' must be a non-empty string. Received ''
+import './export_api_01';
+import { moduleAlias } from './export_api_02';
+import * as o from './export_api_02';
+assert(moduleAlias.addFunc(3, 4) === 7);
+assert(o.moduleAlias.reduceFunc(5, 4) === 1);
+export { moduleAlias } from './export_api_02';
+import { moduleAlias_2 } from './export_api_02';
+import * as p from './export_api_02';
+assert(moduleAlias_2.addFunc(3, 4) === 7);
+assert(p.moduleAlias_2.reduceFunc(5, 4) === 1);

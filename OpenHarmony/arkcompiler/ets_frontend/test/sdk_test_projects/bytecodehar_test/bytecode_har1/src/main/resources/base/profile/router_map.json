@@ -1,0 +1,9 @@
+{
+  "routerMap": [
+    {
+      "name": "BytecodeHar1Page",
+      "pageSourceFile": "src/main/ets/components/BytecodeHar1Page.ets",
+      "buildFunction": "BytecodeHar1PageBuilder"
+    }
+  ]
+}

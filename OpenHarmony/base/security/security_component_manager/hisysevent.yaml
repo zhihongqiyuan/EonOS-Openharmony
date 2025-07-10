@@ -1,0 +1,134 @@
+# Copyright (c) 2023-2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: SEC_COMPONENT
+
+CALLBACK_FAILED:
+  __BASE: {type: SECURITY, level: CRITICAL, desc: Failed to execute the callback}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_UID: {type: INT32, desc: caller uid}
+  CALLER_BUNDLE_NAME: {type: STRING, desc: caller bundle name}
+  CALL_SCENE: {type: STRING, desc: call scene}
+  REASON: {type: STRING, desc: callback execution failure cause}
+  SC_ID: {type: INT32, desc: security component id}
+  SC_TYPE: {type: STRING, desc: security component type}
+
+CALLER_CHECK_FAILED:
+  __BASE: {type: SECURITY, level: CRITICAL, desc: Illegal invocation}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_UID: {type: INT32, desc: caller uid}
+  CALLER_BUNDLE_NAME: {type: STRING, desc: caller bundle name}
+  CALL_SCENE: {type: STRING, desc: call scene}
+
+CHALLENGE_CHECK_FAILED:
+  __BASE: {type: SECURITY, level: CRITICAL, desc: Challenge value verification failed}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_UID: {type: INT32, desc: caller uid}
+  CALLER_BUNDLE_NAME: {type: STRING, desc: caller bundle name}
+  CALL_SCENE: {type: STRING, desc: call scene}
+  SC_ID: {type: INT32, desc: security component id}
+  SC_TYPE: {type: STRING, desc: security component type}
+
+CLICK_INFO_CHECK_FAILED:
+  __BASE: {type: SECURITY, level: CRITICAL, desc: Failed to verify the click event}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_UID: {type: INT32, desc: caller uid}
+  CALLER_BUNDLE_NAME: {type: STRING, desc: caller bundle name}
+  SC_ID: {type: INT32, desc: security component id}
+  SC_TYPE: {type: STRING, desc: security component type}
+
+COMPONENT_INFO_CHECK_FAILED:
+  __BASE: {type: SECURITY, level: CRITICAL, desc: Failed to verify the component information}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_UID: {type: INT32, desc: caller uid}
+  CALLER_BUNDLE_NAME: {type: STRING, desc: caller bundle name}
+  CALL_SCENE: {type: STRING, desc: call scene}
+  SC_ID: {type: INT32, desc: security component id}
+  SC_TYPE: {type: STRING, desc: security component type}
+
+INIT_FAILED:
+  __BASE: {type: FAULT, level: CRITICAL, desc: Failed to initialize the security component environment}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_UID: {type: INT32, desc: caller uid}
+  CALLER_BUNDLE_NAME: {type: STRING, desc: caller bundle name}
+  REASON: {type: STRING, desc: callback execution failure cause}
+
+REGISTER_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: The security component is registered successfully}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_UID: {type: INT32, desc: caller uid}
+  CALLER_BUNDLE_NAME: {type: STRING, desc: caller bundle name}
+  CALLER_BUNDLE_VERSION: {type: STRING, desc: caller bundle version}
+  SC_ID: {type: INT32, desc: security component id}
+  SC_TYPE: {type: STRING, desc: security component type}
+
+REPEAT_CALLBACK_REGISTER:
+  __BASE: {type: SECURITY, level: CRITICAL, desc: Repeated registration callback}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_UID: {type: INT32, desc: caller uid}
+
+SERVICE_INIT_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: Security component service starts successfully}
+  PID: {type: INT32, desc: pid of the service process}
+
+TEMP_GRANT_FAILED:
+  __BASE: {type: FAULT, level: CRITICAL, desc: Security component authorization failed}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_UID: {type: INT32, desc: caller uid}
+  CALLER_BUNDLE_NAME: {type: STRING, desc: caller bundle name}
+  SC_ID: {type: INT32, desc: security component id}
+  SC_TYPE: {type: STRING, desc: security component type}
+
+TEMP_GRANT_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: Security component authorization successfully}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_UID: {type: INT32, desc: caller uid}
+  SC_ID: {type: INT32, desc: security component id}
+  SC_TYPE: {type: STRING, desc: security component type}
+
+UNREGISTER_SUCCESS:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: Security component unregister}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_UID: {type: INT32, desc: caller uid}
+  SC_ID: {type: INT32, desc: security component id}
+
+SESSION_INFO_CHECK_FAILED:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: Failed to verify session information}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_BUNDLE_NAME: {type: STRING, desc: caller bundle name}
+  CLIENT_SESSION_ID: {type: INT32, desc: session id stored in client}
+  CLIENT_SEQ_NUM: {type: INT32, desc: sequence number stored in client}
+  SERVICE_SESSION_ID: {type: INT32, desc: session id stored in server}
+  SERVICE_SEQ_NUM: {type: INT32, desc: sequence number stored in server}
+
+CALLBACK_INFO_CHECK_FAILED:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: Failed to verify session information}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_BUNDLE_NAME: {type: STRING, desc: caller bundle name}
+  CLIENT_SESSION_ID: {type: INT32, desc: session id stored in client}
+  CLIENT_SEQ_NUM: {type: INT32, desc: sequence number stored in client}
+  SERVICE_SESSION_ID: {type: INT32, desc: session id stored in server}
+  SERVICE_SEQ_NUM: {type: INT32, desc: sequence number stored in server}
+
+PREPROCESS_MESSAGE_FAILED:
+  __BASE: {type: BEHAVIOR, level: MINOR, desc: Failed to verify session information}
+  PREPROCESS_TYPE: {type: INT32, desc: preprocess type}
+  CALLER_PID: {type: INT32, desc: caller pid}
+  CALLER_BUNDLE_NAME: {type: STRING, desc: caller bundle name}
+  CLIENT_SESSION_ID: {type: INT32, desc: session id stored in client}
+  CLIENT_SEQ_NUM: {type: INT32, desc: sequence number stored in client}
+
+CLIP_CHECK_FAILED:
+  __BASE: {type: SECURITY, level: CRITICAL, desc: The security component is clipped by parent component}
+  CALLER_BUNDLE_NAME: {type: STRING, desc: caller bundle name}
+  COMPONENT_INFO: {type: STRING, desc: component information}

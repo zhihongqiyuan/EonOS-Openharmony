@@ -1,0 +1,310 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ /**
+ * @addtogroup HdiLpfenceGeofence
+ * @{
+ *
+ * @brief Provides geofence APIs for the low-power fence service.
+ *
+ * You can use the APIs to add circle or polygon geofences, remove geofences, obtain relationship between a device and a geofence, and obtain the geographical location of a device. The geofence module can work continuously even when the AP is in sleep mode.
+ * The geofencing feature is used to determine whether a device reaches a specific geographical location, so that subsequent services, such as switching to the appropriate access card and pushing customized messages, can be implemented.
+ *
+ * @since 4.0
+ * @version 1.0
+ */
+
+/**
+ * @file GeofenceTypes.idl
+ *
+ * @brief Defines the data types used by the geofence module.
+ *
+ * @since 4.0
+ * @version 1.0
+ */
+
+/**
+ * @brief Declares the path of the geofence module interface package.
+ *
+ * @since 4.0
+ */
+package ohos.hdi.location.lpfence.geofence.v1_0;
+
+/**
+ * @brief Enumerates the geofence status events.
+ *
+ * @since 4.0
+ */
+enum GeofenceTransition {
+    /** The device is within the geofence. */
+    GEOFENCE_TRANSITION_ENTERED = (1 << 0),
+    /** The device is out of the geofence. */
+    GEOFENCE_TRANSITION_EXITED = (1 << 1),
+    /** The relationship between the device and the geofence cannot be determined. */
+    GEOFENCE_TRANSITION_UNCERTAIN = (1 << 2),
+    /** The device is in the geographical fence for a period of time. */
+    GEOFENCE_TRANSITION_DWELL = (1 << 3),
+    /** The device is in the geofence and is indoors. */
+    GEOFENCE_TRANSITION_INDOOR = (1 << 4),
+    /** The device is in the geofence and is outdoors. */
+    GEOFENCE_TRANSITION_OUTDOOR = (1 << 5),
+};
+
+/**
+ * @brief Enumerates the geofence attributes.
+ *
+ * @since 4.0
+ */
+enum GeofenceAttribute {
+    /** WGS 84 is used for geofences. */
+    GEOFENCE_ATTRI_COORDINATE_WGS84 = 16,
+};
+
+/**
+ * @brief Enumerates the accuracy modes supported by geofencing.
+ *
+ * @since 4.0
+ */
+enum GeofenceAccuracy {
+    /** High precision. In this mode, the GNSS module receives GPS signals once every second, which results in high power consumption of the GNSS module. */
+    ACCURACY_FINE = 1,
+    /** Medium precision. In this case, the GNSS module receives GPS signals once every 60 seconds, which consumes less power. */
+    ACCURACY_BALANCE = 2,
+    /** Low precision. In this case, base station positioning rather than the GNSS module is used. */
+    ACCURACY_COARSE = 3,
+};
+
+/**
+ * @brief Enumeration of mobile communication technology generations.
+ *
+ * @since 4.0
+ */
+enum GeofenceCellType {
+    /** 4G */
+    GEOFENCE_CELL_G4 = 0,
+    /** 5G */
+    GEOFENCE_CELL_NR = 1,
+};
+
+/**
+ * @brief Enumerates the location information sources.
+ *
+ * @since 4.0
+ */
+enum GeofenceLocSource {
+    /** GNSS module. */
+    GEOFENCE_GNSS = 1,
+    /** Wi-Fi module. */
+    GEOFENCE_WIFI = 2,
+    /** Sensor module. */
+    GEOFENCE_SENSOR = 4,
+    /** Base station module. */
+    GEOFENCE_CELL = 8,
+    /** Bluetooth module. */
+    GEOFENCE_BT = 16,
+};
+
+/**
+ * @brief Defines the struct for location coordinates.
+ *
+ * @since 4.0
+ */
+struct Point {
+    /** Latitude */
+    double latitude;
+    /** Longitude */
+    double longitude;
+};
+
+/**
+ * @brief Defines the struct for a circle geofence to add.
+ *
+ * @since 4.0
+ */
+struct GeofenceCircleRequest {
+    /** ID of the geofence. A geofence with the same ID cannot be added repeatedly. */
+    int geofenceId;
+    /** Coordinates of the center point of the circle geofence. For details, see {@Link Point}. */
+    struct Point point;
+    /** Radius of the circle geofence, in meters. */
+    double radius;
+    /** Precision of the circle geofence. For details, see {@Link GeofenceAccuracy}. */
+    unsigned short accuracy;
+    /** Time for which a device is dwelling in the geofence, in milliseconds. If the device dwelling time reaches the value specified by this parameter, a {@Link GEOFENCE_TRANSITION_DWELL} event is reported. */
+    unsigned int loiterTimeMs;
+    /** Geofence status event monitored. The monitored event will be reported when the conditions are met. For details, see {@Link GeofenceTransition}. */
+    unsigned char monitorTransitions;
+    /** Attributes of the circular geofence. For details, see {@Link GeofenceAttribute}. */
+    unsigned int attribute;
+};
+
+/**
+ * @brief Defines the struct for a polygon geofence to add.
+ *
+ * @since 4.0
+ */
+struct GeofencePolygonRequest {
+    /** ID of the geofence. A geofence with the same ID cannot be added repeatedly. */
+    int geofenceId;
+    /** Boundary coordinates of the polygon geofence. Only convex polygons are supported. For details, see {@Link Point}. */
+    struct Point[] points;
+    /** Precision of the polygon geofence. For details, see {@Link GeofenceAccuracy}. */
+    unsigned short accuracy;
+    /** Time for which a device is dwelling in the polygon geofence, in milliseconds. If the device dwelling time reaches the value specified by this parameter, a {@Link GEOFENCE_TRANSITION_DWELL} event is reported. */
+    unsigned int loiterTimeMs;
+    /** Geofence status event monitored. The monitored event will be reported when the conditions are met. For details, see {@Link GeofenceTransition}. */
+    unsigned char monitorTransitions;
+    /** Attributes of the polygon geofence. For details, see {@Link GeofenceAttribute}. */
+    unsigned int attribute;
+};
+
+/**
+ * @brief Defines the struct for the execution result of geofence addition or removal.
+ *
+ * @since 4.0
+ */
+struct GeofenceResult {
+    /** ID of the geofence. */
+    int geofenceId;
+    /** Return value. The value <b>0</b> indicates that the operation is successful, and a negative value indicates that the operation fails. */
+    int result;
+};
+
+/**
+ * @brief Defines the struct for the base station offline database data to send.
+ *
+ * @since 4.0
+ */
+struct OfflineDb {
+    /** Sequence number of the current data packet, starting from 1. */
+    unsigned int times;
+    /** Total number of packets to send. */
+    unsigned int totalTimes;
+    /** Data of the base station offline database. */
+    unsigned char[] dbs;
+};
+
+/**
+ * @brief Defines the struct for the device location information.
+ *
+ * @since 4.0
+ */
+struct GeoLocationInfo {
+    /** Bit 0 indicates whether the longitude and latitude are valid, and bit 5 indicates whether the precision is valid. The value <b>0</b> means invalid and <b>1</b> means valid. */
+    unsigned short flags;
+    /** Latitude. */
+    double latitude;
+    /** Longitude. */
+    double longitude;
+    /** Altitude, in meters. */
+    double altitude;
+    /** Precision, in meters. */
+    float accuracy;
+    /** Moving speed, in meters/second. */
+    float speed;
+    /** Bearing. */
+    float bearing;
+    /** Timestamp, in nanoseconds. */
+    long timeStamp;
+};
+
+/**
+ * @brief Defines the struct for geofence information of a device.
+ *
+ * @since 4.0
+ */
+struct GeofenceSize {
+    /** Maximum number of circle geofences that can be added to the device. */
+    unsigned int circleMaxNum;
+    /** Maximum number of polygon geofences that can be added to the device. */
+    unsigned int polygonMaxNum;
+    /** Number of circle geofences added for the device. */
+    unsigned int circleUsedNum;
+    /** Number of polygon geofences added for the device. */
+    unsigned int polygonUsedNum;
+};
+
+/**
+ * @brief Defines the struct for information about the cell where the device resides.
+ *
+ * @since 4.0
+ */
+struct CurrentCell {
+    /** Cell ID. */
+    long cellId;
+    /** Location area code (LAC) of the base station. */
+    int lac;
+    /** Mobile country code (MCC). */
+    unsigned short mcc;
+    /** Mobile network code (MNC). */
+    unsigned short mnc;
+    /** Received signal strength indication (RSSI). */
+    short rssi;
+    /** Radio Access Technology (RAT). The value <b>1</b> stands for GSM, <b>2</b> for WCDMA or TD-CDMA, <b>3</b> for LTE, and <b> 4</b> for 5G NR. */
+    unsigned short rat;
+    /** Physical cell identity (PCI). */
+    unsigned int pci;
+    /** Lower-order 32 bits of the timestamp. */
+    int bootTimeLow;
+    /** High-order 32 bits of the timestamp. */
+    int bootTimeHigh;
+};
+
+/**
+ * @brief Defines the struct for information about the neighbor cell.
+ *
+ * @since 4.0
+ */
+struct NeighborCell {
+    /** ID of the neighbor cell. */
+    int physicalId;
+    /** MCC. */
+    unsigned short mcc;
+    /** MNC. */
+    unsigned short mnc;
+    /** RSSI. */
+    short rssi;
+    /** RAT. */
+    unsigned short rat;
+    /** PCI. */
+    unsigned int pci;
+};
+
+/**
+ * @brief Defines the struct for information about the cell where a device resides.
+ *
+ * @since 4.0
+ */
+struct GeofenceCellInfo {
+    /** Current cell information. For details, see {@Link CurrentCell}. */
+    struct CurrentCell cell;
+    /** Neighbor cell information. For details, see {@Link NeighborCell}. */
+    struct NeighborCell[] neighborCells;
+};
+
+/**
+ * @brief Defines the struct for the base station offline database data to request.
+ *
+ * @since 4.0
+ */
+struct RequestCellDb {
+    /** Size of the base station offline database to request. */
+    int requestSize;
+    /** Latest location of the device. For details, see {@Link GeoLocationInfo}. */
+    struct GeoLocationInfo location;
+    /** Latest base station information of the device. For details, see {@Link GeofenceCellInfo}. */
+    struct GeofenceCellInfo[] cellInfo;
+};
+/** @} */

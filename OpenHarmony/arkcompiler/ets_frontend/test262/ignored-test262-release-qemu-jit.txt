@@ -1,0 +1,6 @@
+#21423
+test262/data/test_es2021/intl402/String/prototype/toLocaleUpperCase/special_casing_Lithuanian.js
+
+#19208
+test262/data/test_es2021/language/module-code/instn-iee-err-circular.js
+test262/data/test_es2021/language/module-code/instn-iee-err-circular-as.js

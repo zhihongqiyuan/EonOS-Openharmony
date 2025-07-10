@@ -1,0 +1,44 @@
+# Copyright (c) 2023 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//base/security/asset/config.gni")
+import("//build/ohos.gni")
+
+group("asset_component") {
+  deps = [
+    "interfaces/inner_kits/rs:asset_sdk_rust",
+    "interfaces/kits/c:asset_ndk",
+    "sa_profile:asset_sa_profiles",
+    "services/core_service:asset_service",
+    "services/plugin:asset_plugin",
+  ]
+
+  if (support_jsapi) {
+    deps += [ "frameworks/js/napi:asset_napi" ]
+  }
+}
+
+# need set different name from asset_test for building script limit
+group("asset_bin_test") {
+  testonly = true
+  deps = [
+    "test/unittest/kits_ndk:asset_ndk_test",
+    "test/unittest/module_test:asset_dependency_test",
+  ]
+  if (enable_local_test) {
+    deps += [ "test/unittest/inner_kits_rust:asset_rust_test" ]
+    deps += [ "test/unittest/module_test:asset_module_test" ]
+    deps += [ "services/common:asset_calling_info_test" ]
+    deps += [ "services/db_operator:asset_db_operator_test" ]
+  }
+}

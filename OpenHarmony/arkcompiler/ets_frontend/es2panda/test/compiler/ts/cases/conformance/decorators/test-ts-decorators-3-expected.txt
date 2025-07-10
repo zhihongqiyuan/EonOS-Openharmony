@@ -1,0 +1,10 @@
+test-ts-decorators-3
+a
+test-ts-decorators-3
+1
+test-ts-decorators-3
+b
+test-ts-decorators-3
+c
+test-ts-decorators-3
+3

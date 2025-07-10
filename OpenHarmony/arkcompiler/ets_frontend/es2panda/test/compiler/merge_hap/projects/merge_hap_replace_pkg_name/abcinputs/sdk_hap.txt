@@ -1,0 +1,2 @@
+sdk_hap.ts
+sdk_hap_import_file.ts

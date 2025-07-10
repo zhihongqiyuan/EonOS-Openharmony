@@ -1,0 +1,43 @@
+{
+  "name": "@ohos/ylong_json",
+  "version": "4.0",
+  "description": "Serialization and deserialization for JSON.",
+  "publishAs": "code-segment",
+  "homePage": "https://gitee.com/openharmony",
+  "repository": "https://gitee.com/openharmony/commonlibrary_rust_ylong_json",
+  "license": "Apache License 2.0",
+  "language": "",
+  "segment": {
+    "destPath": "commonlibrary/rust/ylong_json"
+  },
+  "private": false,
+  "scripts": {},
+  "envs": [],
+  "dirs": [],
+  "author": {},
+  "contributors": [],
+  "component": {
+    "name": "ylong_json",
+    "subsystem": "commonlibrary",
+    "features": [],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom": "200KB",
+    "ram": "~200KB",
+    "deps": {},
+    "build": {
+      "sub_component": [],
+      "inner_kits": [
+        {
+          "header": {
+            "header_base": [],
+            "header_files": []
+          },
+          "name": "//commonlibrary/rust/ylong_json:lib"
+        }
+      ],
+      "test": []
+    }
+  }
+}

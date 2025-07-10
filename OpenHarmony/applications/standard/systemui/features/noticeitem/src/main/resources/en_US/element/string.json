@@ -1,0 +1,52 @@
+{
+  "string": [
+    {
+      "name": "noticeitem",
+      "value": "noticeitem"
+    },
+    {
+      "name": "nonotification_text",
+      "value": "no notification"
+    },
+    {
+      "name": "closeNotification",
+      "value": "Close Notification"
+    },
+    {
+      "name": "moreSettings",
+      "value": "More Settings"
+    },
+    {
+      "name": "cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "enter",
+      "value": "enter"
+    },
+    {
+      "name": "Sending",
+      "value": "Sending"
+    },
+    {
+      "name": "close",
+      "value": "Turn Off"
+    },
+    {
+      "name": "closeNovice",
+      "value": "Turn Off Notificaiton"
+    },
+    {
+      "name": "confirm_message",
+      "value": "Do you want to turn off all notifications of '%s'?"
+    },
+    {
+      "name": "device_dialog_title",
+      "value": "Please select a device"
+    },
+    {
+      "name": "distributed_devicename",
+      "value": "From the %s"
+    }
+  ]
+}

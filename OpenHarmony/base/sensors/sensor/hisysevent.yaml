@@ -1,0 +1,59 @@
+#  Copyright (c) 2021-2025 Huawei Device Co., Ltd.
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+domain: SENSOR
+
+ENABLE_SENSOR:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: When registering enable sensor}
+  PKG_NAME: {type: STRING, desc: package name}
+  TYPE: {type: INT32, desc: type}
+  UID: {type: INT32, desc: calling uid}
+  PID: {type: INT32, desc: calling pid}
+
+DISABLE_SENSOR:
+  __BASE: {type: STATISTIC, level: MINOR, tag: PowerStats, desc: When unregistering disable sensor}
+  TYPE: {type: INT32, desc: type}
+  PKG_NAME: {type: STRING, desc: package name}
+  UID: {type: INT32, desc: calling uid}
+  PID: {type: INT32, desc: calling pid}
+
+DATA_CHANNEL_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: sensor data channel exception}
+  PKG_NAME: {type: STRING, desc: package name}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+VERIFY_ACCESS_TOKEN_FAIL:
+  __BASE: {type: SECURITY, level: MINOR, desc: sensor verify access token fail}
+  PKG_NAME: {type: STRING, desc: package name}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+SERVICE_IPC_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: sensor service ipc exception}
+  PKG_NAME: {type: STRING, desc: package name}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+HDF_SERVICE_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: sensor hdf service exception}
+  PKG_NAME: {type: STRING, desc: package name}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+SERVICE_EXCEPTION:
+  __BASE: {type: FAULT, level: MINOR, desc: sensor service exception}
+  PKG_NAME: {type: STRING, desc: package name}
+  ERROR_CODE: {type: INT32, desc: error code}
+
+EVENT_REPORT:
+  __BASE: {type: BEHAVIOR, level: CRITICAL, desc: Non consecutive and critical event reporting, preserve: true}
+  SENSOR_ID: {type: INT32, desc: Sensor Type}
+  TIMESTAMP: {type: STRING, desc: Timestamp}
+  DATA: {type: STRING, desc: Data Information}

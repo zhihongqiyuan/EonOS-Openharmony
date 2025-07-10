@@ -1,0 +1,12 @@
+    /* [NAPI_GEN]: 返回值是对象时，将native侧的对象的属性和值依次塞入napi_create_object创建出的对象，最终将该对象返回js
+     * env: 当前环境的句柄
+     * object: 要设置属性的js对象，该对象是由上文napi_create_object创建的
+     * utf8name: 属性的名称，是一个以UTF-8编码的字符串
+     * value: 与属性名称关联的值，这个值可以是任何js类型（如一个数值、字符串、另一个对象等）
+     */
+    status = napi_set_named_property(env, [set_objname_replace]Out, "[set_propname_replace]", [set_propvalue_replace]Out);
+    if (status != napi_ok) {
+        /* [NAPI_GEN]: 错误处理*/
+        getErrMessage(status, env, extended_error_info, "napi_set_named_property", tag);
+        return nullptr;
+    }

@@ -1,0 +1,54 @@
+slotNum = 0x0
+.language ECMAScript
+.function any .A(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x0
+.language ECMAScript
+.function any .B(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x2
+.language ECMAScript
+.function any .foo(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldlocalmodulevar 0x0
+	sta v0
+	throw.undefinedifholewithname A
+	mov v1, v0
+	newobjrange 0x0, 0x1, v1
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldhole
+	sta v0
+	defineclasswithbuffer 0x0, .A, _1, 0x0, v0
+	sta v0
+	ldobjbyname 0x1, prototype
+	lda v0
+	stmodulevar 0x0
+	ldhole
+	sta v0
+	callruntime.definesendableclass 0x3, .B, _3, 0x0, v0
+	returnundefined
+label_2: 
+}
+
+

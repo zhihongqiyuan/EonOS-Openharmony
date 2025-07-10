@@ -1,0 +1,3 @@
+./test/version_control/bytecode_version_control/mixed_compile/mixed_compile_source.js;import;esm;./test/version_control/bytecode_version_control/mixed_compile/mixed_compile_source.js;import
+./test/version_control/bytecode_version_control/mixed_compile/mixed_compile_bytecode_source1_version_API9.abc;
+./test/version_control/bytecode_version_control/mixed_compile/mixed_compile_bytecode_source2_version_API12beta1.abc;

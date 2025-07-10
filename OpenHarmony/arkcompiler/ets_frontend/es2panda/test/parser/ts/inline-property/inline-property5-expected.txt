@@ -1,0 +1,158 @@
+slotNum = 0x2
+expectedProperty = 0x1
+.language ECMAScript
+.function any .#~C1=#C1(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldlexvar 0x0, 0x3
+	callruntime.callinit 0x0, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x5
+.language ECMAScript
+.function any .#~C1>#(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda a2
+	ldprivateproperty 0x0, 0x0, 0x0
+	sta v0
+	ldai 0x1
+	add2 0x2, v0
+	stprivateproperty 0x3, 0x0, 0x0, a2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .#~C1>#instance_initializer(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldundefined
+	callruntime.defineprivateproperty 0x0, 0x0, 0x2, a2
+	ldai 0x0
+	callruntime.defineprivateproperty 0x2, 0x0, 0x0, a2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0xa
+expectedProperty = 0x5
+.language ECMAScript
+.function any .#~C2=#C2(any a0, any a1, any a2, any a3) {
+label_1: 
+label_0: 
+	ldlexvar 0x0, 0x1
+	callruntime.callinit 0x0, a2
+	ldai 0x0
+	stobjbyname 0x2, age, a2
+	lda.str hello
+	stobjbyname 0x4, name, a2
+	ldai 0x1
+	stobjbyname 0x6, b, a2
+	ldai 0x2
+	stobjbyname 0x8, z, a2
+	lda a2
+	return
+label_2: 
+}
+
+slotNum = 0x4
+.language ECMAScript
+.function any .#~C2>#g(any a0, any a1, any a2, any a3) {
+label_1: 
+label_0: 
+	lda a3
+	stobjbyname 0x0, d, a2
+	ldai 0x1
+	stobjbyname 0x2, e, a2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x2
+.language ECMAScript
+.function any .#~C2>#instance_initializer(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str private
+	callruntime.defineprivateproperty 0x0, 0x0, 0x0, a2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x2
+.language ECMAScript
+.function any .#~C2>#static_initializer(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	lda.str static
+	definepropertybyname 0x0, staticProperty, a2
+	returnundefined
+label_2: 
+}
+
+slotNum = 0xb
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+	nop
+label_13: 
+label_0: 
+	newlexenv 0x4
+label_3: 
+label_7: 
+	ldhole
+	sta v1
+	defineclasswithbuffer 0x0, .#~C1=#C1, _2, 0x0, v1
+	ldobjbyname 0x1, prototype
+	definemethod 0x3, .#~C1>#instance_initializer, 0x0
+	stlexvar 0x0, 0x3
+	callruntime.createprivateproperty 0x1, _3
+label_4: 
+end_label_4: 
+	jmp label_1
+label_15: 
+	sta v0
+label_11: 
+	poplexenv
+	lda v0
+	throw
+label_1: 
+	poplexenv
+	newlexenv 0x2
+label_5: 
+label_9: 
+	ldhole
+	sta v1
+	defineclasswithbuffer 0x4, .#~C2=#C2, _4, 0x1, v1
+	sta v1
+	ldobjbyname 0x5, prototype
+	definemethod 0x7, .#~C2>#instance_initializer, 0x0
+	stlexvar 0x0, 0x1
+	callruntime.createprivateproperty 0x1, _5
+	lda v1
+	definemethod 0x8, .#~C2>#static_initializer, 0x0
+	callthis0 0x9, v1
+label_6: 
+end_label_6: 
+	jmp label_2
+label_16: 
+	sta v0
+label_12: 
+	poplexenv
+	lda v0
+	throw
+label_2: 
+	poplexenv
+	returnundefined
+label_14: 
+}
+
+.catchall label_3, end_label_4, label_15
+
+.catchall label_5, end_label_6, label_16
+
+

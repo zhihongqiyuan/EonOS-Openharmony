@@ -1,0 +1,49 @@
+# Copyright (c) 2021 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+use_crypto_lib = "openssl"
+non_rwlock_support = false
+enable_hks_mock = false
+enable_hks_coverage = false
+enable_user_auth_framework = true
+enable_huks_lite_hap = false
+enable_bundle_framework = true
+enable_interact_across_local_accounts = false
+fuzz_module_out_path = "huks/huks"
+huks_base_path = "//base/security/huks/"
+
+# always set as false for upload code
+hks_enable_test = false
+
+# specify the key version
+huks_key_version = "3"
+
+if (!defined(global_parts_info) ||
+    defined(global_parts_info.account_os_account)) {
+  has_os_account_part = true
+} else {
+  has_os_account_part = false
+}
+
+if (!defined(global_parts_info.useriam_user_auth_framework)) {
+  enable_user_auth_framework = false
+}
+
+if (os_level == "mini" && defined(global_parts_info.arkui_ace_engine_lite)) {
+  enable_huks_lite_hap = true
+}
+
+if (defined(global_parts_info) &&
+    !defined(global_parts_info.bundlemanager_bundle_framework)) {
+  enable_bundle_framework = false
+}

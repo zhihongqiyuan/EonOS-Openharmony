@@ -1,0 +1,20 @@
+{
+  "license": "ISC",
+  "devDependencies": {},
+  "name": "phone",
+  "description": "example description",
+  "repository": {},
+  "version": "1.0.0",
+  "dependencies": {
+    "@ohos/wificomponent": "file:../../features/wificomponent",
+    "@ohos/screenlock": "file:../../features/screenlock",
+    "@ohos/signalcomponent": "file:../../features/signalcomponent",
+    "@ohos/clockcomponent": "file:../../features/clockcomponent",
+    "@ohos/datetimecomponent": "file:../../features/datetimecomponent",
+    "@ohos/batterycomponent": "file:../../features/batterycomponent",
+    "@ohos/common": "file:../../common",
+    "@ohos/noticeitem": "file:../../features/noticeitem",
+    "@ohos/shortcutcomponent": "file:../../features/shortcutcomponent",
+    "@ohos/wallpapercomponent": "file:../../features/wallpapercomponent"
+  }
+}

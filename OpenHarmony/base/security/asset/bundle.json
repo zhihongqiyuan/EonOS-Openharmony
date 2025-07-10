@@ -1,0 +1,86 @@
+{
+    "name": "@ohos/asset",
+    "description": "The asset store service (ASSET) provides secure storage and management of sensitive data.",
+    "version": "4.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/security/asset"
+    },
+    "dirs":{},
+    "scripts": {
+        "install": "DEST_PATH=${DEP_BUNDLE_BASE}/base/security/asset && mkdir -p $DEST_PATH && cp -r ./* $DEST_PATH"
+    },
+    "author": {},
+    "repository": "",
+    "component": {
+        "name": "asset",
+        "subsystem": "security",
+        "syscap": [
+            "SystemCapability.Security.Asset"
+        ],
+        "features": [
+            "asset_access_control_enabled",
+            "asset_split_hap_list"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "hisysevent_config": [
+            "//base/security/asset/hisysevent.yaml"
+        ],
+        "rom": "5120KByte",
+        "ram": "4828KByte",
+        "deps": {
+            "components": [
+                "ability_base",
+                "access_token",
+                "bundle_framework",
+                "common_event_service",
+                "c_utils",
+                "hilog",
+                "hitrace",
+                "hisysevent",
+                "huks",
+                "ipc",
+                "napi",
+                "safwk",
+                "samgr",
+                "sqlite",
+                "os_account",
+                "ylong_runtime",
+                "openssl"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "group_type": {
+                "base_group": [
+                    "//base/security/asset:asset_component"
+                ]
+            },
+            "inner_kits": [
+                {
+                    "name": "//base/security/asset/interfaces/inner_kits/rs:asset_sdk_rust",
+                    "header": {
+                        "header_files": [],
+                        "header_base": []
+                    }
+                },
+                {
+                    "name": "//base/security/asset/frameworks/c/system_api:asset_sdk",
+                    "header": {
+                        "header_files": [
+                            "asset_system_api.h",
+                            "asset_system_type.h"
+                        ],
+                        "header_base": "//base/security/asset/interfaces/inner_kits/c/inc"
+                    }
+                }
+            ],
+            "test": [
+                "//base/security/asset:asset_bin_test"
+            ]
+        }
+    }
+}

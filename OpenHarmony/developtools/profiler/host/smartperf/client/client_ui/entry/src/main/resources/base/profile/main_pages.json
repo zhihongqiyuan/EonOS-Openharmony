@@ -1,0 +1,23 @@
+{
+  "src": [
+    "pages/MainPage",
+    "pages/StartTestPage",
+    "pages/AppSelectPage",
+    "pages/SettingsPage",
+    "pages/Question",
+    "pages/ReportDetail",
+    "pages/LightAdjust",
+    "pages/FloatBall",
+    "pages/TitleWindowPage",
+    "pages/LoginPage",
+    "pages/FpsLineChartPage",
+    "pages/CurrentNowLineChartPage",
+    "pages/ShellBackTempLineChartPage",
+    "pages/DDRLineChartPage",
+    "pages/GPULineChartPage",
+    "pages/CPU0LineChartPage",
+    "pages/CPU1LineChartPage",
+    "pages/CPU2LineChartPage",
+    "pages/RAMLineChartPage"
+  ]
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64.5px" height="45px" viewBox="0 0 86 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_statusbar_signal_single3</title>
+    <defs>
+        <filter id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.000000 0 0 0 0 0.000000 0 0 0 0 0.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="ic_statusbar_signal_single3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编组">
+            <path d="M37.9999,49.0001 C37.9999,50.6561 36.6569,52.0001 34.9999,52.0001 C33.3429,52.0001 31.9999,50.6561 31.9999,49.0001 L31.9999,46.0001 C31.9999,44.3441 33.3429,43.0001 34.9999,43.0001 C36.6569,43.0001 37.9999,44.3441 37.9999,46.0001 L37.9999,49.0001 Z" id="形状结合" fill="#000000"></path>
+            <g filter="url(#filter-1)" id="编组-2">
+                <g transform="translate(41.999900, 8.000100)">
+                    <path d="M6,41 C6,42.656 4.657,44 3,44 C1.343,44 0,42.656 0,41 L0,29 C0,27.344 1.343,26 3,26 C4.657,26 6,27.344 6,29 L6,41 Z" id="Fill-5" fill="#000000" ></path>
+                    <path d="M16,41 C16,42.656 14.657,44 13,44 C11.343,44 10,42.656 10,41 L10,20 C10,18.344 11.343,17 13,17 C14.657,17 16,18.344 16,20 L16,41 Z" id="Fill-7" fill="#000000"></path>
+                    <path d="M26,41 C26,42.656 24.657,44 23,44 C21.343,44 20,42.656 20,41 L20,11 C20,9.344 21.343,8 23,8 C24.657,8 26,9.344 26,11 L26,41 Z" id="Fill-9" fill="#000000" opacity="0.2"></path>
+                    <path d="M36,41 C36,42.656 34.657,44 33,44 C31.343,44 30,42.656 30,41 L30,3 C30,1.344 31.343,0 33,0 C34.657,0 36,1.344 36,3 L36,41 Z" id="Fill-11" fill="#000000" opacity="0.2"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

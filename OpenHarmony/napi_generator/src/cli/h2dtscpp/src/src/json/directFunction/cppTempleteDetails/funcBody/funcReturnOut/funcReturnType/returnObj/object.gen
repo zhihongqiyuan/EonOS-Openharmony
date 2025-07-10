@@ -1,0 +1,10 @@
+    napi_value [return_name_replace]Out;
+    /* [NAPI_GEN]: 返回值是对象时，需要使用napi_create_object创建一个js的对象与js代码交互
+     * env: 当前环境的句柄
+     * result: 一个napi_value的指针，该指针将被设置为新创建的js对象
+     */
+    status = napi_create_object(env, &[return_name_replace]Out);
+    if (status != napi_ok) {
+        getErrMessage(status, env, extended_error_info, "napi_create_object", tag);
+        return nullptr;
+    }

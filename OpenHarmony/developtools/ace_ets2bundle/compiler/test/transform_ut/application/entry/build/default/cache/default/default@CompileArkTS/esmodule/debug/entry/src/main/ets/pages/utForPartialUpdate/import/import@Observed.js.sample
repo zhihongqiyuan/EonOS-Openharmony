@@ -1,0 +1,206 @@
+/*
+ * Copyright (c) 2022-2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+import { ClassB as ClassA } from '../../../test/import@Observed';
+class ViewA extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.label = 'ViewA1';
+        this.__a = new SynchedPropertyNesedObjectPU(params.a, this, "a");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.label !== undefined) {
+            this.label = params.label;
+        }
+        this.__a.set(params.a);
+    }
+    updateStateVars(params) {
+        this.__a.set(params.a);
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__a.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__a.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get a() {
+        return this.__a.get();
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Row.create();
+            Row.margin({ top: 10 });
+        }, Row);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithLabel('ViewA' + JSON.stringify(this.label) + 'this.a.c=' + JSON.stringify(this.a.c));
+            Button.onClick(() => {
+                this.a.c += 1;
+            });
+        }, Button);
+        Button.pop();
+        Row.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+class ViewB extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__arrA = new ObservedPropertyObjectPU([new ClassA(0), new ClassA(0)], this, "arrA");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.arrA !== undefined) {
+            this.arrA = params.arrA;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__arrA.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__arrA.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get arrA() {
+        return this.__arrA.get();
+    }
+    set arrA(newValue) {
+        this.__arrA.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+            Column.width('100%');
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            ForEach.create();
+            const forEachItemGenFunction = _item => {
+                const item = _item;
+                {
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        if (isInitialRender) {
+                            let componentCall = new ViewA(this, { label: JSON.stringify(item.id), a: item }, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/import/import@Observed.ets", line: 39, col: 9 });
+                            ViewPU.create(componentCall);
+                            let paramsLambda = () => {
+                                return {
+                                    label: JSON.stringify(item.id),
+                                    a: item
+                                };
+                            };
+                            componentCall.paramsGenerator_ = paramsLambda;
+                        }
+                        else {
+                            this.updateStateVarsOfChildByElmtId(elmtId, {
+                                a: item
+                            });
+                        }
+                    }, { name: "ViewA" });
+                }
+            };
+            this.forEachUpdateFunction(elmtId, this.arrA, forEachItemGenFunction, (item) => item.id.toString(), false, false);
+        }, ForEach);
+        ForEach.pop();
+        {
+            this.observeComponentCreation2((elmtId, isInitialRender) => {
+                if (isInitialRender) {
+                    let componentCall = new ViewA(this, { label: JSON.stringify(this.arrA[0]), a: this.arrA[0] }, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/import/import@Observed.ets", line: 41, col: 7 });
+                    ViewPU.create(componentCall);
+                    let paramsLambda = () => {
+                        return {
+                            label: JSON.stringify(this.arrA[0]),
+                            a: this.arrA[0]
+                        };
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {
+                        a: this.arrA[0]
+                    });
+                }
+            }, { name: "ViewA" });
+        }
+        {
+            this.observeComponentCreation2((elmtId, isInitialRender) => {
+                if (isInitialRender) {
+                    let componentCall = new ViewA(this, { label: JSON.stringify(this.arrA[this.arrA.length - 1]), a: this.arrA[this.arrA.length - 1] }, undefined, elmtId, () => { }, { page: "test/transform_ut/application/entry/src/main/ets/pages/utForPartialUpdate/import/import@Observed.ets", line: 42, col: 7 });
+                    ViewPU.create(componentCall);
+                    let paramsLambda = () => {
+                        return {
+                            label: JSON.stringify(this.arrA[this.arrA.length - 1]),
+                            a: this.arrA[this.arrA.length - 1]
+                        };
+                    };
+                    componentCall.paramsGenerator_ = paramsLambda;
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {
+                        a: this.arrA[this.arrA.length - 1]
+                    });
+                }
+            }, { name: "ViewA" });
+        }
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithLabel('ViewB: reset array');
+            Button.margin({ top: 10 });
+            Button.onClick(() => {
+                this.arrA = [new ClassA(0), new ClassA(0)];
+            });
+        }, Button);
+        Button.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithLabel('ViewB: push');
+            Button.margin({ top: 10 });
+            Button.onClick(() => {
+                this.arrA.push(new ClassA(0));
+            });
+        }, Button);
+        Button.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Button.createWithLabel('ViewB: shift');
+            Button.margin({ top: 10 });
+            Button.onClick(() => {
+                this.arrA.shift();
+            });
+        }, Button);
+        Button.pop();
+        Column.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+        return "ViewB";
+    }
+}
+registerNamedRoute(() => new ViewB(undefined, {}), "", { bundleName: "com.example.application", moduleName: "application", pagePath: "pages/utForPartialUpdate/import/import@Observed", pageFullPath: "application/entry/src/main/ets/pages/utForPartialUpdate/import/import@Observed", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=import@Observed.js.map

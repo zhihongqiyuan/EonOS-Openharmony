@@ -1,0 +1,1 @@
+Error: If an abc file is used as input, it must be the only input file when the option '--merge-abc' is not enabled

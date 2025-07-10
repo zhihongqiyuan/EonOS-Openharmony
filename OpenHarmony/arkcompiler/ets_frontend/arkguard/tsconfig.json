@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "semicolon": [true, "always", "ignore-interfaces"],
+  "compilerOptions": {
+    "outDir": "./lib",
+    "resolveJsonModule": true,
+    "declaration": true,
+    "allowJs": true,
+    "checkJs": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

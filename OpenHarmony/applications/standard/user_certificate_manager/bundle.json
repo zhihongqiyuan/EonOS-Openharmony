@@ -1,0 +1,36 @@
+{
+    "name": "@ohos/user_certificate_manager",
+    "description": "user_certificate_manager",
+    "version": "5.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "applications/standard/user_certificate_manager"
+    },
+    "dirs":{},
+    "scripts": {},
+    "author": {},
+    "repository": "",
+    "component": {
+      "name": "user_certificate_manager",
+      "subsystem": "applications",
+      "syscap": [],
+      "features": [],
+      "adapted_system_type": [
+        "standard"
+      ],
+      "hisysevent_config": [],
+      "rom": "1MB",
+      "ram": "1MB",
+      "deps": {
+        "components": []
+      },
+      "build": {
+        "sub_component": [
+          "//applications/standard/user_certificate_manager:user_cert_manager"
+        ],
+        "inner_kits": [],
+        "test": []
+      }
+    }
+  }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Partition_Info>
+<Part Sel="1" PartitionName="fastboot" FlashType="emmc" FileSystem="none" Start="0" Length="1M" SelectFile="D:\version_L1dv300\version\u-boot-hi3516dv300.bin"/>
+<Part Sel="1" PartitionName="" FlashType="emmc" FileSystem="none" Start="1M" Length="9M" SelectFile="D:\version_L1dv300\version\OHOS_Image.bin"/>
+<Part Sel="1" PartitionName="" FlashType="emmc" FileSystem="none" Start="10M" Length="20M" SelectFile="D:\version_L1dv300\version\rootfs.img"/>
+<Part Sel="1" PartitionName="" FlashType="emmc" FileSystem="none" Start="30M" Length="50M" SelectFile="D:\version_L1dv300\version\userfs.img"/>
+</Partition_Info>

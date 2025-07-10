@@ -1,0 +1,64 @@
+{
+  "string": [
+    {
+      "name": "control_center",
+      "value": "控制中心"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit",
+      "value": "快捷开关"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_opt_desc",
+      "value": "拖动图标进行排序，上方图标将显示在控制中心"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_opt_drag",
+      "value": "拖动到此处可移除"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_opt_max",
+      "value": "快捷面板最多显示%s个图标"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_opt_min",
+      "value": "快捷面板至少显示%s个图标"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_reset",
+      "value": "重置"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_finish",
+      "value": "完成"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_reset_confirm",
+      "value": "是否重置所有开关排序？"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_reset_confirm_primary",
+      "value": "取消"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_reset_confirm_secondary",
+      "value": "重置"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_back_confirm",
+      "value": "是否保存当前修改？"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_back_confirm_primary",
+      "value": "不保存"
+    },
+    {
+      "name": "control_center_simple_toggle_layout_edit_back_confirm_secondary",
+      "value": "保存"
+    },
+    {
+      "name": "control_center_simple_toggle_screenshot_mode_title",
+      "value": "截屏"
+    }
+  ]
+}

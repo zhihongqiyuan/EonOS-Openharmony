@@ -1,0 +1,103 @@
+slotNum = 0x2
+.language ECMAScript
+.function any .#*#F0(any a0, any a1, any a2) {
+label_6: 
+label_0: 
+	lda a1
+	callruntime.istrue 0x0
+	jnez label_1
+label_2: 
+	ldtrue
+	jmp label_3
+label_1: 
+	ldfalse
+label_3: 
+	callruntime.isfalse 0x1
+	jnez label_4
+label_5: 
+	lda.str must be called with new
+	throw
+label_4: 
+	returnundefined
+label_7: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any .#~C2=#C2(any a0, any a1, any a2, any a3, any a4) {
+	nop
+label_13: 
+label_7: 
+	newlexenv 0x1
+label_8: 
+label_10: 
+	definefunc 0x0, .#~C2=C2*#f7, 0x3
+	stlexvar 0x0, 0x0
+	ldundefined
+	sta v1
+label_9: 
+end_label_9: 
+label_11: 
+	poplexenv
+	ldundefined
+	stricteq 0x1, v1
+	jeqz label_16
+label_2: 
+	lda a2
+	throw.ifsupernotcorrectcall 0x0
+	jmp label_3
+label_16: 
+	mov a2, v1
+label_3: 
+	lda a2
+	return
+label_15: 
+	sta v0
+label_12: 
+	poplexenv
+	lda v0
+	throw
+label_14: 
+}
+
+.catchall label_8, end_label_9, label_15
+
+slotNum = 0x0
+.language ECMAScript
+.function any .#~C2=C2*#f7(any a0, any a1, any a2, any a3, any a4, any a5) {
+label_1: 
+label_0: 
+	ldlexvar 0x0, 0x0
+	return
+label_2: 
+}
+
+slotNum = 0xc
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, .#*#F0, 0x0
+	stglobalvar 0x1, F0
+	ldglobalvar 0x2, F0
+	sta v0
+	defineclasswithbuffer 0x3, .#~C2=#C2, _1, 0x2, v0
+	sta v0
+	ldobjbyname 0x4, prototype
+	lda v0
+	sttoglobalrecord 0x6, C2
+	tryldglobalbyname 0x7, C2
+	sta v0
+	ldglobalvar 0x8, F0
+	sta v1
+	tryldglobalbyname 0x9, C2
+	sta v2
+	mov v3, v0
+	mov v4, v1
+	mov v5, v2
+	newobjrange 0xa, 0x3, v3
+	returnundefined
+label_2: 
+}
+
+

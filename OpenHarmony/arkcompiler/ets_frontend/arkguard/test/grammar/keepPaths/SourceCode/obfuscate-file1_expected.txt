@@ -1,0 +1,41 @@
+import { DependencyClass, DependencyFunctionReduce, DependencyInterface } from './depency-file1';
+import { h, g, i } from './no-depency-file1';
+import assert from 'assert';
+let u = new DependencyClass();
+let v = u.depencyProp1;
+let a1 = u.depencyProp2;
+let b1 = u.depencyMethod1();
+let c1 = DependencyFunctionReduce(2, 1);
+assert(c1 === 1, 'success');
+type d1 = DependencyInterface;
+let e1: d1 = { depencyProp3: "hello", depencyProp4: 2 };
+const f1 = e1.depencyProp3;
+const g1 = e1.depencyProp4;
+let h1 = new h();
+let i1 = h1.k;
+let j1 = h1.l;
+let l1 = h1.m();
+let m1 = g();
+type n1 = i;
+let o1: n1 = { o: "hello", p: 2 };
+const q1 = o1.o;
+const s1 = o1.p;
+export class t1 {
+    b2: string = 'us1';
+    c2: number = 1999;
+}
+class u1 {
+    d2: string = 'us2';
+    e2: number = 2000;
+}
+export function q(z1: string, a2: string): string {
+    return z1.concat(a2);
+}
+const v1 = q('123', '456');
+assert(v1 === '123456', 'success');
+function t(x1: string, y1: string): string {
+    return x1 + y1;
+}
+t('123', '456');
+const w1 = t('123', '456');
+assert(w1 === '123456', 'success');

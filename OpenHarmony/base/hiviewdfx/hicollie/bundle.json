@@ -1,0 +1,79 @@
+{
+    "name": "@ohos/hicollie",
+    "description": "HiCollie provides the software watchdog capability.",
+    "version": "3.1",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+        "destPath": "base/hiviewdfx/hicollie"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "hicollie",
+        "subsystem": "hiviewdfx",
+        "features": [
+            "hicollie_jank_detection_enable"
+        ],
+        "syscap": [
+            "SystemCapability.HiviewDFX.HiCollie"
+        ],
+        "adapted_system_type": [
+            "standard"
+        ],
+        "hisysevent_config": [
+          "//base/hiviewdfx/hicollie/hisysevent.yaml"
+        ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "hilog",
+                "hisysevent",
+                "c_utils",
+                "eventhandler",
+                "faultloggerd",
+                "ffrt",
+                "ipc",
+                "init",
+                "hiview",
+                "storage_service",
+                "samgr"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//base/hiviewdfx/hicollie/interfaces/native/innerkits:libhicollie",
+                "//base/hiviewdfx/hicollie/frameworks/native/thread_sampler:libthread_sampler",
+                "//base/hiviewdfx/hicollie/interfaces/rust:hicollie_rust",
+                "//base/hiviewdfx/hicollie/interfaces/ndk:ohhicollie"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//base/hiviewdfx/hicollie/interfaces/native/innerkits:libhicollie",
+                    "header": {
+                        "header_base": "//base/hiviewdfx/hicollie/interfaces/native/innerkits/include",
+                        "header_files": [
+                            "xcollie/xcollie.h",
+                            "xcollie/xcollie_define.h",
+                            "xcollie/watchdog.h",
+                            "xcollie/ipc_full.h"
+                        ]
+                    }
+                },
+                {
+                    "name": "//base/hiviewdfx/hicollie/interfaces/rust:hicollie_rust",
+                    "header": {
+                        "header_base": [],
+                        "header_files": []
+                    }
+                }
+            ],
+            "test": [
+                "//base/hiviewdfx/hicollie/frameworks/native/test/unittest/common:unittest",
+                "//base/hiviewdfx/hicollie/interfaces/ndk/test/unittest:unittest"
+            ]
+        }
+    }
+}

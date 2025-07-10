@@ -1,0 +1,40 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+domain: SANDBOX_MANAGER
+
+CALLER_PERMISSION_CHECK_FAILED:
+  __BASE: {type: FAULT, level: MINOR, desc: caller permission check failed, preserve: true}
+  CALLER_PID: {type: UINT32, desc: caller pid}
+  CALLER_TOKENID: {type: UINT32, desc: tokenid}
+  PERMISSION_NAME: {type: STRING, desc: permission name}
+
+PERSIST_POLICY_OPERATE_SUCCESS:
+  __BASE: {type: FAULT, level: MINOR, desc: persist policy operate success, preserve: true}
+  OPERATE_TYPE: {type: STRING, desc: operate type}
+  CALLER_PID: {type: UINT32, desc: caller pid}
+  CALLER_TOKENID: {type: UINT32, desc: tokenid}
+  TOTAL_NUM: {type: UINT32, desc: total policy number}
+  SUCCESS_NUM: {type: UINT32, desc: success policy number}
+  FAIL_NUM: {type: UINT32, desc: fail policy number}
+  INVALID_NUM: {type: UINT32, desc: invalid policy number}
+
+TEMPORARY_POLICY_OPERATE_SUCCESS:
+  __BASE: {type: FAULT, level: MINOR, desc: temporary policy operate success, preserve: true}
+  OPERATE_TYPE: {type: UINT32, desc: operate type}
+  CALLER_PID: {type: UINT32, desc: caller pid}
+  CALLER_TOKENID: {type: UINT32, desc: tokenid}
+  TOTAL_NUM: {type: UINT32, desc: total policy number}
+  SUCCESS_NUM: {type: UINT32, desc: policy success number}
+  FAIL_NUM: {type: UINT32, desc: fail policy number}
+  INVALID_NUM: {type: UINT32, desc: invalid policy number}

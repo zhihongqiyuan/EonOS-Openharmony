@@ -1,0 +1,81 @@
+{
+  "name": "@ohos/screenlock_mgr",
+  "description": "Provide communication capability between windowmanager and screenlock app",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/theme/screenlock_mgr"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "screenlock_mgr",
+    "subsystem": "theme",
+    "syscap": [
+      "SystemCapability.MiscServices.ScreenLock"
+    ],
+    "features": [
+      "screenlock_mgr_so_crop"
+    ],
+    "adapted_system_type": [
+      "standard"
+    ],
+    "rom":"390KB",
+    "ram":"4614KB",
+    "deps": {
+      "components": [
+        "safwk",
+        "napi",
+        "samgr",
+        "common_event_service",
+        "ipc",
+        "eventhandler",
+        "os_account",
+        "bundle_framework",
+        "ability_base",
+        "ability_runtime",
+        "hitrace",
+        "access_token",
+        "init",
+        "window_manager",
+        "hilog",
+        "user_auth_framework",
+        "c_utils",
+        "ffrt",
+        "preferences",
+        "time_service"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "group_type": {
+        "base_group": [
+        ],
+        "fwk_group": [
+          "//base/theme/screenlock_mgr/interfaces/inner_api:screenlock_client",
+          "//base/theme/screenlock_mgr/frameworks/js/napi:screenlock"
+        ],
+        "service_group": [
+          "//base/theme/screenlock_mgr:screenlock_mgr_packages"
+        ]
+      },
+      "inner_api": [
+        {
+          "name": "//base/theme/screenlock_mgr/interfaces/inner_api:screenlock_client", 
+          "header": {
+            "header_files": [
+              "screenlock_manager.h"
+            ], 
+            "header_base": "//base/theme/screenlock_mgr/interfaces/inner_api/include"
+          }
+        }
+      ], 
+      "test": [
+        "//base/theme/screenlock_mgr/frameworks/js/napi/test:unittest",
+        "//base/theme/screenlock_mgr/test:unittest",
+        "//base/theme/screenlock_mgr/test/fuzztest:fuzztest"
+      ]
+    }
+  }
+}

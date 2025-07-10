@@ -1,0 +1,41 @@
+一、代码规范：
+     module_name, 模块名, 如果模块里面没有定义类，直接引用方法，则采用ModuleName方式命名
+     package_name, 包名
+     ClassName,  类名
+     method_name,  方法名
+     ExceptionName, 异常
+     function_name, 函数
+     GLOBAL_VAR_NAME, 全局变量
+     instance_var_name, 实例
+     function_parameter_name, 参数名
+     local_var_name, 局部变量名
+
+二、 代码架构：
+
+                
+三、 目录结构：
+    EnvServiceInBlue/src
+          aw：原子方法。目录以及文件名采用首字母大写的驼峰字符串
+                exception: 异常处理类，以及错误码信息等
+                function: 核心功能代码，制作业务的最基础功能，不串联整个业务流程
+                send_data: 数据发送相关
+          func 每个独立功能服务,升级和部署都是独立的app,能串联起某项业务的整个流程
+          core 框架, 执行器，负责串联多个func
+          util 一些公共的方法
+          init.py 框架初始化的准备工作
+    Manage.py：服务入口。
+
+
+四、代码设计要求：
+    1、  业务功能代码以及异常处理逻辑代码等都集中exception，excute，function， tools包下
+    2、  代码编写严格按照包的划分来进行，要求excute和function两个包中的代码功能单一。
+    3、  框架为django，要求业务功能代码完全脱离django框架能独立调用，并也可在main.py中通过django框架调用。
+    4、 Env_tools目录下新增一个agent包，存放pika方案调用的python文件，保证能在一台代码下，支持web和pika微服务两种调用。
+
+五、代码提交命令：
+     git add  -A
+     git commit -m "TicketNo:None
+                    Description:说明
+                    Feature or Bugfix:Feature"
+     git push origin EnvTool_master:refs/for/EnvTool_master
+

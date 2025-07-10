@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2021 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+
+-->
+
+<configuration>
+    <oatconfig>
+        <licensefile>LICENSE</licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <!--policyitem type="compatibility" name="GPL-2.0+" path="abc/.*" desc="Process that runs independently, invoked by the X process."/-->
+                <policyitem type="copyright" name="Huawei Technologies Co., Ltd." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed by Huawei Technologies"/>
+                <policyitem type="copyright" name="Huawei Device Co., Ltd." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed by Huawei Device"/>
+                <policyitem type="copyright" name="Rockchip Electronics Co., Ltd." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Rockchip"/>
+                <policyitem type="copyright" name="Rockchip Electronics S.LSI Co. LTD" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Rockchip"/>
+                <policyitem type="copyright" name="Rockchip Electronics Co., LTD." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Rockchip"/>
+                <policyitem type="copyright" name="Rockchip Electronics Co. LTD" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Rockchip"/>
+                <policyitem type="copyright" name="Rockchip Electronics Co., Ltd" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Rockchip"/>
+                <policyitem type="copyright" name="Rockchip Electronics Co., Ltd */" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Rockchip"/>
+                <policyitem type="copyright" name="RockChip Limited." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Rockchip"/>
+                <policyitem type="copyright" name="STMicroelectronics Ltd" path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By STM"/>
+                <policyitem type="copyright" name="Realtek Semiconductor Corp. All rights reserved." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Realtek"/>
+                <policyitem type="COPYRIGHT" name="ARM Limited. All rights reserved." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By ARM"/>
+                <policyitem type="copyright" name="Synopsys, Inc. and/or its affiliates." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Synopsys"/>
+                <policyitem type="copyright" name="HiHope Open Source Organization ." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Hihope"/>
+                <policyitem type="copyright" name="Institute of Software, CAS." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By ISCAS"/>           
+                <policyitem type="copyright" name="Shenzhen Kaihong DID Co., Ltd." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Shenzhen Kaihong DID"/>
+                <policyitem type="license" name="GPL" path=".*" desc="linux kernel adapter codes"/>
+		<policyitem type="license" name="BSD" path=".*" desc="huawei codes"/>
+                <policyitem type="license" name="MIT" path=".*" desc="Intel code"/>
+                <policyitem type="license" name="EndUserLicenseAgreement" path=".*" desc="Intel code"/>
+                <policyitem type="copyright" name="Intel Corporation" path=".*" desc="Intel code"/>
+                <policyitem type="copyright" name="iSoftStone Information Technology (Group) Co.,Ltd. All rights reserved." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Shenzhen Kaihong DID"/>
+		<policyitem type="copyright" name="FuZhou Lockzhiner Electronic Co., Ltd. All rights reserved." path=".*" desc=""/>
+                <policyitem type="copyright" name="Lockzhiner Electronics Co., Ltd." path=".*" desc=""/>
+		<policyitem type="copyright" name="Shenzhen Kaihong Digital Industry Development Co., Ltd." path=".*" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="Developed By Kaihong"/>
+		<policyitem type="license" name="EndUserLicenseAgreement" path=".*" desc="EULA file"/>
+	        </policy>
+        </policylist>
+        <filefilterlist>
+            <filefilter name="defaultFilter" desc="Files not to check">
+                <filteritem type="filepath" name="rk3588/hardware/isp/bin64/*" desc="isp bin file"/>
+                <filteritem type="filepath" name="rk3588/hardware/isp/lib64/*" desc="isp lib file"/>
+                <filteritem type="filepath" name="rk3588/hardware/wifi/ap6xxx/*" desc="mirror image file"/>
+                <filteritem type="filepath" name="rk3588/hardware/rga/lib64/*" desc="so file"/>
+                <filteritem type="filepath" name="rk3588/hardware/rga/lib/*" desc="so file"/>
+                <filteritem type="filepath" name="rk3588/hardware/wifi/*" desc="wifi lib and bin files"/>
+                <filteritem type="filepath" name="rk3588/hardware/mpp/lib64/*" desc="mpp 64bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/camera_adapter/lib/*" desc="libcamera 32bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/gra/lib/*" desc="gra 32bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/gra/lib64/*" desc="gra 64bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/gpu/lib/*" desc="gpb 32bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/gpu/lib64/*" desc="gpb 64bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/wifi/proc/sys/net/ipv4/ping_group_range/*" desc="project configuration file"/>
+                <filteritem type="filepath" name="rk3588/NOTICE" desc="rk3588 NOTICE file"/>
+                <filteritem type="filepath" name="LICENSE-Apache" desc="license file"/>
+                <filteritem type="filepath" name="LICENSE-BSD-3-Clause" desc="license file"/>
+                <filteritem type="filepath" name="LICENSE-GPL-2.0" desc="license file"/>
+                <filteritem type="filepath" name="LICENSE-MIT" desc="license file"/>
+                <filteritem type="filepath" name="rk3588/hardware/End User License Agreement.md" desc="RK3588 hard EULA file"/>
+                <filteritem type="filepath" name="common/kernel/NOTICE" desc="common kernel NOTICE file"/>
+                <filteritem type="filepath" name="common/kernel/.*" desc="thirdparty file"/>
+                <filteritem type="filepath" name="rk3588/kernel/.*" desc="thirdparty file"/>
+                <filteritem type="filepath" name="rk3568/hardware/display/lib/*" desc="display 32bit libs file"/>
+                <filteritem type="filepath" name="rk3568/hardware/display/lib64/*" desc="display 64bit libs file"/>
+                <filteritem type="filepath" name="rk3568/hardware/omx_il/lib/*" desc="omx 32bit libs file"/>
+                <filteritem type="filepath" name="rk3568/hardware/omx_il/lib64/*" desc="omx 64bit libs file"/>
+                <filteritem type="filepath" name="rk3568/hardware/camera_adapter/lib/*" desc="libcamera 32bit libs file"/>
+                <filteritem type="filepath" name="rk3568/hardware/gra/lib/*" desc="gra 32bit libs file"/>
+                <filteritem type="filepath" name="rk3568/hardware/gra/lib64/*" desc="gra 64bit libs file"/>
+                <filteritem type="filepath" name="rk3568/hardware/gpu/lib/*" desc="gpb 32bit libs file"/>
+                <filteritem type="filepath" name="rk3568/hardware/gpu/lib64/*" desc="gpb 64bit libs file"/>
+                <filteritem type="filepath" name="rk3568/hardware/wifi/proc/sys/net/ipv4/ping_group_range/*" desc="project configuration file"/>
+                <filteritem type="filepath" name="rk2206/hardware/End User License Agreement.md" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/loader/End User License Agreement.md" desc=""/>
+		<filteritem type="filepath" name="rk3566/sdk_linux/.*" desc="thirdparty file"/>
+		<filteritem type="filepath" name="rk3566/vendor/.*" desc="thirdparty file"/>
+		<filteritem type="filepath" name="common/sdk_linux/.*" desc="thirdparty file"/>
+		<filteritem type="filepath" name="common/vendor/.*" desc="thirdparty file"/>
+                <filteritem type="filepath" name="common/hardware/isp/bin64/*" desc="isp bin file"/>
+		<filteritem type="filepath" name="common/hardware/isp/lib64/*" desc="isp lib file"/>
+		<filteritem type="filepath" name="common/hardware/isp/bin/*" desc="isp bin file"/>
+		<filteritem type="filepath" name="common/hardware/isp/lib/*" desc="isp lib file"/>
+		<filteritem type="filepath" name="common/hardware/rga/lib64/*" desc="so file"/>
+                <filteritem type="filepath" name="common/hardware/rga/lib/*" desc="so file"/>
+		<filteritem type="filepath" name="common/hardware/mpp/lib/*" desc="mpp 32bit libs file"/>
+                <filteritem type="filepath" name="common/hardware/mpp/lib64/*" desc="mpp 64bit libs file"/>
+		<filteritem type="filepath" name="common/hardware/gpu/lib/*" desc="gpb 32bit libs file"/>
+                <filteritem type="filepath" name="common/hardware/gpu/lib64/*" desc="gpb 64bit libs file"/>
+		<!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+		<!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
+	    	<filteritem type="filepath" name="rk2206/hardware/build.py" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/platform/main/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/platform/network/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/platform/uart/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/hdf_driver/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/Kconfig.liteos_m.defconfig.series" desc=""/>
+                <filteritem type="filepath" name="rk2206/hdf_driver/fs/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/liteos_m/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/Kconfig.liteos_m.series" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/platform/startup/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/Kconfig.liteos_m.soc" desc=""/>
+                <filteritem type="filepath" name="rk2206/board.gni" desc=""/>
+                <filteritem type="filepath" name="rk2206/hdf_driver/gpio/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/adapter/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/adapter/hals/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/adapter/hals/communication/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/hdf_driver/i2c/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/adapter/hals/communication/wifi_lite/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/hdf_config/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/platform/system/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/hdf_driver/spi/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/platform/BUILD.gn" desc=""/>
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
+	    	<filteritem type="filepath" name="rk2206/hardware/build.py" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/platform/main/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/platform/network/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/platform/uart/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/hdf_driver/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/Kconfig.liteos_m.defconfig.series" desc=""/>
+                <filteritem type="filepath" name="rk2206/hdf_driver/fs/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/liteos_m/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/Kconfig.liteos_m.series" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/platform/startup/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/Kconfig.liteos_m.soc" desc=""/>
+                <filteritem type="filepath" name="rk2206/board.gni" desc=""/>
+                <filteritem type="filepath" name="rk2206/hdf_driver/gpio/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/adapter/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/adapter/hals/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/adapter/hals/communication/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/hdf_driver/i2c/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/adapter/hals/communication/wifi_lite/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/hdf_config/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/platform/system/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/hdf_driver/spi/BUILD.gn" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/platform/BUILD.gn" desc=""/>
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="licenseFileNamePolicyFilter" desc="Filters for LICENSE file policies">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="readmeFileNamePolicyFilter" desc="Filters for README file policies">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="readmeOpenSourcefileNamePolicyFilter" desc="Filters for README.OpenSource file policies">
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+            <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
+                <filteritem type="filepath" name="rk3588/hardware/gpu/firmware/mali_csffw.bin" desc="gpu firmware"/>
+                <filteritem type="filepath" name="rk3588/hardware/gpu/lib64/*" desc="gpb 64bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/isp/*" desc="isp lib and bin files"/>
+                <filteritem type="filepath" name="rk3588/hardware/mpp/lib64/*" desc="mpp 64bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/display/lib/*" desc="display 32bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/display/lib64/*" desc="display 64bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/omx_il/lib/*" desc="omx 32bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/omx_il/lib64/*" desc="omx 64bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/gra/lib/*" desc="gra 32bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/gra/lib64/*" desc="gra 64bit libs file"/>
+                <filteritem type="filepath" name="rk3588/hardware/wifi/*" desc="wifi lib and bin files"/>
+                <filteritem type="filepath" name="rk3588/hardware/camera_adapter/lib/*" desc="libcamera 32bit libs file"/>
+                <filteritem type="filepath" name="rk3568/hardware/rga/lib/librga.z.so" desc="lib files"/>
+                <filteritem type="filepath" name="rk3568/hardware/rga/lib64/librga.z.so" desc="lib files"/>
+                <filteritem type="filepath" name="rk3568/hardware/isp/lib/librkaiq.z.so" desc="isp lib files"/>
+                <filteritem type="filepath" name="rk3568/hardware/isp/lib64/librkaiq.z.so" desc="isp lib files"/>
+                <filteritem type="filepath" name="rk3568/hardware/isp/bin/ispserver" desc="isp bin files"/>
+                <filteritem type="filepath" name="rk3568/hardware/isp/bin64/ispserver" desc="isp bin files"/>
+                <filteritem type="filepath" name="rk3568/hardware/isp-linux-6.16/lib/librkaiq.so" desc="isp lib 32bit files"/>
+                <filteritem type="filepath" name="rk3568/hardware/isp-linux-6.16/lib64/librkaiq.so" desc="isp lib 64bit files"/>
+                <filteritem type="filepath" name="rk3568/hardware/isp-linux-6.16/bin/ispserver" desc="isp bin files"/>
+                <filteritem type="filepath" name="rk3568/hardware/isp-linux-6.16/bin64/ispserver" desc="isp bin files"/>
+                <filteritem type="filepath" name="rk3568/hardware/wifi/ap6xxx/clm_bcm43752a2_ag.blob" desc="wifi bin files"/>
+                <filteritem type="filepath" name="rk3568/hardware/wifi/ap6xxx/fw_bcm43752a2_ag.bin" desc="wifi bin files"/>
+                <filteritem type="filepath" name="rk3568/hardware/wifi/ap6xxx/fw_bcm43752a2_ag_apsta.bin" desc="wifi bin files"/>
+                <filteritem type="filepath" name="rk3568/hardware/mpp/lib/librockchip_mpp.z.so" desc="lib files"/>
+                <filteritem type="filepath" name="rk3568/hardware/mpp/lib64/librockchip_mpp.z.so" desc="lib files"/>
+                <filteritem type="filepath" name="rk3568/hardware/wifi/*" desc="wifi lib and bin files"/>
+                <filteritem type="filepath" name="rk3568/hardware/camera_adapter/lib/*" desc="libcamera 32bit libs file"/>              
+                <filteritem type="filepath" name="rk3399/hardware/mpp/lib/librockchip_mpp.z.so" desc="lib files"/>
+                <filteritem type="filepath" name="rk3399/hardware/mpp/lib64/librockchip_mpp.z.so" desc="lib files"/>
+                <filteritem type="filepath" name="rk3399/hardware/mpp/lib64/librockchip_vpu.z.so" desc="lib files"/>
+                <filteritem type="filepath" name="rk3399/hardware/rga/lib/librga.z.so" desc="lib files"/>
+                <filteritem type="filepath" name="rk3399/hardware/rga/lib64/librga.z.so" desc="lib files"/>
+		<filteritem type="filepath" name="rk2206/tools/package/firmware_merger" desc=""/>
+                <filteritem type="filepath" name="rk2206/tools/package/resource_header_tool" desc=""/>
+                <filteritem type="filepath" name="rk2206/tools/linux/bin/flash.aarch64" desc=""/>
+                <filteritem type="filepath" name="rk2206/tools/linux/bin/flash.aarch64.enc" desc=""/>
+                <filteritem type="filepath" name="rk2206/tools/linux/bin/flash.mac" desc=""/>
+                <filteritem type="filepath" name="rk2206/sdk_liteos/loader/.*" desc=""/>
+                <filteritem type="filepath" name="rk2206/hardware/libhardware.a" desc=""/>
+                <!--filteritem type="filename" name="*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="abcdefg/.*.uvwxyz" desc="Describe the reason for filtering scan results"/-->
+                <!--filteritem type="filepath" name="projectroot/[a-zA-Z0-9]{20,}.sh" desc="Temp files"/-->
+            </filefilter>
+
+        </filefilterlist>
+        <licensematcherlist>
+            <!--licensematcher name="uvwxyz License" desc="If the scanning result is InvalidLicense, you can define matching rules here. Note that quotation marks must be escaped.">
+                <licensetext name="
+                    uvwxyz license textA xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+				 " desc=""/>
+                <licensetext name="
+                    uvwxyz license textB xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+				 " desc=""/>
+            </licensematcher-->
+        </licensematcherlist>
+    </oatconfig>
+</configuration>

@@ -1,0 +1,777 @@
+slotNum = 0x1e
+.language ECMAScript
+.function any .#*#testNestedTryBlock(any a0, any a1, any a2) {
+	nop
+label_45: 
+label_0: 
+	ldundefined
+	sta v0
+label_30: 
+label_26: 
+label_20: 
+label_32: 
+	ldai 0x1
+	sta v5
+	mov v1, v5
+	lda v5
+	throw
+label_21: 
+end_label_21: 
+label_47: 
+	sta v4
+label_38: 
+	mov v1, v5
+	tryldglobalbyname 0x0, print
+	callarg1 0x1, v4
+	tryldglobalbyname 0x3, print
+	callarg1 0x4, v5
+	lda v5
+	throw
+label_27: 
+end_label_27: 
+label_48: 
+	sta v3
+label_39: 
+	mov v1, v5
+	tryldglobalbyname 0x6, print
+	callarg1 0x7, v3
+	ldundefined
+	sta v3
+label_22: 
+label_18: 
+label_34: 
+	ldai 0x3
+	sta v6
+	mov v1, v6
+	lda v6
+	throw
+label_19: 
+end_label_19: 
+label_49: 
+	sta v5
+label_40: 
+	mov v1, v6
+	lda v5
+	throw
+label_23: 
+end_label_23: 
+label_50: 
+	sta v4
+label_4: 
+	ldai 0x5
+	sta v5
+	mov v1, v6
+	ldundefined
+	eq 0x9, v3
+	jeqz label_54
+label_6: 
+	tryldglobalbyname 0xa, print
+	callarg1 0xb, v6
+	mov v3, v5
+	jmp label_5
+label_54: 
+	mov v3, v6
+label_5: 
+	mov v1, v3
+	ldhole
+	sta v5
+	lda v4
+	noteq 0xd, v5
+	jeqz label_2
+label_7: 
+	lda v4
+	throw
+label_31: 
+end_label_31: 
+label_2: 
+	ldhole
+	sta v4
+	mov v1, v3
+	mov v2, v4
+	jmp label_8
+label_51: 
+	sta v2
+label_8: 
+	ldundefined
+	eq 0xe, v0
+	jeqz label_9
+label_10: 
+	tryldglobalbyname 0xf, print
+	callarg1 0x10, v1
+	ldundefined
+	sta v0
+label_28: 
+label_24: 
+label_36: 
+	ldai 0x6
+	sta v5
+	mov v1, v5
+	lda v5
+	throw
+label_25: 
+end_label_25: 
+label_52: 
+	sta v4
+label_43: 
+	ldai 0x8
+	sta v6
+	mov v1, v5
+	tryldglobalbyname 0x12, print
+	callarg1 0x13, v4
+	tryldglobalbyname 0x15, print
+	callarg1 0x16, v5
+	mov v1, v6
+	lda v6
+	throw
+label_29: 
+end_label_29: 
+label_53: 
+	sta v3
+label_12: 
+	ldundefined
+	eq 0x18, v0
+	jeqz label_13
+label_14: 
+	tryldglobalbyname 0x19, print
+	callarg1 0x1a, v1
+label_13: 
+	ldhole
+	sta v0
+	lda v3
+	noteq 0x1c, v0
+	jeqz label_9
+label_15: 
+	lda v3
+	throw
+label_9: 
+	ldhole
+	sta v0
+	lda v2
+	noteq 0x1d, v0
+	jeqz label_16
+label_17: 
+	lda v2
+	throw
+label_16: 
+	returnundefined
+label_46: 
+}
+
+.catchall label_18, end_label_19, label_49
+
+.catchall label_20, end_label_21, label_47
+
+.catchall label_22, end_label_23, label_50
+
+.catchall label_24, end_label_25, label_52
+
+.catchall label_26, end_label_27, label_48
+
+.catchall label_28, end_label_29, label_53
+
+.catchall label_30, end_label_31, label_51
+
+slotNum = 0x54
+.language ECMAScript
+.function any .#*#testTryBlockWithLoop(any a0, any a1, any a2) {
+	nop
+label_71: 
+label_0: 
+	ldai 0x8
+	sta v0
+	ldai 0x7
+	sta v1
+	ldai 0x5
+	sta v2
+	ldai 0x6
+	sta v3
+	ldai 0x4
+	sta v4
+	ldai 0x2
+	sta v5
+	ldai 0x3
+	sta v6
+	ldai 0xa
+	sta v7
+	ldai 0x1
+	sta v8
+	ldai 0x0
+	sta v9
+	ldundefined
+	sta v10
+	mov v11, v8
+	mov v12, v9
+label_59: 
+label_57: 
+label_7: 
+	mov v16, v10
+	mov v17, v11
+	mov v13, v10
+	mov v14, v11
+	lda v7
+	less 0x0, v9
+	jeqz label_82
+label_2: 
+	lda v8
+	add2 0x1, v9
+	sta v9
+	ldundefined
+	sta v19
+label_55: 
+label_53: 
+label_12: 
+	mov v26, v19
+	mov v27, v10
+	mov v28, v12
+	mov v29, v9
+	mov v30, v11
+	mov v20, v19
+	mov v21, v10
+	mov v22, v12
+	mov v23, v9
+	mov v24, v11
+	mov v16, v10
+	mov v17, v11
+	mov v13, v10
+	mov v14, v11
+	lda v7
+	less 0x2, v12
+	jeqz label_33
+label_4: 
+	lda v8
+	add2 0x3, v12
+	sta v12
+	mov v28, v12
+	mov v22, v12
+	ldundefined
+	sta v32
+label_51: 
+label_49: 
+label_61: 
+	mov v40, v32
+	mov v41, v19
+	mov v42, v10
+	mov v43, v12
+	mov v44, v9
+	mov v45, v11
+	mov v33, v32
+	mov v34, v19
+	mov v35, v10
+	mov v36, v12
+	mov v37, v9
+	mov v38, v11
+	ldundefined
+	sta v47
+label_47: 
+label_45: 
+label_62: 
+	mov v50, v11
+	mov v48, v11
+	lda v6
+	stricteq 0x4, v9
+	jeqz label_5
+label_6: 
+	tryldglobalbyname 0x5, print
+	callarg1 0x6, v11
+	mov v50, v5
+	mov v48, v5
+	mov v45, v5
+	mov v38, v5
+	mov v30, v5
+	mov v24, v5
+	mov v17, v5
+	mov v14, v5
+	tryldglobalbyname 0x8, print
+	callarg1 0x9, v5
+	mov v50, v4
+	mov v48, v4
+	mov v45, v4
+	mov v38, v4
+	mov v30, v4
+	mov v24, v4
+	mov v17, v4
+	mov v14, v4
+	tryldglobalbyname 0xb, print
+	callarg1 0xc, v4
+	mov v11, v3
+	jmp label_59
+label_5: 
+	lda v2
+	stricteq 0xe, v9
+	jeqz label_8
+label_9: 
+	tryldglobalbyname 0xf, print
+	callarg1 0x10, v11
+	mov v50, v5
+	mov v48, v5
+	mov v45, v5
+	mov v38, v5
+	mov v30, v5
+	mov v24, v5
+	mov v17, v5
+	mov v14, v5
+	tryldglobalbyname 0x12, print
+	callarg1 0x13, v5
+	mov v50, v4
+	mov v48, v4
+	mov v45, v4
+	mov v38, v4
+	mov v30, v4
+	mov v24, v4
+	mov v17, v4
+	mov v14, v4
+	tryldglobalbyname 0x15, print
+	callarg1 0x16, v4
+	jmp label_39
+label_8: 
+	lda v6
+	stricteq 0x18, v12
+	jeqz label_10
+label_11: 
+	tryldglobalbyname 0x19, print
+	callarg1 0x1a, v11
+	mov v50, v5
+	mov v48, v5
+	mov v45, v5
+	mov v38, v5
+	mov v30, v5
+	mov v24, v5
+	mov v17, v5
+	mov v14, v5
+	tryldglobalbyname 0x1c, print
+	callarg1 0x1d, v5
+	mov v11, v4
+	jmp label_55
+label_10: 
+	lda v2
+	stricteq 0x1f, v12
+	jeqz label_13
+label_14: 
+	tryldglobalbyname 0x20, print
+	callarg1 0x21, v11
+	mov v50, v5
+	mov v48, v5
+	mov v45, v5
+	mov v38, v5
+	mov v30, v5
+	mov v24, v5
+	mov v17, v5
+	mov v14, v5
+	tryldglobalbyname 0x23, print
+	callarg1 0x24, v5
+	mov v11, v4
+	jmp label_33
+label_13: 
+	lda v1
+	stricteq 0x26, v9
+	callruntime.isfalse 0x27
+	jnez label_15
+label_16: 
+	lda v2
+	stricteq 0x28, v12
+	callruntime.isfalse 0x29
+	jnez label_15
+label_17: 
+	lda v11
+	throw
+label_15: 
+	lda v0
+	stricteq 0x2a, v9
+	callruntime.isfalse 0x2b
+	jnez label_21
+label_19: 
+	lda v2
+	stricteq 0x2c, v12
+	callruntime.isfalse 0x2d
+	jnez label_21
+label_20: 
+	tryldglobalbyname 0x2e, print
+	callarg1 0x2f, v11
+	mov v50, v5
+	mov v48, v5
+	mov v45, v5
+	mov v38, v5
+	mov v30, v5
+	mov v24, v5
+	mov v17, v5
+	mov v14, v5
+	tryldglobalbyname 0x31, print
+	callarg1 0x32, v5
+	mov v50, v4
+	mov v48, v4
+	mov v45, v4
+	mov v38, v4
+	mov v30, v4
+	mov v24, v4
+	mov v17, v4
+	mov v14, v4
+	tryldglobalbyname 0x34, print
+	callarg1 0x35, v4
+	mov v50, v3
+	mov v48, v3
+	mov v45, v3
+	mov v38, v3
+	mov v30, v3
+	mov v24, v3
+	mov v17, v3
+	mov v14, v3
+	tryldglobalbyname 0x37, print
+	callarg1 0x38, v3
+	mov v50, v1
+	mov v48, v1
+	mov v45, v1
+	mov v38, v1
+	mov v30, v1
+	mov v24, v1
+	mov v17, v1
+	mov v14, v1
+	lda v11
+	return
+label_46: 
+end_label_46: 
+label_73: 
+	sta v51
+label_63: 
+	mov v48, v50
+	mov v45, v50
+	mov v38, v50
+	mov v30, v50
+	mov v24, v50
+	mov v17, v50
+	mov v14, v50
+	lda v51
+	throw
+label_48: 
+end_label_48: 
+label_21: 
+	ldhole
+	sta v50
+	mov v49, v50
+	jmp label_22
+label_74: 
+	sta v49
+	mov v11, v48
+label_22: 
+	mov v40, v32
+	mov v41, v19
+	mov v42, v10
+	mov v43, v12
+	mov v44, v9
+	mov v45, v11
+	mov v33, v32
+	mov v34, v19
+	mov v35, v10
+	mov v36, v12
+	mov v37, v9
+	mov v38, v11
+	mov v26, v19
+	mov v27, v10
+	mov v28, v12
+	mov v29, v9
+	mov v30, v11
+	mov v20, v19
+	mov v21, v10
+	mov v22, v12
+	mov v23, v9
+	mov v24, v11
+	mov v16, v10
+	mov v17, v11
+	mov v13, v10
+	mov v14, v11
+	ldundefined
+	eq 0x3a, v47
+	jeqz label_23
+label_24: 
+	tryldglobalbyname 0x3b, print
+	mov v33, v32
+	mov v34, v19
+	mov v35, v10
+	mov v36, v12
+	mov v37, v9
+	callarg1 0x3c, v11
+	mov v11, v5
+label_23: 
+	mov v45, v11
+	mov v38, v11
+	mov v30, v11
+	mov v24, v11
+	mov v17, v11
+	mov v14, v11
+	ldhole
+	sta v47
+	lda v49
+	noteq 0x3e, v47
+	jeqz label_27
+label_26: 
+	lda v49
+	throw
+label_50: 
+end_label_50: 
+label_75: 
+	sta v46
+label_65: 
+	mov v33, v40
+	mov v34, v41
+	mov v35, v42
+	mov v36, v43
+	mov v37, v44
+	mov v38, v45
+	mov v26, v41
+	mov v27, v42
+	mov v28, v43
+	mov v29, v44
+	mov v30, v45
+	mov v20, v41
+	mov v21, v42
+	mov v22, v43
+	mov v23, v44
+	mov v24, v45
+	mov v16, v42
+	mov v17, v45
+	mov v13, v42
+	mov v14, v45
+	tryldglobalbyname 0x3f, print
+	callarg1 0x40, v46
+	tryldglobalbyname 0x42, print
+	callarg1 0x43, v45
+label_52: 
+end_label_52: 
+label_81: 
+	mov v11, v6
+	mov v9, v44
+	mov v12, v43
+	mov v10, v42
+	mov v19, v41
+	mov v32, v40
+label_27: 
+	mov v26, v19
+	mov v27, v10
+	mov v28, v12
+	mov v29, v9
+	mov v30, v11
+	mov v20, v19
+	mov v21, v10
+	mov v22, v12
+	mov v23, v9
+	mov v24, v11
+	mov v16, v10
+	mov v17, v11
+	mov v13, v10
+	mov v14, v11
+	ldhole
+	sta v40
+	mov v39, v40
+	jmp label_28
+label_76: 
+	sta v39
+	mov v11, v38
+	mov v9, v37
+	mov v12, v36
+	mov v10, v35
+	mov v19, v34
+	mov v32, v33
+label_28: 
+	mov v26, v19
+	mov v27, v10
+	mov v28, v12
+	mov v29, v9
+	mov v30, v11
+	mov v20, v19
+	mov v21, v10
+	mov v22, v12
+	mov v23, v9
+	mov v24, v11
+	mov v16, v10
+	mov v17, v11
+	mov v13, v10
+	mov v14, v11
+	ldundefined
+	eq 0x45, v32
+	jeqz label_29
+label_30: 
+	mov v26, v19
+	mov v27, v10
+	mov v28, v12
+	mov v29, v9
+	mov v20, v19
+	mov v21, v10
+	mov v22, v12
+	mov v23, v9
+	tryldglobalbyname 0x46, print
+	callarg1 0x47, v11
+	mov v11, v4
+label_29: 
+	mov v30, v11
+	mov v24, v11
+	mov v17, v11
+	mov v14, v11
+	ldhole
+	sta v32
+	lda v39
+	noteq 0x49, v32
+	jeqz label_54
+label_32: 
+	lda v39
+	throw
+label_54: 
+end_label_54: 
+	jmp label_55
+label_77: 
+	sta v31
+label_67: 
+	mov v20, v26
+	mov v21, v27
+	mov v22, v28
+	mov v23, v29
+	mov v24, v30
+	mov v16, v27
+	mov v17, v30
+	mov v13, v27
+	mov v14, v30
+	lda v31
+	throw
+label_56: 
+end_label_56: 
+label_33: 
+	mov v17, v11
+	mov v14, v11
+	ldhole
+	sta v26
+	mov v25, v26
+	jmp label_34
+label_78: 
+	sta v25
+	mov v11, v24
+	mov v9, v23
+	mov v12, v22
+	mov v10, v21
+	mov v19, v20
+label_34: 
+	mov v16, v10
+	mov v17, v11
+	mov v13, v10
+	mov v14, v11
+	ldundefined
+	eq 0x4a, v19
+	jeqz label_35
+label_36: 
+	mov v16, v10
+	mov v13, v10
+	tryldglobalbyname 0x4b, print
+	callarg1 0x4c, v11
+	mov v11, v3
+label_35: 
+	mov v17, v11
+	mov v14, v11
+	ldhole
+	sta v19
+	lda v25
+	noteq 0x4e, v19
+	jeqz label_58
+label_38: 
+	lda v25
+	throw
+label_58: 
+end_label_58: 
+	jmp label_59
+label_79: 
+	sta v18
+label_69: 
+	mov v13, v16
+	mov v14, v17
+	lda v18
+	throw
+label_60: 
+end_label_60: 
+label_82: 
+	mov v3, v11
+label_39: 
+	ldhole
+	sta v0
+	mov v15, v0
+	jmp label_40
+label_80: 
+	sta v15
+	mov v3, v14
+	mov v10, v13
+label_40: 
+	ldundefined
+	eq 0x4f, v10
+	jeqz label_41
+label_42: 
+	tryldglobalbyname 0x50, print
+	callarg1 0x51, v3
+label_41: 
+	ldhole
+	sta v0
+	lda v15
+	noteq 0x53, v0
+	jeqz label_43
+label_44: 
+	lda v15
+	throw
+label_43: 
+	returnundefined
+label_72: 
+}
+
+.catchall label_45, end_label_46, label_73
+
+.catchall label_47, end_label_48, label_74
+
+.catchall label_49, end_label_50, label_75
+
+.catchall label_51, end_label_52, label_76
+
+.catchall label_53, end_label_54, label_77
+
+.catchall label_55, end_label_56, label_78
+
+.catchall label_57, end_label_58, label_79
+
+.catchall label_59, end_label_60, label_80
+
+slotNum = 0xc
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+	nop
+label_12: 
+label_0: 
+	definefunc 0x0, .#*#testNestedTryBlock, 0x0
+	sta v0
+	definefunc 0x1, .#*#testTryBlockWithLoop, 0x0
+	sta v1
+label_3: 
+label_7: 
+	lda v0
+	callarg0 0x2
+label_4: 
+end_label_4: 
+	jmp label_5
+label_14: 
+	sta v2
+label_10: 
+	tryldglobalbyname 0x4, print
+	callarg1 0x5, v2
+label_5: 
+label_1: 
+	lda v1
+	callarg0 0x7
+label_6: 
+end_label_6: 
+	jmp label_2
+label_15: 
+	sta v0
+label_11: 
+	tryldglobalbyname 0x9, print
+	callarg1 0xa, v0
+label_2: 
+	returnundefined
+label_13: 
+}
+
+.catchall label_3, end_label_4, label_14
+
+.catchall label_5, end_label_6, label_15
+
+

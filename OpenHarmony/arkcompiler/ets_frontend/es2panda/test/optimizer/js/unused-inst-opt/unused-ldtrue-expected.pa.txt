@@ -1,0 +1,25 @@
+slotNum = 0x3
+.language ECMAScript
+.function any .#*#foo(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	ldtrue
+	sta v0
+	tryldglobalbyname 0x0, print
+	callarg1 0x1, v0
+	returnundefined
+label_2: 
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any .func_main_0(any a0, any a1, any a2) {
+label_1: 
+label_0: 
+	definefunc 0x0, .#*#foo, 0x0
+	callarg0 0x1
+	returnundefined
+label_2: 
+}
+
+

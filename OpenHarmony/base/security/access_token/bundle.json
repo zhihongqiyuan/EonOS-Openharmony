@@ -1,0 +1,247 @@
+{
+  "name": "@ohos/access_token",
+  "description": "access_token",
+  "version": "3.1.0",
+  "license": "Apache License 2.0",
+  "publishAs": "code-segment",
+  "segment": {
+    "destPath": "base/security/access_token"
+  },
+  "dirs": {},
+  "scripts": {},
+  "component": {
+    "name": "access_token",
+    "subsystem": "security",
+    "syscap": [
+      "SystemCapability.Security.AccessToken",
+      "SystemCapability.Security.ScreenLockFileManager"
+    ],
+    "hisysevent_config": [
+      "//base/security/access_token/hisysevent.yaml"
+    ],
+    "features": [
+      "access_token_feature_coverage",
+      "access_token_camera_float_window_enable"
+    ],
+    "adapted_system_type": [ "standard" ],
+    "rom": "10000KB",
+    "ram": "5000KB",
+    "deps": {
+      "components": [
+        "ability_base",
+        "ability_runtime",
+        "audio_framework",
+        "ace_engine",
+        "bounds_checking_function",
+        "c_utils",
+        "camera_framework",
+        "cJSON",
+        "common_event_service",
+        "config_policy",
+        "device_manager",
+        "dsoftbus",
+        "eventhandler",
+        "ffrt",
+        "hicollie",
+        "hisysevent",
+        "hitrace",
+        "hilog",
+        "init",
+        "ipc",
+        "json",
+        "napi",
+        "openssl",
+        "power_manager",
+        "relational_store",
+        "safwk",
+        "samgr",
+        "screenlock_mgr",
+        "selinux_adapter",
+        "sqlite",
+        "window_manager",
+        "zlib"
+      ],
+      "third_party": []
+    },
+    "build": {
+      "group_type": {
+        "base_group": [
+          "//base/security/access_token/tools:tools_atm"
+        ],
+        "fwk_group": [
+          "//base/security/access_token/interfaces/kits/capi:capi_packages",
+          "//base/security/access_token/interfaces/kits/cj:cj_packages",
+          "//base/security/access_token/frameworks/js/napi:napi_packages"
+        ],
+        "service_group": [
+          "//base/security/access_token/interfaces/innerkits/tokensync:libtokensync_sdk",
+          "//base/security/access_token/services/accesstokenmanager:accesstoken_manager_service",
+          "//base/security/access_token/services/accesstokenmanager/main/sa_profile:accesstoken_sa_profile_standard",
+          "//base/security/access_token/services/el5filekeymanager:el5filekeymanager",
+          "//base/security/access_token/services/tokensyncmanager:tokensyncmanager",
+          "//base/security/access_token/services/privacymanager:privacymanager",
+          "//base/security/access_token/services/accesstokenmanager/etc:access_token.para",
+          "//base/security/access_token/services/accesstokenmanager/etc:access_token.para.dac",
+          "//base/security/access_token/services/common:accesstoken_common"
+        ]
+      },
+      "inner_kits": [
+        {
+          "name": "//base/security/access_token/interfaces/innerkits/accesstoken:libaccesstoken_sdk",
+          "header": {
+            "header_files": [
+              "access_token_error.h",
+              "access_token.h",
+              "accesstoken_callback_stubs.h",
+              "accesstoken_callbacks.h",
+              "accesstoken_kit.h",
+              "accesstoken_state_change_ipc_interface_code.h",
+              "atm_tools_param_info.h",
+              "hap_token_info_for_sync_parcel.h",
+              "hap_token_info.h",
+              "i_permission_state_callback.h",
+              "i_token_sync_callback.h",
+              "native_token_info.h",
+              "perm_state_change_callback_customize.h",
+              "permission_def.h",
+              "permission_dlp_mode.h",
+              "permission_grant_info.h",
+              "permission_list_state.h",
+              "permission_state_change_info.h",
+              "permission_state_full.h",
+              "permission_status.h",
+              "sec_comp_enhance_data.h",
+              "token_sync_kit_interface.h",
+              "tokenid_kit.h",
+              "tokensync_callback_ipc_interface_code.h"
+            ],
+            "header_base": "//base/security/access_token/interfaces/innerkits/accesstoken/include"
+          }
+        },
+        {
+          "name": "//base/security/access_token/interfaces/innerkits/accesstoken:libtokenid_sdk",
+          "header": {
+            "header_files": [
+              "tokenid_kit.h"
+            ],
+            "header_base": "//base/security/access_token/interfaces/innerkits/accesstoken/include"
+          }
+        },
+        {
+          "name": "//base/security/access_token/interfaces/innerkits/nativetoken:libnativetoken",
+          "header": {
+            "header_files": [
+              "nativetoken_kit.h"
+            ],
+            "header_base": "//base/security/access_token/interfaces/innerkits/nativetoken/include"
+          }
+        },
+        {
+          "name": "//base/security/access_token/interfaces/innerkits/nativetoken:libnativetoken_shared",
+          "header": {
+            "header_files": [
+              "nativetoken_kit.h"
+            ],
+            "header_base": "//base/security/access_token/interfaces/innerkits/nativetoken/include"
+          }
+        },
+        {
+          "name": "//base/security/access_token/interfaces/innerkits/privacy:libprivacy_sdk",
+          "header": {
+            "header_files": [
+              "active_change_response_info.h",
+              "add_perm_param_info.h",
+              "on_permission_used_record_callback.h",
+              "perm_active_status_customized_cbk.h",
+              "permission_used_request.h",
+              "permission_used_result.h",
+              "permission_used_type_info.h",
+              "permission_used_type.h",
+              "privacy_error.h",
+              "privacy_kit.h",
+              "privacy_param.h",
+              "privacy_permission_record_ipc_interface_code.h",
+              "state_customized_cbk.h"
+            ],
+            "header_base": "//base/security/access_token/interfaces/innerkits/privacy/include"
+          }
+        },
+        {
+          "name": "//base/security/access_token/interfaces/innerkits/token_callback:libtoken_callback_sdk",
+          "header": {
+            "header_files": [
+              "token_callback_stub.h"
+            ],
+            "header_base": "//base/security/access_token/interfaces/innerkits/token_callback/include"
+          }
+        },
+        {
+          "name": "//base/security/access_token/interfaces/innerkits/token_setproc:libtoken_setproc",
+          "header": {
+            "header_files": [
+              "perm_setproc.h",
+              "setproc_common.h",
+              "token_setproc.h"
+            ],
+            "header_base": "//base/security/access_token/interfaces/innerkits/token_setproc/include"
+          }
+        },
+        {
+          "name": "//base/security/access_token/interfaces/innerkits/token_setproc:libtokensetproc_shared",
+          "header": {
+            "header_files": [
+              "perm_setproc.h",
+              "setproc_common.h",
+              "token_setproc.h"
+            ],
+            "header_base": "//base/security/access_token/interfaces/innerkits/token_setproc/include"
+          }
+        },
+        {
+          "name": "//base/security/access_token/interfaces/innerkits/analysis_model:libcodesignature_analysis",
+          "header": {
+            "header_files": [
+              "code_signature_analysis_kit.h"
+            ],
+            "header_base": "//base/security/access_token/interfaces/innerkits/analysis_model/include"
+          }
+        },
+        {
+          "name": "//base/security/access_token/interfaces/inner_api/el5filekeymanager:el5_filekey_manager_sdk",
+          "header": {
+            "header_files": [
+              "app_key_info.h",
+              "app_key_load_info.h",
+              "data_lock_type_ext.h",
+              "el5_filekey_callback_stub.h",
+              "el5_filekey_manager_error.h",
+              "el5_filekey_manager_kit.h",
+              "user_app_key_info.h"
+            ],
+            "header_base": "//base/security/access_token/interfaces/inner_api/el5filekeymanager/include"
+          }
+        },
+        {
+          "name": "//base/security/access_token/interfaces/innerkits/tokensync:libtokensync_sdk",
+          "header": {
+            "header_files": [
+              "token_sync_kit.h",
+              "token_sync_kit_loader.h"
+            ],
+            "header_base": "//base/security/access_token/interfaces/innerkits/tokensync/include"
+          }
+        },
+        {
+          "name": "//base/security/access_token/interfaces/kits/cj/accesstoken:cj_ability_access_ctrl_ffi"
+        },
+        {
+          "name": "//base/security/access_token/interfaces/kits/cj/screenlockfilemanager:cj_screen_lock_file_manager_ffi"
+        }
+      ],
+      "test": [
+        "//base/security/access_token:accesstoken_build_fuzz_test",
+        "//base/security/access_token:accesstoken_build_module_test"
+      ]
+    }
+  }
+}

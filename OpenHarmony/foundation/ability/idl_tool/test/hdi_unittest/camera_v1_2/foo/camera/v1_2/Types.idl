@@ -1,0 +1,313 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @file Types.h
+ *
+ * @brief Declares data types
+ * used by the Hardware Driver Interfaces (HDIs) of this module.
+ *
+ * @since 4.1
+ * @version 1.2
+ */
+
+package ohos.hdi.camera.v1_2;
+
+import ohos.hdi.camera.v1_1.Types;
+
+sequenceable ohos.hdi.camera.v1_0.BufferHandleSequenceable;
+sequenceable ohos.hdi.camera.v1_0.MapDataSequenceable;
+
+/**
+ * @brief Enumerates return values of the HDIs.
+ */
+enum CamRetCode {
+    /**
+     * Successful call.
+     */
+    NO_ERROR = 0,
+
+    /**
+     * The camera device is busy.
+     */
+    CAMERA_BUSY = -1,
+
+    /**
+     * Insufficient resources.
+     */
+    INSUFFICIENT_RESOURCES = -2,
+
+    /**
+     * Invalid parameters.
+     */
+    INVALID_ARGUMENT = -3,
+
+    /**
+     * Unsupported function.
+     */
+    METHOD_NOT_SUPPORTED = -4,
+
+    /**
+     * The camera device is closed.
+     */
+    CAMERA_CLOSED = -5,
+
+    /**
+     * A critical error occurs at the driver layer.
+     */
+    DEVICE_ERROR = -6,
+
+    /**
+     * No permission to access the camera device.
+     */
+    NO_PERMISSION = -7,
+
+    /**
+     * Device conflicts.
+     */
+    DEVICE_CONFLICT = -8
+};
+
+/**
+ * @brief Enumerates types of the extended stream information.
+ */
+enum ExtendedStreamInfoType_V1_2 {
+    /**
+     * Extended stream information of quick thumbnail.
+     */
+    EXTENDED_STREAM_INFO_QUICK_THUMBNAIL = 0,
+
+    /**
+     * Extended stream information of sketch.
+     */
+    EXTENDED_STREAM_INFO_SKETCH = 1,
+};
+
+/**
+ * @brief Enumerates stream operation modes.
+ */
+enum OperationMode_V1_2 {
+    /**
+     * Normal mode, which supports both photo and video scenes
+     */
+    NORMAL = 0,
+
+    /**
+     * Capture mode, which dedicated to photo scene
+     * IF this mode is implemented, then the NORMAL mode should no longer be implemented
+     */
+    CAPTURE = 1,
+
+    /**
+     * Video mode, which dedicated to video secne
+     * IF this mode is implemented, then the NORMAL mode should no longer be implemented
+     */
+    VIDEO = 2,
+
+    /**
+     * Portrait mode, which dedicated to portrait photo secne
+     */
+    PORTRAIT = 3,
+
+    /**
+     * Night mode, which dedicated to night shooting scene
+     */
+    NIGHT = 4,
+
+    /**
+     * Professional mode, which dedicated to professional photo scene
+     */
+    PROFESSIONAL = 5,
+
+    /**
+     * Slow motion mode, which dedicated to capturing slow motion
+     */
+    SLOW_MOTION = 6,
+
+    /**
+     * Scan mode, which dedicated to scan code
+     */
+    SCAN_CODE = 7,
+
+    /**
+     * Macro mode, which dedicated to capture code
+     */
+    CAPTURE_MACRO = 8,
+
+    /**
+     * Macro mode, which dedicated to video code
+     */
+    VIDEO_MACRO = 9,
+
+    /**
+     * Super stabilization mode, which dedicated to use Suprt stabilization mode
+     */
+    SUPER_STAB = 10,
+
+    /**
+     * Operation mode max
+     */
+    OPERATION_MODE_MAX,
+};
+
+/**
+ * @brief Enumerates types of the deferred delivery image.
+ */
+enum DeferredDeliveryImageType {
+    /**
+     * Not support deferred delivery image.
+     */
+    NONE = 0,
+
+    /**
+     * Support still image.
+     */
+    STILL_IMAGE = 1,
+
+    /**
+     * Support moving image.
+     */
+    MOVING_IMAGE = 2,
+};
+
+/**
+ * @brief Enumerates types of the session statues.
+ */
+enum SessionStatus {
+    /**
+     * Session is ready.
+     */
+    SESSION_STATUS_READY = 0,
+
+    /**
+     * Session is ready but the storage limit has been reached.
+     */
+    SESSION_STATUS_READY_SPACE_LIMIT_REACHED = 1,
+
+    /**
+     * Session is not ready temporarily.
+     */
+    SESSSON_STATUS_NOT_READY_TEMPORARILY = 2,
+
+    /**
+     * Session is not ready because of overheat.
+     */
+    SESSION_STATUS_NOT_READY_OVERHEAT = 3,
+
+    /**
+     * Session is not ready because of preempted.
+     */
+    SESSION_STATUS_NOT_READY_PREEMPTED = 4,
+};
+
+/**
+ * @brief Enumerates types of the error codes.
+ */
+enum ErrorCode {
+    /**
+     * The imageId is Invalid.
+     */
+    ERROR_INVALID_ID = 0,
+    /**
+     * Processing error, no image can provide
+     */
+    ERROR_PROCESS = 1,
+    /**
+     * Processing timeout, can be retried.
+     */
+    ERROR_TIMEOUT = 2,
+    /**
+     * Processing error due to high temperature.
+     */
+    ERROR_HIGH_TEMPERATURE = 3,
+    /**
+     * Processing is abnormal, can be retried
+     */
+    ERROR_ABNORMAL = 4,
+    /**
+     * Processing is abort.
+     */
+    ERROR_ABORT = 5,
+};
+
+/**
+ * @brief Enumerates types of the execution modes.
+ */
+enum ExecutionMode {
+    /**
+     * High performance mode.
+     */
+    HIGH_PREFORMANCE = 0,
+
+    /**
+     * Balance mode.
+     */
+    BALANCED = 1,
+
+    /**
+     * Low power mode.
+     */
+    LOW_POWER = 2,
+};
+
+/**
+ * @brief Defines the ImageBufferInfo, which is used by {@link IImageProcessCallback::OnProcessDone}.
+ */
+struct ImageBufferInfo {
+    /**
+     * Data of metadata.
+     */
+    MapDataSequenceable metadata;
+
+    /**
+     * Data of ImageHandle.
+     */
+    BufferHandleSequenceable imageHandle;
+
+    /**
+     * Is gainMapHandle valid.
+     */
+    boolean isGainMapValid;
+
+    /**
+     * Data of gainMapHandle.
+     */
+    BufferHandleSequenceable gainMapHandle;
+
+    /**
+     * Is depthMapHandle valid.
+     */
+    boolean isDepthMapValid;
+
+    /**
+     * Data of depthMapHandle.
+     */
+    BufferHandleSequenceable depthMapHandle;
+};
+
+/**
+ * @brief Defines the CaptureStartedInfo, which is used by {@link IStreamOperatorCallback::OnCaptureStarted_V1_2}.
+ */
+struct CaptureStartedInfo {
+    /**
+     * ID of a captured stream.
+     */
+    int streamId_;
+
+    /**
+     * Time of exposure time, the unit is ms.
+     */
+    int exposureTime_;
+};

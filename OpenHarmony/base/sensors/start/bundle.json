@@ -1,0 +1,28 @@
+{
+  "name": "@ohos/start",
+  "description": "Start sensor, vibrator and other small device services",
+  "version": "3.1",
+  "license": "Apache License 2.0",
+  "segment": {
+    "destPath": "base/sensors/start"
+  },
+  "component": {
+    "name": "start",
+    "subsystem": "sensors",
+    "syscap": [],
+    "features": [],
+    "adapted_system_type": [ "standard" ],
+    "rom": "10KB",
+    "ram": "~10KB",
+    "deps": {
+      "components": [],
+      "third_party": []
+    },
+    "build": {
+      "sub_component": [
+        "//base/sensors/start/etc/init:sensors.rc",
+        "//base/sensors/start/etc/init:msdp.rc"
+      ]
+    }
+  }
+}

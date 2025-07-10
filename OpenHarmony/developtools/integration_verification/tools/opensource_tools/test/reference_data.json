@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "elfutils",
+    "License": "LGPL-2.1, LGPL-3.0, GPL-2.0",
+    "Version Number": "0.188",
+    "Upstream URL": "https://sourceware.org/elfutils/"
+  },
+  {
+    "Name": "OpenSSL",
+    "License": "Apache-2.0",
+    "Version Number": "3.0.9",
+    "Upstream URL": "https://www.openssl.org/"
+  }
+]

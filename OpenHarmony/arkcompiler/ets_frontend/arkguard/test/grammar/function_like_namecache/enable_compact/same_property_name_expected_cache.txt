@@ -1,0 +1,9 @@
+{
+  "IdentifierCache": {
+    "#MyClass": "d2",
+    "#a": "a"
+  },
+  "MemberMethodCache": {
+    "a:20:22": "a"
+  }
+}

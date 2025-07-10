@@ -1,0 +1,27 @@
+{
+    "mCompact": false,
+    "mRemoveComments": false,
+    "mOutputDir": "../../../local",
+    "mDisableHilog": false,
+    "mDisableConsole": false,
+    "mSimplify": false,
+    "mNameObfuscation": {
+        "mEnable": true,
+        "mNameGeneratorType": 1,
+        "mDictionaryList": [],
+        "mReservedNames": [],
+        "mRenameProperties": true,
+        "mReservedProperties": ["basename"],
+        "mKeepStringProperty": true,
+        "mReservedToplevelNames": ["assert"]
+    },
+    "mEnableSourceMap": false,
+    "mEnableNameCache": false,
+    "mTopLevel":true,
+    "mRenameFileName": {
+        "mEnable": true,
+        "mNameGeneratorType": 1,
+        "mReservedFileNames": ["local", "rename_file_name_ohmurl", "ohmurl_file", "ohmurl_file_normalized", "ohmurl_test_new"],
+        "mOhmUrlStatus": 2
+    }
+}

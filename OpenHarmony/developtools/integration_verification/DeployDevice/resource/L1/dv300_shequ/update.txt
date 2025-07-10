@@ -1,0 +1,7 @@
+setenv serverip %Tftpserver_IP%;setenv ipaddr %Device_IP%;setenv ethaddr %Device_MAC%;setenv netmask %Device_Netmask%;setenv gatewayip %Device_GatewayIP%;
+mw.b 0x80000000 0xFF 0x4800;tftp 0x80000000 /dv300/OHOS_Image.bin;mmc erase 0x800 0x4800;mmc write 0 0x80000000 0x800 0x4800
+mw.b 0x80000000 0xFF 0x19000;tftp 0x80000000 /dv300/rootfs.img;mmc erase 0x5000 0x19000;mmc write 0 0x80000000 0x5000 0x19000
+mw.b 0x80000000 0xFF 0x19000;tftp 0x80000000 /dv300/userfs.img;mmc erase 0x1E000 0x19000;mmc write 0 0x80000000 0x1E000 0x19000
+setenv bootargs "console=ttyAMA0,115200n8 root=emmc fstype=vfat rootaddr=10M rootsize=50M rw";
+setenv bootcmd "mmc read 0x0 0x80000000 0x800 0x4800;go 0x80000000;"
+sa;reset;

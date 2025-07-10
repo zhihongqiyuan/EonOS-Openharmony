@@ -1,0 +1,47 @@
+/*
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+namespace ts {
+    let b1: {
+        o(o: c1): number;
+        p(o: c1, m: number): void;
+    };
+    class c1 {
+        x: number;
+        constructor(l1: number) {
+            this.x = l1;
+        }
+        o() {
+            return this.x;
+        }
+        q() {
+            b1 = {
+                o(k1) { return k1.x; },
+                p(i1, j1) { i1.x = j1; }
+            };
+        }
+    }
+    ;
+    class d1 {
+        constructor(g1: c1) {
+            const h1 = b1.o(g1); // ok
+            b1.p(g1, h1 + 1); // ok
+        }
+    }
+    ;
+    const e1 = new c1(41);
+    e1.q();
+    const f1 = new d1(e1);
+    e1.o();
+}

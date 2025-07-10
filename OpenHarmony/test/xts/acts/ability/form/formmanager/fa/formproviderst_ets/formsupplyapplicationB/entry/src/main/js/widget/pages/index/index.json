@@ -1,0 +1,234 @@
+{
+  "template": {
+    "attr": {},
+    "type": "div",
+    "classList": [
+      "container"
+    ],
+    "children": [
+      {
+        "attr": {},
+        "type": "div",
+        "classList": [
+          "bottom"
+        ],
+        "style": {
+          "display": "{{isShow}}"
+        },
+        "children": [
+          {
+            "attr": {},
+            "type": "div",
+            "classList": [
+              "bg_color"
+            ],
+            "events": {
+              "click": "routerEvent"
+            },
+            "children": [
+              {
+                "attr": {
+                  "src": "/common/img/ic_pad.svg"
+                },
+                "type": "image",
+                "classList": [
+                  "img1"
+                ]
+              }
+            ]
+          },
+          {
+            "attr": {},
+            "type": "div",
+            "classList": [
+              "pic_title_container"
+            ],
+            "children": [
+              {
+                "attr": {},
+                "type": "div",
+                "style": {
+                  "flexDirection": "column"
+                },
+                "children": [
+                  {
+                    "attr": {
+                      "value": "{{temperature}}"
+                    },
+                    "type": "text",
+                    "classList": [
+                      "title"
+                    ]
+                  },
+                  {
+                    "attr": {
+                      "value": "{{time}}"
+                    },
+                    "type": "text",
+                    "classList": [
+                      "content"
+                    ]
+                  },
+                  {
+                    "attr": {
+                      "src": "{{image1}}"
+                    },
+                    "type": "image",
+                    "classList": [
+                      "title"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "styles": {
+    ".container": {
+      "display": "flex",
+      "flexDirection": "column",
+      "left": "0px",
+      "top": "0px",
+      "width": "640vp",
+      "backgroundColor": "#eeeeee"
+    },
+    ".pic_title_container": {
+      "backgroundColor": "#FF007DFB",
+      "flexDirection": "column",
+      "height": "100%",
+      "paddingTop": "12px",
+      "paddingStart": "12px",
+      "paddingBottom": "12px",
+      "justifyContent": "space-between"
+    },
+    ".content": {
+      "fontSize": "12px",
+      "color": "#99ffffff",
+      "textOverflow": "ellipsis",
+      "maxLines": "1"
+    },
+    ".title": {
+      "fontSize": "16px",
+      "color": "#e5ffffff",
+      "marginBottom": "2px"
+    },
+    ".head": {
+      "width": "90%",
+      "height": "70vp",
+      "display": "flex",
+      "marginTop": "8px",
+      "justifyContent": "space-between",
+      "alignItems": "center"
+    },
+    ".right": {
+      "flexGrow": 1,
+      "marginLeft": "260vp"
+    },
+    ".img": {
+      "marginLeft": "48vp",
+      "marginTop": "5px",
+      "width": "36vp",
+      "height": "36vp"
+    },
+    ".bottom": {
+      "marginTop": "-12px",
+      "width": "90%",
+      "display": "flex",
+      "flexDirection": "column",
+      "marginLeft": "30px"
+    },
+    ".bg_color": {
+      "width": "48vp",
+      "height": "48vp",
+      "borderBottomLeftRadius": "48px",
+      "borderBottomRightRadius": "48px",
+      "borderTopLeftRadius": "48px",
+      "borderTopRightRadius": "48px",
+      "backgroundColor": "#cccccc",
+      "marginLeft": "36%"
+    },
+    ".img1": {
+      "marginTop": "14vp",
+      "marginLeft": "14vp"
+    },
+    ".text": {
+      "marginTop": "16px",
+      "fontSize": "12px",
+      "display": "flex",
+      "justifyContent": "center"
+    },
+    ".co_blue": {
+      "marginLeft": "12px",
+      "color": "#1e90ff"
+    },
+    ".todo-wrapper": {
+      "marginTop": "0vp",
+      "display": "flex",
+      "flexDirection": "row",
+      "width": "80%"
+    },
+    ".todo-item": {
+      "width": "85vp",
+      "display": "flex",
+      "flexDirection": "column",
+      "marginRight": "10px",
+      "alignItems": "center"
+    },
+    ".bg_color1": {
+      "width": "48vp",
+      "height": "48vp",
+      "borderBottomLeftRadius": "48px",
+      "borderBottomRightRadius": "48px",
+      "borderTopLeftRadius": "48px",
+      "borderTopRightRadius": "48px",
+      "backgroundColor": "#cccccc",
+      "marginBottom": "6vp"
+    },
+    ".title_img": {
+      "marginTop": "14vp",
+      "marginLeft": "11vp"
+    },
+    ".todo-title": {
+      "textAlign": "center",
+      "fontSize": "10px",
+      "color": "#E5000000"
+    }
+  },
+  "data": {
+    "temperature": "超级终端",
+    "time": "qqqq",
+    "ifShow": "none",
+    "image1": "memory://image1",
+    "isShow": "flex",
+    "deviceList": [
+      {
+        "img": "/common/img/ic_pad.svg",
+        "deviceName": "huawei",
+        "deviceType": 17,
+        "deviceId": 1
+      }
+    ]
+  },
+  "actions": {
+    "routerEvent": {
+      "action": "message",
+      "bundleName": "com.ohos.photos",
+      "abilityName": "com.ohos.photos.MainAbility",
+      "params": {
+        "message": "addDetail"
+      }
+    },
+    "searchDeviceList": {
+      "action": "message",
+      "bundleName": "com.lizhiqi.card.hmservice",
+      "abilityName": "com.lizhiqi.card.MainAbility",
+      "params": {
+        "message": "searchList"
+      }
+    }
+  },
+  "apiVersion": {}
+}

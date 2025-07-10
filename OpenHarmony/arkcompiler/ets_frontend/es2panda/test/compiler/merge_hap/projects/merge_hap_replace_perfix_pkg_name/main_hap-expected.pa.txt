@@ -1,0 +1,306 @@
+slotNum = 0x2
+.language ECMAScript
+.function any &src_hap_to/main_hap&.#*#main(any a0, any a1, any a2) {
+	ldexternalmodulevar 0x0
+	sta v0
+	throw.undefinedifholewithname mainHapAddTest
+	lda v0
+	callarg0 0x0
+	returnundefined
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any &src_hap_to/main_hap&.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, &src_hap_to/main_hap&.#*#main, 0x0
+	callarg0 0x1
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &src_hap_to/main_hap&_1084
+------------------------------------
+slot &src_hap_to/main_hap&_1088
+{
+  index: 0
+    tag: 2
+    val: 1
+},
+{
+  index: 1
+    tag: 5
+    val: &src_hap_to/main_hap_import_file&
+},
+{
+  index: 2
+    tag: 2
+    val: 1
+},
+{
+  index: 3
+    tag: 5
+    val: mainHapAddTest
+},
+{
+  index: 4
+    tag: 5
+    val: mainHapAddTest
+},
+{
+  index: 5
+    tag: 9
+    val: 0
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+{
+  index: 8
+    tag: 2
+    val: 0
+},
+{
+  index: 9
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&src_hap_to/main_hap&.#*#main"; "mainHapAddTest"; 
+slotNum = 0x1
+.language ECMAScript
+.function any &src_hap_to/main_hap_import_file&.#*#mainHapAddTest(any a0, any a1, any a2, any a3, any a4) {
+	lda a4
+	add2 0x0, a3
+	return
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &src_hap_to/main_hap_import_file&.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, &src_hap_to/main_hap_import_file&.#*#mainHapAddTest, 0x2
+	stmodulevar 0x0
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &src_hap_to/main_hap_import_file&_1130
+------------------------------------
+slot &src_hap_to/main_hap_import_file&_1134
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: mainHapAddTest
+},
+{
+  index: 5
+    tag: 5
+    val: mainHapAddTest
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&src_hap_to/main_hap_import_file&.#*#mainHapAddTest"; 
+
+======> literal array buffer <======
+======> strings <======
+
+
+======> literal array buffer <======
+======> strings <======
+
+
+======> literal array buffer <======
+======> strings <======
+
+slotNum = 0x2
+.language ECMAScript
+.function any &src_hap_to/sdk_hap&.#*#main(any a0, any a1, any a2) {
+	ldexternalmodulevar 0x0
+	sta v0
+	throw.undefinedifholewithname sdkHapAddTest
+	lda v0
+	callarg0 0x0
+	returnundefined
+}
+
+slotNum = 0x3
+.language ECMAScript
+.function any &src_hap_to/sdk_hap&.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, &src_hap_to/sdk_hap&.#*#main, 0x0
+	callarg0 0x1
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &src_hap_to/sdk_hap&_1051
+------------------------------------
+slot &src_hap_to/sdk_hap&_1055
+{
+  index: 0
+    tag: 2
+    val: 1
+},
+{
+  index: 1
+    tag: 5
+    val: &src_hap/sdk_hap_import_file&
+},
+{
+  index: 2
+    tag: 2
+    val: 1
+},
+{
+  index: 3
+    tag: 5
+    val: sdkHapAddTest
+},
+{
+  index: 4
+    tag: 5
+    val: sdkHapAddTest
+},
+{
+  index: 5
+    tag: 9
+    val: 0
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+{
+  index: 8
+    tag: 2
+    val: 0
+},
+{
+  index: 9
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&src_hap_to/sdk_hap&.#*#main"; "sdkHapAddTest"; 
+slotNum = 0x1
+.language ECMAScript
+.function any &src_hap_to/sdk_hap_import_file&.#*#sdkHapAddTest(any a0, any a1, any a2, any a3, any a4) {
+	lda a4
+	add2 0x0, a3
+	return
+}
+
+slotNum = 0x1
+.language ECMAScript
+.function any &src_hap_to/sdk_hap_import_file&.func_main_0(any a0, any a1, any a2) {
+	definefunc 0x0, &src_hap_to/sdk_hap_import_file&.#*#sdkHapAddTest, 0x2
+	stmodulevar 0x0
+	returnundefined
+}
+
+
+======> literal array buffer <======
+------------------------------------
+slot &src_hap_to/sdk_hap_import_file&_1097
+------------------------------------
+slot &src_hap_to/sdk_hap_import_file&_1101
+{
+  index: 0
+    tag: 2
+    val: 0
+},
+{
+  index: 1
+    tag: 2
+    val: 0
+},
+{
+  index: 2
+    tag: 2
+    val: 0
+},
+{
+  index: 3
+    tag: 2
+    val: 1
+},
+{
+  index: 4
+    tag: 5
+    val: sdkHapAddTest
+},
+{
+  index: 5
+    tag: 5
+    val: sdkHapAddTest
+},
+{
+  index: 6
+    tag: 2
+    val: 0
+},
+{
+  index: 7
+    tag: 2
+    val: 0
+},
+======> strings <======
+"&src_hap_to/sdk_hap_import_file&.#*#sdkHapAddTest"; 
+
+======> literal array buffer <======
+======> strings <======
+
+
+======> literal array buffer <======
+======> strings <======
+
+
+======> literal array buffer <======
+======> strings <======
+

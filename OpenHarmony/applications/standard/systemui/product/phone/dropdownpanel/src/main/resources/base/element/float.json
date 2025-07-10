@@ -1,0 +1,148 @@
+{
+  "float": [
+    {
+      "name": "status_bar_margin_left_right",
+      "value": "5vp"
+    },
+    {
+      "name": "status_bar_height",
+      "value": "46vp"
+    },
+    {
+      "name": "phone_status_bar_height",
+      "value": "39vp"
+    },
+    {
+      "name": "notification_delete_all",
+      "value": "32"
+    },
+    {
+      "name": "quickly_setting_time_font_size",
+      "value": "30fp"
+    },
+    {
+      "name": "quickly_setting_date_font_size",
+      "value": "20fp"
+    },
+    {
+      "name": "quickly_setting_text_flex_margin_left",
+      "value": "10vp"
+    },
+    {
+      "name": "quickly_setting_image_width",
+      "value": "50vp"
+    },
+    {
+      "name": "quickly_setting_image_height",
+      "value": "50vp"
+    },
+    {
+      "name": "quickly_setting_image_margin_right",
+      "value": "10vp"
+    },
+    {
+      "name": "quickly_setting_border_radius",
+      "value": "20vp"
+    },
+    {
+      "name": "quickly_setting_margin_left",
+      "value": "10vp"
+    },
+    {
+      "name": "quickly_setting_margin_right",
+      "value": "10vp"
+    },
+    {
+      "name": "delete_all_image_width",
+      "value": "50vp"
+    },
+    {
+      "name": "delete_all_image_height",
+      "value": "50vp"
+    },
+    {
+      "name": "delete_all_image_border_radius",
+      "value": "25vp"
+    },
+    {
+      "name": "delete_all_image_opacity",
+      "value": "0.9"
+    },
+    {
+      "name": "brightness_margin_left",
+      "value": "26vp"
+    },
+    {
+      "name": "brightness_margin_right",
+      "value": "26vp"
+    },
+    {
+      "name": "brightness_component_gap",
+      "value": "26vp"
+    },
+    {
+      "name": "brightness_reduce_width",
+      "value": "44vp"
+    },
+    {
+      "name": "brightness_reduce_height",
+      "value": "44vp"
+    },
+    {
+      "name": "brightness_plus_width",
+      "value": "44vp"
+    },
+    {
+      "name": "brightness_plus_height",
+      "value": "44vp"
+    },
+    {
+      "name": "brightness_height",
+      "value": "44vp"
+    },
+    {
+      "name": "brightness_slider_height",
+      "value": "40vp"
+    },
+    {
+      "name": "status_bar_location_width",
+      "value": "20vp"
+    },
+    {
+      "name": "status_bar_location_height",
+      "value": "24vp"
+    },
+    {
+      "name": "status_bar_ring_mode_width",
+      "value": "27vp"
+    },
+    {
+      "name": "status_bar_ring_mode_height",
+      "value": "24vp"
+    },
+    {
+      "name": "status_bar_padding_left_right",
+      "value": "12vp"
+    },
+    {
+      "name": "status_bar_padding_top_bottom",
+      "value": "4vp"
+    },
+    {
+      "name": "notification_title_setting_icon_width",
+      "value": "48px"
+    },
+    {
+      "name": "notification_title_setting_icon_height",
+      "value": "48px"
+    },
+    {
+      "name": "status_bar_airplane_width",
+      "value": "13vp"
+    },
+    {
+      "name": "status_bar_airplane_height",
+      "value": "15vp"
+    }
+  ]
+}

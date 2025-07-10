@@ -1,0 +1,46 @@
+# Copyright (c) 2024 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("../signature_tools.gni")
+signature_tools_codesigning_include = [
+  "${signature_tools_codesigning}/datastructure/include",
+  "${signature_tools_codesigning}/fsverity/include",
+  "${signature_tools_codesigning}/utils/include",
+  "${signature_tools_codesigning}/sign/include",
+]
+
+signature_tools_codesigning_src = [
+  "${signature_tools_codesigning}/datastructure/src/code_sign_block.cpp",
+  "${signature_tools_codesigning}/datastructure/src/code_sign_block_header.cpp",
+  "${signature_tools_codesigning}/datastructure/src/extension.cpp",
+  "${signature_tools_codesigning}/datastructure/src/fs_verity_info_segment.cpp",
+  "${signature_tools_codesigning}/datastructure/src/hap_info_segment.cpp",
+  "${signature_tools_codesigning}/datastructure/src/merkle_tree_extension.cpp",
+  "${signature_tools_codesigning}/datastructure/src/native_lib_info_segment.cpp",
+  "${signature_tools_codesigning}/datastructure/src/segment_header.cpp",
+  "${signature_tools_codesigning}/datastructure/src/sign_info.cpp",
+  "${signature_tools_codesigning}/datastructure/src/signed_file_pos.cpp",
+  "${signature_tools_codesigning}/datastructure/src/elf_sign_block.cpp",
+  "${signature_tools_codesigning}/datastructure/src/unzip_handle_param.cpp",
+  "${signature_tools_codesigning}/fsverity/src/fs_verity_descriptor.cpp",
+  "${signature_tools_codesigning}/fsverity/src/fs_verity_digest.cpp",
+  "${signature_tools_codesigning}/fsverity/src/fs_verity_generator.cpp",
+  "${signature_tools_codesigning}/fsverity/src/fs_verity_hash_algorithm.cpp",
+  "${signature_tools_codesigning}/fsverity/src/merkle_tree_builder.cpp",
+  "${signature_tools_codesigning}/fsverity/src/fs_verity_descriptor_with_sign.cpp",
+  "${signature_tools_codesigning}/utils/src/fs_digest_utils.cpp",
+  "${signature_tools_codesigning}/utils/src/cms_utils.cpp",
+  "${signature_tools_codesigning}/sign/src/bc_signeddata_generator.cpp",
+  "${signature_tools_codesigning}/sign/src/code_signing.cpp",
+  "${signature_tools_codesigning}/sign/src/verify_code_signature.cpp",
+]

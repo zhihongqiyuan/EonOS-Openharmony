@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "entry_desc",
+      "value": "newImeTest"
+    },
+    {
+      "name": "MainAbility_desc",
+      "value": "newImeTest"
+    },
+    {
+      "name": "MainAbility_label",
+      "value": "newImeTest"
+    },
+    {
+      "name": "en_lower",
+      "value": "英文小写"
+    },
+    {
+      "name": "en_upper",
+      "value": "英文大写"
+    },
+    {
+      "name": "chinese",
+      "value": "中文"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "entry/preview/entry/src/main/entryability/EntryAbility.js": {
+    "version": 3,
+    "file": "EntryAbility.ets",
+    "sourceRoot": "",
+    "sources": [
+      "entry/src/main/entryability/EntryAbility.js"
+    ],
+    "names": [],
+    "mappings": "AAAA,CAAY;"
+  },
+  "entry/preview/entry/src/main/pages/Index.js": {
+    "version": 3,
+    "file": "Index.ets",
+    "sourceRoot": "",
+    "sources": [
+      "entry/src/main/pages/Index.js"
+    ],
+    "names": [],
+    "mappings": "AAAA,CAAY;"
+  }
+}

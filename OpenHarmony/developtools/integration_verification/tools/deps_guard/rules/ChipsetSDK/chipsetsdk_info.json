@@ -1,0 +1,605 @@
+[
+    {
+        "name": "build_framework:musl-libc.so",
+        "so_file_name": "libc.so",
+        "path": "//build/common/musl:musl-libc.so",
+        "headers": []
+    },
+    {
+        "name": "build_framework:musl-libc.so",
+        "so_file_name": "ld-musl-arm.so.1",
+        "path": "//build/common/musl:musl-libc.so",
+        "headers": []
+    },
+    {
+        "name": "build_framework:musl-libc.so",
+        "so_file_name": "ld-musl-aarch64.so.1",
+        "path": "//build/common/musl:musl-libc.so",
+        "headers": []
+    },
+    {
+        "name": "build_framework:musl-libc.so",
+        "so_file_name": "ld-musl-arm-asan.so.1",
+        "path": "//build/common/musl:musl-libc.so",
+        "headers": []
+    },
+    {
+        "name": "build_framework:musl-libc.so",
+        "so_file_name": "ld-musl-aarch64-asan.so.1",
+        "path": "//build/common/musl:musl-libc.so",
+        "headers": []
+    },
+    {
+        "name": "build_framework:musl-libcxx.so",
+        "so_file_name": "libc++.so",
+        "path": "//build/common/musl:musl-libcxx.so",
+        "headers": []
+    },
+    {
+        "name": "hilog:libhilog",
+        "so_file_name": "libhilog.so",
+        "path": "//base/hiviewdfx/hilog/interfaces/native/innerkits:libhilog",
+        "headers": [
+            "//base/hiviewdfx/hilog/interfaces/native/innerkits/include/"
+        ]
+    },
+    {
+        "name": "hisysevent:libhisysevent",
+        "so_file_name": "libhisysevent.z.so",
+        "path": "//base/hiviewdfx/hisysevent/interfaces/native/innerkits/hisysevent:libhisysevent",
+        "headers": [
+            "//base/hiviewdfx/hisysevent/interfaces/native/innerkits/hisysevent/include/"
+        ]
+    },
+    {
+        "name": "hicollie:libhicollie",
+        "so_file_name": "libhicollie.z.so",
+        "path": "//base/hiviewdfx/hicollie/interfaces/native/innerkits:libhicollie",
+        "headers": [
+            "//base/hiviewdfx/hicollie/interfaces/native/innerkits/include/"
+        ]
+    },
+    {
+        "name": "selinux_adapter:libservice_checker",
+        "so_file_name": "libservice_checker.z.so",
+        "path": "//base/security/selinux_adapter:libservice_checker",
+        "headers": [
+            "//base/security/selinux_adapter/interfaces/policycoreutils/include/",
+            "//third_party/selinux/libselinux/include/"
+        ]
+    },
+    {
+        "name": "init:libbegetutil",
+        "so_file_name": "libbegetutil.z.so",
+        "path": "//base/startup/init/interfaces/innerkits:libbegetutil",
+        "headers": [
+            "//base/startup/init/interfaces/innerkits/include/",
+            "//base/startup/init/interfaces/innerkits/include/syspara/",
+            "//base/startup/init/interfaces/innerkits/include/token/",
+            "//base/startup/init/services/include/",
+            "//base/startup/init/services/include/param/"
+        ]
+    },
+    {
+        "name": "init:libbeget_proxy",
+        "so_file_name": "libbeget_proxy.z.so",
+        "path": "//base/startup/init/interfaces/innerkits:libbeget_proxy",
+        "headers": [
+            "//base/startup/init/interfaces/innerkits/include/",
+            "//base/startup/init/interfaces/innerkits/include/syspara/",
+            "//base/startup/init/interfaces/innerkits/include/token/",
+            "//base/startup/init/services/include/",
+            "//base/startup/init/services/include/param/"
+        ]
+    },
+    {
+        "name": "c_utils:utils",
+        "so_file_name": "libutils.z.so",
+        "path": "//commonlibrary/c_utils/base:utils",
+        "headers": [
+            "//commonlibrary/c_utils/base/include/",
+            "//third_party/bounds_checking_function/include/"
+        ]
+    },
+    {
+        "name": "bounds_checking_function:libsec_shared",
+        "so_file_name": "libsec_shared.z.so",
+        "path": "//third_party/bounds_checking_function:libsec_shared",
+        "headers": [
+            "//third_party/bounds_checking_function/include/"
+        ]
+    },
+    {
+        "name": "hdf_core:libhdi",
+        "so_file_name": "libhdi.z.so",
+        "path": "//drivers/hdf_core/adapter/uhdf2/hdi:libhdi",
+        "headers": [
+            "//drivers/hdf_core/interfaces/inner_api/hdi/",
+            "//drivers/hdf_core/interfaces/inner_api/hdi/base/",
+            "//drivers/hdf_core/interfaces/inner_api/core/"
+        ]
+    },
+    {
+        "name": "hdf_core:libpub_utils",
+        "so_file_name": "libpub_utils.z.so",
+        "path": "//drivers/hdf_core/adapter/uhdf2/pub_utils:libpub_utils",
+        "headers": [
+            "//drivers/hdf_core/interfaces/inner_api/osal/shared/",
+            "//drivers/hdf_core/interfaces/inner_api/osal/uhdf/",
+            "//drivers/hdf_core/interfaces/inner_api/utils/",
+            "//drivers/hdf_core/interfaces/inner_api/core/"
+        ]
+    },
+    {
+        "name": "hdf_core:libhdf_ipc_adapter",
+        "so_file_name": "libhdf_ipc_adapter.z.so",
+        "path": "//drivers/hdf_core/adapter/uhdf2/ipc:libhdf_ipc_adapter",
+        "headers": [
+            "//drivers/hdf_core/interfaces/inner_api/ipc/",
+            "//drivers/hdf_core/interfaces/inner_api/core/"
+        ]
+    },
+    {
+        "name": "ipc:ipc_single",
+        "so_file_name": "libipc_single.z.so",
+        "path": "//foundation/communication/ipc/interfaces/innerkits/ipc_single:ipc_single",
+        "headers": [
+            "//foundation/communication/ipc/interfaces/innerkits/ipc_core/include/",
+            "//foundation/communication/ipc/ipc/native/src/core/include/",
+            "//foundation/communication/ipc/ipc/native/src/mock/include/",
+            "//commonlibrary/c_utils/base/include/"
+        ]
+    },
+    {
+        "name": "drivers_interface_display:libhdifd_parcelable",
+        "so_file_name": "libhdifd_parcelable.z.so",
+        "path": "//drivers/interface/display/composer/hdifd_parcelable:libhdifd_parcelable",
+        "headers": [
+            "//drivers/interface/display/composer/hdifd_parcelable/"
+        ]
+    },
+    {
+        "name": "config_policy:configpolicy_util",
+        "so_file_name": "libconfigpolicy_util.z.so",
+        "path": "//base/customization/config_policy/frameworks/config_policy:configpolicy_util",
+        "headers": [ "//base/customization/config_policy/interfaces/inner_api/include/" ]
+    },
+    {
+        "name": "build_framework:libstd.dylib",
+        "so_file_name": "libstd.dylib.so",
+        "path": "//build/rust:libstd.dylib.so",
+        "headers": []
+    },
+    {
+        "name": "faultloggerd:libbacktrace_local",
+        "so_file_name": "libbacktrace_local.so",
+        "path": "//base/hiviewdfx/faultloggerd/interfaces/innerkits/backtrace:libbacktrace_local",
+        "headers": [ "//base/hiviewdfx/faultloggerd/interfaces/innerkits/backtrace/include/" ]
+    },
+    {
+        "name": "libdrm:libdrm",
+        "so_file_name": "libdrm.so",
+        "path": "//third_party/libdrm:libdrm",
+        "headers": [
+            "//third_party/libdrm/",
+            "//third_party/libdrm/include/",
+            "//third_party/libdrm/include/drm/"
+        ]
+    },
+    {
+        "name": "libpng:libpng",
+        "so_file_name": "libpng.z.so",
+        "path": "//third_party/libpng:libpng",
+        "headers": []
+    },
+    {
+        "name": "libxml2:xml2",
+        "so_file_name": "libxml2.z.so",
+        "path": "//third_party/libxml2:xml2",
+        "headers": [
+            "//third_party/libxml2/include/"
+        ]
+    },
+    {
+        "name": "libexif:libexif",
+        "so_file_name": "libexif.z.so",
+        "path": "//third_party/libexif:libexif",
+        "headers": [ "//third_party/libexif/" ]
+    },
+    {
+        "name": "cJSON:cjson",
+        "so_file_name": "libcjson.z.so",
+        "path": "//third_party/cJSON:cjson",
+        "headers": [
+            "//third_party/cJSON/"
+        ]
+    },
+    {
+        "name": "jsoncpp:jsoncpp",
+        "so_file_name": "libjsoncpp.z.so",
+        "path": "//third_party/jsoncpp:jsoncpp",
+        "headers": [
+            "//third_party/jsoncpp/include/"
+        ]
+    },
+    {
+        "name": "libnl:libnl_share",
+        "so_file_name": "libnl_share.z.so",
+        "path": "//third_party/libnl:libnl_share",
+        "headers": []
+    },
+    {
+        "name": "zlib:shared_libz",
+        "so_file_name": "libshared_libz.z.so",
+        "path": "//third_party/zlib:shared_libz",
+        "headers": [
+            "//third_party/zlib/"
+        ]
+    },
+    {
+        "name": "openssl:libcrypto_shared",
+        "so_file_name": "libcrypto_openssl.z.so",
+        "path": "//third_party/openssl:libcrypto_shared",
+        "headers": [
+            "//third_party/openssl/include/",
+            "//out/rk3568/obj/third_party/openssl/build_all_generated/include/"
+        ]
+    },
+    {
+        "name": "libunwind:libunwind",
+        "so_file_name": "libunwind.z.so",
+        "path": "//third_party/libunwind:libunwind",
+        "headers": [
+            "//third_party/libunwind/src/",
+            "//third_party/libunwind/include/",
+            "//third_party/libunwind/include/tdep-arm/"
+        ]
+    },
+    {
+        "name": "samgr:samgr_proxy",
+        "so_file_name": "libsamgr_proxy.z.so",
+        "path": "//foundation/systemabilitymgr/samgr/interfaces/innerkits/samgr_proxy:samgr_proxy",
+        "headers": [
+            "//foundation/systemabilitymgr/samgr/services/lsamgr/include/"
+        ]
+    },
+    {
+        "name": "drivers_interface_power:libpower_proxy_1.0",
+        "so_file_name": "libpower_proxy_1.0.z.so",
+        "path": "//drivers/interface/power/v1_0:libpower_proxy_1.0",
+        "headers": [
+            "//drivers/hdf_core/adapter/uhdf2/include/hdi/",
+            "//drivers/hdf_core/adapter/uhdf2/osal/include/",
+            "//drivers/hdf_core/adapter/uhdf2/ipc/include/",
+            "//drivers/hdf_core/framework/include/utils/",
+            "//drivers/hdf_core/interfaces/inner_api/utils/",
+            "//drivers/hdf_core/interfaces/inner_api/osal/uhdf/",
+            "//drivers/hdf_core/interfaces/inner_api/hdi/",
+            "//out/rk3568/gen/drivers/interface/",
+            "//out/rk3568/gen/drivers/interface/power/"
+        ]
+    },
+    {
+        "name": "drivers_interface_camera:libbuffer_producer_sequenceable_1.0",
+        "so_file_name": "libbuffer_producer_sequenceable_1.0.z.so",
+        "path": "//drivers/interface/camera/sequenceable/buffer_producer:libbuffer_producer_sequenceable_1.0",
+        "headers": [
+            "//drivers/interface/camera/sequenceable/buffer_producer/",
+            "//commonlibrary/c_utils/base/include/",
+            "//third_party/bounds_checking_function/include/",
+            "//foundation/systemabilitymgr/samgr/services/lsamgr/include/",
+            "//base/notification/eventhandler/interfaces/inner_api/",
+            "//base/notification/eventhandler/frameworks/eventhandler/include/"
+        ]
+    },
+    {
+        "name": "ffmpeg:libohosffmpeg",
+        "so_file_name": "libohosffmpeg.z.so",
+        "path": "//third_party/ffmpeg:libohosffmpeg",
+        "headers": [
+            "//third_party/ffmpeg"
+        ]
+    },
+    {
+        "name": "pulsecore:pulsecore",
+        "so_file_name": "libpulsecore.z.so",
+        "path": "//third_party/pulseaudio/ohosbuild/src/pulsecore:pulsecore",
+        "headers": []
+    },
+    {
+        "name": "src:pulsecommon",
+        "so_file_name": "libpulsecommon.z.so",
+        "path": "//third_party/pulseaudio/ohosbuild/src:pulsecommon",
+        "headers": []
+    },
+    {
+        "name": "libsnd:sndfile",
+        "so_file_name": "libsndfile.z.so",
+        "path": "//third_party/libsnd:sndfile",
+        "headers": []
+    },
+    {
+        "name": "protobuf:protobuf_lite",
+        "so_file_name": "libprotobuf_lite.z.so",
+        "path": "//third_party/protobuf:protobuf_lite",
+        "headers": [
+            "//third_party/protobuf/src/"
+        ]
+    },
+    {
+        "name": "memory_utils:libdmabufheap",
+        "so_file_name": "libdmabufheap.z.so",
+        "path": "//commonlibrary/memory_utils/libdmabufheap:libdmabufheap",
+        "headers": [
+            "//commonlibrary/memory_utils/libdmabufheap/include/"
+        ]
+    },
+    {
+        "name": "memory_utils:libsync",
+        "so_file_name": "libsync.z.so",
+        "path": "//commonlibrary/memory_utils/libsync:libsync",
+        "headers": [
+            "//commonlibrary/memory_utils/libsync/include/"
+        ]
+    },
+    {
+        "name": "graphic_surface:sync_fence",
+        "so_file_name": "libsync_fence.z.so",
+        "path": "//foundation/graphic/graphic_surface/sync_fence:sync_fence",
+        "headers": [
+            "//foundation/graphic/graphic_surface/interfaces/inner_api/sync_fence"
+        ]
+    },
+    {
+        "name": "graphic_surface:surface",
+        "so_file_name": "libsurface.z.so",
+        "path": "//foundation/graphic/graphic_surface/surface:surface",
+        "headers": [
+            "//foundation/graphic/graphic_surface/interfaces/inner_api/surface"
+        ]
+    },
+    {
+        "name": "graphic_surface:buffer_handle",
+        "so_file_name": "libbuffer_handle.z.so",
+        "path": "//foundation/graphic/graphic_surface/buffer_handle:buffer_handle",
+        "headers": [
+            "//foundation/graphic/graphic_surface/interfaces/inner_api/buffer_handle"
+        ]
+    },
+    {
+        "name": "access_token:libaccesstoken_sdk",
+        "so_file_name": "libaccesstoken_sdk.z.so",
+        "path": "//base/security/access_token/interfaces/innerkits/accesstoken:libaccesstoken_sdk",
+        "headers": [
+            "//base/security/access_token/interfaces/innerkits/accesstoken/include/"
+        ]
+    },
+    {
+        "name": "drivers_interface_camera:metadata",
+        "so_file_name": "libmetadata.z.so",
+        "path": "//drivers/interface/camera/metadata:metadata",
+        "headers": [
+            "//drivers/interface/camera/metadata/include/",
+            "//drivers/interface/camera/sequenceable/buffer_producer/",
+            "//commonlibrary/c_utils/base/include/",
+            "//third_party/bounds_checking_function/include/",
+            "//foundation/systemabilitymgr/samgr/services/lsamgr/include/",
+            "//base/notification/eventhandler/interfaces/inner_api/",
+            "//base/notification/eventhandler/frameworks/eventhandler/include/"
+
+        ]
+    },
+    {
+        "name": "hitrace:hitrace_meter",
+        "so_file_name": "libhitrace_meter.so",
+        "path": "//base/hiviewdfx/hitrace/interfaces/native/innerkits:hitrace_meter",
+        "headers": [
+            "//base/hiviewdfx/hitrace/interfaces/native/innerkits/include/hitrace_meter/",
+            "//base/hiviewdfx/hitrace/interfaces/native/innerkits/include/",
+            "//base/hiviewdfx/hitrace/frameworks/include/"
+        ]
+    },
+    {
+        "name": "hitrace:libhitracechain",
+        "so_file_name": "libhitracechain.so",
+        "path": "//base/hiviewdfx/hitrace/interfaces/native/innerkits:libhitracechain",
+        "headers": [
+            "//base/hiviewdfx/hitrace/interfaces/native/innerkits/include/hitrace/"
+        ]
+    },
+    {
+        "name": "hdf_core:libhdf_utils",
+        "so_file_name": "libhdf_utils.z.so",
+        "path": "//drivers/hdf_core/adapter/uhdf2/utils:libhdf_utils",
+        "headers": [
+            "//drivers/hdf_core/interfaces/inner_api/osal/shared/",
+            "//drivers/hdf_core/interfaces/inner_api/osal/uhdf/",
+            "//drivers/hdf_core/interfaces/inner_api/utils/",
+            "//drivers/hdf_core/interfaces/inner_api/core/",
+            "//drivers/hdf_core/interfaces/inner_api/ipc/",
+            "//drivers/hdf_core/interfaces/inner_api/hdi/"
+        ]
+    },
+    {
+        "name": "drivers_peripheral_codec:libcodec_hdi_omx_callback_type_service_impl",
+        "so_file_name": "libcodec_hdi_omx_callback_type_service_impl.z.so",
+        "path": "//drivers/peripheral/codec/hal:libcodec_hdi_omx_callback_type_service_impl",
+        "headers": [
+            "//commonlibrary/c_utils/base/include/",
+            "//third_party/bounds_checking_function/include/",
+            "//foundation/systemabilitymgr/samgr/services/lsamgr/include/"
+        ]
+    },
+    {
+        "name": "ipc:ipc_core",
+        "so_file_name": "libipc_core.z.so",
+        "path": "//foundation/communication/ipc/interfaces/innerkits/ipc_core:ipc_core",
+        "headers": [
+            "//foundation/communication/ipc/interfaces/innerkits/ipc_core/include/",
+            "//foundation/communication/ipc/ipc/native/src/core/include/",
+            "//foundation/communication/ipc/ipc/native/src/mock/include/",
+            "//commonlibrary/c_utils/base/include/"
+        ]
+    },
+    {
+        "name": "bluetooth:btcommon",
+        "so_file_name": "libbtcommon.z.so",
+        "path": "//foundation/communication/bluetooth/frameworks/inner:btcommon",
+        "headers": [
+            "//foundation/communication/bluetooth/frameworks/inner/common/",
+            "//foundation/communication/bluetooth/frameworks/inner/ipc/common/",
+            "//foundation/communication/bluetooth/frameworks/inner/ipc/include/",
+            "//foundation/communication/bluetooth/frameworks/inner/ipc/interface/",
+            "//foundation/communication/bluetooth/frameworks/inner/ipc/parcel/"
+        ]
+    },
+    {
+        "name": "build_framework:libclang_rt.ubsan_minimal.so",
+        "so_file_name": "libclang_rt.ubsan_minimal.so",
+        "path": "//build/common/ubsan:libclang_rt.ubsan_minimal.so",
+        "headers": []
+    },
+    {
+        "name": "build_framework:libclang_rt.ubsan_standalone.so",
+        "so_file_name": "libclang_rt.ubsan_standalone.so",
+        "path": "//build/common/ubsan:libclang_rt.ubsan_standalone.so",
+        "headers": []
+    },
+    {
+        "name": "unknow",
+        "so_file_name": "libopencv_core.z.so",
+        "path": "",
+        "headers": []
+    },
+    {
+        "name": "unknow",
+        "so_file_name": "libopencv_imgproc.z.so",
+        "path": "",
+        "headers": []
+    },
+    {
+        "name": "curl:curl_shared",
+        "so_file_name": "libcurl_shared.z.so",
+        "path": "//third_party/curl:curl_shared",
+        "headers": [
+            "//third_party/curl/include/",
+            "//third_party/curl/customized/include/"
+        ]
+    },
+    {
+        "name": "safwk:system_ability_fwk",
+        "so_file_name": "libsystem_ability_fwk.z.so",
+        "path": "//foundation/systemabilitymgr/safwk/interfaces/innerkits/safwk:system_ability_fwk",
+        "headers": [
+            "//foundation/systemabilitymgr/safwk/services/safwk/include/",
+            "//foundation/systemabilitymgr/safwk/interfaces/innerkits/safwk/"
+        ]
+    },
+    {
+        "name": "caas_service:libcpp_shared",
+        "so_file_name": "libc++_shared.so",
+        "path": "",
+        "headers": []
+    },
+    {
+        "name": "drivers_interface_camera:libmap_data_sequenceable_1.0",
+        "so_file_name": "libmap_data_sequenceable_1.0.z.so",
+        "path": "//drivers/interface/camera/sequenceable/map_data:libmap_data_sequenceable_1.0",
+        "headers": [
+            "//drivers/interface/camera/sequenceable/map_data/",
+            "//commonlibrary/c_utils/base/include/",
+            "//third_party/bounds_checking_function/include/",
+            "//foundation/systemabilitymgr/samgr/services/lsamgr/include/",
+            "//foundation/systemabilitymgr/safwk/interfaces/innerkits/dynamic_cache/include/",
+            "//base/notification/eventhandler/interfaces/inner_api/",
+            "//base/notification/eventhandler/frameworks/eventhandler/include/"
+        ]
+    },
+    {
+        "name": "drivers_interface_camera:libbuffer_handle_sequenceable_1.0",
+        "so_file_name": "libbuffer_handle_sequenceable_1.0.z.so",
+        "path": "//drivers/interface/camera/sequenceable/buffer_handle:libbuffer_handle_sequenceable_1.0",
+        "headers": [
+            "//drivers/interface/camera/sequenceable/buffer_handle/",
+            "//commonlibrary/c_utils/base/include/",
+            "//third_party/bounds_checking_function/include/",
+            "//foundation/systemabilitymgr/samgr/services/lsamgr/include/",
+            "//foundation/systemabilitymgr/safwk/interfaces/innerkits/dynamic_cache/include/"
+        ]
+    },
+    {
+        "name": "ffrt:libffrt",
+        "so_file_name": "libffrt.so",
+        "path": "//foundation/resourceschedule/ffrt:libffrt",
+        "headers": [
+            "//foundation/resourceschedule/ffrt/interfaces/kits/",
+            "//foundation/resourceschedule/ffrt/interfaces/inner_api/"
+        ]
+    },
+    {
+        "name": "openssl:libssl_shared",
+        "so_file_name": "libssl_openssl.z.so",
+        "path": "//third_party/openssl:libssl_shared",
+        "headers": [
+            "//third_party/openssl/include/"
+        ]
+    },
+    {
+        "name": "certificate_manager:cert_manager_sdk",
+        "so_file_name": "libcert_manager_sdk.z.so",
+        "path": "//base/security/certificate_manager/interfaces/innerkits/cert_manager_standard/main:cert_manager_sdk",
+        "headers": [
+            "//base/security/certificate_manager/interfaces/innerkits/cert_manager_standard/main/include/"
+        ]
+    },
+    {
+        "name": "build_framework:libclang_rt.asan.so",
+        "so_file_name": "libclang_rt.asan.so",
+        "path": "//build/common/asan:libclang_rt.asan.so",
+        "headers": []
+    },
+    {
+        "name": "build_framework:libclang_rt.hwasan.so",
+        "so_file_name": "libclang_rt.hwasan.so",
+        "path": "//build/common/asan:libclang_rt.hwasan.so",
+        "headers": []
+    },
+    {
+        "name": "build_framework:libclang_rt.tsan.so",
+        "so_file_name": "libclang_rt.tsan.so",
+        "path": "//build/common/asan:libclang_rt.tsan.so",
+        "headers": []
+    },
+    {
+        "name": "soc_perf:socperf_client",
+        "so_file_name": "libsocperf_client.z.so",
+        "path": "//foundation/resourceschedule/soc_perf/interfaces/inner_api/socperf_client:socperf_client",
+        "headers": [
+            "//foundation/resourceschedule/soc_perf/interfaces/inner_api/socperf_client/include/"
+        ]
+    },
+    {
+        "name": "hiprofiler:libffrt_profiler",
+        "so_file_name": "libffrt_profiler.z.so",
+        "path": "//developtools/profiler/device/plugins/ffrt_profiler/client:libffrt_profiler",
+        "headers": [
+            "//developtools/profiler/device/plugins/ffrt_profiler/client/include/"
+        ]
+    },
+    {
+        "name": "libusb:libusb",
+        "so_file_name": "libusb_shared.z.so",
+        "path": "//third_party/libusb:libusb",
+        "headers": [
+            "//third_party/libusb/libusb/libusb/"
+        ]
+    },
+    {
+        "name": "huks:libhukssdk",
+        "so_file_name": "libhukssdk.z.so",
+        "path": "//base/security/huks/interfaces/inner_api/huks_standard/main:libhukssdk",
+        "headers": [
+            "//base/security/huks/interfaces/inner_api/huks_standard/main/include"
+        ]
+    }
+]

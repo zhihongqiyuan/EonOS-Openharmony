@@ -1,0 +1,338 @@
+{
+    "name": "@ohos/updater",
+    "version": "3.2",
+    "description": "升级包安装组件运行在updater分区，其功能主要包括读取misc分区信息获取升级包状态，对升级包进行校验，确保升级包合法有效；然后从升级包中解析出升级的可执行程序，创建子进程并启动升级程序。具体升级的动作由升级脚本控制。",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "Apache License 2.0",
+    "repository": "https://gitee.com/openharmony/update_updater",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "base"
+    ],
+    "keywords": [
+        "update",
+        "updater"
+    ],
+    "envs": {},
+    "dirs": {},
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [
+        {
+            "name": "",
+            "email": "",
+            "url": ""
+        }
+    ],
+    "segment": {
+        "destPath": "base/update/updater"
+    },
+    "component": {
+        "name": "updater",
+        "subsystem": "updater",
+        "syscap": [],
+        "features": [
+            "updater_ui_support",
+            "updater_cfg_file"
+        ],
+        "adapted_system_type": [ "standard" ],
+        "rom": "",
+        "ram": "",
+        "deps": {
+            "components": [
+                "init",
+                "hdc",
+                "drivers_interface_input",
+                "drivers_interface_partitionslot",
+                "c_utils",
+                "hilog",
+                "selinux_adapter",
+                "ui_lite",
+                "bounds_checking_function",
+                "bzip2",
+                "cJSON",
+                "libdrm",
+                "libpng",
+                "libuv",
+                "lz4",
+                "openssl",
+                "selinux",
+                "zlib"
+            ],
+            "third_party": []
+        },
+        "build": {
+            "sub_component": [
+                "//base/update/updater/resources:updater_resources",
+                "//base/update/updater/services/etc:updater_files",
+                "//base/update/updater/services/package:libupdaterpackage",
+                "//base/update/updater/services/script:libupdaterscript",
+                "//base/update/updater/services/log:libupdaterlog",
+                "//base/update/updater/services/updater_binary:updater_binary",
+                "//base/update/updater/services:updater",
+                "//base/update/updater/services/applypatch:libapplypatch",
+                "//base/update/updater/services/fs_manager:libfsmanager",
+                "//base/update/updater/utils:libutils",
+                "//base/update/updater/utils:updater_reboot",
+                "//base/update/updater/utils:write_updater",
+                "//base/update/updater/services/diffpatch/patch:libpatch",
+                "//base/update/updater/services/diffpatch/diff:libdiff",
+                "//base/update/updater/services/diffpatch:diff(//build/toolchain/linux:clang_${host_cpu})",
+                "//base/update/updater/services/ui:libui",
+                "//base/update/updater/services/flow_update/update_bin:libBinFlowUpdate",
+                "//base/update/updater/services/stream_update:libbinchunkupdate"
+            ],
+            "inner_kits": [
+                {
+                    "name": "//base/update/updater/interfaces/kits/misc_info:libmiscinfo",
+                    "header": {
+                        "header_files": [
+                            "misc_info/misc_info.h"
+                        ],
+                        "header_base": "//base/update/updater/interfaces/kits/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/interfaces/kits/packages:libpackageExt",
+                    "header": {
+                        "header_files": [
+                            "package/package.h"
+                        ],
+                        "header_base": "//base/update/updater/interfaces/kits/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/interfaces/kits/packages:libpackage_shared",
+                    "header": {
+                        "header_files": [
+                            "package/package.h"
+                        ],
+                        "header_base": "//base/update/updater/interfaces/kits/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/interfaces/kits/updaterkits:libupdaterkits",
+                    "header": {
+                        "header_files": [
+                            "updaterkits/updaterkits.h"
+                        ],
+                        "header_base": "//base/update/updater/interfaces/kits/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/interfaces/kits/updaterkits:libupdater_shared",
+                    "header": {
+                        "header_files": [
+                            "updaterkits/updaterkits.h"
+                        ],
+                        "header_base": "//base/update/updater/interfaces/kits/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/interfaces/kits/diff_patch:libdiff_patch",
+                    "header": {
+                        "header_files": [
+                            "diff_patch/diff_patch_interface.h"
+                        ],
+                        "header_base": "//base/update/updater/interfaces/kits/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/interfaces/kits/diff_patch:libdiff_patch_shared",
+                    "header": {
+                        "header_files": [
+                            "diff_patch/diff_patch_interface.h"
+                        ],
+                        "header_base": "//base/update/updater/interfaces/kits/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services:libupdater",
+                    "header": {
+                        "header_files": [],
+                        "header_base": [
+                            "//base/update/updater/interfaces/kits/include",
+                            "//base/update/updater/services"
+                        ]
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services:libupdater_static",
+                    "header": {
+                        "header_files": [],
+                        "header_base": [
+                            "//base/update/updater/interfaces/kits/include",
+                            "//base/update/updater/services"
+                        ]
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/updater_binary:libupdater_binary",
+                    "header": {
+                        "header_files": [],
+                        "header_base": [
+                            "//base/update/updater/interfaces/kits/include",
+                            "//base/update/updater/services/updater_binary"
+                        ]
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/applypatch:libapplypatch",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/utils:libutils",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/utils/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/utils:libutils_fs",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/utils/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/utils:libutils_common",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/utils/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/utils:libutils_json",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/utils/json"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/log:libupdaterlog",
+                    "header": {
+                        "header_files": [],
+                        "header_base": [
+                            "//base/update/updater/services/include"
+                        ]
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/log:libupdaterlog_shared",
+                    "header": {
+                        "header_files": [],
+                        "header_base": [
+                            "//base/update/updater/services/include"
+                        ]
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/package:libupdaterpackage",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/fs_manager:libfsmanager",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/script:libupdaterscript",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/package:libupdaterpackage_shared",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/diffpatch/patch:libpatch",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/diffpatch/patch"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/diffpatch/diff:libdiff",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/diffpatch/diff"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/ptable_parse:libptableparse",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/ptable_parse"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/common/ring_buffer:libringbuffer",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/common/ring_buffer"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/ui:libui",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/ui"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/flow_update/update_bin:libBinFlowUpdate",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/flow_update/update_bin"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/stream_update:libbinchunkupdate",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/stream_update"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/interfaces/kits/slot_info:libslotinfo",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/interfaces/kits/include"
+                    }
+                },
+                {
+                    "name": "//base/update/updater/services/script:libthreadpool",
+                    "header": {
+                        "header_files": [],
+                        "header_base": "//base/update/updater/services/script/threadpool"
+                    }
+                }
+            ],
+            "test": [
+                "//base/update/updater:unittest",
+                "//base/update/updater:fuzztest"
+            ]
+        }
+    }
+}
+

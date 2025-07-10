@@ -1,0 +1,4 @@
+setenv bootargs 'mem=128M console=ttyAMA0,115200 root=/dev/mmcblk0p3 rw rootfstype=ext4 rootwait blkdevparts=mmcblk0:1M(boot),9M(kernel),50M(rootfs),50M(userfs)';
+setenv bootcmd "mmc read 0x0 0x82000000 0x800 0x4800; bootm 0x82000000";
+save;
+reset;

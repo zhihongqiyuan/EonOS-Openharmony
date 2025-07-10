@@ -1,0 +1,94 @@
+{
+    "name": "@ohos/hilog_lite",
+    "description": "Log services for liteos-m and liteos-a kernel.",
+    "optional": "false",
+    "version": "4.0.2",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "homePage": "https://gitee.com/openharmony",
+    "repository": "https://gitee.com/openharmony/hiviewdfx_hilog_lite",
+    "supplier": "Organization: OpenHarmony",
+    "segment": {
+        "destPath": "base/hiviewdfx/hilog_lite"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+        "name": "hilog_lite",
+        "subsystem": "hiviewdfx",
+        "syscap": [],
+        "adapted_system_type": [
+            "mini",
+            "small"
+        ],
+        "features": [
+            "hilog_lite_disable_privacy_feature",
+            "hilog_lite_disable_hilog_static",
+            "hilog_lite_file_size",
+            "hilog_lite_disable_cache",
+            "hilog_lite_limit_level_default",
+            "hilog_lite_disable_print_limit",
+            "hilog_lite_log_static_cache_size",
+            "hilog_lite_hiview_hilog_file_buf_size",
+            "hilog_lite_disable_core_init",
+            "hilog_lite_customize_implementation",
+            "hilog_lite_hilog_file_size",
+            "hilog_lite_enable_apphilogcat_init_release",
+            "hilog_lite_enable_apphilogcat_init_debug",
+            "hilog_lite_apphilogcat_log_level_release",
+            "hilog_lite_apphilogcat_log_level_debug",
+            "hilog_lite_enable_hilogcat_build",
+            "hilog_lite_apphilogcat_log_dir",
+            "hilog_lite_disable_test",
+            "hilog_lite_disable_js_feature"
+        ],
+        "rom": "500KB",
+        "ram": "~500KB",
+        "deps": {
+            "components": [
+                "ace_engine_lite",
+                "battery_lite",
+                "hiview_lite",
+                "samgr_lite",
+                "utils_lite"
+            ],
+            "third_party": [
+                "bounds_checking_function"
+            ]
+        },
+        "build": {
+            "sub_component": [
+                "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite",
+                "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_static",
+                "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+                "//base/hiviewdfx/hilog_lite/services/apphilogcat:apphilogcat",
+                "//base/hiviewdfx/hilog_lite/frameworks/js:ace_hilog_kits",
+                "//base/hiviewdfx/hilog_lite/test:hilog_lite_test"
+            ],
+            "inner_kits": [
+                {
+                  "name": "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite",
+                  "header": {
+                    "header_files": [
+                      "hiview_log.h",
+                      "log.h"
+                    ],
+                    "header_base": "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite"
+                  }
+                },
+                {
+                    "name": "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared",
+                    "header": {
+                      "header_files": [
+                        "hilog_cp.h",
+                        "hilog_trace.h",
+                        "hiview_log.h",
+                        "log.h"
+                      ],
+                      "header_base": "//base/hiviewdfx/hilog_lite/interfaces/native/innerkits/hilog"
+                    }
+                  }
+            ]
+        }
+    }
+}

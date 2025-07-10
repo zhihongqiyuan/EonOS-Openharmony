@@ -1,0 +1,90 @@
+{
+  "app": {
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": 14,
+        "compatibleSdkVersion": 14,
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pc",
+      "srcPath": "./product/pc",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phone",
+      "srcPath": "./product/phone",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "batterycomponent",
+      "srcPath": "./features/batterycomponent"
+    },
+    {
+      "name": "clockcomponent",
+      "srcPath": "./features/clockcomponent"
+    },
+    {
+      "name": "datetimecomponent",
+      "srcPath": "./features/datetimecomponent"
+    },
+    {
+      "name": "noticeitem",
+      "srcPath": "./features/noticeitem"
+    },
+    {
+      "name": "screenlock",
+      "srcPath": "./features/screenlock"
+    },
+    {
+      "name": "shortcutcomponent",
+      "srcPath": "./features/shortcutcomponent"
+    },
+    {
+      "name": "signalcomponent",
+      "srcPath": "./features/signalcomponent"
+    },
+    {
+      "name": "wallpapercomponent",
+      "srcPath": "./features/wallpapercomponent"
+    },
+    {
+      "name": "wificomponent",
+      "srcPath": "./features/wificomponent"
+    },
+    {
+      "name": "common",
+      "srcPath": "./common"
+    }
+  ]
+}

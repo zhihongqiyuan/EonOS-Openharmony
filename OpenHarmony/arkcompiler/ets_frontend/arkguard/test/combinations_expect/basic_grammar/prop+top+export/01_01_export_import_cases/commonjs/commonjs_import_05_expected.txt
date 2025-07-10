@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import assert from 'assert';
+require('./commonjs_export_01');
+var f1 = require('./commonjs_export_01');
+assert(f1.i === 'commonjs');
+assert(f1.j(2) === 3);
+assert(f1.k() === 'api');
+assert(f1.l === 2);
+const { o: o, p: p } = require('./commonjs_export_01');
+assert(p.q === 3);
+let g1 = new o();
+assert(g1.m === 3);
+const h1 = require('./commonjs_export_02');
+let i1 = new h1();
+assert(i1.t === 2);
+const j1 = require('./commonjs_export_03');
+assert(j1.u === 1);
+assert(j1.v.a1 === 2);
+const { b1: b1, e1: e1 } = require('./commonjs_export_04');
+let l1 = new b1();
+assert(l1.d1 === 1);
+assert(e1(2) === 12);

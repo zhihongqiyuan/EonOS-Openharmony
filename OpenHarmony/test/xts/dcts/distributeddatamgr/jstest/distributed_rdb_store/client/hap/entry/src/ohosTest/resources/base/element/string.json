@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "DctsDistributeRdbStoreDisJsTest"
+    },
+    {
+      "name": "mainability_description",
+      "value": "hap sample empty page"
+    },
+    {
+      "name": "MainAbility_desc",
+      "value": "hap sample empty page"
+    },
+    {
+        "name": "MainAbility_label",
+        "value": "DctsDistributeRdbStoreDisJsTest"
+    },
+    {
+        "name": "TestAbility_desc",
+        "value": "description"
+    },
+    {
+        "name": "TestAbility_label",
+        "value": "label"
+    }
+  ]
+}
